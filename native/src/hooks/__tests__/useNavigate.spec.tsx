@@ -11,7 +11,7 @@ import {
   REGIONS_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   RouteInformationType,
   SEARCH_ROUTE,
 } from 'shared'
@@ -207,19 +207,19 @@ describe('useNavigate', () => {
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to pois route', () => {
+  it('should navigate to places route', () => {
     renderMockComponent({
-      route: POIS_ROUTE,
+      route: PLACES_ROUTE,
       ...params,
       slug: '1234',
     })
     expect(navigation.push).not.toHaveBeenCalled()
-    expect(navigateNested).toHaveBeenCalledWith(navigation, POIS_ROUTE, { slug: '1234' }, false)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, PLACES_ROUTE, { slug: '1234' }, false)
     renderMockComponent({
-      route: POIS_ROUTE,
+      route: PLACES_ROUTE,
       ...params,
     })
-    expect(navigateNested).toHaveBeenCalledWith(navigation, POIS_ROUTE, { slug: undefined }, false)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, PLACES_ROUTE, { slug: undefined }, false)
     expect(navigateNested).toHaveBeenCalledTimes(2)
   })
 
@@ -254,23 +254,23 @@ describe('useNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should navigate to pois route with all optional params', () => {
+  it('should navigate to places route with all optional params', () => {
     renderMockComponent({
-      route: POIS_ROUTE,
+      route: PLACES_ROUTE,
       ...params,
-      slug: 'some-poi',
+      slug: 'some-place',
       multipoi: 42,
       zoom: 15,
-      poiCategoryId: 7,
+      placeCategoryId: 7,
     })
     expect(navigateNested).toHaveBeenCalledWith(
       navigation,
-      POIS_ROUTE,
+      PLACES_ROUTE,
       {
-        slug: 'some-poi',
+        slug: 'some-place',
         multipoi: 42,
         zoom: 15,
-        poiCategoryId: 7,
+        placeCategoryId: 7,
       },
       false,
     )

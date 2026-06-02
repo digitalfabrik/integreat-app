@@ -14,11 +14,11 @@ import {
   NewsRouteType,
   NewsType,
   PdfViewModalRouteType,
-  PoisRouteType,
+  PlacesRouteType,
   RedirectRouteType,
   SearchRouteType,
   SettingsRouteType,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   CATEGORIES_ROUTE,
   REGIONS_ROUTE,
   INTRO_ROUTE,
@@ -45,8 +45,8 @@ import {
   CategoriesTabRouteType,
   EVENTS_TAB_ROUTE,
   EventsTabRouteType,
-  POIS_TAB_ROUTE,
-  PoisTabRouteType,
+  PLACES_TAB_ROUTE,
+  PlacesTabRouteType,
   NEWS_TAB_ROUTE,
   NewsTabRouteType,
 } from 'shared'
@@ -54,9 +54,9 @@ import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
 import { NavigatorIds } from './index'
 
-export type NestedRoutesType = CategoriesRouteType | PoisRouteType | EventsRouteType | NewsRouteType
+export type NestedRoutesType = CategoriesRouteType | PlacesRouteType | EventsRouteType | NewsRouteType
 
-export type TabRoutesType = CategoriesTabRouteType | EventsTabRouteType | PoisTabRouteType | NewsTabRouteType
+export type TabRoutesType = CategoriesTabRouteType | EventsTabRouteType | PlacesTabRouteType | NewsTabRouteType
 
 export type RootRoutesType =
   | RedirectRouteType
@@ -85,10 +85,10 @@ export type NestedRoutesParamsType = {
   [CATEGORIES_ROUTE]: RouteTitle & {
     path?: string
   }
-  [POIS_ROUTE]: RouteTitle & {
+  [PLACES_ROUTE]: RouteTitle & {
     slug?: string
     multipoi?: number
-    poiCategoryId?: number
+    placeCategoryId?: number
     zoom?: number
   }
   [EVENTS_ROUTE]: RouteTitle & {
@@ -103,7 +103,7 @@ export type NestedRoutesParamsType = {
 export type TabRoutesParamsType = {
   [CATEGORIES_TAB_ROUTE]: { screen: CategoriesRouteType; params: NestedRoutesParamsType[CategoriesRouteType] }
   [EVENTS_TAB_ROUTE]: { screen: EventsRouteType; params: NestedRoutesParamsType[EventsRouteType] }
-  [POIS_TAB_ROUTE]: { screen: PoisRouteType; params: NestedRoutesParamsType[PoisRouteType] }
+  [PLACES_TAB_ROUTE]: { screen: PlacesRouteType; params: NestedRoutesParamsType[PlacesRouteType] }
   [NEWS_TAB_ROUTE]: { screen: NewsRouteType; params: NestedRoutesParamsType[NewsRouteType] }
 }
 

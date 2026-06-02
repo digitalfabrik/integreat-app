@@ -10,7 +10,7 @@ import {
   MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
   NOT_FOUND_ROUTE,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
 } from 'shared'
@@ -32,7 +32,7 @@ export const RoutePatterns = {
 
   // Region content routes, relative to /:regionCode/:languageCode
   [EVENTS_ROUTE]: EVENTS_ROUTE,
-  [POIS_ROUTE]: POIS_ROUTE,
+  [PLACES_ROUTE]: PLACES_ROUTE,
   [LOCAL_NEWS_ROUTE]: `${NEWS_ROUTE}/${LOCAL_NEWS_ROUTE}`,
   [TU_NEWS_ROUTE]: `${NEWS_ROUTE}/${TU_NEWS_ROUTE}`,
   [TU_NEWS_DETAIL_ROUTE]: `${NEWS_ROUTE}/${TU_NEWS_ROUTE}/:newsId`,

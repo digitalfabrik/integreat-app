@@ -8,7 +8,7 @@ import {
   LICENSES_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   SEARCH_ROUTE,
 } from '.'
 
@@ -49,7 +49,7 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
     // https://integreat.app/augsburg/de/, https://integreat.app/augsburg/de/willkommen/erste-schritte
     return constructPathname([routeInformation.regionContentPath])
   }
-  if (routeInformation.route === EVENTS_ROUTE || routeInformation.route === POIS_ROUTE) {
+  if (routeInformation.route === EVENTS_ROUTE || routeInformation.route === PLACES_ROUTE) {
     const { regionCode, languageCode, route, slug } = routeInformation
     // https://integreat.app/augsburg/de/locations, https://integreat.app/augsburg/de/events/my-event-1234
     return constructPathname([regionCode, languageCode, route, slug])

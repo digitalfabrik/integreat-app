@@ -77,7 +77,7 @@ describe('TuNews', () => {
     language,
     categories: new CategoriesMapModelBuilder(region.code, language.code).build(),
     events: [],
-    pois: [],
+    places: [],
     localNews: [],
   }
 

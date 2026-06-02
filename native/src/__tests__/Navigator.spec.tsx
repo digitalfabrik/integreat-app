@@ -66,7 +66,7 @@ jest.mock('../routes/EventsContainer', () => {
 jest.mock('../routes/PlacesContainer', () => {
   const { Text } = require('react-native-paper')
 
-  return () => <Text>Pois</Text>
+  return () => <Text>Places</Text>
 })
 jest.mock('../routes/NewsContainer', () => {
   const { Text } = require('react-native-paper')
@@ -144,7 +144,7 @@ describe('Navigator', () => {
         language: null as never,
         categories: null as never,
         events: [],
-        pois: [],
+        places: [],
         localNews: [],
       },
       loading: false,

@@ -80,7 +80,7 @@ describe('News', () => {
       live: false,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: true,
-      poisEnabled: false,
+      placesEnabled: false,
       localNewsEnabled,
       tuNewsEnabled,
       sortingName: 'Oldtown',

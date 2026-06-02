@@ -1,6 +1,6 @@
 import distance from '@turf/distance'
 
-import PoiModel from '../api/models/PlaceModel'
+import PlaceModel from '../api/models/PlaceModel'
 import { featureLayerId, MapFeature, MapFeatureCollection } from '../constants/map'
 
 export const MIN_DISTANCE_THRESHOLD = 0.1
@@ -13,32 +13,32 @@ export const embedInCollection = (features: MapFeature[]): MapFeatureCollection 
 // 5 meters
 const maxDistanceForOverlap = 0.005
 
-export const prepareMapFeature = (pois: PoiModel[], id: number, coordinates: [number, number]): MapFeature => ({
+export const prepareMapFeature = (places: PlaceModel[], id: number, coordinates: [number, number]): MapFeature => ({
   type: 'Feature',
   id,
   geometry: {
     type: 'Point',
     coordinates,
   },
-  properties: { pois: pois.map(poi => poi.getFeature()) },
+  properties: { places: places.map(place => place.getFeature()) },
   layer: { id: featureLayerId },
 })
 
-export const prepareMapFeatures = (pois: PoiModel[]): MapFeature[] => {
+export const prepareMapFeatures = (places: PlaceModel[]): MapFeature[] => {
   const multipoiCoordinates: [number, number][] = []
-  const multipois = pois.reduce(
-    (prev, poi) => {
+  const multipois = places.reduce(
+    (prev, place) => {
       const multipoiIndex = multipoiCoordinates.findIndex(
-        coordinate => distance(coordinate, poi.location.coordinates) < maxDistanceForOverlap,
+        coordinate => distance(coordinate, place.location.coordinates) < maxDistanceForOverlap,
       )
       if (multipoiIndex !== -1) {
-        prev[multipoiIndex]?.push(poi)
+        prev[multipoiIndex]?.push(place)
         return prev
       }
-      const newMultipoiIndex = multipoiCoordinates.push(poi.location.coordinates)
-      return { ...prev, [newMultipoiIndex - 1]: [poi] }
+      const newMultipoiIndex = multipoiCoordinates.push(place.location.coordinates)
+      return { ...prev, [newMultipoiIndex - 1]: [place] }
     },
-    {} as { [multipoiIndex: number]: PoiModel[] },
+    {} as { [multipoiIndex: number]: PlaceModel[] },
   )
 
   return Object.values(multipois).map((multipoi, multipoiCoordinateIndex) =>

@@ -36,7 +36,7 @@ describe('EventModel', () => {
     availableLanguages: {},
     lastUpdate: DateTime.fromISO('2022-06-05T17:50:00+02:00'),
     featuredImage: null,
-    poiPath: '/testumgebung/de/locations/testort/',
+    placePath: '/testumgebung/de/locations/testort/',
   }
   const event = new EventModel(params)
   const baseUrl = 'https://example.com'
@@ -108,6 +108,6 @@ describe('EventModel', () => {
   })
 
   it('should have a location path', () => {
-    expect(event.poiPath).toBe('/testumgebung/de/locations/testort/')
+    expect(event.placePath).toBe('/testumgebung/de/locations/testort/')
   })
 })

@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { PoiCategoryModel } from 'shared/api'
+import { PlaceCategoryModel } from 'shared/api'
 
 import SpacedToggleButtonGroup from './SpacedToggleButtonGroup'
 import Checkbox from './base/Checkbox'
@@ -20,30 +20,30 @@ const TileRow = styled(SpacedToggleButtonGroup)({
   gridTemplateColumns: `repeat(auto-fit, ${toggleButtonWidth}px)`,
 })
 
-type PoiFiltersProps = {
+type PlaceFiltersProps = {
   close: () => void
-  poiCategories: PoiCategoryModel[]
-  selectedPoiCategory: PoiCategoryModel | undefined
-  setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
+  placeCategories: PlaceCategoryModel[]
+  selectedPlaceCategory: PlaceCategoryModel | undefined
+  setSelectedPlaceCategory: (placeCategory: PlaceCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
-  poisCount: number
+  placesCount: number
 }
 
-const PoiFilters = ({
+const PlaceFilters = ({
   close,
-  poiCategories,
-  selectedPoiCategory,
-  setSelectedPoiCategory,
+  placeCategories,
+  selectedPlaceCategory,
+  setSelectedPlaceCategory,
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
-  poisCount,
-}: PoiFiltersProps): ReactElement => {
-  const { t } = useTranslation('pois')
+  placesCount,
+}: PlaceFiltersProps): ReactElement => {
+  const { t } = useTranslation('places')
 
   const handleFilterChange = (_: React.MouseEvent<HTMLElement>, newValue: number | null) => {
-    const category = poiCategories.find(category => category.id === newValue)
-    setSelectedPoiCategory(category ?? null)
+    const category = placeCategories.find(category => category.id === newValue)
+    setSelectedPlaceCategory(category ?? null)
   }
 
   return (
@@ -65,26 +65,26 @@ const PoiFilters = ({
         <Stack width='100%' gap={2}>
           <Stack direction='row' alignItems='center' gap={1}>
             <Typography component='h3' variant='subtitle1'>
-              {t('poiCategories')}
+              {t('placeCategories')}
             </Typography>
             <Typography variant='subtitle2'>{t('alphabetLetters')}</Typography>
           </Stack>
           <TileRow
             exclusive
-            value={selectedPoiCategory?.id}
+            value={selectedPlaceCategory?.id}
             onChange={handleFilterChange}
-            aria-label={t('poiCategories')}>
-            {poiCategories.map(it => (
+            aria-label={t('placeCategories')}>
+            {placeCategories.map(it => (
               <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}
           </TileRow>
         </Stack>
-        <Button onClick={close} variant='contained' disabled={poisCount === 0} fullWidth>
-          {t('showPois', { count: poisCount })}
+        <Button onClick={close} variant='contained' disabled={placesCount === 0} fullWidth>
+          {t('showPlaces', { count: placesCount })}
         </Button>
       </Stack>
     </Dialog>
   )
 }
 
-export default PoiFilters
+export default PlaceFilters

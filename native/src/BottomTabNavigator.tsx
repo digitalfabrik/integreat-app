@@ -15,8 +15,8 @@ import {
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   NEWS_TAB_ROUTE,
-  POIS_ROUTE,
-  POIS_TAB_ROUTE,
+  PLACES_ROUTE,
+  PLACES_TAB_ROUTE,
 } from 'shared'
 
 import { SignPostIcon } from './assets'
@@ -32,12 +32,12 @@ import CategoriesContainer from './routes/CategoriesContainer'
 import EventsContainer from './routes/EventsContainer'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import NewsContainer from './routes/NewsContainer'
-import PoisContainer from './routes/PlacesContainer'
+import PlacesContainer from './routes/PlacesContainer'
 import { usePushNotificationListener } from './utils/PushNotificationsManager'
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()
 const CategoriesStack = createStackNavigator<RoutesParamsType>()
-const PoisStack = createStackNavigator<RoutesParamsType>()
+const PlacesStack = createStackNavigator<RoutesParamsType>()
 const EventsStack = createStackNavigator<RoutesParamsType>()
 const NewsStack = createStackNavigator<RoutesParamsType>()
 
@@ -49,10 +49,10 @@ const CategoriesStackScreen = () => (
   </CategoriesStack.Navigator>
 )
 
-const PoisStackScreen = () => (
-  <PoisStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
-    <PoisStack.Screen name={POIS_ROUTE} initialParams={{}} component={PoisContainer} />
-  </PoisStack.Navigator>
+const PlacesStackScreen = () => (
+  <PlacesStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
+    <PlacesStack.Screen name={PLACES_ROUTE} initialParams={{}} component={PlacesContainer} />
+  </PlacesStack.Navigator>
 )
 
 const EventsStackScreen = () => (
@@ -125,7 +125,7 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
     return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
-  const { eventsEnabled, poisEnabled, localNewsEnabled, tuNewsEnabled } = cachedData.region
+  const { eventsEnabled, placesEnabled, localNewsEnabled, tuNewsEnabled } = cachedData.region
 
   const Tabs = [
     <Tab.Screen
@@ -137,10 +137,10 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
         tabBarAccessibilityLabel: t('localInformationLabel'),
       }}
     />,
-    poisEnabled && (
+    placesEnabled && (
       <Tab.Screen
-        name={POIS_TAB_ROUTE}
-        component={PoisStackScreen}
+        name={PLACES_TAB_ROUTE}
+        component={PlacesStackScreen}
         options={{
           tabBarLabel: createTabLabel(theme, t('locations')),
           tabBarIcon: createTabIcon('map-outline'),

@@ -1,7 +1,7 @@
 import NetInfo, { NetInfoStateType } from '@react-native-community/netinfo'
 import { flatten, pickBy, reduce, values } from 'lodash'
 
-import { CategoriesMapModel, EventModel, ExtendedDocumentModel, PoiModel } from 'shared/api'
+import { CategoriesMapModel, EventModel, ExtendedDocumentModel, PlaceModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { LanguageResourceCacheStateType } from './DataContainer'
@@ -15,13 +15,13 @@ const loadResourceCache = async ({
   languageCode,
   categories,
   events,
-  pois,
+  places,
 }: {
   regionCode: string
   languageCode: string
   categories: CategoriesMapModel | null
   events: EventModel[] | null
-  pois: PoiModel[] | null
+  places: PlaceModel[] | null
 }): Promise<void> => {
   const netInfo = await NetInfo.fetch()
   if (FetcherModule.currentlyFetching || netInfo.type === NetInfoStateType.cellular) {
@@ -30,7 +30,7 @@ const loadResourceCache = async ({
 
   const resourceURLFinder = new ResourceURLFinder(buildConfig().allowedHostNames)
   resourceURLFinder.init()
-  const input = (categories?.toArray() ?? ([] as ExtendedDocumentModel[])).concat(events ?? []).concat(pois ?? [])
+  const input = (categories?.toArray() ?? ([] as ExtendedDocumentModel[])).concat(events ?? []).concat(places ?? [])
 
   if (input.length === 0) {
     return

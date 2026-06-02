@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { PoiCategoryModel } from 'shared/api'
+import { PlaceCategoryModel } from 'shared/api'
 
 import Modal from './Modal'
 import Icon from './base/Icon'
@@ -56,28 +56,28 @@ const StyledSvgUri = styled(SvgUri)<{ active: boolean }>`
   }};
 `
 
-type PoiFiltersModalProps = {
+type PlaceFiltersModalProps = {
   modalVisible: boolean
   closeModal: () => void
-  poiCategories: PoiCategoryModel[]
-  selectedPoiCategory: PoiCategoryModel | undefined
-  setSelectedPoiCategory: (poiCategory: PoiCategoryModel | null) => void
+  placeCategories: PlaceCategoryModel[]
+  selectedPlaceCategory: PlaceCategoryModel | undefined
+  setSelectedPlaceCategory: (placeCategory: PlaceCategoryModel | null) => void
   currentlyOpenFilter: boolean
   setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
-  poisCount: number
+  placesCount: number
 }
 
-const PoiFiltersModal = ({
+const PlaceFiltersModal = ({
   modalVisible,
   closeModal,
-  poiCategories,
-  selectedPoiCategory,
-  setSelectedPoiCategory,
+  placeCategories,
+  selectedPlaceCategory,
+  setSelectedPlaceCategory,
   currentlyOpenFilter,
   setCurrentlyOpenFilter,
-  poisCount,
-}: PoiFiltersModalProps): ReactElement => {
-  const { t } = useTranslation('pois')
+  placesCount,
+}: PlaceFiltersModalProps): ReactElement => {
+  const { t } = useTranslation('places')
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle='' title={t('adjustFilters')}>
       <Container>
@@ -107,7 +107,7 @@ const PoiFiltersModal = ({
         </Section>
         <Section>
           <Row>
-            <Text variant='h6'>{t('poiCategories')}</Text>
+            <Text variant='h6'>{t('placeCategories')}</Text>
             <Text
               variant='body3'
               style={{
@@ -118,20 +118,20 @@ const PoiFiltersModal = ({
             </Text>
           </Row>
           <TileRow>
-            {poiCategories.map(it => (
+            {placeCategories.map(it => (
               <StyledToggleButton
                 key={it.id}
                 text={it.name}
-                active={it.id === selectedPoiCategory?.id}
-                onPress={() => setSelectedPoiCategory(it.id === selectedPoiCategory?.id ? null : it)}
-                Icon={<StyledSvgUri uri={it.icon} active={it.id === selectedPoiCategory?.id} />}
+                active={it.id === selectedPlaceCategory?.id}
+                onPress={() => setSelectedPlaceCategory(it.id === selectedPlaceCategory?.id ? null : it)}
+                Icon={<StyledSvgUri uri={it.icon} active={it.id === selectedPlaceCategory?.id} />}
               />
             ))}
           </TileRow>
         </Section>
         <Section style={{ marginBottom: 8 }}>
-          <Button onPress={closeModal} mode='contained' disabled={poisCount === 0}>
-            {t('showPois', { count: poisCount })}
+          <Button onPress={closeModal} mode='contained' disabled={placesCount === 0}>
+            {t('showPlaces', { count: placesCount })}
           </Button>
         </Section>
       </Container>
@@ -139,4 +139,4 @@ const PoiFiltersModal = ({
   )
 }
 
-export default PoiFiltersModal
+export default PlaceFiltersModal

@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, PLACES_ROUTE } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import { BOTTOM_NAVIGATION_ELEMENT_ID } from '../constants/layout'
@@ -64,7 +64,7 @@ const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps):
   useUpdateDimensions()
 
   const navigationItems = getNavigationItems({ regionModel, languageCode })
-  const validTabValues: string[] = [CATEGORIES_ROUTE, POIS_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
+  const validTabValues: string[] = [CATEGORIES_ROUTE, PLACES_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
   const value = validTabValues.includes(route) ? route : false
 
   if (!navigationItems) {

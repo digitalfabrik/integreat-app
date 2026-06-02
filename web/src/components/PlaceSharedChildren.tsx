@@ -2,46 +2,52 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LocationType, sortPois } from 'shared'
-import { PoiModel } from 'shared/api'
+import { LocationType, sortPlaces } from 'shared'
+import { PlaceModel } from 'shared/api'
 
 import Failure from './Failure'
-import PoiDetails from './PlaceDetails'
-import PoiListItem from './PlaceListItem'
+import PlaceDetails from './PlaceDetails'
+import PlaceListItem from './PlaceListItem'
 import List from './base/List'
 
 const StyledFailure = styled(Failure)`
   padding: 0;
 `
 
-type PoiSharedChildrenProps = {
-  pois: PoiModel[]
-  poi: PoiModel | undefined
+type PlaceSharedChildrenProps = {
+  places: PlaceModel[]
+  place: PlaceModel | undefined
   slug: string | undefined
   scrollToTop: () => void
   userLocation: LocationType | null
 }
 
-const PoiSharedChildren = ({ pois, poi, slug, scrollToTop, userLocation }: PoiSharedChildrenProps): ReactElement => {
-  const { t } = useTranslation('pois')
+const PlaceSharedChildren = ({
+  places,
+  place,
+  slug,
+  scrollToTop,
+  userLocation,
+}: PlaceSharedChildrenProps): ReactElement => {
+  const { t } = useTranslation('places')
 
-  if (poi) {
-    return <PoiDetails poi={poi} distance={userLocation && poi.distance(userLocation)} />
+  if (place) {
+    return <PlaceDetails place={place} distance={userLocation && place.distance(userLocation)} />
   }
 
   if (slug) {
-    return <StyledFailure errorMessage='notFound.poi' goToMessage='pois:backToOverview' goToPath='.' />
+    return <StyledFailure errorMessage='notFound.place' goToMessage='places:backToOverview' goToPath='.' />
   }
 
-  const renderPoiListItem = (poi: PoiModel) => (
-    <PoiListItem
-      key={poi.path}
-      poi={poi}
+  const renderPlaceListItem = (place: PlaceModel) => (
+    <PlaceListItem
+      key={place.path}
+      place={place}
       onClick={scrollToTop}
-      distance={userLocation ? poi.distance(userLocation) : null}
+      distance={userLocation ? place.distance(userLocation) : null}
     />
   )
-  return <List NoItemsMessage={t('noPois')} items={sortPois(pois, userLocation).map(renderPoiListItem)} />
+  return <List NoItemsMessage={t('noPlaces')} items={sortPlaces(places, userLocation).map(renderPlaceListItem)} />
 }
 
-export default PoiSharedChildren
+export default PlaceSharedChildren

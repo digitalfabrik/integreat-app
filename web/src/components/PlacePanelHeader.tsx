@@ -6,12 +6,12 @@ import { useTranslation } from 'react-i18next'
 
 import { DirectionDependentBackIcon } from './base/Dialog'
 
-type PoiPanelHeaderProps = {
+type PlacePanelHeaderProps = {
   goBack: (() => void) | null
 }
 
-const PoiPanelHeader = ({ goBack }: PoiPanelHeaderProps): ReactElement => {
-  const { t } = useTranslation('pois')
+const PlacePanelHeader = ({ goBack }: PlacePanelHeaderProps): ReactElement => {
+  const { t } = useTranslation('places')
   return (
     <Stack direction='row' justifyContent='space-between'>
       {goBack ? (
@@ -27,4 +27,4 @@ const PoiPanelHeader = ({ goBack }: PoiPanelHeaderProps): ReactElement => {
   )
 }
 
-export default PoiPanelHeader
+export default PlacePanelHeader

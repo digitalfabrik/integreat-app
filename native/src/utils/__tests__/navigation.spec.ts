@@ -6,8 +6,8 @@ import {
   EVENTS_TAB_ROUTE,
   NEWS_ROUTE,
   NEWS_TAB_ROUTE,
-  POIS_ROUTE,
-  POIS_TAB_ROUTE,
+  PLACES_ROUTE,
+  PLACES_TAB_ROUTE,
 } from 'shared'
 
 import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../../constants'
@@ -52,7 +52,7 @@ const buildNavigation = ({
 describe('navigateNested', () => {
   const categoriesParams = { path: '/augsburg/de/category' }
   const eventsParams = { slug: 'some-event' }
-  const poisParams = { slug: 'some-poi' }
+  const placesParams = { slug: 'some-place' }
   const newsParams = { newsId: 1, newsType: 'local' as const }
 
   describe('root navigator', () => {
@@ -110,7 +110,7 @@ describe('navigateNested', () => {
       const cases = [
         { route: CATEGORIES_ROUTE, tabRoute: CATEGORIES_TAB_ROUTE, params: categoriesParams },
         { route: EVENTS_ROUTE, tabRoute: EVENTS_TAB_ROUTE, params: eventsParams },
-        { route: POIS_ROUTE, tabRoute: POIS_TAB_ROUTE, params: poisParams },
+        { route: PLACES_ROUTE, tabRoute: PLACES_TAB_ROUTE, params: placesParams },
         { route: NEWS_ROUTE, tabRoute: NEWS_TAB_ROUTE, params: newsParams },
       ] as const
 
@@ -150,11 +150,11 @@ describe('navigateNested', () => {
         currentTabName: CATEGORIES_TAB_ROUTE,
       })
 
-      navigateNested(navigation, POIS_ROUTE, poisParams, true)
+      navigateNested(navigation, PLACES_ROUTE, placesParams, true)
 
-      expect(parent!.navigate).toHaveBeenCalledWith(POIS_TAB_ROUTE, {
-        screen: POIS_ROUTE,
-        params: poisParams,
+      expect(parent!.navigate).toHaveBeenCalledWith(PLACES_TAB_ROUTE, {
+        screen: PLACES_ROUTE,
+        params: placesParams,
       })
     })
   })

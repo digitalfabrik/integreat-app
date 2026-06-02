@@ -41,22 +41,27 @@ export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
     'icon-size': mapMarker.iconSize,
     'icon-image': [
       'case',
-      ['==', ['get', 'id', ['at', 0, ['get', 'pois']]], currentFeature?.properties.pois[0]?.id ?? -1],
+      ['==', ['get', 'id', ['at', 0, ['get', 'places']]], currentFeature?.properties.places[0]?.id ?? -1],
       mapMarker.symbolActive,
       [
         'case',
-        ['==', ['length', ['get', 'pois']], 1],
-        ['get', 'symbol', ['at', 0, ['get', 'pois']]],
+        ['==', ['length', ['get', 'places']], 1],
+        ['get', 'symbol', ['at', 0, ['get', 'places']]],
         mapMarker.multipoi,
       ],
     ],
     'icon-offset': [
       'case',
-      ['==', ['get', 'id', ['at', 0, ['get', 'pois']]], currentFeature?.properties.pois[0]?.id ?? -1],
+      ['==', ['get', 'id', ['at', 0, ['get', 'places']]], currentFeature?.properties.places[0]?.id ?? -1],
       ['literal', [0, mapMarker.offsetY ?? 0]],
       ['literal', [0, 0]],
     ],
-    'text-field': ['case', ['==', ['length', ['get', 'pois']], 1], ['get', 'title', ['at', 0, ['get', 'pois']]], ''],
+    'text-field': [
+      'case',
+      ['==', ['length', ['get', 'places']], 1],
+      ['get', 'title', ['at', 0, ['get', 'places']]],
+      '',
+    ],
     'text-font': ['Noto Sans Regular'],
     'text-offset': [0, textOffsetY],
     'text-anchor': 'top',
@@ -67,7 +72,7 @@ export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
 })
 
 export const clusterProperties: { [key: string]: unknown } = {
-  sum: ['+', ['length', ['get', 'pois']]],
+  sum: ['+', ['length', ['get', 'places']]],
 }
 
 export const clusterCountLayer: LayerProps = {

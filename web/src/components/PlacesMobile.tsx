@@ -6,15 +6,15 @@ import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
-import { PoiModel } from 'shared/api'
+import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn } from 'shared'
+import { PlaceModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import MapAttribution from './MapAttribution'
 import MapView, { MapViewRef } from './MapView'
 import MapZoomControls from './MapZoomControls'
-import PoiSharedChildren from './PlaceSharedChildren'
+import PlaceSharedChildren from './PlaceSharedChildren'
 import SkeletonHeader from './SkeletonHeader'
 import SkeletonList from './SkeletonList'
 import { DirectionDependentBackIcon } from './base/Dialog'
@@ -42,36 +42,50 @@ const MapControlsContainer = styled(AttributionContainer)`
   margin-bottom: 24px;
 `
 
-const SkeletonPoiContent = () => (
+const SkeletonPlaceContent = () => (
   <Stack paddingX={2}>
     <SkeletonHeader width='40%' />
     <SkeletonList />
   </Stack>
 )
 
-type PoiContentProps = {
+type PlaceContentProps = {
   canDeselect: boolean
-  pois: PoiModel[]
-  poi: PoiModel | undefined
+  places: PlaceModel[]
+  place: PlaceModel | undefined
   scrollToTop: () => void
   userLocation: LocationType | null
   slug: string | undefined
   t: (key: string) => string
 }
 
-const PoiContent = ({ canDeselect, pois, poi, scrollToTop, userLocation, slug, t }: PoiContentProps): ReactElement => (
+const PlaceContent = ({
+  canDeselect,
+  places,
+  place,
+  scrollToTop,
+  userLocation,
+  slug,
+  t,
+}: PlaceContentProps): ReactElement => (
   <Stack padding={2} gap={1}>
     {!canDeselect && (
       <Typography component='h1' variant='h3' alignContent='center'>
         {t('common:nearby')}
       </Typography>
     )}
-    <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
+    <PlaceSharedChildren
+      places={places}
+      place={place}
+      scrollToTop={scrollToTop}
+      userLocation={userLocation}
+      slug={slug}
+    />
   </Stack>
 )
 
-type PoisMobileProps = {
-  data: PreparePoisReturn
+type PlacesMobileProps = {
+  data: PreparePlacesReturn
   userLocation: LocationType | null
   slug: string | undefined
   mapViewport?: MapViewViewport
@@ -82,7 +96,7 @@ type PoisMobileProps = {
   loading: boolean
 }
 
-const PoisMobile = ({
+const PlacesMobile = ({
   data,
   userLocation,
   slug,
@@ -92,15 +106,15 @@ const PoisMobile = ({
   deselect,
   MapOverlay,
   loading,
-}: PoisMobileProps): ReactElement => {
+}: PlacesMobileProps): ReactElement => {
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const sheetRef = useRef<ScrollableBottomSheetRef>(null)
   const geocontrolPosition = useRef<HTMLDivElement>(null)
   const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
-  const { pois, poi, mapFeatures, mapFeature } = data
+  const { places, place, mapFeatures, mapFeature } = data
   const dimensions = useDimensions()
   const canDeselect = !!mapFeature || !!slug
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
 
   const scrollToTop = () => {
     if (sheetRef.current?.scrollElement) {
@@ -166,12 +180,12 @@ const PoisMobile = ({
           </>
         }>
         {loading ? (
-          <SkeletonPoiContent />
+          <SkeletonPlaceContent />
         ) : (
-          <PoiContent
+          <PlaceContent
             canDeselect={canDeselect}
-            pois={pois}
-            poi={poi}
+            places={places}
+            place={place}
             scrollToTop={scrollToTop}
             userLocation={userLocation}
             slug={slug}
@@ -183,4 +197,4 @@ const PoisMobile = ({
   )
 }
 
-export default PoisMobile
+export default PlacesMobile

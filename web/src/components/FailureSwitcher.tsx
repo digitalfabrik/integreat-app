@@ -5,7 +5,7 @@ import {
   EVENTS_ROUTE,
   NEWS_ROUTE,
   pathnameFromRouteInformation,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   REGIONS_ROUTE,
   LOCAL_NEWS_TYPE,
   TU_NEWS_TYPE,
@@ -51,11 +51,11 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
             goToMessage: 'goTo.news',
             errorMessage: 'notFound.news',
           }
-        case 'poi':
+        case 'place':
           return {
-            goToPath: pathnameFromRouteInformation({ route: POIS_ROUTE, ...params }),
-            goToMessage: 'goTo.pois',
-            errorMessage: 'notFound.poi',
+            goToPath: pathnameFromRouteInformation({ route: PLACES_ROUTE, ...params }),
+            goToMessage: 'goTo.places',
+            errorMessage: 'notFound.place',
           }
         case 'region':
           return {

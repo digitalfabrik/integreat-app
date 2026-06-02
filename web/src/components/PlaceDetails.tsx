@@ -9,12 +9,12 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getExternalMapsLink } from 'shared'
-import { PoiModel } from 'shared/api'
+import { PlaceModel } from 'shared/api'
 
 import Contact from './Contact'
 import CustomThumbnail from './CustomThumbnail'
 import OpeningHours from './OpeningHours'
-import PoiChips from './PlaceChips'
+import PlaceChips from './PlaceChips'
 import RemoteContent from './RemoteContent'
 import Accordion from './base/Accordion'
 import Link from './base/Link'
@@ -26,14 +26,14 @@ const StyledContactsList = styled(List)({
   gap: 16,
 })
 
-type PoiDetailsProps = {
-  poi: PoiModel
+type PlaceDetailsProps = {
+  place: PlaceModel
   distance: number | null
 }
 
-const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
-  const { t } = useTranslation('pois')
-  const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = poi
+const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
+  const { t } = useTranslation('places')
+  const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = place
 
   const isAndroid = /Android/i.test(navigator.userAgent)
   const externalMapsLink = getExternalMapsLink(location, isAndroid ? 'android' : 'web')
@@ -88,13 +88,13 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
     <Stack>
       <Stack paddingBlock={1} gap={1}>
         <Typography component='h1' variant='h3'>
-          {poi.title}
+          {place.title}
         </Typography>
         {distance !== null && (
           <Typography variant='body2'>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Typography>
         )}
-        <PoiChips poi={poi} />
-        {!!poi.thumbnail && <CustomThumbnail src={poi.thumbnail} />}
+        <PlaceChips place={place} />
+        {!!place.thumbnail && <CustomThumbnail src={place.thumbnail} />}
       </Stack>
       <Divider />
       {content.length > 0 && (
@@ -112,4 +112,4 @@ const PoiDetails = ({ poi, distance }: PoiDetailsProps): ReactElement => {
   )
 }
 
-export default PoiDetails
+export default PlaceDetails

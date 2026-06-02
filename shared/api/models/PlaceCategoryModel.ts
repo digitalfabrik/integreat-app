@@ -1,4 +1,4 @@
-class PoiCategoryModel {
+class PlaceCategoryModel {
   _id: number
   _name: string
   _color: string
@@ -45,7 +45,7 @@ class PoiCategoryModel {
     return this._iconName
   }
 
-  isEqual(other: PoiCategoryModel): boolean {
+  isEqual(other: PlaceCategoryModel): boolean {
     return (
       this.id === other.id &&
       this.name === other.name &&
@@ -56,4 +56,4 @@ class PoiCategoryModel {
   }
 }
 
-export default PoiCategoryModel
+export default PlaceCategoryModel

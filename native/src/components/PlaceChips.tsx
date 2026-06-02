@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 import { Chip, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { PoiModel } from 'shared/api'
+import { PlaceModel } from 'shared/api'
 
 import { NotAccessibleIcon } from '../assets'
 import SimpleImage from './SimpleImage'
@@ -28,7 +28,7 @@ const StyledIcon = styled(Icon)`
   color: ${props => props.theme.colors.onSurface};
 `
 
-const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
+const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
   const theme = useTheme()
   const { t } = useTranslation()
 
@@ -40,7 +40,7 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
   })
 
   const barrierFreeChip =
-    poi.barrierFree === true ? (
+    place.barrierFree === true ? (
       <Chip avatar={<StyledIcon source='wheelchair-accessibility' />} style={styles.chip} mode='outlined'>
         <Text variant='body2'>{t('common:accessible')}</Text>
       </Chip>
@@ -52,17 +52,17 @@ const PoiChips = ({ poi }: { poi: PoiModel }): ReactElement => {
 
   return (
     <ChipsContainer>
-      <Chip avatar={<ChipCategoryIcon source={poi.category.icon} />} mode='outlined' style={styles.chip}>
-        <Text variant='body2'>{poi.category.name}</Text>
+      <Chip avatar={<ChipCategoryIcon source={place.category.icon} />} mode='outlined' style={styles.chip}>
+        <Text variant='body2'>{place.category.name}</Text>
       </Chip>
-      {poi.organization !== null && (
+      {place.organization !== null && (
         <Chip mode='outlined' style={styles.chip}>
-          <Text variant='body2'>{poi.organization.name}</Text>
+          <Text variant='body2'>{place.organization.name}</Text>
         </Chip>
       )}
-      {poi.barrierFree !== null && barrierFreeChip}
+      {place.barrierFree !== null && barrierFreeChip}
     </ChipsContainer>
   )
 }
 
-export default PoiChips
+export default PlaceChips

@@ -2,12 +2,12 @@ import Clipboard from '@react-native-clipboard/clipboard'
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
 
-import { PoiModelBuilder } from 'shared/api'
+import { PlaceModelBuilder } from 'shared/api'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import renderWithTheme from '../../testing/render'
 import openExternalUrl from '../../utils/openExternalUrl'
-import PoiDetails from '../PlaceDetails'
+import PlaceDetails from '../PlaceDetails'
 
 jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
 jest.mock('@react-native-clipboard/clipboard', () => ({
@@ -22,7 +22,7 @@ jest.mock('react-i18next', () => ({
   }),
 }))
 
-describe('PoiDetails', () => {
+describe('PlaceDetails', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -31,26 +31,26 @@ describe('PoiDetails', () => {
   const { mocked } = jest
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
 
-  const pois = new PoiModelBuilder(3).build()
+  const places = new PlaceModelBuilder(3).build()
   const language = 'de'
   const distance = 3.1
 
-  it('should render poi information', () => {
-    const poi = pois[0]!
+  it('should render place information', () => {
+    const place = places[0]!
     const { getByText } = renderWithTheme(
-      <PoiDetails poi={poi} language={language} distance={distance} onFocus={jest.fn()} />,
+      <PlaceDetails place={place} language={language} distance={distance} onFocus={jest.fn()} />,
     )
 
-    expect(getByText(poi.title)).toBeTruthy()
-    expect(getByText(poi.category!.name!)).toBeTruthy()
+    expect(getByText(place.title)).toBeTruthy()
+    expect(getByText(place.category!.name!)).toBeTruthy()
     expect(getByText(`distanceKilometre: ${distance}`)).toBeTruthy()
-    expect(getByText(poi.location.address)).toBeTruthy()
-    expect(getByText(`${poi.location.postcode} ${poi.location.town}`)).toBeTruthy()
+    expect(getByText(place.location.address)).toBeTruthy()
+    expect(getByText(`${place.location.postcode} ${place.location.town}`)).toBeTruthy()
     expect(getByText('description')).toBeTruthy()
-    expect(getByText(poi.content)).toBeTruthy()
+    expect(getByText(place.content)).toBeTruthy()
 
     fireEvent.press(getByText('contacts'))
-    const contact = poi.contacts[0]!
+    const contact = place.contacts[0]!
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText('website')).toBeTruthy()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
@@ -58,28 +58,33 @@ describe('PoiDetails', () => {
   })
 
   it('should not render distance if there is none', () => {
-    const poi = pois[0]!
+    const place = places[0]!
     const { queryByText } = renderWithTheme(
-      <PoiDetails poi={poi} language={language} distance={null} onFocus={jest.fn()} />,
+      <PlaceDetails place={place} language={language} distance={null} onFocus={jest.fn()} />,
     )
 
     expect(queryByText('distanceKilometre', { exact: false })).toBeFalsy()
   })
 
   it('should not render contact information if there is none', () => {
-    const poiWithoutContactInformation = pois[1]!
+    const placeWithoutContactInformation = places[1]!
 
     const { queryByText } = renderWithTheme(
-      <PoiDetails onFocus={jest.fn()} poi={poiWithoutContactInformation} language={language} distance={distance} />,
+      <PlaceDetails
+        onFocus={jest.fn()}
+        place={placeWithoutContactInformation}
+        language={language}
+        distance={distance}
+      />,
     )
 
     expect(queryByText('contactInformation')).toBeFalsy()
   })
 
   it('should open external maps app on icon click', async () => {
-    const poi = pois[0]!
+    const place = places[0]!
     const { getByLabelText } = renderWithTheme(
-      <PoiDetails onFocus={jest.fn()} poi={poi} language={language} distance={distance} />,
+      <PlaceDetails onFocus={jest.fn()} place={place} language={language} distance={distance} />,
     )
 
     fireEvent.press(getByLabelText('openExternalMaps'))
@@ -88,45 +93,45 @@ describe('PoiDetails', () => {
   })
 
   it('should copy address to clipboard', () => {
-    const poi = pois[0]!
+    const place = places[0]!
     const { getByText } = renderWithTheme(
-      <PoiDetails onFocus={jest.fn()} poi={poi} language={language} distance={distance} />,
+      <PlaceDetails onFocus={jest.fn()} place={place} language={language} distance={distance} />,
     )
 
-    fireEvent.press(getByText(poi.location.address))
+    fireEvent.press(getByText(place.location.address))
     expect(Clipboard.setString).toHaveBeenCalledWith('Test Address 1, 12345 Test Town')
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'addressCopied' })
   })
 
-  it('should show accessibility information for accessible POI', () => {
-    const accessiblePoi = pois[0]!
+  it('should show accessibility information for accessible PLACE', () => {
+    const accessiblePlace = places[0]!
     const { getByText } = renderWithTheme(
-      <PoiDetails onFocus={jest.fn()} poi={accessiblePoi} language={language} distance={distance} />,
+      <PlaceDetails onFocus={jest.fn()} place={accessiblePlace} language={language} distance={distance} />,
     )
     expect(getByText('common:accessible')).toBeTruthy()
   })
 
-  it('should show accessibility information for not accessible POI', () => {
-    const notAccessiblePoi = pois[1]!
+  it('should show accessibility information for not accessible PLACE', () => {
+    const notAccessiblePlace = places[1]!
     const { getByText } = renderWithTheme(
-      <PoiDetails onFocus={jest.fn()} poi={notAccessiblePoi} language={language} distance={distance} />,
+      <PlaceDetails onFocus={jest.fn()} place={notAccessiblePlace} language={language} distance={distance} />,
     )
     expect(getByText('common:notAccessible')).toBeTruthy()
   })
 
-  it('should not show accessibility information for POI with unknown accessibility', () => {
-    const unknownAccessiblePoi = pois[2]!
+  it('should not show accessibility information for PLACE with unknown accessibility', () => {
+    const unknownAccessiblePlace = places[2]!
     const { queryByText } = renderWithTheme(
-      <PoiDetails onFocus={jest.fn()} poi={unknownAccessiblePoi} language={language} distance={distance} />,
+      <PlaceDetails onFocus={jest.fn()} place={unknownAccessiblePlace} language={language} distance={distance} />,
     )
     expect(queryByText('common:accessible')).toBeFalsy()
     expect(queryByText('common:notAccessible')).toBeFalsy()
   })
 
-  it('should show the POI organization if there is one', () => {
-    const poi = pois[0]!
+  it('should show the PLACE organization if there is one', () => {
+    const place = places[0]!
     const { getByText } = renderWithTheme(
-      <PoiDetails onFocus={jest.fn()} poi={poi} language={language} distance={distance} />,
+      <PlaceDetails onFocus={jest.fn()} place={place} language={language} distance={distance} />,
     )
     expect(getByText('Tür an Tür')).toBeTruthy()
   })

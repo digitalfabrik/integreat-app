@@ -134,7 +134,7 @@ const MapView = ({
             ...feature,
             properties: {
               // https://github.com/maplibre/maplibre-gl-js/issues/1325
-              pois: JSON.parse(feature.properties.pois as unknown as string),
+              places: JSON.parse(feature.properties.places as unknown as string),
             },
           },
           false,
@@ -207,7 +207,7 @@ const MapView = ({
         <OverlayContainer>{Overlay}</OverlayContainer>
         {children}
         <Source
-          id='location-pois'
+          id='location-places'
           type='geojson'
           data={embedInCollection(features.filter(feature => feature !== currentFeature))}
           cluster

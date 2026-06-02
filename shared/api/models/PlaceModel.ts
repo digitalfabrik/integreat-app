@@ -1,7 +1,7 @@
 import distance from '@turf/distance'
 import { DateTime } from 'luxon'
 
-import { GeoJsonPoi, LocationType } from '../../constants/map'
+import { GeoJsonPlace, LocationType } from '../../constants/map'
 import isCurrentlyOpen from '../../utils/isCurrentlyOpen'
 import ContactModel from './ContactModel'
 import DocumentModel from './DocumentModel'
@@ -9,15 +9,15 @@ import ExtendedDocumentModel from './ExtendedDocumentModel'
 import LocationModel from './LocationModel'
 import OpeningHoursModel from './OpeningHoursModel'
 import OrganizationModel from './OrganizationModel'
-import PoiCategoryModel from './PlaceCategoryModel'
+import PlaceCategoryModel from './PlaceCategoryModel'
 
-class PoiModel extends ExtendedDocumentModel {
+class PlaceModel extends ExtendedDocumentModel {
   _location: LocationModel<number>
   _excerpt: string
   _metaDescription: string | null
   _openingHours: OpeningHoursModel[] | null
   _temporarilyClosed: boolean
-  _category: PoiCategoryModel
+  _category: PlaceCategoryModel
   _appointmentUrl: string | null
   _contacts: ContactModel[]
   _organization: OrganizationModel | null
@@ -35,7 +35,7 @@ class PoiModel extends ExtendedDocumentModel {
     lastUpdate: DateTime
     temporarilyClosed: boolean
     openingHours: OpeningHoursModel[] | null
-    category: PoiCategoryModel
+    category: PlaceCategoryModel
     appointmentUrl: string | null
     contacts: ContactModel[]
     organization: OrganizationModel | null
@@ -84,7 +84,7 @@ class PoiModel extends ExtendedDocumentModel {
     return `${iconName}_${color}`
   }
 
-  getFeature(): GeoJsonPoi {
+  getFeature(): GeoJsonPlace {
     return {
       id: this.location.id,
       title: this.title,
@@ -109,7 +109,7 @@ class PoiModel extends ExtendedDocumentModel {
     return this._appointmentUrl
   }
 
-  get category(): PoiCategoryModel {
+  get category(): PlaceCategoryModel {
     return this._category
   }
 
@@ -119,7 +119,7 @@ class PoiModel extends ExtendedDocumentModel {
 
   isEqual(other: DocumentModel): boolean {
     return (
-      other instanceof PoiModel &&
+      other instanceof PlaceModel &&
       super.isEqual(other) &&
       this.location.isEqual(other.location) &&
       this.excerpt === other.excerpt
@@ -139,4 +139,4 @@ class PoiModel extends ExtendedDocumentModel {
   }
 }
 
-export default PoiModel
+export default PlaceModel

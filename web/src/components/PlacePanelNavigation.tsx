@@ -15,32 +15,32 @@ const StyledButton = styled(Button)({
   textTransform: 'none',
 })
 
-type PoiPanelNavigationProps = {
-  switchPoi: (step: 1 | -1) => void
+type PlacePanelNavigationProps = {
+  switchPlace: (step: 1 | -1) => void
 }
 
-const PoiPanelNavigation = ({ switchPoi }: PoiPanelNavigationProps): ReactElement => {
-  const { t } = useTranslation('pois')
+const PlacePanelNavigation = ({ switchPlace }: PlacePanelNavigationProps): ReactElement => {
+  const { t } = useTranslation('places')
   return (
     <Stack direction='row' justifyContent='space-between' padding={1}>
       <StyledButton
-        onClick={() => switchPoi(-1)}
+        onClick={() => switchPlace(-1)}
         startIcon={<DirectionDependentBackIcon />}
         tabIndex={0}
         color='inherit'
-        aria-label={t('previousPoi')}>
-        {t('detailsPreviousPoi')}
+        aria-label={t('previousPlace')}>
+        {t('detailsPreviousPlace')}
       </StyledButton>
       <StyledButton
-        onClick={() => switchPoi(1)}
+        onClick={() => switchPlace(1)}
         endIcon={<DirectionDependentNextIcon />}
         tabIndex={0}
         color='inherit'
-        aria-label={t('nextPoi')}>
-        {t('detailsNextPoi')}
+        aria-label={t('nextPlace')}>
+        {t('detailsNextPlace')}
       </StyledButton>
     </Stack>
   )
 }
 
-export default PoiPanelNavigation
+export default PlacePanelNavigation

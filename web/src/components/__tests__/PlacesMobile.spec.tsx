@@ -1,28 +1,28 @@
 import React from 'react'
 
 import { LocationType, MapViewViewport, prepareMapFeatures } from 'shared'
-import { PoiModel, PoiModelBuilder } from 'shared/api'
+import { PlaceModel, PlaceModelBuilder } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import PoisMobile from '../PlacesMobile'
+import PlacesMobile from '../PlacesMobile'
 
 jest.mock('react-i18next')
 jest.mock('../MapView', () => () => <div>MapView</div>)
 
-describe('PoisMobile', () => {
-  const pois = new PoiModelBuilder(3).build()
-  const poiCategories = pois.map(it => it.category)
+describe('PlacesMobile', () => {
+  const places = new PlaceModelBuilder(3).build()
+  const placeCategories = places.map(it => it.category)
   const userLocation = [10.994217, 48.415402] as LocationType
-  const mapFeatures = prepareMapFeatures(pois)
+  const mapFeatures = prepareMapFeatures(places)
   const selectMapFeature = jest.fn()
   const deselect = jest.fn()
 
-  const renderPoisMobile = (poi?: PoiModel, loading = false) =>
+  const renderPlacesMobile = (place?: PlaceModel, loading = false) =>
     renderWithRouterAndTheme(
-      <PoisMobile
-        data={{ pois, mapFeatures, poi, poiCategories }}
+      <PlacesMobile
+        data={{ places, mapFeatures, place, placeCategories }}
         userLocation={userLocation}
-        slug={poi?.slug}
+        slug={place?.slug}
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}
         MapOverlay={<div />}
@@ -33,33 +33,33 @@ describe('PoisMobile', () => {
     )
 
   it('should show loading skeleton on loading', () => {
-    const { queryByText, getByRole } = renderPoisMobile(undefined, true)
+    const { queryByText, getByRole } = renderPlacesMobile(undefined, true)
     expect(getByRole('list')).toBeTruthy()
 
-    pois.forEach(poi => {
-      expect(queryByText(poi.title)).toBeFalsy()
+    places.forEach(place => {
+      expect(queryByText(place.title)).toBeFalsy()
     })
-    expect(queryByText('pois:common:nearby')).toBeFalsy()
+    expect(queryByText('places:common:nearby')).toBeFalsy()
   })
 
-  it('should list detail information about the current feature and the poi if feature and poi provided', async () => {
-    const singlePoi = pois[1]!
+  it('should list detail information about the current feature and the place if feature and place provided', async () => {
+    const singlePlace = places[1]!
 
-    const { queryByText } = renderPoisMobile(singlePoi)
-    expect(queryByText(singlePoi.title)).toBeTruthy()
-    expect(queryByText(singlePoi.category.name)).toBeTruthy()
-    expect(queryByText('pois:distanceKilometre')).toBeTruthy()
-    expect(queryByText(singlePoi.location.address!)).toBeTruthy()
-    expect(queryByText(singlePoi.content)).toBeTruthy()
+    const { queryByText } = renderPlacesMobile(singlePlace)
+    expect(queryByText(singlePlace.title)).toBeTruthy()
+    expect(queryByText(singlePlace.category.name)).toBeTruthy()
+    expect(queryByText('places:distanceKilometre')).toBeTruthy()
+    expect(queryByText(singlePlace.location.address!)).toBeTruthy()
+    expect(queryByText(singlePlace.content)).toBeTruthy()
     expect(queryByText('nearby')).toBeNull()
   })
 
-  it('should render poiList & toolbar components no poi is provided', () => {
-    const { queryByText } = renderPoisMobile()
+  it('should render placeList & toolbar components no place is provided', () => {
+    const { queryByText } = renderPlacesMobile()
 
-    expect(queryByText('pois:common:nearby')).toBeTruthy()
-    pois.forEach(poi => {
-      expect(queryByText(poi.title)).toBeTruthy()
+    expect(queryByText('places:common:nearby')).toBeTruthy()
+    places.forEach(place => {
+      expect(queryByText(place.title)).toBeTruthy()
     })
   })
 })

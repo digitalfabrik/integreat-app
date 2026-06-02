@@ -11,7 +11,7 @@ jest.mock('react-i18next')
 describe('NavigationTabs', () => {
   const regionModel = (
     eventsEnabled: boolean,
-    poisEnabled: boolean,
+    placesEnabled: boolean,
     tuNewsEnabled: boolean,
     localNewsEnabled: boolean,
   ) =>
@@ -21,7 +21,7 @@ describe('NavigationTabs', () => {
       live: true,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled,
-      poisEnabled,
+      placesEnabled,
       localNewsEnabled,
       tuNewsEnabled,
       sortingName: 'Augsburg',
@@ -54,12 +54,12 @@ describe('NavigationTabs', () => {
     getByText: GetByTextType,
     categories: boolean,
     events: boolean,
-    pois: boolean,
+    places: boolean,
     news: boolean,
   ) => {
     expectNavigationTab(getByText, categories, 'localInformation')
     expectNavigationTab(getByText, events, 'events')
-    expectNavigationTab(getByText, pois, 'locations')
+    expectNavigationTab(getByText, places, 'locations')
     expectNavigationTab(getByText, news, 'news')
   }
 
@@ -84,7 +84,7 @@ describe('NavigationTabs', () => {
     expectNavigationTabs(getByText, true, false, false, true)
   })
 
-  it('should show categories, news, events, pois', () => {
+  it('should show categories, news, events, places', () => {
     const { getByText } = renderWithRouterAndTheme(
       <NavigationTabs languageCode={languageCode} regionModel={regionModel(true, true, true, true)} />,
     )
@@ -127,7 +127,7 @@ describe('NavigationTabs', () => {
     expect(getByRole('tab', { selected: true })).toHaveTextContent('layout:events')
   })
 
-  it('should highlight pois tab', () => {
+  it('should highlight places tab', () => {
     const { getByRole } = renderAllRoutes('/augsburg/de/locations', {
       RegionContentElement: (
         <NavigationTabs languageCode={languageCode} regionModel={regionModel(true, true, true, true)} />

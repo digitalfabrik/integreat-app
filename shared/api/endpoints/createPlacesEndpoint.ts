@@ -8,11 +8,11 @@ import ContactModel from '../models/ContactModel'
 import LocationModel from '../models/LocationModel'
 import OpeningHoursModel from '../models/OpeningHoursModel'
 import OrganizationModel from '../models/OrganizationModel'
-import PoiCategoryModel from '../models/PlaceCategoryModel'
-import PoiModel from '../models/PlaceModel'
-import { JsonOpeningHoursType, JsonPoiType } from '../types'
+import PlaceCategoryModel from '../models/PlaceCategoryModel'
+import PlaceModel from '../models/PlaceModel'
+import { JsonOpeningHoursType, JsonPlaceType } from '../types'
 
-export const POIS_ENDPOINT_NAME = 'pois'
+export const PLACES_ENDPOINT_NAME = 'places'
 type ParamsType = {
   region: string
   language: string
@@ -29,24 +29,24 @@ const mapOpeningHours = (openingHours: JsonOpeningHoursType[] | null | undefined
       }),
   ) ?? null
 
-export default (baseUrl: string): Endpoint<ParamsType, PoiModel[]> =>
-  new EndpointBuilder<ParamsType, PoiModel[]>(POIS_ENDPOINT_NAME)
+export default (baseUrl: string): Endpoint<ParamsType, PlaceModel[]> =>
+  new EndpointBuilder<ParamsType, PlaceModel[]>(PLACES_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
         `${baseUrl}/api/${API_VERSION}/${params.region}/${params.language}/locations/?on_map=1`,
     )
-    .withMapper((json: JsonPoiType[]): PoiModel[] =>
+    .withMapper((json: JsonPlaceType[]): PlaceModel[] =>
       json.map(
-        poi =>
-          new PoiModel({
-            path: poi.path,
-            title: poi.title,
-            content: poi.content,
-            thumbnail: poi.thumbnail,
-            availableLanguages: mapAvailableLanguages(poi.available_languages),
-            excerpt: poi.excerpt,
-            metaDescription: poi.meta_description ? poi.meta_description : null,
-            contacts: poi.contacts.map(
+        place =>
+          new PlaceModel({
+            path: place.path,
+            title: place.title,
+            content: place.content,
+            thumbnail: place.thumbnail,
+            availableLanguages: mapAvailableLanguages(place.available_languages),
+            excerpt: place.excerpt,
+            metaDescription: place.meta_description ? place.meta_description : null,
+            contacts: place.contacts.map(
               contact =>
                 new ContactModel({
                   name: contact.name,
@@ -58,36 +58,36 @@ export default (baseUrl: string): Endpoint<ParamsType, PoiModel[]> =>
                   officeHours: mapOpeningHours(contact.opening_hours),
                 }),
             ),
-            temporarilyClosed: poi.temporarily_closed,
-            openingHours: mapOpeningHours(poi.opening_hours),
-            appointmentUrl: poi.appointment_url,
-            category: new PoiCategoryModel({
-              id: poi.category.id,
-              name: poi.category.name,
-              color: poi.category.color,
-              iconName: poi.category.icon,
-              icon: poi.category.icon_url,
+            temporarilyClosed: place.temporarily_closed,
+            openingHours: mapOpeningHours(place.opening_hours),
+            appointmentUrl: place.appointment_url,
+            category: new PlaceCategoryModel({
+              id: place.category.id,
+              name: place.category.name,
+              color: place.category.color,
+              iconName: place.category.icon,
+              icon: place.category.icon_url,
             }),
             location: new LocationModel({
-              id: poi.location.id,
-              name: poi.location.name,
-              address: poi.location.address,
-              town: poi.location.town,
-              postcode: poi.location.postcode,
-              country: poi.location.country,
-              latitude: poi.location.latitude,
-              longitude: poi.location.longitude,
+              id: place.location.id,
+              name: place.location.name,
+              address: place.location.address,
+              town: place.location.town,
+              postcode: place.location.postcode,
+              country: place.location.country,
+              latitude: place.location.latitude,
+              longitude: place.location.longitude,
             }),
-            lastUpdate: DateTime.fromISO(poi.last_updated),
+            lastUpdate: DateTime.fromISO(place.last_updated),
             organization:
-              poi.organization !== null
+              place.organization !== null
                 ? new OrganizationModel({
-                    name: poi.organization.name,
-                    url: poi.organization.website,
-                    logo: poi.organization.logo,
+                    name: place.organization.name,
+                    url: place.organization.website,
+                    logo: place.organization.logo,
                   })
                 : null,
-            barrierFree: poi.barrier_free ?? null,
+            barrierFree: place.barrier_free ?? null,
           }),
       ),
     )

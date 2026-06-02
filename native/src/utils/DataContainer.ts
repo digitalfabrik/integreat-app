@@ -1,21 +1,21 @@
 import { DateTime } from 'luxon'
 
-import { CategoriesMapModel, RegionModel, EventModel, LocalNewsModel, PoiModel } from 'shared/api'
+import { CategoriesMapModel, RegionModel, EventModel, LocalNewsModel, PlaceModel } from 'shared/api'
 
 export type LanguageResourceCacheStateType = { [url: string]: string }
 export type RegionResourceCacheStateType = { [languageCode: string]: LanguageResourceCacheStateType }
 
 export type DataContainer = {
   /**
-   * Returns an Array of PoiModels.
+   * Returns an Array of PlaceModels.
    * @throws Will throw an error if the array is null.
    */
-  getPois: (region: string, language: string) => Promise<PoiModel[]>
+  getPlaces: (region: string, language: string) => Promise<PlaceModel[]>
 
   /**
-   * Sets the pois and persist them ?
+   * Sets the places and persist them ?
    */
-  setPois: (region: string, language: string, pois: PoiModel[]) => Promise<void>
+  setPlaces: (region: string, language: string, places: PlaceModel[]) => Promise<void>
 
   /**
    * Returns an Array of RegionModels.
@@ -94,9 +94,9 @@ export type DataContainer = {
   eventsAvailable(region: string, language: string): Promise<boolean>
 
   /**
-   * Returns whether the pois have been loaded or not.
+   * Returns whether the places have been loaded or not.
    */
-  poisAvailable(region: string, language: string): Promise<boolean>
+  placesAvailable(region: string, language: string): Promise<boolean>
 
   /**
    * Returns whether the local news have been loaded or not.

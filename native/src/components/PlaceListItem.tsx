@@ -4,22 +4,22 @@ import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import { useTheme } from 'styled-components/native'
 
-import { PoiModel } from 'shared/api'
+import { PlaceModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
 import Text from './base/Text'
 
-type PoiListItemProps = {
-  poi: PoiModel
+type PlaceListItemProps = {
+  place: PlaceModel
   language: string
-  navigateToPoi: () => void
+  navigateToPlace: () => void
   distance: number | null
   onFocus: () => void
   visible: boolean
 }
 
-const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus, visible }: PoiListItemProps) => {
-  const { t } = useTranslation('pois')
+const PlaceListItem = ({ place, language, navigateToPlace, distance, onFocus, visible }: PlaceListItemProps) => {
+  const { t } = useTranslation('places')
   const theme = useTheme()
 
   const styles = StyleSheet.create({
@@ -33,9 +33,9 @@ const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus, visible 
   return (
     <PaperList.Item
       borderless
-      title={<Text variant='h6'>{poi.title}</Text>}
+      title={<Text variant='h6'>{place.title}</Text>}
       titleNumberOfLines={0}
-      onPress={navigateToPoi}
+      onPress={navigateToPlace}
       role='link'
       onFocus={onFocus}
       accessible={visible}
@@ -53,7 +53,7 @@ const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus, visible 
               color: theme.colors.onSurfaceVariant,
               marginTop: 4,
             }}>
-            {poi.category.name}
+            {place.category.name}
           </Text>
         </View>
       }
@@ -61,4 +61,4 @@ const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus, visible 
   )
 }
 
-export default memo(PoiListItem)
+export default memo(PlaceListItem)

@@ -1,8 +1,8 @@
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
 
-import { POIS_ROUTE, PoisRouteType } from 'shared'
-import { RegionModelBuilder, LanguageModelBuilder, PoiModelBuilder } from 'shared/api'
+import { PLACES_ROUTE, PlacesRouteType } from 'shared'
+import { RegionModelBuilder, LanguageModelBuilder, PlaceModelBuilder } from 'shared/api'
 
 import useHeader from '../../hooks/useHeader'
 import useLoadRegionContent from '../../hooks/useLoadRegionContent'
@@ -10,7 +10,7 @@ import { UseLocalHistoryReturn } from '../../hooks/useLocalStackHistory'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import renderWithTheme from '../../testing/render'
-import PoisContainer from '../PlacesContainer'
+import PlacesContainer from '../PlacesContainer'
 
 jest.mock('@react-native-community/netinfo')
 jest.mock('../../utils/FetcherModule')
@@ -28,17 +28,17 @@ jest.mock('../Places', () => {
   return ({ localHistory }: { localHistory: UseLocalHistoryReturn<{ slug?: string }> }) => (
     <>
       <Text>{`slug:${localHistory.current.slug ?? 'none'}`}</Text>
-      <Button title='select-poi' onPress={() => localHistory.push({ slug: 'selected-poi' })} />
+      <Button title='select-place' onPress={() => localHistory.push({ slug: 'selected-place' })} />
     </>
   )
 })
 
-const pois = new PoiModelBuilder(3).build()
+const places = new PlaceModelBuilder(3).build()
 const region = new RegionModelBuilder(1).build()[0]!
 const languages = new LanguageModelBuilder(2).build()
 
 const data = {
-  pois,
+  places,
   region,
   languages,
   regions: [region],
@@ -48,9 +48,9 @@ const data = {
   localNews: [],
 }
 
-describe('PoisContainer', () => {
+describe('PlacesContainer', () => {
   const { mocked } = jest
-  const navigation = createNavigationPropMock<PoisRouteType>()
+  const navigation = createNavigationPropMock<PlacesRouteType>()
   let tabPressListener: (() => void) | null = null
   let goBackListener: (() => void) | null = null
 
@@ -80,29 +80,29 @@ describe('PoisContainer', () => {
     } as never)
   })
 
-  const createRoute = (params: { slug?: string; multipoi?: number; poiCategoryId?: number; zoom?: number } = {}) => ({
+  const createRoute = (params: { slug?: string; multipoi?: number; placeCategoryId?: number; zoom?: number } = {}) => ({
     key: 'route-key',
-    name: POIS_ROUTE,
-    params: { slug: undefined, multipoi: undefined, poiCategoryId: undefined, zoom: undefined, ...params },
+    name: PLACES_ROUTE,
+    params: { slug: undefined, multipoi: undefined, placeCategoryId: undefined, zoom: undefined, ...params },
   })
 
   const renderContainer = (
-    params: { slug?: string; multipoi?: number; poiCategoryId?: number; zoom?: number } = {},
+    params: { slug?: string; multipoi?: number; placeCategoryId?: number; zoom?: number } = {},
     contextProps: { languageCode?: string } = {},
   ) =>
     renderWithTheme(
       <TestingAppContext {...contextProps}>
-        <PoisContainer route={createRoute(params)} navigation={navigation} />
+        <PlacesContainer route={createRoute(params)} navigation={navigation} />
       </TestingAppContext>,
       false,
     )
 
-  it('should render poi list when data is available', () => {
+  it('should render place list when data is available', () => {
     const { getByText } = renderContainer()
     expect(getByText('slug:none')).toBeTruthy()
   })
 
-  it('should not render poi list while loading', () => {
+  it('should not render place list while loading', () => {
     mocked(useLoadRegionContent).mockReturnValue({ data: null, loading: true, error: null, refresh: jest.fn() })
 
     const { queryByText } = renderContainer()
@@ -114,7 +114,7 @@ describe('PoisContainer', () => {
     expect(getByText('slug:test')).toBeTruthy()
   })
 
-  it('should reset local history to poi list when focused tab is pressed', async () => {
+  it('should reset local history to place list when focused tab is pressed', async () => {
     mocked(navigation.isFocused).mockReturnValue(true)
     const { getByText } = renderContainer({ slug: 'test' })
 
@@ -136,14 +136,14 @@ describe('PoisContainer', () => {
     await waitFor(() => expect(getByText('slug:test')).toBeTruthy())
   })
 
-  it('should pop local history without calling navigation.goBack when viewing a poi', async () => {
+  it('should pop local history without calling navigation.goBack when viewing a place', async () => {
     const { getByText } = renderContainer()
 
     expect(getByText('slug:none')).toBeTruthy()
 
-    fireEvent.press(getByText('select-poi'))
+    fireEvent.press(getByText('select-place'))
 
-    expect(getByText('slug:selected-poi')).toBeTruthy()
+    expect(getByText('slug:selected-place')).toBeTruthy()
 
     goBackListener?.()
 
@@ -151,7 +151,7 @@ describe('PoisContainer', () => {
     expect(navigation.goBack).not.toHaveBeenCalled()
   })
 
-  it('should call navigation.goBack when at the poi list root', () => {
+  it('should call navigation.goBack when at the place list root', () => {
     renderContainer()
 
     goBackListener?.()
@@ -163,7 +163,7 @@ describe('PoisContainer', () => {
     const fixedRoute = createRoute({ slug: 'test' })
     const { getByText, rerender } = renderWithTheme(
       <TestingAppContext languageCode='de'>
-        <PoisContainer route={fixedRoute} navigation={navigation} />
+        <PlacesContainer route={fixedRoute} navigation={navigation} />
       </TestingAppContext>,
       false,
     )
@@ -172,7 +172,7 @@ describe('PoisContainer', () => {
 
     rerender(
       <TestingAppContext languageCode='en'>
-        <PoisContainer route={fixedRoute} navigation={navigation} />
+        <PlacesContainer route={fixedRoute} navigation={navigation} />
       </TestingAppContext>,
     )
 

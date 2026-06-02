@@ -4,26 +4,26 @@ import Chip from '@mui/material/Chip'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { PoiCategoryModel } from 'shared/api'
+import { PlaceCategoryModel } from 'shared/api'
 
 import Svg from './base/Svg'
 
-type PoiFiltersOverlayButtonsProps = {
+type PlaceFiltersOverlayButtonsProps = {
   currentlyOpenFilter: boolean
-  poiCategory: PoiCategoryModel | undefined
+  placeCategory: PlaceCategoryModel | undefined
   setShowFilterSelection: (show: boolean) => void
   setCurrentlyOpenFilter: (open: boolean) => void
-  setPoiCategoryFilter: (poiCategory: PoiCategoryModel | null) => void
+  setPlaceCategoryFilter: (placeCategory: PlaceCategoryModel | null) => void
 }
 
-const PoiFiltersOverlayButtons = ({
+const PlaceFiltersOverlayButtons = ({
   currentlyOpenFilter,
-  poiCategory,
+  placeCategory,
   setCurrentlyOpenFilter,
-  setPoiCategoryFilter,
+  setPlaceCategoryFilter,
   setShowFilterSelection,
-}: PoiFiltersOverlayButtonsProps): ReactElement => {
-  const { t } = useTranslation('pois')
+}: PlaceFiltersOverlayButtonsProps): ReactElement => {
+  const { t } = useTranslation('places')
   return (
     <>
       <Chip
@@ -43,12 +43,12 @@ const PoiFiltersOverlayButtons = ({
           clickable
         />
       )}
-      {!!poiCategory && (
+      {!!placeCategory && (
         <Chip
-          label={poiCategory.name}
-          icon={<Svg src={poiCategory.icon} />}
-          onClick={() => setPoiCategoryFilter(null)}
-          onDelete={() => setPoiCategoryFilter(null)}
+          label={placeCategory.name}
+          icon={<Svg src={placeCategory.icon} />}
+          onClick={() => setPlaceCategoryFilter(null)}
+          onDelete={() => setPlaceCategoryFilter(null)}
           variant='outlined'
           clickable
         />
@@ -57,4 +57,4 @@ const PoiFiltersOverlayButtons = ({
   )
 }
 
-export default PoiFiltersOverlayButtons
+export default PlaceFiltersOverlayButtons

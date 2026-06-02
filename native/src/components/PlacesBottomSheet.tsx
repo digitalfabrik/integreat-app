@@ -9,15 +9,15 @@ import { View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
-import { ErrorCode, PoiModel } from 'shared/api'
+import { ErrorCode, PlaceModel } from 'shared/api'
 
 import useAppStateListener from '../hooks/useAppStateListener'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import { conditionalA11yProps } from '../utils/helpers'
 import BottomSheetHandle from './BottomSheetHandle'
 import Failure from './Failure'
-import PoiDetails from './PlaceDetails'
-import PoiListItem from './PlaceListItem'
+import PlaceDetails from './PlaceDetails'
+import PlaceListItem from './PlaceListItem'
 import Text from './base/Text'
 
 const SCROLL_OFFSET = 0.5
@@ -31,13 +31,13 @@ const BottomSheetContent = styled.View`
   margin: 0 24px;
 `
 
-const PoiDetailsOverlay = styled.View`
+const PlaceDetailsOverlay = styled.View`
   position: absolute;
   inset: 0;
   background-color: ${props => props.theme.colors.background};
 `
 
-const PoiListDivider = () => {
+const PlaceListDivider = () => {
   // This is an alternative to <Divider/> because it has render issues inside BottomSheetFlatList
   const theme = useTheme()
   return (
@@ -51,13 +51,13 @@ const PoiListDivider = () => {
   )
 }
 
-type PoiBottomSheetProps = {
+type PlaceBottomSheetProps = {
   refresh: () => void
-  pois: PoiModel[]
-  poi: PoiModel | undefined
+  places: PlaceModel[]
+  place: PlaceModel | undefined
   userLocation: LocationType | null
   slug: string | undefined
-  selectPoi: (poi: PoiModel) => void
+  selectPlace: (place: PlaceModel) => void
   deselectAll: () => void
   snapPoints: number[]
   snapPointIndex: number
@@ -66,25 +66,25 @@ type PoiBottomSheetProps = {
   zoomInFocusTarget?: number
 }
 
-const PoisBottomSheet = ({
+const PlacesBottomSheet = ({
   refresh,
-  pois,
-  poi,
+  places,
+  place,
   userLocation,
   slug,
-  selectPoi,
+  selectPlace,
   deselectAll,
   snapPoints,
   snapPointIndex,
   setSnapPointIndex,
   isFullscreen,
   zoomInFocusTarget,
-}: PoiBottomSheetProps): ReactElement | null => {
+}: PlaceBottomSheetProps): ReactElement | null => {
   const [remountKey, setRemountKey] = useState(0)
   const { languageCode } = useRegionAppContext()
   const bottomSheetRef = useRef<BottomSheet>(null)
   const flatListRef = useRef<BottomSheetFlatListMethods>(null)
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
   const theme = useTheme()
 
   // Workaround for bottomSheet gets hidden after permissions dialog on Android so we force remounting after app comes back to foreground.
@@ -98,10 +98,10 @@ const PoisBottomSheet = ({
 
   const expandFullscreen = () => bottomSheetRef.current?.snapToIndex(snapPoints.length - 1)
 
-  const handlePoiSelection = (poi: PoiModel) => {
-    selectPoi(poi)
+  const handlePlaceSelection = (place: PlaceModel) => {
+    selectPlace(place)
     bottomSheetRef.current?.snapToIndex(1)
-    const index = pois.findIndex(it => it.path === poi.path)
+    const index = places.findIndex(it => it.path === place.path)
     if (index !== -1) {
       flatListRef.current?.scrollToIndex({ index: index - SCROLL_OFFSET, animated: false })
     }
@@ -112,24 +112,24 @@ const PoisBottomSheet = ({
     [zoomInFocusTarget],
   )
 
-  const PoiDetail = poi ? (
-    <PoiDetails
+  const PlaceDetail = place ? (
+    <PlaceDetails
       onFocus={expandFullscreen}
       language={languageCode}
-      poi={poi}
-      distance={userLocation && poi.distance(userLocation)}
+      place={place}
+      distance={userLocation && place.distance(userLocation)}
     />
   ) : (
     <Failure code={ErrorCode.PageNotFound} retry={refresh} goTo={deselectAll} goToLabel={t('backToOverview')} />
   )
 
-  const renderPoiListItem = ({ item: poi }: { item: PoiModel }): ReactElement => (
-    <PoiListItem
-      key={poi.path}
-      poi={poi}
+  const renderPlaceListItem = ({ item: place }: { item: PlaceModel }): ReactElement => (
+    <PlaceListItem
+      key={place.path}
+      place={place}
       language={languageCode}
-      navigateToPoi={() => handlePoiSelection(poi)}
-      distance={userLocation && poi.distance(userLocation)}
+      navigateToPlace={() => handlePlaceSelection(place)}
+      distance={userLocation && place.distance(userLocation)}
       onFocus={expandFullscreen}
       visible={!slug}
     />
@@ -153,11 +153,11 @@ const PoisBottomSheet = ({
         <BottomSheetFlatList
           onScrollToIndexFailed={() => {}}
           ref={flatListRef}
-          data={pois}
+          data={places}
           role='list'
           {...conditionalA11yProps({ hidden: !!slug })}
-          accessibilityLabel={t('poisCount', { count: pois.length })}
-          renderItem={renderPoiListItem}
+          accessibilityLabel={t('placesCount', { count: places.length })}
+          renderItem={renderPlaceListItem}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
           ListEmptyComponent={
@@ -167,19 +167,19 @@ const PoisBottomSheet = ({
                 alignSelf: 'center',
                 marginTop: 20,
               }}>
-              {t('noPois')}
+              {t('noPlaces')}
             </Text>
           }
-          ItemSeparatorComponent={PoiListDivider}
+          ItemSeparatorComponent={PlaceListDivider}
         />
         {slug && (
-          <PoiDetailsOverlay>
-            <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
-          </PoiDetailsOverlay>
+          <PlaceDetailsOverlay>
+            <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PlaceDetail}</BottomSheetScrollView>
+          </PlaceDetailsOverlay>
         )}
       </BottomSheetContent>
     </StyledBottomSheet>
   )
 }
 
-export default memo(PoisBottomSheet)
+export default memo(PlacesBottomSheet)

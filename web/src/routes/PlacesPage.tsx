@@ -2,12 +2,12 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
-import { normalizePath, pathnameFromRouteInformation, POIS_ROUTE } from 'shared'
+import { normalizePath, pathnameFromRouteInformation, PLACES_ROUTE } from 'shared'
 import { createPlacesEndpoint } from 'shared/api'
 
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
-import Pois from '../components/Places'
+import Places from '../components/Places'
 import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
@@ -15,18 +15,18 @@ import useTtsPlayer from '../hooks/useTtsPlayer'
 import useUserLocation from '../hooks/useUserLocation'
 import { RegionRouteProps } from './index'
 
-const PoisPage = ({ regionCode, languageCode, region, pathname }: RegionRouteProps): ReactElement | null => {
+const PlacesPage = ({ regionCode, languageCode, region, pathname }: RegionRouteProps): ReactElement | null => {
   const params = useParams()
   const slug = params.slug ? normalizePath(params.slug) : undefined
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
   const { data: userLocation } = useUserLocation()
 
   const { data, isPending, error } = useQueryFromEndpoint(createPlacesEndpoint, cmsApiBaseUrl, {
     region: regionCode,
     language: languageCode,
   })
-  const poi = data?.find(it => it.slug === slug)
-  useTtsPlayer(poi, languageCode)
+  const place = data?.find(it => it.slug === slug)
+  useTtsPlayer(place, languageCode)
 
   if (!region) {
     return null
@@ -35,9 +35,9 @@ const PoisPage = ({ regionCode, languageCode, region, pathname }: RegionRoutePro
   const languageChangePaths = region.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
     const path =
-      poi?.availableLanguages[code] ??
+      place?.availableLanguages[code] ??
       pathnameFromRouteInformation({
-        route: POIS_ROUTE,
+        route: PLACES_ROUTE,
         regionCode,
         languageCode: code,
       })
@@ -64,19 +64,19 @@ const PoisPage = ({ regionCode, languageCode, region, pathname }: RegionRoutePro
     )
   }
 
-  const pageTitle = `${poi?.title ?? t('pageTitle')} - ${region.name}`
+  const pageTitle = `${place?.title ?? t('pageTitle')} - ${region.name}`
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams} pageTitle={pageTitle}>
       <Helmet
         pageTitle={pageTitle}
-        metaDescription={poi?.metaDescription}
+        metaDescription={place?.metaDescription}
         languageChangePaths={languageChangePaths}
         regionModel={region}
       />
-      <Pois loading={isPending} pois={data ?? []} userLocation={userLocation} region={region} />
+      <Places loading={isPending} places={data ?? []} userLocation={userLocation} region={region} />
     </RegionContentLayout>
   )
 }
 
-export default PoisPage
+export default PlacesPage

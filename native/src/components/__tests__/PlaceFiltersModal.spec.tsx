@@ -1,73 +1,73 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { PoiCategoryModel, PoiModelBuilder } from 'shared/api'
+import { PlaceCategoryModel, PlaceModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
-import PoiFiltersModal from '../PlaceFiltersModal'
+import PlaceFiltersModal from '../PlaceFiltersModal'
 
 jest.mock('styled-components')
 jest.mock('react-i18next')
 jest.mock('react-native-svg')
 
-describe('PoiFiltersModal', () => {
+describe('PlaceFiltersModal', () => {
   beforeEach(jest.clearAllMocks)
 
-  const poiCategories = new PoiModelBuilder(2).build().map(it => it.category)
+  const placeCategories = new PlaceModelBuilder(2).build().map(it => it.category)
 
   const closeModal = jest.fn()
-  const setSelectedPoiCategory = jest.fn()
+  const setSelectedPlaceCategory = jest.fn()
   const setCurrentlyOpenFilter = jest.fn()
 
-  const renderPoiFiltersModal = ({
+  const renderPlaceFiltersModal = ({
     category = undefined,
     currentlyOpen = false,
-    poisCount = 0,
+    placesCount = 0,
   }: {
-    category?: PoiCategoryModel | undefined
+    category?: PlaceCategoryModel | undefined
     currentlyOpen?: boolean
-    poisCount?: number
+    placesCount?: number
   }) =>
     render(
-      <PoiFiltersModal
+      <PlaceFiltersModal
         modalVisible
         closeModal={closeModal}
-        poiCategories={poiCategories}
-        selectedPoiCategory={category}
-        setSelectedPoiCategory={setSelectedPoiCategory}
+        placeCategories={placeCategories}
+        selectedPlaceCategory={category}
+        setSelectedPlaceCategory={setSelectedPlaceCategory}
         currentlyOpenFilter={currentlyOpen}
         setCurrentlyOpenFilter={setCurrentlyOpenFilter}
-        poisCount={poisCount}
+        placesCount={placesCount}
       />,
     )
 
-  it('should set poi category on press', () => {
-    const { getByText } = renderPoiFiltersModal({})
+  it('should set place category on press', () => {
+    const { getByText } = renderPlaceFiltersModal({})
 
-    fireEvent.press(getByText(poiCategories[0]!.name))
-    expect(setSelectedPoiCategory).toHaveBeenCalledTimes(1)
-    expect(setSelectedPoiCategory).toHaveBeenCalledWith(poiCategories[0]!)
+    fireEvent.press(getByText(placeCategories[0]!.name))
+    expect(setSelectedPlaceCategory).toHaveBeenCalledTimes(1)
+    expect(setSelectedPlaceCategory).toHaveBeenCalledWith(placeCategories[0]!)
   })
 
-  it('should deselect poi category on selected poi category press', () => {
-    const { getByText } = renderPoiFiltersModal({ category: poiCategories[0]! })
+  it('should deselect place category on selected place category press', () => {
+    const { getByText } = renderPlaceFiltersModal({ category: placeCategories[0]! })
 
-    fireEvent.press(getByText(poiCategories[0]!.name))
-    expect(setSelectedPoiCategory).toHaveBeenCalledTimes(1)
-    expect(setSelectedPoiCategory).toHaveBeenCalledWith(null)
+    fireEvent.press(getByText(placeCategories[0]!.name))
+    expect(setSelectedPlaceCategory).toHaveBeenCalledTimes(1)
+    expect(setSelectedPlaceCategory).toHaveBeenCalledWith(null)
   })
 
   it('should close modal on button press', () => {
-    const { getByText } = renderPoiFiltersModal({ poisCount: 1 })
+    const { getByText } = renderPlaceFiltersModal({ placesCount: 1 })
 
-    fireEvent.press(getByText('showPois'))
+    fireEvent.press(getByText('showPlaces'))
     expect(closeModal).toHaveBeenCalledTimes(1)
   })
 
   it('should not close modal on button press', () => {
-    const { getByText } = renderPoiFiltersModal({ poisCount: 0 })
+    const { getByText } = renderPlaceFiltersModal({ placesCount: 0 })
 
-    fireEvent.press(getByText('showPois'))
+    fireEvent.press(getByText('showPlaces'))
     expect(closeModal).not.toHaveBeenCalledTimes(1)
   })
 })

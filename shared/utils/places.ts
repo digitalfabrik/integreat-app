@@ -1,62 +1,64 @@
 import distance from '@turf/distance'
 
-import PoiCategoryModel from '../api/models/PlaceCategoryModel'
-import PoiModel from '../api/models/PlaceModel'
+import PlaceCategoryModel from '../api/models/PlaceCategoryModel'
+import PlaceModel from '../api/models/PlaceModel'
 import { LocationType, MapFeature } from '../constants/map'
 import { prepareMapFeatures } from './geoJson'
 
 export const calculateDistance = distance
 
-export const sortPois = (pois: PoiModel[], userLocation: LocationType | null): PoiModel[] =>
-  pois.sort((poi1, poi2) =>
-    userLocation ? poi1.distance(userLocation) - poi2.distance(userLocation) : poi1.title.localeCompare(poi2.title),
+export const sortPlaces = (places: PlaceModel[], userLocation: LocationType | null): PlaceModel[] =>
+  places.sort((place1, place2) =>
+    userLocation
+      ? place1.distance(userLocation) - place2.distance(userLocation)
+      : place1.title.localeCompare(place2.title),
   )
 
-type PoiFiltersParams = {
+type PlaceFiltersParams = {
   slug: string | undefined
   multipoi: number | undefined
-  poiCategoryId: number | undefined
+  placeCategoryId: number | undefined
   currentlyOpen?: boolean | undefined
 }
 
-type PreparePoisProps = {
-  pois: PoiModel[]
-  params: PoiFiltersParams
+type PreparePlacesProps = {
+  places: PlaceModel[]
+  params: PlaceFiltersParams
 }
 
-export type PreparePoisReturn = {
-  pois: PoiModel[]
-  poi?: PoiModel
+export type PreparePlacesReturn = {
+  places: PlaceModel[]
+  place?: PlaceModel
   mapFeatures: MapFeature[]
   mapFeature?: MapFeature
-  poiCategories: PoiCategoryModel[]
-  poiCategory?: PoiCategoryModel
+  placeCategories: PlaceCategoryModel[]
+  placeCategory?: PlaceCategoryModel
 }
 
-export const preparePois = ({ pois: allPois, params }: PreparePoisProps): PreparePoisReturn => {
-  const { slug, multipoi, currentlyOpen, poiCategoryId } = params
-  const poi = allPois.find(it => it.slug === slug)
+export const preparePlaces = ({ places: allPlaces, params }: PreparePlacesProps): PreparePlacesReturn => {
+  const { slug, multipoi, currentlyOpen, placeCategoryId } = params
+  const place = allPlaces.find(it => it.slug === slug)
 
-  const filteredPois = allPois
-    .filter(poi => poiCategoryId === undefined || poi.category.id === poiCategoryId)
-    .filter(poi => !currentlyOpen || poi.isCurrentlyOpen)
+  const filteredPlaces = allPlaces
+    .filter(place => placeCategoryId === undefined || place.category.id === placeCategoryId)
+    .filter(place => !currentlyOpen || place.isCurrentlyOpen)
 
-  const mapFeatures = prepareMapFeatures(filteredPois)
+  const mapFeatures = prepareMapFeatures(filteredPlaces)
   const mapFeature = mapFeatures.find(feature =>
-    multipoi !== undefined ? feature.id === multipoi : feature.properties.pois.some(poi => poi.slug === slug),
+    multipoi !== undefined ? feature.id === multipoi : feature.properties.places.some(place => place.slug === slug),
   )
 
-  const pois =
+  const places =
     multipoi !== undefined && mapFeature
       ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        mapFeature.properties.pois.map(it => filteredPois.find(poi => poi.slug === it.slug)!)
-      : filteredPois
+        mapFeature.properties.places.map(it => filteredPlaces.find(place => place.slug === it.slug)!)
+      : filteredPlaces
 
-  const poiCategories = allPois
+  const placeCategories = allPlaces
     .map(it => it.category)
     .filter((it, index, array) => array.findIndex(value => value.id === it.id) === index)
     .sort((a, b) => a.name.localeCompare(b.name))
-  const poiCategory = poiCategories.find(it => it.id === poiCategoryId)
+  const placeCategory = placeCategories.find(it => it.id === placeCategoryId)
 
-  return { pois, poi, mapFeature, mapFeatures, poiCategories, poiCategory }
+  return { places, place, mapFeature, mapFeatures, placeCategories, placeCategory }
 }

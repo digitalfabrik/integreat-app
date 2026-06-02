@@ -1,6 +1,6 @@
-import { PreparePoisReturn as ImportedPreparePoisReturn } from './utils/places'
+import { PreparePlacesReturn as ImportedPreparePlacesReturn } from './utils/places'
 
-export type PreparePoisReturn = ImportedPreparePoisReturn
+export type PreparePlacesReturn = ImportedPreparePlacesReturn
 export { default as useSearch, prepareSearchDocuments } from './hooks/useSearch'
 export { default as useDebounce } from './hooks/useDebounce'
 export { default as useDateFilter } from './hooks/useDateFilter'

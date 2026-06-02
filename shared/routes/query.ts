@@ -1,4 +1,4 @@
-import { POIS_ROUTE, SEARCH_ROUTE } from '.'
+import { PLACES_ROUTE, SEARCH_ROUTE } from '.'
 
 import { safeParseInt } from '../utils'
 import { NonNullableRouteInformationType } from './RouteInformationTypes'
@@ -6,7 +6,7 @@ import { NonNullableRouteInformationType } from './RouteInformationTypes'
 export const MULTIPOI_QUERY_KEY = 'multipoi'
 export const SEARCH_QUERY_KEY = 'query'
 export const CHAT_QUERY_KEY = 'chat'
-export const POI_CATEGORY_QUERY_KEY = 'category'
+export const PLACE_CATEGORY_QUERY_KEY = 'category'
 export const ZOOM_QUERY_KEY = 'zoom'
 
 export const queryStringFromRouteInformation = (
@@ -16,13 +16,13 @@ export const queryStringFromRouteInformation = (
   if ('chat' in routeInformation && routeInformation.chat) {
     queryParams.push([CHAT_QUERY_KEY, routeInformation.chat.toString()])
   }
-  if (routeInformation.route === POIS_ROUTE) {
-    const { multipoi, poiCategoryId, zoom } = routeInformation
+  if (routeInformation.route === PLACES_ROUTE) {
+    const { multipoi, placeCategoryId, zoom } = routeInformation
     if (multipoi !== undefined) {
       queryParams.push([MULTIPOI_QUERY_KEY, multipoi.toString()])
     }
-    if (poiCategoryId !== undefined) {
-      queryParams.push([POI_CATEGORY_QUERY_KEY, poiCategoryId.toString()])
+    if (placeCategoryId !== undefined) {
+      queryParams.push([PLACE_CATEGORY_QUERY_KEY, placeCategoryId.toString()])
     }
     if (zoom !== undefined) {
       queryParams.push([ZOOM_QUERY_KEY, zoom.toString()])
@@ -44,7 +44,7 @@ export type VisibilityQueryParams = {
 type QueryParams = VisibilityQueryParams & {
   searchText?: string
   multipoi?: number
-  poiCategoryId?: number
+  placeCategoryId?: number
   zoom?: number
 }
 
@@ -52,17 +52,17 @@ export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const searchText = queryParams.get(SEARCH_QUERY_KEY) ?? undefined
   const chat = queryParams.get(CHAT_QUERY_KEY) ? queryParams.get(CHAT_QUERY_KEY) === 'true' : undefined
   const multipoi = safeParseInt(queryParams.get(MULTIPOI_QUERY_KEY))
-  const poiCategoryId = safeParseInt(queryParams.get(POI_CATEGORY_QUERY_KEY))
+  const placeCategoryId = safeParseInt(queryParams.get(PLACE_CATEGORY_QUERY_KEY))
   const zoom = safeParseInt(queryParams.get(ZOOM_QUERY_KEY))
-  return { searchText, multipoi, poiCategoryId, zoom, chat }
+  return { searchText, multipoi, placeCategoryId, zoom, chat }
 }
 
-export const toQueryParams = ({ multipoi, poiCategoryId, zoom, searchText, chat }: QueryParams): URLSearchParams => {
+export const toQueryParams = ({ multipoi, placeCategoryId, zoom, searchText, chat }: QueryParams): URLSearchParams => {
   const queryParams: [string, string | undefined][] = [
     [SEARCH_QUERY_KEY, searchText],
     [CHAT_QUERY_KEY, chat?.toString()],
     [MULTIPOI_QUERY_KEY, multipoi?.toString()],
-    [POI_CATEGORY_QUERY_KEY, poiCategoryId?.toString()],
+    [PLACE_CATEGORY_QUERY_KEY, placeCategoryId?.toString()],
     [ZOOM_QUERY_KEY, zoom?.toString()],
   ]
   return new URLSearchParams(

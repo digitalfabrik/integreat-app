@@ -5,13 +5,13 @@ import { Chip } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { isMultipoi, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
-import { PoiCategoryModel, PoiModel, RegionModel } from 'shared/api'
+import { isMultipoi, MapFeature, preparePlaces, safeParseInt, sortPlaces } from 'shared'
+import { PlaceCategoryModel, PlaceModel, RegionModel } from 'shared/api'
 
 import { EditLocationIcon } from '../assets'
 import MapView from '../components/MapView'
-import PoiFiltersModal from '../components/PlaceFiltersModal'
-import PoisBottomSheet from '../components/PlacesBottomSheet'
+import PlaceFiltersModal from '../components/PlaceFiltersModal'
+import PlacesBottomSheet from '../components/PlacesBottomSheet'
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
 import dimensions from '../constants/dimensions'
@@ -38,39 +38,39 @@ const StyledChip = styled(Chip)({
   height: 32,
 })
 
-const SNAP_POINT_MID_PERCENTAGE = 0.35
+const SNAP_PLACENT_MID_PERCENTAGE = 0.35
 
-export type PoiHistory = {
+export type PlaceHistory = {
   slug: string | undefined
   multipoi: number | undefined
-  poiCategoryId: number | undefined
+  placeCategoryId: number | undefined
   currentlyOpen: boolean
   showFilterSelection: boolean
 }
 
-type PoisProps = {
+type PlacesProps = {
   refresh: () => void
-  localHistory: UseLocalHistoryReturn<PoiHistory>
-  pois: PoiModel[]
+  localHistory: UseLocalHistoryReturn<PlaceHistory>
+  places: PlaceModel[]
   regionModel: RegionModel
   initialZoom: number | undefined
 }
 
-const Pois = ({ refresh, localHistory, initialZoom, pois: allPois, regionModel }: PoisProps): ReactElement => {
-  const { slug, multipoi, poiCategoryId, currentlyOpen, showFilterSelection } = localHistory.current
+const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionModel }: PlacesProps): ReactElement => {
+  const { slug, multipoi, placeCategoryId, currentlyOpen, showFilterSelection } = localHistory.current
   const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
   const [zoomInFocusTarget, setZoomInFocusTarget] = useState<number | undefined>(undefined)
   const { userLocation, refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: false })
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
   const { height } = useWindowDimensions()
-  const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_POINT_MID_PERCENTAGE * height, height]
-  const bottomSheetMidHeight = SNAP_POINT_MID_PERCENTAGE * height
+  const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_PLACENT_MID_PERCENTAGE * height, height]
+  const bottomSheetMidHeight = SNAP_PLACENT_MID_PERCENTAGE * height
   const bottomSheetFullscreen = bottomSheetSnapPointIndex === bottomSheetSnapPoints.length - 1
   const bottomSheetHeight = bottomSheetSnapPoints[bottomSheetSnapPointIndex] ?? 0
 
-  const { pois, poi, mapFeatures, mapFeature, poiCategories, poiCategory } = preparePois({
-    pois: allPois,
-    params: { slug, multipoi, poiCategoryId, currentlyOpen },
+  const { places, place, mapFeatures, mapFeature, placeCategories, placeCategory } = preparePlaces({
+    places: allPlaces,
+    params: { slug, multipoi, placeCategoryId, currentlyOpen },
   })
 
   const handleZoomInRef = useCallback((view: View | null) => {
@@ -81,16 +81,16 @@ const Pois = ({ refresh, localHistory, initialZoom, pois: allPois, regionModel }
 
   const updateShowFilterSelection = (showFilterSelection: boolean) => localHistory.push({ showFilterSelection })
 
-  const updatePoiCategoryFilter = (poiCategory: PoiCategoryModel | null) =>
-    localHistory.pushReset({ poiCategoryId: poiCategory?.id, currentlyOpen })
+  const updatePlaceCategoryFilter = (placeCategory: PlaceCategoryModel | null) =>
+    localHistory.pushReset({ placeCategoryId: placeCategory?.id, currentlyOpen })
 
-  const updatePoiCurrentlyOpenFilter = (currentlyOpen: boolean) =>
-    localHistory.pushReset({ poiCategoryId, currentlyOpen })
+  const updatePlaceCurrentlyOpenFilter = (currentlyOpen: boolean) =>
+    localHistory.pushReset({ placeCategoryId, currentlyOpen })
 
   const selectMapFeature = (mapFeature: MapFeature | null) => {
     setBottomSheetSnapPointIndex(1)
 
-    const slug = mapFeature?.properties.pois[0]?.slug
+    const slug = mapFeature?.properties.places[0]?.slug
     if (mapFeature && isMultipoi(mapFeature)) {
       localHistory.push({ multipoi: safeParseInt(mapFeature.id), slug: undefined })
     } else if (slug || localHistory.current.slug) {
@@ -98,7 +98,7 @@ const Pois = ({ refresh, localHistory, initialZoom, pois: allPois, regionModel }
     }
   }
 
-  const selectPoi = (poi: PoiModel) => localHistory.push({ slug: poi.slug })
+  const selectPlace = (place: PlaceModel) => localHistory.push({ slug: place.slug })
 
   const FiltersOverlayButtons = (
     <ChipContainer>
@@ -116,21 +116,21 @@ const Pois = ({ refresh, localHistory, initialZoom, pois: allPois, regionModel }
           mode='outlined'
           rippleColor='transparent'
           avatar={<Icon source='clock-outline' size={20} style={{ width: 20, height: 20 }} />}
-          onPress={() => updatePoiCurrentlyOpenFilter(false)}
-          onClose={() => updatePoiCurrentlyOpenFilter(false)}
+          onPress={() => updatePlaceCurrentlyOpenFilter(false)}
+          onClose={() => updatePlaceCurrentlyOpenFilter(false)}
           closeIcon='close'>
           <Text variant='body3'>{t('opened')}</Text>
         </StyledChip>
       )}
-      {!!poiCategory && (
+      {!!placeCategory && (
         <StyledChip
           mode='outlined'
           rippleColor='transparent'
-          avatar={<StyledSvgUri uri={poiCategory.icon} />}
-          onPress={() => updatePoiCategoryFilter(null)}
-          onClose={() => updatePoiCategoryFilter(null)}
+          avatar={<StyledSvgUri uri={placeCategory.icon} />}
+          onPress={() => updatePlaceCategoryFilter(null)}
+          onClose={() => updatePlaceCategoryFilter(null)}
           closeIcon='close'>
-          <Text variant='body3'>{poiCategory.name}</Text>
+          <Text variant='body3'>{placeCategory.name}</Text>
         </StyledChip>
       )}
     </ChipContainer>
@@ -138,15 +138,15 @@ const Pois = ({ refresh, localHistory, initialZoom, pois: allPois, regionModel }
 
   return (
     <Container>
-      <PoiFiltersModal
+      <PlaceFiltersModal
         modalVisible={showFilterSelection}
         closeModal={localHistory.pop}
-        poiCategories={poiCategories}
-        selectedPoiCategory={poiCategory}
-        setSelectedPoiCategory={updatePoiCategoryFilter}
+        placeCategories={placeCategories}
+        selectedPlaceCategory={placeCategory}
+        setSelectedPlaceCategory={updatePlaceCategoryFilter}
         currentlyOpenFilter={currentlyOpen}
-        setCurrentlyOpenFilter={updatePoiCurrentlyOpenFilter}
-        poisCount={pois.length}
+        setCurrentlyOpenFilter={updatePlaceCurrentlyOpenFilter}
+        placesCount={places.length}
       />
       <MapView
         selectFeature={selectMapFeature}
@@ -162,13 +162,13 @@ const Pois = ({ refresh, localHistory, initialZoom, pois: allPois, regionModel }
         Overlay={FiltersOverlayButtons}
         zoomRef={handleZoomInRef}
       />
-      <PoisBottomSheet
+      <PlacesBottomSheet
         refresh={refresh}
-        pois={sortPois(pois, userLocation)}
-        poi={poi}
+        places={sortPlaces(places, userLocation)}
+        place={place}
         slug={slug}
         userLocation={userLocation}
-        selectPoi={selectPoi}
+        selectPlace={selectPlace}
         deselectAll={deselect}
         snapPoints={bottomSheetSnapPoints}
         snapPointIndex={bottomSheetSnapPointIndex}
@@ -180,4 +180,4 @@ const Pois = ({ refresh, localHistory, initialZoom, pois: allPois, regionModel }
   )
 }
 
-export default Pois
+export default Places

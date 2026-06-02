@@ -24,7 +24,7 @@ const EventModalDummyData = {
   availableLanguages: {},
   lastUpdate: DateTime.fromISO('2024-11-07T00:00:00.000'),
   featuredImage: null,
-  poiPath: '/test/location/path',
+  placePath: '/test/location/path',
 }
 
 jest.useFakeTimers({ now: new Date('2024-11-07T00:00:00.000') })

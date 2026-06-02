@@ -39,7 +39,7 @@ type OpeningEntryProps = {
 }
 
 const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: OpeningEntryProps): ReactElement => {
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
 
   const [overlayOpen, setOverlayOpen] = useState<boolean>(false)
 

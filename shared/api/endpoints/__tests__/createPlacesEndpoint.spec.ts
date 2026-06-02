@@ -2,17 +2,17 @@ import { DateTime } from 'luxon'
 
 import { API_VERSION } from '../../constants'
 import LocationModel from '../../models/LocationModel'
-import PoiCategoryModel from '../../models/PlaceCategoryModel'
-import PoiModel from '../../models/PlaceModel'
-import { JsonPoiType } from '../../types'
-import createPOIsEndpoint from '../createPlacesEndpoint'
+import PlaceCategoryModel from '../../models/PlaceCategoryModel'
+import PlaceModel from '../../models/PlaceModel'
+import { JsonPlaceType } from '../../types'
+import createPLACEsEndpoint from '../createPlacesEndpoint'
 
-describe('pois', () => {
+describe('places', () => {
   const baseUrl = 'https://integreat-api-url.de'
-  const pois = createPOIsEndpoint(baseUrl)
-  const path = '/augsburg/de/pois/asylpolitischer_fruehschoppen'
+  const places = createPLACEsEndpoint(baseUrl)
+  const path = '/augsburg/de/places/asylpolitischer_fruehschoppen'
 
-  const createPoi = (id: number): JsonPoiType => ({
+  const createPlace = (id: number): JsonPlaceType => ({
     id,
     path,
     url: baseUrl + path,
@@ -48,8 +48,8 @@ describe('pois', () => {
     barrier_free: null,
   })
 
-  const createPoiModel = () =>
-    new PoiModel({
+  const createPlaceModel = () =>
+    new PlaceModel({
       path,
       title: 'Asylploitischer Frühschoppen',
       excerpt: 'Am Sonntag...',
@@ -58,7 +58,7 @@ describe('pois', () => {
       availableLanguages: {},
       thumbnail: '',
       contacts: [],
-      category: new PoiCategoryModel({
+      category: new PlaceCategoryModel({
         color: '#1DC6C6',
         iconName: 'gastronomy',
         id: 10,
@@ -83,28 +83,28 @@ describe('pois', () => {
       barrierFree: null,
     })
 
-  const poi1 = createPoi(2730)
-  const poi2 = createPoi(1889)
-  const poi3 = createPoi(4768) // we get these from cms
-  const poi4 = createPoi(4826)
+  const place1 = createPlace(2730)
+  const place2 = createPlace(1889)
+  const place3 = createPlace(4768) // we get these from cms
+  const place4 = createPlace(4826)
 
-  const poiModel1 = createPoiModel()
-  const poiModel2 = createPoiModel()
-  const poiModel3 = createPoiModel()
-  const poiModel4 = createPoiModel()
+  const placeModel1 = createPlaceModel()
+  const placeModel2 = createPlaceModel()
+  const placeModel3 = createPlaceModel()
+  const placeModel4 = createPlaceModel()
   const params = {
     region: 'augsburg',
     language: 'de',
   }
   it('should map params to url', () => {
-    expect(pois.mapParamsToUrl(params)).toBe(
+    expect(places.mapParamsToUrl(params)).toBe(
       `https://integreat-api-url.de/api/${API_VERSION}/augsburg/de/locations/?on_map=1`,
     )
   })
-  const json = [poi1, poi2, poi3, poi4]
+  const json = [place1, place2, place3, place4]
   it('should map fetched data to models', () => {
-    const poisModels = pois.mapResponse(json, params)
-    const value = [poiModel1, poiModel2, poiModel3, poiModel4]
-    expect(poisModels).toEqual(value)
+    const placesModels = places.mapResponse(json, params)
+    const value = [placeModel1, placeModel2, placeModel3, placeModel4]
+    expect(placesModels).toEqual(value)
   })
 })

@@ -1,31 +1,31 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { PoiModelBuilder } from 'shared/api'
+import { PlaceModelBuilder } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import PoiListItem from '../PlaceListItem'
+import PlaceListItem from '../PlaceListItem'
 
 jest.mock('react-i18next')
 
-describe('PoiListItem', () => {
+describe('PlaceListItem', () => {
   const onClick = jest.fn()
-  const poi = new PoiModelBuilder(1).build()[0]!
+  const place = new PlaceModelBuilder(1).build()[0]!
 
   it('should render list item information', () => {
-    const { getByText } = renderWithRouterAndTheme(<PoiListItem onClick={onClick} poi={poi} distance={3.1} />)
+    const { getByText } = renderWithRouterAndTheme(<PlaceListItem onClick={onClick} place={place} distance={3.1} />)
 
-    expect(getByText(poi.title)).toBeTruthy()
-    expect(getByText('pois:distanceKilometre')).toBeTruthy()
-    expect(getByText(poi.category.name)).toBeTruthy()
+    expect(getByText(place.title)).toBeTruthy()
+    expect(getByText('places:distanceKilometre')).toBeTruthy()
+    expect(getByText(place.category.name)).toBeTruthy()
   })
 
   it('should call onClick when clicked', () => {
     const { getByRole, queryByText } = renderWithRouterAndTheme(
-      <PoiListItem onClick={onClick} poi={poi} distance={null} />,
+      <PlaceListItem onClick={onClick} place={place} distance={null} />,
     )
 
-    expect(queryByText('pois:distanceKilometre')).toBeFalsy()
+    expect(queryByText('places:distanceKilometre')).toBeFalsy()
     fireEvent.click(getByRole('link'))
     expect(onClick).toHaveBeenCalledTimes(1)
   })

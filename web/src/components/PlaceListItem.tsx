@@ -6,7 +6,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
-import { PoiModel } from 'shared/api'
+import { PlaceModel } from 'shared/api'
 
 import Link from './base/Link'
 
@@ -27,16 +27,16 @@ const StyledText = styled('p')({
   margin: 0,
 })
 
-type PoiListItemProps = {
-  poi: PoiModel
+type PlaceListItemProps = {
+  place: PlaceModel
   onClick?: () => void
   distance: number | null
 }
 
-const PoiListItem = ({ poi, distance, onClick }: PoiListItemProps): ReactElement => {
-  const { t } = useTranslation('pois')
+const PlaceListItem = ({ place, distance, onClick }: PlaceListItemProps): ReactElement => {
+  const { t } = useTranslation('places')
   const [queryParams] = useSearchParams()
-  const { title, category, slug } = poi
+  const { title, category, slug } = place
   const slugWithQuery = `${slug}?${queryParams}`
 
   return (
@@ -59,4 +59,4 @@ const PoiListItem = ({ poi, distance, onClick }: PoiListItemProps): ReactElement
   )
 }
 
-export default PoiListItem
+export default PlaceListItem

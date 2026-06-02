@@ -6,7 +6,7 @@ import {
   REGIONS_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   RESERVED_REGION_CONTENT_SLUGS,
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
@@ -129,18 +129,18 @@ class InternalPathnameParser {
     return { ...params, route: EVENTS_ROUTE, slug }
   }
 
-  pois = (): RouteInformationType => {
-    const params = this.regionContentParams(POIS_ROUTE)
+  places = (): RouteInformationType => {
+    const params = this.regionContentParams(PLACES_ROUTE)
 
     if (!params) {
       return null
     }
 
-    // Single pois are identified via their slug, e.g. 'my-poi-1234'
+    // Single places are identified via their slug, e.g. 'my-place-1234'
     const slug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
-    const { multipoi, poiCategoryId, zoom } = parseQueryParams(this._queryParams)
+    const { multipoi, placeCategoryId, zoom } = parseQueryParams(this._queryParams)
 
-    return { ...params, route: POIS_ROUTE, slug, multipoi, poiCategoryId, zoom }
+    return { ...params, route: PLACES_ROUTE, slug, multipoi, placeCategoryId, zoom }
   }
 
   news = (): RouteInformationType => {
@@ -215,7 +215,7 @@ class InternalPathnameParser {
   route = (): RouteInformationType =>
     this.regions() ||
     this.events() ||
-    this.pois() ||
+    this.places() ||
     this.imprint() ||
     this.news() ||
     this.search() ||

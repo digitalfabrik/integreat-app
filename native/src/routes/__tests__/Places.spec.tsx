@@ -1,12 +1,12 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { RegionModelBuilder, PoiModelBuilder } from 'shared/api'
+import { RegionModelBuilder, PlaceModelBuilder } from 'shared/api'
 
 import { UseLocalHistoryReturn } from '../../hooks/useLocalStackHistory'
 import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
-import Pois, { PoiHistory } from '../Places'
+import Places, { PlaceHistory } from '../Places'
 
 jest.mock('../../components/MapView')
 jest.mock('../../components/Page')
@@ -18,21 +18,21 @@ jest.mock('@gorhom/bottom-sheet', () => ({
   ...require('@gorhom/bottom-sheet/mock'),
 }))
 
-const resetHistory: PoiHistory = {
+const resetHistory: PlaceHistory = {
   slug: undefined,
   multipoi: undefined,
-  poiCategoryId: undefined,
+  placeCategoryId: undefined,
   currentlyOpen: false,
   showFilterSelection: false,
 }
 
-const pois = new PoiModelBuilder(3).build()
-const poi0 = pois[0]!
-const poi1 = pois[1]!
-const poi2 = pois[2]!
+const places = new PlaceModelBuilder(3).build()
+const place0 = places[0]!
+const place1 = places[1]!
+const place2 = places[2]!
 const region = new RegionModelBuilder(1).build()[0]!
 
-const createLocalHistory = (current: PoiHistory = resetHistory): UseLocalHistoryReturn<PoiHistory> => ({
+const createLocalHistory = (current: PlaceHistory = resetHistory): UseLocalHistoryReturn<PlaceHistory> => ({
   current,
   history: [current],
   push: jest.fn(),
@@ -41,15 +41,15 @@ const createLocalHistory = (current: PoiHistory = resetHistory): UseLocalHistory
   reset: jest.fn(),
 })
 
-describe('Pois', () => {
-  const renderPois = (current: PoiHistory = resetHistory) => {
+describe('Places', () => {
+  const renderPlaces = (current: PlaceHistory = resetHistory) => {
     const localHistory = createLocalHistory(current)
     const renderResult = renderWithTheme(
       <TestingAppContext>
-        <Pois
+        <Places
           refresh={() => undefined}
           localHistory={localHistory}
-          pois={pois}
+          places={places}
           regionModel={region}
           initialZoom={undefined}
         />
@@ -58,75 +58,75 @@ describe('Pois', () => {
     return { localHistory, ...renderResult }
   }
 
-  it('should show poi list when no selection', () => {
-    const { getByText } = renderPois()
+  it('should show place list when no selection', () => {
+    const { getByText } = renderPlaces()
 
-    expect(getByText(poi0.title)).toBeTruthy()
-    expect(getByText(poi1.title)).toBeTruthy()
-    expect(getByText(poi2.title)).toBeTruthy()
+    expect(getByText(place0.title)).toBeTruthy()
+    expect(getByText(place1.title)).toBeTruthy()
+    expect(getByText(place2.title)).toBeTruthy()
   })
 
-  it('should show pageNotFound for invalid slug and hide poi list', () => {
-    const { getByText, queryByText } = renderPois({ ...resetHistory, slug: 'invalid' })
+  it('should show pageNotFound for invalid slug and hide place list', () => {
+    const { getByText, queryByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
 
     expect(getByText('pageNotFound')).toBeTruthy()
-    expect(queryByText(poi0.title)).toBeFalsy()
-    expect(queryByText(poi1.title)).toBeFalsy()
-    expect(queryByText(poi2.title)).toBeFalsy()
+    expect(queryByText(place0.title)).toBeFalsy()
+    expect(queryByText(place1.title)).toBeFalsy()
+    expect(queryByText(place2.title)).toBeFalsy()
   })
 
-  it('should show poi detail when slug matches a poi', () => {
-    const { getByText, queryByText } = renderPois({ ...resetHistory, slug: poi1.slug })
+  it('should show place detail when slug matches a place', () => {
+    const { getByText, queryByText } = renderPlaces({ ...resetHistory, slug: place1.slug })
 
-    expect(getByText(poi1.title)).toBeTruthy()
-    expect(getByText(poi1.content)).toBeTruthy()
-    expect(queryByText(poi0.title)).toBeFalsy()
-    expect(queryByText(poi2.title)).toBeFalsy()
+    expect(getByText(place1.title)).toBeTruthy()
+    expect(getByText(place1.content)).toBeTruthy()
+    expect(queryByText(place0.title)).toBeFalsy()
+    expect(queryByText(place2.title)).toBeFalsy()
   })
 
-  it('should show filtered poi list when multipoi is set', () => {
-    const { getByText, queryByText } = renderPois({ ...resetHistory, multipoi: 0 })
+  it('should show filtered place list when multipoi is set', () => {
+    const { getByText, queryByText } = renderPlaces({ ...resetHistory, multipoi: 0 })
 
-    expect(getByText(poi0.title)).toBeTruthy()
-    expect(getByText(poi2.title)).toBeTruthy()
-    expect(queryByText(poi1.title)).toBeFalsy()
+    expect(getByText(place0.title)).toBeTruthy()
+    expect(getByText(place2.title)).toBeTruthy()
+    expect(queryByText(place1.title)).toBeFalsy()
   })
 
-  it('should show filtered poi list when poiCategoryId is set', () => {
-    const { getAllByText, getByText, queryByText } = renderPois({ ...resetHistory, poiCategoryId: 10 })
+  it('should show filtered place list when placeCategoryId is set', () => {
+    const { getAllByText, getByText, queryByText } = renderPlaces({ ...resetHistory, placeCategoryId: 10 })
 
     expect(getAllByText('Gastronomie')).toHaveLength(3)
-    expect(getByText(poi0.title)).toBeTruthy()
-    expect(getByText(poi2.title)).toBeTruthy()
-    expect(queryByText(poi1.title)).toBeFalsy()
+    expect(getByText(place0.title)).toBeTruthy()
+    expect(getByText(place2.title)).toBeTruthy()
+    expect(queryByText(place1.title)).toBeFalsy()
   })
 
-  it('should call push with poi slug when poi is selected from list', () => {
-    const { localHistory, getByText } = renderPois()
+  it('should call push with place slug when place is selected from list', () => {
+    const { localHistory, getByText } = renderPlaces()
 
-    fireEvent.press(getByText(poi1.title))
+    fireEvent.press(getByText(place1.title))
 
-    expect(localHistory.push).toHaveBeenCalledWith({ slug: poi1.slug })
+    expect(localHistory.push).toHaveBeenCalledWith({ slug: place1.slug })
   })
 
   it('should call push with multipoi id when multipoi feature is pressed on map', () => {
-    const { localHistory, getByText } = renderPois()
+    const { localHistory, getByText } = renderPlaces()
 
     fireEvent.press(getByText('Feature-0'))
 
     expect(localHistory.push).toHaveBeenCalledWith({ multipoi: 0, slug: undefined })
   })
 
-  it('should call push with slug when single-poi map feature is pressed', () => {
-    const { localHistory, getByText } = renderPois()
+  it('should call push with slug when single-place map feature is pressed', () => {
+    const { localHistory, getByText } = renderPlaces()
 
-    fireEvent.press(getByText(`Feature-${poi1.title}`))
+    fireEvent.press(getByText(`Feature-${place1.title}`))
 
-    expect(localHistory.push).toHaveBeenCalledWith({ multipoi: undefined, slug: poi1.slug })
+    expect(localHistory.push).toHaveBeenCalledWith({ multipoi: undefined, slug: place1.slug })
   })
 
-  it('should call push to clear slug and multipoi when Map Press is pressed with poi selected', () => {
-    const { localHistory, getByText } = renderPois({ ...resetHistory, slug: poi1.slug })
+  it('should call push to clear slug and multipoi when Map Press is pressed with place selected', () => {
+    const { localHistory, getByText } = renderPlaces({ ...resetHistory, slug: place1.slug })
 
     fireEvent.press(getByText('Map Press'))
 
@@ -134,7 +134,7 @@ describe('Pois', () => {
   })
 
   it('should not call push when Map Press is pressed with only a multipoi selected', () => {
-    const { localHistory, getByText } = renderPois({ ...resetHistory, multipoi: 0 })
+    const { localHistory, getByText } = renderPlaces({ ...resetHistory, multipoi: 0 })
 
     fireEvent.press(getByText('Map Press'))
 
@@ -142,7 +142,7 @@ describe('Pois', () => {
   })
 
   it('should call push when backToOverview is pressed for an invalid slug', () => {
-    const { localHistory, getByText } = renderPois({ ...resetHistory, slug: 'invalid' })
+    const { localHistory, getByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
 
     fireEvent.press(getByText('backToOverview'))
 
@@ -150,7 +150,7 @@ describe('Pois', () => {
   })
 
   it('should call push with multipoi when backToOverview is pressed with both multipoi and invalid slug', () => {
-    const { localHistory, getByText } = renderPois({ ...resetHistory, multipoi: 0, slug: 'invalid' })
+    const { localHistory, getByText } = renderPlaces({ ...resetHistory, multipoi: 0, slug: 'invalid' })
 
     fireEvent.press(getByText('backToOverview'))
 
@@ -158,34 +158,34 @@ describe('Pois', () => {
   })
 
   it('should call push with showFilterSelection when adjustFilters is pressed', () => {
-    const { localHistory, getByText } = renderPois()
+    const { localHistory, getByText } = renderPlaces()
 
     fireEvent.press(getByText('adjustFilters'))
 
     expect(localHistory.push).toHaveBeenCalledWith({ showFilterSelection: true })
   })
 
-  it('should call pop when showPois is pressed in filter modal', () => {
-    const { localHistory, getByText } = renderPois({ ...resetHistory, showFilterSelection: true })
+  it('should call pop when showPlaces is pressed in filter modal', () => {
+    const { localHistory, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByText('showPois'))
+    fireEvent.press(getByText('showPlaces'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
   })
 
   it('should call pushReset with category id when a category is selected in filter modal', () => {
-    const { localHistory, getByRole } = renderPois({ ...resetHistory, showFilterSelection: true })
+    const { localHistory, getByRole } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
     fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
 
-    expect(localHistory.pushReset).toHaveBeenCalledWith({ poiCategoryId: poi1.category.id, currentlyOpen: false })
+    expect(localHistory.pushReset).toHaveBeenCalledWith({ placeCategoryId: place1.category.id, currentlyOpen: false })
   })
 
   it('should call pushReset to clear category when category chip is pressed', () => {
-    const { localHistory, getAllByText } = renderPois({ ...resetHistory, poiCategoryId: 10 })
+    const { localHistory, getAllByText } = renderPlaces({ ...resetHistory, placeCategoryId: 10 })
 
     fireEvent.press(getAllByText('Gastronomie')[0]!)
 
-    expect(localHistory.pushReset).toHaveBeenCalledWith({ poiCategoryId: undefined, currentlyOpen: false })
+    expect(localHistory.pushReset).toHaveBeenCalledWith({ placeCategoryId: undefined, currentlyOpen: false })
   })
 })

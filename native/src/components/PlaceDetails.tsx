@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Divider } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { PoiModel } from 'shared/api'
+import { PlaceModel } from 'shared/api'
 
 import Accordion from './Accordion'
 import AddressInfo from './AddressInfo'
@@ -11,10 +11,10 @@ import Contact from './Contact'
 import CustomThumbnail from './CustomThumbnail'
 import OpeningHours from './OpeningHours'
 import Page from './Page'
-import PoiChips from './PlaceChips'
+import PlaceChips from './PlaceChips'
 import Text from './base/Text'
 
-const PoiDetailsContainer = styled.View`
+const PlaceDetailsContainer = styled.View`
   flex: 1;
   background-color: ${props => props.theme.colors.background};
   gap: 16px;
@@ -28,19 +28,19 @@ const StyledDivider = styled(Divider)`
   margin: 20px 0;
 `
 
-type PoiDetailsProps = {
-  poi: PoiModel
+type PlaceDetailsProps = {
+  place: PlaceModel
   language: string
   distance: number | null
   onFocus: () => void
 }
 
-const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): ReactElement => {
-  const { t } = useTranslation('pois')
-  const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
+const PlaceDetails = ({ place, language, distance, onFocus }: PlaceDetailsProps): ReactElement => {
+  const { t } = useTranslation('places')
+  const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = place
 
   return (
-    <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} screenReaderFocusable>
+    <PlaceDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} screenReaderFocusable>
       <Text variant='h5' style={{ paddingBottom: 4 }}>
         {title}
       </Text>
@@ -49,8 +49,8 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
           {t('distanceKilometre', { distance: distance.toFixed(1) })}
         </Text>
       )}
-      {!!poi.thumbnail && <CustomThumbnail src={poi.thumbnail} />}
-      <PoiChips poi={poi} />
+      {!!place.thumbnail && <CustomThumbnail src={place.thumbnail} />}
+      <PlaceChips place={place} />
       <StyledDivider />
       {content.length > 0 && (
         <>
@@ -60,7 +60,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
           <StyledDivider />
         </>
       )}
-      <AddressInfo location={poi.location} language={language} />
+      <AddressInfo location={place.location} language={language} />
       <StyledDivider />
       {contacts.length > 0 && (
         <>
@@ -88,8 +88,8 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
         isTemporarilyClosed={temporarilyClosed}
         appointmentUrl={appointmentUrl}
       />
-    </PoiDetailsContainer>
+    </PlaceDetailsContainer>
   )
 }
 
-export default PoiDetails
+export default PlaceDetails

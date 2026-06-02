@@ -43,6 +43,6 @@ describe('formatTime', () => {
       recurrenceRule: null,
       onlyWeekdays: false,
     })
-    expect(formatTime(locale, date, t)).toBe('pois:allDay')
+    expect(formatTime(locale, date, t)).toBe('places:allDay')
   })
 })

@@ -3,14 +3,14 @@ import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { GeolocateControl, NavigationControl } from 'react-map-gl/maplibre'
 
-import { LocationType, MapViewViewport, MapFeature, PreparePoisReturn } from 'shared'
-import { PoiModel } from 'shared/api'
+import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn } from 'shared'
+import { PlaceModel } from 'shared/api'
 
 import MapAttribution from './MapAttribution'
 import MapView from './MapView'
-import PoiPanelHeader from './PlacePanelHeader'
-import PoiPanelNavigation from './PlacePanelNavigation'
-import PoiSharedChildren from './PlaceSharedChildren'
+import PlacePanelHeader from './PlacePanelHeader'
+import PlacePanelNavigation from './PlacePanelNavigation'
+import PlaceSharedChildren from './PlaceSharedChildren'
 import SkeletonHeader from './SkeletonHeader'
 import SkeletonList from './SkeletonList'
 
@@ -47,38 +47,44 @@ type PanelContentProps = {
   listRef: React.RefObject<HTMLDivElement | null>
   canDeselect: boolean
   deselect: () => void
-  pois: PoiModel[]
-  poi: PoiModel | undefined
+  places: PlaceModel[]
+  place: PlaceModel | undefined
   scrollToTop: () => void
   userLocation: LocationType | null
   slug: string | undefined
-  switchPoi: (step: 1 | -1) => void
+  switchPlace: (step: 1 | -1) => void
 }
 
 const PanelContent = ({
   listRef,
   canDeselect,
   deselect,
-  pois,
-  poi,
+  places,
+  place,
   scrollToTop,
   userLocation,
   slug,
-  switchPoi,
+  switchPlace,
 }: PanelContentProps): ReactElement => (
   <Stack justifyContent='space-between' height='100%'>
     <ListViewWrapper ref={listRef}>
-      <PoiPanelHeader goBack={canDeselect ? deselect : null} />
-      <PoiSharedChildren pois={pois} poi={poi} scrollToTop={scrollToTop} userLocation={userLocation} slug={slug} />
+      <PlacePanelHeader goBack={canDeselect ? deselect : null} />
+      <PlaceSharedChildren
+        places={places}
+        place={place}
+        scrollToTop={scrollToTop}
+        userLocation={userLocation}
+        slug={slug}
+      />
     </ListViewWrapper>
-    {poi && pois.length > 0 && <PoiPanelNavigation switchPoi={switchPoi} />}
+    {place && places.length > 0 && <PlacePanelNavigation switchPlace={switchPlace} />}
   </Stack>
 )
 
-type PoisDesktopProps = {
-  data: PreparePoisReturn
+type PlacesDesktopProps = {
+  data: PreparePlacesReturn
   selectMapFeature: (mapFeature: MapFeature | null) => void
-  selectPoi: (poi: PoiModel) => void
+  selectPlace: (place: PlaceModel) => void
   deselect: () => void
   userLocation: LocationType | null
   slug: string | undefined
@@ -88,7 +94,7 @@ type PoisDesktopProps = {
   loading: boolean
 }
 
-const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
+const nextPlaceIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): number => {
   if (currentIndex === arrayLength - 1 && step === 1) {
     return 0
   }
@@ -98,21 +104,21 @@ const nextPoiIndex = (step: 1 | -1, arrayLength: number, currentIndex: number): 
   return currentIndex + step
 }
 
-const PoisDesktop = ({
+const PlacesDesktop = ({
   data,
   userLocation,
   selectMapFeature,
-  selectPoi,
+  selectPlace,
   deselect,
   slug,
   mapViewport,
   setMapViewport,
   MapOverlay,
   loading,
-}: PoisDesktopProps): ReactElement => {
+}: PlacesDesktopProps): ReactElement => {
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
-  const { pois, poi, mapFeatures, mapFeature } = data
+  const { places, place, mapFeatures, mapFeature } = data
   const canDeselect = !!mapFeature || !!slug
   const { contentDirection } = useTheme()
 
@@ -122,12 +128,12 @@ const PoisDesktop = ({
     }
   }
 
-  const switchPoi = (step: 1 | -1) => {
-    const currentPoiIndex = pois.findIndex(it => it.slug === poi?.slug)
-    const updatedIndex = nextPoiIndex(step, pois.length, currentPoiIndex)
-    const newPoi = pois[updatedIndex]
-    if (newPoi) {
-      selectPoi(newPoi)
+  const switchPlace = (step: 1 | -1) => {
+    const currentPlaceIndex = places.findIndex(it => it.slug === place?.slug)
+    const updatedIndex = nextPlaceIndex(step, places.length, currentPlaceIndex)
+    const newPlace = places[updatedIndex]
+    if (newPlace) {
+      selectPlace(newPlace)
     }
   }
 
@@ -145,12 +151,12 @@ const PoisDesktop = ({
             listRef={listRef}
             canDeselect={canDeselect}
             deselect={deselect}
-            pois={pois}
-            poi={poi}
+            places={places}
+            place={place}
             scrollToTop={scrollToTop}
             userLocation={userLocation}
             slug={slug}
-            switchPoi={switchPoi}
+            switchPlace={switchPlace}
           />
         )}
       </PanelContainer>
@@ -173,4 +179,4 @@ const PoisDesktop = ({
   )
 }
 
-export default PoisDesktop
+export default PlacesDesktop

@@ -1,9 +1,9 @@
-import { PoiModelBuilder } from '../../endpoints/testing'
+import { PlaceModelBuilder } from '../../endpoints/testing'
 
-describe('PoiModel', () => {
-  const poi = new PoiModelBuilder(1).build()
+describe('PlaceModel', () => {
+  const place = new PlaceModelBuilder(1).build()
 
-  const expectedGeoJsonPoi = {
+  const expectedGeoJsonPlace = {
     id: 0,
     title: 'Test Title',
     symbol: 'gastronomy_#1DC6C6',
@@ -20,10 +20,10 @@ describe('PoiModel', () => {
   ]
 
   it('should return geo location', () => {
-    expect(poi[0]!.getFeature()).toEqual(expectedGeoJsonPoi)
+    expect(place[0]!.getFeature()).toEqual(expectedGeoJsonPlace)
   })
 
   it('should return openingHours', () => {
-    expect(poi[0]!.openingHours).toEqual(expectedOpeningHoursJson)
+    expect(place[0]!.openingHours).toEqual(expectedOpeningHoursJson)
   })
 })

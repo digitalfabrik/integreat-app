@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router'
 
-import { IMPRINT_ROUTE, NEWS_ROUTE, normalizePath, POIS_ROUTE, SEARCH_ROUTE } from 'shared'
+import { IMPRINT_ROUTE, NEWS_ROUTE, normalizePath, PLACES_ROUTE, SEARCH_ROUTE } from 'shared'
 import { RegionModel, RegionModelBuilder } from 'shared/api'
 
 import RegionContentNavigator from '../RegionContentNavigator'
@@ -19,7 +19,7 @@ jest.mock('react-i18next')
 
 jest.mock('../routes/SearchPage', () => () => <div>{SEARCH_ROUTE}</div>)
 jest.mock('../routes/ImprintPage', () => () => <div>{IMPRINT_ROUTE}</div>)
-jest.mock('../routes/PlacesPage', () => () => <div>{POIS_ROUTE}</div>)
+jest.mock('../routes/PlacesPage', () => () => <div>{PLACES_ROUTE}</div>)
 
 describe('RegionContentNavigator', () => {
   const languageCode = 'de'
@@ -42,7 +42,7 @@ describe('RegionContentNavigator', () => {
       },
     )
 
-  it.each([{ routeName: SEARCH_ROUTE }, { routeName: IMPRINT_ROUTE }, { routeName: POIS_ROUTE }])(
+  it.each([{ routeName: SEARCH_ROUTE }, { routeName: IMPRINT_ROUTE }, { routeName: PLACES_ROUTE }])(
     'should navigate to $routeName route',
     async ({ routeName }) => {
       mockUseQueryFromEndpointWithData(region)
@@ -58,10 +58,10 @@ describe('RegionContentNavigator', () => {
     expect(getByText('error:unknownError')).toBeTruthy()
   })
 
-  it('should not navigate to pois route if pois are not enabled', async () => {
+  it('should not navigate to places route if places are not enabled', async () => {
     mockUseQueryFromEndpointWithData(regionWithDisabledFeatures)
-    const { queryByText } = renderRegionContentNavigator(POIS_ROUTE)
-    expect(queryByText(POIS_ROUTE)).not.toBeTruthy()
+    const { queryByText } = renderRegionContentNavigator(PLACES_ROUTE)
+    expect(queryByText(PLACES_ROUTE)).not.toBeTruthy()
   })
 
   describe('redirects', () => {

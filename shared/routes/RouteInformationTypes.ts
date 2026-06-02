@@ -9,7 +9,7 @@ import {
   LocalNewsType,
   MainImprintRouteType,
   NewsRouteType,
-  PoisRouteType,
+  PlacesRouteType,
   SearchRouteType,
   TuNewsType,
 } from '.'
@@ -65,12 +65,12 @@ export type EventsRouteInformationType = ParamsType & {
   slug?: string
 }
 
-export type PoisRouteInformationType = ParamsType & {
-  // Route with customizable ids and search params, e.g. '/augsburg/de/pois/1234?multipoi=2'
-  route: PoisRouteType
+export type PlacesRouteInformationType = ParamsType & {
+  // Route with customizable ids and search params, e.g. '/augsburg/de/places/1234?multipoi=2'
+  route: PlacesRouteType
   slug?: string
   multipoi?: number
-  poiCategoryId?: number
+  placeCategoryId?: number
   zoom?: number
 }
 
@@ -88,7 +88,7 @@ export type NonNullableRouteInformationType =
   | NewsRouteInformationType
   | SimpleRegionContentFeatureType
   | EventsRouteInformationType
-  | PoisRouteInformationType
+  | PlacesRouteInformationType
   | LicensesInformationType
   | SearchRouteInformationType
   | ConsentInformationType

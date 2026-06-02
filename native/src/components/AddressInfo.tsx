@@ -29,7 +29,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
   const { address, postcode, town } = location
   const showSnackbar = useSnackbar()
   const theme = useTheme()
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
 
   const copyLocationToClipboard = (): void => {
     Clipboard.setString(`${address}, ${postcode} ${town}`)

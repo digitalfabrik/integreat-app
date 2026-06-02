@@ -5,14 +5,14 @@ import {
   REGIONS_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
   LEGACY_REGIONS_ROUTE,
 } from '..'
 
 import InternalPathnameParser from '../InternalPathnameParser'
-import { MULTIPOI_QUERY_KEY, POI_CATEGORY_QUERY_KEY, SEARCH_QUERY_KEY, ZOOM_QUERY_KEY } from '../query'
+import { MULTIPOI_QUERY_KEY, PLACE_CATEGORY_QUERY_KEY, SEARCH_QUERY_KEY, ZOOM_QUERY_KEY } from '../query'
 
 const regionCode = 'bochum'
 const languageCode = 'de'
@@ -99,22 +99,22 @@ describe('InternalPathnameParser', () => {
     })
   })
 
-  it('should match pois route', () => {
-    const pathname = `/${regionCode}/${languageCode}/${POIS_ROUTE}`
+  it('should match places route', () => {
+    const pathname = `/${regionCode}/${languageCode}/${PLACES_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
-      route: POIS_ROUTE,
+      route: PLACES_ROUTE,
       languageCode,
       regionCode,
     })
   })
 
-  it('should match single pois route', () => {
+  it('should match single places route', () => {
     const slug = 'tuer-an-tuer'
-    const pathname = `/${regionCode}/${languageCode}/${POIS_ROUTE}/${slug}`
+    const pathname = `/${regionCode}/${languageCode}/${PLACES_ROUTE}/${slug}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
-      route: POIS_ROUTE,
+      route: PLACES_ROUTE,
       languageCode,
       regionCode,
       slug,
@@ -122,15 +122,15 @@ describe('InternalPathnameParser', () => {
   })
 
   it('should match multipoi route', () => {
-    const pathname = `/${regionCode}/${languageCode}/${POIS_ROUTE}`
-    const query = `?${MULTIPOI_QUERY_KEY}=1&${POI_CATEGORY_QUERY_KEY}=8`
+    const pathname = `/${regionCode}/${languageCode}/${PLACES_ROUTE}`
+    const query = `?${MULTIPOI_QUERY_KEY}=1&${PLACE_CATEGORY_QUERY_KEY}=8`
     const parser = new InternalPathnameParser(pathname, languageCode, null, query)
     expect(parser.route()).toEqual({
-      route: POIS_ROUTE,
+      route: PLACES_ROUTE,
       languageCode,
       regionCode,
       multipoi: 1,
-      poiCategoryId: 8,
+      placeCategoryId: 8,
     })
   })
 
@@ -313,41 +313,41 @@ describe('InternalPathnameParser', () => {
       })
     })
 
-    it('should match pois route', () => {
-      const pathname = `/${fixedRegion}/${languageCode}/${POIS_ROUTE}`
+    it('should match places route', () => {
+      const pathname = `/${fixedRegion}/${languageCode}/${PLACES_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
       expect(parser.route()).toEqual({
-        route: POIS_ROUTE,
+        route: PLACES_ROUTE,
         languageCode,
         regionCode: fixedRegion,
       })
     })
 
-    it('should match single pois route', () => {
+    it('should match single places route', () => {
       const slug = 'tuer-an-tuer'
-      const pathname = `/${fixedRegion}/${languageCode}/${POIS_ROUTE}/${slug}`
+      const pathname = `/${fixedRegion}/${languageCode}/${PLACES_ROUTE}/${slug}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
       expect(parser.route()).toEqual({
-        route: POIS_ROUTE,
+        route: PLACES_ROUTE,
         languageCode,
         regionCode: fixedRegion,
         slug,
       })
     })
 
-    it('should match single pois route with query params', () => {
+    it('should match single places route with query params', () => {
       const slug = 'tuer-an-tuer'
-      const pathname = `/${fixedRegion}/${languageCode}/${POIS_ROUTE}/${slug}`
-      const query = `?${MULTIPOI_QUERY_KEY}=2&${ZOOM_QUERY_KEY}=10&${POI_CATEGORY_QUERY_KEY}=8`
+      const pathname = `/${fixedRegion}/${languageCode}/${PLACES_ROUTE}/${slug}`
+      const query = `?${MULTIPOI_QUERY_KEY}=2&${ZOOM_QUERY_KEY}=10&${PLACE_CATEGORY_QUERY_KEY}=8`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion, query)
       expect(parser.route()).toEqual({
-        route: POIS_ROUTE,
+        route: PLACES_ROUTE,
         languageCode,
         regionCode: fixedRegion,
         slug,
         multipoi: 2,
         zoom: 10,
-        poiCategoryId: 8,
+        placeCategoryId: 8,
       })
     })
 
@@ -476,7 +476,7 @@ describe('InternalPathnameParser', () => {
       expect(parser2.route()).toBeNull()
       const parser3 = new InternalPathnameParser(`/${regionCode}/${languageCode}/events`, languageCode, fixedRegion)
       expect(parser3.route()).toBeNull()
-      const parser4 = new InternalPathnameParser(`/${regionCode}/${languageCode}/pois`, languageCode, fixedRegion)
+      const parser4 = new InternalPathnameParser(`/${regionCode}/${languageCode}/places`, languageCode, fixedRegion)
       expect(parser4.route()).toBeNull()
       const parser5 = new InternalPathnameParser(`/${regionCode}/${languageCode}/news`, languageCode, fixedRegion)
       expect(parser5.route()).toBeNull()
@@ -517,22 +517,22 @@ describe('InternalPathnameParser', () => {
       })
     })
 
-    it('should match pois route', () => {
-      const pathname = `/${regionCode}/${POIS_ROUTE}`
+    it('should match places route', () => {
+      const pathname = `/${regionCode}/${PLACES_ROUTE}`
       const parser = new InternalPathnameParser(pathname, languageCode, null)
       expect(parser.route()).toEqual({
-        route: POIS_ROUTE,
+        route: PLACES_ROUTE,
         languageCode,
         regionCode,
       })
     })
 
-    it('should match single pois route', () => {
+    it('should match single places route', () => {
       const slug = 'tuer-an-tuer'
-      const pathname = `/${regionCode}/${POIS_ROUTE}/${slug}`
+      const pathname = `/${regionCode}/${PLACES_ROUTE}/${slug}`
       const parser = new InternalPathnameParser(pathname, languageCode, null)
       expect(parser.route()).toEqual({
-        route: POIS_ROUTE,
+        route: PLACES_ROUTE,
         languageCode,
         regionCode,
         slug,
@@ -540,15 +540,15 @@ describe('InternalPathnameParser', () => {
     })
 
     it('should match multipoi route', () => {
-      const pathname = `/${regionCode}/${POIS_ROUTE}`
-      const query = `?${MULTIPOI_QUERY_KEY}=1&${POI_CATEGORY_QUERY_KEY}=8`
+      const pathname = `/${regionCode}/${PLACES_ROUTE}`
+      const query = `?${MULTIPOI_QUERY_KEY}=1&${PLACE_CATEGORY_QUERY_KEY}=8`
       const parser = new InternalPathnameParser(pathname, languageCode, null, query)
       expect(parser.route()).toEqual({
-        route: POIS_ROUTE,
+        route: PLACES_ROUTE,
         languageCode,
         regionCode,
         multipoi: 1,
-        poiCategoryId: 8,
+        placeCategoryId: 8,
       })
     })
 

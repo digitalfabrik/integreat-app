@@ -12,7 +12,7 @@ import {
   EventModel,
   LanguageModel,
   LocalNewsModel,
-  PoiModel,
+  PlaceModel,
   ReturnType,
   createRegionsEndpoint,
 } from 'shared/api'
@@ -38,7 +38,7 @@ export type RegionContentData = {
   categories: CategoriesMapModel
   events: EventModel[]
   localNews: LocalNewsModel[]
-  pois: PoiModel[]
+  places: PlaceModel[]
 }
 
 export type RegionContentReturn = Omit<Omit<ReturnType<RegionContentData>, 'error'>, 'setData'> & {
@@ -75,12 +75,12 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
     getFromDataContainer: dataContainer.getEvents,
     setToDataContainer: dataContainer.setEvents,
   })
-  const poisReturn = useLoadWithCache({
+  const placesReturn = useLoadWithCache({
     ...params,
-    isAvailable: dataContainer.poisAvailable,
+    isAvailable: dataContainer.placesAvailable,
     createEndpoint: createPlacesEndpoint,
-    getFromDataContainer: dataContainer.getPois,
-    setToDataContainer: dataContainer.setPois,
+    getFromDataContainer: dataContainer.getPlaces,
+    setToDataContainer: dataContainer.setPlaces,
   })
   const localNewsReturn = useLoadWithCache({
     ...params,
@@ -92,7 +92,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
   })
 
   useEffect(() => {
-    if (regionsReturn.data && categoriesReturn.data && eventsReturn.data && poisReturn.data && localNewsReturn.data) {
+    if (regionsReturn.data && categoriesReturn.data && eventsReturn.data && placesReturn.data && localNewsReturn.data) {
       // Load the resource cache in the background once a day and do not wait for it
       dataContainer.getLastUpdate(regionCode, languageCode).then(lastUpdate => {
         if (!lastUpdate || lastUpdate < DateTime.utc().startOf('day')) {
@@ -101,7 +101,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
             languageCode,
             categories: categoriesReturn.data,
             events: eventsReturn.data,
-            pois: poisReturn.data,
+            places: placesReturn.data,
           }).catch(reportError)
         }
       })
@@ -110,7 +110,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
       // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
       dataContainer.setLastUpdate(regionCode, languageCode, DateTime.utc()).catch(reportError)
     }
-  }, [regionsReturn, categoriesReturn, eventsReturn, poisReturn, localNewsReturn, regionCode, languageCode])
+  }, [regionsReturn, categoriesReturn, eventsReturn, placesReturn, localNewsReturn, regionCode, languageCode])
 
   const region = regionsReturn.data?.find(it => it.code === regionCode)
   const language = region?.languages.find(it => it.code === languageCode)
@@ -130,7 +130,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
       regionsReturn.error ??
       categoriesReturn.error ??
       eventsReturn.error ??
-      poisReturn.error ??
+      placesReturn.error ??
       localNewsReturn.error ??
       null
     )
@@ -140,14 +140,14 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
     regionsReturn.loading ||
     categoriesReturn.loading ||
     eventsReturn.loading ||
-    poisReturn.loading ||
+    placesReturn.loading ||
     localNewsReturn.loading
 
   const refresh = () => {
     regionsReturn.refresh()
     categoriesReturn.refresh()
     eventsReturn.refresh()
-    poisReturn.refresh()
+    placesReturn.refresh()
     localNewsReturn.refresh()
   }
 
@@ -157,7 +157,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
     regionsReturn.data &&
     categoriesReturn.data &&
     eventsReturn.data &&
-    poisReturn.data &&
+    placesReturn.data &&
     localNewsReturn.data
       ? {
           region,
@@ -166,7 +166,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
           languages: region.languages,
           categories: categoriesReturn.data,
           events: eventsReturn.data,
-          pois: poisReturn.data,
+          places: placesReturn.data,
           localNews: localNewsReturn.data,
         }
       : null

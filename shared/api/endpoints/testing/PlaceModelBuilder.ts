@@ -4,11 +4,11 @@ import ContactModel from '../../models/ContactModel'
 import LocationModel from '../../models/LocationModel'
 import OpeningHoursModel from '../../models/OpeningHoursModel'
 import OrganizationModel from '../../models/OrganizationModel'
-import PoiCategoryModel from '../../models/PlaceCategoryModel'
-import PoiModel from '../../models/PlaceModel'
+import PlaceCategoryModel from '../../models/PlaceCategoryModel'
+import PlaceModel from '../../models/PlaceModel'
 
-const pois = [
-  new PoiModel({
+const places = [
+  new PlaceModel({
     path: '/augsburg/de/locations/test',
     title: 'Test Title',
     content: 'My extremely long test content',
@@ -19,7 +19,7 @@ const pois = [
     },
     excerpt: 'excerpt',
     metaDescription: 'meta',
-    category: new PoiCategoryModel({
+    category: new PlaceCategoryModel({
       color: '#1DC6C6',
       iconName: 'gastronomy',
       id: 10,
@@ -64,7 +64,7 @@ const pois = [
     }),
     barrierFree: true,
   }),
-  new PoiModel({
+  new PlaceModel({
     path: '/augsburg/en/locations/test_path_2',
     title: 'test title 2',
     content: 'test content 2',
@@ -75,7 +75,7 @@ const pois = [
     },
     excerpt: 'test excerpt 2',
     metaDescription: 'meta 2',
-    category: new PoiCategoryModel({
+    category: new PlaceCategoryModel({
       color: '#3700D2',
       iconName: 'service',
       id: 6,
@@ -107,7 +107,7 @@ const pois = [
     organization: null,
     barrierFree: false,
   }),
-  new PoiModel({
+  new PlaceModel({
     path: '/augsburg/en/locations/another_test_path',
     title: 'Another test title',
     content: 'another test content',
@@ -118,7 +118,7 @@ const pois = [
     },
     excerpt: 'Another test excerpt',
     metaDescription: null,
-    category: new PoiCategoryModel({
+    category: new PlaceCategoryModel({
       color: '#1DC6C6',
       iconName: 'gastronomy',
       id: 10,
@@ -145,20 +145,20 @@ const pois = [
   }),
 ]
 
-class PoiModelBuilder {
-  _poisCount: number
+class PlaceModelBuilder {
+  _placesCount: number
 
-  constructor(poisCount: number) {
-    this._poisCount = poisCount
+  constructor(placesCount: number) {
+    this._placesCount = placesCount
 
-    if (this._poisCount > pois.length) {
-      throw new Error(`Only ${pois.length} poi models can be created`)
+    if (this._placesCount > places.length) {
+      throw new Error(`Only ${places.length} place models can be created`)
     }
   }
 
-  build(): PoiModel[] {
-    return pois.slice(0, this._poisCount)
+  build(): PlaceModel[] {
+    return places.slice(0, this._placesCount)
   }
 }
 
-export default PoiModelBuilder
+export default PlaceModelBuilder

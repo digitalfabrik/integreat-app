@@ -7,7 +7,7 @@ import openExternalUrl from '../utils/openExternalUrl'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
-type PoiDetailRowProps = {
+type PlaceDetailRowProps = {
   externalUrl: string
   accessibilityLabel: string
   text: string
@@ -29,7 +29,13 @@ const styles = StyleSheet.create({
   },
 })
 
-const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon, iconEnd }: PoiDetailRowProps): ReactElement => {
+const PlaceDetailRow = ({
+  externalUrl,
+  text,
+  accessibilityLabel,
+  icon,
+  iconEnd,
+}: PlaceDetailRowProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const theme = useTheme()
   return (
@@ -51,4 +57,4 @@ const PoiDetailRow = ({ externalUrl, text, accessibilityLabel, icon, iconEnd }: 
   )
 }
 
-export default PoiDetailRow
+export default PlaceDetailRow

@@ -8,8 +8,8 @@ export const SUGGEST_TO_REGION_ROUTE: SuggestToRegionRouteType = 'recommend'
 export type CategoriesRouteType = 'categories'
 export const CATEGORIES_ROUTE: CategoriesRouteType = 'categories'
 
-export type PoisRouteType = 'locations'
-export const POIS_ROUTE: PoisRouteType = 'locations'
+export type PlacesRouteType = 'locations'
+export const PLACES_ROUTE: PlacesRouteType = 'locations'
 
 export type EventsRouteType = 'events'
 export const EVENTS_ROUTE: EventsRouteType = 'events'
@@ -43,8 +43,8 @@ export type CategoriesTabRouteType = 'categoriesTab'
 export const CATEGORIES_TAB_ROUTE: CategoriesTabRouteType = 'categoriesTab'
 export type EventsTabRouteType = 'eventsTab'
 export const EVENTS_TAB_ROUTE: EventsTabRouteType = 'eventsTab'
-export type PoisTabRouteType = 'poisTab'
-export const POIS_TAB_ROUTE: PoisTabRouteType = 'poisTab'
+export type PlacesTabRouteType = 'placesTab'
+export const PLACES_TAB_ROUTE: PlacesTabRouteType = 'placesTab'
 export type NewsTabRouteType = 'newsTab'
 export const NEWS_TAB_ROUTE: NewsTabRouteType = 'newsTab'
 
@@ -101,5 +101,5 @@ export const RESERVED_REGION_CONTENT_SLUGS: string[] = [
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   NEWS_ROUTE,
-  POIS_ROUTE,
+  PLACES_ROUTE,
 ]
