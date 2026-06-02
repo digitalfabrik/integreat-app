@@ -1,10 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Dimensions } from 'react-native'
-import Svg, { Circle, G } from 'react-native-svg'
+import { ActivityIndicator } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { buildConfigAssets } from '../constants/buildConfig'
 import Text from './base/Text'
 
 const Container = styled.View`
@@ -16,50 +14,16 @@ const Container = styled.View`
   align-items: center;
 `
 
-const LoadingImage = styled(buildConfigAssets().LoadingImage)`
-  shadow-color: #000;
-  shadow-offset: 0 2px;
-  shadow-opacity: 0.25;
-  shadow-radius: 3.84px;
-  elevation: 5;
-`
-
-const SVG_SIZE_FRACTION = 0.333
-const svgSize = Dimensions.get('window').width * SVG_SIZE_FRACTION
-const LOGO_SIZE_FRACTION = 0.8
-const logoSize = svgSize * LOGO_SIZE_FRACTION
-const logoXY = (svgSize - logoSize) / 2
-const STROKE_WIDTH_FRACTION = 0.09
-const DIAMETER_FRACTION = 1.2
-const strokeWidth = svgSize * STROKE_WIDTH_FRACTION
-const radius = (svgSize - strokeWidth * DIAMETER_FRACTION) / 2
-const circumference = radius * 2 * Math.PI
-
-type ProgressSpinnerProps = {
-  progress?: number
-}
-
-const ProgressSpinner = ({ progress = 0 }: ProgressSpinnerProps): ReactElement => {
+const ProgressSpinner = (): ReactElement => {
   const { t } = useTranslation('common')
   const theme = useTheme()
   return (
     <Container>
-      <Svg width={svgSize} height={svgSize} testID='loading-image'>
-        <G transform={`translate(${logoXY}, ${logoXY})`}>
-          <LoadingImage width={logoSize} height={logoSize} />
-        </G>
-        <Circle
-          fill='none'
-          stroke={theme.colors.secondary}
-          strokeDasharray={circumference}
-          strokeDashoffset={circumference - progress * circumference}
-          strokeWidth={svgSize * STROKE_WIDTH_FRACTION}
-          cx={svgSize / 2}
-          cy={svgSize / 2}
-          r={radius}
-        />
-      </Svg>
+      <ActivityIndicator size='large' color={theme.colors.primary} />
       <Text
+        accessibilityLiveRegion='assertive'
+        accessibilityState={{ busy: true }}
+        accessibilityLabel={t('loading')}
         variant='h4'
         style={{
           paddingTop: 24,
