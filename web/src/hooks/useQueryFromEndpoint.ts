@@ -7,7 +7,7 @@ import { Endpoint, loadFromEndpoint } from 'shared/api'
 const defaultStaleTime = 5 * 60 * 1000
 
 export type UseQueryFromEndpointReturn<T extends object> = UseQueryResult<T> & {
-  setData: (data: T) => void
+  setData: (data: T | null) => void
 }
 
 const useQueryFromEndpoint = <T extends object, P>(

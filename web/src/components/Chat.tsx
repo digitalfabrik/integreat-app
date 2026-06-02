@@ -1,5 +1,6 @@
 import InfoIcon from '@mui/icons-material/Info'
 import MailLock from '@mui/icons-material/MailLock'
+import RefreshIcon from '@mui/icons-material/Refresh'
 import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
@@ -9,10 +10,20 @@ import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { KeyboardEvent, ReactElement, useState } from 'react'
+import React, { KeyboardEvent, ReactElement, SetStateAction, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ChatMessagesReturn, createSendChatMessageEndpoint, NotFoundError, RegionModel } from 'shared/api'
+import {
+  ChatMessageModel,
+  ChatMessagesReturn,
+  createSendChatMessageEndpoint,
+  fromError,
+  loadAsync,
+  loadFromEndpoint,
+  NotFoundError,
+  RegionModel,
+  SerializedChatMessage,
+} from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -21,6 +32,7 @@ import useLocalStorage, {
   CHAT_PRIVACY_POLICIES_STORAGE_KEY,
 } from '../hooks/useLocalStorage'
 import { UseQueryFromEndpointReturn } from '../hooks/useQueryFromEndpoint'
+import { reportError } from '../utils/sentry'
 import ChatConversation from './ChatConversation'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
@@ -37,15 +49,26 @@ const Container = styled(Stack)(({ theme }) => ({
 
 type ChatProps = {
   response: UseQueryFromEndpointReturn<ChatMessagesReturn>
+  serializedUnsyncedMessages: SerializedChatMessage[]
+  setUnsyncedMessages: (messages: SetStateAction<SerializedChatMessage[]>) => void
   chatId: string
   region: RegionModel
   languageCode: string
 }
 
-const Chat = ({ response, chatId, region, languageCode }: ChatProps): ReactElement => {
+const Chat = ({
+  response,
+  setUnsyncedMessages,
+  serializedUnsyncedMessages,
+  chatId,
+  region,
+  languageCode,
+}: ChatProps): ReactElement => {
   const [sendingError, setSendingError] = useState<Error | null>(null)
   const [textInput, setTextInput] = useState<string>('')
-  const { t } = useTranslation('chat')
+  const { t } = useTranslation(['chat', 'error'])
+
+  const unsyncedMessages = serializedUnsyncedMessages.map(ChatMessageModel.deserialize)
 
   const [chatHintVisible, setChatHintVisible] = useLocalStorage<boolean>({
     key: CHAT_HINT_VISIBLE_STORAGE_KEY,
@@ -61,35 +84,64 @@ const Chat = ({ response, chatId, region, languageCode }: ChatProps): ReactEleme
   const acceptCustomPrivacyPolicy = () =>
     setAcceptedPrivacyPolicies({ ...acceptedPrivacyPolicies, [region.code]: true })
 
-  const { setData, data, isPending } = response
+  const { setData, data, isPending, refetch } = response
   const botTyping = data?.botTyping ?? false
-  const messages = data?.messages ?? []
+  const messages = [...(data?.messages ?? []), ...unsyncedMessages].sort(
+    (a, b) => a.created.toMillis() - b.created.toMillis(),
+  )
   // If no message has been sent yet, fetching the messages yields a 404 not found error
-  const error = sendingError ?? (response.error instanceof NotFoundError ? null : response.error)
+  const error = response.error instanceof NotFoundError ? null : response.error
 
-  const submitMessage = async (message: string) => {
-    const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
-      regionCode: region.code,
-      language: languageCode,
-      message,
-      deviceId: chatId,
-    })
-
-    if (data !== null) {
-      setData(data)
-    }
-
-    if (error !== null) {
-      setSendingError(error)
-    }
-  }
+  const submitMessage = (
+    message: string,
+    { onSuccess, isRetry = false }: { onSuccess?: () => void; isRetry?: boolean } = {},
+  ) =>
+    loadAsync(
+      () =>
+        loadFromEndpoint(createSendChatMessageEndpoint, cmsApiBaseUrl, {
+          regionCode: region.code,
+          language: languageCode,
+          message,
+          deviceId: chatId,
+        }),
+      {
+        setData: newData => {
+          if (newData) {
+            setData(newData)
+            onSuccess?.()
+            setSendingError(null)
+            refetch().catch(reportError)
+          }
+        },
+        setError: error => {
+          setSendingError(error)
+          if (error && !isRetry) {
+            setUnsyncedMessages(previous => [...previous, ChatMessageModel.unsyncedMessage(message)])
+          }
+        },
+      },
+    )
 
   const onSubmit = () => {
-    submitMessage(textInput)
+    submitMessage(textInput).catch(reportError)
     setTextInput('')
   }
 
-  const submitDisabled = textInput.trim().length === 0 || error != null || isPending
+  const retry = async () => {
+    await refetch()
+    setSendingError(null)
+  }
+
+  const retrySend = (message: ChatMessageModel) => {
+    submitMessage(message.content, {
+      onSuccess: () => {
+        setUnsyncedMessages(serializedUnsyncedMessages.filter(serialized => serialized.id !== message.id))
+      },
+      isRetry: true,
+    }).catch(reportError)
+  }
+
+  const submitDisabled = textInput.trim().length === 0
   const submitOnEnter = (event: KeyboardEvent) => {
     if (event.key !== 'Enter' || event.shiftKey) {
       return
@@ -119,9 +171,21 @@ const Chat = ({ response, chatId, region, languageCode }: ChatProps): ReactEleme
 
   return (
     <Container justifyContent='space-between'>
-      <ChatConversation messages={messages} isTyping={botTyping} loading={isPending} />
+      <ChatConversation retrySend={retrySend} messages={messages} isTyping={botTyping} loading={isPending} />
       <Stack paddingInline={2} gap={1}>
-        {error && <Alert severity='error'>{t('errorMessage')}</Alert>}
+        {(error || sendingError) && (
+          <Alert
+            severity='error'
+            action={
+              <Tooltip title={t('error:tryAgain')}>
+                <IconButton onClick={retry} aria-label={t('error:tryAgain')} size='small'>
+                  <RefreshIcon />
+                </IconButton>
+              </Tooltip>
+            }>
+            {t(fromError(error ?? sendingError), { ns: 'error' })}
+          </Alert>
+        )}
         {chatHintVisible && (
           <Alert severity='info' icon={<InfoIcon />} onClose={() => setChatHintVisible(false)}>
             <Typography variant='body2'>{t('conversationHelperText')}</Typography>

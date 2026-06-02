@@ -20,15 +20,16 @@ const StyledList = styled(List)({
 })
 
 type ChatConversationProps = {
+  retrySend: (message: ChatMessageModel) => void
   messages: ChatMessageModel[]
   isTyping: boolean
   loading?: boolean
 }
 
-const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps): ReactElement => {
-  const { t } = useTranslation('chat')
+const ChatConversation = ({ retrySend, messages, isTyping, loading }: ChatConversationProps): ReactElement => {
   const [messagesCount, setMessagesCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const { t } = useTranslation('chat')
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -67,7 +68,12 @@ const ChatConversation = ({ messages, isTyping, loading }: ChatConversationProps
         <>
           <StyledList disablePadding>
             {messages.map((message, index) => (
-              <ChatMessage message={message} key={message.id} previousMessage={messages[index - 1]} />
+              <ChatMessage
+                retrySend={retrySend}
+                message={message}
+                key={message.id}
+                previousMessage={messages[index - 1]}
+              />
             ))}
           </StyledList>
           <TypingIndicator isVisible={isTyping} />

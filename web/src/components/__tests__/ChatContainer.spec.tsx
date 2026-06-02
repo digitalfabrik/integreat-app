@@ -55,7 +55,7 @@ describe('ChatContainer', () => {
     expect(router.state.location.search).toBe('?test=asdf&chat=true')
 
     expect(getByText('chat:conversationText')).toBeTruthy()
-    expect(getByText('chat:conversationHelperText')).toBeTruthy()
+    expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
 
     fireEvent.click(getByLabelText('layout:common:close'))
 
@@ -95,7 +95,7 @@ describe('ChatContainer', () => {
       },
     )
     expect(getByText('chat:conversationText')).toBeTruthy()
-    expect(getByText('chat:conversationHelperText')).toBeTruthy()
+    expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
     expect(router.state.location.search).toBe('?chat=true&test=asdf')
   })
 
