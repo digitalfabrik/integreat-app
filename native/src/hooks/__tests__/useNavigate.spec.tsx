@@ -259,7 +259,7 @@ describe('useNavigate', () => {
       route: PLACES_ROUTE,
       ...params,
       slug: 'some-place',
-      multipoi: 42,
+      multiPlace: 42,
       zoom: 15,
       placeCategoryId: 7,
     })
@@ -268,7 +268,7 @@ describe('useNavigate', () => {
       PLACES_ROUTE,
       {
         slug: 'some-place',
-        multipoi: 42,
+        multiPlace: 42,
         zoom: 15,
         placeCategoryId: 7,
       },

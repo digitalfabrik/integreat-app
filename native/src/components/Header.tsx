@@ -87,7 +87,7 @@ const Header = ({
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
   const placesParams = route.params as RoutesParamsType[PlacesRouteType] | undefined
-  const hasPlacesParams = !!placesParams?.slug || placesParams?.multipoi !== undefined
+  const hasPlacesParams = !!placesParams?.slug || placesParams?.multiPlace !== undefined
 
   const tabNavigationState = navigation.getParent(TAB_NAVIGATOR_ID)?.getState()
   const rootNavigationState = navigation.getParent(ROOT_NAVIGATOR_ID)?.getState()
@@ -185,7 +185,7 @@ const Header = ({
 
   const isSinglePlaceFromPlacesRoute = (): boolean => {
     const placesRouteParams = route.params as RoutesParamsType[PlacesRouteType] | undefined
-    const isSinglePlace = !!placesRouteParams?.slug || placesRouteParams?.multipoi !== undefined
+    const isSinglePlace = !!placesRouteParams?.slug || placesRouteParams?.multiPlace !== undefined
     const notFromDeepLink = previousRoute?.name === PLACES_ROUTE
     return isSinglePlace && notFromDeepLink
   }

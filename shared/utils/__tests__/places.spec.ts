@@ -59,7 +59,7 @@ describe('preparePlaces', () => {
   it('should apply filters', () => {
     const data1 = preparePlaces({
       places,
-      params: { slug: undefined, multipoi: undefined, placeCategoryId: 10, currentlyOpen: true },
+      params: { slug: undefined, multiPlace: undefined, placeCategoryId: 10, currentlyOpen: true },
     })
     expect(data1.places).toEqual([place1])
     expect(data1.mapFeatures).toEqual(prepareMapFeatures([place1]))
@@ -68,7 +68,7 @@ describe('preparePlaces', () => {
 
     const data2 = preparePlaces({
       places,
-      params: { slug: undefined, multipoi: undefined, placeCategoryId: 6, currentlyOpen: true },
+      params: { slug: undefined, multiPlace: undefined, placeCategoryId: 6, currentlyOpen: true },
     })
     expect(data2.places).toEqual([place2])
     expect(data2.mapFeatures).toEqual(prepareMapFeatures([place2]))
@@ -77,7 +77,7 @@ describe('preparePlaces', () => {
 
     const data3 = preparePlaces({
       places,
-      params: { slug: undefined, multipoi: undefined, placeCategoryId: 10, currentlyOpen: undefined },
+      params: { slug: undefined, multiPlace: undefined, placeCategoryId: 10, currentlyOpen: undefined },
     })
     expect(data3.places).toEqual([place1, place3])
     expect(data3.mapFeatures).toEqual(prepareMapFeatures([place1, place3]))
@@ -86,7 +86,7 @@ describe('preparePlaces', () => {
 
     const data4 = preparePlaces({
       places,
-      params: { slug: undefined, multipoi: undefined, placeCategoryId: undefined, currentlyOpen: undefined },
+      params: { slug: undefined, multiPlace: undefined, placeCategoryId: undefined, currentlyOpen: undefined },
     })
     expect(data4.places).toEqual([place1, place2, place3])
     expect(data4.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3]))
@@ -94,10 +94,10 @@ describe('preparePlaces', () => {
     expect(data4.mapFeature).toBeUndefined()
   })
 
-  it('should handle multipois correctly', () => {
+  it('should handle multiPlaces correctly', () => {
     const data1 = preparePlaces({
       places,
-      params: { slug: undefined, multipoi: 0, placeCategoryId: undefined, currentlyOpen: undefined },
+      params: { slug: undefined, multiPlace: 0, placeCategoryId: undefined, currentlyOpen: undefined },
     })
     expect(data1.places).toEqual([place1, place3])
     expect(data1.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3]))
@@ -106,7 +106,7 @@ describe('preparePlaces', () => {
 
     const data2 = preparePlaces({
       places,
-      params: { slug: undefined, multipoi: 0, placeCategoryId: undefined, currentlyOpen: true },
+      params: { slug: undefined, multiPlace: 0, placeCategoryId: undefined, currentlyOpen: true },
     })
     expect(data2.places).toEqual([place1])
     expect(data2.mapFeatures).toEqual(prepareMapFeatures([place1, place2]))
@@ -115,7 +115,7 @@ describe('preparePlaces', () => {
 
     const data3 = preparePlaces({
       places,
-      params: { slug: undefined, multipoi: 2, placeCategoryId: undefined, currentlyOpen: undefined },
+      params: { slug: undefined, multiPlace: 2, placeCategoryId: undefined, currentlyOpen: undefined },
     })
     expect(data3.places).toEqual([place1, place2, place3])
     expect(data3.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3]))
@@ -126,7 +126,7 @@ describe('preparePlaces', () => {
   it('should handle slugs correctly', () => {
     const data1 = preparePlaces({
       places,
-      params: { slug: 'test', multipoi: undefined, placeCategoryId: undefined, currentlyOpen: undefined },
+      params: { slug: 'test', multiPlace: undefined, placeCategoryId: undefined, currentlyOpen: undefined },
     })
     expect(data1.places).toEqual([place1, place2, place3])
     expect(data1.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3]))
@@ -135,7 +135,7 @@ describe('preparePlaces', () => {
 
     const data2 = preparePlaces({
       places,
-      params: { slug: 'another_test_path', multipoi: 0, placeCategoryId: undefined, currentlyOpen: undefined },
+      params: { slug: 'another_test_path', multiPlace: 0, placeCategoryId: undefined, currentlyOpen: undefined },
     })
     expect(data2.places).toEqual([place1, place3])
     expect(data2.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3]))
@@ -144,7 +144,7 @@ describe('preparePlaces', () => {
 
     const data3 = preparePlaces({
       places,
-      params: { slug: 'test', multipoi: 0, placeCategoryId: undefined, currentlyOpen: true },
+      params: { slug: 'test', multiPlace: 0, placeCategoryId: undefined, currentlyOpen: true },
     })
     expect(data3.places).toEqual([place1])
     expect(data3.mapFeatures).toEqual(prepareMapFeatures([place1, place2]))
@@ -155,14 +155,14 @@ describe('preparePlaces', () => {
   it('should prepare place categories', () => {
     const { placeCategories: placeCategories1, placeCategory: placeCategory1 } = preparePlaces({
       places,
-      params: { slug: 'test', multipoi: 0, placeCategoryId: undefined, currentlyOpen: true },
+      params: { slug: 'test', multiPlace: 0, placeCategoryId: undefined, currentlyOpen: true },
     })
     expect(placeCategories1).toEqual([place2.category, place3.category])
     expect(placeCategory1).toBeUndefined()
 
     const { placeCategories: placeCategories2, placeCategory: placeCategory2 } = preparePlaces({
       places: [...places, ...places],
-      params: { slug: 'test', multipoi: 0, placeCategoryId: 10, currentlyOpen: true },
+      params: { slug: 'test', multiPlace: 0, placeCategoryId: 10, currentlyOpen: true },
     })
     expect(placeCategories2).toEqual([place2.category, place3.category])
     expect(placeCategory2).toEqual(place1.category)

@@ -21,12 +21,12 @@ describe('Places', () => {
 
   const renderPlaces = ({
     slug = undefined,
-    multipoi = undefined,
+    multiPlace = undefined,
     placeCategoryId = undefined,
     loading = false,
   }: {
     slug?: string
-    multipoi?: number
+    multiPlace?: number
     placeCategoryId?: number
     loading?: boolean
   }) => {
@@ -34,7 +34,7 @@ describe('Places', () => {
       regionCode: region.code,
       languageCode: 'de',
       route: PLACES_ROUTE,
-      multipoi,
+      multiPlace,
       slug,
       placeCategoryId,
     }
@@ -86,7 +86,7 @@ describe('Places', () => {
     expect(getByText(place2.title)).toBeTruthy()
   })
 
-  it('should select multipoi and filter list', () => {
+  it('should select multiPlace and filter list', () => {
     const { queryByText, getByText } = renderPlaces({})
 
     expect(getByText(place0.title)).toBeTruthy()
@@ -134,8 +134,8 @@ describe('Places', () => {
     expect(getByText(place2.title)).toBeTruthy()
   })
 
-  it('should select multipoi initially', () => {
-    const { queryByText, getByText } = renderPlaces({ multipoi: 0 })
+  it('should select multiPlace initially', () => {
+    const { queryByText, getByText } = renderPlaces({ multiPlace: 0 })
 
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()

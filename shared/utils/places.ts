@@ -16,7 +16,7 @@ export const sortPlaces = (places: PlaceModel[], userLocation: LocationType | nu
 
 type PlaceFiltersParams = {
   slug: string | undefined
-  multipoi: number | undefined
+  multiPlace: number | undefined
   placeCategoryId: number | undefined
   currentlyOpen?: boolean | undefined
 }
@@ -36,7 +36,7 @@ export type PreparePlacesReturn = {
 }
 
 export const preparePlaces = ({ places: allPlaces, params }: PreparePlacesProps): PreparePlacesReturn => {
-  const { slug, multipoi, currentlyOpen, placeCategoryId } = params
+  const { slug, multiPlace, currentlyOpen, placeCategoryId } = params
   const place = allPlaces.find(it => it.slug === slug)
 
   const filteredPlaces = allPlaces
@@ -45,11 +45,11 @@ export const preparePlaces = ({ places: allPlaces, params }: PreparePlacesProps)
 
   const mapFeatures = prepareMapFeatures(filteredPlaces)
   const mapFeature = mapFeatures.find(feature =>
-    multipoi !== undefined ? feature.id === multipoi : feature.properties.places.some(place => place.slug === slug),
+    multiPlace !== undefined ? feature.id === multiPlace : feature.properties.places.some(place => place.slug === slug),
   )
 
   const places =
-    multipoi !== undefined && mapFeature
+    multiPlace !== undefined && mapFeature
       ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         mapFeature.properties.places.map(it => filteredPlaces.find(place => place.slug === it.slug)!)
       : filteredPlaces

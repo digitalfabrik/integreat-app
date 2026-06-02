@@ -5,7 +5,7 @@ import { Chip } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { isMultipoi, MapFeature, preparePlaces, safeParseInt, sortPlaces } from 'shared'
+import { isMultiPlace, MapFeature, preparePlaces, safeParseInt, sortPlaces } from 'shared'
 import { PlaceCategoryModel, PlaceModel, RegionModel } from 'shared/api'
 
 import { EditLocationIcon } from '../assets'
@@ -42,7 +42,7 @@ const SNAP_PLACENT_MID_PERCENTAGE = 0.35
 
 export type PlaceHistory = {
   slug: string | undefined
-  multipoi: number | undefined
+  multiPlace: number | undefined
   placeCategoryId: number | undefined
   currentlyOpen: boolean
   showFilterSelection: boolean
@@ -57,7 +57,7 @@ type PlacesProps = {
 }
 
 const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionModel }: PlacesProps): ReactElement => {
-  const { slug, multipoi, placeCategoryId, currentlyOpen, showFilterSelection } = localHistory.current
+  const { slug, multiPlace, placeCategoryId, currentlyOpen, showFilterSelection } = localHistory.current
   const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
   const [zoomInFocusTarget, setZoomInFocusTarget] = useState<number | undefined>(undefined)
   const { userLocation, refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: false })
@@ -70,14 +70,14 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
 
   const { places, place, mapFeatures, mapFeature, placeCategories, placeCategory } = preparePlaces({
     places: allPlaces,
-    params: { slug, multipoi, placeCategoryId, currentlyOpen },
+    params: { slug, multiPlace, placeCategoryId, currentlyOpen },
   })
 
   const handleZoomInRef = useCallback((view: View | null) => {
     setZoomInFocusTarget(findNodeHandle(view) ?? undefined)
   }, [])
 
-  const deselect = () => localHistory.push(multipoi !== undefined && slug ? { multipoi } : {})
+  const deselect = () => localHistory.push(multiPlace !== undefined && slug ? { multiPlace } : {})
 
   const updateShowFilterSelection = (showFilterSelection: boolean) => localHistory.push({ showFilterSelection })
 
@@ -91,10 +91,10 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     setBottomSheetSnapPointIndex(1)
 
     const slug = mapFeature?.properties.places[0]?.slug
-    if (mapFeature && isMultipoi(mapFeature)) {
-      localHistory.push({ multipoi: safeParseInt(mapFeature.id), slug: undefined })
+    if (mapFeature && isMultiPlace(mapFeature)) {
+      localHistory.push({ multiPlace: safeParseInt(mapFeature.id), slug: undefined })
     } else if (slug || localHistory.current.slug) {
-      localHistory.push({ multipoi: undefined, slug })
+      localHistory.push({ multiPlace: undefined, slug })
     }
   }
 

@@ -11,19 +11,19 @@ describe('queryStringFromRouteInformation', () => {
 
     expect(queryStringFromRouteInformation(routeInformation)).toBeUndefined()
     expect(queryStringFromRouteInformation({ ...routeInformation, slug: 'test-slug' })).toBeUndefined()
-    expect(queryStringFromRouteInformation({ ...routeInformation, multipoi: 1 })).toBe('?multipoi=1')
-    expect(queryStringFromRouteInformation({ ...routeInformation, slug: 'test-slug', multipoi: 1, zoom: 10 })).toBe(
-      '?multipoi=1&zoom=10',
+    expect(queryStringFromRouteInformation({ ...routeInformation, multiPlace: 1 })).toBe('?multiplace=1')
+    expect(queryStringFromRouteInformation({ ...routeInformation, slug: 'test-slug', multiPlace: 1, zoom: 10 })).toBe(
+      '?multiplace=1&zoom=10',
     )
     expect(
       queryStringFromRouteInformation({
         ...routeInformation,
         slug: 'test-slug',
-        multipoi: 1,
+        multiPlace: 1,
         zoom: 10,
         placeCategoryId: 7,
       }),
-    ).toBe('?multipoi=1&category=7&zoom=10')
+    ).toBe('?multiplace=1&category=7&zoom=10')
   })
 
   it('should create search query string', () => {
@@ -53,9 +53,9 @@ describe('queryStringFromRouteInformation', () => {
 describe('parse query params', () => {
   it('should get place query params', () => {
     expect(parseQueryParams(new URLSearchParams(''))).toEqual({})
-    expect(parseQueryParams(new URLSearchParams('?multipoi=3'))).toEqual({ multipoi: 3 })
-    expect(parseQueryParams(new URLSearchParams('?multipoi=1&category=7&zoom=10'))).toEqual({
-      multipoi: 1,
+    expect(parseQueryParams(new URLSearchParams('?multiplace=3'))).toEqual({ multiPlace: 3 })
+    expect(parseQueryParams(new URLSearchParams('?multiplace=1&category=7&zoom=10'))).toEqual({
+      multiPlace: 1,
       zoom: 10,
       placeCategoryId: 7,
     })
@@ -75,14 +75,14 @@ describe('parse query params', () => {
 describe('toQueryParams', () => {
   it('should get place query params', () => {
     expect(toQueryParams({})).toEqual(new URLSearchParams(''))
-    expect(toQueryParams({ multipoi: 1 })).toEqual(new URLSearchParams('?multipoi=1'))
+    expect(toQueryParams({ multiPlace: 1 })).toEqual(new URLSearchParams('?multiplace=1'))
     expect(
       toQueryParams({
-        multipoi: 1,
+        multiPlace: 1,
         zoom: 10,
         placeCategoryId: 7,
       }),
-    ).toEqual(new URLSearchParams('?multipoi=1&category=7&zoom=10'))
+    ).toEqual(new URLSearchParams('?multiplace=1&category=7&zoom=10'))
   })
 
   it('should get search query params', () => {

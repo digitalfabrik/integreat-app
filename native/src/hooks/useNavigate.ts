@@ -105,7 +105,7 @@ const navigate = <T extends RoutesType>(
         PLACES_ROUTE,
         {
           slug: routeInformation.slug,
-          multipoi: routeInformation.multipoi,
+          multiPlace: routeInformation.multiPlace,
           zoom: routeInformation.zoom,
           placeCategoryId: routeInformation.placeCategoryId,
         },

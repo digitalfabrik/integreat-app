@@ -4,7 +4,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router'
 
 import {
   parseQueryParams,
-  isMultipoi,
+  isMultiPlace,
   LocationType,
   MapFeature,
   MapViewViewport,
@@ -38,7 +38,7 @@ const Places = ({ places: allPlaces, userLocation, region, loading }: PlaceProps
   const [currentlyOpenFilter, setCurrentlyOpenFilter] = useState(false)
   const [showFilterSelection, setShowFilterSelection] = useState(false)
   const [queryParams, setQueryParams] = useSearchParams()
-  const { multipoi, placeCategoryId, zoom } = parseQueryParams(queryParams)
+  const { multiPlace, placeCategoryId, zoom } = parseQueryParams(queryParams)
   const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToRegion(region, zoom))
   const params = useParams()
   const navigate = useNavigate()
@@ -48,7 +48,7 @@ const Places = ({ places: allPlaces, userLocation, region, loading }: PlaceProps
 
   const preparedData = preparePlaces({
     places: allPlaces,
-    params: { slug, multipoi, placeCategoryId, currentlyOpen: currentlyOpenFilter },
+    params: { slug, multiPlace, placeCategoryId, currentlyOpen: currentlyOpenFilter },
   })
   const { places, placeCategories, placeCategory } = preparedData
 
@@ -74,8 +74,8 @@ const Places = ({ places: allPlaces, userLocation, region, loading }: PlaceProps
     setShowFilterSelection(false)
 
     const slug = mapFeature?.properties.places[0]?.slug
-    if (mapFeature && isMultipoi(mapFeature)) {
-      navigate(`.?${toQueryParams({ placeCategoryId, multipoi: safeParseInt(mapFeature.id) })}`)
+    if (mapFeature && isMultiPlace(mapFeature)) {
+      navigate(`.?${toQueryParams({ placeCategoryId, multiPlace: safeParseInt(mapFeature.id) })}`)
     } else if (slug) {
       navigate(`${slug}?${toQueryParams({ placeCategoryId })}`)
     }

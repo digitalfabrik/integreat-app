@@ -80,14 +80,16 @@ describe('PlacesContainer', () => {
     } as never)
   })
 
-  const createRoute = (params: { slug?: string; multipoi?: number; placeCategoryId?: number; zoom?: number } = {}) => ({
+  const createRoute = (
+    params: { slug?: string; multiPlace?: number; placeCategoryId?: number; zoom?: number } = {},
+  ) => ({
     key: 'route-key',
     name: PLACES_ROUTE,
-    params: { slug: undefined, multipoi: undefined, placeCategoryId: undefined, zoom: undefined, ...params },
+    params: { slug: undefined, multiPlace: undefined, placeCategoryId: undefined, zoom: undefined, ...params },
   })
 
   const renderContainer = (
-    params: { slug?: string; multipoi?: number; placeCategoryId?: number; zoom?: number } = {},
+    params: { slug?: string; multiPlace?: number; placeCategoryId?: number; zoom?: number } = {},
     contextProps: { languageCode?: string } = {},
   ) =>
     renderWithTheme(

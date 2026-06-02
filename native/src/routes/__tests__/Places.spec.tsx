@@ -20,7 +20,7 @@ jest.mock('@gorhom/bottom-sheet', () => ({
 
 const resetHistory: PlaceHistory = {
   slug: undefined,
-  multipoi: undefined,
+  multiPlace: undefined,
   placeCategoryId: undefined,
   currentlyOpen: false,
   showFilterSelection: false,
@@ -84,8 +84,8 @@ describe('Places', () => {
     expect(queryByText(place2.title)).toBeFalsy()
   })
 
-  it('should show filtered place list when multipoi is set', () => {
-    const { getByText, queryByText } = renderPlaces({ ...resetHistory, multipoi: 0 })
+  it('should show filtered place list when multiPlace is set', () => {
+    const { getByText, queryByText } = renderPlaces({ ...resetHistory, multiPlace: 0 })
 
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()
@@ -109,12 +109,12 @@ describe('Places', () => {
     expect(localHistory.push).toHaveBeenCalledWith({ slug: place1.slug })
   })
 
-  it('should call push with multipoi id when multipoi feature is pressed on map', () => {
+  it('should call push with multiPlace id when multiPlace feature is pressed on map', () => {
     const { localHistory, getByText } = renderPlaces()
 
     fireEvent.press(getByText('Feature-0'))
 
-    expect(localHistory.push).toHaveBeenCalledWith({ multipoi: 0, slug: undefined })
+    expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: 0, slug: undefined })
   })
 
   it('should call push with slug when single-place map feature is pressed', () => {
@@ -122,19 +122,19 @@ describe('Places', () => {
 
     fireEvent.press(getByText(`Feature-${place1.title}`))
 
-    expect(localHistory.push).toHaveBeenCalledWith({ multipoi: undefined, slug: place1.slug })
+    expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: undefined, slug: place1.slug })
   })
 
-  it('should call push to clear slug and multipoi when Map Press is pressed with place selected', () => {
+  it('should call push to clear slug and multiPlace when Map Press is pressed with place selected', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, slug: place1.slug })
 
     fireEvent.press(getByText('Map Press'))
 
-    expect(localHistory.push).toHaveBeenCalledWith({ multipoi: undefined, slug: undefined })
+    expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: undefined, slug: undefined })
   })
 
-  it('should not call push when Map Press is pressed with only a multipoi selected', () => {
-    const { localHistory, getByText } = renderPlaces({ ...resetHistory, multipoi: 0 })
+  it('should not call push when Map Press is pressed with only a multiPlace selected', () => {
+    const { localHistory, getByText } = renderPlaces({ ...resetHistory, multiPlace: 0 })
 
     fireEvent.press(getByText('Map Press'))
 
@@ -149,12 +149,12 @@ describe('Places', () => {
     expect(localHistory.push).toHaveBeenCalledWith({})
   })
 
-  it('should call push with multipoi when backToOverview is pressed with both multipoi and invalid slug', () => {
-    const { localHistory, getByText } = renderPlaces({ ...resetHistory, multipoi: 0, slug: 'invalid' })
+  it('should call push with multiPlace when backToOverview is pressed with both multiPlace and invalid slug', () => {
+    const { localHistory, getByText } = renderPlaces({ ...resetHistory, multiPlace: 0, slug: 'invalid' })
 
     fireEvent.press(getByText('backToOverview'))
 
-    expect(localHistory.push).toHaveBeenCalledWith({ multipoi: 0 })
+    expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: 0 })
   })
 
   it('should call push with showFilterSelection when adjustFilters is pressed', () => {

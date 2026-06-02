@@ -138,9 +138,9 @@ class InternalPathnameParser {
 
     // Single places are identified via their slug, e.g. 'my-place-1234'
     const slug = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
-    const { multipoi, placeCategoryId, zoom } = parseQueryParams(this._queryParams)
+    const { multiPlace, placeCategoryId, zoom } = parseQueryParams(this._queryParams)
 
-    return { ...params, route: PLACES_ROUTE, slug, multipoi, placeCategoryId, zoom }
+    return { ...params, route: PLACES_ROUTE, slug, multiPlace, placeCategoryId, zoom }
   }
 
   news = (): RouteInformationType => {

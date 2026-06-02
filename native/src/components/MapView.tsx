@@ -31,7 +31,7 @@ import {
   mapConfig,
   MapFeature,
   normalDetailZoom,
-  isMultipoi,
+  isMultiPlace,
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
@@ -181,7 +181,7 @@ const MapView = ({
     const feature = featureCollection.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
 
-    if (feature && isMultipoi(feature)) {
+    if (feature && isMultiPlace(feature)) {
       await zoomOnClusterPress(pressedCoordinates)
     }
   }

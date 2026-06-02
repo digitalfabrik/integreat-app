@@ -23,7 +23,7 @@ describe('PlacesBottomSheet', () => {
   const deselectAll = jest.fn()
   const selectPlace = jest.fn()
 
-  const renderPlaces = ({ slug = undefined }: { slug?: string; multipoi?: number; placeCategoryId?: number }) =>
+  const renderPlaces = ({ slug = undefined }: { slug?: string; multiPlace?: number; placeCategoryId?: number }) =>
     renderWithTheme(
       <TestingAppContext>
         <PlacesBottomSheet

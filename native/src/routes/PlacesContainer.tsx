@@ -17,7 +17,7 @@ import Places from './Places'
 
 const resetHistory = {
   slug: undefined,
-  multipoi: undefined,
+  multiPlace: undefined,
   placeCategoryId: undefined,
   currentlyOpen: false,
   showFilterSelection: false,
@@ -36,12 +36,12 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
   // Stack history would require rerendering the map and bottom sheet on every place (un-)selection
   const localHistory = useLocalStackHistory({
     params: route.params,
-    historyFromParams: ({ slug, multipoi, placeCategoryId }) => [
-      { slug, multipoi, placeCategoryId, currentlyOpen: false, showFilterSelection: false },
+    historyFromParams: ({ slug, multiPlace, placeCategoryId }) => [
+      { slug, multiPlace, placeCategoryId, currentlyOpen: false, showFilterSelection: false },
     ],
     resetHistory,
   })
-  const { slug, multipoi, placeCategoryId } = localHistory.current
+  const { slug, multiPlace, placeCategoryId } = localHistory.current
 
   useEffect(
     () =>
@@ -62,7 +62,7 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
     languageCode,
     regionCode,
     slug,
-    multipoi,
+    multiPlace,
     placeCategoryId,
     zoom: route.params.zoom,
   })

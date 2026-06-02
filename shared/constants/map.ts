@@ -32,7 +32,7 @@ export type GeoJsonPlaceProperties = {
 export type MarkerConfig = {
   defaultSymbol: string
   symbolActive: string
-  multipoi: string
+  multiPlace: string
   iconSize: number
   offsetY?: number
 }
@@ -72,7 +72,7 @@ export type MapFeature = Feature<Point, GeoJsonPlaceProperties> & {
   }
 }
 export type MapFeatureCollection = FeatureCollection<Point, GeoJsonPlaceProperties>
-export const isMultipoi = (placeFeature: MapFeature): boolean => placeFeature.properties.places.length > 1
+export const isMultiPlace = (placeFeature: MapFeature): boolean => placeFeature.properties.places.length > 1
 
 export const mapConfig: MapConfigProps = {
   styleJSON: 'https://maps.tuerantuer.org/styles/integreat/style.json',
@@ -101,7 +101,7 @@ export const animationDuration = 2000
 export const mapMarker: MarkerConfig = {
   iconSize: 0.6,
   defaultSymbol: 'marker_55',
-  multipoi: 'multipois_#585858',
+  multiPlace: 'multipois_#585858',
   symbolActive: 'marker_90_active',
   offsetY: -25,
 }

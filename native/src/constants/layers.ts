@@ -49,7 +49,7 @@ export const markerLayer = (selectedFeature: MapFeature | null): MarkerLayerType
         'case',
         ['==', ['length', ['get', 'places']], 1],
         ['get', 'symbol', ['at', 0, ['get', 'places']]],
-        mapMarker.multipoi,
+        mapMarker.multiPlace,
       ],
     ],
     iconOffset: [

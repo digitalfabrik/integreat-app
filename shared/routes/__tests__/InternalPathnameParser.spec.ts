@@ -12,7 +12,7 @@ import {
 } from '..'
 
 import InternalPathnameParser from '../InternalPathnameParser'
-import { MULTIPOI_QUERY_KEY, PLACE_CATEGORY_QUERY_KEY, SEARCH_QUERY_KEY, ZOOM_QUERY_KEY } from '../query'
+import { MULTI_PLACE_QUERY_KEY, PLACE_CATEGORY_QUERY_KEY, SEARCH_QUERY_KEY, ZOOM_QUERY_KEY } from '../query'
 
 const regionCode = 'bochum'
 const languageCode = 'de'
@@ -121,15 +121,15 @@ describe('InternalPathnameParser', () => {
     })
   })
 
-  it('should match multipoi route', () => {
+  it('should match multiPlace route', () => {
     const pathname = `/${regionCode}/${languageCode}/${PLACES_ROUTE}`
-    const query = `?${MULTIPOI_QUERY_KEY}=1&${PLACE_CATEGORY_QUERY_KEY}=8`
+    const query = `?${MULTI_PLACE_QUERY_KEY}=1&${PLACE_CATEGORY_QUERY_KEY}=8`
     const parser = new InternalPathnameParser(pathname, languageCode, null, query)
     expect(parser.route()).toEqual({
       route: PLACES_ROUTE,
       languageCode,
       regionCode,
-      multipoi: 1,
+      multiPlace: 1,
       placeCategoryId: 8,
     })
   })
@@ -338,14 +338,14 @@ describe('InternalPathnameParser', () => {
     it('should match single places route with query params', () => {
       const slug = 'tuer-an-tuer'
       const pathname = `/${fixedRegion}/${languageCode}/${PLACES_ROUTE}/${slug}`
-      const query = `?${MULTIPOI_QUERY_KEY}=2&${ZOOM_QUERY_KEY}=10&${PLACE_CATEGORY_QUERY_KEY}=8`
+      const query = `?${MULTI_PLACE_QUERY_KEY}=2&${ZOOM_QUERY_KEY}=10&${PLACE_CATEGORY_QUERY_KEY}=8`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion, query)
       expect(parser.route()).toEqual({
         route: PLACES_ROUTE,
         languageCode,
         regionCode: fixedRegion,
         slug,
-        multipoi: 2,
+        multiPlace: 2,
         zoom: 10,
         placeCategoryId: 8,
       })
@@ -539,15 +539,15 @@ describe('InternalPathnameParser', () => {
       })
     })
 
-    it('should match multipoi route', () => {
+    it('should match multiPlace route', () => {
       const pathname = `/${regionCode}/${PLACES_ROUTE}`
-      const query = `?${MULTIPOI_QUERY_KEY}=1&${PLACE_CATEGORY_QUERY_KEY}=8`
+      const query = `?${MULTI_PLACE_QUERY_KEY}=1&${PLACE_CATEGORY_QUERY_KEY}=8`
       const parser = new InternalPathnameParser(pathname, languageCode, null, query)
       expect(parser.route()).toEqual({
         route: PLACES_ROUTE,
         languageCode,
         regionCode,
-        multipoi: 1,
+        multiPlace: 1,
         placeCategoryId: 8,
       })
     })

@@ -87,7 +87,7 @@ export type NestedRoutesParamsType = {
   }
   [PLACES_ROUTE]: RouteTitle & {
     slug?: string
-    multipoi?: number
+    multiPlace?: number
     placeCategoryId?: number
     zoom?: number
   }

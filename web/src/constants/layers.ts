@@ -47,7 +47,7 @@ export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
         'case',
         ['==', ['length', ['get', 'places']], 1],
         ['get', 'symbol', ['at', 0, ['get', 'places']]],
-        mapMarker.multipoi,
+        mapMarker.multiPlace,
       ],
     ],
     'icon-offset': [
