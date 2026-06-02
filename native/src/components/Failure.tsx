@@ -47,7 +47,7 @@ const Failure = ({ code, retry, goTo, goToLabel }: FailureProps): ReactElement =
   return (
     <Container>
       <Icon size={160} source={getErrorIcon(code)} />
-      <Text>{t(code === ErrorCode.RegionUnavailable ? 'notFound.region' : code)}</Text>
+      <Text role='alert'>{t(code === ErrorCode.RegionUnavailable ? 'notFound.region' : code)}</Text>
       {retry && (
         <Button mode='contained' onPress={retry}>
           {t('tryAgain')}
