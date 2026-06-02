@@ -152,8 +152,9 @@ const RemoteContent = ({
   if (content.length === 0) {
     return null
   }
+
   if (error) {
-    return <Failure code={ErrorCode.UnknownError} />
+    return <Failure code={ErrorCode.UnknownError} retry={null} />
   }
 
   return (

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AccessibilityRole, KeyboardTypeOptions } from 'react-native'
 import { HelperText, Text, TextInput } from 'react-native-paper'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { isRTLText } from '../../constants/contentDirection'
 
@@ -44,13 +44,17 @@ const InputSection = ({
   hint,
   accessibilityRole,
 }: InputSectionProps): ReactElement => {
+  const theme = useTheme()
   const { t } = useTranslation('common')
+
   const lines = multiline ? numberOfLines : 1
+
   return (
     <Container>
       {showOptional && <Text style={{ textAlign: 'right' }}>({t('common:optional')})</Text>}
       <TextInput
         mode='outlined'
+        outlineColor={theme.colors.outlineVariant}
         label={title}
         onChangeText={onChange}
         onBlur={onBlur}

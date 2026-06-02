@@ -44,8 +44,8 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       onError: palette.error.contrastText,
       onErrorContainer: palette.error.contrastText,
       onBackground: palette.text.primary,
-      outline: palette.text.primary,
-      outlineVariant: palette.text.secondary,
+      outline: palette.primary.main,
+      outlineVariant: palette.text.primary,
       success: palette.success.main,
       tuNews: {
         main: palette.tuNews.main,
