@@ -37,9 +37,12 @@ export const queryStringFromRouteInformation = (
   return queryParams.length > 0 ? `?${new URLSearchParams(queryParams).toString()}` : undefined
 }
 
-type QueryParams = {
-  searchText?: string
+export type VisibilityQueryParams = {
   chat?: boolean
+}
+
+type QueryParams = VisibilityQueryParams & {
+  searchText?: string
   multipoi?: number
   poiCategoryId?: number
   zoom?: number

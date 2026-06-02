@@ -12,10 +12,15 @@ import { styled } from '@mui/material/styles'
 import React, { KeyboardEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { ChatMessageModel, RegionModel } from 'shared/api'
+import { ChatMessagesReturn, createSendChatMessageEndpoint, NotFoundError, RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import useLocalStorage, { CHAT_HINT_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
+import { cmsApiBaseUrl } from '../constants/urls'
+import useLocalStorage, {
+  CHAT_HINT_VISIBLE_STORAGE_KEY,
+  CHAT_PRIVACY_POLICIES_STORAGE_KEY,
+} from '../hooks/useLocalStorage'
+import { UseQueryFromEndpointReturn } from '../hooks/useQueryFromEndpoint'
 import ChatConversation from './ChatConversation'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
@@ -31,42 +36,60 @@ const Container = styled(Stack)(({ theme }) => ({
 })) as typeof Stack
 
 type ChatProps = {
+  response: UseQueryFromEndpointReturn<ChatMessagesReturn>
+  chatId: string
   region: RegionModel
-  submitMessage: (text: string) => void
-  messages: ChatMessageModel[]
-  hasError: boolean
-  isLoading: boolean
-  isTyping: boolean
-  privacyPolicyAccepted: boolean
-  acceptPrivacyPolicy: () => void
   languageCode: string
 }
 
-const Chat = ({
-  region,
-  messages,
-  submitMessage,
-  hasError,
-  isLoading,
-  isTyping,
-  privacyPolicyAccepted,
-  acceptPrivacyPolicy,
-  languageCode,
-}: ChatProps): ReactElement => {
-  const { t } = useTranslation('chat')
+const Chat = ({ response, chatId, region, languageCode }: ChatProps): ReactElement => {
+  const [sendingError, setSendingError] = useState<Error | null>(null)
   const [textInput, setTextInput] = useState<string>('')
+  const { t } = useTranslation('chat')
+
   const [chatHintVisible, setChatHintVisible] = useLocalStorage<boolean>({
     key: CHAT_HINT_VISIBLE_STORAGE_KEY,
     initialValue: true,
     isSessionStorage: true,
   })
 
+  const [acceptedPrivacyPolicies, setAcceptedPrivacyPolicies] = useLocalStorage<Record<string, boolean>>({
+    key: CHAT_PRIVACY_POLICIES_STORAGE_KEY,
+    initialValue: {},
+  })
+  const privacyPolicyAccepted = acceptedPrivacyPolicies[region.code] ?? false
+  const acceptCustomPrivacyPolicy = () =>
+    setAcceptedPrivacyPolicies({ ...acceptedPrivacyPolicies, [region.code]: true })
+
+  const { setData, data, isPending } = response
+  const botTyping = data?.botTyping ?? false
+  const messages = data?.messages ?? []
+  // If no message has been sent yet, fetching the messages yields a 404 not found error
+  const error = sendingError ?? (response.error instanceof NotFoundError ? null : response.error)
+
+  const submitMessage = async (message: string) => {
+    const { data, error } = await createSendChatMessageEndpoint(cmsApiBaseUrl).request({
+      regionCode: region.code,
+      language: languageCode,
+      message,
+      deviceId: chatId,
+    })
+
+    if (data !== null) {
+      setData(data)
+    }
+
+    if (error !== null) {
+      setSendingError(error)
+    }
+  }
+
   const onSubmit = () => {
     submitMessage(textInput)
     setTextInput('')
   }
 
-  const submitDisabled = textInput.trim().length === 0 || hasError || isLoading
+  const submitDisabled = textInput.trim().length === 0 || error != null || isPending
   const submitOnEnter = (event: KeyboardEvent) => {
     if (event.key !== 'Enter' || event.shiftKey) {
       return
@@ -86,7 +109,7 @@ const Chat = ({
           <PrivacyCheckbox
             language={languageCode}
             checked={false}
-            setChecked={acceptPrivacyPolicy}
+            setChecked={acceptCustomPrivacyPolicy}
             url={region.chatPrivacyPolicyUrl}
           />
         </Stack>
@@ -96,9 +119,9 @@ const Chat = ({
 
   return (
     <Container justifyContent='space-between'>
-      <ChatConversation messages={messages} isTyping={isTyping} loading={isLoading} />
+      <ChatConversation messages={messages} isTyping={botTyping} loading={isPending} />
       <Stack paddingInline={2} gap={1}>
-        {hasError && <Alert severity='error'>{t('errorMessage')}</Alert>}
+        {error && <Alert severity='error'>{t('errorMessage')}</Alert>}
         {chatHintVisible && (
           <Alert severity='info' icon={<InfoIcon />} onClose={() => setChatHintVisible(false)}>
             <Typography variant='body2'>{t('conversationHelperText')}</Typography>
