@@ -25,6 +25,7 @@
     "luxon": "^3.7.2",
     "minisearch": "^7.2.0",
     "normalize-path": "^3.0.0",
+    "qr": "^0.6.0",
     "rrule": "2.8.1",
     "sentencex": "^0.4.2",
     "uuid": "^11.1.0"

@@ -27,6 +27,7 @@ declare module '@mui/material/styles' {
 
   interface TypeBackground {
     accent: string
+    qrCode: string
   }
 
   interface Palette {

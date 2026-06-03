@@ -18027,7 +18027,6 @@ __metadata:
     react-native-svg-transformer: "npm:^1.5.3"
     react-native-url-polyfill: "npm:^3.0.0"
     react-native-worklets: "npm:^0.8.1"
-    react-qr-code: "npm:^2.0.21"
     react-test-renderer: "npm:19.2.3"
     rrule: "npm:^2.8.1"
     shared: "npm:0.0.1"
@@ -19514,13 +19513,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qr.js@npm:0.0.0":
-  version: 0.0.0
-  resolution: "qr.js@npm:0.0.0"
-  checksum: 10c0/1c6a4c7a58d04e52ec2fee99e39b680fdc5b2a510a981df42c36b716a8eac6634d130fc4d65af8f030f2a07dbf5fa046b97cdfa7456c250ebb50a73916efdcb5
-  languageName: node
-  linkType: hard
-
 "qr@npm:^0.6.0":
   version: 0.6.0
   resolution: "qr@npm:0.6.0"
@@ -20169,18 +20161,6 @@ __metadata:
   bin:
     react-native: cli.js
   checksum: 10c0/0de8e191190ec9a8dc980cd5dc36462c4edd773df4f079cbd2885c706ad66f87196ab80feb210e5e1411314a9340f99a840049cf26d2993ec58040e108c18c67
-  languageName: node
-  linkType: hard
-
-"react-qr-code@npm:^2.0.21":
-  version: 2.0.21
-  resolution: "react-qr-code@npm:2.0.21"
-  dependencies:
-    prop-types: "npm:^15.8.1"
-    qr.js: "npm:0.0.0"
-  peerDependencies:
-    react: "*"
-  checksum: 10c0/db3787d0d65ff095a3ae642bdf88024b052235410fe64edb70ad90d3dca57a3b051827e0380da82fb6f29818d5c2b2855475a6082eb4445925866db935e77788
   languageName: node
   linkType: hard
 
@@ -21361,6 +21341,7 @@ __metadata:
     luxon: "npm:^3.7.2"
     minisearch: "npm:^7.2.0"
     normalize-path: "npm:^3.0.0"
+    qr: "npm:^0.6.0"
     react: "npm:19.2.3"
     rrule: "npm:2.8.1"
     seedrandom: "npm:^3.0.5"
@@ -23845,7 +23826,6 @@ __metadata:
     luxon: "npm:^3.7.2"
     maplibre-gl: "npm:^5.21.1"
     normalize.css: "npm:^8.0.1"
-    qr: "npm:^0.6.0"
     raf: "npm:^3.4.1"
     react: "npm:19.2.3"
     react-dom: "npm:19.2.3"

@@ -47,7 +47,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const [menuAnchorElement, setMenuAnchorElement] = React.useState<HTMLElement | null>(null)
   const [expandedAccordion, setExpandedAccordion] = React.useState<'share' | 'legal' | null>(null)
   const [urlCopied, setUrlCopied] = React.useState<boolean>(false)
-  const [qrDialogOpen, setQrDialogOpen] = React.useState<boolean>(false)
+  const [qrShareOpen, setQrShareOpen] = React.useState<boolean>(false)
   const { regionCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
   const { t } = useTranslation('layout')
@@ -101,7 +101,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
       key='qr'
       text={t('qrCode')}
       icon={<QrCode2Icon fontSize='small' />}
-      onClick={() => setQrDialogOpen(true)}
+      onClick={() => setQrShareOpen(true)}
       closeMenu={closeMenu}
     />,
   ]
@@ -144,8 +144,8 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
         ])}
       </StyledMenu>
       <QrCodeDialog
-        open={qrDialogOpen}
-        close={() => setQrDialogOpen(false)}
+        open={qrShareOpen}
+        close={() => setQrShareOpen(false)}
         title={t('shareQrCodeTitle')}
         description={t('shareQrCodeDescription')}
         url={shareUrl}

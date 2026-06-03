@@ -3,11 +3,11 @@ import Button from '@mui/material/Button'
 import DialogActions from '@mui/material/DialogActions'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import encodeQR from 'qr'
+import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { QR_CODE_SIZE } from 'shared'
+import { encodeQR, QR_CODE_SIZE } from 'shared'
 
 import AlertDialog from './base/AlertDialog'
 import Svg from './base/Svg'
@@ -23,6 +23,7 @@ type QrCodeDialogProps = {
 
 const QrCodeDialog = ({ open, close, title, description, url, qrDetails }: QrCodeDialogProps): ReactElement | null => {
   const { t } = useTranslation('layout')
+  const theme = useTheme()
   const svgSrc = `data:image/svg+xml,${encodeURIComponent(encodeQR(url, 'svg'))}`
 
   if (!open) {
@@ -42,7 +43,7 @@ const QrCodeDialog = ({ open, close, title, description, url, qrDetails }: QrCod
       }>
       <Stack alignItems='center' gap={2}>
         <Typography variant='body2'>{description}</Typography>
-        <Box borderRadius={2} sx={{ backgroundColor: '#FFF' }}>
+        <Box borderRadius={2} sx={{ backgroundColor: theme.palette.background.qrCode }}>
           <Svg src={svgSrc} width={QR_CODE_SIZE} height={QR_CODE_SIZE} />
         </Box>
         <Typography variant='body2' textAlign='center'>

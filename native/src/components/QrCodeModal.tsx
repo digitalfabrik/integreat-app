@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
-import { Button } from 'react-native-paper'
-import QRCode from 'react-qr-code'
+import { Button, useTheme } from 'react-native-paper'
+import { SvgXml } from 'react-native-svg'
+import { DefaultTheme } from 'styled-components/native'
 
-import { QR_CODE_SIZE } from 'shared'
+import { encodeQR, QR_CODE_SIZE } from 'shared'
 
 import Modal from './Modal'
 import Text from './base/Text'
@@ -18,7 +19,6 @@ const styles = StyleSheet.create({
   qrWrapper: {
     padding: 16,
     borderRadius: 8,
-    backgroundColor: '#FFF',
   },
   text: {
     textAlign: 'center',
@@ -47,13 +47,15 @@ const QrCodeModal = ({
   qrDetails,
 }: QrCodeModalProps): ReactElement => {
   const { t } = useTranslation('layout')
+  const theme = useTheme() as DefaultTheme
+  const svgXml = encodeQR(url, 'svg')
 
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={title} scrollView={false}>
       <View style={styles.content}>
         <Text>{description}</Text>
-        <View style={styles.qrWrapper}>
-          <QRCode value={url} size={QR_CODE_SIZE} level='H' />
+        <View style={[styles.qrWrapper, { backgroundColor: theme.colors.qrCode }]}>
+          <SvgXml xml={svgXml} width={QR_CODE_SIZE} height={QR_CODE_SIZE} />
         </View>
         <Text selectable style={styles.text}>
           {qrDetails}

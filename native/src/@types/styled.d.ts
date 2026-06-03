@@ -18,6 +18,7 @@ type MD3Theme = {
     surfaceVariant: string
     surfaceDisabled: string
     background: string
+    qrCode: string
     error: string
     errorContainer: string
     onPrimary: string

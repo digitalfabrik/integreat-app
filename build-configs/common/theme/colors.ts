@@ -40,6 +40,7 @@ export const commonLightColors: CommonColorPalette = {
     default: '#FFFFFF',
     paper: '#FFFFFF',
     accent: '#EAEEF9',
+    qrCode: '#FFFFFF',
   },
   text: {
     primary: '#1D1B20',
@@ -76,6 +77,7 @@ export const commonDarkColors: CommonColorPalette = {
     default: '#020202',
     paper: '#020202',
     accent: '#20293A',
+    qrCode: '#FFFFFF',
   },
   text: {
     primary: '#E6E0E9',

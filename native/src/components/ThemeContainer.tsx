@@ -27,6 +27,7 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       surfaceVariant: palette.background.accent,
       surfaceDisabled: palette.background.default,
       background: palette.background.default,
+      qrCode: palette.background.qrCode,
       error: palette.error.main,
       errorContainer: palette.error.light,
       onPrimary: palette.primary.contrastText,
