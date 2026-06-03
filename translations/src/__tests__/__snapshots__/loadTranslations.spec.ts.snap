@@ -14,7 +14,7 @@ exports[`loadTranslations should correctly merge and transform translations 1`] 
       "pageTitles": {
         "localNews": "Lokale Nachrichten",
         "notFound": "Seite nicht gefunden",
-        "tunews": "tünews",
+        "tuNews": "tünews",
       },
     },
     "dashboard": {
@@ -61,7 +61,7 @@ exports[`loadTranslations should correctly transform translations 1`] = `
       "pageTitles": {
         "localNews": "Lokale Nachrichten",
         "notFound": "Seite nicht gefunden",
-        "tunews": "tünews",
+        "tuNews": "tünews",
       },
     },
     "layout": {

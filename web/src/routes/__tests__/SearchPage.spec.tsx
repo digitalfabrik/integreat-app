@@ -163,4 +163,14 @@ describe('SearchPage', () => {
 
     expect(global.window.location.href).toMatch(/^((?!\?query=).)*$/)
   })
+
+  it('should allow opening chat on the search page', async () => {
+    const { router } = renderRoute(searchPage, { routePattern, pathname })
+
+    await router.navigate({ pathname, search: '?chat=true' })
+
+    await waitFor(() => {
+      expect(router.state.location.search).toBe('?chat=true')
+    })
+  })
 })

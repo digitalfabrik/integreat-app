@@ -38,7 +38,7 @@ type MD3Theme = {
     outline: string
     outlineVariant: string
     success: string
-    tunews: {
+    tuNews: {
       main: string
       light: string
     }

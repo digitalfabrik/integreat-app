@@ -1,7 +1,7 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
 
-class TunewsModel {
+class TuNewsModel {
   _id: number
   _title: string
   _tags: string[]
@@ -51,4 +51,4 @@ class TunewsModel {
   }
 }
 
-export default TunewsModel
+export default TuNewsModel

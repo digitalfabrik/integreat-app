@@ -24,7 +24,7 @@ export type CommonColors = {
   warning: SimplePaletteColor
   success: SimplePaletteColor
   info?: SimplePaletteColor
-  tunews: SimplePaletteColor & { light: string }
+  tuNews: SimplePaletteColor & { light: string }
   divider: string
   link: string
 }

@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { LocalNewsModel, TunewsModel } from 'shared/api'
+import { LocalNewsModel, TuNewsModel } from 'shared/api'
 
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentAlignmentRTLText, contentDirection } from '../constants/contentDirection'
@@ -14,7 +14,7 @@ import TimeStamp from './TimeStamp'
 import Text from './base/Text'
 
 type NewsListItemProps = {
-  newsItem: LocalNewsModel | TunewsModel
+  newsItem: LocalNewsModel | TuNewsModel
   navigateToNews: () => void
 }
 
@@ -41,7 +41,7 @@ export const Description = styled.View`
   flex-direction: column;
 `
 
-const getTimestamp = (newsItem: LocalNewsModel | TunewsModel): DateTime<true> | null => {
+const getTimestamp = (newsItem: LocalNewsModel | TuNewsModel): DateTime<true> | null => {
   if ('timestamp' in newsItem) {
     return newsItem.timestamp
   }

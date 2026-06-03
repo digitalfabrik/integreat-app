@@ -14,12 +14,12 @@ const StyledParagraph = styled('p')`
 type LicenseItemProps = {
   name: string
   version: string | undefined
-  publisher: string | undefined
+  author: string | undefined
   license: string
   url: string | undefined
 }
 
-const LicenseItem = ({ license, name, url, version, publisher }: LicenseItemProps): ReactElement => {
+const LicenseItem = ({ license, name, url, version, author }: LicenseItemProps): ReactElement => {
   const { t } = useTranslation('licenses')
   const Content = (
     <ListItemText
@@ -27,7 +27,7 @@ const LicenseItem = ({ license, name, url, version, publisher }: LicenseItemProp
       primary={name}
       secondary={
         <>
-          <StyledParagraph>{publisher}</StyledParagraph>
+          <StyledParagraph>{author}</StyledParagraph>
           <StyledParagraph>
             {t('version')} {version}
           </StyledParagraph>

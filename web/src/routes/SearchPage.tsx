@@ -69,7 +69,17 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
   const debouncedQuery = useDebounce(query)
 
   useEffect(() => {
-    setQueryParams(debouncedQuery.length > 0 ? { query: debouncedQuery } : undefined, { replace: true })
+    setQueryParams(
+      previous => {
+        if (debouncedQuery.length > 0) {
+          previous.set(SEARCH_QUERY_KEY, debouncedQuery)
+        } else {
+          previous.delete(SEARCH_QUERY_KEY)
+        }
+        return previous
+      },
+      { replace: true },
+    )
   }, [debouncedQuery, setQueryParams])
 
   const {

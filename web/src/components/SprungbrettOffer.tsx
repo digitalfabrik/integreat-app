@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { OfferModel, useLoadFromEndpoint, createSprungbrettJobsEndpoint } from 'shared/api'
+import { OfferModel, createSprungbrettJobsEndpoint } from 'shared/api'
 
 import List from '../components/base/List'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import FailureSwitcher from './FailureSwitcher'
 import SkeletonList from './SkeletonList'
 import SprungbrettListItem from './SprungbrettListItem'
@@ -15,14 +16,18 @@ type SprungbrettOfferPageProps = {
 const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): ReactElement | null => {
   const { t } = useTranslation('sprungbrett')
 
-  const { data, error, loading } = useLoadFromEndpoint(createSprungbrettJobsEndpoint, sprungbrettOffer.path, undefined)
+  const { data, error, isPending } = useQueryFromEndpoint(
+    createSprungbrettJobsEndpoint,
+    sprungbrettOffer.path,
+    undefined,
+  )
 
-  if (loading) {
+  if (isPending) {
     return <SkeletonList />
   }
 
-  if (!data) {
-    return <FailureSwitcher error={error ?? new Error('Data missing')} />
+  if (error) {
+    return <FailureSwitcher error={error} />
   }
 
   const items = data.map(job => <SprungbrettListItem key={job.url} job={job} />)

@@ -164,7 +164,7 @@ describe('pathname', () => {
       ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`)
     })
 
-    it('should match tunews route', () => {
+    it('should match tuNews route', () => {
       expect(
         pathnameFromRouteInformation({
           route: NEWS_ROUTE,
@@ -176,7 +176,7 @@ describe('pathname', () => {
       ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`)
     })
 
-    it('should match single tunews route', () => {
+    it('should match single tuNews route', () => {
       expect(
         pathnameFromRouteInformation({
           route: NEWS_ROUTE,

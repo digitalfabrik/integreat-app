@@ -13,7 +13,7 @@ import buildConfig from '../constants/buildConfig'
 import { BREAKPOINTS } from '../constants/layout'
 import { prepareTypography } from '../constants/typography'
 import useDimensions from '../hooks/useDimensions'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useLocalStorage, { THEME_STORAGE_KEY } from '../hooks/useLocalStorage'
 import globalStyle from '../styles/global/GlobalStyle'
 import { muiShadowCreator } from '../utils/muiShadowCreator'
 
@@ -147,8 +147,8 @@ type ThemeContainerProps = {
 
 const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
   const dimensions = useDimensions()
-  const { value: themeType, updateLocalStorageItem: setThemeType } = useLocalStorage<ThemeKey>({
-    key: 'theme',
+  const [themeType, setThemeType] = useLocalStorage<ThemeKey>({
+    key: THEME_STORAGE_KEY,
     initialValue: 'light',
   })
 

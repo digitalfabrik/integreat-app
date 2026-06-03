@@ -1,37 +1,26 @@
-import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import { dialogContentClasses } from '@mui/material/DialogContent'
-import Fab from '@mui/material/Fab'
-import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useContext } from 'react'
-import { useSearchParams } from 'react-router'
+import React, { ReactElement, useContext, useEffect } from 'react'
 
-import { getChatName, CHAT_QUERY_KEY, parseQueryParams, toQueryParams } from 'shared'
-import { RegionModel } from 'shared/api'
+import { getChatName, CHAT_QUERY_KEY, CHAT_TYPING_POLLING_INTERVAL, CHAT_DEFAULT_POLLING_INTERVAL } from 'shared'
+import { createChatMessagesEndpoint, RegionModel, SerializedChatMessage } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
+import { cmsApiBaseUrl } from '../constants/urls'
 import { TtsContext } from '../contexts/TtsContext'
 import useDimensions from '../hooks/useDimensions'
-import useLocalStorage from '../hooks/useLocalStorage'
+import useIsTabActive from '../hooks/useIsTabActive'
+import useLocalStorage, { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
-import { chatIdKey } from '../utils/chat'
-import ChatController from './ChatController'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
+import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
+import { chatIdKey, generateChatId } from '../utils/chat'
+import Chat from './Chat'
+import ChatFab from './ChatFab'
 import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageList'
 import Dialog from './base/Dialog'
-
-const ChatButtonContainer = styled('div')<{ bottom: number }>`
-  position: fixed;
-  bottom: ${props => props.bottom}px;
-  inset-inline-end: 16px;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: min-content;
-  gap: 8px;
-`
 
 const StyledDialog = styled(Dialog)({
   [`.${dialogContentClasses.root}`]: {
@@ -46,44 +35,60 @@ type ChatContainerProps = {
 }
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
-  const [queryParams, setQueryParams] = useSearchParams()
-  const chatVisible = parseQueryParams(queryParams).chat ?? false
-  const { desktop, xsmall, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
+  const { open, close, openUrl, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
+  const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
+  const isBrowserTabActive = useIsTabActive()
+  useLockedBody(visible)
 
-  const { value: chatId, updateLocalStorageItem: updateChatId } = useLocalStorage<string | null>({
+  const [chatId, setChatId] = useLocalStorage<string>({
     key: chatIdKey(region.code),
-    initialValue: null,
+    initialValue: generateChatId(),
   })
 
-  const chatName = getChatName(buildConfig().appName)
-  useLockedBody(chatVisible)
+  const [unsyncedMessages, setUnsyncedMessages] = useLocalStorage<SerializedChatMessage[]>({
+    key: CHAT_UNSYNCED_MESSAGES_STORAGE_KEY,
+    initialValue: [],
+  })
+
+  const response = useQueryFromEndpoint(
+    createChatMessagesEndpoint,
+    cmsApiBaseUrl,
+    {
+      regionCode: region.code,
+      language: languageCode,
+      deviceId: chatId,
+    },
+    { cached: false },
+  )
+
+  const { data, refetch } = response
+  const botTyping = data?.botTyping
+  const messageCount = data?.messages.length ?? 0
+
+  useEffect(() => {
+    if (!isBrowserTabActive || messageCount === 0) {
+      return undefined
+    }
+    const interval = setInterval(refetch, botTyping ? CHAT_TYPING_POLLING_INTERVAL : CHAT_DEFAULT_POLLING_INTERVAL)
+    return () => clearInterval(interval)
+  }, [refetch, isBrowserTabActive, messageCount, botTyping])
+
+  const resetChat = () => {
+    setUnsyncedMessages([])
+    setChatId(generateChatId())
+  }
 
   const hideChatButton = xsmall && ttsPlayerVisible
-
-  const open = () => {
-    const newQueryParams = queryParams
-    newQueryParams.set(CHAT_QUERY_KEY, 'true')
-    setQueryParams(newQueryParams)
-  }
-
-  const close = () => {
-    const newQueryParams = queryParams
-    newQueryParams.delete(CHAT_QUERY_KEY)
-    setQueryParams(newQueryParams)
-  }
-
   if (hideChatButton) {
     return null
   }
 
-  if (chatVisible) {
-    const chatQuery = toQueryParams({ chat: true }).toString()
+  if (visible) {
+    const chatName = getChatName(buildConfig().appName)
     const chatLanguageChangePaths =
-      languageChangePaths?.map(({ path, ...rest }) => ({
-        ...rest,
-        path: path ? `${path}?${chatQuery}` : null,
-      })) ?? []
+      languageChangePaths?.map(({ path, ...rest }) => ({ ...rest, path: openUrl(path) })) ?? []
+
     return (
       <StyledDialog
         title={chatName}
@@ -98,25 +103,21 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
                 />,
               ]
             : []),
-          <ChatMenu key='chatMenu' chatId={chatId} updateChatId={updateChatId} />,
+          <ChatMenu key='chatMenu' chatId={chatId} resetChat={resetChat} />,
         ]}>
-        <ChatController chatId={chatId} updateChatId={updateChatId} region={region} languageCode={languageCode} />
+        <Chat
+          chatId={chatId}
+          region={region}
+          languageCode={languageCode}
+          response={response}
+          serializedUnsyncedMessages={unsyncedMessages}
+          setUnsyncedMessages={setUnsyncedMessages}
+        />
       </StyledDialog>
     )
   }
 
-  return (
-    <ChatButtonContainer bottom={bottomNavigationHeight ?? visibleFooterHeight}>
-      <Fab onClick={open} color='primary' aria-label={chatName}>
-        <QuestionAnswerOutlinedIcon fontSize='large' />
-      </Fab>
-      {desktop && (
-        <Typography textAlign='center' aria-hidden>
-          {chatName}
-        </Typography>
-      )}
-    </ChatButtonContainer>
-  )
+  return <ChatFab onClick={open} />
 }
 
 export default ChatContainer

@@ -4,15 +4,16 @@ import { useLocation } from 'react-router'
 
 import { normalizePath } from 'shared'
 import { RegionModelBuilder } from 'shared/api'
-import {
-  mockUseLoadFromEndpointOnceWithData,
-  mockUseLoadFromEndpointWithData,
-} from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import RootNavigator from '../RootNavigator'
 import buildConfig from '../constants/buildConfig'
+import {
+  mockUseQueryFromEndpointOnceWithData,
+  mockUseQueryFromEndpointWithData,
+} from '../testing/mockUseQueryFromEndpoint'
 import { renderWithRouterAndTheme } from '../testing/render'
 
+jest.mock('../hooks/useQueryFromEndpoint')
 jest.mock('i18next', () => ({
   ...jest.requireActual('i18next'),
   createInstance: () => ({ language: 'de' }),
@@ -22,7 +23,6 @@ jest.mock('stylis')
 
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
   useLoadAsync: jest.fn(() => ({ data: null, error: null })),
 }))
 
@@ -51,7 +51,7 @@ describe('RootNavigator', () => {
   })
 
   it('should render the regions page', async () => {
-    mockUseLoadFromEndpointOnceWithData(regions)
+    mockUseQueryFromEndpointOnceWithData(regions)
 
     const { getByText } = renderRootNavigator('/regions/de')
 
@@ -73,7 +73,7 @@ describe('RootNavigator', () => {
       ${'/augsburg/news/local'}     | ${'/augsburg/de/news/local'}
       ${'/augsburg/news/tu-news'}   | ${'/augsburg/de/news/tu-news'}
     `('should redirect from $from to $to', ({ from, to }) => {
-      mockUseLoadFromEndpointWithData(regions)
+      mockUseQueryFromEndpointWithData(regions)
 
       const { getByText } = renderRootNavigator(from)
 
@@ -105,7 +105,7 @@ describe('RootNavigator', () => {
         ${'/oldtown/news'}       | ${'/oldtown/de/news'}
         ${'/oldtown/news/local'} | ${'/oldtown/de/news/local'}
       `('should redirect from $from to $to for fixedRegion', async ({ from, to }) => {
-        mockUseLoadFromEndpointWithData(regions)
+        mockUseQueryFromEndpointWithData(regions)
 
         const { getByText } = renderRootNavigator(from)
 

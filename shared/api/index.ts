@@ -11,6 +11,7 @@ export { default as Endpoint } from './Endpoint'
 export { default as EndpointBuilder } from './EndpointBuilder'
 export { default as Payload } from './Payload'
 export { default as mapAvailableLanguages } from './mapping/mapAvailableLanguages'
+export type { ChatMessagesReturn } from './mapping/mapChatMessages'
 export * from './types'
 export * from './endpoints/testing'
 export { ErrorCode, fromError } from './ErrorCodes'
@@ -49,11 +50,11 @@ export {
   default as createLocalNewsElementEndpoint,
   LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
 } from './endpoints/createLocalNewsElementEndpoint'
-export { default as createTunewsEndpoint, TUNEWS_ENDPOINT_NAME } from './endpoints/createTunewsEndpoint'
+export { default as createTuNewsEndpoint, TU_NEWS_ENDPOINT_NAME } from './endpoints/createTuNewsEndpoint'
 export {
-  default as createTunewsElementEndpoint,
-  TUNEWS_ELEMENT_ENDPOINT_NAME,
-} from './endpoints/createTunewsElementEndpoint'
+  default as createTuNewsElementEndpoint,
+  TU_NEWS_ELEMENT_ENDPOINT_NAME,
+} from './endpoints/createTuNewsElementEndpoint'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
 export {
   default as submitMalteHelpForm,
@@ -66,9 +67,9 @@ export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
 export {
-  default as createTunewsLanguagesEndpoint,
-  TUNEWS_LANGUAGES_ENDPOINT_NAME,
-} from './endpoints/createTunewsLanguagesEndpoint'
+  default as createTuNewsLanguagesEndpoint,
+  TU_NEWS_LANGUAGES_ENDPOINT_NAME,
+} from './endpoints/createTuNewsLanguagesEndpoint'
 export { default as createPOIsEndpoint, POIS_ENDPOINT_NAME } from './endpoints/createPOIsEndpoint'
 export {
   default as createSprungbrettJobsEndpoint,
@@ -82,7 +83,7 @@ export { default as RegionModel } from './models/RegionModel'
 export { default as DateModel, type DateIcon } from './models/DateModel'
 export { default as EventModel } from './models/EventModel'
 export { default as LocalNewsModel } from './models/LocalNewsModel'
-export { default as TunewsModel } from './models/TunewsModel'
+export { default as TuNewsModel } from './models/TuNewsModel'
 export { default as OfferModel } from './models/OfferModel'
 export { default as LanguageModel } from './models/LanguageModel'
 export { default as LocationModel } from './models/LocationModel'
@@ -94,5 +95,5 @@ export { default as PoiCategoryModel } from './models/PoiCategoryModel'
 export { default as SprungbrettJobModel } from './models/SprungbrettJobModel'
 export { default as OpeningHoursModel } from './models/OpeningHoursModel'
 export { default as OrganizationModel } from './models/OrganizationModel'
-export { default as ChatMessageModel } from './models/ChatMessageModel'
+export { default as ChatMessageModel, type SerializedChatMessage } from './models/ChatMessageModel'
 export { default as ContactModel } from './models/ContactModel'

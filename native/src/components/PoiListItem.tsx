@@ -15,9 +15,10 @@ type PoiListItemProps = {
   navigateToPoi: () => void
   distance: number | null
   onFocus: () => void
+  visible: boolean
 }
 
-const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus }: PoiListItemProps) => {
+const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus, visible }: PoiListItemProps) => {
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
@@ -37,7 +38,7 @@ const PoiListItem = ({ poi, language, navigateToPoi, distance, onFocus }: PoiLis
       onPress={navigateToPoi}
       role='link'
       onFocus={onFocus}
-      focusable
+      accessible={visible}
       style={styles.ListItemStyle}
       description={
         <View>

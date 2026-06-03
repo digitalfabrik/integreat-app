@@ -84,6 +84,7 @@ export type JsonCategoryType = {
 export type JsonChatMessageType = {
   id: number
   content: string
+  created_at: string
   user_is_author: boolean
   automatic_answer: boolean
 }
@@ -144,7 +145,7 @@ export type JsonEventType = {
   meeting_url: string | null
 }
 
-export type JsonTunewsType = {
+export type JsonTuNewsType = {
   id: number
   title: string
   tags: string[]
@@ -187,7 +188,7 @@ export type JsonLanguageType = {
   native_name: string
 }
 
-export type JsonTunewsLanguageType = {
+export type JsonTuNewsLanguageType = {
   code: string
   name: string
 }
@@ -214,5 +215,5 @@ export type JsonRegionType = {
 export type TimeSlot = {
   end: string
   start: string
-  timezone: string | undefined
+  timezone: string
 }

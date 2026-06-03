@@ -2,14 +2,14 @@ import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { LocalNewsModel, TunewsModel } from 'shared/api'
+import { LocalNewsModel, TuNewsModel } from 'shared/api'
 
 import render from '../../testing/render'
 import NewsListItem from '../NewsListItem'
 
 jest.mock('react-i18next')
 
-const tuNews = new TunewsModel({
+const tuNews = new TuNewsModel({
   id: 9902,
   title: 'Was ist ein Verein?',
   lastUpdate: DateTime.fromISO('2020-02-20T00:00:00.000Z'),
@@ -27,7 +27,7 @@ const localNews = new LocalNewsModel({
 describe('NewsListItem', () => {
   const navigateToNews = jest.fn()
 
-  const renderNewsListItem = (newsItem: LocalNewsModel | TunewsModel): RenderAPI =>
+  const renderNewsListItem = (newsItem: LocalNewsModel | TuNewsModel): RenderAPI =>
     render(<NewsListItem newsItem={newsItem} navigateToNews={navigateToNews} />)
 
   beforeEach(() => {

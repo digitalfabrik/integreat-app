@@ -19,12 +19,11 @@ const Wrapper = styled.ScrollView`
 
 type LanguageNotAvailablePageProps = {
   availableLanguages?: LanguageModel[]
-  refresh?: () => void
 }
 
-const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAvailablePageProps): ReactElement => {
+const LanguageNotAvailablePage = ({ availableLanguages }: LanguageNotAvailablePageProps): ReactElement => {
   const { regionCode, changeLanguageCode } = useRegionAppContext()
-  const { data: regions, error, refresh: refreshRegions, loading } = useLoadRegions()
+  const { data: regions, error, refresh, loading } = useLoadRegions()
   const languages = regions?.find(it => it.code === regionCode)?.languages
   const { t } = useTranslation('error')
 
@@ -34,21 +33,19 @@ const LanguageNotAvailablePage = ({ availableLanguages, refresh }: LanguageNotAv
         code,
         name,
         enabled: true,
-        onPress: () => {
-          changeLanguageCode(code)
-        },
+        onPress: () => changeLanguageCode(code),
       }),
   )
 
   return (
-    <LayoutedScrollView refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh ?? refreshRegions} />}>
+    <LayoutedScrollView refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh} />}>
       {items ? (
         <Wrapper contentContainerStyle={{ alignItems: 'center' }}>
           <Caption title={t('notFound.language')} />
           <Selector items={items} selectedItemCode={null} />
         </Wrapper>
       ) : (
-        !loading && <Failure code={fromError(error)} />
+        !loading && <Failure code={fromError(error)} retry={refresh} />
       )}
     </LayoutedScrollView>
   )

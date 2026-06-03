@@ -3,8 +3,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 
-import { NewsRouteType, NewsType, TU_NEWS_TYPE, replaceLinks, tunewsLabel } from 'shared'
-import { LocalNewsModel, TunewsModel, ErrorCode } from 'shared/api'
+import { NewsRouteType, NewsType, TU_NEWS_TYPE, replaceLinks, tuNewsLabel } from 'shared'
+import { LocalNewsModel, TuNewsModel, ErrorCode } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
@@ -21,19 +21,19 @@ import Text from './base/Text'
 
 const getPageTitle = (
   selectedNewsType: NewsType,
-  selectedNewsItem: LocalNewsModel | TunewsModel | null | undefined,
+  selectedNewsItem: LocalNewsModel | TuNewsModel | null | undefined,
   t: TFunction,
 ): string => {
   if (selectedNewsItem?.title) {
     return selectedNewsItem.title
   }
   if (selectedNewsType === TU_NEWS_TYPE) {
-    return tunewsLabel
+    return tuNewsLabel
   }
   return t('localNews.pageTitle')
 }
 
-type NewsModelsType = (LocalNewsModel | TunewsModel)[]
+type NewsModelsType = (LocalNewsModel | TuNewsModel)[]
 
 type NewsProps = {
   news: NewsModelsType
@@ -63,7 +63,7 @@ const News = ({
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
   useSetRouteTitle({ navigation, title: getPageTitle(selectedNewsType, selectedNewsItem, t) })
 
-  const rendersNewsListItem = ({ item }: { item: LocalNewsModel | TunewsModel }) => {
+  const rendersNewsListItem = ({ item }: { item: LocalNewsModel | TuNewsModel }) => {
     const navigateToNewsDetail = () => navigateToNews(item.id)
 
     return <NewsListItem key={item.id} newsItem={item} navigateToNews={navigateToNewsDetail} />
@@ -98,7 +98,7 @@ const News = ({
   }
 
   if (newsId !== null) {
-    return <Failure code={ErrorCode.PageNotFound} />
+    return <Failure code={ErrorCode.PageNotFound} retry={refresh} />
   }
 
   return (

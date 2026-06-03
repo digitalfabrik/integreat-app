@@ -57,7 +57,7 @@ const NewsHeader = ({ regionModel, selectedNewsType, selectNewsType }: NewsHeade
   return (
     <>
       <Caption title={t('news')} />
-      {regionModel.localNewsEnabled && regionModel.tunewsEnabled && (
+      {regionModel.localNewsEnabled && regionModel.tuNewsEnabled && (
         <HeaderContainer>
           <TouchableRipple
             onPress={selectLocalNews}

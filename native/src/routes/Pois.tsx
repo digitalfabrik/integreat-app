@@ -49,13 +49,14 @@ export type PoiHistory = {
 }
 
 type PoisProps = {
+  refresh: () => void
   localHistory: UseLocalHistoryReturn<PoiHistory>
   pois: PoiModel[]
   regionModel: RegionModel
   initialZoom: number | undefined
 }
 
-const Pois = ({ localHistory, initialZoom, pois: allPois, regionModel }: PoisProps): ReactElement => {
+const Pois = ({ refresh, localHistory, initialZoom, pois: allPois, regionModel }: PoisProps): ReactElement => {
   const { slug, multipoi, poiCategoryId, currentlyOpen, showFilterSelection } = localHistory.current
   const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
   const [zoomInFocusTarget, setZoomInFocusTarget] = useState<number | undefined>(undefined)
@@ -162,6 +163,7 @@ const Pois = ({ localHistory, initialZoom, pois: allPois, regionModel }: PoisPro
         zoomRef={handleZoomInRef}
       />
       <PoisBottomSheet
+        refresh={refresh}
         pois={sortPois(pois, userLocation)}
         poi={poi}
         slug={slug}

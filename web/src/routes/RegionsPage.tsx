@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { createRegionsEndpoint, useLoadFromEndpoint } from 'shared/api'
+import { createRegionsEndpoint } from 'shared/api'
 
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Footer from '../components/Footer'
@@ -12,13 +12,14 @@ import RegionSelector from '../components/RegionSelector'
 import SuggestToRegionFooter from '../components/SuggestToRegionFooter'
 import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 
 type RegionsPageProps = {
   languageCode: string
 }
 
 const RegionsPage = ({ languageCode }: RegionsPageProps): ReactElement => {
-  const { data: regions, loading, error } = useLoadFromEndpoint(createRegionsEndpoint, cmsApiBaseUrl, undefined)
+  const { data: regions, isPending, error } = useQueryFromEndpoint(createRegionsEndpoint, cmsApiBaseUrl, undefined)
   const [stickyTop, setStickyTop] = useState<number>(0)
   const { t } = useTranslation('regions')
 
@@ -43,7 +44,7 @@ const RegionsPage = ({ languageCode }: RegionsPageProps): ReactElement => {
         </>
       }>
       <Helmet pageTitle={pageTitle} metaDescription={metaDescription} rootPage />
-      <RegionSelector regions={regions ?? []} language={languageCode} stickyTop={stickyTop} loading={loading} />
+      <RegionSelector regions={regions ?? []} language={languageCode} stickyTop={stickyTop} loading={isPending} />
     </Layout>
   )
 }

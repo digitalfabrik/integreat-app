@@ -130,7 +130,7 @@ type ContentRegionJsonType = {
   latitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
-  tunewsEnabled: boolean
+  tuNewsEnabled: boolean
   boundingBox: BBox
 }
 
@@ -145,7 +145,7 @@ type ContactJsonType = {
     | {
         openAllDay: boolean
         closedAllDay: boolean
-        timeSlots: { start: string; end: string }[]
+        timeSlots: { start: string; end: string; timezone: string }[]
         appointmentOnly: boolean
       }[]
     | null
@@ -166,7 +166,7 @@ type ContentPoiJsonType = {
     | {
         openAllDay: boolean
         closedAllDay: boolean
-        timeSlots: { start: string; end: string; timezone?: string }[]
+        timeSlots: { start: string; end: string; timezone: string }[]
         appointmentOnly: boolean
       }[]
     | null
@@ -223,7 +223,7 @@ const mapOpeningHoursToJson = (
 ): {
   openAllDay: boolean
   closedAllDay: boolean
-  timeSlots: { start: string; end: string; timezone: string | undefined }[]
+  timeSlots: { start: string; end: string; timezone: string }[]
   appointmentOnly: boolean
 } => ({
   openAllDay: hours.openAllDay,
@@ -231,7 +231,7 @@ const mapOpeningHoursToJson = (
   timeSlots: hours.timeSlots.map(timeslot => ({
     start: timeslot.start,
     end: timeslot.end,
-    timezone: timeslot.timezone ?? undefined,
+    timezone: timeslot.timezone,
   })),
   appointmentOnly: hours.appointmentOnly,
 })
@@ -239,7 +239,7 @@ const mapOpeningHoursToJson = (
 const mapJsonToOpeningHours = (hours: {
   openAllDay: boolean
   closedAllDay: boolean
-  timeSlots: { start: string; end: string; timezone?: string }[]
+  timeSlots: { start: string; end: string; timezone: string }[]
   appointmentOnly: boolean
 }): OpeningHoursModel =>
   new OpeningHoursModel({
@@ -248,7 +248,7 @@ const mapJsonToOpeningHours = (hours: {
     timeSlots: hours.timeSlots.map(timeslot => ({
       start: timeslot.start,
       end: timeslot.end,
-      timezone: timeslot.timezone ?? undefined,
+      timezone: timeslot.timezone,
     })),
     appointmentOnly: hours.appointmentOnly,
   })
@@ -654,7 +654,7 @@ class DatabaseConnector {
         chatPrivacyPolicyUrl: region.chatPrivacyPolicyUrl,
         poisEnabled: region.poisEnabled,
         pushNotificationsEnabled: region.localNewsEnabled,
-        tunewsEnabled: region.tunewsEnabled,
+        tuNewsEnabled: region.tuNewsEnabled,
         sortingName: region.sortingName,
         longitude: region.longitude,
         latitude: region.latitude,
@@ -677,7 +677,7 @@ class DatabaseConnector {
             languages: jsonObject.languages.map(it => new LanguageModel(it.code, it.name)),
             eventsEnabled: jsonObject.eventsEnabled,
             localNewsEnabled: jsonObject.pushNotificationsEnabled,
-            tunewsEnabled: jsonObject.tunewsEnabled,
+            tuNewsEnabled: jsonObject.tuNewsEnabled,
             poisEnabled: jsonObject.poisEnabled,
             sortingName: jsonObject.sortingName,
             prefix: jsonObject.prefix,

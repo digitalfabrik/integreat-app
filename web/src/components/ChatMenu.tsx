@@ -14,10 +14,10 @@ import AlertDialog from './base/AlertDialog'
 
 type ChatMenuProps = {
   chatId: string | null
-  updateChatId: (newValue: string | null) => void
+  resetChat: () => void
 }
 
-const ChatMenu = ({ chatId, updateChatId }: ChatMenuProps): ReactElement => {
+const ChatMenu = ({ chatId, resetChat }: ChatMenuProps): ReactElement => {
   const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLElement | null>(null)
   const [newChatConfirmationDialogOpen, setNewChatConfirmationDialogOpen] = useState(false)
   const { t } = useTranslation('chat')
@@ -28,7 +28,7 @@ const ChatMenu = ({ chatId, updateChatId }: ChatMenuProps): ReactElement => {
   }
   const createNewChat = () => {
     setMenuAnchorElement(null)
-    updateChatId(null)
+    resetChat()
     setNewChatConfirmationDialogOpen(false)
   }
 

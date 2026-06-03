@@ -27,6 +27,7 @@ describe('PoisBottomSheet', () => {
     renderWithTheme(
       <TestingAppContext>
         <PoisBottomSheet
+          refresh={() => undefined}
           slug={slug}
           poi={pois.find(it => it.slug === slug)}
           pois={pois}
