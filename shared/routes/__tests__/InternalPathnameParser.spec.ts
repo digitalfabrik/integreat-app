@@ -190,7 +190,7 @@ describe('InternalPathnameParser', () => {
     })
   })
 
-  it('should match tunews route', () => {
+  it('should match tuNews route', () => {
     const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
@@ -202,7 +202,7 @@ describe('InternalPathnameParser', () => {
     })
   })
 
-  it('should match single tunews route', () => {
+  it('should match single tuNews route', () => {
     const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
@@ -419,7 +419,7 @@ describe('InternalPathnameParser', () => {
       })
     })
 
-    it('should match tunews route', () => {
+    it('should match tuNews route', () => {
       const pathname = `/${fixedRegion}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
       expect(parser.route()).toEqual({
@@ -431,7 +431,7 @@ describe('InternalPathnameParser', () => {
       })
     })
 
-    it('should match single tunews route', () => {
+    it('should match single tuNews route', () => {
       const pathname = `/${fixedRegion}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
       expect(parser.route()).toEqual({

@@ -29,12 +29,9 @@ export const TimeStamp = ({ lastUpdate, showText = true, format = 'DDD' }: TimeS
 
   return (
     <DirectionContainer language={i18n.language}>
-      {showText && (
-        <Text variant='caption' style={styles.timeStampText}>
-          {t('lastUpdate')}
-        </Text>
-      )}
       <Text variant='caption' style={styles.timeStampText}>
+        {showText && t('lastUpdate')}
+        {showText && ' '}
         {lastUpdate.setLocale(i18n.language).toFormat(format)}
       </Text>
     </DirectionContainer>

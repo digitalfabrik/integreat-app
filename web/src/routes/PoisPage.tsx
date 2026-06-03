@@ -3,13 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
 import { normalizePath, pathnameFromRouteInformation, POIS_ROUTE } from 'shared'
-import { useLoadFromEndpoint, createPOIsEndpoint } from 'shared/api'
+import { createPOIsEndpoint } from 'shared/api'
 
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Pois from '../components/Pois'
 import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import { cmsApiBaseUrl } from '../constants/urls'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import useUserLocation from '../hooks/useUserLocation'
 import { RegionRouteProps } from './index'
@@ -20,7 +21,7 @@ const PoisPage = ({ regionCode, languageCode, region, pathname }: RegionRoutePro
   const { t } = useTranslation('pois')
   const { data: userLocation } = useUserLocation()
 
-  const { data, loading, error } = useLoadFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, {
+  const { data, isPending, error } = useQueryFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, {
     region: regionCode,
     language: languageCode,
   })
@@ -73,7 +74,7 @@ const PoisPage = ({ regionCode, languageCode, region, pathname }: RegionRoutePro
         languageChangePaths={languageChangePaths}
         regionModel={region}
       />
-      <Pois loading={loading} pois={data ?? []} userLocation={userLocation} region={region} />
+      <Pois loading={isPending} pois={data ?? []} userLocation={userLocation} region={region} />
     </RegionContentLayout>
   )
 }

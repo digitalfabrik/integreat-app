@@ -12,7 +12,7 @@ describe('NavigationTabs', () => {
   const regionModel = (
     eventsEnabled: boolean,
     poisEnabled: boolean,
-    tunewsEnabled: boolean,
+    tuNewsEnabled: boolean,
     localNewsEnabled: boolean,
   ) =>
     new RegionModel({
@@ -23,7 +23,7 @@ describe('NavigationTabs', () => {
       eventsEnabled,
       poisEnabled,
       localNewsEnabled,
-      tunewsEnabled,
+      tuNewsEnabled,
       sortingName: 'Augsburg',
       prefix: 'Stadt',
       latitude: 48.369696,

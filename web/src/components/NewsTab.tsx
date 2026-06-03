@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { NewsType, TU_NEWS_TYPE, tunewsLabel } from 'shared'
+import { NewsType, TU_NEWS_TYPE, tuNewsLabel } from 'shared'
 
 import { TuNewsActiveIcon, TuNewsInactiveIcon } from '../assets'
 import Link from './base/Link'
@@ -42,7 +42,7 @@ type NewsTabProps = {
 const NewsTab = ({ type, active, destination }: NewsTabProps): ReactElement => {
   const { t } = useTranslation('news')
   if (type === TU_NEWS_TYPE) {
-    return <TuStyledTab tabSelected={active} to={destination} aria-label={tunewsLabel} />
+    return <TuStyledTab tabSelected={active} to={destination} aria-label={tuNewsLabel} />
   }
 
   return (

@@ -1,5 +1,5 @@
 import i18next, { i18n, TFunction } from 'i18next'
-import { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 
 const useTranslation = (
   namespace: string,
@@ -16,4 +16,8 @@ const useTranslation = (
 const I18nextProvider = ({ children }: { children: ReactNode }): ReactNode => children
 
 I18nextProvider.displayName = 'I18nextProvider'
-export { I18nextProvider, useTranslation }
+
+const Trans = ({ children, i18nKey }: { children?: ReactNode; i18nKey?: string }): ReactElement =>
+  React.createElement(React.Fragment, null, children ?? i18nKey)
+
+export { I18nextProvider, Trans, useTranslation }

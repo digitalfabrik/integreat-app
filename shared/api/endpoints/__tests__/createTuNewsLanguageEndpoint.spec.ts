@@ -1,9 +1,9 @@
 import LanguageModel from '../../models/LanguageModel'
-import createTunewsLanguagesEndpoint from '../createTunewsLanguagesEndpoint'
+import createTuNewsLanguagesEndpoint from '../createTuNewsLanguagesEndpoint'
 
-describe('tunews language', () => {
+describe('tuNews language', () => {
   const baseUrl = 'https://cms-test.integreat-app.de'
-  const tunewsElement = createTunewsLanguagesEndpoint(baseUrl)
+  const tuNewsElement = createTuNewsLanguagesEndpoint(baseUrl)
   const languagesJson = [
     {
       code: 'en',
@@ -19,10 +19,10 @@ describe('tunews language', () => {
     },
   ]
   it('should map params to url', () => {
-    expect(tunewsElement.mapParamsToUrl(undefined)).toBe(`${baseUrl}/v1/news/languages`)
+    expect(tuNewsElement.mapParamsToUrl(undefined)).toBe(`${baseUrl}/v1/news/languages`)
   })
   it('should map fetched data to models', () => {
-    const languageModels = tunewsElement.mapResponse(languagesJson, undefined)
+    const languageModels = tuNewsElement.mapResponse(languagesJson, undefined)
     expect(languageModels).toEqual([
       new LanguageModel('ar', '\u0627\u0644\u0639\u0631\u0628\u064a\u0629'),
       new LanguageModel('de', 'Deutsch'),

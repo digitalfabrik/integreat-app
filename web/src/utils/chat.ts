@@ -1,5 +1,5 @@
-export const LOCAL_STORAGE_ITEM_CHAT_ID = 'Chat-Device-Id'
+import { CHAT_ID_STORAGE_KEY } from '../hooks/useLocalStorage'
 
-export const chatIdKey = (regionCode: string): string => `${LOCAL_STORAGE_ITEM_CHAT_ID}-${regionCode}`
+export const chatIdKey = (regionCode: string): string => `${CHAT_ID_STORAGE_KEY}-${regionCode}`
 
 export const generateChatId = (): string => globalThis.crypto.randomUUID()

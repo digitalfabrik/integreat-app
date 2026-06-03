@@ -7,9 +7,7 @@ import NotFoundError from './errors/NotFoundError'
 import ResponseError from './errors/ResponseError'
 import { request as fetch } from './request'
 
-/**
- * An Endpoint holds all the relevant information to fetch data from it
- */
+const NOT_FOUND_CODE = 404
 
 class Endpoint<P, T extends object> {
   _stateName: string
@@ -64,16 +62,15 @@ class Endpoint<P, T extends object> {
             ...headers,
           }
 
-    const response = await fetch(url, requestOptions).catch((e: Error) => {
+    const response = await fetch(url, requestOptions).catch(error => {
       throw new FetchError({
         endpointName: this.stateName,
-        innerError: e,
+        innerError: error,
         url,
         requestOptions,
       })
     })
 
-    const NOT_FOUND_CODE = 404
     if (response.status === NOT_FOUND_CODE) {
       throw new NotFoundError({ ...params, type: 'category', id: this.stateName })
     }

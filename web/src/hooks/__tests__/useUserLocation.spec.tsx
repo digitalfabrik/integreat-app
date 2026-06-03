@@ -11,7 +11,6 @@ jest.mock('../useUserLocation', () => ({
 
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
   useLoadAsync: jest.fn(() => ({ data: null, error: null, loading: false, refresh: jest.fn() })),
 }))
 

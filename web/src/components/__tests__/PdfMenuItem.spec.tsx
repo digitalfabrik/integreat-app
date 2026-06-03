@@ -8,10 +8,6 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import PdfMenuItem from '../PdfMenuItem'
 
 jest.mock('react-i18next')
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
-}))
 
 const rootCategory = new CategoryModel({
   root: true,

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
-import { createImprintEndpoint, useLoadFromEndpoint } from 'shared/api'
+import { createImprintEndpoint } from 'shared/api'
 
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
@@ -11,6 +11,7 @@ import RegionContentLayout, { RegionContentLayoutProps } from '../components/Reg
 import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonPage from '../components/SkeletonPage'
 import { cmsApiBaseUrl } from '../constants/urls'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import { RegionRouteProps } from './index'
 
 const ImprintPage = ({ regionCode, languageCode, region }: RegionRouteProps): ReactElement | null => {
@@ -18,9 +19,9 @@ const ImprintPage = ({ regionCode, languageCode, region }: RegionRouteProps): Re
 
   const {
     data: imprint,
-    loading,
-    error: imprintError,
-  } = useLoadFromEndpoint(createImprintEndpoint, cmsApiBaseUrl, {
+    isPending,
+    error,
+  } = useQueryFromEndpoint(createImprintEndpoint, cmsApiBaseUrl, {
     region: regionCode,
     language: languageCode,
   })
@@ -43,16 +44,7 @@ const ImprintPage = ({ regionCode, languageCode, region }: RegionRouteProps): Re
     Toolbar: <RegionContentToolbar slug={imprint?.slug} />,
   }
 
-  if (loading) {
-    return (
-      <RegionContentLayout isLoading {...locationLayoutParams}>
-        <SkeletonPage />
-      </RegionContentLayout>
-    )
-  }
-
-  if (!imprint) {
-    const error = imprintError || new Error('Imprint should not be null!')
+  if (error) {
     return (
       <RegionContentLayout isLoading {...locationLayoutParams}>
         <FailureSwitcherWithHelmet error={error} />
@@ -61,9 +53,13 @@ const ImprintPage = ({ regionCode, languageCode, region }: RegionRouteProps): Re
   }
 
   return (
-    <RegionContentLayout isLoading={false} {...locationLayoutParams}>
+    <RegionContentLayout isLoading={isPending} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
-      <Page lastUpdate={imprint.lastUpdate} title={imprint.title} content={imprint.content} />
+      {imprint ? (
+        <Page lastUpdate={imprint.lastUpdate} title={imprint.title} content={imprint.content} />
+      ) : (
+        <SkeletonPage />
+      )}
     </RegionContentLayout>
   )
 }

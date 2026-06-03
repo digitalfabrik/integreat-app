@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback } from 'react'
 
-import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE, tunewsLabel } from 'shared'
-import { createTunewsEndpoint, createTunewsLanguagesEndpoint, TunewsModel, useLoadFromEndpoint } from 'shared/api'
+import { NEWS_ROUTE, pathnameFromRouteInformation, TU_NEWS_TYPE, tuNewsLabel } from 'shared'
+import { createTuNewsEndpoint, createTuNewsLanguagesEndpoint, TuNewsModel } from 'shared/api'
 
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
@@ -12,22 +12,23 @@ import NewsTabs from '../components/NewsTabs'
 import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonList from '../components/SkeletonList'
-import { tunewsApiBaseUrl } from '../constants/urls'
+import { tuNewsApiBaseUrl } from '../constants/urls'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import { RegionRouteProps } from './index'
 
 const DEFAULT_PAGE = 1
 const DEFAULT_COUNT = 10
 
 const TuNewsPage = ({ regionCode, languageCode, region }: RegionRouteProps): ReactElement | null => {
-  const { data: tuNewsLanguages, error } = useLoadFromEndpoint(
-    createTunewsLanguagesEndpoint,
-    tunewsApiBaseUrl,
+  const { data: tuNewsLanguages, error } = useQueryFromEndpoint(
+    createTuNewsLanguagesEndpoint,
+    tuNewsApiBaseUrl,
     undefined,
   )
 
   const loadTuNews = useCallback(
     async (page: number) => {
-      const endpoint = createTunewsEndpoint(tunewsApiBaseUrl)
+      const endpoint = createTuNewsEndpoint(tuNewsApiBaseUrl)
       const { data } = await endpoint.request({ language: languageCode, page, count: DEFAULT_COUNT })
       if (!data) {
         throw new Error('Data missing!')
@@ -41,7 +42,7 @@ const TuNewsPage = ({ regionCode, languageCode, region }: RegionRouteProps): Rea
     return null
   }
 
-  const renderTuNewsListItem = (tuNewsModel: TunewsModel) => {
+  const renderTuNewsListItem = (tuNewsModel: TuNewsModel) => {
     const { id, title, content, lastUpdate } = tuNewsModel
     return (
       <NewsListItem
@@ -71,7 +72,7 @@ const TuNewsPage = ({ regionCode, languageCode, region }: RegionRouteProps): Rea
     }
   })
 
-  const pageTitle = `${tunewsLabel} - ${region.name}`
+  const pageTitle = `${tuNewsLabel} - ${region.name}`
   const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
     region,
     languageChangePaths,
@@ -94,7 +95,7 @@ const TuNewsPage = ({ regionCode, languageCode, region }: RegionRouteProps): Rea
         <NewsTabs
           type={TU_NEWS_TYPE}
           region={regionCode}
-          tunewsEnabled={region.tunewsEnabled}
+          tuNewsEnabled={region.tuNewsEnabled}
           localNewsEnabled={region.localNewsEnabled}
           language={languageCode}
         />
@@ -109,7 +110,7 @@ const TuNewsPage = ({ regionCode, languageCode, region }: RegionRouteProps): Rea
         <NewsTabs
           type={TU_NEWS_TYPE}
           region={regionCode}
-          tunewsEnabled={region.tunewsEnabled}
+          tuNewsEnabled={region.tuNewsEnabled}
           localNewsEnabled={region.localNewsEnabled}
           language={languageCode}
         />
@@ -124,7 +125,7 @@ const TuNewsPage = ({ regionCode, languageCode, region }: RegionRouteProps): Rea
       <NewsTabs
         type={TU_NEWS_TYPE}
         region={regionCode}
-        tunewsEnabled={region.tunewsEnabled}
+        tuNewsEnabled={region.tuNewsEnabled}
         localNewsEnabled={region.localNewsEnabled}
         language={languageCode}
       />

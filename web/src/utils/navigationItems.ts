@@ -29,7 +29,7 @@ type GetNavigationItemsProps = {
 }
 
 const getNavigationItems = ({ regionModel, languageCode }: GetNavigationItemsProps): NavigationItem[] | null => {
-  const { eventsEnabled, poisEnabled, tunewsEnabled, localNewsEnabled } = regionModel
+  const { eventsEnabled, poisEnabled, tuNewsEnabled, localNewsEnabled } = regionModel
 
   const params = { regionCode: regionModel.code, languageCode }
   const categoriesPath = regionContentPath(params)
@@ -41,7 +41,7 @@ const getNavigationItems = ({ regionModel, languageCode }: GetNavigationItemsPro
   const items: (NavigationItem | null)[] = [
     { value: CATEGORIES_ROUTE, to: categoriesPath, label: 'localInformationLabel', Icon: SignpostIcon },
     poisEnabled ? { value: POIS_ROUTE, to: poisPath, label: 'locations', Icon: MapIcon } : null,
-    localNewsEnabled || tunewsEnabled ? { value: NEWS_ROUTE, to: newsPath, label: 'news', Icon: NewspaperIcon } : null,
+    localNewsEnabled || tuNewsEnabled ? { value: NEWS_ROUTE, to: newsPath, label: 'news', Icon: NewspaperIcon } : null,
     eventsEnabled ? { value: EVENTS_ROUTE, to: eventsPath, label: 'events', Icon: CalendarTodayIcon } : null,
   ]
   const validItems = items.filter((tab): tab is NavigationItem => tab !== null)

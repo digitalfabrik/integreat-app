@@ -40,7 +40,7 @@ const PoiDetails = ({ poi, language, distance, onFocus }: PoiDetailsProps): Reac
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = poi
 
   return (
-    <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} focusable>
+    <PoiDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} screenReaderFocusable>
       <Text variant='h5' style={{ paddingBottom: 4 }}>
         {title}
       </Text>

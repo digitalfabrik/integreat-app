@@ -95,7 +95,13 @@ const PoisContainer = ({ navigation, route }: PoisContainerProps): ReactElement 
   return (
     <LoadingErrorHandler {...response}>
       {data && (
-        <Pois localHistory={localHistory} pois={data.pois} regionModel={data.region} initialZoom={route.params.zoom} />
+        <Pois
+          refresh={response.refresh}
+          localHistory={localHistory}
+          pois={data.pois}
+          regionModel={data.region}
+          initialZoom={route.params.zoom}
+        />
       )}
     </LoadingErrorHandler>
   )

@@ -12,6 +12,7 @@ jest.mock('../../components/MapView')
 jest.mock('../../components/Page')
 jest.mock('react-i18next')
 jest.mock('styled-components')
+jest.mock('@react-native-community/geolocation')
 jest.mock('@gorhom/bottom-sheet', () => ({
   __esModule: true,
   ...require('@gorhom/bottom-sheet/mock'),
@@ -45,7 +46,13 @@ describe('Pois', () => {
     const localHistory = createLocalHistory(current)
     const renderResult = renderWithTheme(
       <TestingAppContext>
-        <Pois localHistory={localHistory} pois={pois} regionModel={region} initialZoom={undefined} />
+        <Pois
+          refresh={() => undefined}
+          localHistory={localHistory}
+          pois={pois}
+          regionModel={region}
+          initialZoom={undefined}
+        />
       </TestingAppContext>,
     )
     return { localHistory, ...renderResult }

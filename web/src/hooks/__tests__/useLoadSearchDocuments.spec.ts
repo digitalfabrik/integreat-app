@@ -7,18 +7,15 @@ import {
   LanguageModelBuilder,
   PoiModelBuilder,
 } from 'shared/api'
-import {
-  mockUseLoadFromEndpointLoading,
-  mockUseLoadFromEndpointOnceWithData,
-  mockUseLoadFromEndpointWithError,
-} from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
+import {
+  mockUseQueryFromEndpointLoading,
+  mockUseQueryFromEndpointOnceWithData,
+  mockUseQueryFromEndpointWithError,
+} from '../../testing/mockUseQueryFromEndpoint'
 import useLoadSearchDocuments from '../useLoadSearchDocuments'
 
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
-}))
+jest.mock('../useQueryFromEndpoint')
 
 describe('useLoadSearchDocuments', () => {
   beforeEach(() => {
@@ -32,9 +29,9 @@ describe('useLoadSearchDocuments', () => {
   const locations = new PoiModelBuilder(3).build()
 
   it('should return the correct results', () => {
-    mockUseLoadFromEndpointOnceWithData(categories)
-    mockUseLoadFromEndpointOnceWithData(events)
-    mockUseLoadFromEndpointOnceWithData(locations)
+    mockUseQueryFromEndpointOnceWithData(categories)
+    mockUseQueryFromEndpointOnceWithData(events)
+    mockUseQueryFromEndpointOnceWithData(locations)
     const { result } = renderHook(() => useLoadSearchDocuments({ regionCode, languageCode, cmsApiBaseUrl: '' }))
     const { data } = result.current
     expect(data).toHaveLength(17)
@@ -45,19 +42,19 @@ describe('useLoadSearchDocuments', () => {
   })
 
   it('should handle loading', () => {
-    mockUseLoadFromEndpointOnceWithData(categories)
-    mockUseLoadFromEndpointLoading({ data: events })
-    mockUseLoadFromEndpointOnceWithData(locations)
+    mockUseQueryFromEndpointOnceWithData(categories)
+    mockUseQueryFromEndpointLoading({ data: events })
+    mockUseQueryFromEndpointOnceWithData(locations)
     const { result } = renderHook(() => useLoadSearchDocuments({ regionCode, languageCode, cmsApiBaseUrl: '' }))
     const { loading } = result.current
     expect(loading).toBe(true)
   })
 
   it('should handle an error', () => {
-    mockUseLoadFromEndpointOnceWithData(categories)
-    mockUseLoadFromEndpointOnceWithData(events)
+    mockUseQueryFromEndpointOnceWithData(categories)
+    mockUseQueryFromEndpointOnceWithData(events)
     const errorMessage = 'no pois found'
-    mockUseLoadFromEndpointWithError(errorMessage)
+    mockUseQueryFromEndpointWithError(errorMessage)
     const { result } = renderHook(() => useLoadSearchDocuments({ regionCode, languageCode, cmsApiBaseUrl: '' }))
     const { error } = result.current
     expect(error).toStrictEqual(new Error(errorMessage))

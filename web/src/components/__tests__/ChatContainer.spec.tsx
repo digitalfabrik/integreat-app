@@ -3,8 +3,9 @@ import React from 'react'
 
 import { getChatName } from 'shared'
 import { RegionModelBuilder } from 'shared/api'
-import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
+import { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../../hooks/useLocalStorage'
+import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../../testing/render'
 import ChatContainer from '../ChatContainer'
 
@@ -15,18 +16,10 @@ jest.mock('react-i18next', () => ({
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: jest.fn(),
-}))
-jest.mock('../../hooks/useLocalStorage', () => () => ({
-  value: { augsburg: true },
-  updateLocalStorageItem: jest.fn(),
-}))
+jest.mock('../../hooks/useQueryFromEndpoint')
 
 describe('ChatContainer', () => {
-  mockUseLoadFromEndpointWithData({ messages: [] })
+  mockUseQueryFromEndpointWithData({ messages: [], botTyping: false })
   const routePattern = '/:regionCode/:languageCode'
   const region = new RegionModelBuilder(1).build()[0]!
   const pathname = `/${region.code}/de`
@@ -34,6 +27,14 @@ describe('ChatContainer', () => {
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
     { code: 'en', name: 'English', path: '/augsburg/en' },
   ]
+
+  beforeEach(() => {
+    localStorage.setItem(CHAT_PRIVACY_POLICIES_STORAGE_KEY, JSON.stringify({ [region.code]: true }))
+  })
+
+  afterEach(() => {
+    localStorage.clear()
+  })
 
   it('should open chat dialog and show content on chat button click', () => {
     const { getByText, queryByText, getByLabelText, router } = renderRoute(
@@ -54,7 +55,7 @@ describe('ChatContainer', () => {
     expect(router.state.location.search).toBe('?test=asdf&chat=true')
 
     expect(getByText('chat:conversationText')).toBeTruthy()
-    expect(getByText('chat:conversationHelperText')).toBeTruthy()
+    expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
 
     fireEvent.click(getByLabelText('layout:common:close'))
 
@@ -94,7 +95,7 @@ describe('ChatContainer', () => {
       },
     )
     expect(getByText('chat:conversationText')).toBeTruthy()
-    expect(getByText('chat:conversationHelperText')).toBeTruthy()
+    expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
     expect(router.state.location.search).toBe('?chat=true&test=asdf')
   })
 

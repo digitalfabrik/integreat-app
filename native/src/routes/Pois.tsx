@@ -1,12 +1,12 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useWindowDimensions } from 'react-native'
+import { findNodeHandle, useWindowDimensions, type View } from 'react-native'
 import { Chip } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { isMultipoi, LocationType, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
-import { PoiCategoryModel, RegionModel, PoiModel } from 'shared/api'
+import { isMultipoi, MapFeature, preparePois, safeParseInt, sortPois } from 'shared'
+import { PoiCategoryModel, PoiModel, RegionModel } from 'shared/api'
 
 import { EditLocationIcon } from '../assets'
 import MapView from '../components/MapView'
@@ -16,6 +16,7 @@ import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
 import dimensions from '../constants/dimensions'
 import { UseLocalHistoryReturn } from '../hooks/useLocalStackHistory'
+import useUserLocation from '../hooks/useUserLocation'
 
 const StyledSvgUri = styled(SvgUri)`
   color: ${props => props.theme.colors.onSurface};
@@ -48,27 +49,33 @@ export type PoiHistory = {
 }
 
 type PoisProps = {
+  refresh: () => void
   localHistory: UseLocalHistoryReturn<PoiHistory>
   pois: PoiModel[]
   regionModel: RegionModel
   initialZoom: number | undefined
 }
 
-const Pois = ({ localHistory, initialZoom, pois: allPois, regionModel }: PoisProps): ReactElement => {
-  const [userLocation, setUserLocation] = useState<LocationType | null>(null)
-  const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
-  const { height } = useWindowDimensions()
-  const { t } = useTranslation('pois')
-
+const Pois = ({ refresh, localHistory, initialZoom, pois: allPois, regionModel }: PoisProps): ReactElement => {
   const { slug, multipoi, poiCategoryId, currentlyOpen, showFilterSelection } = localHistory.current
+  const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
+  const [zoomInFocusTarget, setZoomInFocusTarget] = useState<number | undefined>(undefined)
+  const { userLocation, refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: false })
+  const { t } = useTranslation('pois')
+  const { height } = useWindowDimensions()
+  const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_POINT_MID_PERCENTAGE * height, height]
+  const bottomSheetMidHeight = SNAP_POINT_MID_PERCENTAGE * height
+  const bottomSheetFullscreen = bottomSheetSnapPointIndex === bottomSheetSnapPoints.length - 1
+  const bottomSheetHeight = bottomSheetSnapPoints[bottomSheetSnapPointIndex] ?? 0
+
   const { pois, poi, mapFeatures, mapFeature, poiCategories, poiCategory } = preparePois({
     pois: allPois,
     params: { slug, multipoi, poiCategoryId, currentlyOpen },
   })
 
-  const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_POINT_MID_PERCENTAGE * height, height]
-  const bottomSheetFullscreen = bottomSheetSnapPointIndex === bottomSheetSnapPoints.length - 1
-  const bottomSheetHeight = bottomSheetSnapPoints[bottomSheetSnapPointIndex] ?? 0
+  const handleZoomInRef = useCallback((view: View | null) => {
+    setZoomInFocusTarget(findNodeHandle(view) ?? undefined)
+  }, [])
 
   const deselect = () => localHistory.push(multipoi !== undefined && slug ? { multipoi } : {})
 
@@ -147,13 +154,16 @@ const Pois = ({ localHistory, initialZoom, pois: allPois, regionModel }: PoisPro
         features={mapFeatures}
         selectedFeature={mapFeature ?? null}
         bottomSheetHeight={bottomSheetHeight}
+        bottomSheetMidHeight={bottomSheetMidHeight}
         bottomSheetFullscreen={bottomSheetFullscreen}
-        setUserLocation={setUserLocation}
+        refreshPermissionAndLocation={refreshPermissionAndLocation}
         userLocation={userLocation}
         zoom={initialZoom}
         Overlay={FiltersOverlayButtons}
+        zoomRef={handleZoomInRef}
       />
       <PoisBottomSheet
+        refresh={refresh}
         pois={sortPois(pois, userLocation)}
         poi={poi}
         slug={slug}
@@ -164,6 +174,7 @@ const Pois = ({ localHistory, initialZoom, pois: allPois, regionModel }: PoisPro
         snapPointIndex={bottomSheetSnapPointIndex}
         setSnapPointIndex={setBottomSheetSnapPointIndex}
         isFullscreen={bottomSheetFullscreen}
+        zoomInFocusTarget={zoomInFocusTarget}
       />
     </Container>
   )

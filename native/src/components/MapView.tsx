@@ -1,17 +1,21 @@
 import {
   Camera,
-  CircleLayer,
-  Location,
-  MapView as MapLibreMapView,
-  MapViewRef,
-  ShapeSource,
-  SymbolLayer,
-  UserLocation,
-  UserTrackingMode,
+  CameraRef,
+  NativeUserLocation,
+  GeoJSONSource,
+  Layer,
+  type LngLat,
+  type LngLatBounds,
+  Map as MapLibreMapView,
+  MapRef,
+  type PressEvent,
+  type PressEventWithFeatures,
+  TrackUserLocation,
 } from '@maplibre/maplibre-react-native'
-import type { BBox, Feature, Position } from 'geojson'
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react'
+import type { BBox } from 'geojson'
+import React, { ReactElement, type Ref, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { NativeSyntheticEvent, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import {
@@ -20,20 +24,20 @@ import {
   clusterLayerId,
   clusterRadius,
   defaultViewportConfig,
-  calculateDistance,
   embedInCollection,
   featureLayerId,
+  LocationStateType,
   LocationType,
   mapConfig,
   MapFeature,
-  MIN_DISTANCE_THRESHOLD,
   normalDetailZoom,
   isMultipoi,
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
-import useUserLocation from '../hooks/useUserLocation'
+import usePreviousProp from '../hooks/usePreviousProp'
 import { conditionalA11yProps } from '../utils/helpers'
+import MapZoomControls from './MapZoomControls'
 import MapAttribution from './MapsAttribution'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -53,17 +57,20 @@ const StyledMap = styled(MapLibreMapView)`
   width: 100%;
 `
 
-const StyledIcon = styled(IconButton)<{
-  position: number | string
-}>`
+const ControlsContainer = styled.View<{ bottomSheetHeight: number }>`
   position: absolute;
   right: 0;
-  bottom: ${props => props.position}${props => (typeof props.position === 'number' ? 'px' : '')};
+  bottom: ${props => props.bottomSheetHeight}px;
+  gap: 8px;
+  padding: 16px;
+  align-items: center;
+`
+
+const LocationButton = styled(IconButton)`
   background-color: ${props => props.theme.colors.secondary};
-  margin: 16px;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
 `
 
 const OverlayContainer = styled.View`
@@ -80,12 +87,14 @@ type MapViewProps = {
   features: MapFeature[]
   selectedFeature: MapFeature | null
   userLocation: LocationType | null
-  setUserLocation: (userLocation: LocationType | null) => void
+  refreshPermissionAndLocation: () => Promise<LocationStateType | null>
   selectFeature: (feature: MapFeature | null) => void
   bottomSheetHeight: number
+  bottomSheetMidHeight: number
   bottomSheetFullscreen: boolean
   zoom: number | undefined
   Overlay?: ReactElement
+  zoomRef?: Ref<View>
 }
 
 const MapView = ({
@@ -93,90 +102,83 @@ const MapView = ({
   features,
   selectedFeature,
   userLocation,
-  setUserLocation,
+  refreshPermissionAndLocation,
   selectFeature,
   Overlay,
   bottomSheetHeight,
+  bottomSheetMidHeight,
   bottomSheetFullscreen,
   zoom,
+  zoomRef,
 }: MapViewProps): ReactElement => {
-  const mapRef = useRef<MapViewRef>(null)
-  const [followUserLocation, setFollowUserLocation] = useState<boolean>(false)
-  const { refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: true })
+  const mapRef = useRef<MapRef>(null)
+  const cameraRef = useRef<CameraRef>(null)
+  const [trackUserLocation, setTrackUserLocation] = useState<TrackUserLocation | null>(null)
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
-  const bounds = {
-    ne: [boundingBox[2], boundingBox[3]],
-    sw: [boundingBox[0], boundingBox[1]],
-  }
+  const bounds: LngLatBounds = [boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3]]
 
   const coordinates = selectedFeature?.geometry.coordinates
   const defaultZoom = coordinates ? normalDetailZoom : defaultViewportConfig.zoom
 
-  const [cameraSettings, setCameraSettings] = useState<{
-    zoomLevel: number
-    centerCoordinate: Position | undefined
-    bounds?: { ne: number[]; sw: number[] } | undefined
-    animationDuration: number
-  }>({
-    zoomLevel: zoom ?? defaultZoom,
-    centerCoordinate: coordinates,
-    bounds: coordinates ? undefined : bounds,
-    animationDuration,
-  })
+  const initialCameraSettings = {
+    ...(coordinates !== undefined ? { center: coordinates as LngLat } : { bounds }),
+    zoom: zoom ?? defaultZoom,
+    padding: { bottom: bottomSheetHeight },
+  }
 
   const moveTo = useCallback(
-    (coordinates: Position, zoomLevel = normalDetailZoom) =>
-      setCameraSettings({
-        centerCoordinate: coordinates,
-        zoomLevel,
-        animationDuration,
-      }),
-    [],
+    (position: LngLat, zoomLevel = normalDetailZoom) => {
+      cameraRef.current?.easeTo({
+        center: position,
+        zoom: zoomLevel,
+        duration: animationDuration,
+        padding: { bottom: bottomSheetMidHeight },
+      })
+    },
+    [bottomSheetMidHeight],
   )
 
   const onRequestLocation = useCallback(async () => {
-    const newUserLocation = userLocation ?? (await refreshPermissionAndLocation())?.coordinates
+    const newUserLocation = (await refreshPermissionAndLocation())?.userLocation
     if (newUserLocation) {
-      setUserLocation(newUserLocation)
       moveTo(newUserLocation)
-      setFollowUserLocation(true)
+      setTrackUserLocation('default')
     }
-  }, [refreshPermissionAndLocation, moveTo, setUserLocation, userLocation])
+  }, [refreshPermissionAndLocation, moveTo])
 
-  useEffect(() => {
-    if (selectedFeature) {
-      moveTo(selectedFeature.geometry.coordinates)
-      setFollowUserLocation(false)
-    }
-  }, [moveTo, selectedFeature])
+  usePreviousProp({
+    prop: selectedFeature?.id,
+    onPropChange: () => selectedFeature && moveTo(selectedFeature.geometry.coordinates as LngLat),
+  })
+
+  usePreviousProp({
+    prop: bottomSheetHeight,
+    onPropChange: (newHeight, oldHeight) =>
+      newHeight > oldHeight && selectedFeature && moveTo(selectedFeature.geometry.coordinates as LngLat),
+  })
 
   const zoomOnClusterPress = async (pressedCoordinates: [number, number]) => {
-    const clusterCollection = await mapRef.current?.queryRenderedFeaturesAtPoint(pressedCoordinates, undefined, [
-      clusterLayerId,
-    ])
-    if (clusterCollection && 0 in clusterCollection.features && mapRef.current) {
-      const feature = clusterCollection.features[0] as MapFeature
-      moveTo(feature.geometry.coordinates, (await mapRef.current.getZoom()) + clusterClickZoomFactor)
+    const clusterCollection = await mapRef.current?.queryRenderedFeatures(pressedCoordinates, {
+      layers: [clusterLayerId],
+    })
+    const feature = clusterCollection?.[0] as MapFeature | undefined
+    if (feature && mapRef.current !== null) {
+      moveTo(feature.geometry.coordinates as LngLat, (await mapRef.current.getZoom()) + clusterClickZoomFactor)
     }
   }
 
-  const onPress = async (pressedLocation: Feature) => {
-    setFollowUserLocation(false)
-    if (!mapRef.current || !pressedLocation.properties) {
+  const onPress = async (event: NativeSyntheticEvent<PressEvent | PressEventWithFeatures>) => {
+    if (mapRef.current === null) {
       return
     }
-    const pressedCoordinates: [number, number] = [
-      pressedLocation.properties.screenPointX,
-      pressedLocation.properties.screenPointY,
-    ]
-    const featureCollection = await mapRef.current.queryRenderedFeaturesAtPoint(pressedCoordinates, undefined, [
-      featureLayerId,
-      'selected-marker',
-    ])
+    const pressedCoordinates = event.nativeEvent.point
+    const featureCollection = await mapRef.current.queryRenderedFeatures(pressedCoordinates, {
+      layers: [featureLayerId, 'selected-marker'],
+    })
 
-    const feature = featureCollection.features.find((it): it is MapFeature => it.geometry.type === 'Point')
+    const feature = featureCollection.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
 
     if (feature && isMultipoi(feature)) {
@@ -184,15 +186,7 @@ const MapView = ({
     }
   }
 
-  const updateUserLocation = (location: Location) => {
-    const newUserLocation: [number, number] = [location.coords.longitude, location.coords.latitude]
-    // Avoid frequent rerenders if distance only changes minimally
-    if (!userLocation || calculateDistance(userLocation, newUserLocation) > MIN_DISTANCE_THRESHOLD) {
-      setUserLocation(newUserLocation)
-    }
-  }
-
-  const locationPermissionGrantedIcon = followUserLocation ? 'crosshairs-gps' : 'crosshairs'
+  const locationPermissionGrantedIcon = trackUserLocation ? 'crosshairs-gps' : 'crosshairs'
   const locationPermissionIcon = userLocation ? locationPermissionGrantedIcon : 'crosshairs-off'
 
   return (
@@ -201,46 +195,49 @@ const MapView = ({
         <StyledMap
           {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}
           mapStyle={mapConfig.styleJSON}
-          zoomEnabled
           onPress={onPress}
           ref={mapRef}
-          attributionEnabled={false}
-          logoEnabled={false}>
-          <UserLocation visible={!!userLocation} onUpdate={updateUserLocation} />
-          <ShapeSource
+          attribution={false}
+          logo={false}>
+          {userLocation && <NativeUserLocation />}
+          <GeoJSONSource
             id='location-pois'
-            shape={embedInCollection(features.filter(feature => feature !== selectedFeature))}
+            data={embedInCollection(features.filter(feature => feature !== selectedFeature))}
             cluster
             clusterRadius={clusterRadius}>
-            <CircleLayer {...clusterLayer(theme)} />
-            <SymbolLayer {...clusterCountLayer} />
-            <SymbolLayer {...markerLayer(null)} />
-          </ShapeSource>
+            <Layer type='circle' {...clusterLayer(theme)} />
+            <Layer type='symbol' {...clusterCountLayer} />
+            <Layer type='symbol' {...markerLayer(null)} />
+          </GeoJSONSource>
           {selectedFeature && (
-            <ShapeSource id='selected-feature' shape={embedInCollection([selectedFeature])}>
-              <SymbolLayer {...markerLayer(selectedFeature)} id='selected-marker' />
-            </ShapeSource>
+            <GeoJSONSource id='selected-feature' data={embedInCollection([selectedFeature])}>
+              <Layer type='symbol' {...markerLayer(selectedFeature)} id='selected-marker' />
+            </GeoJSONSource>
           )}
           <Camera
-            {...cameraSettings}
-            followUserMode={UserTrackingMode.Follow}
-            animationDuration={animationDuration}
-            animationMode='easeTo'
-            padding={{ paddingBottom: bottomSheetHeight }}
+            onTrackUserLocationChange={event => setTrackUserLocation(event.nativeEvent.trackUserLocation)}
+            trackUserLocation={trackUserLocation ?? undefined}
+            ref={cameraRef}
+            initialViewState={initialCameraSettings}
           />
         </StyledMap>
       </MapContainer>
       <OverlayContainer {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}>{Overlay}</OverlayContainer>
       <MapAttribution accessible={bottomSheetFullscreen} />
-      <StyledIcon
-        {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}
-        icon={
-          <Icon color={theme.dark ? theme.colors.background : theme.colors.onSurface} source={locationPermissionIcon} />
-        }
-        onPress={onRequestLocation}
-        position={bottomSheetHeight}
-        accessibilityLabel={t('showOwnLocation')}
-      />
+      <ControlsContainer bottomSheetHeight={bottomSheetHeight}>
+        <MapZoomControls mapRef={mapRef} cameraRef={cameraRef} ref={zoomRef} />
+        <LocationButton
+          {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}
+          icon={
+            <Icon
+              color={theme.dark ? theme.colors.background : theme.colors.onSurface}
+              source={locationPermissionIcon}
+            />
+          }
+          onPress={onRequestLocation}
+          accessibilityLabel={t('showOwnLocation')}
+        />
+      </ControlsContainer>
     </OuterWrapper>
   )
 }

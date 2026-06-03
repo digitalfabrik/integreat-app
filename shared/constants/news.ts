@@ -1,1 +1,1 @@
-export const tunewsLabel = 'tünews INTERNATIONAL'
+export const tuNewsLabel = 'tünews INTERNATIONAL'

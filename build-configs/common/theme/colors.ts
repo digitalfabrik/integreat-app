@@ -13,7 +13,7 @@ const commonColors: CommonColors = {
   success: {
     main: '#188038',
   },
-  tunews: {
+  tuNews: {
     main: '#0079A6',
     light: '#99CADC',
   },

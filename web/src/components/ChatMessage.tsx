@@ -1,8 +1,11 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
+import RefreshIcon from '@mui/icons-material/Refresh'
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined'
 import Avatar from '@mui/material/Avatar'
+import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
+import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
@@ -21,6 +24,11 @@ export const Message = styled('div')(({ theme }) => ({
   wordBreak: 'break-word',
 }))
 
+const RetryButton = styled(IconButton)({
+  height: 40,
+  alignSelf: 'center',
+})
+
 const StyledAvatar = styled(Avatar, { shouldForwardProp })<{ visible: boolean }>(({ visible }) => ({
   opacity: visible ? 1 : 0,
 }))
@@ -33,13 +41,18 @@ type MessageAvatarProps = {
 
 const MessageAvatar = ({ userIsAuthor, isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
   const { t } = useTranslation('chat')
+  const label = t(isAutomaticAnswer ? 'bot' : 'consultant')
+
   if (userIsAuthor) {
     return <StyledAvatar visible={visible} aria-label={t('user')} />
   }
+
   return (
-    <StyledAvatar visible={visible} aria-label={t(isAutomaticAnswer ? 'bot' : 'human')}>
-      {isAutomaticAnswer ? <SmartToyOutlinedIcon /> : <PersonOutlinedIcon />}
-    </StyledAvatar>
+    <Tooltip title={label} disableHoverListener={!visible}>
+      <StyledAvatar visible={visible} aria-label={label}>
+        {isAutomaticAnswer ? <SmartToyOutlinedIcon /> : <PersonOutlinedIcon />}
+      </StyledAvatar>
+    </Tooltip>
   )
 }
 
@@ -47,43 +60,57 @@ type InnerChatMessageProps = {
   userIsAuthor: boolean
   showAvatar: boolean
   isAutomaticAnswer: boolean
-  content: string | ReactElement
+  children: ReactElement
+  hint?: ReactElement | null
 }
 
 export const InnerChatMessage = ({
   userIsAuthor,
   showAvatar,
   isAutomaticAnswer,
-  content,
+  children,
+  hint,
 }: InnerChatMessageProps): ReactElement => (
   <Stack direction={userIsAuthor ? 'row-reverse' : 'row'} gap={1}>
     <MessageAvatar userIsAuthor={userIsAuthor} isAutomaticAnswer={isAutomaticAnswer} visible={showAvatar} />
     <Message>
       <Typography variant='body2' component='div'>
-        {typeof content === 'string' ? <RemoteContent html={content} smallText /> : content}
+        {children}
       </Typography>
     </Message>
+    {hint}
   </Stack>
 )
 
 type ChatMessageProps = {
+  retrySend: (message: ChatMessageModel) => void
   message: ChatMessageModel
   previousMessage: ChatMessageModel | undefined
 }
 
-const ChatMessage = ({ message, previousMessage }: ChatMessageProps): ReactElement => {
-  const { content, userIsAuthor, isAutomaticAnswer } = message
+const ChatMessage = ({ retrySend, message, previousMessage }: ChatMessageProps): ReactElement => {
+  const { t } = useTranslation('chat')
+
   const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
   const hasAutomaticAnswerChanged = message.isAutomaticAnswer !== previousMessage?.isAutomaticAnswer
   const showIcon = hasAuthorChanged || hasAutomaticAnswerChanged
 
   return (
     <InnerChatMessage
-      userIsAuthor={userIsAuthor}
+      userIsAuthor={message.userIsAuthor}
       showAvatar={showIcon}
-      isAutomaticAnswer={isAutomaticAnswer}
-      content={content}
-    />
+      isAutomaticAnswer={message.isAutomaticAnswer}
+      hint={
+        !message.synced ? (
+          <Tooltip title={t('error:tryAgain')}>
+            <RetryButton onClick={() => retrySend(message)} aria-label={t('error:tryAgain')} color='error' size='small'>
+              <RefreshIcon />
+            </RetryButton>
+          </Tooltip>
+        ) : null
+      }>
+      <RemoteContent html={message.content} smallText />
+    </InnerChatMessage>
   )
 }
 

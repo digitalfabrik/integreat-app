@@ -1,5 +1,9 @@
-import BottomSheet, { BottomSheetFlatList, BottomSheetScrollView } from '@gorhom/bottom-sheet'
-import React, { memo, ReactElement, useRef, useState } from 'react'
+import BottomSheet, {
+  BottomSheetFlatList,
+  BottomSheetFlatListMethods,
+  BottomSheetScrollView,
+} from '@gorhom/bottom-sheet'
+import React, { memo, ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
@@ -9,11 +13,14 @@ import { ErrorCode, PoiModel } from 'shared/api'
 
 import useAppStateListener from '../hooks/useAppStateListener'
 import useRegionAppContext from '../hooks/useRegionAppContext'
+import { conditionalA11yProps } from '../utils/helpers'
 import BottomSheetHandle from './BottomSheetHandle'
 import Failure from './Failure'
 import PoiDetails from './PoiDetails'
 import PoiListItem from './PoiListItem'
 import Text from './base/Text'
+
+const SCROLL_OFFSET = 0.5
 
 const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
   ${props => props.isFullscreen && `background-color: ${props.theme.colors.background};`}
@@ -22,6 +29,12 @@ const StyledBottomSheet = styled(BottomSheet)<{ isFullscreen: boolean }>`
 const BottomSheetContent = styled.View`
   flex: 1;
   margin: 0 24px;
+`
+
+const PoiDetailsOverlay = styled.View`
+  position: absolute;
+  inset: 0;
+  background-color: ${props => props.theme.colors.background};
 `
 
 const PoiListDivider = () => {
@@ -39,6 +52,7 @@ const PoiListDivider = () => {
 }
 
 type PoiBottomSheetProps = {
+  refresh: () => void
   pois: PoiModel[]
   poi: PoiModel | undefined
   userLocation: LocationType | null
@@ -49,9 +63,11 @@ type PoiBottomSheetProps = {
   snapPointIndex: number
   setSnapPointIndex: (index: number) => void
   isFullscreen: boolean
+  zoomInFocusTarget?: number
 }
 
 const PoisBottomSheet = ({
+  refresh,
   pois,
   poi,
   userLocation,
@@ -62,10 +78,12 @@ const PoisBottomSheet = ({
   snapPointIndex,
   setSnapPointIndex,
   isFullscreen,
+  zoomInFocusTarget,
 }: PoiBottomSheetProps): ReactElement | null => {
   const [remountKey, setRemountKey] = useState(0)
   const { languageCode } = useRegionAppContext()
   const bottomSheetRef = useRef<BottomSheet>(null)
+  const flatListRef = useRef<BottomSheetFlatListMethods>(null)
   const { t } = useTranslation('pois')
   const theme = useTheme()
 
@@ -74,7 +92,7 @@ const PoisBottomSheet = ({
   // For more details https://github.com/digitalfabrik/integreat-app/issues/4037 and https://github.com/gorhom/react-native-bottom-sheet/issues/1791#issuecomment-2060957019
   useAppStateListener(nextAppState => {
     if (nextAppState === 'active') {
-      setRemountKey(previous => previous + 1)
+      setRemountKey(1)
     }
   })
 
@@ -83,7 +101,16 @@ const PoisBottomSheet = ({
   const handlePoiSelection = (poi: PoiModel) => {
     selectPoi(poi)
     bottomSheetRef.current?.snapToIndex(1)
+    const index = pois.findIndex(it => it.path === poi.path)
+    if (index !== -1) {
+      flatListRef.current?.scrollToIndex({ index: index - SCROLL_OFFSET, animated: false })
+    }
   }
+
+  const HandleComponent = useCallback(
+    () => <BottomSheetHandle nextFocusForward={zoomInFocusTarget} />,
+    [zoomInFocusTarget],
+  )
 
   const PoiDetail = poi ? (
     <PoiDetails
@@ -93,7 +120,7 @@ const PoisBottomSheet = ({
       distance={userLocation && poi.distance(userLocation)}
     />
   ) : (
-    <Failure code={ErrorCode.PageNotFound} buttonAction={deselectAll} buttonLabel={t('backToOverview')} />
+    <Failure code={ErrorCode.PageNotFound} retry={refresh} goTo={deselectAll} goToLabel={t('backToOverview')} />
   )
 
   const renderPoiListItem = ({ item: poi }: { item: PoiModel }): ReactElement => (
@@ -104,6 +131,7 @@ const PoisBottomSheet = ({
       navigateToPoi={() => handlePoiSelection(poi)}
       distance={userLocation && poi.distance(userLocation)}
       onFocus={expandFullscreen}
+      visible={!slug}
     />
   )
 
@@ -111,7 +139,7 @@ const PoisBottomSheet = ({
     <StyledBottomSheet
       key={remountKey}
       ref={bottomSheetRef}
-      accessibilityLabel=''
+      accessible={false}
       index={snapPointIndex}
       isFullscreen={isFullscreen}
       snapPoints={snapPoints}
@@ -119,31 +147,35 @@ const PoisBottomSheet = ({
       enableDynamicSizing={false}
       animateOnMount
       backgroundStyle={{ backgroundColor: theme.colors.background }}
-      handleComponent={BottomSheetHandle}
+      handleComponent={HandleComponent}
       onChange={setSnapPointIndex}>
       <BottomSheetContent>
-        {slug ? (
-          <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
-        ) : (
-          <BottomSheetFlatList
-            data={pois}
-            role='list'
-            accessibilityLabel={t('poisCount', { count: pois.length })}
-            renderItem={renderPoiListItem}
-            showsVerticalScrollIndicator={false}
-            ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
-            ListEmptyComponent={
-              <Text
-                variant='body2'
-                style={{
-                  alignSelf: 'center',
-                  marginTop: 20,
-                }}>
-                {t('noPois')}
-              </Text>
-            }
-            ItemSeparatorComponent={PoiListDivider}
-          />
+        <BottomSheetFlatList
+          onScrollToIndexFailed={() => {}}
+          ref={flatListRef}
+          data={pois}
+          role='list'
+          {...conditionalA11yProps({ hidden: !!slug })}
+          accessibilityLabel={t('poisCount', { count: pois.length })}
+          renderItem={renderPoiListItem}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
+          ListEmptyComponent={
+            <Text
+              variant='body2'
+              style={{
+                alignSelf: 'center',
+                marginTop: 20,
+              }}>
+              {t('noPois')}
+            </Text>
+          }
+          ItemSeparatorComponent={PoiListDivider}
+        />
+        {slug && (
+          <PoiDetailsOverlay>
+            <BottomSheetScrollView showsVerticalScrollIndicator={false}>{PoiDetail}</BottomSheetScrollView>
+          </PoiDetailsOverlay>
         )}
       </BottomSheetContent>
     </StyledBottomSheet>

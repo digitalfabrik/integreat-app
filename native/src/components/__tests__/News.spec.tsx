@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 
 import { LocalNewsType, TU_NEWS_TYPE, TuNewsType, replaceLinks } from 'shared'
-import { LanguageModelBuilder, RegionModel, LocalNewsModel, TunewsModel } from 'shared/api'
+import { LanguageModelBuilder, RegionModel, LocalNewsModel, TuNewsModel } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -16,8 +16,8 @@ jest.mock('react-i18next')
 jest.mock('../../components/Page')
 jest.mock('../../hooks/useNavigate')
 
-const news: [TunewsModel, TunewsModel] = [
-  new TunewsModel({
+const news: [TuNewsModel, TuNewsModel] = [
+  new TuNewsModel({
     id: 9902,
     title: 'Was ist ein Verein?',
     lastUpdate: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
@@ -26,7 +26,7 @@ const news: [TunewsModel, TunewsModel] = [
       'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren. https://example.com',
     eNewsNo: 'tun0000009902',
   }),
-  new TunewsModel({
+  new TuNewsModel({
     id: 1234,
     title: 'Tick bite - What to do?',
     tags: ['8 Gesundheit'],
@@ -68,7 +68,7 @@ describe('News', () => {
     localNewsEnabled = true,
   }: {
     newsId?: number | null
-    data?: (LocalNewsModel | TunewsModel)[]
+    data?: (LocalNewsModel | TuNewsModel)[]
     loadingMore?: boolean
     selectedNewsType?: TuNewsType | LocalNewsType
     tuNewsEnabled?: boolean
@@ -82,7 +82,7 @@ describe('News', () => {
       eventsEnabled: true,
       poisEnabled: false,
       localNewsEnabled,
-      tunewsEnabled: tuNewsEnabled,
+      tuNewsEnabled,
       sortingName: 'Oldtown',
       prefix: 'GoT',
       latitude: 48.369696,

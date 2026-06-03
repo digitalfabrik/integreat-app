@@ -3,8 +3,8 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useParams } from 'react-router'
 
-import { TU_NEWS_TYPE, tunewsLabel } from 'shared'
-import { createTunewsElementEndpoint, NotFoundError, useLoadFromEndpoint } from 'shared/api'
+import { TU_NEWS_TYPE, tuNewsLabel } from 'shared'
+import { createTuNewsElementEndpoint, NotFoundError } from 'shared/api'
 
 import { TuNewsActiveIcon } from '../assets'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
@@ -14,21 +14,22 @@ import RegionContentLayout, { RegionContentLayoutProps } from '../components/Reg
 import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonPage from '../components/SkeletonPage'
 import Svg from '../components/base/Svg'
-import { tunewsApiBaseUrl } from '../constants/urls'
+import { tuNewsApiBaseUrl } from '../constants/urls'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { RegionRouteProps } from './index'
 
 const TuNewsBanner = styled('div')(({ theme }) => ({
   overflow: 'hidden',
   marginBlock: 24,
-  backgroundColor: theme.palette.tunews.light,
+  backgroundColor: theme.palette.tuNews.light,
   borderRadius: 12,
   height: 60,
   alignItems: 'start',
 }))
 
 const IconContainer = styled(Stack)(({ theme }) => ({
-  backgroundColor: theme.palette.tunews.main,
+  backgroundColor: theme.palette.tuNews.main,
   shapeRendering: 'crispEdges',
 }))
 
@@ -37,7 +38,7 @@ const TuNewsDetailPage = ({ region, pathname, regionCode, languageCode }: Region
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const newsId = useParams().newsId!
 
-  const { data: newsModel, error: newsError } = useLoadFromEndpoint(createTunewsElementEndpoint, tunewsApiBaseUrl, {
+  const { data: newsModel, error: newsError } = useQueryFromEndpoint(createTuNewsElementEndpoint, tuNewsApiBaseUrl, {
     id: parseInt(newsId, 10),
   })
 
@@ -47,7 +48,7 @@ const TuNewsDetailPage = ({ region, pathname, regionCode, languageCode }: Region
     return null
   }
 
-  const pageTitle = `${newsModel?.title ?? tunewsLabel} - ${region.name}`
+  const pageTitle = `${newsModel?.title ?? tuNewsLabel} - ${region.name}`
 
   // Language change is not possible between tuNews detail views because we don't know the id of other languages
   const languageChangePaths = region.languages.map(({ code, name }) => ({

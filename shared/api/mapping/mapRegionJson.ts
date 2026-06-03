@@ -28,7 +28,7 @@ const mapRegionJson = (json: JsonRegionType): RegionModel =>
     languages: mapLanguagesJson(json.languages),
     eventsEnabled: json.events,
     poisEnabled: json.pois,
-    tunewsEnabled: json.tunews,
+    tuNewsEnabled: json.tunews,
     localNewsEnabled: json.push_notifications,
     sortingName: json.name_without_prefix,
     prefix: json.prefix,
