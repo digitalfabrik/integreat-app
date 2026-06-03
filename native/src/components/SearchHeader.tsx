@@ -39,14 +39,10 @@ const SearchHeader = ({ query, navigation, onSearchChanged }: SearchHeaderProps)
           iconColor={theme.colors.onSurface}
         />
         <SearchInput
-          onChangeText={onSearchChanged}
+          setValue={onSearchChanged}
           value={query}
-          autoFocus
-          clearable
           placeholderText={t('search:searchPlaceholder')}
-          placeholderTextColor={theme.dark ? theme.colors.onSurface : theme.colors.onSurfaceVariant}
           style={{ flex: 1 }}
-          testId='Content-Search-Input'
         />
       </Horizontal>
     </BoxShadow>

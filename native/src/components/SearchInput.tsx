@@ -24,69 +24,56 @@ const Wrapper = styled.View<{ space: boolean }>`
 type SearchInputProps = {
   placeholderText?: string | undefined
   value: string
-  onChangeText: (text: string) => void
-  autoFocus?: boolean
-  backgroundColor?: string
-  clearable?: boolean
+  setValue: (value: string) => void
   description?: string
-  placeholderTextColor?: string
   spaceSearch?: boolean
   style?: StyleProp<ViewStyle>
-  testId?: string
-  textColor?: string
 }
 
 const SearchInput = ({
   placeholderText,
   value,
-  onChangeText,
-  autoFocus = false,
-  backgroundColor,
-  clearable = false,
+  setValue,
   spaceSearch = false,
   description,
-  placeholderTextColor,
   style,
-  testId = 'Search-Input',
-  textColor,
 }: SearchInputProps): ReactElement => {
   const { t } = useTranslation('search')
   const theme = useTheme()
-  const currentPlaceholderTextColor = placeholderTextColor ?? theme.colors.onSurfaceVariant
 
   return (
     <View style={style}>
       <Wrapper space={spaceSearch}>
         <InputWrapper>
           <TextInput
-            {...testID(testId)}
+            {...testID('Search-Input')}
             multiline={false}
-            autoFocus={autoFocus}
+            autoFocus
             onBlur={Keyboard.dismiss}
-            placeholderTextColor={currentPlaceholderTextColor}
+            placeholderTextColor={theme.colors.onSurfaceVariant}
             placeholder={placeholderText}
             aria-label={placeholderText}
             value={value}
-            onChangeText={onChangeText}
+            onChangeText={setValue}
             role='searchbox'
             mode='outlined'
             outlineStyle={{ borderRadius: 24 }}
-            style={[{ height: 48 }, backgroundColor ? { backgroundColor } : undefined]}
-            textColor={textColor}
+            style={{ height: 48, backgroundColor: theme.colors.surfaceVariant }}
+            textColor={theme.colors.onSurface}
             right={
-              clearable && value ? (
+              value ? (
                 <TextInput.Icon
                   icon='close'
-                  onPress={() => onChangeText('')}
+                  onPress={() => setValue('')}
                   accessibilityLabel={t('delete')}
-                  color={currentPlaceholderTextColor}
+                  color={theme.colors.onSurfaceVariant}
                 />
               ) : (
                 <TextInput.Icon
                   icon='magnify'
                   accessible={false}
                   focusable={false}
-                  color={currentPlaceholderTextColor}
+                  color={theme.colors.onSurfaceVariant}
                 />
               )
             }
