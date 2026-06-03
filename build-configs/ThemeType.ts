@@ -41,7 +41,6 @@ export type TypeBackground = {
   default: string
   paper: string
   accent: string
-  qrCode: string
 }
 
 export type TypeTtsPlayer = {

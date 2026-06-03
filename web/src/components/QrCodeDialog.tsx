@@ -43,7 +43,13 @@ const QrCodeDialog = ({ open, close, title, description, url, qrDetails }: QrCod
       }>
       <Stack alignItems='center' gap={2}>
         <Typography variant='body2'>{description}</Typography>
-        <Box borderRadius={2} sx={{ backgroundColor: theme.palette.background.qrCode }}>
+        <Box
+          sx={{
+            color: theme.palette.text.primary,
+            '& svg *': {
+              fill: 'currentColor',
+            },
+          }}>
           <Svg src={svgSrc} width={QR_CODE_SIZE} height={QR_CODE_SIZE} />
         </Box>
         <Typography variant='body2' textAlign='center'>

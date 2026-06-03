@@ -16,10 +16,6 @@ const styles = StyleSheet.create({
     gap: 16,
     paddingVertical: 16,
   },
-  qrWrapper: {
-    padding: 16,
-    borderRadius: 8,
-  },
   text: {
     textAlign: 'center',
   },
@@ -54,9 +50,7 @@ const QrCodeModal = ({
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={title} scrollView={false}>
       <View style={styles.content}>
         <Text>{description}</Text>
-        <View style={[styles.qrWrapper, { backgroundColor: theme.colors.qrCode }]}>
-          <SvgXml xml={svgXml} width={QR_CODE_SIZE} height={QR_CODE_SIZE} />
-        </View>
+        <SvgXml xml={svgXml} width={QR_CODE_SIZE} height={QR_CODE_SIZE} fill={theme.colors.onSurface} />
         <Text selectable style={styles.text}>
           {qrDetails}
         </Text>
