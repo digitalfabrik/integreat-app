@@ -1,0 +1,24 @@
+# Gradle Wrapper Validation
+#
+# Source repository: https://github.com/gradle/actions/tree/main/wrapper-validation
+name: 'Validate Gradle Wrapper'
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-gradle-wrapper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2.19.3
+        with:
+          egress-policy: audit
+
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v6
+      - name: 'Validate Gradle Wrapper'
+        uses: gradle/actions/wrapper-validation@v6

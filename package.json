@@ -28,7 +28,10 @@
   },
   "resolutions": {
     "luxon": "3.7.2",
-    "react": "19.2.3"
+    "react": "19.2.3",
+    "qs": "6.15.2",
+    "appium/ws": "8.20.1",
+    "@appium/support/uuid": "13.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
@@ -54,6 +57,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-styled-components-a11y": "^2.2.1",
     "eslint-plugin-unicorn": "^64.0.0",
+    "fast-check": "^4.8.0",
     "globals": "^17.4.0",
     "husky": "^9.1.7",
     "jest": "^30.3.0",
