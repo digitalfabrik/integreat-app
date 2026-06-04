@@ -709,6 +709,7 @@ jobs:
                             - beta
                             - << parameters.delivery >>
                 steps:
+                    - restore_yarn_cache
                     - run:
                         command: |
                             tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat

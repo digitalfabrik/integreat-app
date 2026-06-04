@@ -15039,6 +15039,7 @@ __metadata:
   resolution: "integreat-app@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.39.4"
+    "@sentry/cli": "npm:^3.4.0"
     "@trivago/prettier-plugin-sort-imports": "npm:^6.0.2"
     "@types/eslint": "npm:^9.6.1"
     "@types/jest": "npm:^30.0.0"
