@@ -34,7 +34,7 @@ const SwitchCmsUrlButton = ({ clearResourcesAndCache }: SwitchCmsUrlButtonProps)
     updateSettings({ apiUrlOverride: newApiUrl })
     clearResourcesAndCache()
     log(`Switching to default API: ${newApiUrl}`)
-    showSnackbar({ text: `Switched to default API ${newApiUrl}. Go back and pull to refresh to update.` })
+    showSnackbar({ text: `Switched to default API ${newApiUrl}` })
   }
 
   return (

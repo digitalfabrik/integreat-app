@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { Divider } from 'react-native-paper'
 
-import { SettingsRouteType } from 'shared'
+import { REGIONS_ROUTE, SettingsRouteType } from 'shared'
 
 import Caption from '../components/Caption'
 import LayoutedScrollView from '../components/LayoutedScrollView'
@@ -29,6 +29,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const clearResourcesAndCache = () => {
     dataContainer.clearInMemoryCache()
     dataContainer._clearOfflineCache().catch(reportError)
+    navigation.reset({ index: 0, routes: [{ name: REGIONS_ROUTE }] })
   }
 
   const safeOnPress = (update: () => Promise<void> | void) => async () => {

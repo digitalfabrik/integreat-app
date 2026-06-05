@@ -179,7 +179,7 @@ const createSettingsSections = ({
         updateSettings({ apiUrlOverride: switchCmsUrl })
         clearResourcesAndCache()
         log(`Switching to CMS: ${switchCmsUrl}`)
-        showSnackbar({ text: `Switched to CMS ${switchCmsUrl}. Go back and pull to refresh to update.` })
+        showSnackbar({ text: `Switched to CMS ${switchCmsUrl}` })
       }
     },
   },
