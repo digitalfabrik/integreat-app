@@ -103,7 +103,10 @@ const PlacesBottomSheet = ({
     bottomSheetRef.current?.snapToIndex(1)
     const index = places.findIndex(it => it.path === place.path)
     if (index !== -1) {
-      flatListRef.current?.scrollToIndex({ index: index - SCROLL_OFFSET, animated: false })
+      flatListRef.current?.scrollToIndex({
+        index: Math.max(0, Math.round(index - SCROLL_OFFSET)),
+        animated: false,
+      })
     }
   }
 
@@ -157,6 +160,7 @@ const PlacesBottomSheet = ({
           role='list'
           {...conditionalA11yProps({ hidden: !!slug })}
           accessibilityLabel={t('placesCount', { count: places.length })}
+          keyExtractor={(item: PoiModel) => item.path}
           renderItem={renderPlaceListItem}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
