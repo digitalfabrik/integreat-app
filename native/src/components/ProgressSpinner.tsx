@@ -19,7 +19,7 @@ const ProgressSpinner = (): ReactElement => {
   const theme = useTheme()
   return (
     <Container>
-      <ActivityIndicator size='large' color={theme.colors.primary} />
+      <ActivityIndicator size='large' />
       <Text
         accessibilityLiveRegion='assertive'
         accessibilityState={{ busy: true }}
