@@ -92,7 +92,7 @@ type PlacesMobileProps = {
   setMapViewport: (mapViewport: MapViewViewport) => void
   selectMapFeature: (mapFeature: MapFeature | null) => void
   deselect: () => void
-  MapOverlay: ReactElement
+  mapOverlay: ReactElement
   loading: boolean
 }
 
@@ -104,7 +104,7 @@ const PlacesMobile = ({
   setMapViewport,
   selectMapFeature,
   deselect,
-  MapOverlay,
+  mapOverlay,
   loading,
 }: PlacesMobileProps): ReactElement => {
   const [scrollOffset, setScrollOffset] = useState<number>(0)
@@ -155,14 +155,14 @@ const PlacesMobile = ({
         snapBottomSheetTo={sheetRef.current?.sheet?.snapTo}
         features={mapFeatures}
         currentFeature={mapFeature ?? null}
-        Overlay={
+        overlay={
           <>
             {canDeselect && (
               <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t('backToOverview')}>
                 <DirectionDependentBackIcon />
               </StyledIconButton>
             )}
-            {MapOverlay}
+            {mapOverlay}
           </>
         }
       />

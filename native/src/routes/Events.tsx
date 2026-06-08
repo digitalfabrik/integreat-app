@@ -65,7 +65,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
             title={event.title}
             lastUpdate={event.lastUpdate}
             language={language}
-            BeforeContent={
+            beforeContent={
               <PageDetailsContainer>
                 <DatesPageDetail date={event.date} languageCode={language} />
                 {event.location && (
@@ -89,7 +89,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
                 )}
               </PageDetailsContainer>
             }
-            Footer={<ExportEventButton event={event} />}
+            footer={<ExportEventButton event={event} />}
           />
         </LayoutedScrollView>
       )
@@ -129,7 +129,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
       <List
         items={filteredEvents ?? []}
         renderItem={renderEventListItem}
-        Header={
+        header={
           <>
             <Caption title={t('events')} />
             <EventsDateFilter

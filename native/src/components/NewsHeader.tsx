@@ -76,7 +76,7 @@ const NewsHeader = ({ regionModel, selectedNewsType, selectNewsType }: NewsHeade
             role='button'
             accessibilityLabel='TüNews'
             style={styles.TouchableRippleStyle}>
-            <StyledIcon Icon={selectedNewsType === TU_NEWS_TYPE ? TuNewsActiveIcon : TuNewsInactiveIcon} />
+            <StyledIcon icon={selectedNewsType === TU_NEWS_TYPE ? TuNewsActiveIcon : TuNewsInactiveIcon} />
           </TouchableRipple>
         </HeaderContainer>
       )}

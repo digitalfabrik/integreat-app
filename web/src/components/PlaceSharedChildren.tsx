@@ -47,7 +47,7 @@ const PlaceSharedChildren = ({
       distance={userLocation ? place.distance(userLocation) : null}
     />
   )
-  return <List NoItemsMessage={t('noPlaces')} items={sortPlaces(places, userLocation).map(renderPlaceListItem)} />
+  return <List noItemsMessage={t('noPlaces')} items={sortPlaces(places, userLocation).map(renderPlaceListItem)} />
 }
 
 export default PlaceSharedChildren

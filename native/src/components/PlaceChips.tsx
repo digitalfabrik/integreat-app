@@ -45,7 +45,7 @@ const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
         <Text variant='body2'>{t('common:accessible')}</Text>
       </Chip>
     ) : (
-      <Chip avatar={<StyledIcon Icon={NotAccessibleIcon} />} style={styles.chip} mode='outlined'>
+      <Chip avatar={<StyledIcon icon={NotAccessibleIcon} />} style={styles.chip} mode='outlined'>
         <Text variant='body2'>{t('common:notAccessible')}</Text>
       </Chip>
     )

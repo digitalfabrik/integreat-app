@@ -5,14 +5,6 @@ import { DefaultTheme } from 'styled-components/native'
 
 import Text from './Text'
 
-type ToggleButtonProps = {
-  text: string
-  onPress: () => Promise<void> | void
-  Icon: ReactElement
-  active: boolean
-  style?: StyleProp<ViewStyle>
-}
-
 const styles = StyleSheet.create({
   surface: {
     borderRadius: 18,
@@ -32,7 +24,15 @@ const styles = StyleSheet.create({
   },
 })
 
-const ToggleButton = ({ text, onPress, Icon, active, style }: ToggleButtonProps): ReactElement => {
+type ToggleButtonProps = {
+  text: string
+  onPress: () => Promise<void> | void
+  icon: ReactElement
+  active: boolean
+  style?: StyleProp<ViewStyle>
+}
+
+const ToggleButton = ({ text, onPress, icon, active, style }: ToggleButtonProps): ReactElement => {
   const theme = useTheme() as DefaultTheme
 
   const getBackgroundColor = () => {
@@ -65,7 +65,7 @@ const ToggleButton = ({ text, onPress, Icon, active, style }: ToggleButtonProps)
       ]}>
       <TouchableRipple role='switch' onPress={onPress} style={styles.TouchableRippleStyle} borderless>
         <>
-          {Icon}
+          {icon}
           <Text variant='body3' numberOfLines={1} style={[styles.text, { color: getTextColor() }]}>
             {text}
           </Text>

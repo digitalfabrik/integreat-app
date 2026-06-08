@@ -63,7 +63,7 @@ const RegionSelector = ({ regions, language, stickyTop, loading }: RegionSelecto
           <Typography variant='subtitle1' aria-live={resultRegions.length === 0 ? 'assertive' : 'polite'}>
             {t('search:searchResultsCount', { count: resultRegions.length })}
           </Typography>
-          <List items={groups} NoItemsMessage='search:nothingFound' />
+          <List items={groups} noItemsMessage='search:nothingFound' />
         </Stack>
       )}
     </Stack>

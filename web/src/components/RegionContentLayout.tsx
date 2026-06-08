@@ -14,7 +14,7 @@ import Layout from './Layout'
 import RegionContentHeader from './RegionContentHeader'
 
 export type RegionContentLayoutProps = {
-  Toolbar?: ReactElement | null
+  toolbar?: ReactElement | null
   children?: ReactNode
   languageChangePaths: LanguageChangePath[] | null
   isLoading: boolean
@@ -32,7 +32,7 @@ const RegionContentLayout = ({
   languageCode,
   languageChangePaths,
   isLoading,
-  Toolbar,
+  toolbar,
   fitScreen = false,
   pageTitle,
 }: RegionContentLayoutProps): ReactElement => {
@@ -68,7 +68,7 @@ const RegionContentLayout = ({
           {mobile && <BottomNavigation regionModel={region} languageCode={languageCode} />}
         </>
       }
-      toolbar={desktop ? Toolbar : null}>
+      toolbar={desktop ? toolbar : null}>
       {children}
     </Layout>
   )

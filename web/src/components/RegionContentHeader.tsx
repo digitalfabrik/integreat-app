@@ -55,7 +55,7 @@ const RegionContentHeader = ({
       actionItems={actionItems}
       regionName={regionModel.name}
       language={languageCode}
-      TabBar={desktop && <NavigationTabs regionModel={regionModel} languageCode={languageCode} />}
+      tabBar={desktop && <NavigationTabs regionModel={regionModel} languageCode={languageCode} />}
     />
   )
 }

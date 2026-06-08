@@ -78,7 +78,7 @@ const TuNewsPage = ({ regionCode, languageCode, region }: RegionRouteProps): Rea
     languageChangePaths,
     languageCode,
     pageTitle,
-    Toolbar: <RegionContentToolbar />,
+    toolbar: <RegionContentToolbar />,
   }
 
   if (error) {

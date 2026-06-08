@@ -35,11 +35,11 @@ type ListItemProps = {
   title: string
   language: string
   children?: ReactNode
-  Icon?: ReactNode
+  icon?: ReactNode
   navigateTo: () => void
 }
 
-const ListItem = ({ language, title, thumbnail, children, Icon, navigateTo }: ListItemProps): ReactElement => {
+const ListItem = ({ language, title, thumbnail, children, icon, navigateTo }: ListItemProps): ReactElement => {
   const theme = useTheme()
 
   return (
@@ -56,7 +56,7 @@ const ListItem = ({ language, title, thumbnail, children, Icon, navigateTo }: Li
             <Text variant='h6' style={{ flex: 1, flexWrap: 'wrap' }}>
               {title}
             </Text>
-            {Icon}
+            {icon}
           </TitleRow>
           {children}
         </Description>

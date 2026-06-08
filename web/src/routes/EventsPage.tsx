@@ -82,7 +82,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     languageChangePaths,
     languageCode,
     pageTitle,
-    Toolbar: <RegionContentToolbar slug={event?.slug} />,
+    toolbar: <RegionContentToolbar slug={event?.slug} />,
   }
 
   if (error) {
@@ -120,7 +120,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
           lastUpdate={lastUpdate}
           content={content}
           title={title}
-          BeforeContent={
+          beforeContent={
             <Spacing content={content} lastUpdate={lastUpdate}>
               <DatesPageDetail date={date} language={languageCode} />
               {location && (
@@ -136,7 +136,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
               )}
             </Spacing>
           }
-          Footer={<ExportEventButton event={event} />}
+          footer={<ExportEventButton event={event} />}
         />
       </RegionContentLayout>
     )
@@ -164,7 +164,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
         startDateError={startDateError}
       />
       {events ? (
-        <List items={items} NoItemsMessage='events:currentlyNoEvents' />
+        <List items={items} noItemsMessage='events:currentlyNoEvents' />
       ) : (
         <SkeletonList listItemHeight={80} listItemIcon={<Icon />} />
       )}

@@ -69,15 +69,15 @@ describe('feedback', () => {
 
   it.each`
     route               | props                     | feedbackType
-    ${CATEGORIES_ROUTE} | ${{}}                     | ${FeedbackType.categories}
-    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }} | ${FeedbackType.page}
-    ${EVENTS_ROUTE}     | ${{}}                     | ${FeedbackType.events}
-    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackType.event}
-    ${IMPRINT_ROUTE}    | ${{}}                     | ${FeedbackType.imprint}
-    ${PLACES_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackType.place}
-    ${PLACES_ROUTE}     | ${{}}                     | ${FeedbackType.map}
-    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}    | ${FeedbackType.search}
-    ${TU_NEWS_TYPE}     | ${{}}                     | ${FeedbackType.categories}
+    ${CATEGORIES_ROUTE} | ${{}}                     | ${FeedbackType.Categories}
+    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }} | ${FeedbackType.Page}
+    ${EVENTS_ROUTE}     | ${{}}                     | ${FeedbackType.Events}
+    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackType.Event}
+    ${IMPRINT_ROUTE}    | ${{}}                     | ${FeedbackType.Imprint}
+    ${PLACES_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackType.Place}
+    ${PLACES_ROUTE}     | ${{}}                     | ${FeedbackType.Map}
+    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}    | ${FeedbackType.Search}
+    ${TU_NEWS_TYPE}     | ${{}}                     | ${FeedbackType.Categories}
   `(
     'should successfully request feedback for $feedbackType if rating was set',
     async ({ route, props, feedbackType }) => {

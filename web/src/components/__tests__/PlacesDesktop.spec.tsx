@@ -29,7 +29,7 @@ describe('PlacesDesktop', () => {
         slug={place?.slug}
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}
-        MapOverlay={<div />}
+        mapOverlay={<div />}
         loading={loading}
       />,
     )

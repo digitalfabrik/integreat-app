@@ -106,7 +106,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
         mode='outlined'
         rippleColor='transparent'
         elevated
-        avatar={<Icon Icon={EditLocationIcon} />}
+        avatar={<Icon icon={EditLocationIcon} />}
         onPress={() => updateShowFilterSelection(true)}>
         <Text variant='body3'>{t('adjustFilters')}</Text>
       </StyledChip>
@@ -159,7 +159,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
         refreshPermissionAndLocation={refreshPermissionAndLocation}
         userLocation={userLocation}
         zoom={initialZoom}
-        Overlay={FiltersOverlayButtons}
+        overlay={FiltersOverlayButtons}
         zoomRef={handleZoomInRef}
       />
       <PlacesBottomSheet

@@ -80,7 +80,7 @@ const News = ({
               : selectedNewsItem.content
           }
           language={languageCode}
-          Footer={
+          footer={
             selectedNewsItem instanceof LocalNewsModel && (
               <Text
                 style={{
@@ -106,7 +106,7 @@ const News = ({
       items={news}
       onEndReached={loadMore}
       noItemsMessage={t('currentlyNoNews')}
-      Footer={loadingMore ? <LoadingSpinner testID='loadingSpinner' /> : undefined}
+      footer={loadingMore ? <LoadingSpinner testID='loadingSpinner' /> : undefined}
       renderItem={rendersNewsListItem}
       refresh={refresh}
     />

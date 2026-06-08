@@ -40,7 +40,7 @@ const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
       <H1>{t('title')}</H1>&<Description>{t('description')}</Description>
-      <List items={items} NoItemsMessage={t('noSources')} />
+      <List items={items} noItemsMessage={t('noSources')} />
     </Layout>
   )
 }
