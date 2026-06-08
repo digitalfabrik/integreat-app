@@ -5,7 +5,7 @@ import {
   RegionModelBuilder,
   EventModelBuilder,
   LanguageModelBuilder,
-  PoiModelBuilder,
+  PlaceModelBuilder,
 } from 'shared/api'
 
 import {
@@ -26,7 +26,7 @@ describe('useLoadSearchDocuments', () => {
   const languageCode = new LanguageModelBuilder(1).build()[0]!.code
   const categories = new CategoriesMapModelBuilder(regionCode, languageCode).build()
   const events = new EventModelBuilder('seed', 2, regionCode, languageCode).build()
-  const locations = new PoiModelBuilder(3).build()
+  const locations = new PlaceModelBuilder(3).build()
 
   it('should return the correct results', () => {
     mockUseQueryFromEndpointOnceWithData(categories)
@@ -53,7 +53,7 @@ describe('useLoadSearchDocuments', () => {
   it('should handle an error', () => {
     mockUseQueryFromEndpointOnceWithData(categories)
     mockUseQueryFromEndpointOnceWithData(events)
-    const errorMessage = 'no pois found'
+    const errorMessage = 'no places found'
     mockUseQueryFromEndpointWithError(errorMessage)
     const { result } = renderHook(() => useLoadSearchDocuments({ regionCode, languageCode, cmsApiBaseUrl: '' }))
     const { error } = result.current

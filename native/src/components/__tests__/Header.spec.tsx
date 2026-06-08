@@ -9,8 +9,8 @@ import {
   IMPRINT_ROUTE,
   ImprintRouteType,
   NewsRouteType,
-  POIS_ROUTE,
-  PoisRouteType,
+  PLACES_ROUTE,
+  PlacesRouteType,
   SEARCH_ROUTE,
 } from 'shared'
 import { LanguageModelBuilder, RegionModelBuilder, LanguageModel } from 'shared/api'
@@ -93,7 +93,7 @@ describe('Header', () => {
     languages?: LanguageModel[]
     availableLanguages?: string[]
     shareUrl?: string
-    route?: RouteProps<CategoriesRouteType | PoisRouteType | ImprintRouteType | NewsRouteType>
+    route?: RouteProps<CategoriesRouteType | PlacesRouteType | ImprintRouteType | NewsRouteType>
   }) =>
     render(
       <TestingAppContext regionCode={regionModel.code} languageCode={languageModel.code}>
@@ -228,7 +228,7 @@ describe('Header', () => {
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
     const { getByTestId, getByText } = renderHeader({
-      route: { key: 'key-0', name: POIS_ROUTE, params: { title: 'Stadt Augsburg' } },
+      route: { key: 'key-0', name: PLACES_ROUTE, params: { title: 'Stadt Augsburg' } },
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
     fireEvent.press(getByText(t('share')))

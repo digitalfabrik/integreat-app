@@ -14,7 +14,7 @@ describe('getNearbyRegions', () => {
       live: true,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: true,
-      poisEnabled: true,
+      placesEnabled: true,
       localNewsEnabled: false,
       tuNewsEnabled: false,
       sortingName: 'Augsburg',

@@ -73,7 +73,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
                     icon='map-marker'
                     information={event.location.fullAddress}
                     language={language}
-                    path={event.poiPath}
+                    path={event.placePath}
                     accessibilityLabel={t('address')}
                   />
                 )}

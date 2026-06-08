@@ -31,7 +31,7 @@ type MapZoomControlsProps = {
 }
 
 const MapZoomControls = ({ mapViewRef }: MapZoomControlsProps): ReactElement => {
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
 
   return (
     <Stack gap={1}>

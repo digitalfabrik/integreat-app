@@ -51,7 +51,7 @@ const useLocalStackHistory = <S extends {}, T>({
             // Prevent navigating back
             return true
           }
-          // Reset the local pois history on back navigation to start with the pois list next time
+          // Reset the local places history on back navigation to start with the places list next time
           reset()
           // Navigate back
           return false

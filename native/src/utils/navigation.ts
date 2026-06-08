@@ -6,8 +6,8 @@ import {
   EVENTS_TAB_ROUTE,
   NEWS_ROUTE,
   NEWS_TAB_ROUTE,
-  POIS_ROUTE,
-  POIS_TAB_ROUTE,
+  PLACES_ROUTE,
+  PLACES_TAB_ROUTE,
 } from 'shared'
 
 import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
@@ -23,7 +23,7 @@ const tabRoutes: Record<NestedRoutesType, TabRoutesType> = {
   [CATEGORIES_ROUTE]: CATEGORIES_TAB_ROUTE,
   [EVENTS_ROUTE]: EVENTS_TAB_ROUTE,
   [NEWS_ROUTE]: NEWS_TAB_ROUTE,
-  [POIS_ROUTE]: POIS_TAB_ROUTE,
+  [PLACES_ROUTE]: PLACES_TAB_ROUTE,
 }
 
 export const navigateNested = <T extends RoutesType, S extends keyof NestedRoutesParamsType>(

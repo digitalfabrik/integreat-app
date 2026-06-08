@@ -31,7 +31,7 @@ type OpeningHoursTitleProps = {
 }
 
 const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTitleProps) => {
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
   const theme = useTheme()
   return (
     <TitleContainer language={language}>
@@ -64,7 +64,7 @@ const OpeningHours = ({
   isTemporarilyClosed,
   appointmentUrl,
 }: OpeningHoursProps): ReactElement | null => {
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
   const showSnackbar = useSnackbar()
   const theme = useTheme()
   const appointmentOnly = !openingHours && !!appointmentUrl

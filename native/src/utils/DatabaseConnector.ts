@@ -16,8 +16,8 @@ import {
   LocalNewsModel,
   LocationModel,
   OpeningHoursModel,
-  PoiModel,
-  PoiCategoryModel,
+  PlaceModel,
+  PlaceCategoryModel,
   OrganizationModel,
   OfferModel,
 } from 'shared/api'
@@ -106,7 +106,7 @@ type ContentEventJsonType = {
   }
   location: LocationJsonType<number | null> | null
   featuredImage: FeaturedImageJsonType | null | undefined
-  poiPath: string | null
+  placePath: string | null
   meetingUrl: string | null
 }
 
@@ -124,7 +124,7 @@ type ContentRegionJsonType = {
   eventsEnabled: boolean
   chatEnabled: boolean
   chatPrivacyPolicyUrl: string | null
-  poisEnabled: boolean
+  placesEnabled: boolean
   sortingName: string
   longitude: number
   latitude: number
@@ -151,7 +151,7 @@ type ContactJsonType = {
     | null
 }
 
-type ContentPoiJsonType = {
+type ContentPlaceJsonType = {
   path: string
   title: string
   content: string
@@ -497,16 +497,16 @@ class DatabaseConnector {
     return this.readFile(path, mapCategoriesJson)
   }
 
-  async storePois(pois: PoiModel[], context: DatabaseContext): Promise<void> {
-    const jsonModels = pois.map(
-      (poi: PoiModel): ContentPoiJsonType => ({
-        path: poi.path,
-        title: poi.title,
-        content: poi.content,
-        thumbnail: poi.thumbnail,
-        availableLanguages: poi.availableLanguages,
-        excerpt: poi.excerpt,
-        contacts: poi.contacts.map(contact => ({
+  async storePlaces(places: PlaceModel[], context: DatabaseContext): Promise<void> {
+    const jsonModels = places.map(
+      (place: PlaceModel): ContentPlaceJsonType => ({
+        path: place.path,
+        title: place.title,
+        content: place.content,
+        thumbnail: place.thumbnail,
+        availableLanguages: place.availableLanguages,
+        excerpt: place.excerpt,
+        contacts: place.contacts.map(contact => ({
           name: contact.name,
           areaOfResponsibility: contact.areaOfResponsibility,
           email: contact.email,
@@ -516,46 +516,46 @@ class DatabaseConnector {
           officeHours: contact.officeHours?.map(mapOpeningHoursToJson) ?? null,
         })),
         location: {
-          id: poi.location.id,
-          address: poi.location.address,
-          town: poi.location.town,
-          postcode: poi.location.postcode,
-          latitude: poi.location.latitude,
-          longitude: poi.location.longitude,
-          country: poi.location.country,
-          name: poi.location.name,
+          id: place.location.id,
+          address: place.location.address,
+          town: place.location.town,
+          postcode: place.location.postcode,
+          latitude: place.location.latitude,
+          longitude: place.location.longitude,
+          country: place.location.country,
+          name: place.location.name,
         },
-        lastUpdate: poi.lastUpdate.toISO(),
+        lastUpdate: place.lastUpdate.toISO(),
         category: {
-          id: poi.category.id,
-          name: poi.category.name,
-          icon: poi.category.icon,
-          iconName: poi.category.iconName,
-          color: poi.category.color,
+          id: place.category.id,
+          name: place.category.name,
+          icon: place.category.icon,
+          iconName: place.category.iconName,
+          color: place.category.color,
         },
-        openingHours: poi.openingHours?.map(mapOpeningHoursToJson) ?? null,
-        temporarilyClosed: poi.temporarilyClosed,
-        appointmentUrl: poi.appointmentUrl,
+        openingHours: place.openingHours?.map(mapOpeningHoursToJson) ?? null,
+        temporarilyClosed: place.temporarilyClosed,
+        appointmentUrl: place.appointmentUrl,
         organization:
-          poi.organization !== null
+          place.organization !== null
             ? {
-                name: poi.organization.name,
-                logo: poi.organization.logo,
-                url: poi.organization.url,
+                name: place.organization.name,
+                logo: place.organization.logo,
+                url: place.organization.url,
               }
             : null,
-        barrierFree: poi.barrierFree ?? null,
+        barrierFree: place.barrierFree ?? null,
       }),
     )
-    await this.writeFile(this.getContentPath('pois', context), JSON.stringify(jsonModels))
+    await this.writeFile(this.getContentPath('places', context), JSON.stringify(jsonModels))
   }
 
-  async loadPois(context: DatabaseContext): Promise<PoiModel[]> {
-    const path = this.getContentPath('pois', context)
-    const mapPoisJson = (json: ContentPoiJsonType[]) =>
+  async loadPlaces(context: DatabaseContext): Promise<PlaceModel[]> {
+    const path = this.getContentPath('places', context)
+    const mapPlacesJson = (json: ContentPlaceJsonType[]) =>
       json.map(jsonObject => {
         const jsonLocation = jsonObject.location
-        return new PoiModel({
+        return new PlaceModel({
           path: jsonObject.path,
           title: jsonObject.title,
           content: jsonObject.content,
@@ -586,7 +586,7 @@ class DatabaseConnector {
             town: jsonLocation.town,
           }),
           lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
-          category: new PoiCategoryModel({
+          category: new PlaceCategoryModel({
             id: jsonObject.category.id,
             name: jsonObject.category.name,
             color: jsonObject.category.color,
@@ -608,7 +608,7 @@ class DatabaseConnector {
         })
       })
 
-    return this.readFile(path, mapPoisJson)
+    return this.readFile(path, mapPlacesJson)
   }
 
   async storeLocalNews(localNews: LocalNewsModel[], context: DatabaseContext): Promise<void> {
@@ -652,7 +652,7 @@ class DatabaseConnector {
         eventsEnabled: region.eventsEnabled,
         chatEnabled: region.chatEnabled,
         chatPrivacyPolicyUrl: region.chatPrivacyPolicyUrl,
-        poisEnabled: region.poisEnabled,
+        placesEnabled: region.placesEnabled,
         pushNotificationsEnabled: region.localNewsEnabled,
         tuNewsEnabled: region.tuNewsEnabled,
         sortingName: region.sortingName,
@@ -678,7 +678,7 @@ class DatabaseConnector {
             eventsEnabled: jsonObject.eventsEnabled,
             localNewsEnabled: jsonObject.pushNotificationsEnabled,
             tuNewsEnabled: jsonObject.tuNewsEnabled,
-            poisEnabled: jsonObject.poisEnabled,
+            placesEnabled: jsonObject.placesEnabled,
             sortingName: jsonObject.sortingName,
             prefix: jsonObject.prefix,
             longitude: jsonObject.longitude,
@@ -731,7 +731,7 @@ class DatabaseConnector {
               full: event.featuredImage.full,
             }
           : null,
-        poiPath: event.poiPath,
+        placePath: event.placePath,
         meetingUrl: event.meetingUrl,
       }),
     )
@@ -779,7 +779,7 @@ class DatabaseConnector {
                 town: jsonObject.location.town,
               })
             : null,
-          poiPath: jsonObject.poiPath,
+          placePath: jsonObject.placePath,
           meetingUrl: jsonObject.meetingUrl,
         })
       })
@@ -840,8 +840,8 @@ class DatabaseConnector {
     ])
   }
 
-  isPoisPersisted(context: DatabaseContext): Promise<boolean> {
-    return this._isPersisted(this.getContentPath('pois', context))
+  isPlacesPersisted(context: DatabaseContext): Promise<boolean> {
+    return this._isPersisted(this.getContentPath('places', context))
   }
 
   isRegionsPersisted(): Promise<boolean> {

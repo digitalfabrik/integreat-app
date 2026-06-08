@@ -38,7 +38,7 @@ describe('OfficeHours', () => {
   it('should display that the office is open', () => {
     const { getByText, getAllByText } = renderOfficeHours()
 
-    expect(getByText('pois:opened')).toBeTruthy()
+    expect(getByText('places:opened')).toBeTruthy()
 
     expect(getAllByText(officeHours[0]!.timeSlots[0]!.start, { exact: false })).toHaveLength(7)
     expect(getAllByText(officeHours[0]!.timeSlots[0]!.end, { exact: false })).toHaveLength(7)
@@ -49,7 +49,7 @@ describe('OfficeHours', () => {
 
     const { getByText } = renderOfficeHours()
 
-    expect(getByText('pois:closed')).toBeTruthy()
+    expect(getByText('places:closed')).toBeTruthy()
   })
 
   it('should display all day if the office is open all day', () => {
@@ -66,8 +66,8 @@ describe('OfficeHours', () => {
 
     const { getByText, queryByText } = renderOfficeHours(allDayOfficeHours)
 
-    expect(getByText('pois:allDay')).toBeTruthy()
-    expect(queryByText('pois:opened')).toBeFalsy()
+    expect(getByText('places:allDay')).toBeTruthy()
+    expect(queryByText('places:opened')).toBeFalsy()
   })
 
   it('should display temporarily closed if the office is closed all day', () => {
@@ -84,7 +84,7 @@ describe('OfficeHours', () => {
 
     const { getByText, queryByText } = renderOfficeHours(closedOfficeHours)
 
-    expect(getByText('pois:temporarilyClosed')).toBeTruthy()
-    expect(queryByText('pois:opened')).toBeFalsy()
+    expect(getByText('places:temporarilyClosed')).toBeTruthy()
+    expect(queryByText('places:opened')).toBeFalsy()
   })
 })

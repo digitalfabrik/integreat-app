@@ -1,6 +1,6 @@
 import { LocalNewsType, TuNewsType } from '../../routes'
 
-type NotFoundType = 'region' | 'category' | 'event' | 'poi' | 'imprint' | TuNewsType | LocalNewsType | 'route'
+type NotFoundType = 'region' | 'category' | 'event' | 'place' | 'imprint' | TuNewsType | LocalNewsType | 'route'
 
 const getMessage = (type: NotFoundType, id: string): string => `The ${type} ${id} does not exist here.`
 

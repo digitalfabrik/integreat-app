@@ -1,4 +1,11 @@
-import { CATEGORIES_ROUTE, IMPRINT_ROUTE, EVENTS_ROUTE, POIS_ROUTE, SEARCH_ROUTE, TU_NEWS_TYPE } from '../../../routes'
+import {
+  CATEGORIES_ROUTE,
+  IMPRINT_ROUTE,
+  EVENTS_ROUTE,
+  PLACES_ROUTE,
+  SEARCH_ROUTE,
+  TU_NEWS_TYPE,
+} from '../../../routes'
 import { API_VERSION } from '../../constants'
 import createFeedbackEndpoint, { FeedbackType } from '../createFeedbackEndpoint'
 
@@ -67,8 +74,8 @@ describe('feedback', () => {
     ${EVENTS_ROUTE}     | ${{}}                     | ${FeedbackType.events}
     ${EVENTS_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackType.event}
     ${IMPRINT_ROUTE}    | ${{}}                     | ${FeedbackType.imprint}
-    ${POIS_ROUTE}       | ${{ slug: '1234' }}       | ${FeedbackType.poi}
-    ${POIS_ROUTE}       | ${{}}                     | ${FeedbackType.map}
+    ${PLACES_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackType.place}
+    ${PLACES_ROUTE}     | ${{}}                     | ${FeedbackType.map}
     ${SEARCH_ROUTE}     | ${{ query: 'query ' }}    | ${FeedbackType.search}
     ${TU_NEWS_TYPE}     | ${{}}                     | ${FeedbackType.categories}
   `(

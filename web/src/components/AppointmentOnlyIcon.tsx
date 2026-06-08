@@ -17,7 +17,7 @@ type AppointmentOnlyIconProps = {
 }
 
 const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): ReactElement => {
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
 
   return (
     <Tooltip
@@ -25,7 +25,7 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
         <Stack>
           <Typography variant='subtitle1'>{t('appointmentNecessary')}</Typography>
           <Typography variant='body2'>
-            <Trans i18nKey='pois:makeAppointmentTooltipWithLink'>
+            <Trans i18nKey='places:makeAppointmentTooltipWithLink'>
               This gets replaced
               {appointmentUrl ? (
                 <StyledLink to={appointmentUrl} highlighted>

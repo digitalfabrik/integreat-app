@@ -13,7 +13,7 @@ import {
   LICENSES_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   RouteInformationType,
   SEARCH_ROUTE,
 } from 'shared'
@@ -99,15 +99,15 @@ const navigate = <T extends RoutesType>(
       )
       return
 
-    case POIS_ROUTE:
+    case PLACES_ROUTE:
       navigateNested(
         navigation,
-        POIS_ROUTE,
+        PLACES_ROUTE,
         {
           slug: routeInformation.slug,
-          multipoi: routeInformation.multipoi,
+          multiPlace: routeInformation.multiPlace,
           zoom: routeInformation.zoom,
-          poiCategoryId: routeInformation.poiCategoryId,
+          placeCategoryId: routeInformation.placeCategoryId,
         },
         redirect,
       )

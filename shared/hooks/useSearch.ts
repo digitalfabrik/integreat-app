@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import CategoriesMapModel from '../api/models/CategoriesMapModel'
 import EventModel from '../api/models/EventModel'
 import ExtendedDocumentModel from '../api/models/ExtendedDocumentModel'
-import PoiModel from '../api/models/PoiModel'
+import PlaceModel from '../api/models/PlaceModel'
 import normalizeString from '../utils/normalizeString'
 import parseHTML from '../utils/parseHTML'
 
@@ -22,11 +22,11 @@ const removeDuplicatedPaths = (documents: ExtendedDocumentModel[]) => {
 export const prepareSearchDocuments = (
   categories?: CategoriesMapModel | null,
   events?: EventModel[] | null,
-  pois?: PoiModel[] | null,
+  places?: PlaceModel[] | null,
 ): ExtendedDocumentModel[] => [
   ...(categories?.toArray().filter(category => !category.isRoot()) || []),
   ...(events || []),
-  ...(pois || []),
+  ...(places || []),
 ]
 
 const normalizeContent = (term: string) => normalizeString(parseHTML(term))

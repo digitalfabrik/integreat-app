@@ -128,7 +128,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
                   tooltip={t('address')}
                   icon={<LocationIcon />}
                   information={location.fullAddress}
-                  path={event.poiPath}
+                  path={event.placePath}
                 />
               )}
               {!!meetingUrl && (

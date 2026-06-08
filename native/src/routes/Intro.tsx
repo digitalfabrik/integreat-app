@@ -9,7 +9,7 @@ import {
   IntroLanguageIcon,
   IntroNewsIcon,
   IntroOfflineIcon,
-  IntroPoisIcon,
+  IntroPlacesIcon,
   IntroSearchIcon,
   IntroWelcomeIcon,
 } from '../assets'
@@ -67,10 +67,10 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
       Content: <StyledIcon Icon={IntroSearchIcon} />,
     },
     {
-      key: 'pois',
-      title: t('pois'),
-      description: t('poisDescription'),
-      Content: <StyledIcon Icon={IntroPoisIcon} />,
+      key: 'places',
+      title: t('places'),
+      description: t('placesDescription'),
+      Content: <StyledIcon Icon={IntroPlacesIcon} />,
     },
     {
       key: 'news',

@@ -7,7 +7,7 @@ import {
   RegionModelBuilder,
   EventModelBuilder,
   ExtendedDocumentModel,
-  PoiModelBuilder,
+  PlaceModelBuilder,
 } from 'shared/api'
 
 import useLoadSearchDocuments from '../../hooks/useLoadSearchDocuments'
@@ -53,10 +53,10 @@ describe('SearchPage', () => {
   const eventModels = new EventModelBuilder('testseed', 1, regionCode, languageCode).build()
   const event0 = eventModels[0]!
 
-  const poiModels = new PoiModelBuilder(3).build()
-  const poi0 = poiModels[0]!
+  const placeModels = new PlaceModelBuilder(3).build()
+  const place0 = placeModels[0]!
 
-  const searchDocuments = [...categoryModels.filter(category => !category.isRoot()), ...eventModels, ...poiModels]
+  const searchDocuments = [...categoryModels.filter(category => !category.isRoot()), ...eventModels, ...placeModels]
 
   const hookReturn = {
     data: searchDocuments,
@@ -85,7 +85,7 @@ describe('SearchPage', () => {
 
     expect(queryByText(category1.title)).toBeNull()
     expect(queryByText(event0.title)).toBeNull()
-    expect(queryByText(poi0.title)).toBeNull()
+    expect(queryByText(place0.title)).toBeNull()
 
     fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
       target: {
@@ -95,7 +95,7 @@ describe('SearchPage', () => {
 
     expect(getAllByText(category1.title)).toBeTruthy()
     expect(getAllByText(event0.title)).toBeTruthy()
-    expect(getAllByText(poi0.title)).toBeTruthy()
+    expect(getAllByText(place0.title)).toBeTruthy()
   })
 
   it('should display nothing found for search', () => {

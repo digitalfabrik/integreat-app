@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, POIS_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, PLACES_ROUTE } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import useRegionContentParams from '../hooks/useRegionContentParams'
@@ -23,7 +23,7 @@ const NavigationTabs = ({ regionModel, languageCode }: NavigationTabsProps): Rea
   const color = theme.isContrastTheme ? 'secondary' : 'primary'
 
   const navigationItems = getNavigationItems({ regionModel, languageCode })
-  const allTabValues: string[] = [CATEGORIES_ROUTE, POIS_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
+  const allTabValues: string[] = [CATEGORIES_ROUTE, PLACES_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
   const currentTabValue = allTabValues.includes(route) ? route : false
 
   if (!navigationItems) {

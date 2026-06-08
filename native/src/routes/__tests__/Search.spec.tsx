@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CategoriesMapModelBuilder, EventModelBuilder, ExtendedDocumentModel, PoiModelBuilder } from 'shared/api'
+import { CategoriesMapModelBuilder, EventModelBuilder, ExtendedDocumentModel, PlaceModelBuilder } from 'shared/api'
 
 import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
@@ -37,12 +37,12 @@ describe('Search', () => {
 
   const categoriesMapModel = new CategoriesMapModelBuilder(regionCode, languageCode, 2, 2).build()
   const eventModels = new EventModelBuilder('testseed', 5, regionCode, languageCode).build()
-  const poiModels = new PoiModelBuilder(3).build()
+  const placeModels = new PlaceModelBuilder(3).build()
 
   const documents = [
     ...categoriesMapModel.toArray().filter(category => !category.isRoot()),
     ...eventModels,
-    ...poiModels,
+    ...placeModels,
   ]
 
   const props: SearchProps = {

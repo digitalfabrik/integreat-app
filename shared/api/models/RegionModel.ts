@@ -12,7 +12,7 @@ class RegionModel {
   _chatEnabled: boolean
   _chatPrivacyPolicyUrl: string | null
   _eventsEnabled: boolean
-  _poisEnabled: boolean
+  _placesEnabled: boolean
   _localNewsEnabled: boolean
   _tuNewsEnabled: boolean
   _sortingName: string
@@ -25,7 +25,7 @@ class RegionModel {
     code: string
     live: boolean
     languages: LanguageModel[]
-    poisEnabled: boolean
+    placesEnabled: boolean
     eventsEnabled: boolean
     localNewsEnabled: boolean
     chatEnabled: boolean
@@ -44,7 +44,7 @@ class RegionModel {
     this._languages = params.languages
     this._chatEnabled = params.chatEnabled
     this._eventsEnabled = params.eventsEnabled
-    this._poisEnabled = params.poisEnabled
+    this._placesEnabled = params.placesEnabled
     this._localNewsEnabled = params.localNewsEnabled
     this._tuNewsEnabled = params.tuNewsEnabled
     this._sortingName = params.sortingName
@@ -90,8 +90,8 @@ class RegionModel {
     return this._eventsEnabled
   }
 
-  get poisEnabled(): boolean {
-    return this._poisEnabled
+  get placesEnabled(): boolean {
+    return this._placesEnabled
   }
 
   get localNewsEnabled(): boolean {
