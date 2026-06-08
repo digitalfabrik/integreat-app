@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Navigate, Route, Routes, useMatch } from 'react-router'
+import { Navigate, Route, Routes, useLocation, useMatch, useParams } from 'react-router'
 
 import {
   SUGGEST_TO_REGION_ROUTE,
@@ -12,6 +12,9 @@ import {
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
   RESERVED_REGION_CONTENT_SLUGS,
+  LEGACY_REGIONS_ROUTE,
+  LEGACY_PLACES_ROUTE,
+  PLACES_ROUTE,
 } from 'shared'
 
 import FixedRegionContentNavigator from './FixedRegionContentNavigator'
@@ -23,14 +26,20 @@ import ConsentPage from './routes/ConsentPage'
 import SuggestToRegionPage from './routes/SuggestToRegionPage'
 import lazyWithRetry from './utils/retryImport'
 
-type RootNavigatorProps = {
-  setContentLanguage: (languageCode: string) => void
-}
-
 const MainImprintPage = lazyWithRetry(() => import('./routes/MainImprintPage'))
 const RegionsPage = lazyWithRetry(() => import('./routes/RegionsPage'))
 const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
 const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
+
+const LegacyPlacesRedirect = (): ReactElement => {
+  const { regionCode, languageCode, '*': splat } = useParams()
+  const { search } = useLocation()
+  return <Navigate to={`/${regionCode}/${languageCode}/${PLACES_ROUTE}/${splat ?? ''}${search}`} replace />
+}
+
+type RootNavigatorProps = {
+  setContentLanguage: (languageCode: string) => void
+}
 
 const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement => {
   const { i18n } = useTranslation()
@@ -75,8 +84,13 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
       )}
 
       {/* Redirects */}
+      <Route
+        path={`/${LEGACY_REGIONS_ROUTE}/*`}
+        element={<Navigate to={`/${REGIONS_ROUTE}/${splat ?? ''}`} replace />}
+      />
+      <Route path={`/:regionCode/:languageCode/${LEGACY_PLACES_ROUTE}/*`} element={<LegacyPlacesRedirect />} />
+
       <Route path='/' element={<Navigate to={fixedRegionPath ?? regionsPath} replace />} />
-      <Route path='/landing/*' element={<Navigate to={`/${REGIONS_ROUTE}`} replace />} />
       {!!fixedRegionPath && (
         <Route path={RoutePatterns[REGIONS_ROUTE]} element={<Navigate to={fixedRegionPath} replace />} />
       )}

@@ -60,24 +60,45 @@ describe('RootNavigator', () => {
 
   describe('redirects', () => {
     it.each`
-      from                          | to
-      ${'/'}                        | ${'/regions/de'}
-      ${'/regions'}                 | ${'/regions/de'}
-      ${'/landing'}                 | ${'/regions/de'}
-      ${'/landing/de'}              | ${'/regions/de'}
-      ${'/augsburg'}                | ${'/augsburg/de'}
-      ${'/augsburg/de'}             | ${'/augsburg/de'}
-      ${'/augsburg/events'}         | ${'/augsburg/de/events'}
-      ${'/augsburg/events/event-1'} | ${'/augsburg/de/events/event-1'}
-      ${'/augsburg/news'}           | ${'/augsburg/de/news'}
-      ${'/augsburg/news/local'}     | ${'/augsburg/de/news/local'}
-      ${'/augsburg/news/tu-news'}   | ${'/augsburg/de/news/tu-news'}
+      from                                   | to
+      ${'/'}                                 | ${'/regions/de'}
+      ${'/regions'}                          | ${'/regions/de'}
+      ${'/landing'}                          | ${'/regions/de'}
+      ${'/landing/de'}                       | ${'/regions/de'}
+      ${'/augsburg'}                         | ${'/augsburg/de'}
+      ${'/augsburg/de'}                      | ${'/augsburg/de'}
+      ${'/augsburg/events'}                  | ${'/augsburg/de/events'}
+      ${'/augsburg/events/event-1'}          | ${'/augsburg/de/events/event-1'}
+      ${'/augsburg/news'}                    | ${'/augsburg/de/news'}
+      ${'/augsburg/news/local'}              | ${'/augsburg/de/news/local'}
+      ${'/augsburg/news/tu-news'}            | ${'/augsburg/de/news/tu-news'}
+      ${'/augsburg/de/locations'}            | ${'/augsburg/de/places'}
+      ${'/augsburg/de/locations/some-place'} | ${'/augsburg/de/places/some-place'}
+      ${'/augsburg/locations'}               | ${'/augsburg/de/places'}
     `('should redirect from $from to $to', ({ from, to }) => {
       mockUseQueryFromEndpointWithData(regions)
 
       const { getByText } = renderRootNavigator(from)
 
       expect(getByText(to)).toBeTruthy()
+    })
+
+    it('should preserve query params when redirecting from the legacy places slug', () => {
+      mockUseQueryFromEndpointWithData(regions)
+
+      const LocationDisplay = () => {
+        const { pathname, search } = useLocation()
+        return <div>{`${normalizePath(pathname)}${search}`}</div>
+      }
+      const { getByText } = renderWithRouterAndTheme(
+        <>
+          <RootNavigator setContentLanguage={setContentLanguage} />
+          <LocationDisplay />
+        </>,
+        { pathname: '/augsburg/de/locations?multiplace=1&category=8' },
+      )
+
+      expect(getByText('/augsburg/de/places?multiplace=1&category=8')).toBeTruthy()
     })
 
     describe('fixedRegion', () => {
