@@ -139,8 +139,8 @@ then
 fi
 
 
-yarn sentry-cli releases new "$version" --finalize
+tools/node_modules/.bin/sentry-cli releases new "$version" --finalize
 
-yarn sentry-cli sourcemaps upload --release="$version" --dist "$version_code" "$sourcemap_directory"
+tools/node_modules/.bin/sentry-cli sourcemaps upload --release="$version" --dist "$version_code" "$sourcemap_directory"
 
 # ] <-- needed because of Argbash

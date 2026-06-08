@@ -4,7 +4,11 @@
 name: 'Validate Gradle Wrapper'
 on:
   push:
+    paths:
+      - 'native/android/gradle/wrapper/**'
   pull_request:
+    paths:
+      - 'native/android/gradle/wrapper/**'
 
 permissions:
   contents: read
