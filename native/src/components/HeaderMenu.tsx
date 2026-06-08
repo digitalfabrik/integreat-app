@@ -116,8 +116,7 @@ const HeaderMenu = ({
           closeModal={() => setQrModalVisible(false)}
           title={t('shareQrCodeTitle')}
           description={t('shareQrCodeDescription')}
-          url={shareUrl}
-          qrDetails={shareUrl}
+          content={shareUrl}
         />
       )}
     </>

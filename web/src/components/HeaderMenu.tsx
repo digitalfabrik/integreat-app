@@ -148,8 +148,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
         close={() => setQrShareOpen(false)}
         title={t('shareQrCodeTitle')}
         description={t('shareQrCodeDescription')}
-        url={shareUrl}
-        qrDetails={shareUrl}
+        content={shareUrl}
       />
     </>
   )

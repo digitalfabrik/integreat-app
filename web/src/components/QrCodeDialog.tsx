@@ -17,14 +17,13 @@ type QrCodeDialogProps = {
   close: () => void
   title: string
   description: string
-  url: string
-  qrDetails: string
+  content: string
 }
 
-const QrCodeDialog = ({ open, close, title, description, url, qrDetails }: QrCodeDialogProps): ReactElement | null => {
+const QrCodeDialog = ({ open, close, title, description, content }: QrCodeDialogProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const theme = useTheme()
-  const svgSrc = `data:image/svg+xml,${encodeURIComponent(encodeQR(url, 'svg'))}`
+  const svgSrc = `data:image/svg+xml,${encodeQR(content, 'svg')}`
 
   if (!open) {
     return null
@@ -53,7 +52,7 @@ const QrCodeDialog = ({ open, close, title, description, url, qrDetails }: QrCod
           <Svg src={svgSrc} width={QR_CODE_SIZE} height={QR_CODE_SIZE} />
         </Box>
         <Typography variant='body2' textAlign='center'>
-          {qrDetails}
+          {content}
         </Typography>
       </Stack>
     </AlertDialog>
