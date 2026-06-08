@@ -9,11 +9,7 @@ import {
   EVENTS_ROUTE,
   FEEDBACK_QUERY_KEY,
   POIS_ROUTE,
-  RATING_NEGATIVE,
   RATING_POSITIVE,
-  SEARCH_ROUTE,
-  SEARCH_QUERY_KEY,
-  Rating,
   SendingStatusType,
 } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
@@ -21,6 +17,7 @@ import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import useRegionContentParams from '../hooks/useRegionContentParams'
+import useSearchFeedback from '../hooks/useSearchFeedback'
 import { captureError } from '../utils/sentry'
 import Feedback from './Feedback'
 import Dialog from './base/Dialog'
@@ -28,34 +25,23 @@ import Snackbar from './base/Snackbar'
 
 const FeedbackContainer = (): ReactElement | null => {
   const { visible, close } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
-  const [queryParams, setQueryParams] = useSearchParams()
+  const [queryParams] = useSearchParams()
   const { t } = useTranslation('feedback')
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const { route, regionCode, languageCode } = useRegionContentParams()
+
+  // Extract search from query params if available
   const { pathname } = useLocation()
-
-  const feedbackValue = queryParams.get(FEEDBACK_QUERY_KEY)
-  const initialRating: Rating | null =
-    feedbackValue === RATING_POSITIVE || feedbackValue === RATING_NEGATIVE ? feedbackValue : null
-  const [rating, setRating] = useState<Rating | null>(initialRating)
-  const query = route === SEARCH_ROUTE ? (queryParams.get(SEARCH_QUERY_KEY) ?? undefined) : undefined
-  const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
-
+  const { rating, setRating, searchTerm, setSearchTerm, query } = useSearchFeedback(queryParams)
   const pathParts = pathname.split('/').filter(Boolean)
   const pathAfterLanguage = pathParts.slice(3)
   const slug =
     (route === CATEGORIES_ROUTE || route === EVENTS_ROUTE || route === POIS_ROUTE) && pathAfterLanguage.length > 0
       ? decodeURIComponent(pathAfterLanguage[pathAfterLanguage.length - 1] ?? '')
       : undefined
-
-  const handleClose = () => {
-    const newQueryParams = queryParams
-    newQueryParams.delete(FEEDBACK_QUERY_KEY)
-    setQueryParams(newQueryParams)
-  }
 
   const handleSubmit = () => {
     setSendingStatus('sending')
@@ -89,7 +75,7 @@ const FeedbackContainer = (): ReactElement | null => {
   return (
     <>
       {visible && (
-        <Dialog title={t('headline')} close={handleClose}>
+        <Dialog title={t('headline')} close={close}>
           <Feedback
             language={languageCode}
             onCommentChanged={setComment}

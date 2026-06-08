@@ -3,13 +3,13 @@ import ContrastIcon from '@mui/icons-material/Contrast'
 import { useTheme } from '@mui/material/styles'
 import React, { ReactElement, useContext, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSearchParams } from 'react-router'
 
 import { NEWS_ROUTE, CATEGORIES_ROUTE, FEEDBACK_QUERY_KEY } from 'shared'
 import { CategoryModel } from 'shared/api'
 
 import { ReadAloudIcon } from '../assets'
 import { TtsContext } from '../contexts/TtsContext'
+import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import HeaderMenu, { MenuRef } from './HeaderMenu'
 import MenuItem from './MenuItem'
@@ -28,16 +28,10 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
   const { toggleTheme, dimensions } = useTheme()
   const { t } = useTranslation('layout')
   const ref = useRef<MenuRef>(null)
-  const [queryParams, setQueryParams] = useSearchParams()
+  const { open } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
 
   const showFeedback = fitScreen || (dimensions.mobile && route !== NEWS_ROUTE)
   const closeMenu = ref.current?.closeMenu
-
-  const openFeedback = () => {
-    const newQueryParams = queryParams
-    newQueryParams.set(FEEDBACK_QUERY_KEY, 'true')
-    setQueryParams(newQueryParams)
-  }
 
   const items = [
     route === CATEGORIES_ROUTE ? (
@@ -54,7 +48,7 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
         key='feedback'
         text={t('feedback')}
         icon={<CommentIcon fontSize='small' />}
-        onClick={openFeedback}
+        onClick={open}
         closeMenu={closeMenu}
       />
     ) : null,
