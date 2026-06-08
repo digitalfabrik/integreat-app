@@ -6,6 +6,7 @@ import { NonNullableRouteInformationType } from './RouteInformationTypes'
 export const MULTI_PLACE_QUERY_KEY = 'multiplace'
 export const SEARCH_QUERY_KEY = 'query'
 export const CHAT_QUERY_KEY = 'chat'
+export const FEEDBACK_QUERY_KEY = 'feedback'
 export const PLACE_CATEGORY_QUERY_KEY = 'category'
 export const ZOOM_QUERY_KEY = 'zoom'
 
@@ -39,6 +40,7 @@ export const queryStringFromRouteInformation = (
 
 export type VisibilityQueryParams = {
   chat?: boolean
+  feedback?: string
 }
 
 type QueryParams = VisibilityQueryParams & {
@@ -51,10 +53,11 @@ type QueryParams = VisibilityQueryParams & {
 export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const searchText = queryParams.get(SEARCH_QUERY_KEY) ?? undefined
   const chat = queryParams.get(CHAT_QUERY_KEY) ? queryParams.get(CHAT_QUERY_KEY) === 'true' : undefined
+  const feedback = queryParams.get(FEEDBACK_QUERY_KEY) ?? undefined
   const multiPlace = safeParseInt(queryParams.get(MULTI_PLACE_QUERY_KEY))
   const placeCategoryId = safeParseInt(queryParams.get(PLACE_CATEGORY_QUERY_KEY))
   const zoom = safeParseInt(queryParams.get(ZOOM_QUERY_KEY))
-  return { searchText, multiPlace, placeCategoryId, zoom, chat }
+  return { searchText, multiPlace, placeCategoryId, zoom, chat, feedback }
 }
 
 export const toQueryParams = ({
@@ -63,10 +66,12 @@ export const toQueryParams = ({
   zoom,
   searchText,
   chat,
+  feedback,
 }: QueryParams): URLSearchParams => {
   const queryParams: [string, string | undefined][] = [
     [SEARCH_QUERY_KEY, searchText],
     [CHAT_QUERY_KEY, chat?.toString()],
+    [FEEDBACK_QUERY_KEY, feedback],
     [MULTI_PLACE_QUERY_KEY, multiPlace?.toString()],
     [PLACE_CATEGORY_QUERY_KEY, placeCategoryId?.toString()],
     [ZOOM_QUERY_KEY, zoom?.toString()],

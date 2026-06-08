@@ -1,73 +1,23 @@
-import CloseIcon from '@mui/icons-material/Close'
 import SentimentDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentDissatisfiedOutlined'
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined'
-import IconButton from '@mui/material/IconButton'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Rating, RATING_POSITIVE, SendingStatusType } from 'shared'
+import { FEEDBACK_QUERY_KEY, RATING_POSITIVE, Rating } from 'shared'
 
-import FeedbackContainer from './FeedbackContainer'
+import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import ToolbarItem from './ToolbarItem'
-import Dialog from './base/Dialog'
-import Snackbar from './base/Snackbar'
 
-type FeedbackToolbarItemProps = {
-  slug?: string
-  rating: Rating | null
-}
-
-const FeedbackToolbarItem = ({ slug, rating }: FeedbackToolbarItemProps): ReactElement => {
-  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false)
+const FeedbackToolbarItem = ({ rating }: { rating: Rating | null }): ReactElement => {
   const { t } = useTranslation('feedback')
-  const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
-  const [snackbarOpen, setSnackbarOpen] = useState(false)
-
-  const handleFeedbackSuccess = () => {
-    setIsFeedbackOpen(false)
-    setSendingStatus('successful')
-    setSnackbarOpen(true)
-  }
-
-  const handleFeedbackError = () => {
-    setIsFeedbackOpen(true)
-    setSendingStatus('failed')
-    setSnackbarOpen(true)
-  }
+  const { open } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
 
   return (
-    <>
-      {isFeedbackOpen && (
-        <Dialog title={t('headline')} close={() => setIsFeedbackOpen(false)}>
-          <FeedbackContainer
-            onSubmit={handleFeedbackSuccess}
-            onError={handleFeedbackError}
-            slug={slug}
-            initialRating={rating}
-          />
-        </Dialog>
-      )}
-      <ToolbarItem
-        icon={rating === RATING_POSITIVE ? <SentimentSatisfiedOutlinedIcon /> : <SentimentDissatisfiedOutlinedIcon />}
-        text={t(rating === RATING_POSITIVE ? 'useful' : 'notUseful')}
-        onClick={() => setIsFeedbackOpen(true)}
-      />
-      <Snackbar
-        open={snackbarOpen}
-        severity={sendingStatus === 'successful' ? 'success' : 'error'}
-        onClose={() => setSnackbarOpen(false)}
-        message={sendingStatus === 'successful' ? t('thanksMessage') : t('failedSendingFeedback')}
-        action={
-          <IconButton
-            aria-label={t('common:close')}
-            color='inherit'
-            size='small'
-            onClick={() => setSnackbarOpen(false)}>
-            <CloseIcon />
-          </IconButton>
-        }
-      />
-    </>
+    <ToolbarItem
+      icon={rating === RATING_POSITIVE ? <SentimentSatisfiedOutlinedIcon /> : <SentimentDissatisfiedOutlinedIcon />}
+      text={t(rating === RATING_POSITIVE ? 'useful' : 'notUseful')}
+      onClick={() => open(rating ?? undefined)}
+    />
   )
 }
 

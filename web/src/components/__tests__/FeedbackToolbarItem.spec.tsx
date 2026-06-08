@@ -1,9 +1,9 @@
-import { fireEvent } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
+import { createMemoryRouter, RouterProvider } from 'react-router'
 
-import { CATEGORIES_ROUTE, RATING_POSITIVE } from 'shared'
+import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 
-import { renderWithRouterAndTheme } from '../../testing/render'
 import FeedbackToolbarItem from '../FeedbackToolbarItem'
 
 jest.mock('react-i18next', () => ({
@@ -13,32 +13,34 @@ jest.mock('react-i18next', () => ({
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
-jest.mock('shared/api', () => ({
-  ...jest.requireActual('shared/api'),
-  createFeedbackEndpoint: () => ({
-    request: () => undefined,
-  }),
-}))
+
+const renderToolbarItem = (rating: Rating | null) => {
+  const router = createMemoryRouter(
+    [
+      {
+        path: '/',
+        element: <FeedbackToolbarItem rating={rating} />,
+      },
+    ],
+    { initialEntries: ['/'] },
+  )
+  return { router, ...render(<RouterProvider router={router} />) }
+}
 
 describe('FeedbackToolbarItem', () => {
-  it('should open and update title on submit feedback', async () => {
-    const { queryByText, findByText, getByText } = renderWithRouterAndTheme(
-      <FeedbackToolbarItem slug='my-slug' rating={RATING_POSITIVE} />,
-    )
+  it('should set feedback query param on click with positive rating', () => {
+    const { getByText, router } = renderToolbarItem(RATING_POSITIVE)
 
-    expect(queryByText('feedback:headline')).toBeFalsy()
-    expect(queryByText('feedback:thanksHeadline')).toBeFalsy()
-
+    expect(router.state.location.search).toBe('')
     fireEvent.click(getByText('feedback:useful'))
+    expect(router.state.location.search).toBe('?feedback=positive')
+  })
 
-    expect(getByText('feedback:headline')).toBeTruthy()
-    expect(queryByText('feedback:thanksHeadline')).toBeFalsy()
+  it('should set feedback query param on click with negative rating', () => {
+    const { getByText, router } = renderToolbarItem(RATING_NEGATIVE)
 
-    getByText('common:privacyPolicy').click()
-
-    fireEvent.click(getByText('feedback:send'))
-
-    expect(await findByText('feedback:thanksMessage')).toBeTruthy()
-    expect(queryByText('feedback:headline')).toBeFalsy()
+    expect(router.state.location.search).toBe('')
+    fireEvent.click(getByText('feedback:notUseful'))
+    expect(router.state.location.search).toBe('?feedback=negative')
   })
 })
