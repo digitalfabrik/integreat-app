@@ -9,7 +9,7 @@ import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import useSnackbar from '../hooks/useSnackbar'
 import { withDividers } from '../utils'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import HeaderMenuItem from './HeaderMenuItem'
 import QrCodeModal from './QrCodeModal'
 
@@ -54,7 +54,7 @@ const HeaderMenu = ({
       await Share.share({ message, title })
     } catch (e) {
       showSnackbar({ text: 'generalError' })
-      reportError(e)
+      captureError(e)
     }
   }
 

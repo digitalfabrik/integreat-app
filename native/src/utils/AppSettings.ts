@@ -4,7 +4,7 @@ import { mapValues } from 'lodash'
 import { ThemeKey } from 'build-configs/ThemeKey'
 import { ExternalSourcePermissions } from 'shared'
 
-import { log, reportError } from './sentry'
+import { log, captureError } from './sentry'
 
 export const ASYNC_STORAGE_VERSION = 2
 export type SettingsType = {
@@ -66,7 +66,7 @@ class AppSettings {
     try {
       await migrateToV2()
     } catch (error) {
-      reportError(error)
+      captureError(error)
     }
 
     const settingsKeys = Object.keys(defaultSettings) as [keyof SettingsType]

@@ -23,7 +23,7 @@ import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContext'
 import { navigateNested } from '../utils/navigation'
 import openExternalUrl from '../utils/openExternalUrl'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import { urlFromRouteInformation } from '../utils/url'
 import useSnackbar from './useSnackbar'
 
@@ -53,7 +53,7 @@ const navigate = <T extends RoutesType>(
   }
 
   if (route === MAIN_IMPRINT_ROUTE) {
-    openExternalUrl(url, showSnackbar).catch(reportError)
+    openExternalUrl(url, showSnackbar).catch(captureError)
     return
   }
 
@@ -74,7 +74,7 @@ const navigate = <T extends RoutesType>(
         },
       })
     }
-    openExternalUrl(url, showSnackbar).catch(reportError)
+    openExternalUrl(url, showSnackbar).catch(captureError)
     return
   }
 

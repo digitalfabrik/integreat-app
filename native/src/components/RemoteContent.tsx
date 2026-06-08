@@ -22,7 +22,7 @@ import { useAppContext } from '../hooks/useRegionAppContext'
 import useResourceCache from '../hooks/useResourceCache'
 import { getStaticServerFileUrl } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'
-import { log, reportError } from '../utils/sentry'
+import { log, captureError } from '../utils/sentry'
 import Failure from './Failure'
 import { StaticServerContext } from './StaticServerProvider'
 import Text from './base/Text'
@@ -121,7 +121,7 @@ const RemoteContent = ({
       } else {
         const messageText: string | undefined = message.message
         const error = new Error(messageText ? JSON.stringify(messageText) : 'Unknown message received from webview')
-        reportError(error)
+        captureError(error)
         setError(error.message)
       }
     },

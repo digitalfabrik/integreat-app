@@ -25,7 +25,7 @@ import {
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useDimensions from '../hooks/useDimensions'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 
 const MapContainer = styled('div')`
   height: 100%;
@@ -85,7 +85,7 @@ const MapView = ({
 
   useEffect(() => {
     if (maplibregl.getRTLTextPluginStatus() === 'unavailable') {
-      maplibregl.setRTLTextPlugin(mapConfig.rtlPluginUrl, true).catch(reportError)
+      maplibregl.setRTLTextPlugin(mapConfig.rtlPluginUrl, true).catch(captureError)
     }
   }, [])
 

@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/react-native'
 import { FetchError, NotFoundError } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
-import { initSentry, log, reportError } from '../sentry'
+import { initSentry, log, captureError } from '../sentry'
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -33,12 +33,12 @@ describe('initSentry', () => {
   })
 })
 
-describe('reportError', () => {
+describe('captureError', () => {
   it('should not report to sentry if disabled in build config', () => {
     const spy = jest.spyOn(console, 'error').mockImplementation()
     mockBuildConfig(false, true)
     const error = new Error('my error')
-    reportError(error)
+    captureError(error)
     expect(Sentry.captureException).not.toHaveBeenCalled()
     expect(spy).toHaveBeenCalledTimes(1)
     expect(spy).toHaveBeenCalledWith(error)
@@ -54,21 +54,21 @@ describe('reportError', () => {
       url: 'https://example.com',
       requestOptions: { method: 'GET' },
     })
-    reportError(error)
+    captureError(error)
     expect(Sentry.captureException).not.toHaveBeenCalled()
     expect(spy).not.toHaveBeenCalled()
     spy.mockRestore()
 
     mockBuildConfig(true)
     const notFoundError = new NotFoundError({ type: 'category', id: 'id', region: 'region', language: 'language' })
-    reportError(notFoundError)
+    captureError(notFoundError)
     expect(Sentry.captureException).not.toHaveBeenCalled()
   })
 
   it('should report to sentry if enabled in build config', () => {
     mockBuildConfig(true)
     const error = new Error('my error')
-    reportError(error, { data: 'extra' })
+    captureError(error, { data: 'extra' })
     expect(Sentry.captureException).toHaveBeenCalledTimes(1)
     expect(Sentry.captureException).toHaveBeenCalledWith(error, { data: 'extra' })
   })

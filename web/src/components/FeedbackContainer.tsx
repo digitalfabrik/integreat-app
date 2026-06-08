@@ -8,7 +8,7 @@ import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import useRegionContentParams from '../hooks/useRegionContentParams'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import Feedback from './Feedback'
 import Snackbar from './base/Snackbar'
 
@@ -65,7 +65,7 @@ export const FeedbackContainer = ({
     }
 
     request().catch(err => {
-      reportError(err)
+      captureError(err)
       setSendingStatus('failed')
       setSnackbarOpen(true)
       onError?.()

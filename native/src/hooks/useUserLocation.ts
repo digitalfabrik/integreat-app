@@ -14,7 +14,7 @@ import {
 
 import { LocationStateType, UnavailableLocationState } from 'shared'
 
-import { log, reportError } from '../utils/sentry'
+import { log, captureError } from '../utils/sentry'
 import useAppStateListener from './useAppStateListener'
 import useSnackbar from './useSnackbar'
 
@@ -115,14 +115,14 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
 
   useEffect(() => {
     refreshPermissionAndLocation({ requestPermission: requestPermissionInitially, showSnackbarIfBlocked: false }).catch(
-      reportError,
+      captureError,
     )
   }, [refreshPermissionAndLocation, requestPermissionInitially])
 
   // Re-check permissions when returning from settings
   useAppStateListener(appState => {
     if (appState === 'active') {
-      refreshPermissionAndLocation({ requestPermission: false, showSnackbarIfBlocked: false }).catch(reportError)
+      refreshPermissionAndLocation({ requestPermission: false, showSnackbarIfBlocked: false }).catch(captureError)
     }
   })
 

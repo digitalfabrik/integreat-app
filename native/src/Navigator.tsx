@@ -51,7 +51,7 @@ import SearchContainer from './routes/SearchContainer'
 import Settings from './routes/Settings'
 import SuggestToRegion from './routes/SuggestToRegion'
 import dataContainer from './utils/DefaultDataContainer'
-import { initSentry, log, reportError } from './utils/sentry'
+import { initSentry, log, captureError } from './utils/sentry'
 
 type HeaderProps = {
   route: RouteProps<RoutesType>
@@ -122,7 +122,7 @@ const Navigator = (): ReactElement | null => {
       // Region is not available anymore
       changeRegionCode(null)
       showSnackbar({ text: 'notFound.region' })
-      dataContainer.deleteRegion(regionCode).catch(reportError)
+      dataContainer.deleteRegion(regionCode).catch(captureError)
       updateInitialRoute({ name: REGIONS_ROUTE })
     }
   }, [regions, changeRegionCode, regionCode, showSnackbar, settings, initialRoute, updateInitialRoute])

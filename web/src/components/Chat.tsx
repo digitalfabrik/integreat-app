@@ -32,7 +32,7 @@ import useLocalStorage, {
   CHAT_PRIVACY_POLICIES_STORAGE_KEY,
 } from '../hooks/useLocalStorage'
 import { UseQueryFromEndpointReturn } from '../hooks/useQueryFromEndpoint'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import ChatConversation from './ChatConversation'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
@@ -110,7 +110,7 @@ const Chat = ({
             setData(newData)
             onSuccess?.()
             setSendingError(null)
-            refetch().catch(reportError)
+            refetch().catch(captureError)
           }
         },
         setError: error => {
@@ -123,7 +123,7 @@ const Chat = ({
     )
 
   const onSubmit = () => {
-    submitMessage(textInput).catch(reportError)
+    submitMessage(textInput).catch(captureError)
     setTextInput('')
   }
 
@@ -138,7 +138,7 @@ const Chat = ({
         setUnsyncedMessages(serializedUnsyncedMessages.filter(serialized => serialized.id !== message.id))
       },
       isRetry: true,
-    }).catch(reportError)
+    }).catch(captureError)
   }
 
   const submitDisabled = textInput.trim().length === 0
