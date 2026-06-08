@@ -68,7 +68,7 @@ describe('search', () => {
         region({ sortingName: 'Augsburg', prefix: 'Stadt', live: true }),
         region({ sortingName: 'Dillingen', live: false }),
       ]
-      expect(filterSortRegions(regions, 'a', true)).toEqual([regions[0], regions[1], regions[2], regions[3]])
+      expect(filterSortRegions(regions, 'a', true)).toEqual([regions[0], regions[1], regions[2]])
     })
 
     it('should return all non live regions if filter text is wirschaffendas', () => {
@@ -84,9 +84,9 @@ describe('search', () => {
     it('should only return live regions with matching names or aliases', () => {
       const regions = [
         region({ sortingName: 'Aichach' }),
-        region({ sortingName: 'Aichach', prefix: 'Landkreis', live: false }),
+        region({ sortingName: 'Bad Kissingen', prefix: 'Landkreis', live: false }),
         region({ sortingName: 'Augsburg', prefix: 'Stadt' }),
-        region({ sortingName: 'Dachau' }),
+        region({ sortingName: 'Baden-Baden' }),
         region({
           sortingName: 'Dillingen',
           aliases: {
@@ -107,7 +107,7 @@ describe('search', () => {
         }),
         region({ sortingName: 'Nürnberg' }),
       ]
-      expect(filterSortRegions(regions, 'äch')).toEqual([regions[0], regions[3], regions[4], regions[5]])
+      expect(filterSortRegions(regions, 'ba')).toEqual([regions[3], regions[4], regions[5]])
     })
   })
 })

@@ -10,8 +10,14 @@ const regionFilter =
     }
 
     const validRegion = regionModel.live || developerFriendly
+
+    // Matches with all three string start cases, for ex. Landkreis Breisgau-Hochschwarzwald
+    const matchesWordStart = (region: string) =>
+      normalizeString(region)
+        .split(/[\s-]+/)
+        .some(word => word.startsWith(normalizedFilter))
     const aliases = Object.keys(regionModel.aliases ?? {})
-    const matchesFilter = [regionModel.name, ...aliases].some(it => normalizeString(it).includes(normalizedFilter))
+    const matchesFilter = matchesWordStart(regionModel.name) || aliases.some(matchesWordStart)
     return validRegion && matchesFilter
   }
 

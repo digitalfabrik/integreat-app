@@ -44,7 +44,7 @@ const RegionEntry = ({ region, query, navigateToDashboard }: RegionEntryProps): 
   const normalizedQuery = normalizeString(query)
   const matchingAliases =
     region.aliases && normalizedQuery.length >= 1
-      ? Object.keys(region.aliases).filter(alias => normalizeString(alias).includes(normalizedQuery))
+      ? Object.keys(region.aliases).filter(alias => normalizeString(alias).startsWith(normalizedQuery))
       : []
   const aliases = matchingAliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN)
   const { languageCode } = useContext(AppContext)

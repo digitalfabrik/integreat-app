@@ -21,7 +21,7 @@ const RegionListItem = ({ filterText, region, language }: RegionEntryProps): Rea
   const normalizedFilter = normalizeString(filterText)
   const aliases =
     region.aliases && normalizedFilter.length >= 1
-      ? Object.keys(region.aliases).filter(alias => normalizeString(alias).includes(normalizedFilter))
+      ? Object.keys(region.aliases).filter(alias => normalizeString(alias).startsWith(normalizedFilter))
       : []
   const aliasesText = aliases.slice(0, MAX_NUMBER_OF_ALIASES).join(', ')
 
