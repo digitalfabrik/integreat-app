@@ -6,7 +6,7 @@ const STATUS_CODE_OK = 200
 
 const waitForLocalhost = (timeout: number): Promise<void> =>
   new Promise((resolve, reject) => {
-    const request = http.request({ method: 'head', port: 9000, family: 4, timeout }, response => {
+    const request = http.request({ method: 'head', port: 9001, family: 4, timeout }, response => {
       if (response.statusCode === STATUS_CODE_OK) {
         resolve()
       }

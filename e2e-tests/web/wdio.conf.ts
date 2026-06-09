@@ -20,7 +20,7 @@ export const config: WebdriverIO.Config = {
   capabilities: getCapabilities(),
   logLevel: 'info',
   bail: 0,
-  baseUrl: 'http://localhost:9000',
+  baseUrl: 'http://localhost:9001',
   waitforTimeout: 2_000,
   connectionRetryTimeout: 120_000,
   connectionRetryCount: 3,
