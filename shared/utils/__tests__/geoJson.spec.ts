@@ -1,6 +1,6 @@
-import { MapFeature, MapFeatureCollection, featureLayerId } from '../../index.js'
 import { PlaceModelBuilder } from '../../api/endpoints/testing/index.js'
 import PlaceModel from '../../api/models/PlaceModel.js'
+import { MapFeature, MapFeatureCollection, featureLayerId } from '../../index.js'
 import { embedInCollection, prepareMapFeature, prepareMapFeatures } from '../geoJson.js'
 
 describe('geoJson', () => {

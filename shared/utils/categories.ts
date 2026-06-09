@@ -1,4 +1,4 @@
-import type CategoryModel from '../api/models/CategoryModel.js'
+import CategoryModel from '../api/models/CategoryModel.js'
 import { APPOINTMENT_BOOKING_OFFER_ALIAS, INTERNAL_OFFERS } from '../constants/index.js'
 import TileModel from '../models/TileModel.js'
 import { addSubdomain } from './index.js'

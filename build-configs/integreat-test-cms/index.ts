@@ -1,4 +1,4 @@
-import type {
+import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   IosBuildConfigType,

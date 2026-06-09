@@ -72,12 +72,12 @@ export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint.js
 export {
   default as createTuNewsLanguagesEndpoint,
   TU_NEWS_LANGUAGES_ENDPOINT_NAME,
-} from './endpoints/createTuNewsLanguagesEndpoint'
+} from './endpoints/createTuNewsLanguagesEndpoint.js'
 export { default as createPlacesEndpoint, PLACES_ENDPOINT_NAME } from './endpoints/createPlacesEndpoint.js'
 export {
   default as createSprungbrettJobsEndpoint,
   SPRUNGBRETT_JOBS_ENDPOINT_NAME,
-} from './endpoints/createSprungbrettJobsEndpoint'
+} from './endpoints/createSprungbrettJobsEndpoint.js'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint.js'
 export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsync.js'
 export { default as CategoriesMapModel } from './models/CategoriesMapModel.js'

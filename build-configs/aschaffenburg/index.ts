@@ -1,7 +1,7 @@
 import aschaffenburgOverrideTranslations from 'translations/override-translations/aschaffenburg.json' with { type: 'json' }
 
 import { ASCHAFFENBURG_ASSETS } from '../AssetsType.js'
-import type {
+import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   IosBuildConfigType,

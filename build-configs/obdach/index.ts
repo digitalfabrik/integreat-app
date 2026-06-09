@@ -1,7 +1,7 @@
 import obdachOverrideTranslations from 'translations/override-translations/obdach.json' with { type: 'json' }
 
 import { OBDACH_ASSETS } from '../AssetsType.js'
-import type { CommonBuildConfigType, WebBuildConfigType } from '../BuildConfigType.js'
+import { CommonBuildConfigType, WebBuildConfigType } from '../BuildConfigType.js'
 import mainImprint from './mainImprint.js'
 import fonts from './theme/fonts.js'
 import { darkTheme, lightTheme } from './theme/index.js'

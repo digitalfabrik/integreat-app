@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type { SeverityLevel } from '@sentry/types'
+import { SeverityLevel } from '@sentry/types'
 
 import { FetchError, NotFoundError } from 'shared/api'
 

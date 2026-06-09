@@ -1,4 +1,4 @@
-import type { TransformedTranslationsType, TranslationsType } from './types.js'
+import { TransformedTranslationsType, TranslationsType } from './types.js'
 
 /**
  * Transform translation resources from our internal translations format to be i18next compatible.

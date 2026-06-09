@@ -2,7 +2,7 @@ import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, RefObject, useImperativeHandle, useRef, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
-import type { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
+import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 
 import { RichLayout } from './Layout'
 
