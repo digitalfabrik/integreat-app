@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { Button, useTheme } from 'react-native-paper'
 import { SvgXml } from 'react-native-svg'
-import { DefaultTheme } from 'styled-components/native'
 
 import { encodeQR, QR_CODE_SIZE } from 'shared'
 
@@ -35,7 +34,7 @@ type QrCodeModalProps = {
 
 const QrCodeModal = ({ modalVisible, closeModal, title, description, content }: QrCodeModalProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const theme = useTheme() as DefaultTheme
+  const theme = useTheme()
   const svgXml = encodeQR(content, 'svg')
 
   return (
