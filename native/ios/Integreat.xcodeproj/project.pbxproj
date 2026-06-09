@@ -240,6 +240,7 @@
 				A2F45D226EE90F21442AA9AA /* [CP] Embed Pods Frameworks */,
 				3ED9CCA7D6D9B6E92829ADF0 /* [CP] Copy Pods Resources */,
 				AE1C7DDEE26EED5626615FF2 /* [CP-User] [RNFB] Core Configuration */,
+				474AA24BD9791A7779893D3F /* [MapLibre React Native] Remove MapLibre.xcframework-ios.signature */,
 			);
 			buildRules = (
 			);
@@ -406,6 +407,25 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Integreat/Pods-Integreat-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		474AA24BD9791A7779893D3F /* [MapLibre React Native] Remove MapLibre.xcframework-ios.signature */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[MapLibre React Native] Remove MapLibre.xcframework-ios.signature";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rm -rf \"$CONFIGURATION_BUILD_DIR/MapLibre.xcframework-ios.signature\"";
 		};
 		A2F45D226EE90F21442AA9AA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
