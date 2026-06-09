@@ -5,7 +5,7 @@ import BottomSheet, {
 } from '@gorhom/bottom-sheet'
 import React, { memo, ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
@@ -146,7 +146,7 @@ const PlacesBottomSheet = ({
       index={snapPointIndex}
       isFullscreen={isFullscreen}
       snapPoints={snapPoints}
-      enableContentPanningGesture
+      enableContentPanningGesture={Platform.OS !== 'ios'}
       enableDynamicSizing={false}
       animateOnMount
       backgroundStyle={{ backgroundColor: theme.colors.background }}
@@ -161,6 +161,7 @@ const PlacesBottomSheet = ({
           {...conditionalA11yProps({ hidden: !!slug })}
           accessibilityLabel={t('placesCount', { count: places.length })}
           renderItem={renderPlaceListItem}
+          onScrollBeginDrag={Platform.OS === 'ios' ? expandFullscreen : undefined}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
           ListEmptyComponent={
