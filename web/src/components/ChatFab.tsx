@@ -1,4 +1,5 @@
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
+import Badge from '@mui/material/Badge'
 import Fab from '@mui/material/Fab'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
@@ -23,17 +24,20 @@ const ChatButtonContainer = styled('div')<{ bottom: number }>`
 
 type ChatButtonProps = {
   onClick: () => void
+  unreadMessageCount?: number
 }
 
-const ChatFab = ({ onClick }: ChatButtonProps): ReactElement => {
+const ChatFab = ({ onClick, unreadMessageCount = 0 }: ChatButtonProps): ReactElement => {
   const { desktop, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const chatName = getChatName(buildConfig().appName)
 
   return (
     <ChatButtonContainer bottom={bottomNavigationHeight ?? visibleFooterHeight}>
-      <Fab onClick={onClick} color='primary' aria-label={chatName}>
-        <QuestionAnswerOutlinedIcon fontSize='large' />
-      </Fab>
+      <Badge badgeContent={unreadMessageCount > 0 ? unreadMessageCount : undefined} color='error'>
+        <Fab onClick={onClick} color='primary' aria-label={chatName}>
+          <QuestionAnswerOutlinedIcon fontSize='large' />
+        </Fab>
+      </Badge>
       {desktop && (
         <Typography textAlign='center' aria-hidden>
           {chatName}

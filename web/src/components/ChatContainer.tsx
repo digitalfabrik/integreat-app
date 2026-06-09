@@ -10,7 +10,10 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import { TtsContext } from '../contexts/TtsContext'
 import useDimensions from '../hooks/useDimensions'
 import useIsTabActive from '../hooks/useIsTabActive'
-import useLocalStorage, { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY } from '../hooks/useLocalStorage'
+import useLocalStorage, {
+  CHAT_NEW_MESSAGES_COUNT_STORAGE_KEY,
+  CHAT_UNSYNCED_MESSAGES_STORAGE_KEY,
+} from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
@@ -50,6 +53,10 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     key: CHAT_UNSYNCED_MESSAGES_STORAGE_KEY,
     initialValue: [],
   })
+  const [lastSeenMessageCount, setLastSeenMessageCount] = useLocalStorage<number>({
+    key: `${CHAT_NEW_MESSAGES_COUNT_STORAGE_KEY}-${region.code}`,
+    initialValue: 0,
+  })
 
   const response = useQueryFromEndpoint(
     createChatMessagesEndpoint,
@@ -64,15 +71,22 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
 
   const { data, refetch } = response
   const botTyping = data?.botTyping
-  const messageCount = data?.messages.length ?? 0
+  const incomingMessageCount = data?.messages.filter(message => !message.userIsAuthor).length ?? 0
+  const unreadMessageCount = Math.max(0, incomingMessageCount - lastSeenMessageCount)
 
   useEffect(() => {
-    if (!isBrowserTabActive || messageCount === 0) {
+    if (visible && incomingMessageCount > lastSeenMessageCount) {
+      setLastSeenMessageCount(incomingMessageCount)
+    }
+  }, [incomingMessageCount, lastSeenMessageCount, setLastSeenMessageCount, visible])
+
+  useEffect(() => {
+    if (!isBrowserTabActive || incomingMessageCount === 0) {
       return undefined
     }
     const interval = setInterval(refetch, botTyping ? CHAT_TYPING_POLLING_INTERVAL : CHAT_DEFAULT_POLLING_INTERVAL)
     return () => clearInterval(interval)
-  }, [refetch, isBrowserTabActive, messageCount, botTyping])
+  }, [refetch, isBrowserTabActive, incomingMessageCount, botTyping])
 
   const resetChat = () => {
     setUnsyncedMessages([])
@@ -117,7 +131,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     )
   }
 
-  return <ChatFab onClick={open} />
+  return <ChatFab onClick={open} unreadMessageCount={unreadMessageCount} />
 }
 
 export default ChatContainer
