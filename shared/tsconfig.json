@@ -4,6 +4,8 @@
     "composite": true,
     "lib": ["ES5", "ES6", "dom"],
     "isolatedModules": true,
+    // Fixes "Static class blocks are not enabled. Please add `@babel/plugin-transform-class-static-block` to your configuration"
+    "target": "ES2021",
     "outDir": "dist",
     "types": ["jest", "node"],
     "typeRoots": ["./@types", "node_modules/@types", "../node_modules/@types"]
