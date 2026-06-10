@@ -13,13 +13,14 @@ import {
   EventModel,
   FeaturedImageModel,
   LanguageModel,
-  LocalNewsModel,
+  NewsModel,
   LocationModel,
   OpeningHoursModel,
   PlaceModel,
   PlaceCategoryModel,
   OrganizationModel,
   OfferModel,
+  NewsSource,
 } from 'shared/api'
 
 import {
@@ -176,12 +177,14 @@ type ContentPlaceJsonType = {
   barrierFree: boolean | null
 }
 
-type ContentLocalNewsJsonType = {
+type ContentNewsJsonType = {
   id: number
-  timestamp: string
+  lastUpdate: string
   title: string
   content: string
-  availableLanguages: Record<string, number> | undefined
+  source: NewsSource
+  availableLanguages: Record<string, number> | null
+  externalUrl: string
 }
 
 type RegionCodeType = string
@@ -611,30 +614,34 @@ class DatabaseConnector {
     return this.readFile(path, mapPlacesJson)
   }
 
-  async storeLocalNews(localNews: LocalNewsModel[], context: DatabaseContext): Promise<void> {
+  async storeNews(localNews: NewsModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = localNews.map(
-      (it: LocalNewsModel): ContentLocalNewsJsonType => ({
+      (it: NewsModel): ContentNewsJsonType => ({
         id: it.id,
-        timestamp: it.timestamp.toISO(),
+        lastUpdate: it.lastUpdate.toISO(),
         title: it.title,
         content: it.content,
         availableLanguages: it.availableLanguages,
+        externalUrl: it.externalUrl,
+        source: it.source,
       }),
     )
     await this.writeFile(this.getContentPath('localNews', context), JSON.stringify(jsonModels))
   }
 
-  async loadLocalNews(context: DatabaseContext): Promise<LocalNewsModel[]> {
+  async loadNews(context: DatabaseContext): Promise<NewsModel[]> {
     const path = this.getContentPath('localNews', context)
-    const mapLocalNewsJson = (json: ContentLocalNewsJsonType[]) =>
+    const mapLocalNewsJson = (json: ContentNewsJsonType[]) =>
       json.map(
         jsonObject =>
-          new LocalNewsModel({
+          new NewsModel({
             id: jsonObject.id,
-            timestamp: DateTime.fromISO(jsonObject.timestamp),
+            lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
+            source: jsonObject.source,
             title: jsonObject.title,
             content: jsonObject.content,
-            availableLanguages: jsonObject.availableLanguages ?? {},
+            availableLanguages: jsonObject.availableLanguages,
+            externalUrl: jsonObject.externalUrl,
           }),
       )
 
@@ -856,7 +863,7 @@ class DatabaseConnector {
     return this._isPersisted(this.getContentPath('events', context))
   }
 
-  isLocalNewsPersisted(context: DatabaseContext): Promise<boolean> {
+  isNewsPersisted(context: DatabaseContext): Promise<boolean> {
     return this._isPersisted(this.getContentPath('localNews', context))
   }
 

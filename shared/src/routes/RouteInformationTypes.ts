@@ -6,12 +6,10 @@ import {
   EventsRouteType,
   RegionsRouteType,
   LicensesRouteType,
-  LocalNewsType,
   MainImprintRouteType,
   NewsRouteType,
   PlacesRouteType,
   SearchRouteType,
-  TuNewsType,
 } from './index.ts'
 
 type ParamsType = {
@@ -49,10 +47,8 @@ export type CategoriesRouteInformationType = ParamsType & {
 }
 
 export type NewsRouteInformationType = ParamsType & {
-  // Two levels of ids: news type and news id
   route: NewsRouteType
-  newsType: LocalNewsType | TuNewsType
-  newsId?: number
+  id?: number
 }
 
 export type SimpleRegionContentFeatureType = ParamsType & {

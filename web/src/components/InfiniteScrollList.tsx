@@ -1,72 +1,35 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
 import InfiniteScroll from 'react-infinite-scroller'
 
-import { loadAsync } from 'shared/api'
+import { usePaginatedLoadAsync } from 'shared/api'
 
 import Failure from './Failure'
 import FailureSwitcher from './FailureSwitcher'
+import LoadingSpinner from './LoadingSpinner'
 import List from './base/List'
 
 type InfiniteScrollListProps<T> = {
-  loadPage: (page: number) => Promise<T[]>
+  request: (page: number) => Promise<T[]>
   noItemsMessage: string
   renderItem: (item: T) => ReactElement
-  defaultPage: number
-  itemsPerPage: number
 }
 
-const InfiniteScrollList = <T,>({
-  loadPage,
-  noItemsMessage,
-  renderItem,
-  defaultPage,
-  itemsPerPage,
-}: InfiniteScrollListProps<T>): ReactElement => {
-  const [data, setData] = useState<T[]>([])
-  const [error, setError] = useState<Error | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
-  const [page, setPage] = useState<number>(defaultPage)
-  const [hasMore, setHasMore] = useState<boolean>(true)
+const InfiniteScrollList = <T,>({ request, noItemsMessage, renderItem }: InfiniteScrollListProps<T>): ReactElement => {
+  const { data, error, loading, hasMore, loadMore, loadingMore } = usePaginatedLoadAsync<T>(request)
 
-  const load = useCallback(async () => {
-    if (hasMore) {
-      setLoading(true)
-      setPage(page + 1)
-      const request = () => loadPage(page)
-      const addData = (data: T[] | null) => {
-        if (data !== null) {
-          setData(oldData => (page === defaultPage ? data : oldData.concat(data)))
-          if (data.length !== itemsPerPage) {
-            setHasMore(false)
-          }
-        }
-      }
-      await loadAsync(request, { setData: addData, setError, setLoading })
-    }
-  }, [defaultPage, page, hasMore, itemsPerPage, loadPage])
-
-  useEffect(
-    () => () => {
-      setData([])
-      setError(null)
-      setLoading(false)
-      setHasMore(true)
-      setPage(defaultPage)
-    },
-    [loadPage, defaultPage],
-  )
-
-  if (error) {
+  if (error && !data) {
     return <FailureSwitcher error={error} />
   }
 
-  if (data.length === 0 && !hasMore) {
+  if (data?.length === 0 && !loading) {
     return <Failure errorMessage={noItemsMessage} />
   }
 
   return (
-    <InfiniteScroll loadMore={load} hasMore={!loading && hasMore}>
-      <List items={data.map(renderItem)} noItemsMessage={<div />} />
+    <InfiniteScroll loadMore={loadMore} hasMore={!loading && hasMore} initialLoad={false}>
+      <List items={data?.map(renderItem) ?? []} noItemsMessage={<div />} />
+      {loadingMore && <LoadingSpinner />}
+      {error && <FailureSwitcher error={error} />}
     </InfiniteScroll>
   )
 }

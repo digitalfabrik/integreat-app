@@ -12,7 +12,6 @@ import {
   IntroRouteType,
   RegionsRouteType,
   NewsRouteType,
-  NewsType,
   PdfViewModalRouteType,
   PlacesRouteType,
   RedirectRouteType,
@@ -99,8 +98,7 @@ export type NestedRoutesParamsType = {
     slug?: string
   }
   [NEWS_ROUTE]: RouteTitle & {
-    newsId: number | null
-    newsType: NewsType
+    id: number | null
   }
 }
 
