@@ -25,32 +25,29 @@ export const usePaginatedLoadAsync = <T>(request: Request<T>): Return<T> => {
 
   const hasMore = data?.length === page * PAGE_SIZE
 
-  const updateData = useCallback((data: T[] | null) => {
-    setData(previousData => (data && previousData ? [...previousData, ...data] : data))
-  }, [])
-
-  const load = useCallback(() => {
-    loadAsync(() => request(page), { setData: updateData, setError, setLoading }).catch(reportError)
-  }, [request, updateData, page])
+  const load = useCallback(
+    (page: number) => {
+      setPage(page)
+      const updateData = (data: T[] | null) =>
+        setData(previousData => (data && previousData ? [...previousData, ...data] : data))
+      loadAsync(() => request(page), { setData: updateData, setError, setLoading }).catch(reportError)
+    },
+    [request],
+  )
 
   const loadMore = useCallback(() => {
     if (!loading && hasMore) {
-      setPage(page => page + 1)
+      load(page + 1)
     }
-  }, [hasMore, loading])
+  }, [hasMore, loading, load, page])
 
   const refresh = useCallback(() => {
     setData(null)
     setError(null)
-    if (page === INITIAL_PAGE) {
-      load()
-    } else {
-      // This automatically triggers load
-      setPage(INITIAL_PAGE)
-    }
-  }, [page, load])
+    load(INITIAL_PAGE)
+  }, [load])
 
-  useEffect(load, [load])
+  useEffect(refresh, [refresh])
 
   return {
     data,

@@ -21,3 +21,18 @@ export const REGION_SEARCH_EXAMPLE = 'Landkreis München'
 
 export const CHAT_DEFAULT_POLLING_INTERVAL = 15000
 export const CHAT_TYPING_POLLING_INTERVAL = 3000
+
+export const NEWS_ALL_SOURCES_FILTER = 'all'
+export const NEWS_LOCAL_SOURCES_FILTER = 'local'
+export const NEWS_NATIONAL_SOURCES_FILTER = 'national'
+
+export type NewsSourceFilter =
+  | typeof NEWS_ALL_SOURCES_FILTER
+  | typeof NEWS_LOCAL_SOURCES_FILTER
+  | typeof NEWS_NATIONAL_SOURCES_FILTER
+
+export const NEWS_SOURCE_FILTERS: NewsSourceFilter[] = [
+  NEWS_ALL_SOURCES_FILTER,
+  NEWS_LOCAL_SOURCES_FILTER,
+  NEWS_NATIONAL_SOURCES_FILTER,
+]
