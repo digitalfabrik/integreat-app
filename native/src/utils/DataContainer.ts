@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { CategoriesMapModel, RegionModel, EventModel, LocalNewsModel, PlaceModel } from 'shared/api'
+import { CategoriesMapModel, RegionModel, EventModel, NewsModel, PlaceModel } from 'shared/api'
 
 export type LanguageResourceCacheStateType = { [url: string]: string }
 export type RegionResourceCacheStateType = { [languageCode: string]: LanguageResourceCacheStateType }
@@ -55,12 +55,12 @@ export type DataContainer = {
    * Returns an Array of local news.
    * @throws Will throw an error if the array is null.
    */
-  getLocalNews: (region: string, language: string) => Promise<LocalNewsModel[]>
+  getNews: (region: string, language: string) => Promise<NewsModel[]>
 
   /**
    * Sets the local news and persists them.
    */
-  setLocalNews: (region: string, language: string, events: LocalNewsModel[]) => Promise<void>
+  setNews: (region: string, language: string, events: NewsModel[]) => Promise<void>
 
   /**
    * Returns the ResourceCache.
@@ -101,7 +101,7 @@ export type DataContainer = {
   /**
    * Returns whether the local news have been loaded or not.
    */
-  localNewsAvailable(region: string, language: string): Promise<boolean>
+  newsAvailable(region: string, language: string): Promise<boolean>
 
   /**
    * Returns whether the regions have been loaded or not.

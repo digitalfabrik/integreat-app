@@ -14,8 +14,6 @@ import {
 } from 'shared'
 import { RegionModel } from 'shared/api'
 
-import { LOCAL_NEWS_ROUTE, TU_NEWS_ROUTE } from '../routes'
-
 type NavigationItem = {
   to: string
   value: string
@@ -35,8 +33,7 @@ const getNavigationItems = ({ regionModel, languageCode }: GetNavigationItemsPro
   const categoriesPath = regionContentPath(params)
   const eventsPath = pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params })
   const placesPath = pathnameFromRouteInformation({ route: PLACES_ROUTE, ...params })
-  const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
-  const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType, ...params })
+  const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, ...params })
 
   const items: (NavigationItem | null)[] = [
     { value: CATEGORIES_ROUTE, to: categoriesPath, label: 'localInformationLabel', Icon: SignpostIcon },

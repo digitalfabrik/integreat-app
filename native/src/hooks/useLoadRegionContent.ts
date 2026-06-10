@@ -7,11 +7,11 @@ import {
   ErrorCodes,
   createCategoriesEndpoint,
   createEventsEndpoint,
-  createLocalNewsEndpoint,
+  createNewsEndpoint,
   createPlacesEndpoint,
   EventModel,
   LanguageModel,
-  LocalNewsModel,
+  NewsModel,
   PlaceModel,
   ReturnType,
   createRegionsEndpoint,
@@ -28,7 +28,7 @@ import useSnackbar from './useSnackbar'
 type Params = {
   regionCode: string
   languageCode: string
-  refreshLocalNews?: boolean
+  refreshNews?: boolean
 }
 
 export type RegionContentData = {
@@ -38,7 +38,7 @@ export type RegionContentData = {
   language: LanguageModel
   categories: CategoriesMapModel
   events: EventModel[]
-  localNews: LocalNewsModel[]
+  news: NewsModel[]
   places: PlaceModel[]
 }
 
@@ -50,7 +50,7 @@ export type RegionContentReturn = Omit<Omit<ReturnType<RegionContentData>, 'erro
  * Hook to load all the offline available region content at once and handle errors, loading and refreshing at the same time.
  * Takes care of updating the data regularly.
  */
-const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Params): RegionContentReturn => {
+const useLoadRegionContent = ({ regionCode, languageCode, refreshNews }: Params): RegionContentReturn => {
   const showSnackbar = useSnackbar()
   const previousLanguageCode = usePreviousProp({ prop: languageCode })
   const params = { regionCode, languageCode, showSnackbar }
@@ -83,17 +83,17 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
     getFromDataContainer: dataContainer.getPlaces,
     setToDataContainer: dataContainer.setPlaces,
   })
-  const localNewsReturn = useLoadWithCache({
+  const newsReturn = useLoadWithCache({
     ...params,
-    isAvailable: dataContainer.localNewsAvailable,
-    createEndpoint: createLocalNewsEndpoint,
-    getFromDataContainer: dataContainer.getLocalNews,
-    setToDataContainer: dataContainer.setLocalNews,
-    forceUpdate: refreshLocalNews,
+    isAvailable: dataContainer.newsAvailable,
+    createEndpoint: createNewsEndpoint,
+    getFromDataContainer: dataContainer.getNews,
+    setToDataContainer: dataContainer.setNews,
+    forceUpdate: refreshNews,
   })
 
   useEffect(() => {
-    if (regionsReturn.data && categoriesReturn.data && eventsReturn.data && placesReturn.data && localNewsReturn.data) {
+    if (regionsReturn.data && categoriesReturn.data && eventsReturn.data && placesReturn.data && newsReturn.data) {
       // Load the resource cache in the background once a day and do not wait for it
       dataContainer.getLastUpdate(regionCode, languageCode).then(lastUpdate => {
         if (!lastUpdate || lastUpdate < DateTime.utc().startOf('day')) {
@@ -111,7 +111,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
       // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
       dataContainer.setLastUpdate(regionCode, languageCode, DateTime.utc()).catch(captureError)
     }
-  }, [regionsReturn, categoriesReturn, eventsReturn, placesReturn, localNewsReturn, regionCode, languageCode])
+  }, [regionsReturn, categoriesReturn, eventsReturn, placesReturn, newsReturn, regionCode, languageCode])
 
   const region = regionsReturn.data?.find(it => it.code === regionCode)
   const language = region?.languages.find(it => it.code === languageCode)
@@ -132,7 +132,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
       categoriesReturn.error ??
       eventsReturn.error ??
       placesReturn.error ??
-      localNewsReturn.error ??
+      newsReturn.error ??
       null
     )
   }
@@ -142,14 +142,14 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
     categoriesReturn.loading ||
     eventsReturn.loading ||
     placesReturn.loading ||
-    localNewsReturn.loading
+    newsReturn.loading
 
   const refresh = () => {
     regionsReturn.refresh()
     categoriesReturn.refresh()
     eventsReturn.refresh()
     placesReturn.refresh()
-    localNewsReturn.refresh()
+    newsReturn.refresh()
   }
 
   const data =
@@ -159,7 +159,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
     categoriesReturn.data &&
     eventsReturn.data &&
     placesReturn.data &&
-    localNewsReturn.data
+    newsReturn.data
       ? {
           region,
           language,
@@ -168,7 +168,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
           categories: categoriesReturn.data,
           events: eventsReturn.data,
           places: placesReturn.data,
-          localNews: localNewsReturn.data,
+          news: newsReturn.data,
         }
       : null
 

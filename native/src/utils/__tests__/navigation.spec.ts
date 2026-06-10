@@ -53,7 +53,7 @@ describe('navigateNested', () => {
   const categoriesParams = { path: '/augsburg/de/category' }
   const eventsParams = { slug: 'some-event' }
   const placesParams = { slug: 'some-place' }
-  const newsParams = { newsId: 1, newsType: 'local' as const }
+  const newsParams = { id: 1 }
 
   describe('root navigator', () => {
     it('pushes bottom tab route with correct tab and screen', () => {

@@ -1,6 +1,6 @@
 import BlobUtil from 'react-native-blob-util'
 
-export const CONTENT_VERSION = 'v12'
+export const CONTENT_VERSION = 'v13'
 export const RESOURCE_CACHE_VERSION = 'v4'
 
 // Our pdf view can only load from DocumentDir. Therefore we need to use that

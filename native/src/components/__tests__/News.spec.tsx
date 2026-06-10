@@ -2,8 +2,8 @@ import { fireEvent } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { LocalNewsType, TU_NEWS_TYPE, TuNewsType, replaceLinks } from 'shared'
-import { LanguageModelBuilder, RegionModel, LocalNewsModel, TuNewsModel } from 'shared/api'
+import { replaceLinks } from 'shared'
+import { LanguageModelBuilder, RegionModel, NewsModel } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -16,34 +16,25 @@ jest.mock('react-i18next')
 jest.mock('../../components/Page')
 jest.mock('../../hooks/useNavigate')
 
-const news: [TuNewsModel, TuNewsModel] = [
-  new TuNewsModel({
-    id: 9902,
-    title: 'Was ist ein Verein?',
-    lastUpdate: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
-    tags: [],
-    content:
-      'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren. https://example.com',
-    eNewsNo: 'tun0000009902',
-  }),
-  new TuNewsModel({
-    id: 1234,
+const defaultNews: [NewsModel, NewsModel] = [
+  new NewsModel({
+    id: 1,
     title: 'Tick bite - What to do?',
-    tags: ['8 Gesundheit'],
     lastUpdate: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
     content:
-      'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. tünews INTERNATIONAL',
-    eNewsNo: 'tun0000009902',
+      'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. https://example.com',
+    availableLanguages: { de: 1234 },
+    externalUrl: 'https://example.com',
+    source: 'tunews',
   }),
-]
-
-const localNews: [LocalNewsModel] = [
-  new LocalNewsModel({
-    id: 1234,
-    timestamp: DateTime.fromISO('2019-03-01T00:00:00.000'),
-    title: 'Local News',
-    content: 'Local news with url: https://example.com',
-    availableLanguages: {},
+  new NewsModel({
+    id: 2,
+    title: 'Test Local',
+    lastUpdate: DateTime.fromISO('2020-01-21T00:00:00.000Z'),
+    content: 'Test local news content. https://example.com',
+    availableLanguages: { de: 123 },
+    externalUrl: 'https://example.com',
+    source: 'local',
   }),
 ]
 
@@ -53,24 +44,22 @@ describe('News', () => {
   })
 
   const navigation = createNavigationPropMock()
-  mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
+  const navigateTo = jest.fn()
+  mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
   const language = 'de'
-  const navigateToNews = jest.fn()
   const loadMore = jest.fn()
   const refresh = jest.fn()
 
   const renderNews = ({
-    selectedNewsType = TU_NEWS_TYPE,
-    newsId = null,
-    data = news,
+    id = null,
+    news = defaultNews,
     loadingMore = false,
     tuNewsEnabled = true,
     localNewsEnabled = true,
   }: {
-    newsId?: number | null
-    data?: (LocalNewsModel | TuNewsModel)[]
+    id?: number | null
+    news?: NewsModel[]
     loadingMore?: boolean
-    selectedNewsType?: TuNewsType | LocalNewsType
     tuNewsEnabled?: boolean
     localNewsEnabled?: boolean
   }) => {
@@ -92,68 +81,70 @@ describe('News', () => {
       chatEnabled: false,
       chatPrivacyPolicyUrl: null,
     })
-    const props = { regionModel, language, navigateToNews, loadMore, refresh, selectedNewsType }
-    return render(<News {...props} news={data} newsId={newsId} loadingMore={loadingMore} languageCode='de' />)
+    const props = { regionModel, language, loadMore, refresh }
+    return render(
+      <News {...props} news={news} id={id} loadingMore={loadingMore} languageCode='de' regionCode='augsburg' />,
+    )
   }
 
   it('should show not found error if news with id not found', () => {
-    const { getByText } = renderNews({ newsId: 32498732984824 })
+    const { getByText } = renderNews({ id: 32498732984824 })
     expect(getByText('pageNotFound')).toBeTruthy()
   })
 
   it('should show news detail', () => {
-    const { queryByText } = renderNews({ newsId: news[0].id })
-    expect(queryByText(news[0].title)).toBeTruthy()
-    expect(queryByText(news[0].content)).toBeTruthy()
+    const { queryByText } = renderNews({ id: defaultNews[0].id })
+    expect(queryByText(defaultNews[0].title)).toBeTruthy()
+    expect(queryByText(defaultNews[0].content)).toBeTruthy()
 
-    expect(queryByText(news[1].title)).toBeFalsy()
+    expect(queryByText(defaultNews[1].title)).toBeFalsy()
   })
 
   it('should show news list', () => {
     const { getByText } = renderNews({})
-    expect(getByText(news[0].title)).toBeTruthy()
-    expect(getByText(news[0].content)).toBeTruthy()
+    expect(getByText(defaultNews[0].title)).toBeTruthy()
+    expect(getByText(defaultNews[0].content)).toBeTruthy()
 
-    expect(getByText(news[1].title)).toBeTruthy()
-    expect(getByText(news[1].content)).toBeTruthy()
+    expect(getByText(defaultNews[1].title)).toBeTruthy()
+    expect(getByText(defaultNews[1].content)).toBeTruthy()
 
-    fireEvent.press(getByText(news[1].title))
-    expect(navigateToNews).toHaveBeenCalledWith(news[1].id)
+    fireEvent.press(getByText(defaultNews[1].title))
+    expect(navigateTo).toHaveBeenCalledWith({ id: 2, languageCode: 'de', regionCode: 'augsburg', route: 'news' })
   })
 
   it('should show currently no news', () => {
-    const { queryByText } = renderNews({ data: [] })
+    const { queryByText } = renderNews({ news: [] })
     expect(queryByText('currentlyNoNews')).toBeTruthy()
 
-    expect(queryByText(news[0].title)).toBeFalsy()
-    expect(queryByText(news[1].title)).toBeFalsy()
+    expect(queryByText(defaultNews[0].title)).toBeFalsy()
+    expect(queryByText(defaultNews[1].title)).toBeFalsy()
   })
 
   it('should show loading spinner if loading more', () => {
     const { getByText, getByTestId } = renderNews({ loadingMore: true })
     expect(getByTestId('loadingSpinner')).toBeTruthy()
 
-    expect(getByText(news[0].title)).toBeTruthy()
-    expect(getByText(news[1].title)).toBeTruthy()
+    expect(getByText(defaultNews[0].title)).toBeTruthy()
+    expect(getByText(defaultNews[1].title)).toBeTruthy()
   })
 
   it('should not add links in list', () => {
-    const { getByText } = renderNews({ data: localNews })
-    expect(getByText(localNews[0].title)).toBeTruthy()
-    expect(getByText(localNews[0].content)).toBeTruthy()
+    const { getByText } = renderNews({ news: defaultNews })
+    expect(getByText(defaultNews[0].title)).toBeTruthy()
+    expect(getByText(defaultNews[0].content)).toBeTruthy()
   })
 
   it('should not add links for tünews', () => {
-    const { getByText, queryByText } = renderNews({ data: news, newsId: news[0].id })
-    expect(getByText(news[0].title)).toBeTruthy()
-    expect(getByText(news[0].content)).toBeTruthy()
-    expect(queryByText(replaceLinks(news[0].content))).toBeFalsy()
+    const { getByText, queryByText } = renderNews({ news: defaultNews, id: defaultNews[0].id })
+    expect(getByText(defaultNews[0].title)).toBeTruthy()
+    expect(getByText(defaultNews[0].content)).toBeTruthy()
+    expect(queryByText(replaceLinks(defaultNews[0].content))).toBeFalsy()
   })
 
   it('should add links in local news detail', () => {
-    const { getByText, queryByText } = renderNews({ data: localNews, newsId: localNews[0].id })
-    expect(getByText(localNews[0].title)).toBeTruthy()
-    expect(queryByText(localNews[0].content)).toBeFalsy()
-    expect(queryByText(replaceLinks(localNews[0].content))).toBeTruthy()
+    const { getByText, queryByText } = renderNews({ news: defaultNews, id: defaultNews[1].id })
+    expect(getByText(defaultNews[1].title)).toBeTruthy()
+    expect(queryByText(defaultNews[1].content)).toBeFalsy()
+    expect(queryByText(replaceLinks(defaultNews[1].content))).toBeTruthy()
   })
 })

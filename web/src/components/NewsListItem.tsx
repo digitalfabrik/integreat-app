@@ -4,11 +4,11 @@ import ListItemText from '@mui/material/ListItemText'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getExcerpt } from 'shared'
+import { getExcerpt, NEWS_ROUTE, parseHTML, pathnameFromRouteInformation } from 'shared'
+import { NewsModel } from 'shared/api'
 
 import { EXCERPT_MAX_CHARS } from '../constants'
 import LastUpdateInfo from './LastUpdateInfo'
@@ -38,22 +38,23 @@ const StyledStack = styled(Stack)(({ theme }) => ({
 }))
 
 type NewsListItemProps = {
-  title: string
-  content: string
-  timestamp: DateTime
-  to: string
+  news: NewsModel
+  regionCode: string
+  languageCode: string
 }
 
-const NewsListItem = ({ title, content, timestamp, to }: NewsListItemProps): ReactElement => {
+const NewsListItem = ({ news, regionCode, languageCode }: NewsListItemProps): ReactElement => {
   const { t } = useTranslation('news')
-  const excerpt = getExcerpt(content, { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
+  const excerpt = getExcerpt(parseHTML(news.content), { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
 
   return (
     <ListItem disablePadding>
-      <StyledListItemButton component={Link} to={to}>
+      <StyledListItemButton
+        component={Link}
+        to={pathnameFromRouteInformation({ route: NEWS_ROUTE, regionCode, languageCode, id: news.id })}>
         <StyledStack maxWidth='100%'>
-          <StyledListItemText slotProps={{ primary: { component: 'h2' } }} primary={title} secondary={excerpt} />
-          <LastUpdateInfo lastUpdate={timestamp} withText={false} />
+          <StyledListItemText slotProps={{ primary: { component: 'h2' } }} primary={news.title} secondary={excerpt} />
+          <LastUpdateInfo lastUpdate={news.lastUpdate} withText={false} />
         </StyledStack>
         <Typography color='primary' variant='button'>
           {t('common:more')}

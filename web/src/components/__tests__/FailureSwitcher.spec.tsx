@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { LOCAL_NEWS_TYPE, TU_NEWS_TYPE } from 'shared'
 import { MappingError, NotFoundError, ResponseError, fromError } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
@@ -21,12 +20,11 @@ describe('FailureSwitcher', () => {
   })
 
   it.each`
-    type               | id              | notFoundKey   | goToKey         | goToPath
-    ${'category'}      | ${'willkommen'} | ${'category'} | ${'categories'} | ${'/augsburg/de'}
-    ${'event'}         | ${'1234'}       | ${'event'}    | ${'events'}     | ${'/augsburg/de/events'}
-    ${LOCAL_NEWS_TYPE} | ${'1'}          | ${'news'}     | ${'news'}       | ${'/augsburg/de/news/local'}
-    ${TU_NEWS_TYPE}    | ${'1'}          | ${'news'}     | ${'news'}       | ${'/augsburg/de/news/tu-news'}
-    ${'place'}         | ${'1234'}       | ${'place'}    | ${'places'}     | ${'/augsburg/de/places'}
+    type          | id              | notFoundKey   | goToKey         | goToPath
+    ${'category'} | ${'willkommen'} | ${'category'} | ${'categories'} | ${'/augsburg/de'}
+    ${'event'}    | ${'1234'}       | ${'event'}    | ${'events'}     | ${'/augsburg/de/events'}
+    ${'news'}     | ${'1'}          | ${'news'}     | ${'news'}       | ${'/augsburg/de/news'}
+    ${'place'}    | ${'1234'}       | ${'place'}    | ${'places'}     | ${'/augsburg/de/places'}
   `('should render $type not found failure', ({ type, id, notFoundKey, goToKey, goToPath }) => {
     const error = new NotFoundError({ type, id, language, region })
     const { getByText } = renderWithRouterAndTheme(<FailureSwitcherWithHelmet error={error} />)
