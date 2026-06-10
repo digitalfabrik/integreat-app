@@ -12,12 +12,12 @@ jest.mock('react-i18next', () => ({
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
 
-const renderSearchFeedback = (query: string, noResults: boolean) => {
+const renderSearchFeedback = (noResults: boolean) => {
   const router = createMemoryRouter(
     [
       {
         path: '/',
-        element: <SearchFeedback query={query} noResults={noResults} />,
+        element: <SearchFeedback noResults={noResults} />,
       },
     ],
     { initialEntries: ['/'] },
@@ -27,18 +27,10 @@ const renderSearchFeedback = (query: string, noResults: boolean) => {
 
 describe('SearchFeedback', () => {
   it('should set feedback query param on button click when no results', () => {
-    const { getByText, router } = renderSearchFeedback('test', true)
+    const { getByText, router } = renderSearchFeedback(true)
 
     expect(router.state.location.search).toBe('')
     fireEvent.click(getByText('feedback:giveFeedback'))
     expect(router.state.location.search).toBe('?feedback=negative')
-  })
-
-  it('should set feedback query param on button click when results exist', () => {
-    const { getByText, router } = renderSearchFeedback('test', false)
-
-    expect(router.state.location.search).toBe('')
-    fireEvent.click(getByText('feedback:informationNotFound'))
-    expect(router.state.location.search).toBe('?feedback=true')
   })
 })

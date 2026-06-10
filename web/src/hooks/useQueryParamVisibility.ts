@@ -2,21 +2,22 @@ import { useSearchParams } from 'react-router'
 
 import { parseQueryParams, VisibilityQueryParams, toQueryParams } from 'shared'
 
-type UseQueryParamVisibilityReturn = {
+type UseQueryParamVisibilityReturn<T extends keyof VisibilityQueryParams> = {
   open: (value?: string) => void
   close: () => void
   openUrl: (url: string | null, value?: string) => string | null
   visible: boolean
+  value: VisibilityQueryParams[T]
 }
 
-const useQueryParamVisibility = (key: keyof VisibilityQueryParams): UseQueryParamVisibilityReturn => {
+const useQueryParamVisibility = <T extends keyof VisibilityQueryParams>(key: T): UseQueryParamVisibilityReturn<T> => {
   const [queryParams, setQueryParams] = useSearchParams()
-  const paramValue = parseQueryParams(queryParams)[key]
-  const visible = typeof paramValue === 'boolean' ? paramValue : paramValue !== undefined
+  const value = parseQueryParams(queryParams)[key]
+  const visible = Boolean(value)
 
   const open = (value?: string) => {
     const newQueryParams = queryParams
-    newQueryParams.set(key, typeof value === 'string' ? value : 'true')
+    newQueryParams.set(key, value ?? 'true')
     setQueryParams(newQueryParams)
   }
 
@@ -29,7 +30,7 @@ const useQueryParamVisibility = (key: keyof VisibilityQueryParams): UseQueryPara
   const openUrl = (url: string | null, value?: string) =>
     url ? `${url}?${toQueryParams({ [key]: value ?? 'true' }).toString()}` : null
 
-  return { open, close, openUrl, visible }
+  return { open, close, openUrl, visible, value }
 }
 
 export default useQueryParamVisibility

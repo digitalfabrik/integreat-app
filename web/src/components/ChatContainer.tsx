@@ -117,7 +117,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     )
   }
 
-  return <ChatFab onClick={open} />
+  return <ChatFab onClick={() => open()} />
 }
 
 export default ChatContainer

@@ -29,7 +29,6 @@ const Hint = styled('p')`
 `
 
 type SearchFeedbackProps = {
-  query: string
   noResults: boolean
 }
 
@@ -38,7 +37,7 @@ const SearchFeedback = ({ noResults }: SearchFeedbackProps): ReactElement => {
   const { t } = useTranslation('feedback')
   const { open } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
 
-  const openFeedback = () => open(noResults ? RATING_NEGATIVE : undefined)
+  const openFeedback = () => open(RATING_NEGATIVE)
 
   if (noResults) {
     const fallbackLanguage = config.sourceLanguage

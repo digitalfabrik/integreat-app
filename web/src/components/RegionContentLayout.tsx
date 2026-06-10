@@ -24,6 +24,7 @@ export type RegionContentLayoutProps = {
   fitScreen?: boolean
   category?: CategoryModel
   pageTitle: string | null
+  slug?: string
 }
 
 const RegionContentLayout = ({
@@ -36,6 +37,7 @@ const RegionContentLayout = ({
   toolbar,
   fitScreen = false,
   pageTitle,
+  slug,
 }: RegionContentLayoutProps): ReactElement => {
   const { route } = useRegionContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
@@ -66,7 +68,7 @@ const RegionContentLayout = ({
           {chatVisible && (
             <ChatContainer region={region} languageCode={languageCode} languageChangePaths={languageChangePaths} />
           )}
-          <FeedbackContainer />
+          <FeedbackContainer slug={slug} />
           {mobile && <BottomNavigation regionModel={region} languageCode={languageCode} />}
         </>
       }

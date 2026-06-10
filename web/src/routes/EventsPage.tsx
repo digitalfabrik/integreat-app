@@ -82,6 +82,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     languageChangePaths,
     languageCode,
     pageTitle,
+    slug: event?.slug,
     toolbar: <RegionContentToolbar />,
   }
 
