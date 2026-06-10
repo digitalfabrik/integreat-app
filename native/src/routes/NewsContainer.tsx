@@ -1,6 +1,12 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 
-import { NEWS_ROUTE, NewsRouteType } from 'shared'
+import {
+  NEWS_ALL_SOURCES_FILTER,
+  NEWS_ROUTE,
+  newsFilterToSources,
+  NewsRouteType,
+  NewsSourceFilter as NewsSourceFilterType,
+} from 'shared'
 import { createNewsEndpoint, loadFromEndpoint, usePaginatedLoadAsync } from 'shared/api'
 
 import News from '../components/News'
@@ -21,6 +27,7 @@ type NewsContainerProps = {
 const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement | null => {
   const { id } = route.params
   const { regionCode, languageCode } = useRegionAppContext()
+  const [newsSourceFilter, setNewsSourceFilter] = useState<NewsSourceFilterType>(NEWS_ALL_SOURCES_FILTER)
   const { data: regionContent, ...regionContentResponse } = useLoadRegionContent({
     regionCode,
     languageCode,
@@ -34,13 +41,15 @@ const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement 
           region: regionCode,
           language: languageCode,
           page,
+          newsSourceFilter,
         }),
-      [regionCode, languageCode],
+      [regionCode, languageCode, newsSourceFilter],
     ),
   )
 
-  // Always try to load news to support pagination and only fallback to offline available news if that fails
-  const news = response.data ?? regionContent?.news
+  const newsSources = newsFilterToSources(newsSourceFilter)
+  const filteredOfflineNews = regionContent?.news.filter(news => !newsSources || newsSources.includes(news.source))
+  const news = response.data ?? filteredOfflineNews
   const currentNews = id != null ? news?.find(it => it.id === id) : undefined
   const availableLanguages = currentNews
     ? Object.keys(currentNews.availableLanguages ?? {})
@@ -67,7 +76,17 @@ const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement 
 
   return (
     <LoadingErrorHandler {...regionContentResponse} loading={regionContentResponse.loading || response.loading}>
-      {news && <News id={id} news={news} regionCode={regionCode} languageCode={languageCode} response={response} />}
+      {news && (
+        <News
+          id={id}
+          news={news}
+          regionCode={regionCode}
+          languageCode={languageCode}
+          response={response}
+          newsSource={newsSourceFilter}
+          setNewsSource={setNewsSourceFilter}
+        />
+      )}
     </LoadingErrorHandler>
   )
 }
