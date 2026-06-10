@@ -55,7 +55,7 @@ const data = {
   events: [],
   places: [],
   extra: [],
-  localNews: [],
+  news: [],
 }
 
 const buildMessage = (id: number, userIsAuthor: boolean) =>
@@ -96,7 +96,7 @@ describe('Chat', () => {
       () =>
         ({
           refresh: jest.fn(),
-          refreshLocalNews: jest.fn(),
+          refreshNews: jest.fn(),
           loading: false,
           error: null,
           data,

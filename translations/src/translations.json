@@ -10898,388 +10898,216 @@
   "news": {
     "de": {
       "news": "Nachrichten",
-      "localNews": {
-        "localNews": "Lokale Nachrichten",
-        "pageTitle": "Lokale Nachrichten"
-      },
       "local": "Lokal",
       "currentlyNoNews": "Aktuell gibt es keine Nachrichten."
     },
     "am": {
       "news": "ዜናዎች",
-      "localNews": {
-        "localNews": "አካባቢያዊ ዜናዎች",
-        "pageTitle": "አካባቢያዊ ዜናዎች"
-      },
       "local": "አካባቢያዊ",
       "currentlyNoNews": "በአሁኑ ሰዐት ምንም ዜናዎች የሉም።"
     },
     "ar": {
       "news": "الأخبار",
-      "localNews": {
-        "localNews": "اخبار محلية",
-        "pageTitle": "الأخبار المحلية"
-      },
       "local": "محلي",
       "currentlyNoNews": "لا تُوجد أخبار حاليًا."
     },
     "bg": {
       "news": "Новини",
-      "localNews": {
-        "localNews": "Местни новини",
-        "pageTitle": "Местни новини"
-      },
       "local": "Локално",
       "currentlyNoNews": "В момента няма новини."
     },
     "ckb": {
       "news": "هەواڵ",
-      "localNews": {
-        "localNews": "هەواڵی خۆجێی",
-        "pageTitle": "هەواڵی خۆجێی"
-      },
       "local": "خۆجێی",
       "currentlyNoNews": "لەئێستادا هیچ هەواڵێکی تێدا نییە."
     },
     "cs": {
       "news": "Zprávy",
-      "localNews": {
-        "localNews": "Lokální zprávy",
-        "pageTitle": "Lokální zprávy"
-      },
       "local": "Lokální",
       "currentlyNoNews": "V tuto chvíli nejsou žádné novinky."
     },
     "da": {
       "news": "Nyheder",
-      "localNews": {
-        "localNews": "Lokale nyheder",
-        "pageTitle": "Lokale nyheder"
-      },
       "local": "Lokal",
       "currentlyNoNews": "Der er i øjeblikket ingen nyheder."
     },
     "el": {
       "news": "Ειδήσεις",
-      "localNews": {
-        "localNews": "Τοπικές ειδήσεις",
-        "pageTitle": "Τοπικά νέα"
-      },
       "local": "Τοπικά",
       "currentlyNoNews": "Προς το παρόν δεν υπάρχουν ειδήσεις."
     },
     "en": {
       "news": "News",
-      "localNews": {
-        "localNews": "Local news",
-        "pageTitle": "Local news"
-      },
       "local": "Local",
       "currentlyNoNews": "There is no news at the moment."
     },
     "es": {
       "news": "Noticias",
-      "localNews": {
-        "localNews": "Noticias locales",
-        "pageTitle": "Noticias locales"
-      },
       "local": "Local",
       "currentlyNoNews": "En la actualidad no hay noticias"
     },
     "fi": {
       "news": "Viestit",
-      "localNews": {
-        "localNews": "Paikalliset uutiset",
-        "pageTitle": "Paikalliset uutiset"
-      },
       "local": "Paikallinen",
       "currentlyNoNews": "Tällä hetkellä ei ole uutisia."
     },
     "fr": {
       "news": "Nouvelles",
-      "localNews": {
-        "localNews": "Nouvelles locales",
-        "pageTitle": "Nouvelles locales"
-      },
       "local": "Localement",
       "currentlyNoNews": "Aucune nouvelle pour l'instant"
     },
     "hi": {
       "news": "समाचार",
-      "localNews": {
-        "localNews": "स्थानीय समाचार",
-        "pageTitle": "स्थानीय समाचार"
-      },
       "local": "स्थानीय",
       "currentlyNoNews": "फ़िलहाल कोई समाचार नहीं है."
     },
     "hr": {
       "news": "Vijesti",
-      "localNews": {
-        "localNews": "Lokalne vijesti",
-        "pageTitle": "Lokalne vijesti"
-      },
       "local": "Lokalno",
       "currentlyNoNews": "Trenutačno nema nikakvih vijesti."
     },
     "hu": {
       "news": "Hírek",
-      "localNews": {
-        "localNews": "Helyi hírek",
-        "pageTitle": "Helyi hírek"
-      },
       "local": "Helyi",
       "currentlyNoNews": "Jelenleg nincsenek hírek."
     },
     "id": {
       "news": "Berita",
-      "localNews": {
-        "localNews": "Berita lokal",
-        "pageTitle": "Berita lokal"
-      },
       "local": "Lokal",
       "currentlyNoNews": "Tidak ada berita saat ini."
     },
     "it": {
       "news": "Messaggi",
-      "localNews": {
-        "localNews": "Notizie locali",
-        "pageTitle": "Notizie locali"
-      },
       "local": "Locale",
       "currentlyNoNews": "Attualmente non ci sono notizie."
     },
     "ka": {
       "news": "ინფორმაციები",
-      "localNews": {
-        "localNews": "ადგილობრივი ინფორმაციები",
-        "pageTitle": "ადგილობრივი ამბები"
-      },
       "local": "ადგილობრივი",
       "currentlyNoNews": "ამჟამად არ არსებობს არანაირი ინფორმაციები."
     },
     "kmr": {
       "news": "Nûçe",
-      "localNews": {
-        "localNews": "Nûçeyên herêmî",
-        "pageTitle": "Nûçeyên herêmî"
-      },
       "local": "Herêmî",
       "currentlyNoNews": "Niha nûçe tune."
     },
     "mk": {
       "news": "Вести",
-      "localNews": {
-        "localNews": "Локални вести",
-        "pageTitle": "Локални вести"
-      },
       "local": "Локално",
       "currentlyNoNews": "Моментално нема вести."
     },
     "nl": {
       "news": "Nieuws",
-      "localNews": {
-        "localNews": "Lokaal nieuws",
-        "pageTitle": "Lokaal nieuws"
-      },
       "local": "Lokaal",
       "currentlyNoNews": "Op dit moment is er geen nieuws."
     },
     "orm": {
       "news": "Oduu",
-      "localNews": {
-        "localNews": "Oduu naannoo",
-        "pageTitle": "Oduu naannoo"
-      },
       "local": "Naannoo",
       "currentlyNoNews": "Yeroo ammaa oduun hin jiru"
     },
     "pes": {
       "news": "اخبار",
-      "localNews": {
-        "localNews": "اخبار محلی",
-        "pageTitle": "اخبار محلی"
-      },
       "local": "محل",
       "currentlyNoNews": "در حال حاضر هیچ اخباری وجود ندارد."
     },
     "pl": {
       "news": "Wiadomości",
-      "localNews": {
-        "localNews": "Wiadomości lokalne",
-        "pageTitle": "Wiadomości lokalne"
-      },
       "local": "Lokalnie",
       "currentlyNoNews": "Obecnie nie ma żadnej wiadomości."
     },
     "prs": {
       "news": "اخبار",
-      "localNews": {
-        "localNews": "اخبار محلی",
-        "pageTitle": "اخبار محلی"
-      },
       "local": "محلی",
       "currentlyNoNews": "در حال حاضر هیچ خبری وجود ندارد‎."
     },
     "ps": {
       "news": "خبرونه",
-      "localNews": {
-        "localNews": "سیمه ییز خبرونه",
-        "pageTitle": "سیمه ییز خبرونه"
-      },
       "local": "سیمه ییز",
       "currentlyNoNews": "دا مهال کوم خبرونه نشته."
     },
     "pt": {
       "news": "Notícias",
-      "localNews": {
-        "localNews": "Notícias locais",
-        "pageTitle": "Notícias locais"
-      },
       "local": "A nível local",
       "currentlyNoNews": "Não existe atualmente nenhuma notícia."
     },
     "ro": {
       "news": "Știri",
-      "localNews": {
-        "localNews": "Știri locale",
-        "pageTitle": "Știri locale"
-      },
       "local": "Local",
       "currentlyNoNews": "În prezent nu există nicio știre."
     },
     "rom": {
       "news": "Haberia",
-      "localNews": {
-        "localNews": "Lokalnikane haberia",
-        "pageTitle": "Lokalnikane haberia"
-      },
       "local": "Lokalnikano",
       "currentlyNoNews": "Nane haberia ko akava vakti."
     },
     "ru": {
       "news": "Новости",
-      "localNews": {
-        "localNews": "Местные новости",
-        "pageTitle": "Местные новости"
-      },
       "local": "Местная информация",
       "currentlyNoNews": "В настоящий момент новости отсутствуют."
     },
     "sk": {
       "news": "Správy",
-      "localNews": {
-        "localNews": "Lokálne správy",
-        "pageTitle": "Lokálne správy"
-      },
       "local": "Lokálne",
       "currentlyNoNews": "Aktuálne nie sú k dispozícii žiadne správy."
     },
     "so": {
       "news": "War",
-      "localNews": {
-        "localNews": "Wararka deegaanka",
-        "pageTitle": "Wararka deegaanka"
-      },
       "local": "Deegaanka",
       "currentlyNoNews": "Hada wax war ah ma jiraan."
     },
     "sq": {
       "news": "Lajme",
-      "localNews": {
-        "localNews": "Lajme lokale",
-        "pageTitle": "Lajme lokale"
-      },
       "local": "Vendas",
       "currentlyNoNews": "Aktualisht nuk ka asnjë lajm."
     },
     "sr-Cyrl": {
       "news": "Вести",
-      "localNews": {
-        "localNews": "Локалне вести",
-        "pageTitle": "Локалне вести"
-      },
       "local": "Локално",
       "currentlyNoNews": "Тренутно нема вести."
     },
     "sr-Latn": {
       "news": "Vesti",
-      "localNews": {
-        "localNews": "Lokalne vesti",
-        "pageTitle": "Lokalne vesti"
-      },
       "local": "Lokalno",
       "currentlyNoNews": "Trenutno nema vesti."
     },
     "sw": {
       "news": "Habari",
-      "localNews": {
-        "localNews": "Habari za nchini",
-        "pageTitle": "Habari za nchini"
-      },
       "local": "Nchini",
       "currentlyNoNews": "Hakuna habari kwa sasa."
     },
     "th": {
       "news": "ข่าว",
-      "localNews": {
-        "localNews": "ข่าวท้องถิ่น",
-        "pageTitle": "ข่าวท้องถิ่น"
-      },
       "local": "ท้องถิ่น",
       "currentlyNoNews": "ยังไม่มีข่าวสารใดๆในขณะนี้"
     },
     "ti": {
       "news": "ዜና",
-      "localNews": {
-        "localNews": "ዜና ውሽጢ  ዓዲ",
-        "pageTitle": "ዜና ውሽጢ  ዓዲ"
-      },
       "local": "ውሽጢ ዓዲ",
       "currentlyNoNews": "ኣብዚ እዋን’ዚ ዜና የለን።"
     },
     "tr": {
       "news": "Bildirimler",
-      "localNews": {
-        "localNews": "yerel bildirimler",
-        "pageTitle": "yerel bildirimler"
-      },
       "local": "Yerel",
       "currentlyNoNews": "Şu an bildirim bulunmamaktadır."
     },
     "uk": {
       "news": "Новини",
-      "localNews": {
-        "localNews": "Місцеві новини",
-        "pageTitle": "Місцеві новини"
-      },
       "local": "Місцевий",
       "currentlyNoNews": "Наразі новин немає."
     },
     "ur": {
       "news": "خبریں",
-      "localNews": {
-        "localNews": "مقامی خبریں",
-        "pageTitle": "مقامی خبریں"
-      },
       "local": "مقامی",
       "currentlyNoNews": "فی الحال کوئی خبریں نہیں ہیں۔"
     },
     "vi": {
       "news": "Tin tức",
-      "localNews": {
-        "localNews": "Tin tức về địa phương",
-        "pageTitle": "Tin tức về địa phương"
-      },
       "local": "Địa phương",
       "currentlyNoNews": "Hiện không có tin tức nào."
     },
     "zh-CN": {
       "news": "新闻",
-      "localNews": {
-        "localNews": "本地新闻",
-        "pageTitle": "本地新闻"
-      },
       "local": "本地",
       "currentlyNoNews": "目前没有新闻。"
     }

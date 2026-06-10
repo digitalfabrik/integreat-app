@@ -1,0 +1,62 @@
+import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import { NEWS_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { createNewsEndpoint, loadFromEndpoint, NewsModel } from 'shared/api'
+
+import Helmet from '../components/Helmet'
+import InfiniteScrollList from '../components/InfiniteScrollList'
+import NewsListItem from '../components/NewsListItem'
+import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
+import H1 from '../components/base/H1'
+import { cmsApiBaseUrl } from '../constants/urls'
+import { RegionRouteProps } from './index'
+
+const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): ReactElement | null => {
+  const { t } = useTranslation('news')
+
+  if (!region) {
+    return null
+  }
+
+  const loadNews = (page: number) =>
+    loadFromEndpoint(createNewsEndpoint, cmsApiBaseUrl, { region: regionCode, language: languageCode, page })
+
+  const languageChangePaths = region.languages.map(({ code, name }) => ({
+    path: pathnameFromRouteInformation({ route: NEWS_ROUTE, regionCode, languageCode: code }),
+    name,
+    code,
+  }))
+
+  const pageTitle = `${t('news')} - ${region.name}`
+  const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
+    region,
+    languageChangePaths,
+    languageCode,
+    pageTitle,
+    slug: null,
+  }
+
+  const newsSources = newsFilterToSources(newsSourceFilter)
+  const news = data?.filter(news => !newsSources || newsSources.includes(news.source))
+  const newsListItems =
+    news?.map(item => <NewsListItem key={item.id} news={item} regionCode={regionCode} languageCode={languageCode} />) ??
+    []
+  const getLabel = (value: NewsSourceFilter): string => t(desktop ? `${value}News` : value)
+
+  return (
+    <RegionContentLayout isLoading={false} {...locationLayoutParams}>
+      <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
+      <H1>{t('news')}</H1>
+      <InfiniteScrollList
+        request={loadNews}
+        renderItem={(news: NewsModel) => (
+          <NewsListItem key={news.id} news={news} regionCode={regionCode} languageCode={languageCode} />
+        )}
+        noItemsMessage='news:currentlyNoNews'
+      />
+    </RegionContentLayout>
+  )
+}
+
+export default NewsPage

@@ -1,16 +1,16 @@
-import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 
-import { NewsRouteType, NewsType, TU_NEWS_TYPE, replaceLinks, tuNewsLabel } from 'shared'
-import { LocalNewsModel, TuNewsModel, ErrorCodes } from 'shared/api'
+import { NEWS_ROUTE, NewsRouteType, replaceLinks } from 'shared'
+import { ErrorCodes, LOCAL_NEWS_SOURCE, NewsModel } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import useTtsPlayer from '../hooks/useTtsPlayer'
+import Caption from './Caption'
 import Failure from './Failure'
 import List from './List'
 import LoadingSpinner from './LoadingSpinner'
@@ -19,55 +19,32 @@ import Page from './Page'
 import TimeStamp from './TimeStamp'
 import Text from './base/Text'
 
-const getPageTitle = (
-  selectedNewsType: NewsType,
-  selectedNewsItem: LocalNewsModel | TuNewsModel | null | undefined,
-  t: TFunction,
-): string => {
-  if (selectedNewsItem?.title) {
-    return selectedNewsItem.title
-  }
-  if (selectedNewsType === TU_NEWS_TYPE) {
-    return tuNewsLabel
-  }
-  return t('localNews.pageTitle')
-}
-
-type NewsModelsType = (LocalNewsModel | TuNewsModel)[]
-
 type NewsProps = {
-  news: NewsModelsType
-  navigateToNews: (newsId: number) => void
-  newsId: number | null
+  news: NewsModel[]
+  id: number | null
+  regionCode: string
   languageCode: string
-  selectedNewsType: NewsType
   loadMore?: () => void
   loadingMore?: boolean
   refresh: () => void
 }
 
-const News = ({
-  news,
-  loadMore,
-  newsId,
-  languageCode,
-  selectedNewsType,
-  navigateToNews,
-  refresh,
-  loadingMore,
-}: NewsProps): ReactElement => {
-  const selectedNewsItem = news.find(_newsItem => _newsItem.id === newsId)
+const News = ({ news, loadMore, id, languageCode, regionCode, refresh, loadingMore }: NewsProps): ReactElement => {
+  const selectedNewsItem = news.find(item => item.id === id)
+  const { navigateTo } = useNavigate()
   const { t } = useTranslation('news')
   useTtsPlayer(selectedNewsItem)
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
-  useSetRouteTitle({ navigation, title: getPageTitle(selectedNewsType, selectedNewsItem, t) })
+  useSetRouteTitle({ navigation, title: selectedNewsItem?.title ?? t('news') })
 
-  const rendersNewsListItem = ({ item }: { item: LocalNewsModel | TuNewsModel }) => {
-    const navigateToNewsDetail = () => navigateToNews(item.id)
-
-    return <NewsListItem key={item.id} newsItem={item} navigateToNews={navigateToNewsDetail} />
-  }
+  const rendersNewsListItem = ({ item }: { item: NewsModel }) => (
+    <NewsListItem
+      key={item.id}
+      newsItem={item}
+      navigateToNews={() => navigateTo({ route: NEWS_ROUTE, regionCode, languageCode, id: item.id })}
+    />
+  )
 
   if (selectedNewsItem) {
     return (
@@ -75,20 +52,20 @@ const News = ({
         <Page
           title={selectedNewsItem.title}
           content={
-            selectedNewsItem instanceof LocalNewsModel
+            selectedNewsItem.source === LOCAL_NEWS_SOURCE
               ? replaceLinks(selectedNewsItem.content)
               : selectedNewsItem.content
           }
           language={languageCode}
           footer={
-            selectedNewsItem instanceof LocalNewsModel && (
+            selectedNewsItem.source === LOCAL_NEWS_SOURCE && (
               <Text
                 style={{
                   paddingVertical: 16,
                   textAlign: contentAlignmentRTLText(selectedNewsItem.title),
                   alignSelf: 'center',
                 }}>
-                <TimeStamp lastUpdate={selectedNewsItem.timestamp} showText={false} />
+                <TimeStamp lastUpdate={selectedNewsItem.lastUpdate} showText={false} />
               </Text>
             )
           }
@@ -97,19 +74,22 @@ const News = ({
     )
   }
 
-  if (newsId !== null) {
+  if (id !== null) {
     return <Failure code={ErrorCodes.PageNotFound} retry={refresh} />
   }
 
   return (
-    <List
-      items={news}
-      onEndReached={loadMore}
-      noItemsMessage={t('currentlyNoNews')}
-      footer={loadingMore ? <LoadingSpinner testID='loadingSpinner' /> : undefined}
-      renderItem={rendersNewsListItem}
-      refresh={refresh}
-    />
+    <>
+      <Caption title={t('news')} />
+      <List
+        items={news}
+        onEndReached={loadMore}
+        noItemsMessage={t('currentlyNoNews')}
+        footer={loadingMore ? <LoadingSpinner testID='loadingSpinner' /> : undefined}
+        renderItem={rendersNewsListItem}
+        refresh={refresh}
+      />
+    </>
   )
 }
 

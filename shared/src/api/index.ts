@@ -13,6 +13,7 @@ export { default as Payload } from './Payload.ts'
 export { default as mapAvailableLanguages } from './mapping/mapAvailableLanguages.ts'
 export type { ChatMessagesReturn } from './mapping/mapChatMessages.ts'
 export * from './types.ts'
+export * from './constants/index.ts'
 export * from './endpoints/testing/index.ts'
 export { type ErrorCode, ErrorCodes, fromError } from './ErrorCodes.ts'
 export { setUserAgent, request } from './request.ts'
@@ -48,16 +49,11 @@ export { default as createRegionsEndpoint, REGIONS_ENDPOINT_NAME } from './endpo
 export { default as createRegionEndpoint, REGION_ENDPOINT_NAME } from './endpoints/createRegionEndpoint.ts'
 export { default as createImprintEndpoint, IMPRINT_ENDPOINT_NAME } from './endpoints/createImprintEndpoint.ts'
 export { default as createEventsEndpoint, EVENTS_ENDPOINT_NAME } from './endpoints/createEventsEndpoint.ts'
-export { default as createLocalNewsEndpoint, LOCAL_NEWS_ENDPOINT_NAME } from './endpoints/createLocalNewsEndpoint.ts'
+export { default as createNewsEndpoint, NEWS_ENDPOINT_NAME } from './endpoints/createNewsEndpoint.ts'
 export {
-  default as createLocalNewsElementEndpoint,
-  LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
-} from './endpoints/createLocalNewsElementEndpoint.ts'
-export { default as createTuNewsEndpoint, TU_NEWS_ENDPOINT_NAME } from './endpoints/createTuNewsEndpoint.ts'
-export {
-  default as createTuNewsElementEndpoint,
-  TU_NEWS_ELEMENT_ENDPOINT_NAME,
-} from './endpoints/createTuNewsElementEndpoint.ts'
+  default as createNewsElementEndpoint,
+  NEWS_ELEMENT_ENDPOINT_NAME,
+} from './endpoints/createNewsElementEndpoint.ts'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint.ts'
 export {
   default as submitMalteHelpForm,
@@ -69,10 +65,6 @@ export {
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint.ts'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint.ts'
 export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint.ts'
-export {
-  default as createTuNewsLanguagesEndpoint,
-  TU_NEWS_LANGUAGES_ENDPOINT_NAME,
-} from './endpoints/createTuNewsLanguagesEndpoint.ts'
 export { default as createPlacesEndpoint, PLACES_ENDPOINT_NAME } from './endpoints/createPlacesEndpoint.ts'
 export {
   default as createSprungbrettJobsEndpoint,
@@ -80,13 +72,13 @@ export {
 } from './endpoints/createSprungbrettJobsEndpoint.ts'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint.ts'
 export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsync.ts'
+export { default as usePaginatedLoadAsync } from './endpoints/hooks/usePaginatedLoadAsync.ts'
 export { default as CategoriesMapModel } from './models/CategoriesMapModel.ts'
 export { default as CategoryModel } from './models/CategoryModel.ts'
 export { default as RegionModel } from './models/RegionModel.ts'
 export { default as DateModel } from './models/DateModel.ts'
 export { default as EventModel } from './models/EventModel.ts'
-export { default as LocalNewsModel } from './models/LocalNewsModel.ts'
-export { default as TuNewsModel } from './models/TuNewsModel.ts'
+export { default as NewsModel } from './models/NewsModel.ts'
 export { default as OfferModel } from './models/OfferModel.ts'
 export { default as LanguageModel } from './models/LanguageModel.ts'
 export { default as LocationModel } from './models/LocationModel.ts'

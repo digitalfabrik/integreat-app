@@ -7,7 +7,7 @@ export const testTranslations: TranslationsType = {
       pageTitles: {
         notFound: 'Seite nicht gefunden',
         tuNews: 'tünews',
-        localNews: 'Lokale Nachrichten',
+        news: 'Nachrichten',
       },
       metaDescription:
         'Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.',
