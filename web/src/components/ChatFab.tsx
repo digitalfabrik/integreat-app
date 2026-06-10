@@ -24,7 +24,7 @@ const ChatButtonContainer = styled('div')<{ bottom: number }>`
 
 type ChatButtonProps = {
   onClick: () => void
-  unreadMessageCount?: number
+  unreadMessageCount: number
 }
 
 const ChatFab = ({ onClick, unreadMessageCount = 0 }: ChatButtonProps): ReactElement => {

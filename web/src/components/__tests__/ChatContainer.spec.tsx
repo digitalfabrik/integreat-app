@@ -4,9 +4,10 @@ import React from 'react'
 import { getChatName } from 'shared'
 import { RegionModelBuilder } from 'shared/api'
 
-import { CHAT_NEW_MESSAGES_COUNT_STORAGE_KEY, CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../../hooks/useLocalStorage'
+import { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../../testing/render'
+import { chatSeenMessagesKey } from '../../utils/chat'
 import ChatContainer from '../ChatContainer'
 
 jest.mock('react-i18next', () => ({
@@ -100,7 +101,7 @@ describe('ChatContainer', () => {
   })
 
   it('should show only incoming messages in the unread badge', () => {
-    localStorage.setItem(`${CHAT_NEW_MESSAGES_COUNT_STORAGE_KEY}-${region.code}`, '0')
+    localStorage.setItem(chatSeenMessagesKey(region.code), '0')
     mockUseQueryFromEndpointWithData({
       messages: [
         { userIsAuthor: true, content: 'my message' },

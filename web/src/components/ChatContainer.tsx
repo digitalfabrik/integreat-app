@@ -10,14 +10,11 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import { TtsContext } from '../contexts/TtsContext'
 import useDimensions from '../hooks/useDimensions'
 import useIsTabActive from '../hooks/useIsTabActive'
-import useLocalStorage, {
-  CHAT_NEW_MESSAGES_COUNT_STORAGE_KEY,
-  CHAT_UNSYNCED_MESSAGES_STORAGE_KEY,
-} from '../hooks/useLocalStorage'
+import useLocalStorage, { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
-import { chatIdKey, generateChatId } from '../utils/chat'
+import { chatIdKey, chatSeenMessagesKey, generateChatId } from '../utils/chat'
 import Chat from './Chat'
 import ChatFab from './ChatFab'
 import ChatMenu from './ChatMenu'
@@ -53,8 +50,8 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     key: CHAT_UNSYNCED_MESSAGES_STORAGE_KEY,
     initialValue: [],
   })
-  const [lastSeenMessageCount, setLastSeenMessageCount] = useLocalStorage<number>({
-    key: `${CHAT_NEW_MESSAGES_COUNT_STORAGE_KEY}-${region.code}`,
+  const [seenMessages, setSeenMessages] = useLocalStorage<number>({
+    key: chatSeenMessagesKey(region.code),
     initialValue: 0,
   })
 
@@ -71,26 +68,28 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
 
   const { data, refetch } = response
   const botTyping = data?.botTyping
+  const messageCount = data?.messages.length ?? 0
   const incomingMessageCount = data?.messages.filter(message => !message.userIsAuthor).length ?? 0
-  const unreadMessageCount = Math.max(0, incomingMessageCount - lastSeenMessageCount)
+  const unreadMessageCount = incomingMessageCount - seenMessages
 
   useEffect(() => {
-    if (visible && incomingMessageCount > lastSeenMessageCount) {
-      setLastSeenMessageCount(incomingMessageCount)
+    if (visible && incomingMessageCount > seenMessages) {
+      setSeenMessages(incomingMessageCount)
     }
-  }, [incomingMessageCount, lastSeenMessageCount, setLastSeenMessageCount, visible])
+  }, [incomingMessageCount, seenMessages, setSeenMessages, visible])
 
   useEffect(() => {
-    if (!isBrowserTabActive || incomingMessageCount === 0) {
+    if (!isBrowserTabActive || messageCount === 0) {
       return undefined
     }
     const interval = setInterval(refetch, botTyping ? CHAT_TYPING_POLLING_INTERVAL : CHAT_DEFAULT_POLLING_INTERVAL)
     return () => clearInterval(interval)
-  }, [refetch, isBrowserTabActive, incomingMessageCount, botTyping])
+  }, [refetch, isBrowserTabActive, messageCount, botTyping])
 
   const resetChat = () => {
     setUnsyncedMessages([])
     setChatId(generateChatId())
+    setSeenMessages(0)
   }
 
   const hideChatButton = xsmall && ttsPlayerVisible
