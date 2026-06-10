@@ -15,8 +15,7 @@ type ParamsType = {
 const createNewsEndpoint = (baseUrl: string): Endpoint<ParamsType, NewsModel[]> =>
   new EndpointBuilder<ParamsType, NewsModel[]>(NEWS_ENDPOINT_NAME)
     .withParamsToUrlMapper(
-      ({ region, language }: ParamsType): string =>
-        `${baseUrl}/api/${API_VERSION}/${region}/${language}/news`,
+      ({ region, language }: ParamsType): string => `${baseUrl}/api/${API_VERSION}/${region}/${language}/news`,
     )
     .withMapper((json: JsonNewsType[]): NewsModel[] => json.map(mapNewsJson))
     .build()

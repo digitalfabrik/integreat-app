@@ -1,8 +1,15 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
+import styled from 'styled-components/native'
 
-import { NEWS_ROUTE, NewsRouteType, replaceLinks } from 'shared'
+import {
+  NEWS_ROUTE,
+  NEWS_SOURCE_FILTERS,
+  NewsRouteType,
+  NewsSourceFilter as NewsSourceFilterType,
+  replaceLinks,
+} from 'shared'
 import { ErrorCodes, LOCAL_NEWS_SOURCE, NewsModel } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
@@ -16,7 +23,14 @@ import List from './List'
 import NewsListItem from './NewsListItem'
 import Page from './Page'
 import TimeStamp from './TimeStamp'
+import ToggleTextButtonGroup from './ToggleTextButtonGroup'
 import Text from './base/Text'
+
+const ListHeaderContainer = styled(View)`
+  padding-inline: 16px;
+  padding-bottom: 16px;
+  gap: 8px;
+`
 
 type NewsProps = {
   news: NewsModel[]
@@ -24,9 +38,11 @@ type NewsProps = {
   regionCode: string
   languageCode: string
   refresh: () => void
+  newsSource: NewsSourceFilterType
+  setNewsSource: (value: NewsSourceFilterType) => void
 }
 
-const News = ({ news, id, languageCode, regionCode, refresh }: NewsProps): ReactElement => {
+const News = ({ news, id, languageCode, regionCode, refresh, newsSource, setNewsSource }: NewsProps): ReactElement => {
   const selectedNewsItem = news.find(item => item.id === id)
   const { navigateTo } = useNavigate()
   const { t } = useTranslation('news')
@@ -76,10 +92,23 @@ const News = ({ news, id, languageCode, regionCode, refresh }: NewsProps): React
   }
 
   return (
-    <>
-      <Caption title={t('news')} />
-      <List items={news} noItemsMessage={t('currentlyNoNews')} renderItem={rendersNewsListItem} refresh={refresh} />
-    </>
+    <List
+      items={news}
+      noItemsMessage={t('currentlyNoNews')}
+      header={
+        <ListHeaderContainer>
+          <Caption title={t('news')} />
+          <ToggleTextButtonGroup
+            setValue={setNewsSource}
+            value={newsSource}
+            options={NEWS_SOURCE_FILTERS}
+            getLabel={t}
+          />
+        </ListHeaderContainer>
+      }
+      renderItem={rendersNewsListItem}
+      refresh={refresh}
+    />
   )
 }
 

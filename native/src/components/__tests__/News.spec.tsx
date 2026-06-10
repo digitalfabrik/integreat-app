@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { replaceLinks } from 'shared'
+import { NEWS_ALL_SOURCES_FILTER, replaceLinks } from 'shared'
 import { LanguageModelBuilder, NewsModel, RegionModel } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
@@ -78,8 +78,20 @@ describe('News', () => {
       chatEnabled: false,
       chatPrivacyPolicyUrl: null,
     })
+    const setNewsSource = jest.fn()
     const props = { regionModel, language }
-    return render(<News {...props} news={news} id={id} languageCode='de' regionCode='augsburg' refresh={jest.fn} />)
+    return render(
+      <News
+        {...props}
+        news={news}
+        id={id}
+        languageCode='de'
+        regionCode='augsburg'
+        refresh={jest.fn}
+        newsSource={NEWS_ALL_SOURCES_FILTER}
+        setNewsSource={setNewsSource}
+      />,
+    )
   }
 
   it('should show not found error if news with id not found', () => {
