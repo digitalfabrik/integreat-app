@@ -4,12 +4,10 @@ import {
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
-  LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   PLACES_ROUTE,
   RESERVED_REGION_CONTENT_SLUGS,
   SEARCH_ROUTE,
-  TU_NEWS_TYPE,
   LEGACY_REGIONS_ROUTE,
 } from '.'
 
@@ -150,21 +148,13 @@ class InternalPathnameParser {
       return null
     }
 
-    // '/augsburg/de/news', '/augsburg/de/news/local', '/augsburg/de/news/tu-news', '/augsburg/de/news/local/id'
-    const type = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
-
-    if (type && type !== LOCAL_NEWS_TYPE && type !== TU_NEWS_TYPE) {
-      return null
-    }
-
-    const newsType = type === TU_NEWS_TYPE ? TU_NEWS_TYPE : LOCAL_NEWS_TYPE
-    const newsId = this._length > ENTITY_ID_INDEX + 1 ? this._parts[ENTITY_ID_INDEX + 1] : undefined
+    // '/augsburg/de/news' and '/augsburg/de/news/id'
+    const id = this._length > ENTITY_ID_INDEX ? this._parts[ENTITY_ID_INDEX] : undefined
     return {
       route: NEWS_ROUTE,
       regionCode: this._parts[0]!,
       languageCode: this._parts[1]!,
-      newsType,
-      newsId: newsId ? parseInt(newsId, 10) : undefined,
+      id: id ? parseInt(id, 10) : undefined,
     }
   }
 

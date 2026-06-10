@@ -61,9 +61,8 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   ) {
     // https://integreat.app/augsburg/de/offers, https://integreat.app/augsburg/de/search, ...
     const { regionCode, languageCode } = routeInformation
-    const newsType = routeInformation.route === NEWS_ROUTE ? routeInformation.newsType : null
-    const newsId = routeInformation.route === NEWS_ROUTE ? routeInformation.newsId : null
-    return constructPathname([regionCode, languageCode, routeInformation.route, newsType, newsId?.toString()])
+    const newsId = routeInformation.route === NEWS_ROUTE ? routeInformation.id : null
+    return constructPathname([regionCode, languageCode, routeInformation.route, newsId?.toString()])
   }
   // https://integreat.app/regions/de
   return constructPathname([REGIONS_ROUTE, routeInformation.languageCode])

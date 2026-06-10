@@ -3,11 +3,9 @@ import {
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
-  LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   PLACES_ROUTE,
   SEARCH_ROUTE,
-  TU_NEWS_TYPE,
   LEGACY_REGIONS_ROUTE,
 } from '..'
 
@@ -159,65 +157,32 @@ describe('InternalPathnameParser', () => {
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
       route: NEWS_ROUTE,
-      newsType: LOCAL_NEWS_TYPE,
-      newsId: undefined,
+      id: undefined,
       languageCode,
       regionCode,
     })
   })
 
   it('should match local news route', () => {
-    const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`
+    const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
       route: NEWS_ROUTE,
-      newsType: LOCAL_NEWS_TYPE,
-      newsId: undefined,
+      id: undefined,
       languageCode,
       regionCode,
     })
   })
 
-  it('should match single local news route', () => {
-    const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`
+  it('should match local news detail route', () => {
+    const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}/1234`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
       route: NEWS_ROUTE,
-      newsType: LOCAL_NEWS_TYPE,
-      newsId: 1234,
+      id: 1234,
       languageCode,
       regionCode,
     })
-  })
-
-  it('should match tuNews route', () => {
-    const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`
-    const parser = new InternalPathnameParser(pathname, languageCode, null)
-    expect(parser.route()).toEqual({
-      route: NEWS_ROUTE,
-      newsType: TU_NEWS_TYPE,
-      newsId: undefined,
-      languageCode,
-      regionCode,
-    })
-  })
-
-  it('should match single tuNews route', () => {
-    const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`
-    const parser = new InternalPathnameParser(pathname, languageCode, null)
-    expect(parser.route()).toEqual({
-      route: NEWS_ROUTE,
-      newsType: TU_NEWS_TYPE,
-      newsId: 1234,
-      languageCode,
-      regionCode,
-    })
-  })
-
-  it('should not match any other news type', () => {
-    const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}/random/1234`
-    const parser = new InternalPathnameParser(pathname, languageCode, null)
-    expect(parser.route()).toBeNull()
   })
 
   it('should match categories route', () => {
@@ -388,65 +353,21 @@ describe('InternalPathnameParser', () => {
       const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
       expect(parser.route()).toEqual({
         route: NEWS_ROUTE,
-        newsType: LOCAL_NEWS_TYPE,
-        newsId: undefined,
+        id: undefined,
         languageCode,
         regionCode: fixedRegion,
       })
     })
 
-    it('should match local news route', () => {
-      const pathname = `/${fixedRegion}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`
+    it('should match local news detail route', () => {
+      const pathname = `/${fixedRegion}/${languageCode}/${NEWS_ROUTE}/1234`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
       expect(parser.route()).toEqual({
         route: NEWS_ROUTE,
-        newsType: LOCAL_NEWS_TYPE,
-        newsId: undefined,
+        id: 1234,
         languageCode,
         regionCode: fixedRegion,
       })
-    })
-
-    it('should match single local news route', () => {
-      const pathname = `/${fixedRegion}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`
-      const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
-      expect(parser.route()).toEqual({
-        route: NEWS_ROUTE,
-        newsType: LOCAL_NEWS_TYPE,
-        newsId: 1234,
-        languageCode,
-        regionCode: fixedRegion,
-      })
-    })
-
-    it('should match tuNews route', () => {
-      const pathname = `/${fixedRegion}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`
-      const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
-      expect(parser.route()).toEqual({
-        route: NEWS_ROUTE,
-        newsType: TU_NEWS_TYPE,
-        newsId: undefined,
-        languageCode,
-        regionCode: fixedRegion,
-      })
-    })
-
-    it('should match single tuNews route', () => {
-      const pathname = `/${fixedRegion}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`
-      const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
-      expect(parser.route()).toEqual({
-        route: NEWS_ROUTE,
-        newsType: TU_NEWS_TYPE,
-        newsId: 1234,
-        languageCode,
-        regionCode: fixedRegion,
-      })
-    })
-
-    it('should not match any other news type', () => {
-      const pathname = `/${fixedRegion}/${languageCode}/${NEWS_ROUTE}/random/1234`
-      const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
-      expect(parser.route()).toBeNull()
     })
 
     it('should match categories route', () => {

@@ -18,7 +18,6 @@ export { default as findNormalizedMatches, findAllMatches } from './utils/findNo
 export * from './utils'
 export { getCategoryTiles } from './utils/categories'
 export * from './constants/map'
-export * from './constants/news'
 export * from './utils/dateFilterUtils'
 export * from './utils/getExcerpt'
 export { default as getNearbyRegions } from './utils/getNearbyRegions'

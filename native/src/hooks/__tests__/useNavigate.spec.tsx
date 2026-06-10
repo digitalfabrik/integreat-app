@@ -9,7 +9,6 @@ import {
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
-  LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   PLACES_ROUTE,
   RouteInformationType,
@@ -188,22 +187,9 @@ describe('useNavigate', () => {
   })
 
   it('should navigate to news route', () => {
-    renderMockComponent({
-      route: NEWS_ROUTE,
-      ...params,
-      newsType: LOCAL_NEWS_TYPE,
-      newsId: 1234,
-    })
+    renderMockComponent({ route: NEWS_ROUTE, ...params, id: 1234 })
     expect(navigation.push).not.toHaveBeenCalled()
-    expect(navigateNested).toHaveBeenCalledWith(
-      navigation,
-      NEWS_ROUTE,
-      {
-        newsType: LOCAL_NEWS_TYPE,
-        newsId: 1234,
-      },
-      false,
-    )
+    expect(navigateNested).toHaveBeenCalledWith(navigation, NEWS_ROUTE, { id: 1234 }, false)
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
@@ -278,17 +264,8 @@ describe('useNavigate', () => {
   })
 
   it('should pass null for newsId when not provided', () => {
-    renderMockComponent({
-      route: NEWS_ROUTE,
-      ...params,
-      newsType: LOCAL_NEWS_TYPE,
-    })
-    expect(navigateNested).toHaveBeenCalledWith(
-      navigation,
-      NEWS_ROUTE,
-      { newsType: LOCAL_NEWS_TYPE, newsId: null },
-      false,
-    )
+    renderMockComponent({ route: NEWS_ROUTE, ...params })
+    expect(navigateNested).toHaveBeenCalledWith(navigation, NEWS_ROUTE, { id: null }, false)
   })
 
   it('should replace with bottom tab route when redirect=true but cannot go back for external url', () => {

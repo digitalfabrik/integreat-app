@@ -12,7 +12,6 @@ import {
   CATEGORIES_TAB_ROUTE,
   EVENTS_ROUTE,
   EVENTS_TAB_ROUTE,
-  LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   NEWS_TAB_ROUTE,
   PLACES_ROUTE,
@@ -63,11 +62,7 @@ const EventsStackScreen = () => (
 
 const NewsStackScreen = () => (
   <NewsStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
-    <NewsStack.Screen
-      name={NEWS_ROUTE}
-      initialParams={{ newsId: null, newsType: LOCAL_NEWS_TYPE }}
-      component={NewsContainer}
-    />
+    <NewsStack.Screen name={NEWS_ROUTE} initialParams={{ id: null }} component={NewsContainer} />
   </NewsStack.Navigator>
 )
 

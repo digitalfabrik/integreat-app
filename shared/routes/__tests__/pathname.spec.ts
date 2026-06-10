@@ -3,11 +3,9 @@ import {
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
-  LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   PLACES_ROUTE,
   SEARCH_ROUTE,
-  TU_NEWS_TYPE,
 } from '..'
 
 import { regionContentPath, pathnameFromRouteInformation } from '../pathname'
@@ -140,52 +138,26 @@ describe('pathname', () => {
       ).toBe(`/${regionCode}/${languageCode}/${SEARCH_ROUTE}`)
     })
 
-    it('should match local news route', () => {
+    it('should match news route', () => {
       expect(
         pathnameFromRouteInformation({
           route: NEWS_ROUTE,
-          newsType: LOCAL_NEWS_TYPE,
-          newsId: undefined,
+          id: undefined,
           languageCode,
           regionCode,
         }),
-      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}`)
+      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}`)
     })
 
-    it('should match single local news route', () => {
+    it('should match news detail route', () => {
       expect(
         pathnameFromRouteInformation({
           route: NEWS_ROUTE,
-          newsType: LOCAL_NEWS_TYPE,
-          newsId: 1234,
+          id: 1234,
           languageCode,
           regionCode,
         }),
-      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/${LOCAL_NEWS_TYPE}/1234`)
-    })
-
-    it('should match tuNews route', () => {
-      expect(
-        pathnameFromRouteInformation({
-          route: NEWS_ROUTE,
-          newsType: TU_NEWS_TYPE,
-          newsId: undefined,
-          languageCode,
-          regionCode,
-        }),
-      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}`)
-    })
-
-    it('should match single tuNews route', () => {
-      expect(
-        pathnameFromRouteInformation({
-          route: NEWS_ROUTE,
-          newsType: TU_NEWS_TYPE,
-          newsId: 1234,
-          languageCode,
-          regionCode,
-        }),
-      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/${TU_NEWS_TYPE}/1234`)
+      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/1234`)
     })
 
     it('should match categories route', () => {

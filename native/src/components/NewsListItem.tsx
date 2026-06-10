@@ -1,11 +1,10 @@
-import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { LocalNewsModel, TuNewsModel } from 'shared/api'
+import { NewsModel } from 'shared/api'
 
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentAlignmentRTLText, contentDirection } from '../constants/contentDirection'
@@ -14,7 +13,7 @@ import TimeStamp from './TimeStamp'
 import Text from './base/Text'
 
 type NewsListItemProps = {
-  newsItem: LocalNewsModel | TuNewsModel
+  newsItem: NewsModel
   navigateToNews: () => void
 }
 
@@ -41,21 +40,10 @@ export const Description = styled.View`
   flex-direction: column;
 `
 
-const getTimestamp = (newsItem: LocalNewsModel | TuNewsModel): DateTime<true> | null => {
-  if ('timestamp' in newsItem) {
-    return newsItem.timestamp
-  }
-  if ('lastUpdate' in newsItem) {
-    return newsItem.lastUpdate
-  }
-  return null
-}
-
 const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactElement => {
   const { t, i18n } = useTranslation('news')
   const { languageCode } = useAppContext()
   const theme = useTheme()
-  const timestamp = getTimestamp(newsItem)
 
   return (
     <ListItemWrapper>
@@ -77,13 +65,9 @@ const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactEle
               {newsItem.content}
             </Text>
             <View style={Styles.bottomInfo}>
-              {timestamp ? (
-                <Text variant='body2' style={{ paddingVertical: 8 }}>
-                  <TimeStamp lastUpdate={timestamp} showText={false} />
-                </Text>
-              ) : (
-                <View />
-              )}
+              <Text variant='body2' style={{ paddingVertical: 8 }}>
+                <TimeStamp lastUpdate={newsItem.lastUpdate} showText={false} />
+              </Text>
               <ReadMoreWrapper language={i18n.language}>
                 <Text
                   variant='h6'

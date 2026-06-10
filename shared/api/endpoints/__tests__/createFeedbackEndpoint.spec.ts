@@ -1,11 +1,4 @@
-import {
-  CATEGORIES_ROUTE,
-  IMPRINT_ROUTE,
-  EVENTS_ROUTE,
-  PLACES_ROUTE,
-  SEARCH_ROUTE,
-  TU_NEWS_TYPE,
-} from '../../../routes'
+import { CATEGORIES_ROUTE, IMPRINT_ROUTE, EVENTS_ROUTE, PLACES_ROUTE, SEARCH_ROUTE, NEWS_ROUTE } from '../../../routes'
 import { API_VERSION } from '../../constants'
 import createFeedbackEndpoint, { FeedbackType } from '../createFeedbackEndpoint'
 
@@ -77,7 +70,7 @@ describe('feedback', () => {
     ${PLACES_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackType.place}
     ${PLACES_ROUTE}     | ${{}}                     | ${FeedbackType.map}
     ${SEARCH_ROUTE}     | ${{ query: 'query ' }}    | ${FeedbackType.search}
-    ${TU_NEWS_TYPE}     | ${{}}                     | ${FeedbackType.categories}
+    ${NEWS_ROUTE}       | ${{}}                     | ${FeedbackType.categories}
   `(
     'should successfully request feedback for $feedbackType if rating was set',
     async ({ route, props, feedbackType }) => {

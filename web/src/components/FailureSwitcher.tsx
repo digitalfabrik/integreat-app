@@ -7,8 +7,6 @@ import {
   pathnameFromRouteInformation,
   PLACES_ROUTE,
   REGIONS_ROUTE,
-  LOCAL_NEWS_TYPE,
-  TU_NEWS_TYPE,
 } from 'shared'
 import { fromError, NotFoundError } from 'shared/api'
 
@@ -44,10 +42,9 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
             goToMessage: 'goTo.events',
             errorMessage: 'notFound.event',
           }
-        case LOCAL_NEWS_TYPE:
-        case TU_NEWS_TYPE:
+        case 'news':
           return {
-            goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType: error.type, ...params }),
+            goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, ...params }),
             goToMessage: 'goTo.news',
             errorMessage: 'notFound.news',
           }

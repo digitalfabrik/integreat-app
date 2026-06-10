@@ -13,6 +13,7 @@ export { default as Payload } from './Payload'
 export { default as mapAvailableLanguages } from './mapping/mapAvailableLanguages'
 export type { ChatMessagesReturn } from './mapping/mapChatMessages'
 export * from './types'
+export * from './constants'
 export * from './endpoints/testing'
 export { ErrorCode, fromError } from './ErrorCodes'
 export { setUserAgent, request } from './request'
@@ -45,16 +46,8 @@ export { default as createRegionsEndpoint, REGIONS_ENDPOINT_NAME } from './endpo
 export { default as createRegionEndpoint, REGION_ENDPOINT_NAME } from './endpoints/createRegionEndpoint'
 export { default as createImprintEndpoint, IMPRINT_ENDPOINT_NAME } from './endpoints/createImprintEndpoint'
 export { default as createEventsEndpoint, EVENTS_ENDPOINT_NAME } from './endpoints/createEventsEndpoint'
-export { default as createLocalNewsEndpoint, LOCAL_NEWS_ENDPOINT_NAME } from './endpoints/createLocalNewsEndpoint'
-export {
-  default as createLocalNewsElementEndpoint,
-  LOCAL_NEWS_ELEMENT_ENDPOINT_NAME,
-} from './endpoints/createLocalNewsElementEndpoint'
-export { default as createTuNewsEndpoint, TU_NEWS_ENDPOINT_NAME } from './endpoints/createTuNewsEndpoint'
-export {
-  default as createTuNewsElementEndpoint,
-  TU_NEWS_ELEMENT_ENDPOINT_NAME,
-} from './endpoints/createTuNewsElementEndpoint'
+export { default as createNewsEndpoint, NEWS_ENDPOINT_NAME } from './endpoints/createNewsEndpoint'
+export { default as createNewsElementEndpoint, NEWS_ELEMENT_ENDPOINT_NAME } from './endpoints/createNewsElementEndpoint'
 export { default as createFeedbackEndpoint, FEEDBACK_ENDPOINT_NAME } from './endpoints/createFeedbackEndpoint'
 export {
   default as submitMalteHelpForm,
@@ -66,10 +59,6 @@ export {
 export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint'
 export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint'
-export {
-  default as createTuNewsLanguagesEndpoint,
-  TU_NEWS_LANGUAGES_ENDPOINT_NAME,
-} from './endpoints/createTuNewsLanguagesEndpoint'
 export { default as createPlacesEndpoint, PLACES_ENDPOINT_NAME } from './endpoints/createPlacesEndpoint'
 export {
   default as createSprungbrettJobsEndpoint,
@@ -77,13 +66,13 @@ export {
 } from './endpoints/createSprungbrettJobsEndpoint'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint'
 export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsync'
+export { default as usePaginatedLoadAsync } from './endpoints/hooks/usePaginatedLoadAsync'
 export { default as CategoriesMapModel } from './models/CategoriesMapModel'
 export { default as CategoryModel } from './models/CategoryModel'
 export { default as RegionModel } from './models/RegionModel'
 export { default as DateModel, type DateIcon } from './models/DateModel'
 export { default as EventModel } from './models/EventModel'
-export { default as LocalNewsModel } from './models/LocalNewsModel'
-export { default as TuNewsModel } from './models/TuNewsModel'
+export { default as NewsModel } from './models/NewsModel'
 export { default as OfferModel } from './models/OfferModel'
 export { default as LanguageModel } from './models/LanguageModel'
 export { default as LocationModel } from './models/LocationModel'

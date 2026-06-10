@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 
-import LocalNewsModel from '../../models/LocalNewsModel'
+import NewsModel from '../../models/NewsModel'
 
-class LocalNewsModelBuilder {
+class NewsModelBuilder {
   _newsCount: number
   _seed: string
   _region: string
@@ -15,7 +15,7 @@ class LocalNewsModelBuilder {
     this._language = language
   }
 
-  build(): LocalNewsModel[] {
+  build(): NewsModel[] {
     return this.buildAll().map(all => all.newsItem)
   }
 
@@ -24,7 +24,7 @@ class LocalNewsModelBuilder {
    */
   buildAll(): {
     path: string | null | undefined
-    newsItem: LocalNewsModel
+    newsItem: NewsModel
   }[] {
     return Array.from(
       {
@@ -32,16 +32,18 @@ class LocalNewsModelBuilder {
       },
       () => ({
         path: null,
-        newsItem: new LocalNewsModel({
+        newsItem: new NewsModel({
           id: 12,
           title: 'first news item',
-          timestamp: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
+          lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
           content: 'This is a sample news',
           availableLanguages: {},
+          source: 'local',
+          externalUrl: 'https://example.com',
         }),
       }),
     )
   }
 }
 
-export default LocalNewsModelBuilder
+export default NewsModelBuilder

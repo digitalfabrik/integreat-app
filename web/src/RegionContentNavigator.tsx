@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement, Suspense } from 'react'
-import { Navigate, Route, Routes, useLocation, useParams } from 'react-router'
+import { Route, Routes, useLocation, useParams } from 'react-router'
 
 import {
   CATEGORIES_ROUTE,
@@ -21,21 +21,13 @@ import Layout from './components/Layout'
 import RegionContentLayout from './components/RegionContentLayout'
 import { cmsApiBaseUrl } from './constants/urls'
 import useQueryFromEndpoint from './hooks/useQueryFromEndpoint'
-import {
-  LOCAL_NEWS_ROUTE,
-  RoutePatterns,
-  RouteType,
-  TU_NEWS_DETAIL_ROUTE,
-  TU_NEWS_ROUTE,
-  RegionRouteProps,
-} from './routes'
+import { RoutePatterns, RouteType, RegionRouteProps, NEWS_DETAIL_ROUTE } from './routes'
 import lazyWithRetry from './utils/retryImport'
 
-const TuNewsDetailPage = lazyWithRetry(() => import('./routes/TuNewsDetailPage'))
-const TuNewsPage = lazyWithRetry(() => import('./routes/TuNewsPage'))
 const EventsPage = lazyWithRetry(() => import('./routes/EventsPage'))
 const CategoriesPage = lazyWithRetry(() => import('./routes/CategoriesPage'))
-const LocalNewsPage = lazyWithRetry(() => import('./routes/LocalNewsPage'))
+const NewsPage = lazyWithRetry(() => import('./routes/NewsPage'))
+const NewsDetailPage = lazyWithRetry(() => import('./routes/NewsDetailPage'))
 const PlacesPage = lazyWithRetry(() => import('./routes/PlacesPage'))
 const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const ImprintPage = lazyWithRetry(() => import('./routes/ImprintPage'))
@@ -98,10 +90,11 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
   }
 
   // If the region is not available yet, nothing is rendered in the routes. Therefore, we can render the route until we know whether the feature is enabled.
-  const eventsEnabled = !region || region.eventsEnabled
+  const placesEnabled = !region || region.placesEnabled
   const localNewsEnabled = !region || region.localNewsEnabled
   const tuNewsEnabled = !region || region.tuNewsEnabled
-  const placesEnabled = !region || region.placesEnabled
+  const newsEnabled = localNewsEnabled || tuNewsEnabled
+  const eventsEnabled = !region || region.eventsEnabled
 
   const render = <S extends RouteType>(
     route: S,
@@ -139,19 +132,9 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
       {render(IMPRINT_ROUTE, ImprintPage)}
       {render(CATEGORIES_ROUTE, CategoriesPage)}
       {eventsEnabled && render(EVENTS_ROUTE, EventsPage, ':eventId')}
-
       {placesEnabled && render(PLACES_ROUTE, PlacesPage, ':slug')}
-      {localNewsEnabled && render(LOCAL_NEWS_ROUTE, LocalNewsPage, ':newsId')}
-
-      {tuNewsEnabled && render(TU_NEWS_ROUTE, TuNewsPage)}
-      {tuNewsEnabled && render(TU_NEWS_DETAIL_ROUTE, TuNewsDetailPage)}
-
-      {(localNewsEnabled || tuNewsEnabled) && (
-        <Route
-          path={NEWS_ROUTE}
-          element={<Navigate to={localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE} replace />}
-        />
-      )}
+      {newsEnabled && render(NEWS_ROUTE, NewsPage)}
+      {newsEnabled && render(NEWS_DETAIL_ROUTE, NewsDetailPage)}
     </Routes>
   )
 }
