@@ -1,6 +1,12 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 
-import { NEWS_ROUTE, NewsRouteType } from 'shared'
+import {
+  NEWS_ALL_SOURCES_FILTER,
+  NEWS_ROUTE,
+  newsFilterToSources,
+  NewsRouteType,
+  NewsSourceFilter as NewsSourceFilterType,
+} from 'shared'
 
 import News from '../components/News'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -19,12 +25,15 @@ type NewsContainerProps = {
 const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement | null => {
   const { id } = route.params
   const { regionCode, languageCode } = useRegionAppContext()
+  const [newsSourceFilter, setNewsSourceFilter] = useState<NewsSourceFilterType>(NEWS_ALL_SOURCES_FILTER)
   const { data, ...response } = useLoadRegionContent({
     regionCode,
     languageCode,
     refreshNews: true,
   })
 
+  const newsSources = newsFilterToSources(newsSourceFilter)
+  const news = data?.news.filter(news => !newsSources || newsSources.includes(news.source))
   const currentNews = id != null ? data?.news.find(it => it.id === id) : undefined
   const availableLanguages = currentNews
     ? Object.keys(currentNews.availableLanguages ?? {})
@@ -51,8 +60,16 @@ const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement 
 
   return (
     <LoadingErrorHandler {...response} loading={response.loading}>
-      {data && (
-        <News id={id} news={data.news} regionCode={regionCode} languageCode={languageCode} refresh={response.refresh} />
+      {news && (
+        <News
+          id={id}
+          news={news}
+          regionCode={regionCode}
+          languageCode={languageCode}
+          refresh={response.refresh}
+          newsSource={newsSourceFilter}
+          setNewsSource={setNewsSourceFilter}
+        />
       )}
     </LoadingErrorHandler>
   )
