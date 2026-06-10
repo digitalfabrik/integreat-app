@@ -27,7 +27,7 @@ type ChatButtonProps = {
   unreadMessageCount: number
 }
 
-const ChatFab = ({ onClick, unreadMessageCount = 0 }: ChatButtonProps): ReactElement => {
+const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement => {
   const { desktop, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const chatName = getChatName(buildConfig().appName)
 
