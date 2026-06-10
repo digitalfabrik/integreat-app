@@ -2,7 +2,7 @@ import type { BBox } from 'geojson'
 
 import LanguageModel from './LanguageModel.js'
 
-type CoordinateType = { latitude: number; longitude: number }
+export type CoordinateType = { latitude: number; longitude: number }
 
 class RegionModel {
   _name: string

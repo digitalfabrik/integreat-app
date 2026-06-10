@@ -1,5 +1,13 @@
-import RegionModel from '../api/models/RegionModel.js'
+import RegionModel, { CoordinateType } from '../api/models/RegionModel.js'
 import { normalizeString } from './normalizeString.js'
+
+export const MATCH_WHITESPACE_AND_DASHES = /[\s-]+/
+
+// Matches with all three string start cases, for ex. Landkreis Breisgau-Hochschwarzwald
+const matchesWordStart = (text: string, normalizedFilter: string): boolean =>
+  normalizeString(text)
+    .split(MATCH_WHITESPACE_AND_DASHES)
+    .some(word => word.startsWith(normalizedFilter))
 
 const regionFilter =
   (filterText: string, developerFriendly: boolean) =>
@@ -10,14 +18,10 @@ const regionFilter =
     }
 
     const validRegion = regionModel.live || developerFriendly
-
-    // Matches with all three string start cases, for ex. Landkreis Breisgau-Hochschwarzwald
-    const matchesWordStart = (region: string) =>
-      normalizeString(region)
-        .split(/[\s-]+/)
-        .some(word => word.startsWith(normalizedFilter))
     const aliases = Object.keys(regionModel.aliases ?? {})
-    const matchesFilter = matchesWordStart(regionModel.name) || aliases.some(matchesWordStart)
+    const matchesFilter =
+      matchesWordStart(regionModel.name, normalizedFilter) ||
+      aliases.some(alias => matchesWordStart(alias, normalizedFilter))
     return validRegion && matchesFilter
   }
 
@@ -32,3 +36,13 @@ export const filterSortRegions = (
   filterText: string,
   developerFriendly = false,
 ): RegionModel[] => regions.filter(regionFilter(filterText, developerFriendly)).sort(regionSort)
+
+export const getMatchingAliases = (
+  aliases: Record<string, CoordinateType> | null,
+  normalizedFilter: string,
+): string[] => {
+  if (!aliases) {
+    return []
+  }
+  return Object.keys(aliases).filter(alias => matchesWordStart(alias, normalizedFilter))
+}

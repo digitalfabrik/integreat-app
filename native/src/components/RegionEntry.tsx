@@ -3,15 +3,13 @@ import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { normalizeString } from 'shared'
+import { getMatchingAliases, MAX_NUMBER_OF_ALIASES_SHOWN, normalizeString } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import { AppContext } from '../contexts/AppContext'
 import testID from '../testing/testID'
 import Highlighter from './Highlighter'
 import Text from './base/Text'
-
-const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
 const Label = styled(Highlighter)`
   color: ${props => props.theme.colors.onSurface};
@@ -42,10 +40,7 @@ const RegionEntry = ({ region, query, navigateToDashboard }: RegionEntryProps): 
     },
   })
   const normalizedQuery = normalizeString(query)
-  const matchingAliases =
-    region.aliases && normalizedQuery.length >= 1
-      ? Object.keys(region.aliases).filter(alias => normalizeString(alias).startsWith(normalizedQuery))
-      : []
+  const matchingAliases = getMatchingAliases(region.aliases, normalizedQuery)
   const aliases = matchingAliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN)
   const { languageCode } = useContext(AppContext)
 

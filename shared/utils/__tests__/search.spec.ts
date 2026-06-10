@@ -109,5 +109,22 @@ describe('search', () => {
       ]
       expect(filterSortRegions(regions, 'ba')).toEqual([regions[3], regions[4], regions[5]])
     })
+
+    it('should not return live regions when the string is mid-word of the names or aliases', () => {
+      const regions = [
+        region({ sortingName: 'Aichach' }),
+        region({ sortingName: 'Stadtbaden' }),
+        region({
+          sortingName: 'Dillingen',
+          aliases: {
+            Musterstadtbäden: {
+              latitude: 48.267499,
+              longitude: 10.889586,
+            },
+          },
+        }),
+      ]
+      expect(filterSortRegions(regions, 'ba')).toEqual([])
+    })
   })
 })

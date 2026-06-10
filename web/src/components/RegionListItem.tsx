@@ -3,7 +3,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import React, { ReactElement } from 'react'
 
-import { regionContentPath, normalizeString } from 'shared'
+import { regionContentPath, getMatchingAliases, MAX_NUMBER_OF_ALIASES_SHOWN, normalizeString } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import Highlighter from './Highlighter'
@@ -19,11 +19,8 @@ type RegionEntryProps = {
 
 const RegionListItem = ({ filterText, region, language }: RegionEntryProps): ReactElement => {
   const normalizedFilter = normalizeString(filterText)
-  const aliases =
-    region.aliases && normalizedFilter.length >= 1
-      ? Object.keys(region.aliases).filter(alias => normalizeString(alias).startsWith(normalizedFilter))
-      : []
-  const aliasesText = aliases.slice(0, MAX_NUMBER_OF_ALIASES).join(', ')
+  const aliases = getMatchingAliases(region.aliases, normalizedFilter)
+  const aliasesText = aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).join(', ')
 
   return (
     <ListItem alignItems='flex-start' disablePadding>
@@ -33,7 +30,7 @@ const RegionListItem = ({ filterText, region, language }: RegionEntryProps): Rea
           secondary={
             <>
               <Highlighter search={filterText} text={aliasesText} />
-              {aliases.length > MAX_NUMBER_OF_ALIASES && <span> ... </span>}
+              {aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN && <span> ... </span>}
             </>
           }
           slotProps={{
