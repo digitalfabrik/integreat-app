@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { getDefaultConfig, mergeConfig } from '@react-native/metro-config'
 import { createRequire } from 'node:module'
 import path from 'node:path'

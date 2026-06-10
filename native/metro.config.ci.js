@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 import defaultConfig from './metro.config.js'
 
 export default {
