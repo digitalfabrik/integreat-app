@@ -1,24 +1,24 @@
 import { MapFeature, MapFeatureCollection, featureLayerId } from '../..'
-import { PoiModelBuilder } from '../../api/endpoints/testing'
-import PoiModel from '../../api/models/PoiModel'
+import { PlaceModelBuilder } from '../../api/endpoints/testing'
+import PlaceModel from '../../api/models/PlaceModel'
 import { embedInCollection, prepareMapFeature, prepareMapFeatures } from '../geoJson'
 
 describe('geoJson', () => {
-  const pois = new PoiModelBuilder(3).build()
+  const places = new PlaceModelBuilder(3).build()
 
-  const poi1 = pois[0]!
-  const poi2 = pois[1]!
-  const poi3 = pois[2]!
+  const place1 = places[0]!
+  const place2 = places[1]!
+  const place3 = places[2]!
 
-  const geoJsonMarkerFeature = (id: number, ...pois: PoiModel[]): MapFeature => ({
+  const geoJsonMarkerFeature = (id: number, ...places: PlaceModel[]): MapFeature => ({
     type: 'Feature',
     id,
     geometry: {
       type: 'Point',
-      coordinates: pois[0]!.location.coordinates,
+      coordinates: places[0]!.location.coordinates,
     },
     properties: {
-      pois: pois.map(poi => poi.getFeature()),
+      places: places.map(place => place.getFeature()),
     },
     layer: {
       id: featureLayerId,
@@ -27,26 +27,26 @@ describe('geoJson', () => {
 
   describe('embedInCollection', () => {
     const expectedGeoJsonFeatureCollection: MapFeatureCollection = {
-      features: [geoJsonMarkerFeature(0, poi1, poi3)],
+      features: [geoJsonMarkerFeature(0, place1, place3)],
       type: 'FeatureCollection',
     }
 
     it('should embed feature to GeoJson', () => {
-      expect(embedInCollection([prepareMapFeature([poi1, poi3], 0, [30, 30])])).toEqual(
+      expect(embedInCollection([prepareMapFeature([place1, place3], 0, [30, 30])])).toEqual(
         expectedGeoJsonFeatureCollection,
       )
     })
   })
 
   it('should prepare map features', () => {
-    expect(prepareMapFeature([poi1, poi3], 0, [30, 30])).toEqual(geoJsonMarkerFeature(0, poi1, poi3))
+    expect(prepareMapFeature([place1, place3], 0, [30, 30])).toEqual(geoJsonMarkerFeature(0, place1, place3))
   })
 
   describe('prepareMapFeatures', () => {
-    it('should group close poiFeatures into single features', () => {
-      expect(prepareMapFeatures([poi1, poi2, poi3])).toEqual([
-        geoJsonMarkerFeature(0, poi1, poi3),
-        geoJsonMarkerFeature(1, poi2),
+    it('should group close placeFeatures into single features', () => {
+      expect(prepareMapFeatures([place1, place2, place3])).toEqual([
+        geoJsonMarkerFeature(0, place1, place3),
+        geoJsonMarkerFeature(1, place2),
       ])
     })
   })

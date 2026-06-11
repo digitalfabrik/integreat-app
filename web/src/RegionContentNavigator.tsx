@@ -8,7 +8,7 @@ import {
   EVENTS_ROUTE,
   NEWS_ROUTE,
   normalizePath,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   SEARCH_ROUTE,
 } from 'shared'
 import { NotFoundError, createRegionEndpoint } from 'shared/api'
@@ -36,7 +36,7 @@ const TuNewsPage = lazyWithRetry(() => import('./routes/TuNewsPage'))
 const EventsPage = lazyWithRetry(() => import('./routes/EventsPage'))
 const CategoriesPage = lazyWithRetry(() => import('./routes/CategoriesPage'))
 const LocalNewsPage = lazyWithRetry(() => import('./routes/LocalNewsPage'))
-const PoisPage = lazyWithRetry(() => import('./routes/PoisPage'))
+const PlacesPage = lazyWithRetry(() => import('./routes/PlacesPage'))
 const SearchPage = lazyWithRetry(() => import('./routes/SearchPage'))
 const ImprintPage = lazyWithRetry(() => import('./routes/ImprintPage'))
 
@@ -101,7 +101,7 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
   const eventsEnabled = !region || region.eventsEnabled
   const localNewsEnabled = !region || region.localNewsEnabled
   const tuNewsEnabled = !region || region.tuNewsEnabled
-  const poisEnabled = !region || region.poisEnabled
+  const placesEnabled = !region || region.placesEnabled
 
   const render = <S extends RouteType>(
     route: S,
@@ -140,7 +140,7 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
       {render(CATEGORIES_ROUTE, CategoriesPage)}
       {eventsEnabled && render(EVENTS_ROUTE, EventsPage, ':eventId')}
 
-      {poisEnabled && render(POIS_ROUTE, PoisPage, ':slug')}
+      {placesEnabled && render(PLACES_ROUTE, PlacesPage, ':slug')}
       {localNewsEnabled && render(LOCAL_NEWS_ROUTE, LocalNewsPage, ':newsId')}
 
       {tuNewsEnabled && render(TU_NEWS_ROUTE, TuNewsPage)}

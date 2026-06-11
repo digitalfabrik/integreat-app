@@ -9,7 +9,7 @@ describe('RegionModel', () => {
       live: true,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: false,
-      poisEnabled: false,
+      placesEnabled: false,
       localNewsEnabled: false,
       tuNewsEnabled: false,
       sortingName: 'Region',

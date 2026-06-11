@@ -1,9 +1,9 @@
-import { PoiModelBuilder } from '../../api/endpoints/testing'
+import { PlaceModelBuilder } from '../../api/endpoints/testing'
 import LocationModel from '../../api/models/LocationModel'
 import getExternalMapsLink from '../getExternalMapsLink'
 
 describe('getExternalMapsLink', () => {
-  const location: LocationModel<number> = new PoiModelBuilder(1).build()[0]!.location
+  const location: LocationModel<number> = new PlaceModelBuilder(1).build()[0]!.location
   const long = location.coordinates[0]
   const lat = location.coordinates[1]
 

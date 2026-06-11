@@ -20,7 +20,7 @@ type ContactProps = {
 
 const Contact = ({ contact }: ContactProps): ReactElement => {
   const { headline, website, phoneNumber, email, mobileNumber, officeHours } = contact
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
 
   return (
     <ListItem disablePadding>

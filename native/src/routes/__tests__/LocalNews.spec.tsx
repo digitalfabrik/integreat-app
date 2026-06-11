@@ -45,7 +45,7 @@ const data = {
   language,
   categories: new CategoriesMapModelBuilder(region.code, language.code).build(),
   events: [],
-  pois: [],
+  places: [],
   localNews: news,
 }
 

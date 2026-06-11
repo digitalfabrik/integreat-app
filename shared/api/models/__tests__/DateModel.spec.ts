@@ -887,7 +887,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: '3. September 2025',
         weekday: undefined,
-        time: 'pois:allDay',
+        time: 'places:allDay',
       })
     })
 
@@ -951,7 +951,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: '18. August 2025 - 29. August 2025',
         weekday: undefined,
-        time: 'pois:allDay',
+        time: 'places:allDay',
       })
     })
 

@@ -14,7 +14,7 @@ class EventModel extends ExtendedDocumentModel {
   _meetingUrl: string | null
   _excerpt: string
   _featuredImage: FeaturedImageModel | null
-  _poiPath: string | null
+  _placePath: string | null
 
   constructor(params: {
     path: string
@@ -28,9 +28,9 @@ class EventModel extends ExtendedDocumentModel {
     availableLanguages: Record<string, string>
     lastUpdate: DateTime
     featuredImage: FeaturedImageModel | null
-    poiPath: string | null
+    placePath: string | null
   }) {
-    const { date, location, meetingUrl, excerpt, featuredImage, poiPath, ...other } = params
+    const { date, location, meetingUrl, excerpt, featuredImage, placePath, ...other } = params
     super(other)
     this._date = date
     this._location = location
@@ -38,7 +38,7 @@ class EventModel extends ExtendedDocumentModel {
     // Remove carriage returns that break e.g. ical
     this._excerpt = decodeHTML(excerpt).replace(/\r/g, '').trim()
     this._featuredImage = featuredImage
-    this._poiPath = poiPath
+    this._placePath = placePath
   }
 
   get date(): DateModel {
@@ -61,8 +61,8 @@ class EventModel extends ExtendedDocumentModel {
     return this._featuredImage
   }
 
-  get poiPath(): string | null {
-    return this._poiPath
+  get placePath(): string | null {
+    return this._placePath
   }
 
   toICal(baseUrl: string, appName: string, recurring: boolean): string {

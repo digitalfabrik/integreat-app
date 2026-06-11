@@ -37,9 +37,9 @@ describe('OpeningHours', () => {
   it('should display that the location is temporarily closed', () => {
     const { getByText, queryByText } = renderOpeningHours(false, true, null)
     expect(getByText('temporarilyClosed')).toBeTruthy()
-    expect(queryByText('pois:opened')).toBeFalsy()
-    expect(queryByText('pois:onlyWithAppointment')).toBeFalsy()
-    expect(queryByText('pois:makeAppointment')).toBeFalsy()
+    expect(queryByText('places:opened')).toBeFalsy()
+    expect(queryByText('places:onlyWithAppointment')).toBeFalsy()
+    expect(queryByText('places:makeAppointment')).toBeFalsy()
   })
 
   it('should display that the location is opened', () => {
@@ -48,9 +48,9 @@ describe('OpeningHours', () => {
     fireEvent.press(getByText('openingHours'))
     expect(getAllByText(openingHours[0]!.timeSlots[0]!.start, { exact: false })).toHaveLength(7)
     expect(getAllByText(openingHours[0]!.timeSlots[0]!.end, { exact: false })).toHaveLength(7)
-    expect(queryByText('pois:temporarilyClosed')).toBeFalsy()
-    expect(queryByText('pois:onlyWithAppointment')).toBeFalsy()
-    expect(queryByText('pois:makeAppointment')).toBeFalsy()
+    expect(queryByText('places:temporarilyClosed')).toBeFalsy()
+    expect(queryByText('places:onlyWithAppointment')).toBeFalsy()
+    expect(queryByText('places:makeAppointment')).toBeFalsy()
   })
 
   it('should display the link to make an appointment', () => {
@@ -62,8 +62,8 @@ describe('OpeningHours', () => {
     const { getByText, queryByText } = renderOpeningHours(true, false, null)
     expect(getByText('onlyWithAppointment')).toBeTruthy()
     expect(getByText('makeAppointment')).toBeTruthy()
-    expect(queryByText('pois:opened')).toBeFalsy()
-    expect(queryByText('pois:closed')).toBeFalsy()
+    expect(queryByText('places:opened')).toBeFalsy()
+    expect(queryByText('places:closed')).toBeFalsy()
   })
 
   it('should display the link to make an appointment if temporarily closed', () => {
@@ -73,9 +73,9 @@ describe('OpeningHours', () => {
 
   it('should not display anything', () => {
     const { queryByText } = renderOpeningHours(false, false, null)
-    expect(queryByText('pois:onlyWithAppointment')).toBeFalsy()
-    expect(queryByText('pois:makeAppointment')).toBeFalsy()
-    expect(queryByText('pois:opened')).toBeFalsy()
-    expect(queryByText('pois:closed')).toBeFalsy()
+    expect(queryByText('places:onlyWithAppointment')).toBeFalsy()
+    expect(queryByText('places:makeAppointment')).toBeFalsy()
+    expect(queryByText('places:opened')).toBeFalsy()
+    expect(queryByText('places:closed')).toBeFalsy()
   })
 })

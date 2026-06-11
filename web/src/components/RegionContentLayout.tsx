@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
-import { POIS_ROUTE } from 'shared'
+import { PLACES_ROUTE } from 'shared'
 import { CategoryModel, RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
@@ -39,7 +39,7 @@ const RegionContentLayout = ({
   const { route } = useRegionContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
   const { desktop, mobile } = useDimensions()
-  const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && region.chatEnabled
+  const isChatEnabled = buildConfig().featureFlags.chat && route !== PLACES_ROUTE && region.chatEnabled
   const footerVisible = !isLoading && desktop && !fitScreen
   const chatVisible = isChatEnabled && layoutReady
 

@@ -32,7 +32,7 @@ export const formatTime = (locale: string, date: DateType, t: TranslateFunction)
   const endTime = date.startDate
     .set({ hour: date.endDate.hour, minute: date.endDate.minute })
     .toLocaleString(timeFormat, { locale })
-  return date.allDay ? t('pois:allDay') : `${startTime} - ${endTime}`
+  return date.allDay ? t('places:allDay') : `${startTime} - ${endTime}`
 }
 
 export const formatDateICal = (date: DateTime): string =>

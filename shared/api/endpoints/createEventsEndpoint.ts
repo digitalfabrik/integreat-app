@@ -91,7 +91,7 @@ export default (baseUrl: string): Endpoint<ParamsType, EventModel[]> =>
                   full: event.featured_image.full[0],
                 })
               : null,
-            poiPath: event.location_path,
+            placePath: event.location_path,
           })
         })
         .sort(eventCompare),

@@ -264,7 +264,7 @@ describe('DatabaseConnector', () => {
         location: null,
         lastUpdate: DateTime.fromISO('2022-06-29T09:19:57.443+02:00'),
         featuredImage: null,
-        poiPath: '/testumgebung/de/locations/testort/',
+        placePath: '/testumgebung/de/locations/testort/',
         meetingUrl: null,
       })
 

@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 
 import CategoriesMapModelBuilder from 'shared/api/endpoints/testing/CategoriesMapModelBuilder'
 import EventModelBuilder from 'shared/api/endpoints/testing/EventModelBuilder'
-import PoiModelBuilder from 'shared/api/endpoints/testing/PoiModelBuilder'
+import PlaceModelBuilder from 'shared/api/endpoints/testing/PlaceModelBuilder'
 import RegionModelBuilder from 'shared/api/endpoints/testing/RegionModelBuilder'
 
 import BlobUtil from '../../__mocks__/react-native-blob-util'
@@ -29,20 +29,20 @@ describe('DefaultDataContainer', () => {
 
   const region = 'augsburg'
   const language = 'de'
-  const testPois = new PoiModelBuilder(2).build()
+  const testPlaces = new PlaceModelBuilder(2).build()
   const testRegions = new RegionModelBuilder(2).build()
   const testCategoriesMap = new CategoriesMapModelBuilder(region, language).build()
   const anotherTestCategoriesMap = new CategoriesMapModelBuilder(region, language, 1, 1).build()
   const testEvents = new EventModelBuilder('seed', 2, region, language).build()
 
   describe('isCached', () => {
-    it('should return true if CacheType pois is stored', async () => {
-      await defaultDataContainer.setPois('testRegion', 'de', testPois)
+    it('should return true if CacheType places is stored', async () => {
+      await defaultDataContainer.setPlaces('testRegion', 'de', testPlaces)
       const context = new DatabaseContext('testRegion', 'de')
-      expect(defaultDataContainer.isCached('pois', context)).toBe(true)
+      expect(defaultDataContainer.isCached('places', context)).toBe(true)
     })
-    it('should return false if CacheType pois is not stored', () => {
-      expect(defaultDataContainer.isCached('pois', new DatabaseContext())).toBe(false)
+    it('should return false if CacheType places is not stored', () => {
+      expect(defaultDataContainer.isCached('places', new DatabaseContext())).toBe(false)
     })
     it('should return true if CacheType is stored', async () => {
       await defaultDataContainer.setRegions(testRegions)
@@ -52,13 +52,13 @@ describe('DefaultDataContainer', () => {
       expect(defaultDataContainer.isCached('regions', new DatabaseContext())).toBe(false)
     })
   })
-  it('should return persisted pois data if not cached', async () => {
-    await defaultDataContainer.setPois('testRegion', 'de', [testPois[0]!])
-    await defaultDataContainer.setPois('anotherTestRegion', 'en', [testPois[1]!])
-    const receivedTestPois = await defaultDataContainer.getPois('testRegion', 'de')
-    const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestRegion', 'en')
-    expect(receivedTestPois[0]!.isEqual(testPois[0]!)).toBeTruthy()
-    expect(receivedAnotherTestPois[0]!.isEqual(testPois[1]!)).toBeTruthy()
+  it('should return persisted places data if not cached', async () => {
+    await defaultDataContainer.setPlaces('testRegion', 'de', [testPlaces[0]!])
+    await defaultDataContainer.setPlaces('anotherTestRegion', 'en', [testPlaces[1]!])
+    const receivedTestPlaces = await defaultDataContainer.getPlaces('testRegion', 'de')
+    const receivedAnotherTestPlaces = await defaultDataContainer.getPlaces('anotherTestRegion', 'en')
+    expect(receivedTestPlaces[0]!.isEqual(testPlaces[0]!)).toBeTruthy()
+    expect(receivedAnotherTestPlaces[0]!.isEqual(testPlaces[1]!)).toBeTruthy()
   })
   it('should return persisted data if not cached', async () => {
     await defaultDataContainer.setRegions(testRegions)
@@ -82,13 +82,13 @@ describe('DefaultDataContainer', () => {
     expect(receivedTestEvents[0]!.isEqual(testEvents[0]!)).toBeTruthy()
     expect(receivedAnotherTestEvents[0]!.isEqual(testEvents[1]!)).toBeTruthy()
   })
-  it('should return the pois associated with the context', async () => {
-    await defaultDataContainer.setPois('testRegion', 'de', [testPois[0]!])
-    await defaultDataContainer.setPois('anotherTestRegion', 'en', [testPois[1]!])
-    const receivedTestPois = await defaultDataContainer.getPois('testRegion', 'de')
-    const receivedAnotherTestPois = await defaultDataContainer.getPois('anotherTestRegion', 'en')
-    expect(receivedTestPois[0]!.isEqual(testPois[0]!)).toBeTruthy()
-    expect(receivedAnotherTestPois[0]!.isEqual(testPois[1]!)).toBeTruthy()
+  it('should return the places associated with the context', async () => {
+    await defaultDataContainer.setPlaces('testRegion', 'de', [testPlaces[0]!])
+    await defaultDataContainer.setPlaces('anotherTestRegion', 'en', [testPlaces[1]!])
+    const receivedTestPlaces = await defaultDataContainer.getPlaces('testRegion', 'de')
+    const receivedAnotherTestPlaces = await defaultDataContainer.getPlaces('anotherTestRegion', 'en')
+    expect(receivedTestPlaces[0]!.isEqual(testPlaces[0]!)).toBeTruthy()
+    expect(receivedAnotherTestPlaces[0]!.isEqual(testPlaces[1]!)).toBeTruthy()
   })
   it('should return the resources associated with the context', async () => {
     await defaultDataContainer.setResourceCache('testRegion', 'de', testResources)
@@ -152,10 +152,10 @@ describe('DefaultDataContainer', () => {
       expect(isAvailable).toBe(true)
     })
   })
-  describe('poisAvailable', () => {
-    it('should return true, if pois are cached', async () => {
-      await defaultDataContainer.setPois('testRegion', 'de', testPois)
-      const isAvailable = await defaultDataContainer.poisAvailable('testRegion', 'de')
+  describe('placesAvailable', () => {
+    it('should return true, if places are cached', async () => {
+      await defaultDataContainer.setPlaces('testRegion', 'de', testPlaces)
+      const isAvailable = await defaultDataContainer.placesAvailable('testRegion', 'de')
       expect(isAvailable).toBe(true)
     })
   })

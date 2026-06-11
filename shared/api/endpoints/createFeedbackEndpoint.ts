@@ -5,8 +5,8 @@ import {
   ImprintRouteType,
   EVENTS_ROUTE,
   EventsRouteType,
-  POIS_ROUTE,
-  PoisRouteType,
+  PLACES_ROUTE,
+  PlacesRouteType,
   SEARCH_ROUTE,
   SearchRouteType,
 } from '../../routes'
@@ -25,7 +25,7 @@ export enum FeedbackType {
   event = 'event',
   events = 'events',
   imprint = 'imprint-page',
-  poi = 'poi',
+  place = 'poi',
   map = 'map',
 }
 
@@ -34,7 +34,7 @@ export const CONTENT_FEEDBACK_CATEGORY = 'Inhalte'
 export type FeedbackRouteType =
   | CategoriesRouteType
   | EventsRouteType
-  | PoisRouteType
+  | PlacesRouteType
   | ImprintRouteType
   | SearchRouteType
 
@@ -58,8 +58,8 @@ const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackT
     case IMPRINT_ROUTE:
       return FeedbackType.imprint
 
-    case POIS_ROUTE:
-      return slug ? FeedbackType.poi : FeedbackType.map
+    case PLACES_ROUTE:
+      return slug ? FeedbackType.place : FeedbackType.map
 
     case CATEGORIES_ROUTE:
       return slug ? FeedbackType.page : FeedbackType.categories

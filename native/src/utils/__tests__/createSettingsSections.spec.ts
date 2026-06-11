@@ -28,6 +28,7 @@ describe('createSettingsSections', () => {
   beforeEach(jest.clearAllMocks)
 
   const t = ((key: string) => key) as TFunction
+  const clearResourcesAndCache = jest.fn()
 
   const updateSettings = jest.fn()
   const regionCode = 'augsburg'
@@ -41,6 +42,7 @@ describe('createSettingsSections', () => {
       navigation,
       showSnackbar,
       t,
+      clearResourcesAndCache,
     })
 
   describe('allowPushNotifications', () => {

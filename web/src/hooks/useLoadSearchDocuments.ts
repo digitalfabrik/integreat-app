@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import { prepareSearchDocuments } from 'shared'
-import { createCategoriesEndpoint, createEventsEndpoint, createPOIsEndpoint, ExtendedDocumentModel } from 'shared/api'
+import { createCategoriesEndpoint, createEventsEndpoint, createPlacesEndpoint, ExtendedDocumentModel } from 'shared/api'
 
 import useQueryFromEndpoint from './useQueryFromEndpoint'
 
@@ -26,17 +26,17 @@ const useLoadSearchDocuments = ({
 
   const categories = useQueryFromEndpoint(createCategoriesEndpoint, cmsApiBaseUrl, params)
   const events = useQueryFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, params)
-  const pois = useQueryFromEndpoint(createPOIsEndpoint, cmsApiBaseUrl, params)
+  const places = useQueryFromEndpoint(createPlacesEndpoint, cmsApiBaseUrl, params)
 
   const documents = useMemo(
-    () => prepareSearchDocuments(categories.data, events.data, pois.data),
-    [categories.data, events.data, pois.data],
+    () => prepareSearchDocuments(categories.data, events.data, places.data),
+    [categories.data, events.data, places.data],
   )
 
   return {
     data: documents,
-    loading: categories.isPending || events.isPending || pois.isPending,
-    error: categories.error || events.error || pois.error,
+    loading: categories.isPending || events.isPending || places.isPending,
+    error: categories.error || events.error || places.error,
   }
 }
 

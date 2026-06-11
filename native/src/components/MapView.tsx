@@ -31,7 +31,7 @@ import {
   mapConfig,
   MapFeature,
   normalDetailZoom,
-  isMultipoi,
+  isMultiPlace,
 } from 'shared'
 
 import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
@@ -114,7 +114,7 @@ const MapView = ({
   const mapRef = useRef<MapRef>(null)
   const cameraRef = useRef<CameraRef>(null)
   const [trackUserLocation, setTrackUserLocation] = useState<TrackUserLocation | null>(null)
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
   const theme = useTheme()
 
   const bounds: LngLatBounds = [boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3]]
@@ -181,7 +181,7 @@ const MapView = ({
     const feature = featureCollection.find((it): it is MapFeature => it.geometry.type === 'Point')
     selectFeature(feature ?? null)
 
-    if (feature && isMultipoi(feature)) {
+    if (feature && isMultiPlace(feature)) {
       await zoomOnClusterPress(pressedCoordinates)
     }
   }
@@ -201,7 +201,7 @@ const MapView = ({
           logo={false}>
           {userLocation && <NativeUserLocation />}
           <GeoJSONSource
-            id='location-pois'
+            id='location-places'
             data={embedInCollection(features.filter(feature => feature !== selectedFeature))}
             cluster
             clusterRadius={clusterRadius}>
