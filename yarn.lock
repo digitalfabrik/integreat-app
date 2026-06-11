@@ -19513,6 +19513,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"qr@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "qr@npm:0.6.0"
+  checksum: 10c0/ab23397fb4e0f8d2034af838f4b13b7c02ac0defd449a5963a1753c22c6da168837bf693120fef0daef5e93dca432cac5543561ce307b2dab875e0a859935ee7
+  languageName: node
+  linkType: hard
+
 "qs@npm:^6.14.0, qs@npm:^6.14.1":
   version: 6.15.0
   resolution: "qs@npm:6.15.0"
@@ -21334,6 +21341,7 @@ __metadata:
     luxon: "npm:^3.7.2"
     minisearch: "npm:^7.2.0"
     normalize-path: "npm:^3.0.0"
+    qr: "npm:^0.6.0"
     react: "npm:19.2.3"
     rrule: "npm:2.8.1"
     seedrandom: "npm:^3.0.5"

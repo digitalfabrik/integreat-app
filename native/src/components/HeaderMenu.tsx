@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Share } from 'react-native'
 import { IconButton, Menu, useTheme } from 'react-native-paper'
@@ -11,6 +11,7 @@ import useSnackbar from '../hooks/useSnackbar'
 import { withDividers } from '../utils'
 import { reportError } from '../utils/sentry'
 import HeaderMenuItem from './HeaderMenuItem'
+import QrCodeModal from './QrCodeModal'
 
 type HeaderMenuProps = {
   navigation: NavigationProps<RoutesType>
@@ -32,6 +33,7 @@ const HeaderMenu = ({
   const theme = useTheme()
   const { t } = useTranslation('layout')
   const showSnackbar = useSnackbar()
+  const [qrModalVisible, setQrModalVisible] = useState(false)
 
   const closeMenu = () => setVisible(false)
 
@@ -59,7 +61,16 @@ const HeaderMenu = ({
   const items = [
     ...menuItems,
     ...(shareUrl
-      ? [<HeaderMenuItem key='share' title={t('share')} onPress={share} closeMenu={closeMenu} icon='share-variant' />]
+      ? [
+          <HeaderMenuItem key='share' title={t('share')} onPress={share} closeMenu={closeMenu} icon='share-variant' />,
+          <HeaderMenuItem
+            key='qr'
+            title={t('qrCode')}
+            onPress={() => setQrModalVisible(true)}
+            closeMenu={closeMenu}
+            icon='qrcode'
+          />,
+        ]
       : []),
     <HeaderMenuItem
       key='settings'
@@ -71,33 +82,44 @@ const HeaderMenu = ({
   ]
 
   return (
-    <Menu
-      // Menu component closes and fails to open again on re-render
-      // https://github.com/callstack/react-native-paper/issues/4763#issuecomment-3427895632
-      key={Number(visible)}
-      visible={visible}
-      onDismiss={() => setVisible(false)}
-      overlayAccessibilityLabel={t('common:close')}
-      style={{
-        width: 232,
-      }}
-      contentStyle={{
-        borderRadius: 16,
-        overflow: 'hidden',
-        backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
-      }}
-      anchorPosition='bottom'
-      anchor={
-        <IconButton
-          icon='dots-vertical'
-          iconColor={theme.colors.onSurface}
-          onPress={() => setVisible(!visible)}
-          accessibilityLabel={t('settings')}
-          testID='header-overflow-menu-button'
+    <>
+      <Menu
+        // Menu component closes and fails to open again on re-render
+        // https://github.com/callstack/react-native-paper/issues/4763#issuecomment-3427895632
+        key={Number(visible)}
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        overlayAccessibilityLabel={t('common:close')}
+        style={{
+          width: 232,
+        }}
+        contentStyle={{
+          borderRadius: 16,
+          overflow: 'hidden',
+          backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
+        }}
+        anchorPosition='bottom'
+        anchor={
+          <IconButton
+            icon='dots-vertical'
+            iconColor={theme.colors.onSurface}
+            onPress={() => setVisible(!visible)}
+            accessibilityLabel={t('settings')}
+            testID='header-overflow-menu-button'
+          />
+        }>
+        {withDividers(items)}
+      </Menu>
+      {!!shareUrl && (
+        <QrCodeModal
+          modalVisible={qrModalVisible}
+          closeModal={() => setQrModalVisible(false)}
+          title={t('shareQrCodeTitle')}
+          description={t('shareQrCodeDescription')}
+          content={shareUrl}
         />
-      }>
-      {withDividers(items)}
-    </Menu>
+      )}
+    </>
   )
 }
 

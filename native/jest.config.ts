@@ -15,6 +15,7 @@ const transformNodeModules = [
   '@dr.pogodin/react-native-static-server',
   '@gorhom/bottom-sheet',
   '@mhpdev/react-native-speech',
+  'qr',
 ]
 process.env.TZ = 'Europe/Berlin'
 export default {

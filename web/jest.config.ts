@@ -3,7 +3,7 @@ import { JestConfigWithTsJest } from 'ts-jest'
 
 import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
 
-const transformNodeModules = ['shared', 'build-configs', 'translations']
+const transformNodeModules = ['shared', 'build-configs', 'translations', 'qr']
 process.env.TZ = 'Europe/Berlin'
 const config: JestConfigWithTsJest = {
   rootDir: '.',

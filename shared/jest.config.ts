@@ -6,6 +6,7 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
+  transformIgnorePatterns: ['node_modules/(?!qr)'],
   transform: {
     '^.+\\.(j|t)sx?$': ['ts-jest', {}],
   },

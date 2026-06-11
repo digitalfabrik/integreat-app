@@ -21,3 +21,5 @@ export const REGION_SEARCH_EXAMPLE = 'Landkreis München'
 
 export const CHAT_DEFAULT_POLLING_INTERVAL = 15000
 export const CHAT_TYPING_POLLING_INTERVAL = 3000
+
+export const QR_CODE_SIZE = 240
