@@ -13,24 +13,32 @@ const charsAddedByNormalization = (text: string, until: number) => {
   return charsAdded
 }
 
-const findNormalizedMatches = (props: FindChunks): Chunk[] => {
+const buildMatches = (props: FindChunks, wordStartOnly: boolean): Chunk[] => {
+  const normalizedMatches = (chunk: Chunk): Chunk => {
+    const charsAddedBeforeMatch = charsAddedByNormalization(props.textToHighlight, chunk.start)
+    const charsAddedIncludingMatch = charsAddedByNormalization(props.textToHighlight, chunk.end)
+    return {
+      ...chunk,
+      start: chunk.start - charsAddedBeforeMatch,
+      end: chunk.end - charsAddedIncludingMatch,
+    }
+  }
+
+  const chunks = findChunks(props)
+  if (!wordStartOnly) {
+    return chunks.map(normalizedMatches)
+  }
+
   const normalized = normalizeString(props.textToHighlight)
   return (
-    findChunks(props)
+    chunks
       // Match at the beginning or in the middle where the new word starts
       .filter(chunk => chunk.start === 0 || MATCH_WHITESPACE_AND_DASHES.test(normalized[chunk.start - 1] ?? ''))
-      .map(chunk => {
-        const charsAddedBeforeMatch = charsAddedByNormalization(props.textToHighlight, chunk.start)
-        const charsAddedIncludingMatch = charsAddedByNormalization(props.textToHighlight, chunk.end)
-        return {
-          ...chunk,
-          start: chunk.start - charsAddedBeforeMatch,
-          end: chunk.end - charsAddedIncludingMatch,
-        }
-      })
+      .map(normalizedMatches)
   )
 }
 
 export const findAllMatches: (args: FindAll) => Chunk[] = findAll
 
-export default findNormalizedMatches
+export const findNormalizedMatches = (props: FindChunks): Chunk[] => buildMatches(props, false)
+export const findWordStartMatches = (props: FindChunks): Chunk[] => buildMatches(props, true)

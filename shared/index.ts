@@ -1,5 +1,6 @@
 import { PreparePlacesReturn as ImportedPreparePlacesReturn } from './utils/places.js'
 
+export { Chunk, findAll, findChunks, FindChunks } from 'highlight-words-core'
 export type PreparePlacesReturn = ImportedPreparePlacesReturn
 export type { Chunk, FindAll, FindChunks } from 'highlight-words-core'
 export { default as useSearch, prepareSearchDocuments } from './hooks/useSearch.js'
@@ -15,7 +16,7 @@ export * from './utils/licences.js'
 export * from './utils/places.js'
 export * from './utils/replaceLinks.js'
 export * from './utils/normalizeString.js'
-export { default as findNormalizedMatches, findAllMatches } from './utils/findNormalizedMatches.js'
+export { findNormalizedMatches, findAllMatches, findWordStartMatches } from './utils/findNormalizedMatches.js'
 export * from './utils/index.js'
 export { getCategoryTiles } from './utils/categories.js'
 export * from './constants/map.js'

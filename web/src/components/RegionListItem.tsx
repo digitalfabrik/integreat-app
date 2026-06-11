@@ -3,13 +3,11 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import React, { ReactElement } from 'react'
 
-import { regionContentPath, getMatchingAliases, MAX_NUMBER_OF_ALIASES_SHOWN, normalizeString } from 'shared'
+import { regionContentPath, getMatchingAliases, MAX_NUMBER_OF_ALIASES_SHOWN, findWordStartMatches } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import Highlighter from './Highlighter'
 import Link from './base/Link'
-
-const MAX_NUMBER_OF_ALIASES = 3
 
 type RegionEntryProps = {
   language: string
@@ -18,18 +16,17 @@ type RegionEntryProps = {
 }
 
 const RegionListItem = ({ filterText, region, language }: RegionEntryProps): ReactElement => {
-  const normalizedFilter = normalizeString(filterText)
-  const aliases = getMatchingAliases(region.aliases, normalizedFilter)
+  const aliases = getMatchingAliases(region.aliases, filterText)
   const aliasesText = aliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN).join(', ')
 
   return (
     <ListItem alignItems='flex-start' disablePadding>
       <ListItemButton component={Link} to={regionContentPath({ regionCode: region.code, languageCode: language })}>
         <ListItemText
-          primary={<Highlighter search={filterText} text={region.name} />}
+          primary={<Highlighter search={filterText} text={region.name} findChunks={findWordStartMatches} />}
           secondary={
             <>
-              <Highlighter search={filterText} text={aliasesText} />
+              <Highlighter search={filterText} text={aliasesText} findChunks={findWordStartMatches} />
               {aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN && <span> ... </span>}
             </>
           }

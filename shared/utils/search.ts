@@ -1,4 +1,4 @@
-import RegionModel, { CoordinateType } from '../api/models/RegionModel.js'
+import RegionModel from '../api/models/RegionModel.js'
 import { normalizeString } from './normalizeString.js'
 
 export const MATCH_WHITESPACE_AND_DASHES = /[\s-]+/
@@ -37,10 +37,8 @@ export const filterSortRegions = (
   developerFriendly = false,
 ): RegionModel[] => regions.filter(regionFilter(filterText, developerFriendly)).sort(regionSort)
 
-export const getMatchingAliases = (
-  aliases: Record<string, CoordinateType> | null,
-  normalizedFilter: string,
-): string[] => {
+export const getMatchingAliases = (aliases: Record<string, unknown> | null, filterText: string): string[] => {
+  const normalizedFilter = normalizeString(filterText)
   if (!aliases) {
     return []
   }
