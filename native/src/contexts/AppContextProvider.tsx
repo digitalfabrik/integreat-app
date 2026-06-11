@@ -7,7 +7,7 @@ import buildConfig from '../constants/buildConfig'
 import appSettings, { SettingsType } from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
 import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManager'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import { AppContext } from './AppContext'
 
 type AppContextProviderProps = {
@@ -23,22 +23,22 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
   const uiLanguage = i18n.languages[0]
 
   useEffect(() => {
-    appSettings.loadSettings().then(setSettings).catch(reportError)
+    appSettings.loadSettings().then(setSettings).catch(captureError)
   }, [])
 
   const updateSettings = useCallback((settings: Partial<SettingsType>) => {
     setSettings(oldSettings => (oldSettings ? { ...oldSettings, ...settings } : null))
-    appSettings.setSettings(settings).catch(reportError)
+    appSettings.setSettings(settings).catch(captureError)
   }, [])
 
   const changeRegionCode = useCallback(
     (newRegionCode: string | null): void => {
       updateSettings({ selectedCity: newRegionCode })
       if (languageCode && regionCode) {
-        unsubscribeNews(regionCode, languageCode).catch(reportError)
+        unsubscribeNews(regionCode, languageCode).catch(captureError)
       }
       if (languageCode && newRegionCode) {
-        subscribeNews({ regionCode: newRegionCode, languageCode, allowPushNotifications }).catch(reportError)
+        subscribeNews({ regionCode: newRegionCode, languageCode, allowPushNotifications }).catch(captureError)
       }
     },
     [updateSettings, regionCode, languageCode, allowPushNotifications],
@@ -48,10 +48,10 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
     (newLanguageCode: string): void => {
       updateSettings({ contentLanguage: newLanguageCode })
       if (regionCode && languageCode) {
-        unsubscribeNews(regionCode, languageCode).catch(reportError)
+        unsubscribeNews(regionCode, languageCode).catch(captureError)
       }
       if (regionCode) {
-        subscribeNews({ regionCode, languageCode: newLanguageCode, allowPushNotifications }).catch(reportError)
+        subscribeNews({ regionCode, languageCode: newLanguageCode, allowPushNotifications }).catch(captureError)
       }
     },
     [updateSettings, regionCode, languageCode, allowPushNotifications],
@@ -59,7 +59,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
 
   useEffect(() => {
     if (regionCode) {
-      dataContainer.storeLastUsage(regionCode).catch(reportError)
+      dataContainer.storeLastUsage(regionCode).catch(captureError)
     }
   }, [regionCode])
 

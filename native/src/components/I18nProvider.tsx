@@ -7,7 +7,7 @@ import { config, loadTranslations } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 import NativeLanguageDetector from '../utils/NativeLanguageDetector'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 
 type I18nProviderProps = {
   children: ReactNode
@@ -40,7 +40,7 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
 
     initI18Next().catch((e: Error) => {
       setErrorMessage(e.message)
-      reportError(e)
+      captureError(e)
     })
   }, [])
 

@@ -18,6 +18,7 @@ import useDimensions from '../hooks/useDimensions'
 import { useRouteParams } from '../hooks/useRegionContentParams'
 import { withDividers } from '../utils'
 import getFooterLinks from '../utils/getFooterLinks'
+import { captureError } from '../utils/sentry'
 import MenuAccordion from './MenuAccordion'
 import MenuItem from './MenuItem'
 import QrCodeDialog from './QrCodeDialog'
@@ -70,7 +71,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const mailUrl = `mailto:?subject=${encodedTitle}&body=${shareMessage}&t${encodedShareUrl}`
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(shareUrl).catch(reportError)
+    navigator.clipboard.writeText(shareUrl).catch(captureError)
     setUrlCopied(true)
     setTimeout(() => setUrlCopied(false), COPY_TIMEOUT)
   }

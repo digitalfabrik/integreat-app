@@ -64,7 +64,7 @@ const storeLastUpdate = 'cannot store last update for unused region'
 const noTtsEngineInstalled = 'No TTS engine installed'
 const expectedErrors = [storeLastUpdate, noTtsEngineInstalled]
 
-export const reportError = (error: unknown, { data }: { data?: unknown } = {}): void => {
+export const captureError = (error: unknown, { data }: { data?: unknown } = {}): void => {
   const isNotFoundError = error instanceof NotFoundError
   const isNoInternetError = error instanceof FetchError
   const isExpectedError = error instanceof Error && expectedErrors.some(message => error.message.includes(message))

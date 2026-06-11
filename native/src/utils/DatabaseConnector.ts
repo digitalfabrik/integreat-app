@@ -32,7 +32,7 @@ import {
 import DatabaseContext from '../models/DatabaseContext'
 import { RegionResourceCacheStateType } from './DataContainer'
 import { deleteIfExists } from './helpers'
-import { log, reportError } from './sentry'
+import { log, captureError } from './sentry'
 
 const MAX_STORED_REGIONS = 3
 
@@ -255,7 +255,7 @@ const mapJsonToOpeningHours = (hours: {
 
 class DatabaseConnector {
   constructor() {
-    this.migrationRoutine().catch(reportError)
+    this.migrationRoutine().catch(captureError)
   }
 
   async migrationRoutine(): Promise<void> {

@@ -67,7 +67,7 @@ export const log = async (message: string, level: SeverityLevel = 'debug'): Prom
 const noTtsVoicesInstalled = 'EasySpeech: browser has no voices'
 const expectedErrors = [noTtsVoicesInstalled]
 
-export const reportError = async (error: unknown): Promise<void> => {
+export const captureError = async (error: unknown): Promise<void> => {
   const isNotFoundError = error instanceof NotFoundError
   const isNoInternetError = error instanceof FetchError
   const isExpectedError = error instanceof Error && expectedErrors.some(message => error.message.includes(message))

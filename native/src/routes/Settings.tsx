@@ -14,7 +14,7 @@ import { useAppContext } from '../hooks/useRegionAppContext'
 import useSnackbar from '../hooks/useSnackbar'
 import dataContainer from '../utils/DefaultDataContainer'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
-import { log, reportError } from '../utils/sentry'
+import { log, captureError } from '../utils/sentry'
 
 type SettingsProps = {
   navigation: NavigationProps<SettingsRouteType>
@@ -28,7 +28,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
 
   const clearResourcesAndCache = () => {
     dataContainer.clearInMemoryCache()
-    dataContainer._clearOfflineCache().catch(reportError)
+    dataContainer._clearOfflineCache().catch(captureError)
     navigation.reset({ index: 0, routes: [{ name: REGIONS_ROUTE }] })
   }
 
@@ -38,7 +38,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
       await update()
     } catch (e) {
       log('Failed to persist settings.', { level: 'error' })
-      reportError(e)
+      captureError(e)
       appContext.updateSettings(oldSettings)
       showSnackbar({ text: t('error:settingsError') })
     }

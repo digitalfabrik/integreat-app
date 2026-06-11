@@ -4,7 +4,7 @@ import URL from 'url-parse'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import buildConfig from '../constants/buildConfig'
-import { reportError } from './sentry'
+import { captureError } from './sentry'
 
 const WAIT_UNTIL_IN_APP_BROWSER_CLOSED = 100
 const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
@@ -43,7 +43,7 @@ const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: Snackbar
       showSnackbar({ text: 'noSuitableAppInstalled' })
     }
   } catch (error) {
-    reportError(error)
+    captureError(error)
     showSnackbar({ text: 'unknownError' })
   }
 }

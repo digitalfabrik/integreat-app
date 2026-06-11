@@ -14,7 +14,7 @@ import SearchListItem from '../components/SearchListItem'
 import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
-import useReportError from '../hooks/useReportError'
+import useCaptureError from '../hooks/useCaptureError'
 import testID from '../testing/testID'
 
 export type SearchProps = {
@@ -47,7 +47,7 @@ const Search = ({
   })
   const searchResults = data.slice(0, MAX_SEARCH_RESULTS)
 
-  useReportError(error)
+  useCaptureError(error)
   useAnnounceSearchResultsIOS(searchResults)
 
   const renderItem = ({ item }: { item: ExtendedDocumentModel }) => (

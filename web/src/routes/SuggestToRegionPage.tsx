@@ -17,7 +17,7 @@ import H1 from '../components/base/H1'
 import Svg from '../components/base/Svg'
 import buildConfig from '../constants/buildConfig'
 import useScrollToTopOnMount from '../hooks/useScrollToTopOnMount'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 
 const StyledSvg = styled(Svg)({
   alignSelf: 'center',
@@ -55,7 +55,7 @@ const SuggestToRegionPage = ({ languageCode }: SuggestToRegionPageProps): ReactE
   const { template, icon } = featureFlag
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(template).catch(reportError)
+    navigator.clipboard.writeText(template).catch(captureError)
     setIsCopied(true)
   }
 

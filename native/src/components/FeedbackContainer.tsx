@@ -9,7 +9,7 @@ import { config } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 import { determineApiUrl } from '../utils/helpers'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import Feedback from './Feedback'
 import Text from './base/Text'
 
@@ -69,7 +69,7 @@ const FeedbackContainer = ({
     }
 
     request().catch(err => {
-      reportError(err)
+      captureError(err)
       setSendingStatus('failed')
     })
   }
