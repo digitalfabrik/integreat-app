@@ -35,6 +35,7 @@ describe('RegionContentLayout', () => {
           languageCode={language}
           languageChangePaths={languageChangePaths}
           pageTitle='Test Page'
+          slug={null}
           isLoading={isLoading}>
           <MockNode />
         </RegionContentLayout>

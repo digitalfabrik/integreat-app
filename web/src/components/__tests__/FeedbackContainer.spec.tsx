@@ -26,7 +26,7 @@ describe('FeedbackContainer', () => {
 
   const renderFeedbackContainer = (path: string) =>
     renderAllRoutes(path, {
-      RegionContentElement: <FeedbackContainer />,
+      RegionContentElement: <FeedbackContainer slug={null} />,
     })
 
   it('should display dialog when feedback query param is set', () => {

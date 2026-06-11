@@ -24,7 +24,7 @@ export type RegionContentLayoutProps = {
   fitScreen?: boolean
   category?: CategoryModel
   pageTitle: string | null
-  slug?: string
+  slug: string | null
 }
 
 const RegionContentLayout = ({

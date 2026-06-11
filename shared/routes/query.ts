@@ -39,7 +39,7 @@ export const queryStringFromRouteInformation = (
 }
 
 export type VisibilityQueryParams = {
-  chat?: boolean
+  chat?: true
   feedback?: string
 }
 
@@ -52,7 +52,7 @@ type QueryParams = VisibilityQueryParams & {
 
 export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const searchText = queryParams.get(SEARCH_QUERY_KEY) ?? undefined
-  const chat = queryParams.get(CHAT_QUERY_KEY) ? queryParams.get(CHAT_QUERY_KEY) === 'true' : undefined
+  const chat = queryParams.get(CHAT_QUERY_KEY) === 'true' || undefined
   const feedback = queryParams.get(FEEDBACK_QUERY_KEY) ?? undefined
   const multiPlace = safeParseInt(queryParams.get(MULTI_PLACE_QUERY_KEY))
   const placeCategoryId = safeParseInt(queryParams.get(PLACE_CATEGORY_QUERY_KEY))

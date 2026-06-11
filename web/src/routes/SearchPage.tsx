@@ -124,6 +124,7 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
     languageChangePaths,
     languageCode,
     pageTitle: null,
+    slug: null,
   }
 
   if (error) {

@@ -14,7 +14,7 @@ jest.mock('react-i18next', () => ({
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
 }))
 
-const renderToolbarItem = (rating: Rating | null) => {
+const renderToolbarItem = (rating: Rating) => {
   const router = createMemoryRouter(
     [
       {

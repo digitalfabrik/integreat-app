@@ -41,7 +41,7 @@ const ImprintPage = ({ regionCode, languageCode, region }: RegionRouteProps): Re
     languageChangePaths,
     languageCode,
     pageTitle,
-    slug: imprint?.slug,
+    slug: imprint?.slug ?? null,
     toolbar: <RegionContentToolbar />,
   }
 

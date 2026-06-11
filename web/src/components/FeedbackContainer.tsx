@@ -24,11 +24,11 @@ import Dialog from './base/Dialog'
 import Snackbar from './base/Snackbar'
 
 type FeedbackContainerProps = {
-  slug?: string
+  slug: string | null
 }
 
 const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | null => {
-  const { visible, close } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
+  const { visible, open, close, value } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
   const [queryParams] = useSearchParams()
   const { t } = useTranslation('feedback')
   const [comment, setComment] = useState<string>('')
@@ -37,13 +37,11 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const { route, regionCode, languageCode } = useRegionContentParams()
 
-  const { feedback, searchText } = parseQueryParams(queryParams)
-  const initialRating = feedback === RATING_POSITIVE || feedback === RATING_NEGATIVE ? feedback : null
+  const { searchText } = parseQueryParams(queryParams)
   const query = route === SEARCH_ROUTE ? searchText : undefined
-  const [rating, setRating] = useState<Rating | null>(initialRating)
+  const rating = value === RATING_POSITIVE || value === RATING_NEGATIVE ? value : null
+  const setRating = (newRating: Rating | null) => open(newRating ?? undefined)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
-
-  useEffect(() => setRating(initialRating), [initialRating])
 
   useEffect(() => {
     setSearchTerm(query)
@@ -61,7 +59,7 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
         comment,
         contactMail,
         query,
-        slug,
+        slug: slug ?? undefined,
         searchTerm,
         isPositiveRating: rating === RATING_POSITIVE,
       })
