@@ -34,7 +34,8 @@ const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
 const LegacyPlacesRedirect = (): ReactElement => {
   const { regionCode, languageCode, '*': splat } = useParams()
   const { search } = useLocation()
-  return <Navigate to={`/${regionCode}/${languageCode}/${PLACES_ROUTE}/${splat ?? ''}${search}`} replace />
+  const lastSegment = splat ? `/${splat}` : ''
+  return <Navigate to={`/${regionCode}/${languageCode}/${PLACES_ROUTE}${lastSegment}${search}`} replace />
 }
 
 type RootNavigatorProps = {
@@ -45,10 +46,12 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
   const { i18n } = useTranslation()
   const { fixedRegion, suggestToRegion } = buildConfig().featureFlags
   const { routeParam0, routeParam1, '*': splat } = useMatch('/:routeParam0/:routeParam1/*')?.params ?? {}
+  const { search } = useLocation()
   useScrollToTop()
 
   const detectedLanguageCode = i18n.language
   const language = routeParam1 ?? detectedLanguageCode
+  const lastSegment = splat ? `/${splat}` : ''
 
   useEffect(() => {
     if (language !== detectedLanguageCode) {
@@ -58,6 +61,7 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
 
   const regionsPath = pathnameFromRouteInformation({ route: REGIONS_ROUTE, languageCode: language })
   const fixedRegionPath = fixedRegion ? regionContentPath({ regionCode: fixedRegion, languageCode: language }) : null
+
   return (
     <Routes>
       {!fixedRegion && <Route path={RoutePatterns[REGIONS_ROUTE]} element={<RegionsPage languageCode={language} />} />}
@@ -86,7 +90,7 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
       {/* Redirects */}
       <Route
         path={`/${LEGACY_REGIONS_ROUTE}/*`}
-        element={<Navigate to={`/${REGIONS_ROUTE}/${splat ?? ''}`} replace />}
+        element={<Navigate to={`/${REGIONS_ROUTE}/${lastSegment}`} replace />}
       />
       <Route path={`/:regionCode/:languageCode/${LEGACY_PLACES_ROUTE}/*`} element={<LegacyPlacesRedirect />} />
 
@@ -102,7 +106,7 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
         <Route
           key={slug}
           path={`/:regionCode/${slug}/*`}
-          element={<Navigate to={`/${routeParam0}/${detectedLanguageCode}/${slug}/${splat ?? ''}`} replace />}
+          element={<Navigate to={`/${routeParam0}/${detectedLanguageCode}/${slug}${lastSegment}${search}`} replace />}
         />
       ))}
     </Routes>

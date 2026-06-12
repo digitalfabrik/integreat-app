@@ -29,8 +29,9 @@ jest.mock('shared/api', () => ({
 jest.mock('../RegionContentNavigator')
 
 const MockComponent = () => {
-  const pathname = normalizePath(useLocation().pathname)
-  return <div>{pathname}</div>
+  const { search, pathname } = useLocation()
+  const normalizedPathname = normalizePath(pathname)
+  return <div>{`${normalizedPathname}${search}`}</div>
 }
 
 describe('RootNavigator', () => {
@@ -67,14 +68,15 @@ describe('RootNavigator', () => {
       ${'/landing/de'}                       | ${'/regions/de'}
       ${'/augsburg'}                         | ${'/augsburg/de'}
       ${'/augsburg/de'}                      | ${'/augsburg/de'}
-      ${'/augsburg/events'}                  | ${'/augsburg/de/events'}
+      ${'/augsburg/events?query=asdf'}       | ${'/augsburg/de/events?query=asdf'}
       ${'/augsburg/events/event-1'}          | ${'/augsburg/de/events/event-1'}
       ${'/augsburg/news'}                    | ${'/augsburg/de/news'}
       ${'/augsburg/news/local'}              | ${'/augsburg/de/news/local'}
       ${'/augsburg/news/tu-news'}            | ${'/augsburg/de/news/tu-news'}
       ${'/augsburg/de/locations'}            | ${'/augsburg/de/places'}
       ${'/augsburg/de/locations/some-place'} | ${'/augsburg/de/places/some-place'}
-      ${'/augsburg/locations'}               | ${'/augsburg/de/places'}
+      ${'/augsburg/locations?zoom=11'}       | ${'/augsburg/de/places?zoom=11'}
+      ${'/augsburg/locations/1234?zoom=11'}  | ${'/augsburg/de/places/1234?zoom=11'}
     `('should redirect from $from to $to', ({ from, to }) => {
       mockUseQueryFromEndpointWithData(regions)
 
