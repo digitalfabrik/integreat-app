@@ -15,7 +15,7 @@ const toParamValue = (value: unknown) => (typeof value === 'string' ? value : 't
 const useQueryParamVisibility = <T extends keyof VisibilityQueryParams>(key: T): UseQueryParamVisibilityReturn<T> => {
   const [queryParams, setQueryParams] = useSearchParams()
   const value = parseQueryParams(queryParams)[key]
-  const visible = Boolean(value)
+  const visible = queryParams.has(key) && queryParams.get(key) !== 'false'
 
   const open = (value?: VisibilityQueryParams[T]) => {
     const newQueryParams = queryParams

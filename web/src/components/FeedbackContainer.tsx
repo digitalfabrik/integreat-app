@@ -4,15 +4,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
-import {
-  FEEDBACK_QUERY_KEY,
-  parseQueryParams,
-  Rating,
-  RATING_NEGATIVE,
-  RATING_POSITIVE,
-  SEARCH_ROUTE,
-  SendingStatusType,
-} from 'shared'
+import { FEEDBACK_QUERY_KEY, parseQueryParams, Rating, RATING_POSITIVE, SEARCH_ROUTE, SendingStatusType } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -28,20 +20,20 @@ type FeedbackContainerProps = {
 }
 
 const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | null => {
-  const { visible, open, close, value } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
+  const { visible, open, close, value: rating } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
   const [queryParams] = useSearchParams()
   const { t } = useTranslation('feedback')
+  const { route, regionCode, languageCode } = useRegionContentParams()
+  const { searchText } = parseQueryParams(queryParams)
+  const query = route === SEARCH_ROUTE ? searchText : undefined
+
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [snackbarOpen, setSnackbarOpen] = useState(false)
-  const { route, regionCode, languageCode } = useRegionContentParams()
-
-  const { searchText } = parseQueryParams(queryParams)
-  const query = route === SEARCH_ROUTE ? searchText : undefined
-  const rating = value === RATING_POSITIVE || value === RATING_NEGATIVE ? value : null
-  const setRating = (newRating: Rating | null) => open(newRating ?? undefined)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
+
+  const setRating = (newRating: Rating | null) => open(newRating ?? undefined)
 
   useEffect(() => {
     setSearchTerm(query)
@@ -85,7 +77,7 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
             onCommentChanged={setComment}
             onContactMailChanged={setContactMail}
             onSubmit={handleSubmit}
-            rating={rating}
+            rating={rating ?? null}
             comment={comment}
             setRating={setRating}
             contactMail={contactMail}

@@ -1,5 +1,6 @@
 import { PLACES_ROUTE, SEARCH_ROUTE } from '.'
 
+import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from '../constants'
 import { safeParseInt } from '../utils'
 import { NonNullableRouteInformationType } from './RouteInformationTypes'
 
@@ -40,7 +41,7 @@ export const queryStringFromRouteInformation = (
 
 export type VisibilityQueryParams = {
   chat?: true
-  feedback?: string
+  feedback?: Rating
 }
 
 type QueryParams = VisibilityQueryParams & {
@@ -53,7 +54,8 @@ type QueryParams = VisibilityQueryParams & {
 export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const searchText = queryParams.get(SEARCH_QUERY_KEY) ?? undefined
   const chat = queryParams.get(CHAT_QUERY_KEY) === 'true' || undefined
-  const feedback = queryParams.get(FEEDBACK_QUERY_KEY) ?? undefined
+  const feedbackQuery = queryParams.get(FEEDBACK_QUERY_KEY) ?? undefined
+  const feedback = feedbackQuery === RATING_POSITIVE || feedbackQuery === RATING_NEGATIVE ? feedbackQuery : undefined
   const multiPlace = safeParseInt(queryParams.get(MULTI_PLACE_QUERY_KEY))
   const placeCategoryId = safeParseInt(queryParams.get(PLACE_CATEGORY_QUERY_KEY))
   const zoom = safeParseInt(queryParams.get(ZOOM_QUERY_KEY))
