@@ -9,7 +9,7 @@ import { isRTL } from '../../constants/contentDirection'
 const DEFAULT_ICON_SIZE = 24
 
 type IconProps = {
-  Icon?: React.JSXElementConstructor<SvgProps>
+  icon?: React.JSXElementConstructor<SvgProps>
   source?: string
   label?: string
   directionDependent?: boolean
@@ -19,7 +19,7 @@ type IconProps = {
 }
 
 const Icon = ({
-  Icon: IconProp,
+  icon,
   source,
   label,
   directionDependent = false,
@@ -41,9 +41,11 @@ const Icon = ({
     )
   }
 
-  if (IconProp) {
+  const IconComponent = icon
+
+  if (IconComponent) {
     return (
-      <IconProp
+      <IconComponent
         style={[{ transform: [{ scaleX: directionDependent && isRTL() ? -1 : 1 }] }, style]}
         width={style?.width ?? DEFAULT_ICON_SIZE}
         height={style?.height ?? DEFAULT_ICON_SIZE}

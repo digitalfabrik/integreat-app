@@ -93,7 +93,7 @@ type MapViewProps = {
   bottomSheetMidHeight: number
   bottomSheetFullscreen: boolean
   zoom: number | undefined
-  Overlay?: ReactElement
+  overlay?: ReactElement
   zoomRef?: Ref<View>
 }
 
@@ -104,7 +104,7 @@ const MapView = ({
   userLocation,
   refreshPermissionAndLocation,
   selectFeature,
-  Overlay,
+  overlay,
   bottomSheetHeight,
   bottomSheetMidHeight,
   bottomSheetFullscreen,
@@ -222,7 +222,7 @@ const MapView = ({
           />
         </StyledMap>
       </MapContainer>
-      <OverlayContainer {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}>{Overlay}</OverlayContainer>
+      <OverlayContainer {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}>{overlay}</OverlayContainer>
       <MapAttribution accessible={bottomSheetFullscreen} />
       <ControlsContainer bottomSheetHeight={bottomSheetHeight}>
         <MapZoomControls mapRef={mapRef} cameraRef={cameraRef} ref={zoomRef} />

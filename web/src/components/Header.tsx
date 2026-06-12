@@ -61,7 +61,7 @@ type HeaderProps = {
   logoHref: string
   regionName?: string
   language: string
-  TabBar?: ReactNode
+  tabBar?: ReactNode
   onStickyTopChanged?: (stickyTop: number) => void
 }
 
@@ -70,7 +70,7 @@ export const Header = ({
   logoHref,
   regionName,
   language,
-  TabBar,
+  tabBar,
   onStickyTopChanged,
 }: HeaderProps): ReactElement => {
   const { rect: headerRect, ref } = useElementRect()
@@ -90,7 +90,7 @@ export const Header = ({
             </Stack>
             <ActionBar>{actionItems}</ActionBar>
           </Row>
-          {TabBar}
+          {tabBar}
         </HeaderContainer>
       </StyledPaper>
     </Headroom>

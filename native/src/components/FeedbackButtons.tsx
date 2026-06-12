@@ -32,14 +32,14 @@ const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: Feedback
       <ToggleButton
         text={t('useful')}
         onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}
-        Icon={<Icon size={32} color={iconColor(true)} source='emoticon-happy-outline' />}
+        icon={<Icon size={32} color={iconColor(true)} source='emoticon-happy-outline' />}
         active={isPositiveFeedback === true}
       />
       <Spacing />
       <ToggleButton
         text={t('notUseful')}
         onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}
-        Icon={<Icon size={32} color={iconColor(false)} source='emoticon-sad-outline' />}
+        icon={<Icon size={32} color={iconColor(false)} source='emoticon-sad-outline' />}
         active={isPositiveFeedback === false}
       />
     </Container>

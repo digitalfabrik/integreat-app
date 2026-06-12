@@ -35,7 +35,7 @@ const Consent = (): ReactElement | null => {
       <List
         items={buildConfig().supportedIframeSources}
         renderItem={renderConsentItem}
-        Header={
+        header={
           <>
             <Caption title={t('title')} />
             <Text style={{ paddingHorizontal: 16, marginBottom: 24 }}>{t('descriptionNative')}</Text>

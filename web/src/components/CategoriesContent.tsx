@@ -34,10 +34,10 @@ const CategoriesContent = ({
         title={categoryModel.title}
         content={categoryModel.content}
         lastUpdate={categoryModel.lastUpdate}
-        AfterContent={
+        afterContent={
           categoryModel.organization && <OrganizationContentInfo organization={categoryModel.organization} />
         }
-        Footer={
+        footer={
           <EmbeddedOffers
             category={categoryModel}
             region={region}
@@ -59,7 +59,7 @@ const CategoriesContent = ({
       title={categoryModel.title}
       content={categoryModel.content}
       lastUpdate={categoryModel.lastUpdate}
-      Footer={
+      footer={
         <List
           items={children.map(it => (
             <CategoryListItem key={it.path} category={it} subCategories={categories.getChildren(it)} />

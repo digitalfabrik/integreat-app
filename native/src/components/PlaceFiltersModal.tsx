@@ -124,7 +124,7 @@ const PlaceFiltersModal = ({
                 text={it.name}
                 active={it.id === selectedPlaceCategory?.id}
                 onPress={() => setSelectedPlaceCategory(it.id === selectedPlaceCategory?.id ? null : it)}
-                Icon={<StyledSvgUri uri={it.icon} active={it.id === selectedPlaceCategory?.id} />}
+                icon={<StyledSvgUri uri={it.icon} active={it.id === selectedPlaceCategory?.id} />}
               />
             ))}
           </TileRow>

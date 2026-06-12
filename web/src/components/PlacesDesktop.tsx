@@ -90,7 +90,7 @@ type PlacesDesktopProps = {
   slug: string | undefined
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
-  MapOverlay: ReactElement
+  mapOverlay: ReactElement
   loading: boolean
 }
 
@@ -113,7 +113,7 @@ const PlacesDesktop = ({
   slug,
   mapViewport,
   setMapViewport,
-  MapOverlay,
+  mapOverlay,
   loading,
 }: PlacesDesktopProps): ReactElement => {
   const [scrollOffset, setScrollOffset] = useState<number>(0)
@@ -166,7 +166,7 @@ const PlacesDesktop = ({
         selectFeature={selectMapFeature}
         features={mapFeatures}
         currentFeature={mapFeature ?? null}
-        Overlay={MapOverlay}>
+        overlay={mapOverlay}>
         <NavigationControl showCompass={false} position={contentDirection === 'rtl' ? 'bottom-left' : 'bottom-right'} />
         <GeolocateControl
           positionOptions={{ enableHighAccuracy: true }}

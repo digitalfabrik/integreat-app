@@ -59,8 +59,8 @@ const Categories = ({
       content={category.content}
       lastUpdate={category.lastUpdate}
       language={language}
-      AfterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
-      Footer={
+      afterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
+      footer={
         children.length ? (
           <List
             items={children}

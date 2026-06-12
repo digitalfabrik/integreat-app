@@ -103,7 +103,7 @@ const Places = ({ places: allPlaces, userLocation, region, loading }: PlaceProps
     mapViewport,
     setMapViewport,
     loading,
-    MapOverlay: (
+    mapOverlay: (
       <PlaceFiltersOverlayButtons
         currentlyOpenFilter={currentlyOpenFilter}
         setCurrentlyOpenFilter={setCurrentlyOpenFilter}

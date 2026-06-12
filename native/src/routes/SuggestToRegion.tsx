@@ -98,7 +98,7 @@ const SuggestToRegion = (): ReactElement | null => {
       <Text variant='body1' style={{ color: theme.colors.onSurface }}>
         {t('explanation')}
       </Text>
-      {SuggestToRegionIcon && <StyledIcon Icon={SuggestToRegionIcon} />}
+      {SuggestToRegionIcon && <StyledIcon icon={SuggestToRegionIcon} />}
       <Text variant='h5' style={styles.listHeading}>
         {t('whatToDo')}
       </Text>

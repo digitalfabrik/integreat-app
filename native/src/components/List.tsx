@@ -8,8 +8,8 @@ type ListProps<T> = {
   items: T[]
   noItemsMessage?: ReactElement | string
   renderItem: (props: { item: T; index: number }) => ReactElement
-  Header?: ReactElement
-  Footer?: ReactElement
+  header?: ReactElement
+  footer?: ReactElement
   scrollEnabled?: boolean
   accessibilityLabel?: string
   refresh?: () => void
@@ -22,8 +22,8 @@ const List = <T,>({
   items,
   noItemsMessage,
   renderItem,
-  Header,
-  Footer,
+  header,
+  footer,
   refresh,
   accessibilityLabel,
   onEndReached,
@@ -34,8 +34,8 @@ const List = <T,>({
   <FlatList
     data={items}
     renderItem={renderItem}
-    ListHeaderComponent={Header}
-    ListFooterComponent={Footer}
+    ListHeaderComponent={header}
+    ListFooterComponent={footer}
     ListFooterComponentStyle={{ flex: 1, justifyContent: 'flex-end' }}
     refreshControl={refresh ? <RefreshControl onRefresh={refresh} refreshing={false} /> : undefined}
     ListEmptyComponent={

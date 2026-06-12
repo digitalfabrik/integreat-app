@@ -34,12 +34,12 @@ type SidebarProps = {
   children: ReactNode
   open: boolean
   setOpen: (show: boolean) => void
-  Footer?: ReactNode
-  OpenButton?: ReactElement
+  footer?: ReactNode
+  openButton?: ReactElement
   className?: string
 }
 
-const Sidebar = ({ children, open, setOpen, Footer, OpenButton, className }: SidebarProps): ReactElement | null => {
+const Sidebar = ({ children, open, setOpen, footer, openButton, className }: SidebarProps): ReactElement | null => {
   const { headerHeight } = useDimensions()
   const { t } = useTranslation('layout')
   useLockedBody(open)
@@ -49,7 +49,7 @@ const Sidebar = ({ children, open, setOpen, Footer, OpenButton, className }: Sid
 
   return (
     <>
-      {OpenButton ?? (
+      {openButton ?? (
         <IconButton onClick={() => setOpen(true)} aria-label={t('sideBarOpenAriaLabel')} aria-expanded={open}>
           <MoreVertIcon />
         </IconButton>
@@ -74,7 +74,7 @@ const Sidebar = ({ children, open, setOpen, Footer, OpenButton, className }: Sid
         <Stack marginTop={`${headerHeight}px`} padding={2} height='100%'>
           {children}
         </Stack>
-        {Footer}
+        {footer}
       </StyledDrawer>
     </>
   )

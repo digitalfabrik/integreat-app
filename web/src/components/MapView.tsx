@@ -54,7 +54,7 @@ type MapViewProps = {
   children?: ReactNode
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
-  Overlay?: ReactElement
+  overlay?: ReactElement
   ref?: ForwardedRef<MapViewRef | null>
 }
 
@@ -74,7 +74,7 @@ const MapView = ({
   viewport,
   setViewport,
   children,
-  Overlay,
+  overlay,
   ref,
 }: MapViewProps): ReactElement => {
   const [cursor, setCursor] = useState<MapCursorType>('auto')
@@ -204,7 +204,7 @@ const MapView = ({
         onClick={onSelectFeature}
         onTouchMove={() => (snapBottomSheetTo ? snapBottomSheetTo(dimensions.bottomSheet.snapPoints.min) : null)}
         attributionControl={false}>
-        <OverlayContainer>{Overlay}</OverlayContainer>
+        <OverlayContainer>{overlay}</OverlayContainer>
         {children}
         <Source
           id='location-places'

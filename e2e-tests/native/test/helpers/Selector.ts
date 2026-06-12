@@ -1,7 +1,7 @@
 export class Selector {
   private queries: string[] = new Array<string>()
 
-  public ByText(text: string): Selector {
+  public byText(text: string): Selector {
     if (driver.isAndroid) {
       this.queries.push(`.text("${text}")`)
     } else {
@@ -10,7 +10,7 @@ export class Selector {
     return this
   }
 
-  public ByBeginsWith(text: string): Selector {
+  public byBeginsWith(text: string): Selector {
     if (driver.isAndroid) {
       this.queries.push(`.textStartsWith("${text}")`)
     } else {
@@ -19,7 +19,7 @@ export class Selector {
     return this
   }
 
-  public ByContainedText(text: string): Selector {
+  public byContainedText(text: string): Selector {
     if (driver.isAndroid) {
       this.queries.push(`.textContains("${text}")`)
     } else {

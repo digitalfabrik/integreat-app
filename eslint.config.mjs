@@ -138,6 +138,43 @@ export default defineConfig([
       '@typescript-eslint/ban-ts-comment': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/explicit-module-boundary-types': 'error',
+
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'default',
+          format: ['camelCase'],
+          leadingUnderscore: 'allowSingleOrDouble',
+          trailingUnderscore: 'allowSingleOrDouble',
+          filter: {
+            regex: '^(_|Component)$',
+            match: false,
+          },
+        },
+        {
+          selector: 'import',
+          format: ['camelCase', 'PascalCase'],
+        },
+        {
+          selector: 'variable',
+          format: ['camelCase', 'PascalCase', 'UPPER_CASE'],
+          leadingUnderscore: 'allow',
+          trailingUnderscore: 'allow',
+        },
+        {
+          selector: ['typeLike', 'enumMember'],
+          format: ['PascalCase'],
+        },
+        {
+          selector: 'typeProperty',
+          format: ['camelCase', 'snake_case', 'PascalCase'],
+        },
+        {
+          selector: ['objectLiteralProperty', 'objectLiteralMethod'],
+          format: null,
+        },
+      ],
+
       '@typescript-eslint/no-empty-function': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unnecessary-condition': 'error',

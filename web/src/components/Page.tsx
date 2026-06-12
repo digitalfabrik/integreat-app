@@ -24,9 +24,9 @@ type PageProps = {
   content: string
   lastUpdate?: DateTime
   showLastUpdateText?: boolean
-  BeforeContent?: ReactNode
-  AfterContent?: ReactNode
-  Footer?: ReactNode
+  beforeContent?: ReactNode
+  afterContent?: ReactNode
+  footer?: ReactNode
 }
 
 const Page = ({
@@ -35,20 +35,20 @@ const Page = ({
   content,
   lastUpdate,
   showLastUpdateText = true,
-  BeforeContent,
-  AfterContent,
-  Footer,
+  beforeContent,
+  afterContent,
+  footer,
 }: PageProps): ReactElement => (
   <Stack direction='column'>
     {!!thumbnailSrcSet && <Thumbnail alt='' srcSet={thumbnailSrcSet} />}
     <H1>{title}</H1>
-    {BeforeContent}
+    {beforeContent}
     <RemoteContent html={content} />
-    {AfterContent}
+    {afterContent}
     {lastUpdate && !!content && content.length > 0 && (
       <LastUpdateInfo lastUpdate={lastUpdate} withText={showLastUpdateText} />
     )}
-    {Footer}
+    {footer}
   </Stack>
 )
 
