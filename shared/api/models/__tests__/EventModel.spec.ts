@@ -1,12 +1,10 @@
 import { DateTime } from 'luxon'
-import * as rrule from 'rrule'
+import { rrulestr } from 'rrule'
 
 import { EventModelBuilder } from '../../endpoints/testing/index.js'
 import DateModel from '../DateModel.js'
 import EventModel from '../EventModel.js'
 import LocationModel from '../LocationModel.js'
-
-const { rrulestr } = rrule
 
 jest.useFakeTimers({ now: new Date('2023-10-02T15:23:57.443+02:00') })
 

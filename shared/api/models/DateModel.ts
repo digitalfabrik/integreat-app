@@ -1,11 +1,7 @@
 import { DateTime, DateTimeFormatOptions, Duration } from 'luxon'
-import * as rrule from 'rrule'
+import { RRule as RRuleType, rrulestr } from 'rrule'
 
 import { formatDateICal, formatTime, getWeekdayFromIndex, TranslateFunction } from '../../utils/date.js'
-
-const { RRule, rrulestr } = rrule
-
-type RRuleType = InstanceType<typeof RRule>
 
 const MAX_RECURRENCE_YEARS = 6
 
@@ -132,7 +128,7 @@ class DateModel {
       return false
     }
     const frequency = this.recurrenceRule.options.freq
-    return frequency === RRule.MONTHLY || frequency === RRule.YEARLY
+    return frequency === RRuleType.MONTHLY || frequency === RRuleType.YEARLY
   }
 
   formatMonthlyOrYearlyRecurrence(locale: string, t: TranslateFunction): FormattedEventDate {
