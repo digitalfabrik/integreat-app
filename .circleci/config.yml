@@ -266,6 +266,9 @@ jobs:
                 name: '[FL] Prepare Android Keystore'
                 working_directory: native/android
             - run:
+                command: yarn ts:check
+                name: Check TypeScript
+            - run:
                 command: bundle exec fastlane android build build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] << parameters.build_config_name >> Android Build'
                 working_directory: native/android
@@ -348,6 +351,9 @@ jobs:
                 command: brew install cmake
                 name: Install CMake
             - run:
+                command: yarn ts:check
+                name: Check TypeScript
+            - run:
                 command: bundle exec fastlane ios build build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] << parameters.build_config_name >> iOS Build'
                 working_directory: native/ios
@@ -407,6 +413,9 @@ jobs:
             - restore_yarn_cache
             - prepare_workspace
             - restore_environment_variables
+            - run:
+                command: yarn ts:check
+                name: Check TypeScript
             - run:
                 command: yarn workspace web build:<< parameters.build_config_name >> --env commit_sha=${CIRCLE_SHA1} --env version_name=${NEW_VERSION_NAME}
                 name: << parameters.build_config_name >> build
