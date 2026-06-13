@@ -1,6 +1,6 @@
 import normalizePath from 'normalize-path'
 
-import { NOT_FOUND_ROUTE } from '../routes'
+import { NOT_FOUND_ROUTE } from '../routes/index.js'
 
 const normalize = (value: string): string => {
   try {

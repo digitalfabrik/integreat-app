@@ -1,5 +1,5 @@
-import { testOverrideTranslations } from '../__mocks__/loadTranslations'
-import loadTranslations from '../loadTranslations'
+import { testOverrideTranslations } from '../__mocks__/loadTranslations.js'
+import loadTranslations from '../loadTranslations.js'
 
 jest.mock('../../translations.json', () => require('../__mocks__/loadTranslations').testTranslations)
 describe('loadTranslations', () => {

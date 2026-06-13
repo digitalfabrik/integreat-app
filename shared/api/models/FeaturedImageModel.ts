@@ -1,4 +1,4 @@
-import isEqual from '../../utils/isEqual'
+import isEqual from '../../utils/isEqual.js'
 
 type FeaturedImageInstanceType = {
   url: string

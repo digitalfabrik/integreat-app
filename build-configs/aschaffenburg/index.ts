@@ -1,16 +1,16 @@
-import aschaffenburgOverrideTranslations from 'translations/override-translations/aschaffenburg.json'
+import aschaffenburgOverrideTranslations from 'translations/override-translations/aschaffenburg.json' with { type: 'json' }
 
-import { ASCHAFFENBURG_ASSETS } from '../AssetsType'
+import { ASCHAFFENBURG_ASSETS } from '../AssetsType.js'
 import {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   IosBuildConfigType,
   WebBuildConfigType,
-} from '../BuildConfigType'
-import { APP_STORE_TEAM_ID } from '../common/constants'
-import mainImprint from './mainImprint'
-import { darkTheme, lightTheme } from './theme'
-import fonts from './theme/fonts'
+} from '../BuildConfigType.js'
+import { APP_STORE_TEAM_ID } from '../common/constants.js'
+import mainImprint from './mainImprint.js'
+import fonts from './theme/fonts.js'
+import { darkTheme, lightTheme } from './theme/index.js'
 
 const APPLICATION_ID = 'app.aschaffenburg'
 const BUNDLE_IDENTIFIER = 'app.aschaffenburg'

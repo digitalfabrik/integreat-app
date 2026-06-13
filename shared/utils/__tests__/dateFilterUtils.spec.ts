@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
-import { LocationModel } from '../../api'
-import DateModel from '../../api/models/DateModel'
-import EventModel from '../../api/models/EventModel'
-import { isEventWithinRange } from '../dateFilterUtils'
+import { LocationModel } from '../../api/index.js'
+import DateModel from '../../api/models/DateModel.js'
+import EventModel from '../../api/models/EventModel.js'
+import { isEventWithinRange } from '../dateFilterUtils.js'
 
 const EventModalDummyData = {
   content: '<h1>Event Content</h1>',

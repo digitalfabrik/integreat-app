@@ -1,4 +1,4 @@
-import OfferModel from '../models/OfferModel'
+import OfferModel from '../models/OfferModel.js'
 
 export const MALTE_HELP_FORM_MAX_COMMENT_LENGTH = 200
 export type ContactChannel = 'email' | 'telephone' | 'personally'

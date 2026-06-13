@@ -1,5 +1,5 @@
-import SprungbrettJobModel from '../../models/SprungbrettJobModel'
-import createSprungbrettJobsEndpoint from '../createSprungbrettJobsEndpoint'
+import SprungbrettJobModel from '../../models/SprungbrettJobModel.js'
+import createSprungbrettJobsEndpoint from '../createSprungbrettJobsEndpoint.js'
 
 describe('sprungbrettJobs', () => {
   const baseUrl = 'https://sprungbrett-api-url.de'

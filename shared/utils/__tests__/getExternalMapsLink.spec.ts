@@ -1,6 +1,6 @@
-import { PlaceModelBuilder } from '../../api/endpoints/testing'
-import LocationModel from '../../api/models/LocationModel'
-import getExternalMapsLink from '../getExternalMapsLink'
+import { PlaceModelBuilder } from '../../api/endpoints/testing/index.js'
+import LocationModel from '../../api/models/LocationModel.js'
+import getExternalMapsLink from '../getExternalMapsLink.js'
 
 describe('getExternalMapsLink', () => {
   const location: LocationModel<number> = new PlaceModelBuilder(1).build()[0]!.location

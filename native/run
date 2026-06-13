@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const { execSync } = require('child_process')
-const { program } = require('commander')
+import { program } from 'commander'
+import { execSync } from 'node:child_process'
 
 program
   .command('packager <build_config_name>')

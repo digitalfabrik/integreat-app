@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
 
-import { CategoriesMapModelBuilder } from '../../api'
-import CategoryModel from '../../api/models/CategoryModel'
-import OfferModel from '../../api/models/OfferModel'
-import TileModel from '../../models/TileModel'
-import { getCategoryTiles } from '../categories'
+import { CategoriesMapModelBuilder } from '../../api/index.js'
+import CategoryModel from '../../api/models/CategoryModel.js'
+import OfferModel from '../../api/models/OfferModel.js'
+import TileModel from '../../models/TileModel.js'
+import { getCategoryTiles } from '../categories.js'
 import {
   addSubdomain,
   formatDateICal,
@@ -12,7 +12,7 @@ import {
   getSlugFromPath,
   safeParseInt,
   segmentText,
-} from '../index'
+} from '../index.js'
 
 describe('getSlugFromPath', () => {
   it('should return last path segment', () => {

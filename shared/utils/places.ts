@@ -1,9 +1,9 @@
 import distance from '@turf/distance'
 
-import PlaceCategoryModel from '../api/models/PlaceCategoryModel'
-import PlaceModel from '../api/models/PlaceModel'
-import { LocationType, MapFeature } from '../constants/map'
-import { prepareMapFeatures } from './geoJson'
+import PlaceCategoryModel from '../api/models/PlaceCategoryModel.js'
+import PlaceModel from '../api/models/PlaceModel.js'
+import { LocationType, MapFeature } from '../constants/map.js'
+import { prepareMapFeatures } from './geoJson.js'
 
 export const calculateDistance = distance
 

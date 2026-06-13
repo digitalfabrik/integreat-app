@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   extends: ['stylelint-react-native', 'stylelint-config-recommended', 'stylelint-config-standard'],
   customSyntax: 'postcss-styled-syntax',
   rules: {

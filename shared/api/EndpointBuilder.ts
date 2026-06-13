@@ -1,7 +1,7 @@
-import Endpoint from './Endpoint'
-import { MapParamsToBodyType } from './MapParamsToBody'
-import { MapParamsToUrlType } from './MapParamsToUrlType'
-import { MapResponseType } from './MapResponseType'
+import Endpoint from './Endpoint.js'
+import { MapParamsToBodyType } from './MapParamsToBody.js'
+import { MapParamsToUrlType } from './MapParamsToUrlType.js'
+import { MapResponseType } from './MapResponseType.js'
 
 /**
  * Helper class to build a {@link Endpoint}

@@ -1,4 +1,4 @@
-import { request, setUserAgent } from '../request'
+import { request, setUserAgent } from '../request.js'
 
 describe('request', () => {
   const url = 'https://example.com'

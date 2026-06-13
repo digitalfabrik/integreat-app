@@ -2,13 +2,15 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "isolatedModules": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "lib": ["dom", "dom.iterable", "ES5", "ES6"],
+    "lib": ["dom", "dom.iterable", "ES2022"],
     "module": "ESNext",
+    "moduleResolution": "Bundler",
     "noEmit": false,
     "outDir": "dist",
     "sourceMap": true,
@@ -16,7 +18,7 @@
       "normalize-strings": ["../shared/@types/normalize-strings"]
     },
     "skipLibCheck": true,
-    "target": "ES2019",
+    "target": "ES2022",
     "types": ["jest", "node", "react"]
   },
   "include": [

@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon'
 
-import { TU_NEWS_TYPE } from '../../routes'
-import Endpoint from '../Endpoint'
-import EndpointBuilder from '../EndpointBuilder'
-import NotFoundError from '../errors/NotFoundError'
-import TuNewsModel from '../models/TuNewsModel'
-import { JsonTuNewsType } from '../types'
+import { TU_NEWS_TYPE } from '../../routes/index.js'
+import Endpoint from '../Endpoint.js'
+import EndpointBuilder from '../EndpointBuilder.js'
+import NotFoundError from '../errors/NotFoundError.js'
+import TuNewsModel from '../models/TuNewsModel.js'
+import { JsonTuNewsType } from '../types.js'
 
 export const TU_NEWS_ELEMENT_ENDPOINT_NAME = 'tuNewsElement'
 

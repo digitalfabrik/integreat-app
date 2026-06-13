@@ -1,9 +1,13 @@
 import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import ReactHighlighter from 'react-highlight-words'
+import ReactHighlightWords from 'react-highlight-words'
+import type { HighlighterProps as ReactHighlighterProps } from 'react-highlight-words'
 
 import { findNormalizedMatches, normalizeString } from 'shared'
 import { UiDirectionType } from 'translations'
+
+// To fix CJS interop to not being recognized as a React component
+const ReactHighlighter = ReactHighlightWords as unknown as React.ComponentClass<ReactHighlighterProps>
 
 type HighlighterProps = {
   search: string

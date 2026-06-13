@@ -1,4 +1,4 @@
-import { PlaceModelBuilder } from '../../endpoints/testing'
+import { PlaceModelBuilder } from '../../endpoints/testing/index.js'
 
 describe('PlaceModel', () => {
   const place = new PlaceModelBuilder(1).build()

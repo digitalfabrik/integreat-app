@@ -1,7 +1,7 @@
-import Endpoint from '../Endpoint'
-import EndpointBuilder from '../EndpointBuilder'
-import { API_VERSION } from '../constants'
-import { ChatMessagesReturn, mapChatMessages } from '../mapping/mapChatMessages'
+import Endpoint from '../Endpoint.js'
+import EndpointBuilder from '../EndpointBuilder.js'
+import { API_VERSION } from '../constants/index.js'
+import { ChatMessagesReturn, mapChatMessages } from '../mapping/mapChatMessages.js'
 
 export const CHAT_ENDPOINT_NAME = 'chat'
 
