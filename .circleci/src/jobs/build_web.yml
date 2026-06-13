@@ -15,7 +15,7 @@ steps:
   - prepare_workspace
   - restore_environment_variables
   - run:
-      name: Check TypeScript
+      name: Build files
       command: yarn ts:check
   - run:
       name: << parameters.build_config_name >> build

@@ -30,7 +30,7 @@ steps:
       command: bundle exec fastlane android keystore
       working_directory: native/android
   - run:
-      name: Check TypeScript
+      name: Build files
       command: yarn ts:check
   - run:
       name: '[FL] << parameters.build_config_name >> Android Build'

@@ -24,7 +24,7 @@ steps:
       name: Install CMake
       command: brew install cmake
   - run:
-      name: Check TypeScript
+      name: Build files
       command: yarn ts:check
   - run:
       name: '[FL] << parameters.build_config_name >> iOS Build'
