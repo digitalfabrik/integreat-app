@@ -3589,14 +3589,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@integreat-app/react-sticky-headroom@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@integreat-app/react-sticky-headroom@npm:3.0.1"
+"@integreat-app/react-sticky-headroom@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@integreat-app/react-sticky-headroom@npm:3.0.2"
   peerDependencies:
     "@emotion/react": 11.x.x
     "@emotion/styled": 11.x.x
     react: 16.x.x || 17.x.x || 18.x.x || 19.x.x
-  checksum: 10c0/afb51cb3f08bf9e3723e680c03a65e80a375d3fc9ddbf52c88eb9a1085eedf4fe70a4e9249146de4618f82caa5e9ee62fd1a69edbde9a66d978608ea97f1560c
+  checksum: 10c0/04b22e631b0b31dc0ef3a1c30cfb4ac2c43f27721c5115de5ee95f29fdf3545a1c3726b17d610d5ffdea257003b612008534852131b00f05e8a48ea4ddb8d997
   languageName: node
   linkType: hard
 
@@ -23795,7 +23795,7 @@ __metadata:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.1"
-    "@integreat-app/react-sticky-headroom": "npm:^3.0.1"
+    "@integreat-app/react-sticky-headroom": "npm:^3.0.2"
     "@math.gl/web-mercator": "npm:^4.1.0"
     "@mui/icons-material": "npm:^7.3.9"
     "@mui/material": "npm:^7.3.9"
