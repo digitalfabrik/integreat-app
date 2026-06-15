@@ -20,7 +20,7 @@ type ContactProps = {
 
 const Contact = ({ contact }: ContactProps): ReactElement => {
   const { headline, website, phoneNumber, email, mobileNumber, officeHours } = contact
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
 
   return (
     <ListItem disablePadding>
@@ -29,13 +29,13 @@ const Contact = ({ contact }: ContactProps): ReactElement => {
           {headline ?? t('contactInformation')}
         </Typography>
         {!!website && (
-          <ContactDetail Icon={PublicOutlinedIcon} link={website} content={t('website')} IconEnd={OpenInNewIcon} />
+          <ContactDetail icon={PublicOutlinedIcon} link={website} content={t('website')} iconEnd={OpenInNewIcon} />
         )}
-        {!!phoneNumber && <ContactDetail Icon={PhoneOutlinedIcon} link={`tel:${phoneNumber}`} content={phoneNumber} />}
+        {!!phoneNumber && <ContactDetail icon={PhoneOutlinedIcon} link={`tel:${phoneNumber}`} content={phoneNumber} />}
         {!!mobileNumber && (
-          <ContactDetail Icon={SmartphoneOutlinedIcon} link={`tel:${mobileNumber}`} content={mobileNumber} />
+          <ContactDetail icon={SmartphoneOutlinedIcon} link={`tel:${mobileNumber}`} content={mobileNumber} />
         )}
-        {!!email && <ContactDetail Icon={MailOutlinedIcon} link={`mailto:${email}`} content={email} />}
+        {!!email && <ContactDetail icon={MailOutlinedIcon} link={`mailto:${email}`} content={email} />}
         {officeHours !== null && <OfficeHours officeHours={officeHours} />}
       </Stack>
     </ListItem>

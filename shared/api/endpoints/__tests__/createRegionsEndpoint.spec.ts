@@ -1,8 +1,8 @@
-import { API_VERSION } from '../../constants'
-import LanguageModel from '../../models/LanguageModel'
-import RegionModel from '../../models/RegionModel'
-import { JsonRegionType, JsonLanguageType } from '../../types'
-import createRegionsEndpoint from '../createRegionsEndpoint'
+import { API_VERSION } from '../../constants/index.js'
+import LanguageModel from '../../models/LanguageModel.js'
+import RegionModel from '../../models/RegionModel.js'
+import { JsonRegionType, JsonLanguageType } from '../../types.js'
+import createRegionsEndpoint from '../createRegionsEndpoint.js'
 
 describe('regions', () => {
   const baseUrl = 'https://integreat-api-url.de'
@@ -91,7 +91,7 @@ describe('regions', () => {
         chatEnabled: false,
         chatPrivacyPolicyUrl: null,
         eventsEnabled: true,
-        poisEnabled: true,
+        placesEnabled: true,
         localNewsEnabled: true,
         tuNewsEnabled: true,
         sortingName: 'Augsburg',
@@ -114,7 +114,7 @@ describe('regions', () => {
         chatEnabled: false,
         chatPrivacyPolicyUrl: 'https://example.com/privacy',
         eventsEnabled: false,
-        poisEnabled: false,
+        placesEnabled: false,
         localNewsEnabled: false,
         tuNewsEnabled: false,
         sortingName: 'Regensburg',

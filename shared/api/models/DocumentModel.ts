@@ -1,8 +1,8 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
 
-import { getSlugFromPath } from '../../utils'
-import normalizePath from '../../utils/normalizePath'
+import { getSlugFromPath } from '../../utils/index.js'
+import normalizePath from '../../utils/normalizePath.js'
 
 class DocumentModel {
   _path: string

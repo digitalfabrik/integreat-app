@@ -14,7 +14,7 @@ import { AppContextType } from '../contexts/AppContext'
 import { SettingsType } from './AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from './PushNotificationsManager'
 import openExternalUrl from './openExternalUrl'
-import { initSentry } from './sentry'
+import { initSentry, log } from './sentry'
 
 export type SettingsSectionType = {
   title: string
@@ -30,13 +30,14 @@ const volatileValues = {
   versionTaps: 0,
 }
 
-const TRIGGER_VERSION_TAPS = 25
+const TRIGGER_VERSION_TAPS = 10
 
 type CreateSettingsSectionsProps = {
   appContext: AppContextType
   navigation: NavigationProps<SettingsRouteType>
   showSnackbar: (snackbar: SnackbarType) => void
   t: TFunction<'error'>
+  clearResourcesAndCache: () => void
 }
 
 const createSettingsSections = ({
@@ -44,6 +45,7 @@ const createSettingsSections = ({
   navigation,
   showSnackbar,
   t,
+  clearResourcesAndCache,
 }: CreateSettingsSectionsProps): (SettingsSectionType | null)[] => [
   {
     title: t('pushNewsTitle'),
@@ -163,7 +165,21 @@ const createSettingsSections = ({
 
       if (volatileValues.versionTaps === TRIGGER_VERSION_TAPS) {
         volatileValues.versionTaps = 0
-        throw Error('This error was thrown for testing purposes. Please ignore this error.')
+
+        const { switchCmsUrl } = buildConfig()
+        if (!switchCmsUrl) {
+          return
+        }
+
+        const { apiUrlOverride } = settings
+        if (apiUrlOverride === switchCmsUrl) {
+          return
+        }
+
+        updateSettings({ apiUrlOverride: switchCmsUrl })
+        clearResourcesAndCache()
+        log(`Switching to CMS: ${switchCmsUrl}`)
+        showSnackbar({ text: `Switched to CMS ${switchCmsUrl}` })
       }
     },
   },

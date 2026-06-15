@@ -11,7 +11,7 @@ import { LocationModel } from 'shared/api'
 import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
@@ -29,7 +29,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
   const { address, postcode, town } = location
   const showSnackbar = useSnackbar()
   const theme = useTheme()
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
 
   const copyLocationToClipboard = (): void => {
     Clipboard.setString(`${address}, ${postcode} ${town}`)
@@ -38,7 +38,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
 
   const openExternalMaps = () => {
     const externalMapsUrl = getExternalMapsLink(location, Platform.OS)
-    openExternalUrl(externalMapsUrl, showSnackbar).catch(reportError)
+    openExternalUrl(externalMapsUrl, showSnackbar).catch(captureError)
   }
 
   return (

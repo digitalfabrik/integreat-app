@@ -25,8 +25,8 @@ import SearchListItem from '../components/SearchListItem'
 import SkeletonList from '../components/SkeletonList'
 import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
+import useCaptureError from '../hooks/useCaptureError'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
-import useReportError from '../hooks/useReportError'
 import { RegionRouteProps } from './index'
 
 type SearchProps = {
@@ -103,7 +103,7 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
   })
   const searchResults = data.slice(0, MAX_SEARCH_RESULTS)
 
-  useReportError(documentsError ?? error)
+  useCaptureError(documentsError ?? error)
 
   if (!region) {
     return null

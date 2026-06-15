@@ -1,6 +1,6 @@
-import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder'
-import RegionModel from '../../api/models/RegionModel'
-import getNearbyRegions from '../getNearbyRegions'
+import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder.js'
+import RegionModel from '../../api/models/RegionModel.js'
+import getNearbyRegions from '../getNearbyRegions.js'
 
 describe('getNearbyRegions', () => {
   const createRegion = (
@@ -14,7 +14,7 @@ describe('getNearbyRegions', () => {
       live: true,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: true,
-      poisEnabled: true,
+      placesEnabled: true,
       localNewsEnabled: false,
       tuNewsEnabled: false,
       sortingName: 'Augsburg',

@@ -14,10 +14,10 @@ describe('navigate to search result', () => {
     const searchBar = await SearchPage.search
     await searchBar.addValue(contentSearch)
 
-    const searchResult = $(new Selector().ByBeginsWith('Language').build())
+    const searchResult = $(new Selector().byBeginsWith('Language').build())
     await searchResult.waitForDisplayed({ timeout: 20000 })
     await searchResult.click()
 
-    await $(new Selector().ByText('Language courses').build()).waitForDisplayed()
+    await $(new Selector().byText('Language courses').build()).waitForDisplayed()
   })
 })

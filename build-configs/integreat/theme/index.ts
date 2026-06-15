@@ -1,5 +1,5 @@
-import { Theme } from '../../ThemeType'
-import { commonDarkColors, commonLightColors } from '../../common/theme/colors'
+import { Theme } from '../../ThemeType.js'
+import { commonDarkColors, commonLightColors } from '../../common/theme/colors.js'
 
 const customColors = {
   secondary: {

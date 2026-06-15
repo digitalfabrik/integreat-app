@@ -1,6 +1,6 @@
-import { filterSortRegions } from '../..'
-import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder'
-import RegionModel from '../../api/models/RegionModel'
+import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder.js'
+import RegionModel from '../../api/models/RegionModel.js'
+import { filterSortRegions } from '../../index.js'
 
 describe('search', () => {
   describe('filterSortRegions', () => {
@@ -17,7 +17,7 @@ describe('search', () => {
         live,
         languages: new LanguageModelBuilder(2).build(),
         eventsEnabled: true,
-        poisEnabled: true,
+        placesEnabled: true,
         localNewsEnabled: false,
         tuNewsEnabled: false,
         sortingName,

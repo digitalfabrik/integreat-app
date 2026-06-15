@@ -9,7 +9,7 @@ import {
   IntroLanguageIcon,
   IntroNewsIcon,
   IntroOfflineIcon,
-  IntroPoisIcon,
+  IntroPlacesIcon,
   IntroSearchIcon,
   IntroWelcomeIcon,
 } from '../assets'
@@ -52,31 +52,31 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
       key: 'integreat',
       title: t('welcome', { appName }),
       description: t('welcomeDescription', { appName }),
-      Content: <StyledIcon Icon={IntroWelcomeIcon} />,
+      Content: <StyledIcon icon={IntroWelcomeIcon} />,
     },
     {
       key: 'languageChange',
       title: t('languageChange', { appName }),
       description: t('languageChangeDescription', { appName }),
-      Content: <StyledIcon Icon={IntroLanguageIcon} />,
+      Content: <StyledIcon icon={IntroLanguageIcon} />,
     },
     {
       key: 'search',
       title: t('search'),
       description: t('searchDescription'),
-      Content: <StyledIcon Icon={IntroSearchIcon} />,
+      Content: <StyledIcon icon={IntroSearchIcon} />,
     },
     {
-      key: 'pois',
-      title: t('pois'),
-      description: t('poisDescription'),
-      Content: <StyledIcon Icon={IntroPoisIcon} />,
+      key: 'places',
+      title: t('places'),
+      description: t('placesDescription'),
+      Content: <StyledIcon icon={IntroPlacesIcon} />,
     },
     {
       key: 'news',
       title: t('news', { appName }),
       description: t('newsDescription', { appName }),
-      Content: <StyledIcon Icon={IntroNewsIcon} />,
+      Content: <StyledIcon icon={IntroNewsIcon} />,
     },
     {
       key: 'offline',
@@ -84,7 +84,7 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
       description: t('offlineDescription', {
         appName,
       }),
-      Content: <StyledIcon Icon={IntroOfflineIcon} />,
+      Content: <StyledIcon icon={IntroOfflineIcon} />,
     },
   ]
 

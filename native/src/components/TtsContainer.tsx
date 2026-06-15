@@ -17,7 +17,7 @@ import { getGenericLanguageCode } from 'shared'
 import { AppContext } from '../contexts/AppContext'
 import useAppStateListener from '../hooks/useAppStateListener'
 import useSnackbar from '../hooks/useSnackbar'
-import { log, reportError } from '../utils/sentry'
+import { log, captureError } from '../utils/sentry'
 import { prepareText } from '../utils/tts'
 import TtsPlayer from './TtsPlayer'
 
@@ -74,7 +74,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
         const availableVoices = await Speech.getAvailableVoices()
         setVoices(availableVoices)
       } catch (error) {
-        reportError(error)
+        captureError(error)
         if (voicesRetries < 2) {
           log(`Failed to load voices, retry ${voicesRetries + 1}`, { level: 'warning' })
           setVoicesRetries(voicesRetries + 1)
@@ -99,7 +99,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     }
     if (!isLanguageSupported) {
       showSnackbar({ text: t('languageNotSupported') })
-      reportError(new Error(`Language '${languageCode}' not supported`), { data: voices })
+      captureError(new Error(`Language '${languageCode}' not supported`), { data: voices })
       return
     }
 
@@ -107,7 +107,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       initializeTts()
       setVisible(true)
     } catch (error) {
-      reportError(error)
+      captureError(error)
       showSnackbar({ text: t('error:unknownError') })
     }
   }, [initializeTts, sentences.length, visible, showSnackbar, t, isLanguageSupported, voices, languageCode])
@@ -124,14 +124,14 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   }, [])
 
   const stop = useCallback(() => {
-    stopPlayer().catch(reportError)
+    stopPlayer().catch(captureError)
     setIsPlaying(false)
     setSentenceIndex(0)
   }, [stopPlayer])
 
   const pause = useCallback(() => {
     Speech.pause()
-      .catch(reportError)
+      .catch(captureError)
       .finally(() => setIsPlaying(false))
   }, [])
 
@@ -174,7 +174,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
             await Speech.speak(prepareText(sentence), getTtsOptions(languageCode))
           }
         } catch (error) {
-          reportError(error)
+          captureError(error)
           stop()
         }
       } else {
@@ -204,7 +204,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
     return () => {
       subscriptionsRef.current.forEach(subscription => subscription.remove())
       subscriptionsRef.current = []
-      Speech.stop().catch(reportError)
+      Speech.stop().catch(captureError)
     }
   }, [visible, isLanguageSupported, close])
 

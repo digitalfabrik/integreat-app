@@ -1,29 +1,29 @@
-import { CATEGORIES_ROUTE, POIS_ROUTE, SEARCH_ROUTE } from '../index'
-import { parseQueryParams, queryStringFromRouteInformation, toQueryParams } from '../query'
+import { CATEGORIES_ROUTE, PLACES_ROUTE, SEARCH_ROUTE } from '../index.js'
+import { parseQueryParams, queryStringFromRouteInformation, toQueryParams } from '../query.js'
 
 describe('queryStringFromRouteInformation', () => {
-  it('should create pois query string', () => {
+  it('should create places query string', () => {
     const routeInformation = {
-      route: POIS_ROUTE,
+      route: PLACES_ROUTE,
       languageCode: 'de',
       regionCode: 'augsburg',
     }
 
     expect(queryStringFromRouteInformation(routeInformation)).toBeUndefined()
     expect(queryStringFromRouteInformation({ ...routeInformation, slug: 'test-slug' })).toBeUndefined()
-    expect(queryStringFromRouteInformation({ ...routeInformation, multipoi: 1 })).toBe('?multipoi=1')
-    expect(queryStringFromRouteInformation({ ...routeInformation, slug: 'test-slug', multipoi: 1, zoom: 10 })).toBe(
-      '?multipoi=1&zoom=10',
+    expect(queryStringFromRouteInformation({ ...routeInformation, multiPlace: 1 })).toBe('?multiplace=1')
+    expect(queryStringFromRouteInformation({ ...routeInformation, slug: 'test-slug', multiPlace: 1, zoom: 10 })).toBe(
+      '?multiplace=1&zoom=10',
     )
     expect(
       queryStringFromRouteInformation({
         ...routeInformation,
         slug: 'test-slug',
-        multipoi: 1,
+        multiPlace: 1,
         zoom: 10,
-        poiCategoryId: 7,
+        placeCategoryId: 7,
       }),
-    ).toBe('?multipoi=1&category=7&zoom=10')
+    ).toBe('?multiplace=1&category=7&zoom=10')
   })
 
   it('should create search query string', () => {
@@ -51,13 +51,13 @@ describe('queryStringFromRouteInformation', () => {
 })
 
 describe('parse query params', () => {
-  it('should get poi query params', () => {
+  it('should get place query params', () => {
     expect(parseQueryParams(new URLSearchParams(''))).toEqual({})
-    expect(parseQueryParams(new URLSearchParams('?multipoi=3'))).toEqual({ multipoi: 3 })
-    expect(parseQueryParams(new URLSearchParams('?multipoi=1&category=7&zoom=10'))).toEqual({
-      multipoi: 1,
+    expect(parseQueryParams(new URLSearchParams('?multiplace=3'))).toEqual({ multiPlace: 3 })
+    expect(parseQueryParams(new URLSearchParams('?multiplace=1&category=7&zoom=10'))).toEqual({
+      multiPlace: 1,
       zoom: 10,
-      poiCategoryId: 7,
+      placeCategoryId: 7,
     })
   })
 
@@ -73,16 +73,16 @@ describe('parse query params', () => {
 })
 
 describe('toQueryParams', () => {
-  it('should get poi query params', () => {
+  it('should get place query params', () => {
     expect(toQueryParams({})).toEqual(new URLSearchParams(''))
-    expect(toQueryParams({ multipoi: 1 })).toEqual(new URLSearchParams('?multipoi=1'))
+    expect(toQueryParams({ multiPlace: 1 })).toEqual(new URLSearchParams('?multiplace=1'))
     expect(
       toQueryParams({
-        multipoi: 1,
+        multiPlace: 1,
         zoom: 10,
-        poiCategoryId: 7,
+        placeCategoryId: 7,
       }),
-    ).toEqual(new URLSearchParams('?multipoi=1&category=7&zoom=10'))
+    ).toEqual(new URLSearchParams('?multiplace=1&category=7&zoom=10'))
   })
 
   it('should get search query params', () => {

@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import { ContactModel } from 'shared/api'
 
 import OfficeHours from './OfficeHours'
-import PoiDetailRow from './PoiDetailRow'
+import PlaceDetailRow from './PlaceDetailRow'
 import Text from './base/Text'
 
 const StyledDivider = styled(Divider)`
@@ -22,13 +22,13 @@ const Contact = ({
   contact: { headline, website, phoneNumber, email, mobileNumber, officeHours },
   isLastContact,
 }: ContactProps): ReactElement => {
-  const { t } = useTranslation('pois')
+  const { t } = useTranslation('places')
 
   return (
     <>
       <Text style={{ marginBottom: 8 }}>{headline ?? t('contactInformation')}</Text>
       {!!website && (
-        <PoiDetailRow
+        <PlaceDetailRow
           externalUrl={website}
           accessibilityLabel={t('website')}
           text={t('website')}
@@ -37,7 +37,7 @@ const Contact = ({
         />
       )}
       {!!phoneNumber && (
-        <PoiDetailRow
+        <PlaceDetailRow
           externalUrl={`tel:${phoneNumber}`}
           accessibilityLabel={t('phone')}
           text={phoneNumber}
@@ -45,7 +45,7 @@ const Contact = ({
         />
       )}
       {!!mobileNumber && (
-        <PoiDetailRow
+        <PlaceDetailRow
           externalUrl={`tel:${mobileNumber}`}
           accessibilityLabel={t('mobilePhone')}
           text={mobileNumber}
@@ -53,7 +53,7 @@ const Contact = ({
         />
       )}
       {!!email && (
-        <PoiDetailRow
+        <PlaceDetailRow
           externalUrl={`mailto:${email}`}
           accessibilityLabel={t('eMail')}
           text={email}

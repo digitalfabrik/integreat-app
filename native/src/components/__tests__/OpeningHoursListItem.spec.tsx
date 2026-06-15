@@ -15,7 +15,7 @@ jest.mock('../AppointmentOnlyOverlay', () => {
     default: ({ isVisible, closeOverlay }: { isVisible: boolean; closeOverlay: () => void }) =>
       isVisible ? (
         <>
-          <Text>pois:makeAppointmentTooltipWithLink</Text>
+          <Text>places:makeAppointmentTooltipWithLink</Text>
           <TouchableOpacity onPress={closeOverlay}>
             <Text>common:close</Text>
           </TouchableOpacity>
@@ -50,8 +50,8 @@ describe('OpeningEntry', () => {
     const { getByText, queryByText } = renderOpeningEntries(false, false, false, false)
     expect(getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeTruthy()
     expect(getByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeTruthy()
-    expect(queryByText('pois:allDay')).toBeFalsy()
-    expect(queryByText('pois:closed')).toBeFalsy()
+    expect(queryByText('places:allDay')).toBeFalsy()
+    expect(queryByText('places:closed')).toBeFalsy()
   })
 
   it('should display all day opened for the weekday if allDay flag is true', () => {
@@ -59,7 +59,7 @@ describe('OpeningEntry', () => {
     expect(getByText('allDay')).toBeTruthy()
     expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
     expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
-    expect(queryByText('pois:closed')).toBeFalsy()
+    expect(queryByText('places:closed')).toBeFalsy()
   })
 
   it('should display closed for the weekday if closed flag is true', () => {
@@ -67,7 +67,7 @@ describe('OpeningEntry', () => {
     expect(getByText('closed')).toBeTruthy()
     expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
     expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
-    expect(queryByText('pois:allDay')).toBeFalsy()
+    expect(queryByText('places:allDay')).toBeFalsy()
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {
@@ -86,12 +86,12 @@ describe('OpeningEntry', () => {
     const { getByLabelText, getByText, queryByText } = renderOpeningEntries(false, false, false, true)
     const appointmentOnlyIcon = getByLabelText('appointmentNecessary')
     expect(appointmentOnlyIcon).toBeDefined()
-    expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeNull()
+    expect(queryByText('places:makeAppointmentTooltipWithLink')).toBeNull()
 
     await user.press(appointmentOnlyIcon)
-    expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeDefined()
+    expect(queryByText('places:makeAppointmentTooltipWithLink')).toBeDefined()
 
     await user.press(getByText('common:close'))
-    await waitFor(() => expect(queryByText('pois:makeAppointmentTooltipWithLink')).toBeNull())
+    await waitFor(() => expect(queryByText('places:makeAppointmentTooltipWithLink')).toBeNull())
   })
 })

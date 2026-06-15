@@ -14,8 +14,8 @@ import {
   getSlugFromPath,
   REGIONS_ROUTE,
   NEWS_ROUTE,
-  POIS_ROUTE,
-  PoisRouteType,
+  PLACES_ROUTE,
+  PlacesRouteType,
   SEARCH_ROUTE,
 } from 'shared'
 import { FeedbackRouteType, LanguageModel } from 'shared/api'
@@ -86,8 +86,8 @@ const Header = ({
   const isRegions = route.name === REGIONS_ROUTE
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
-  const poisParams = route.params as RoutesParamsType[PoisRouteType] | undefined
-  const hasPoisParams = !!poisParams?.slug || poisParams?.multipoi !== undefined
+  const placesParams = route.params as RoutesParamsType[PlacesRouteType] | undefined
+  const hasPlacesParams = !!placesParams?.slug || placesParams?.multiPlace !== undefined
 
   const tabNavigationState = navigation.getParent(TAB_NAVIGATOR_ID)?.getState()
   const rootNavigationState = navigation.getParent(ROOT_NAVIGATOR_ID)?.getState()
@@ -96,7 +96,7 @@ const Header = ({
   const hasRootHistory = !!rootNavigationState && rootNavigationState.index > 0
 
   const canGoBack =
-    previousRoute !== undefined || hasRootHistory || hasTabHistory || (route.name === POIS_ROUTE && hasPoisParams)
+    previousRoute !== undefined || hasRootHistory || hasTabHistory || (route.name === PLACES_ROUTE && hasPlacesParams)
 
   const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t(route.name)
   const pageTitle = regionName !== routeTitle ? `${routeTitle} - ${regionName}` : routeTitle
@@ -119,8 +119,8 @@ const Header = ({
       case EVENTS_ROUTE:
         return (route.params as RoutesParamsType[EventsRouteType]).slug
 
-      case POIS_ROUTE:
-        return (route.params as RoutesParamsType[PoisRouteType]).slug
+      case PLACES_ROUTE:
+        return (route.params as RoutesParamsType[PlacesRouteType]).slug
 
       case CATEGORIES_ROUTE:
         return getCategorySlug((route.params as RoutesParamsType[CategoriesRouteType]).path)
@@ -183,11 +183,11 @@ const Header = ({
     />,
   ]
 
-  const isSinglePoiFromPoisRoute = (): boolean => {
-    const poisRouteParams = route.params as RoutesParamsType[PoisRouteType] | undefined
-    const isSinglePoi = !!poisRouteParams?.slug || poisRouteParams?.multipoi !== undefined
-    const notFromDeepLink = previousRoute?.name === POIS_ROUTE
-    return isSinglePoi && notFromDeepLink
+  const isSinglePlaceFromPlacesRoute = (): boolean => {
+    const placesRouteParams = route.params as RoutesParamsType[PlacesRouteType] | undefined
+    const isSinglePlace = !!placesRouteParams?.slug || placesRouteParams?.multiPlace !== undefined
+    const notFromDeepLink = previousRoute?.name === PLACES_ROUTE
+    return isSinglePlace && notFromDeepLink
   }
 
   const getHeaderTitle = (): { title: string; language?: string } => {
@@ -196,7 +196,7 @@ const Header = ({
       return { title: regionName ?? '', language: config.sourceLanguage }
     }
 
-    if (isSinglePoiFromPoisRoute()) {
+    if (isSinglePlaceFromPlacesRoute()) {
       return { title: t('locations'), language: undefined } // system language
     }
 

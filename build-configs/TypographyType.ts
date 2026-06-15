@@ -31,13 +31,7 @@ type FontStyleOptions = Partial<FontStyle> & {
 }
 
 type NormalCssProperties = CSS.Properties<number | string>
-type Fontface = CSS.AtRule.FontFace & {
-  fallbacks?: CSS.AtRule.FontFace[]
-}
-type BaseCSSProperties = NormalCssProperties & {
-  '@font-face'?: Fontface | Fontface[]
-}
-type CSSProperties = BaseCSSProperties & {
+type CSSProperties = NormalCssProperties & {
   // Allow pseudo selectors and media queries
   // `unknown` is used since TS does not allow assigning an interface without
   // an index signature to one with an index signature. This is to allow type safe

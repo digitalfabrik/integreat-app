@@ -1,10 +1,10 @@
 import {
   TransformedTranslationsType as ImportedTransformedTranslationsType,
   TranslationsType as ImportedTranslationsType,
-} from './types'
+} from './types.js'
 
 export type TranslationsType = ImportedTranslationsType
 export type TransformedTranslationsType = ImportedTransformedTranslationsType
-export { default as loadTranslations } from './loadTranslations'
-export type { UiDirectionType } from './config'
-export { default as config } from './config'
+export { default as loadTranslations } from './loadTranslations.js'
+export type { UiDirectionType } from './config.js'
+export { default as config } from './config.js'

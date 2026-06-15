@@ -14,7 +14,6 @@ const isRelativeInternalLink = (link: string): boolean => {
   // If it throws an error, it is relative and therefore an internal link
   // Might be refactored to URL.canParse() at a later point, got only implemented in 2023 in most browsers
   try {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const _ = new URL(link)
     return false
   } catch (e) {

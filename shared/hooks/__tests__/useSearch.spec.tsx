@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { DateTime } from 'luxon'
 
-import ExtendedDocumentModel from '../../api/models/ExtendedDocumentModel'
-import useMultiLanguageSearch, { useSearch } from '../useSearch'
+import ExtendedDocumentModel from '../../api/models/ExtendedDocumentModel.js'
+import useMultiLanguageSearch, { useSearch } from '../useSearch.js'
 
 describe('useSearch', () => {
   const documents = [

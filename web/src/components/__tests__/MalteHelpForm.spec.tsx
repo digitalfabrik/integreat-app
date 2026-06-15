@@ -303,7 +303,6 @@ describe('MalteHelpForm', () => {
     jest.mocked(submitMalteHelpForm).mockImplementation(() => {
       throw new Error()
     })
-    global.reportError = jest.fn()
 
     const { getByLabelText, getAllByLabelText, getByText } = renderWithRouterAndTheme(<MalteHelpForm {...props} />)
 

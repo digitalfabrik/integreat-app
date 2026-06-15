@@ -35,7 +35,7 @@ const SuggestToRegionFooter = ({ navigateToSuggestToRegion }: SuggestToRegionFoo
 
   return (
     <FooterContainer>
-      <StyledIcon Icon={SuggestToRegionIcon} />
+      <StyledIcon icon={SuggestToRegionIcon} />
       <Text variant='h5' style={{ marginTop: '5%' }}>
         {t('regionNotFound')}
       </Text>

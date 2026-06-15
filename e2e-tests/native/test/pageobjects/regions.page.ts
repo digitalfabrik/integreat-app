@@ -18,7 +18,7 @@ class RegionsPage extends Page {
   }
 
   region(name: string) {
-    const selector = $(new Selector().ByText(name).build())
+    const selector = $(new Selector().byText(name).build())
     return Gestures.checkIfDisplayedWithSwipeUp(selector, MAX_SCROLLS)
   }
 }

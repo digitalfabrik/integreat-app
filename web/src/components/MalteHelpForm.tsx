@@ -20,7 +20,7 @@ import {
   InvalidEmailError,
 } from 'shared/api'
 
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Link from './base/Link'
 import RadioGroup from './base/RadioGroup'
@@ -98,7 +98,7 @@ const MalteHelpForm = ({
       if (error instanceof InvalidEmailError) {
         setInvalidEmail(true)
       } else {
-        await reportError(error)
+        await captureError(error)
         setSendingStatus('failed')
         setSnackbarOpen(true)
       }

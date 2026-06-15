@@ -20,10 +20,10 @@ const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElem
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
   const { data: sourceLanguageData } = useLoadRegionContent({ regionCode, languageCode: config.sourceLanguage })
 
-  const userLanguageDocuments = prepareSearchDocuments(data?.categories, data?.events, data?.pois)
+  const userLanguageDocuments = prepareSearchDocuments(data?.categories, data?.events, data?.places)
   const sourceLanguageDocuments =
     languageCode !== config.sourceLanguage
-      ? prepareSearchDocuments(sourceLanguageData?.categories, sourceLanguageData?.events, sourceLanguageData?.pois)
+      ? prepareSearchDocuments(sourceLanguageData?.categories, sourceLanguageData?.events, sourceLanguageData?.places)
       : []
 
   return (

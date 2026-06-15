@@ -28,7 +28,7 @@ export const config: WebdriverIO.Config = {
 
   logLevel: 'info',
 
-  baseUrl: 'http://localhost:9000',
+  baseUrl: 'http://localhost:9001',
 
   specFileRetries: 2,
   bail: 1,

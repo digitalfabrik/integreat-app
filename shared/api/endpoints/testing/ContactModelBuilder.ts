@@ -1,4 +1,4 @@
-import ContactModel from '../../models/ContactModel'
+import ContactModel from '../../models/ContactModel.js'
 
 const name = 'Maria Musterfrau'
 const areaOfResponsibility = 'Bürgeramt'

@@ -5,14 +5,14 @@ import {
   EVENTS_ROUTE,
   NEWS_ROUTE,
   pathnameFromRouteInformation,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   REGIONS_ROUTE,
   LOCAL_NEWS_TYPE,
   TU_NEWS_TYPE,
 } from 'shared'
 import { fromError, NotFoundError } from 'shared/api'
 
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import Failure from './Failure'
 
 type FailureSwitcherProps = {
@@ -21,7 +21,7 @@ type FailureSwitcherProps = {
 
 const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
   useEffect(() => {
-    reportError(error)
+    captureError(error)
   }, [error])
 
   const getFailureProps = (error: Error): { goToPath?: string; goToMessage?: string; errorMessage: string } => {
@@ -51,11 +51,11 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
             goToMessage: 'goTo.news',
             errorMessage: 'notFound.news',
           }
-        case 'poi':
+        case 'place':
           return {
-            goToPath: pathnameFromRouteInformation({ route: POIS_ROUTE, ...params }),
-            goToMessage: 'goTo.pois',
-            errorMessage: 'notFound.poi',
+            goToPath: pathnameFromRouteInformation({ route: PLACES_ROUTE, ...params }),
+            goToMessage: 'goTo.places',
+            errorMessage: 'notFound.place',
           }
         case 'region':
           return {

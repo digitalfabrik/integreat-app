@@ -3589,14 +3589,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@integreat-app/react-sticky-headroom@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@integreat-app/react-sticky-headroom@npm:3.0.1"
+"@integreat-app/react-sticky-headroom@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@integreat-app/react-sticky-headroom@npm:3.0.2"
   peerDependencies:
     "@emotion/react": 11.x.x
     "@emotion/styled": 11.x.x
     react: 16.x.x || 17.x.x || 18.x.x || 19.x.x
-  checksum: 10c0/afb51cb3f08bf9e3723e680c03a65e80a375d3fc9ddbf52c88eb9a1085eedf4fe70a4e9249146de4618f82caa5e9ee62fd1a69edbde9a66d978608ea97f1560c
+  checksum: 10c0/04b22e631b0b31dc0ef3a1c30cfb4ac2c43f27721c5115de5ee95f29fdf3545a1c3726b17d610d5ffdea257003b612008534852131b00f05e8a48ea4ddb8d997
   languageName: node
   linkType: hard
 
@@ -7303,7 +7303,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.17.24":
+"@types/lodash-es@npm:^4.17.12":
+  version: 4.17.12
+  resolution: "@types/lodash-es@npm:4.17.12"
+  dependencies:
+    "@types/lodash": "npm:*"
+  checksum: 10c0/5d12d2cede07f07ab067541371ed1b838a33edb3c35cb81b73284e93c6fd0c4bbeaefee984e69294bffb53f62d7272c5d679fdba8e595ff71e11d00f2601dde0
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*, @types/lodash@npm:^4.17.24":
   version: 4.17.24
   resolution: "@types/lodash@npm:4.17.24"
   checksum: 10c0/b72f60d4daacdad1fa643edb3faba204c02a01eb1ac00a83ff73496a6d236fc55e459c06106e8ced42277dba932d087d8fc090f8de4ef590d3f91e6d6f7ce85a
@@ -16900,7 +16909,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash-es@npm:^4.17.21":
+"lodash-es@npm:^4.17.21, lodash-es@npm:^4.17.23":
   version: 4.18.1
   resolution: "lodash-es@npm:4.18.1"
   checksum: 10c0/35d4dcf87ef07f8d090f409447575800108057e360b445f590d0d25d09e3d1e33a163d2fc100d4d072b0f901d5e2fc533cd7c4bfd8eeb38a06abec693823c8b8
@@ -19513,6 +19522,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"qr@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "qr@npm:0.6.0"
+  checksum: 10c0/ab23397fb4e0f8d2034af838f4b13b7c02ac0defd449a5963a1753c22c6da168837bf693120fef0daef5e93dca432cac5543561ce307b2dab875e0a859935ee7
+  languageName: node
+  linkType: hard
+
 "qs@npm:^6.14.0, qs@npm:^6.14.1":
   version: 6.15.0
   resolution: "qs@npm:6.15.0"
@@ -20181,9 +20197,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router@npm:^7.13.2":
-  version: 7.14.0
-  resolution: "react-router@npm:7.14.0"
+"react-router@npm:^7.15.0":
+  version: 7.15.0
+  resolution: "react-router@npm:7.15.0"
   dependencies:
     cookie: "npm:^1.0.1"
     set-cookie-parser: "npm:^2.6.0"
@@ -20193,7 +20209,7 @@ __metadata:
   peerDependenciesMeta:
     react-dom:
       optional: true
-  checksum: 10c0/a496489973cd5e87dcc5c1c7312f4cc99463eb5e0a0f97b3f298467531b754a3227562a83e0c9019b9d2452fd0681d05882ee061af2e0cafb0818f857578b805
+  checksum: 10c0/ce27ff25a0a53afec7f24385be89b779efd9f04d84c5b90c6a8f3fbbac28fc2f8c5f1bb26aff0588d41a225482365997082808f9e098c565435fad09426de114
   languageName: node
   linkType: hard
 
@@ -21334,6 +21350,7 @@ __metadata:
     luxon: "npm:^3.7.2"
     minisearch: "npm:^7.2.0"
     normalize-path: "npm:^3.0.0"
+    qr: "npm:^0.6.0"
     react: "npm:19.2.3"
     rrule: "npm:2.8.1"
     seedrandom: "npm:^3.0.5"
@@ -22774,12 +22791,12 @@ __metadata:
   resolution: "translations@workspace:translations"
   dependencies:
     "@types/flat": "npm:^5.0.5"
-    "@types/lodash": "npm:^4.17.24"
+    "@types/lodash-es": "npm:^4.17.12"
     csv-parse: "npm:^6.2.1"
     csv-stringify: "npm:^6.7.0"
     deepmerge-ts: "npm:^7.1.5"
     flat: "npm:^5.0.2"
-    lodash: "npm:^4.17.23"
+    lodash-es: "npm:^4.17.23"
     tsx: "npm:^4.21.0"
   languageName: unknown
   linkType: soft
@@ -23778,7 +23795,7 @@ __metadata:
     "@emotion/is-prop-valid": "npm:^1.4.0"
     "@emotion/react": "npm:^11.14.0"
     "@emotion/styled": "npm:^11.14.1"
-    "@integreat-app/react-sticky-headroom": "npm:^3.0.1"
+    "@integreat-app/react-sticky-headroom": "npm:^3.0.2"
     "@math.gl/web-mercator": "npm:^4.1.0"
     "@mui/icons-material": "npm:^7.3.9"
     "@mui/material": "npm:^7.3.9"
@@ -23827,7 +23844,7 @@ __metadata:
     react-map-gl: "npm:^8.1.0"
     react-refresh: "npm:^0.18.0"
     react-refresh-typescript: "npm:^2.0.12"
-    react-router: "npm:^7.13.2"
+    react-router: "npm:^7.15.0"
     react-spring-bottom-sheet: "npm:^3.4.1"
     react-svg: "npm:^17.2.4"
     schema-dts: "npm:^2.0.0"

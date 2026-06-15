@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon'
 
-import Endpoint from '../Endpoint'
-import EndpointBuilder from '../EndpointBuilder'
-import { API_VERSION } from '../constants'
-import mapCategoryJson from '../mapping/mapCategoryJson'
-import CategoriesMapModel from '../models/CategoriesMapModel'
-import CategoryModel from '../models/CategoryModel'
-import { JsonCategoryType } from '../types'
+import Endpoint from '../Endpoint.js'
+import EndpointBuilder from '../EndpointBuilder.js'
+import { API_VERSION } from '../constants/index.js'
+import mapCategoryJson from '../mapping/mapCategoryJson.js'
+import CategoriesMapModel from '../models/CategoriesMapModel.js'
+import CategoryModel from '../models/CategoryModel.js'
+import { JsonCategoryType } from '../types.js'
 
 export const CATEGORIES_ENDPOINT_NAME = 'categories'
 type ParamsType = {

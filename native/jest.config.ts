@@ -15,6 +15,8 @@ const transformNodeModules = [
   '@dr.pogodin/react-native-static-server',
   '@gorhom/bottom-sheet',
   '@mhpdev/react-native-speech',
+  'uuid',
+  'qr',
 ]
 process.env.TZ = 'Europe/Berlin'
 export default {
@@ -25,7 +27,6 @@ export default {
   automock: false,
   moduleNameMapper: {
     '\\.svg': '<rootDir>/src/__mocks__/svgrMock.ts',
-    uuid: require.resolve('uuid'),
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transform: {

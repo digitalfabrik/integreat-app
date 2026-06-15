@@ -1,5 +1,5 @@
-import LanguageModelBuilder from '../../endpoints/testing/LanguageModelBuilder'
-import RegionModel from '../RegionModel'
+import LanguageModelBuilder from '../../endpoints/testing/LanguageModelBuilder.js'
+import RegionModel from '../RegionModel.js'
 
 describe('RegionModel', () => {
   const regions = [
@@ -9,7 +9,7 @@ describe('RegionModel', () => {
       live: true,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: false,
-      poisEnabled: false,
+      placesEnabled: false,
       localNewsEnabled: false,
       tuNewsEnabled: false,
       sortingName: 'Region',

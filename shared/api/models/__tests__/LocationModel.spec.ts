@@ -1,4 +1,4 @@
-import LocationModel from '../LocationModel'
+import LocationModel from '../LocationModel.js'
 
 describe('LocationModel', () => {
   it('should return full address', () => {

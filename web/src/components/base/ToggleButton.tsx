@@ -38,11 +38,14 @@ type ToggleButtonProps = {
   className?: string
 }
 
-const ToggleButton = ({ text, onClick, className, value, icon: Icon, active }: ToggleButtonProps): ReactElement => (
-  <StyledButton color='primary' value={value} selected={active} onChange={onClick} className={className}>
-    {typeof Icon === 'string' ? <Svg src={Icon} width={40} height={40} /> : <Icon fontSize='large' />}
-    <Typography variant='body3'>{text}</Typography>
-  </StyledButton>
-)
+const ToggleButton = ({ text, onClick, className, value, icon, active }: ToggleButtonProps): ReactElement => {
+  const Icon = icon
+  return (
+    <StyledButton color='primary' value={value} selected={active} onChange={onClick} className={className}>
+      {typeof Icon === 'string' ? <Svg src={Icon} width={40} height={40} /> : <Icon fontSize='large' />}
+      <Typography variant='body3'>{text}</Typography>
+    </StyledButton>
+  )
+}
 
 export default ToggleButton

@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
-import { POIS_ROUTE } from 'shared'
+import { PLACES_ROUTE } from 'shared'
 import { CategoryModel, RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
@@ -14,7 +14,7 @@ import Layout from './Layout'
 import RegionContentHeader from './RegionContentHeader'
 
 export type RegionContentLayoutProps = {
-  Toolbar?: ReactElement | null
+  toolbar?: ReactElement | null
   children?: ReactNode
   languageChangePaths: LanguageChangePath[] | null
   isLoading: boolean
@@ -32,14 +32,14 @@ const RegionContentLayout = ({
   languageCode,
   languageChangePaths,
   isLoading,
-  Toolbar,
+  toolbar,
   fitScreen = false,
   pageTitle,
 }: RegionContentLayoutProps): ReactElement => {
   const { route } = useRegionContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
   const { desktop, mobile } = useDimensions()
-  const isChatEnabled = buildConfig().featureFlags.chat && route !== POIS_ROUTE && region.chatEnabled
+  const isChatEnabled = buildConfig().featureFlags.chat && route !== PLACES_ROUTE && region.chatEnabled
   const footerVisible = !isLoading && desktop && !fitScreen
   const chatVisible = isChatEnabled && layoutReady
 
@@ -68,7 +68,7 @@ const RegionContentLayout = ({
           {mobile && <BottomNavigation regionModel={region} languageCode={languageCode} />}
         </>
       }
-      toolbar={desktop ? Toolbar : null}>
+      toolbar={desktop ? toolbar : null}>
       {children}
     </Layout>
   )

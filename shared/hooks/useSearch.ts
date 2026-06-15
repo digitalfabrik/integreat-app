@@ -1,12 +1,12 @@
 import MiniSearch, { SearchResult } from 'minisearch'
 import { useEffect, useState } from 'react'
 
-import CategoriesMapModel from '../api/models/CategoriesMapModel'
-import EventModel from '../api/models/EventModel'
-import ExtendedDocumentModel from '../api/models/ExtendedDocumentModel'
-import PoiModel from '../api/models/PoiModel'
-import normalizeString from '../utils/normalizeString'
-import parseHTML from '../utils/parseHTML'
+import CategoriesMapModel from '../api/models/CategoriesMapModel.js'
+import EventModel from '../api/models/EventModel.js'
+import ExtendedDocumentModel from '../api/models/ExtendedDocumentModel.js'
+import PlaceModel from '../api/models/PlaceModel.js'
+import normalizeString from '../utils/normalizeString.js'
+import parseHTML from '../utils/parseHTML.js'
 
 const removeDuplicatedPaths = (documents: ExtendedDocumentModel[]) => {
   const paths = new Set()
@@ -22,11 +22,11 @@ const removeDuplicatedPaths = (documents: ExtendedDocumentModel[]) => {
 export const prepareSearchDocuments = (
   categories?: CategoriesMapModel | null,
   events?: EventModel[] | null,
-  pois?: PoiModel[] | null,
+  places?: PlaceModel[] | null,
 ): ExtendedDocumentModel[] => [
   ...(categories?.toArray().filter(category => !category.isRoot()) || []),
   ...(events || []),
-  ...(pois || []),
+  ...(places || []),
 ]
 
 const normalizeContent = (term: string) => normalizeString(parseHTML(term))

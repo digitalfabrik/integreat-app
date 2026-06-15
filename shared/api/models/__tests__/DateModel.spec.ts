@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
-import DateModel from '../DateModel'
+import DateModel from '../DateModel.js'
 
 jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
 
@@ -887,7 +887,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: '3. September 2025',
         weekday: undefined,
-        time: 'pois:allDay',
+        time: 'places:allDay',
       })
     })
 
@@ -951,7 +951,7 @@ describe('DateModel', () => {
       expect(date.formatEventDate(locale, t)).toStrictEqual({
         date: '18. August 2025 - 29. August 2025',
         weekday: undefined,
-        time: 'pois:allDay',
+        time: 'places:allDay',
       })
     })
 

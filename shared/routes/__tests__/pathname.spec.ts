@@ -5,12 +5,11 @@ import {
   REGIONS_ROUTE,
   LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
-  POIS_ROUTE,
+  PLACES_ROUTE,
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
-} from '..'
-
-import { regionContentPath, pathnameFromRouteInformation } from '../pathname'
+} from '../index.js'
+import { regionContentPath, pathnameFromRouteInformation } from '../pathname.js'
 
 describe('pathname', () => {
   const regionCode = 'augsburg'
@@ -97,22 +96,22 @@ describe('pathname', () => {
       ).toBe(pathname)
     })
 
-    it('should match pois route', () => {
+    it('should match places route', () => {
       expect(
         pathnameFromRouteInformation({
-          route: POIS_ROUTE,
+          route: PLACES_ROUTE,
           languageCode,
           regionCode,
         }),
-      ).toBe(`/${regionCode}/${languageCode}/${POIS_ROUTE}`)
+      ).toBe(`/${regionCode}/${languageCode}/${PLACES_ROUTE}`)
     })
 
-    it('should match single pois route', () => {
+    it('should match single places route', () => {
       const slug = 'tuer-an-tuer'
-      const pathname = `/${regionCode}/${languageCode}/${POIS_ROUTE}/${slug}`
+      const pathname = `/${regionCode}/${languageCode}/${PLACES_ROUTE}/${slug}`
       expect(
         pathnameFromRouteInformation({
-          route: POIS_ROUTE,
+          route: PLACES_ROUTE,
           languageCode,
           regionCode,
           slug,

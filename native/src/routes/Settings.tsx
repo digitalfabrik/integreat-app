@@ -3,16 +3,18 @@ import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
 import { Divider } from 'react-native-paper'
 
-import { SettingsRouteType } from 'shared'
+import { REGIONS_ROUTE, SettingsRouteType } from 'shared'
 
 import Caption from '../components/Caption'
-import Layout from '../components/Layout'
+import LayoutedScrollView from '../components/LayoutedScrollView'
 import SettingItem from '../components/SettingItem'
+import SwitchCmsUrlButton from '../components/SwitchCmsUrlButton'
 import { NavigationProps } from '../constants/NavigationTypes'
 import { useAppContext } from '../hooks/useRegionAppContext'
 import useSnackbar from '../hooks/useSnackbar'
+import dataContainer from '../utils/DefaultDataContainer'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
-import { log, reportError } from '../utils/sentry'
+import { log, captureError } from '../utils/sentry'
 
 type SettingsProps = {
   navigation: NavigationProps<SettingsRouteType>
@@ -24,13 +26,19 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const { t } = useTranslation('settings')
   const { settings } = appContext
 
+  const clearResourcesAndCache = () => {
+    dataContainer.clearInMemoryCache()
+    dataContainer._clearOfflineCache().catch(captureError)
+    navigation.reset({ index: 0, routes: [{ name: REGIONS_ROUTE }] })
+  }
+
   const safeOnPress = (update: () => Promise<void> | void) => async () => {
     const oldSettings = settings
     try {
       await update()
     } catch (e) {
       log('Failed to persist settings.', { level: 'error' })
-      reportError(e)
+      captureError(e)
       appContext.updateSettings(oldSettings)
       showSnackbar({ text: t('error:settingsError') })
     }
@@ -42,13 +50,18 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
     return <SettingItem value={value} key={otherProps.title} onPress={safeOnPress(onPress)} {...otherProps} />
   }
 
-  const sections = createSettingsSections({ appContext, navigation, showSnackbar, t }).filter(
-    (it): it is SettingsSectionType => it !== null,
-  )
+  const sections = createSettingsSections({
+    appContext,
+    navigation,
+    showSnackbar,
+    t,
+    clearResourcesAndCache,
+  }).filter((it): it is SettingsSectionType => it !== null)
 
   return (
-    <Layout>
+    <LayoutedScrollView>
       <Caption title={t('layout:settings')} />
+      <SwitchCmsUrlButton clearResourcesAndCache={clearResourcesAndCache} />
       <Divider />
       <FlatList
         data={sections}
@@ -56,8 +69,10 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
         renderItem={renderItem}
         ItemSeparatorComponent={Divider}
         ListFooterComponent={Divider}
+        // Fixes VirtualizedList should never be nested inside plain ScrollViews
+        scrollEnabled={false}
       />
-    </Layout>
+    </LayoutedScrollView>
   )
 }
 

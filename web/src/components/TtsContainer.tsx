@@ -5,6 +5,7 @@ import React, { ReactElement, useCallback, useMemo, useRef, useState } from 'rea
 import { useTranslation } from 'react-i18next'
 
 import { TtsContext, TtsContextType } from '../contexts/TtsContext'
+import { captureError } from '../utils/sentry'
 import { getTtsVoice, isTtsCancelError, ttsInitialized } from '../utils/tts'
 import LoadingSpinner from './LoadingSpinner'
 import TtsHelp from './TtsHelp'
@@ -104,15 +105,15 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
             }
           },
         })
-      } catch (e) {
+      } catch (error) {
         // Chrome and Safari throw an interrupted/canceled error event on cancel instead of emitting an end event
-        if (isTtsCancelError(e)) {
+        if (isTtsCancelError(error)) {
           if (afterStopRef.current) {
             afterStopRef.current()
             afterStopRef.current = null
           }
         } else {
-          reportError(e)
+          captureError(error)
         }
       }
     },

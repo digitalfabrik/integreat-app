@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "module": "commonjs",
+    "module": "NodeNext",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "resolveJsonModule": true,
-    "target": "es2020"
+    "target": "es2022"
   },
   "files": ["webpack.config.ts"]
 }

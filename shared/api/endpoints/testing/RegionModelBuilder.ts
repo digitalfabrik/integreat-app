@@ -1,5 +1,5 @@
-import RegionModel from '../../models/RegionModel'
-import LanguageModelBuilder from './LanguageModelBuilder'
+import RegionModel from '../../models/RegionModel.js'
+import LanguageModelBuilder from './LanguageModelBuilder.js'
 
 const languages = new LanguageModelBuilder(3).build()
 
@@ -10,7 +10,7 @@ const regions = [
     live: true,
     languages,
     eventsEnabled: true,
-    poisEnabled: true,
+    placesEnabled: true,
     localNewsEnabled: true,
     tuNewsEnabled: true,
     sortingName: 'Augsburg',
@@ -33,7 +33,7 @@ const regions = [
     live: false,
     languages,
     eventsEnabled: true,
-    poisEnabled: false,
+    placesEnabled: false,
     localNewsEnabled: false,
     tuNewsEnabled: false,
     sortingName: 'Oldtown',
@@ -56,7 +56,7 @@ const regions = [
     live: true,
     languages,
     eventsEnabled: false,
-    poisEnabled: true,
+    placesEnabled: true,
     localNewsEnabled: false,
     tuNewsEnabled: false,
     sortingName: 'Region',
@@ -74,7 +74,7 @@ const regions = [
     live: true,
     languages,
     eventsEnabled: false,
-    poisEnabled: false,
+    placesEnabled: false,
     localNewsEnabled: false,
     tuNewsEnabled: false,
     sortingName: 'OtherRegion',
@@ -92,7 +92,7 @@ const regions = [
     live: false,
     languages,
     eventsEnabled: false,
-    poisEnabled: true,
+    placesEnabled: true,
     localNewsEnabled: false,
     tuNewsEnabled: false,
     sortingName: 'Nonlive',
@@ -110,7 +110,7 @@ const regions = [
     live: true,
     languages,
     eventsEnabled: false,
-    poisEnabled: false,
+    placesEnabled: false,
     localNewsEnabled: false,
     tuNewsEnabled: false,
     sortingName: 'Yetanotherregion',

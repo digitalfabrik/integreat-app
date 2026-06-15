@@ -25,10 +25,10 @@ const renderJS = (
   deviceWidth: number,
   pageContainerPadding: number,
 ) => `
-  function reportError(message, type) {
+  function captureError(message, type) {
     if (!window.ReactNativeWebView) {
       return window.setTimeout(function () {
-        reportError(message, type)
+        captureError(message, type)
       }, 100)
     }
 
@@ -40,7 +40,7 @@ const renderJS = (
       const string = msg.toLowerCase()
       const substring = 'script error'
       if (string.indexOf(substring) > -1) {
-        reportError(
+        captureError(
           'Script Error: See Browser Console for Detail: ' + msg + JSON.stringify(error),
           '${ERROR_MESSAGE_TYPE}',
         )
@@ -52,7 +52,7 @@ const renderJS = (
           'Column: ' + columnNo,
           'Error object: ' + JSON.stringify(error)
         ].join(' - ')
-        reportError(message, '${ERROR_MESSAGE_TYPE}')
+        captureError(message, '${ERROR_MESSAGE_TYPE}')
       }
       return false
     }
@@ -70,7 +70,7 @@ const renderJS = (
           item.src = newResource
         }
       } catch (e) {
-        reportError(
+        captureError(
           e.message + 'occurred while decoding and looking for ' + item.src + ' in the dictionary',
           '${WARNING_MESSAGE_TYPE}',
         )

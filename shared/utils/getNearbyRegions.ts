@@ -1,7 +1,7 @@
 import distance from '@turf/distance'
 
-import RegionModel from '../api/models/RegionModel'
-import { LocationType } from '../constants/maps'
+import RegionModel from '../api/models/RegionModel.js'
+import { LocationType } from '../constants/map.js'
 
 const NUMBER_OF_CLOSEST_REGIONS = 3
 const MAXIMAL_DISTANCE = 90

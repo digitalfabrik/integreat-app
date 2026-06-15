@@ -1,4 +1,4 @@
-import { FontsType, commonFonts } from '../../common/theme/fonts'
+import { FontsType, commonFonts } from '../../common/theme/fonts.js'
 
 const fonts: FontsType = {
   native: {

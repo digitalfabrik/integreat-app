@@ -4,6 +4,7 @@
   "description": "Translations for the integreat frontend projects",
   "main": "src/index.ts",
   "private": true,
+  "type": "module",
   "scripts": {
     "manage": "tsx tools/manage.ts",
     "export:ods:translations": "yarn manage convert translations.json translations-csv csv && ./tools/csv-to-ods translations-csv translations-ods && rm -rf translations-csv",
@@ -17,16 +18,29 @@
     "ts:check": "tsc --build",
     "check-circular-dependencies": "yarn run -T check-circular-dependencies"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/src/index.js",
+      "default": "./dist/src/index.js",
+      "types": "./dist/src/index.d.ts"
+    },
+    "./*.json": "./dist/*.json",
+    "./*": {
+      "import": "./dist/*.js",
+      "default": "./dist/*.js",
+      "types": "./dist/*.d.ts"
+    }
+  },
   "dependencies": {
     "deepmerge-ts": "^7.1.5"
   },
   "devDependencies": {
     "@types/flat": "^5.0.5",
-    "@types/lodash": "^4.17.24",
+    "@types/lodash-es": "^4.17.12",
     "csv-parse": "^6.2.1",
     "csv-stringify": "^6.7.0",
     "flat": "^5.0.2",
-    "lodash": "^4.17.23",
+    "lodash-es": "^4.17.23",
     "tsx": "^4.21.0"
   }
 }

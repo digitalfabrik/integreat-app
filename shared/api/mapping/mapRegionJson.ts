@@ -1,6 +1,6 @@
-import LanguageModel from '../models/LanguageModel'
-import RegionModel from '../models/RegionModel'
-import { JsonRegionType, JsonLanguageType } from '../types'
+import LanguageModel from '../models/LanguageModel.js'
+import RegionModel from '../models/RegionModel.js'
+import { JsonRegionType, JsonLanguageType } from '../types.js'
 
 const stripSlashes = (path: string): string => {
   let code = path
@@ -27,7 +27,7 @@ const mapRegionJson = (json: JsonRegionType): RegionModel =>
     live: json.live,
     languages: mapLanguagesJson(json.languages),
     eventsEnabled: json.events,
-    poisEnabled: json.pois,
+    placesEnabled: json.pois,
     tuNewsEnabled: json.tunews,
     localNewsEnabled: json.push_notifications,
     sortingName: json.name_without_prefix,

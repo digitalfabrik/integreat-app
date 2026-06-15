@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon'
 
-import { LocationModel } from '../../api'
-import DateModel from '../../api/models/DateModel'
-import EventModel from '../../api/models/EventModel'
-import filteringEventsLogic from '../filteringEventsLogic'
+import { LocationModel } from '../../api/index.js'
+import DateModel from '../../api/models/DateModel.js'
+import EventModel from '../../api/models/EventModel.js'
+import filteringEventsLogic from '../filteringEventsLogic.js'
 
 const EventModalDummyData = {
   content: '<h1>Event Content</h1>',
@@ -23,7 +23,7 @@ const EventModalDummyData = {
   availableLanguages: {},
   lastUpdate: DateTime.fromISO('2024-11-07T00:00:00.000'),
   featuredImage: null,
-  poiPath: '/test/location/path',
+  placePath: '/test/location/path',
 }
 
 jest.useFakeTimers({ now: new Date('2024-11-07T00:00:00.000') })

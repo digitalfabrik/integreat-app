@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
-import { DateModel, EventModel, FeaturedImageModel, LocationModel } from '../..'
-import { API_VERSION } from '../../constants'
-import { JsonEventType } from '../../types'
-import createEventsEndpoint from '../createEventsEndpoint'
+import { API_VERSION } from '../../constants/index.js'
+import { DateModel, EventModel, FeaturedImageModel, LocationModel } from '../../index.js'
+import { JsonEventType } from '../../types.js'
+import createEventsEndpoint from '../createEventsEndpoint.js'
 
 jest.useFakeTimers({ now: new Date('2023-10-02T15:23:57.443+02:00') })
 describe('events', () => {
@@ -125,7 +125,7 @@ describe('events', () => {
           height: 500,
         },
       }),
-      poiPath: '/testumgebung/de/locations/testort/',
+      placePath: '/testumgebung/de/locations/testort/',
     })
 
   const event1 = createEvent(false, '2016-01-31T10:00:00+01:00', '2016-01-31T13:00:00+01:00')

@@ -24,7 +24,7 @@ export type JsonOpeningHoursType = {
   appointmentOnly: boolean
 }
 
-export type JsonPoiCategoryType = {
+export type JsonPlaceCategoryType = {
   id: number
   name: string
   color: string
@@ -106,7 +106,7 @@ type JsonContactType = {
   opening_hours?: JsonOpeningHoursType[] | null
 }
 
-export type JsonPoiType = {
+export type JsonPlaceType = {
   id: number
   url: string
   path: string
@@ -121,7 +121,7 @@ export type JsonPoiType = {
   temporarily_closed: boolean
   opening_hours: JsonOpeningHoursType[] | null
   appointment_url: string | null
-  category: JsonPoiCategoryType
+  category: JsonPlaceCategoryType
   contacts: JsonContactType[]
   organization: OrganizationType
   barrier_free: boolean | null
@@ -163,6 +163,7 @@ export type JsonLocalNewsType = {
 }
 
 export type JsonOfferPostType = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   'zammad-url': string | undefined
 }
 

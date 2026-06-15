@@ -2,6 +2,7 @@
   "name": "integreat-app",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "workspaces": [
     "native",
     "web",

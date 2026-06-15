@@ -1,4 +1,4 @@
-import { parseLicenses } from '../licences'
+import { parseLicenses } from '../licences.js'
 
 describe('parseLicenses', () => {
   it('should return empty array for empty input', () => {
