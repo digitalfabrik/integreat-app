@@ -53,6 +53,11 @@ const SearchInput = ({
       value={filterText}
       helperText={description}
       onChange={event => onFilterTextChange(event.target.value)}
+      onKeyDown={event => {
+        if (event.key === 'Enter') {
+          ;(event.target as HTMLInputElement).blur()
+        }
+      }}
       onClick={onClickInput}
       autoFocus={autoFocus}
       slotProps={{
