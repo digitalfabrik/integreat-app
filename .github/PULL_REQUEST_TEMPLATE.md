@@ -13,7 +13,15 @@
 
 <!-- List all related components that have not been explicitly changed but may be affected by this PR -->
 
--
+N/A
+
+### Checklist
+
+- [ ] Followed the [contributing guidelines](../docs/contributing.md) and [conventions](../docs/conventions.md)
+- [ ] Considered accessibility impacts and made the necessary adjustments
+- [ ] Added or updated unit tests (if applicable)
+- [ ] Added or updated documentation (if applicable)
+- [ ] Added a [release note](../release-notes) for native (if [applicable](../docs/contributing.md#release-notes))
 
 ### Testing
 
