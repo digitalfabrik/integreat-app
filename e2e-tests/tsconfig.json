@@ -9,5 +9,7 @@
     "sourceMap": false,
     "outDir": "dist"
   },
-  "include": ["web", "native", "shared"]
+  "include": [
+    "src",
+  ]
 }
