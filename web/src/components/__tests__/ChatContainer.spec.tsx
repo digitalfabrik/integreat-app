@@ -7,6 +7,7 @@ import { RegionModelBuilder } from 'shared/api'
 import { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../../testing/render'
+import { chatSeenMessagesKey } from '../../utils/chat'
 import ChatContainer from '../ChatContainer'
 
 jest.mock('react-i18next', () => ({
@@ -19,7 +20,6 @@ jest.mock('react-i18next', () => ({
 jest.mock('../../hooks/useQueryFromEndpoint')
 
 describe('ChatContainer', () => {
-  mockUseQueryFromEndpointWithData({ messages: [], botTyping: false })
   const routePattern = '/:regionCode/:languageCode'
   const region = new RegionModelBuilder(1).build()[0]!
   const pathname = `/${region.code}/de`
@@ -29,6 +29,7 @@ describe('ChatContainer', () => {
   ]
 
   beforeEach(() => {
+    mockUseQueryFromEndpointWithData({ messages: [], botTyping: false })
     localStorage.setItem(CHAT_PRIVACY_POLICIES_STORAGE_KEY, JSON.stringify({ [region.code]: true }))
   })
 
@@ -97,6 +98,28 @@ describe('ChatContainer', () => {
     expect(getByText('chat:conversationText')).toBeTruthy()
     expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
     expect(router.state.location.search).toBe('?chat=true&test=asdf')
+  })
+
+  it('should show only incoming messages in the unread badge', () => {
+    localStorage.setItem(chatSeenMessagesKey(region.code), '0')
+    mockUseQueryFromEndpointWithData({
+      messages: [
+        { userIsAuthor: true, content: 'my message' },
+        { userIsAuthor: false, content: 'bot answer' },
+        { userIsAuthor: false, content: 'another bot answer' },
+      ],
+      botTyping: false,
+    })
+
+    const { getByText } = renderRoute(
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+      },
+    )
+
+    expect(getByText('2')).toBeTruthy()
   })
 
   it('should correctly update query params', () => {
