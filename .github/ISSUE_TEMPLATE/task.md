@@ -17,10 +17,16 @@ type: Task
 
 <!-- A clear and concise description of any alternative solutions or features you've considered. -->
 
+N/A
+
 ### Related Issues
 
 <!-- Link all related issues which are e.g. CMS issues or otherwise related, blocking, duplicating issues, ... -->
 
+N/A
+
 ### Additional Information
 
 <!-- Add any other context (e.g. logs, screenshots, environment, related issues etc.) about the problem here. -->
+
+N/A

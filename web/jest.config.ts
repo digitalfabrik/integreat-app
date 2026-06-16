@@ -1,8 +1,6 @@
 /** @jest-config-loader ts-node */
 import { type JestConfigWithTsJest, createDefaultEsmPreset } from 'ts-jest'
 
-import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
-
 const transformNodeModules = ['shared', 'build-configs', 'translations', 'qr']
 process.env.TZ = 'Europe/Berlin'
 const config: JestConfigWithTsJest = {
@@ -27,7 +25,7 @@ const config: JestConfigWithTsJest = {
   testEnvironment: 'jsdom',
   globals: {
     __BUILD_CONFIG_NAME__: 'integreat-test-cms',
-    __BUILD_CONFIG__: webIntegreatTestCmsBuildConfig,
+    // __BUILD_CONFIG__ is set in jest.setup.ts because importing the (ESM-only) build-configs package here would break ts-node.
     __VERSION_NAME__: '0.0.0',
     __COMMIT_SHA__: 123456789,
   },
