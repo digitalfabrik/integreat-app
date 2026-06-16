@@ -6,6 +6,10 @@ import * as path from 'node:path'
 import { TextDecoder, TextEncoder } from 'node:util'
 import 'raf/polyfill'
 
+import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
+
+Object.assign(globalThis, { __BUILD_CONFIG__: webIntegreatTestCmsBuildConfig })
+
 // Fixes Type error "Type 'Mock<UnknownFunction>' is not assignable to type 'typeof ResizeObserver'"
 window.ResizeObserver = jest.fn().mockImplementation(() => ({
   disconnect: jest.fn(),
