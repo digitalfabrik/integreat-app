@@ -1,5 +1,5 @@
-import findNormalizedMatches from '../findNormalizedMatches'
-import normalizeString from '../normalizeString'
+import findNormalizedMatches from '../findNormalizedMatches.js'
+import normalizeString from '../normalizeString.js'
 
 describe('findNormalizedMatches', () => {
   const sanitize = normalizeString

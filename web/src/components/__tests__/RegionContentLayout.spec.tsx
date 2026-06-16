@@ -25,11 +25,11 @@ describe('RegionContentLayout', () => {
   ]
 
   const MockNode = () => <div />
-  const renderRegionContentLayout = (isLoading: boolean, Toolbar?: ReactElement): RenderResult =>
+  const renderRegionContentLayout = (isLoading: boolean, toolbar?: ReactElement): RenderResult =>
     renderAllRoutes('/augsburg/de', {
       RegionContentElement: (
         <RegionContentLayout
-          Toolbar={Toolbar}
+          toolbar={toolbar}
           region={regionModel}
           languageCode={language}
           languageChangePaths={languageChangePaths}

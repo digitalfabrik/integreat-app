@@ -2,7 +2,7 @@ import StaticServer from '@dr.pogodin/react-native-static-server'
 import React, { createContext, ReactElement, ReactNode, useEffect, useState } from 'react'
 
 import { RESOURCE_CACHE_DIR_PATH } from '../constants/database'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 
 type StaticServerProps = {
   children: ReactNode
@@ -18,7 +18,7 @@ const StaticServerProvider = ({ children }: StaticServerProps): ReactElement | n
   const [resourceCacheUrl, setResourceCacheUrl] = useState<string | null>(null)
 
   useEffect(() => {
-    staticServer.start().then(setResourceCacheUrl).catch(reportError)
+    staticServer.start().then(setResourceCacheUrl).catch(captureError)
 
     return () => {
       staticServer.stop()

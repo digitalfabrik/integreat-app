@@ -1,4 +1,4 @@
-import getExcerpt, { truncate } from '../getExcerpt'
+import getExcerpt, { truncate } from '../getExcerpt.js'
 
 describe('truncate', () => {
   const TEST_CUTOFF = 10

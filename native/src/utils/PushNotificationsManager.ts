@@ -17,7 +17,7 @@ import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NonNullableRouteInformationType, RouteInfo
 import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContext'
 import { useAppContext } from '../hooks/useRegionAppContext'
-import { log, reportError } from './sentry'
+import { log, captureError } from './sentry'
 
 type UpdateSettingsType = (settings: { allowPushNotifications: boolean }) => void
 
@@ -53,7 +53,7 @@ export const unsubscribeNews = async (region: string, language: string): Promise
     await unsubscribeFromTopic(getMessaging(), topic)
     log(`Unsubscribed from ${topic} topic!`)
   } catch (e) {
-    reportError(e)
+    captureError(e)
   }
 }
 
@@ -81,7 +81,7 @@ export const subscribeNews = async ({
     await subscribeToTopic(getMessaging(), topic)
     log(`Subscribed to ${topic} topic!`)
   } catch (e) {
-    reportError(e)
+    captureError(e)
   }
 }
 
@@ -167,7 +167,7 @@ export const usePushNotificationListener = (navigate: (routeInformation: RouteIn
   const appContext = useAppContext()
 
   useEffect(() => {
-    initialPushNotificationRequest(appContext).catch(reportError)
+    initialPushNotificationRequest(appContext).catch(captureError)
   }, [appContext])
 
   useEffect(() => {
@@ -180,7 +180,7 @@ export const usePushNotificationListener = (navigate: (routeInformation: RouteIn
   }, [])
 
   useEffect(() => {
-    const cleanupPromise = pushNotificationPressListener(navigate).catch(reportError)
+    const cleanupPromise = pushNotificationPressListener(navigate).catch(captureError)
     return () => {
       cleanupPromise.then(unsubscribe => unsubscribe?.())
     }

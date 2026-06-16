@@ -3,32 +3,32 @@ import React from 'react'
 
 import { MappingError } from 'shared/api'
 
-import { reportError } from '../../utils/sentry'
-import useReportError from '../useReportError'
+import { captureError } from '../../utils/sentry'
+import useCaptureError from '../useCaptureError'
 
 jest.mock('../../utils/sentry')
 
-describe('useReportError', () => {
+describe('useCaptureError', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   const MockComponent = ({ error }: { error: Error | null }) => {
-    useReportError(error)
+    useCaptureError(error)
     return null
   }
 
   it('should report error', async () => {
     const { rerender } = render(<MockComponent error={null} />)
-    expect(reportError).not.toHaveBeenCalled()
+    expect(captureError).not.toHaveBeenCalled()
 
     const error = new MappingError('regions', 'some error')
     rerender(<MockComponent error={error} />)
 
-    expect(reportError).toHaveBeenCalledTimes(1)
-    expect(reportError).toHaveBeenCalledWith(error)
+    expect(captureError).toHaveBeenCalledTimes(1)
+    expect(captureError).toHaveBeenCalledWith(error)
 
     rerender(<MockComponent error={null} />)
-    expect(reportError).toHaveBeenCalledTimes(1)
+    expect(captureError).toHaveBeenCalledTimes(1)
   })
 })

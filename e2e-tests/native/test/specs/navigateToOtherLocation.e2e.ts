@@ -32,7 +32,7 @@ describe('navigate to other location', () => {
   it('should open a new region on location change', async () => {
     await DashboardPage.headerOverflowButton.waitForDisplayed({ timeout: 20000 })
     await DashboardPage.headerOverflowButton.click()
-    const changeLocation = $(new Selector().ByText('Change location').build())
+    const changeLocation = $(new Selector().byText('Change location').build())
     await changeLocation.waitForDisplayed()
     await changeLocation.click()
 
@@ -46,6 +46,6 @@ describe('navigate to other location', () => {
     await browser.waitUntil(async () => $(`~Dashboard-Page`).isDisplayed(), { timeout: 20000 })
     await DashboardPage.get()
 
-    await $(new Selector().ByText('Augsburg (Stadt)').build()).waitForDisplayed()
+    await $(new Selector().byText('Augsburg (Stadt)').build()).waitForDisplayed()
   })
 })

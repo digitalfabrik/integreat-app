@@ -1,3 +1,4 @@
+import InternalPathnameParser from '../InternalPathnameParser.js'
 import {
   CATEGORIES_ROUTE,
   IMPRINT_ROUTE,
@@ -9,10 +10,8 @@ import {
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
   LEGACY_REGIONS_ROUTE,
-} from '..'
-
-import InternalPathnameParser from '../InternalPathnameParser'
-import { MULTI_PLACE_QUERY_KEY, PLACE_CATEGORY_QUERY_KEY, SEARCH_QUERY_KEY, ZOOM_QUERY_KEY } from '../query'
+} from '../index.js'
+import { MULTI_PLACE_QUERY_KEY, PLACE_CATEGORY_QUERY_KEY, SEARCH_QUERY_KEY, ZOOM_QUERY_KEY } from '../query.js'
 
 const regionCode = 'bochum'
 const languageCode = 'de'

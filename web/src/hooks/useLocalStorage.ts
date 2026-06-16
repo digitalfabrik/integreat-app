@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 
 export const CHAT_HINT_VISIBLE_STORAGE_KEY = 'Chat-Hint-Visible'
 export const CHAT_PRIVACY_POLICIES_STORAGE_KEY = 'Chat-Privacy-Policies'
@@ -37,7 +37,7 @@ const useLocalStorage = <T>({
       // SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
       const accessDenied = e instanceof Error && e.message.includes('Access is denied for this document')
       if (!accessDenied) {
-        reportError(e)
+        captureError(e)
       }
     }
     return initialValue
@@ -54,7 +54,7 @@ const useLocalStorage = <T>({
           // SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.
           const accessDenied = e instanceof Error && e.message.includes('Access is denied for this document')
           if (!accessDenied) {
-            reportError(e)
+            captureError(e)
           }
         }
         return resolvedNewValue

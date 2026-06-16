@@ -1,5 +1,5 @@
-import normalizePath from '../../utils/normalizePath'
-import CategoryModel from './CategoryModel'
+import normalizePath from '../../utils/normalizePath.js'
+import CategoryModel from './CategoryModel.js'
 
 /**
  * Contains a Map [string -> CategoryModel] and some helper functions

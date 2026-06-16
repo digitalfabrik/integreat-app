@@ -76,7 +76,7 @@ const HeaderLanguageSelectorItem = ({
   if (mobile) {
     return (
       <>
-        <StyledSidebar OpenButton={ChangeLanguageButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
+        <StyledSidebar openButton={ChangeLanguageButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
           <LanguageList
             languageChangePaths={languageChangePaths}
             languageCode={languageCode}

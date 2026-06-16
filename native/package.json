@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "index.ts",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "yarn start:integreat-test-cms",
     "start:integreat-test-cms": "node ./run packager integreat-test-cms",

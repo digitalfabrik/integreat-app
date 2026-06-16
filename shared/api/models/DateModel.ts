@@ -1,7 +1,7 @@
 import { DateTime, DateTimeFormatOptions, Duration } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
-import { formatDateICal, formatTime, getWeekdayFromIndex, TranslateFunction } from '../../utils/date'
+import { formatDateICal, formatTime, getWeekdayFromIndex, TranslateFunction } from '../../utils/date.js'
 
 const MAX_RECURRENCE_YEARS = 6
 

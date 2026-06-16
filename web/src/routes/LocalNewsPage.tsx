@@ -67,7 +67,7 @@ const LocalNewsPage = ({ region, pathname, languageCode, regionCode }: RegionRou
     languageChangePaths,
     languageCode,
     pageTitle,
-    Toolbar: <RegionContentToolbar />,
+    toolbar: <RegionContentToolbar />,
   }
 
   if (newsError) {
@@ -130,7 +130,7 @@ const LocalNewsPage = ({ region, pathname, languageCode, regionCode }: RegionRou
         localNewsEnabled={region.localNewsEnabled}
         language={languageCode}
       />
-      {isPending ? <SkeletonList /> : <List items={NewsListItems ?? []} NoItemsMessage='news:currentlyNoNews' />}
+      {isPending ? <SkeletonList /> : <List items={NewsListItems ?? []} noItemsMessage='news:currentlyNoNews' />}
     </RegionContentLayout>
   )
 }

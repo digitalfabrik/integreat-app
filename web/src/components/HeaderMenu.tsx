@@ -3,6 +3,7 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import LinkIcon from '@mui/icons-material/Link'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import QrCode2Icon from '@mui/icons-material/QrCode2'
 import ShareIcon from '@mui/icons-material/ShareOutlined'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { dividerClasses } from '@mui/material/Divider'
@@ -17,8 +18,10 @@ import useDimensions from '../hooks/useDimensions'
 import { useRouteParams } from '../hooks/useRegionContentParams'
 import { withDividers } from '../utils'
 import getFooterLinks from '../utils/getFooterLinks'
+import { captureError } from '../utils/sentry'
 import MenuAccordion from './MenuAccordion'
 import MenuItem from './MenuItem'
+import QrCodeDialog from './QrCodeDialog'
 
 const COPY_TIMEOUT = 3000
 
@@ -45,6 +48,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const [menuAnchorElement, setMenuAnchorElement] = React.useState<HTMLElement | null>(null)
   const [expandedAccordion, setExpandedAccordion] = React.useState<'share' | 'legal' | null>(null)
   const [urlCopied, setUrlCopied] = React.useState<boolean>(false)
+  const [qrShareOpen, setQrShareOpen] = React.useState<boolean>(false)
   const { regionCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
   const { t } = useTranslation('layout')
@@ -67,7 +71,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const mailUrl = `mailto:?subject=${encodedTitle}&body=${shareMessage}&t${encodedShareUrl}`
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(shareUrl).catch(reportError)
+    navigator.clipboard.writeText(shareUrl).catch(captureError)
     setUrlCopied(true)
     setTimeout(() => setUrlCopied(false), COPY_TIMEOUT)
   }
@@ -92,6 +96,13 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
       to={mailUrl}
       text={t('common:email')}
       icon={<MailOutlinedIcon fontSize='small' />}
+      closeMenu={closeMenu}
+    />,
+    <MenuItem
+      key='qr'
+      text={t('qrCode')}
+      icon={<QrCode2Icon fontSize='small' />}
+      onClick={() => setQrShareOpen(true)}
       closeMenu={closeMenu}
     />,
   ]
@@ -133,6 +144,13 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
           ) : null,
         ])}
       </StyledMenu>
+      <QrCodeDialog
+        open={qrShareOpen}
+        close={() => setQrShareOpen(false)}
+        title={t('shareQrCodeTitle')}
+        description={t('shareQrCodeDescription')}
+        content={shareUrl}
+      />
     </>
   )
 }

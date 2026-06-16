@@ -84,7 +84,7 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
           <Breadcrumb key={breadcrumb.to} title={breadcrumb.title} to={breadcrumb.to} />
         ))}
         {/* The following `span` ensures that a separator is shown after the last element.
-            This emphasizes that the last element is the parent of the current page. 
+            This emphasizes that the last element is the parent of the current page.
             Since we show the current page's title directly below the breadcrumb, we
             do not need to repeat it here. */}
         <span />

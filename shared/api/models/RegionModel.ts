@@ -1,6 +1,6 @@
 import type { BBox } from 'geojson'
 
-import LanguageModel from './LanguageModel'
+import LanguageModel from './LanguageModel.js'
 
 type CoordinateType = { latitude: number; longitude: number }
 

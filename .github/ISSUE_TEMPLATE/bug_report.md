@@ -25,14 +25,18 @@ type: Bug
 
 <!-- The environment where the bug occurs. -->
 
-- Device/Browser:
-- OS version:
-- App version:
+- Device/Browser: N/A
+- OS version: N/A
+- App version: N/A
 
 ### Related Issues
 
 <!-- Link all related issues which are e.g. CMS issues or otherwise related, blocking, duplicating issues, ... -->
 
+N/A
+
 ### Additional Information
 
 <!-- Add any other context (e.g. logs, screenshots, environment, related issues etc.) about the problem here. -->
+
+N/A

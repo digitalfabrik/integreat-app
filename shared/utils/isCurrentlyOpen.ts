@@ -1,6 +1,6 @@
 import { DateTime, Interval } from 'luxon'
 
-import OpeningHoursModel from '../api/models/OpeningHoursModel'
+import OpeningHoursModel from '../api/models/OpeningHoursModel.js'
 
 const isCurrentlyOpen = (openingHours: OpeningHoursModel[] | null): boolean => {
   if (!openingHours) {

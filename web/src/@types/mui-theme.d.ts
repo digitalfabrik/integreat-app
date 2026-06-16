@@ -67,6 +67,7 @@ declare module '@mui/material/IconButton' {
     tertiary: true
   }
   interface IconButtonOwnProps {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     'aria-label': string
   }
 }

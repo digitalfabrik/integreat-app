@@ -7,7 +7,7 @@ import { TileModel } from 'shared'
 
 import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import ContrastImage from './ContrastImage'
 import SimpleImage from './SimpleImage'
 import Text from './base/Text'
@@ -37,7 +37,7 @@ const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const theme = useTheme()
   const openTile = () =>
-    tile.isExternalUrl ? openExternalUrl(tile.path, showSnackbar).catch(reportError) : onTilePress(tile)
+    tile.isExternalUrl ? openExternalUrl(tile.path, showSnackbar).catch(captureError) : onTilePress(tile)
 
   const thumbnail = <Thumbnail source={tile.thumbnail} />
 

@@ -25,7 +25,7 @@ import {
 
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useDimensions from '../hooks/useDimensions'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 
 const MapContainer = styled('div')`
   height: 100%;
@@ -54,7 +54,7 @@ type MapViewProps = {
   children?: ReactNode
   viewport?: MapViewViewport
   setViewport: (mapViewport: MapViewViewport) => void
-  Overlay?: ReactElement
+  overlay?: ReactElement
   ref?: ForwardedRef<MapViewRef | null>
 }
 
@@ -74,7 +74,7 @@ const MapView = ({
   viewport,
   setViewport,
   children,
-  Overlay,
+  overlay,
   ref,
 }: MapViewProps): ReactElement => {
   const [cursor, setCursor] = useState<MapCursorType>('auto')
@@ -85,7 +85,7 @@ const MapView = ({
 
   useEffect(() => {
     if (maplibregl.getRTLTextPluginStatus() === 'unavailable') {
-      maplibregl.setRTLTextPlugin(mapConfig.rtlPluginUrl, true).catch(reportError)
+      maplibregl.setRTLTextPlugin(mapConfig.rtlPluginUrl, true).catch(captureError)
     }
   }, [])
 
@@ -204,7 +204,7 @@ const MapView = ({
         onClick={onSelectFeature}
         onTouchMove={() => (snapBottomSheetTo ? snapBottomSheetTo(dimensions.bottomSheet.snapPoints.min) : null)}
         attributionControl={false}>
-        <OverlayContainer>{Overlay}</OverlayContainer>
+        <OverlayContainer>{overlay}</OverlayContainer>
         {children}
         <Source
           id='location-places'

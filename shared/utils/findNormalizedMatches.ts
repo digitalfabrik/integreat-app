@@ -1,4 +1,4 @@
-import { Chunk, findAll, findChunks, FindChunks } from 'highlight-words-core'
+import { Chunk, FindAll, findAll, findChunks, FindChunks } from 'highlight-words-core'
 
 const charsAddedByNormalization = (text: string, until: number) => {
   let charsAdded = 0
@@ -23,6 +23,6 @@ const findNormalizedMatches = (props: FindChunks): Chunk[] => {
   })
 }
 
-export const findAllMatches = findAll
+export const findAllMatches: (args: FindAll) => Chunk[] = findAll
 
 export default findNormalizedMatches

@@ -6,11 +6,11 @@ import { MapFeature } from 'shared'
 const MockMapView = ({
   features,
   selectFeature,
-  Overlay,
+  overlay,
 }: {
   features: MapFeature[]
   selectFeature: (feature: MapFeature | null) => void
-  Overlay: ReactNode
+  overlay: ReactNode
 }): ReactElement => (
   <>
     {features.map(feature => {
@@ -25,7 +25,7 @@ const MockMapView = ({
       )
     })}
     <Button onClick={() => selectFeature(null)}>Map Press</Button>
-    {Overlay}
+    {overlay}
   </>
 )
 

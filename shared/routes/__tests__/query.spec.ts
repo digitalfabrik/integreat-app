@@ -1,5 +1,5 @@
-import { CATEGORIES_ROUTE, PLACES_ROUTE, SEARCH_ROUTE } from '../index'
-import { parseQueryParams, queryStringFromRouteInformation, toQueryParams } from '../query'
+import { CATEGORIES_ROUTE, PLACES_ROUTE, SEARCH_ROUTE } from '../index.js'
+import { parseQueryParams, queryStringFromRouteInformation, toQueryParams } from '../query.js'
 
 describe('queryStringFromRouteInformation', () => {
   it('should create places query string', () => {

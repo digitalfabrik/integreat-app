@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon'
 
-import Endpoint from '../Endpoint'
-import EndpointBuilder from '../EndpointBuilder'
-import { API_VERSION } from '../constants'
-import NotFoundError from '../errors/NotFoundError'
-import DocumentModel from '../models/DocumentModel'
-import { JsonImprintType } from '../types'
+import Endpoint from '../Endpoint.js'
+import EndpointBuilder from '../EndpointBuilder.js'
+import { API_VERSION } from '../constants/index.js'
+import NotFoundError from '../errors/NotFoundError.js'
+import DocumentModel from '../models/DocumentModel.js'
+import { JsonImprintType } from '../types.js'
 
 export const IMPRINT_ENDPOINT_NAME = 'imprint'
 type ParamsType = {

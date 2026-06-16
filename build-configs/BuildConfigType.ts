@@ -1,7 +1,7 @@
 import { TranslationsType } from 'translations'
 
-import { Theme } from './ThemeType'
-import { FontsType } from './common/theme/fonts'
+import { Theme } from './ThemeType.js'
+import { FontsType } from './common/theme/fonts.js'
 
 // Build Configs
 // These are the types of our build configs and therefore define the structure and available options.

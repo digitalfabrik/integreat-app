@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon'
 
-import { API_VERSION } from '../../constants'
-import mapCategoryJson from '../../mapping/mapCategoryJson'
-import CategoriesMapModel from '../../models/CategoriesMapModel'
-import CategoryModel from '../../models/CategoryModel'
-import createCategoriesEndpoint from '../createCategoriesEndpoint'
-import CategoriesMapModelBuilder from '../testing/CategoriesMapModelBuilder'
+import { API_VERSION } from '../../constants/index.js'
+import mapCategoryJson from '../../mapping/mapCategoryJson.js'
+import CategoriesMapModel from '../../models/CategoriesMapModel.js'
+import CategoryModel from '../../models/CategoryModel.js'
+import createCategoriesEndpoint from '../createCategoriesEndpoint.js'
+import CategoriesMapModelBuilder from '../testing/CategoriesMapModelBuilder.js'
 
 jest.mock('../../mapping/mapCategoryJson')
 

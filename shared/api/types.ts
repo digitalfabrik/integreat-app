@@ -163,6 +163,7 @@ export type JsonLocalNewsType = {
 }
 
 export type JsonOfferPostType = {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   'zammad-url': string | undefined
 }
 

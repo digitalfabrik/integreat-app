@@ -39,7 +39,7 @@ const HeaderBox = ({ goBack, canGoBack = true, title, language, regionsPath }: H
       iconColor={theme.colors.onSurface}
     />
   ) : (
-    <StyledIcon Icon={AppIcon} />
+    <StyledIcon icon={AppIcon} />
   )
 
   return (

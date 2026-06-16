@@ -1,4 +1,4 @@
-import LocationModel from '../api/models/LocationModel'
+import LocationModel from '../api/models/LocationModel.js'
 
 const getExternalMapsLink = (location: LocationModel<number>, platform: 'web' | 'android' | 'ios' | string): string => {
   const long = location.coordinates[0]

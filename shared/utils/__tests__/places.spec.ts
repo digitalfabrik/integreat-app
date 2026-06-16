@@ -1,9 +1,9 @@
 import { Settings } from 'luxon'
 
-import PlaceModelBuilder from '../../api/endpoints/testing/PlaceModelBuilder'
-import { LocationType } from '../../constants/map'
-import { prepareMapFeatures } from '../geoJson'
-import { preparePlaces, sortPlaces } from '../places'
+import PlaceModelBuilder from '../../api/endpoints/testing/PlaceModelBuilder.js'
+import { LocationType } from '../../constants/map.js'
+import { prepareMapFeatures } from '../geoJson.js'
+import { preparePlaces, sortPlaces } from '../places.js'
 
 const places = new PlaceModelBuilder(3).build()
 const place1 = places[0]!

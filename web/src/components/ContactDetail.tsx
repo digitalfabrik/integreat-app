@@ -13,20 +13,24 @@ const StyledLink = styled(Link)({
 })
 
 type ContactDetailProps = {
-  Icon: ElementType<SvgIconProps>
+  icon: ElementType<SvgIconProps>
   link: string
   content: string
-  IconEnd?: ElementType<SvgIconProps>
+  iconEnd?: ElementType<SvgIconProps>
 }
 
-const ContactDetail = ({ Icon, link, content, IconEnd }: ContactDetailProps): ReactElement => (
-  <StyledLink to={link}>
-    <Icon fontSize='small' />
-    <Typography variant='body2' color='primary'>
-      {content}
-    </Typography>
-    {IconEnd !== undefined && <IconEnd color='primary' fontSize='small' />}
-  </StyledLink>
-)
+const ContactDetail = ({ icon, link, content, iconEnd }: ContactDetailProps): ReactElement => {
+  const Icon = icon
+  const IconEnd = iconEnd
+  return (
+    <StyledLink to={link}>
+      <Icon fontSize='small' />
+      <Typography variant='body2' color='primary'>
+        {content}
+      </Typography>
+      {IconEnd !== undefined && <IconEnd color='primary' fontSize='small' />}
+    </StyledLink>
+  )
+}
 
 export default ContactDetail

@@ -3,8 +3,8 @@ import {
   CommonBuildConfigType,
   IosBuildConfigType,
   WebBuildConfigType,
-} from '../BuildConfigType'
-import maltePlatformBuildConfigs from '../malte'
+} from '../BuildConfigType.js'
+import maltePlatformBuildConfigs from '../malte/index.js'
 
 const commonMalteTestCmsBuildConfig: CommonBuildConfigType = {
   ...maltePlatformBuildConfigs.common,

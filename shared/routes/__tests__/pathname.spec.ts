@@ -8,9 +8,8 @@ import {
   PLACES_ROUTE,
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
-} from '..'
-
-import { regionContentPath, pathnameFromRouteInformation } from '../pathname'
+} from '../index.js'
+import { regionContentPath, pathnameFromRouteInformation } from '../pathname.js'
 
 describe('pathname', () => {
   const regionCode = 'augsburg'

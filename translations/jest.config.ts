@@ -3,8 +3,11 @@ export default {
   displayName: 'translations',
   automock: false,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
   maxWorkers: '50%',
   transform: {
-    '^.+\\.(j|t)sx?$': ['ts-jest', {}],
+    '^.+\\.(j|t)sx?$': ['ts-jest', { tsconfig: { module: 'CommonJS' } }],
   },
 }

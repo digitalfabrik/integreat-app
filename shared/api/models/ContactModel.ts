@@ -1,4 +1,4 @@
-import OpeningHoursModel from './OpeningHoursModel'
+import OpeningHoursModel from './OpeningHoursModel.js'
 
 class ContactModel {
   _name: string | null

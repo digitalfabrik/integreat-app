@@ -10,7 +10,7 @@ import { Frequency } from 'rrule'
 import { EventModel } from 'shared/api'
 
 import useSnackbar from '../hooks/useSnackbar'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import CalendarChoice from './CalendarChoiceModal'
 
 type ExportEventButtonType = {
@@ -70,7 +70,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
       })
     } catch (e) {
       showSnackbar({ text: 'generalError' })
-      reportError(e)
+      captureError(e)
     }
   }
 
@@ -84,7 +84,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
       await exportEventToCalendar(id, exportAll)
     } catch (e) {
       showSnackbar({ text: 'generalError' })
-      reportError(e)
+      captureError(e)
     }
   }
 

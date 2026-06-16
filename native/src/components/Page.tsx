@@ -19,9 +19,9 @@ const SpaceForTts = styled.View<{ $ttsPlayerVisible: boolean }>`
 type PageProps = {
   title?: string
   content: string
-  BeforeContent?: ReactNode
-  AfterContent?: ReactNode
-  Footer?: ReactNode
+  beforeContent?: ReactNode
+  afterContent?: ReactNode
+  footer?: ReactNode
   language: string
   lastUpdate?: DateTime
   padding?: boolean
@@ -30,9 +30,9 @@ type PageProps = {
 const Page = ({
   title,
   content,
-  BeforeContent,
-  AfterContent,
-  Footer,
+  beforeContent,
+  afterContent,
+  footer,
   language,
   lastUpdate,
   padding = true,
@@ -46,7 +46,7 @@ const Page = ({
   return (
     <Container $padding={padding}>
       {!loading && title ? <Caption title={title} language={language} /> : null}
-      {!loading && BeforeContent}
+      {!loading && beforeContent}
       <RemoteContent
         content={content}
         onLinkPress={navigateToLink}
@@ -54,9 +54,9 @@ const Page = ({
         loading={loading}
         language={language}
       />
-      {!loading && AfterContent}
+      {!loading && afterContent}
       {!loading && !!content && lastUpdate && <TimeStamp lastUpdate={lastUpdate} />}
-      {!loading && Footer}
+      {!loading && footer}
       <SpaceForTts $ttsPlayerVisible={ttsPlayerVisible} />
     </Container>
   )

@@ -3,9 +3,9 @@ import {
   CommonBuildConfigType,
   IosBuildConfigType,
   WebBuildConfigType,
-} from '../BuildConfigType'
-import integreatPlatformBuildConfigs from '../integreat'
-import suggestToRegionTemplate from '../integreat/assets/suggestToRegionTemplate'
+} from '../BuildConfigType.js'
+import suggestToRegionTemplate from '../integreat/assets/suggestToRegionTemplate.js'
+import integreatPlatformBuildConfigs from '../integreat/index.js'
 
 const integreatE2e = {
   appName: 'IntegreatE2E',

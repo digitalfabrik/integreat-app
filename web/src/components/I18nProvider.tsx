@@ -6,7 +6,7 @@ import { config, loadTranslations } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
 import BrowserLanguageDetectorService from '../utils/BrowserLanguageDetector'
-import { log, reportError } from '../utils/sentry'
+import { log, captureError } from '../utils/sentry'
 
 type I18nProviderProps = {
   contentLanguage: string | undefined
@@ -50,7 +50,7 @@ const I18nProvider = ({ children, contentLanguage }: I18nProviderProps): ReactEl
 
     initI18Next().catch((e: Error) => {
       setErrorMessage(e.message)
-      reportError(e)
+      captureError(e)
     })
   }, [])
 

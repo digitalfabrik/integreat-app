@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon'
 
-import { API_VERSION } from '../../constants'
-import LocationModel from '../../models/LocationModel'
-import PlaceCategoryModel from '../../models/PlaceCategoryModel'
-import PlaceModel from '../../models/PlaceModel'
-import { JsonPlaceType } from '../../types'
-import createPLACEsEndpoint from '../createPlacesEndpoint'
+import { API_VERSION } from '../../constants/index.js'
+import LocationModel from '../../models/LocationModel.js'
+import PlaceCategoryModel from '../../models/PlaceCategoryModel.js'
+import PlaceModel from '../../models/PlaceModel.js'
+import { JsonPlaceType } from '../../types.js'
+import createPLACEsEndpoint from '../createPlacesEndpoint.js'
 
 describe('places', () => {
   const baseUrl = 'https://integreat-api-url.de'

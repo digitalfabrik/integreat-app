@@ -12,7 +12,7 @@ import {
 } from 'shared'
 import { fromError, NotFoundError } from 'shared/api'
 
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import Failure from './Failure'
 
 type FailureSwitcherProps = {
@@ -21,7 +21,7 @@ type FailureSwitcherProps = {
 
 const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
   useEffect(() => {
-    reportError(error)
+    captureError(error)
   }, [error])
 
   const getFailureProps = (error: Error): { goToPath?: string; goToMessage?: string; errorMessage: string } => {

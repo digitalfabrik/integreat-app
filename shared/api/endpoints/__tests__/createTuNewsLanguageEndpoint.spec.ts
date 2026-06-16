@@ -1,5 +1,5 @@
-import LanguageModel from '../../models/LanguageModel'
-import createTuNewsLanguagesEndpoint from '../createTuNewsLanguagesEndpoint'
+import LanguageModel from '../../models/LanguageModel.js'
+import createTuNewsLanguagesEndpoint from '../createTuNewsLanguagesEndpoint.js'
 
 describe('tuNews language', () => {
   const baseUrl = 'https://cms-test.integreat-app.de'

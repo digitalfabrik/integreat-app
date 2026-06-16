@@ -19,7 +19,7 @@ import {
 
 import dataContainer from '../utils/DefaultDataContainer'
 import loadResourceCache from '../utils/loadResourceCache'
-import { reportError } from '../utils/sentry'
+import { captureError } from '../utils/sentry'
 import useLoadWithCache from './useLoadWithCache'
 import usePreviousProp from './usePreviousProp'
 import useSnackbar from './useSnackbar'
@@ -102,13 +102,13 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
             categories: categoriesReturn.data,
             events: eventsReturn.data,
             places: placesReturn.data,
-          }).catch(reportError)
+          }).catch(captureError)
         }
       })
 
       // Update last update if all data is available.
       // WARNING: This also means that the last update is updated if everything is just loaded from the cache.
-      dataContainer.setLastUpdate(regionCode, languageCode, DateTime.utc()).catch(reportError)
+      dataContainer.setLastUpdate(regionCode, languageCode, DateTime.utc()).catch(captureError)
     }
   }, [regionsReturn, categoriesReturn, eventsReturn, placesReturn, localNewsReturn, regionCode, languageCode])
 

@@ -1,7 +1,6 @@
-import { PLACES_ROUTE, SEARCH_ROUTE } from '.'
-
-import { safeParseInt } from '../utils'
-import { NonNullableRouteInformationType } from './RouteInformationTypes'
+import { safeParseInt } from '../utils/index.js'
+import { NonNullableRouteInformationType } from './RouteInformationTypes.js'
+import { PLACES_ROUTE, SEARCH_ROUTE } from './index.js'
 
 export const MULTI_PLACE_QUERY_KEY = 'multiplace'
 export const SEARCH_QUERY_KEY = 'query'
