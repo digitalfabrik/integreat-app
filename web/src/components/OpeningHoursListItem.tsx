@@ -5,9 +5,9 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import type { TypographyVariant } from 'build-configs/TypographyType'
 import { OpeningHoursModel } from 'shared/api'
 
-import type { TypographyVariant } from '../../../build-configs/TypographyType'
 import AppointmentOnlyIcon from './AppointmentOnlyIcon'
 
 const StyledListItem = styled(ListItem)({
