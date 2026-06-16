@@ -1,7 +1,11 @@
 import { Chunk, FindAll, findAll, findChunks, FindChunks } from 'highlight-words-core'
 
-import normalizeString from './normalizeString'
-import { MATCH_WHITESPACE_AND_DASHES } from './search'
+import normalizeString from './normalizeString.js'
+import { MATCH_WHITESPACE_AND_DASHES } from './search.js'
+
+type FindNormalizedMatchesOptions = {
+  wordStartOnly?: boolean
+}
 
 const charsAddedByNormalization = (text: string, until: number) => {
   let charsAdded = 0
@@ -13,7 +17,10 @@ const charsAddedByNormalization = (text: string, until: number) => {
   return charsAdded
 }
 
-const buildMatches = (props: FindChunks, wordStartOnly: boolean): Chunk[] => {
+const findNormalizedMatches = (
+  props: FindChunks,
+  { wordStartOnly = false }: FindNormalizedMatchesOptions = {},
+): Chunk[] => {
   const normalizedMatches = (chunk: Chunk): Chunk => {
     const charsAddedBeforeMatch = charsAddedByNormalization(props.textToHighlight, chunk.start)
     const charsAddedIncludingMatch = charsAddedByNormalization(props.textToHighlight, chunk.end)
@@ -40,5 +47,4 @@ const buildMatches = (props: FindChunks, wordStartOnly: boolean): Chunk[] => {
 
 export const findAllMatches: (args: FindAll) => Chunk[] = findAll
 
-export const findNormalizedMatches = (props: FindChunks): Chunk[] => buildMatches(props, false)
-export const findWordStartMatches = (props: FindChunks): Chunk[] => buildMatches(props, true)
+export default findNormalizedMatches

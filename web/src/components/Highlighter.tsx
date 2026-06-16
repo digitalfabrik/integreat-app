@@ -1,29 +1,19 @@
 import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import ReactHighlightWords from 'react-highlight-words'
-import type { HighlighterProps as ReactHighlighterProps } from 'react-highlight-words'
+import ReactHighlighter from 'react-highlight-words'
 
-import { Chunk, FindChunks, findNormalizedMatches, normalizeString } from 'shared'
+import { findNormalizedMatches, normalizeString, FindChunks } from 'shared'
 import { UiDirectionType } from 'translations'
-
-// To fix CJS interop to not being recognized as a React component
-const ReactHighlighter = ReactHighlightWords as unknown as React.ComponentClass<ReactHighlighterProps>
 
 type HighlighterProps = {
   search: string
   text: string
   className?: string
   dir?: UiDirectionType | 'auto'
-  findChunks?: (props: FindChunks) => Chunk[]
+  wordStartOnly?: boolean
 }
 
-const Highlighter = ({
-  search,
-  text,
-  className,
-  dir,
-  findChunks = findNormalizedMatches,
-}: HighlighterProps): ReactElement => {
+const Highlighter = ({ search, text, className, dir, wordStartOnly = false }: HighlighterProps): ReactElement => {
   const theme = useTheme()
   return (
     <ReactHighlighter
@@ -31,7 +21,7 @@ const Highlighter = ({
       textToHighlight={text}
       searchWords={[search]}
       sanitize={normalizeString}
-      findChunks={findChunks}
+      findChunks={(props: FindChunks) => findNormalizedMatches(props, { wordStartOnly })}
       highlightStyle={{
         backgroundColor: theme.palette.tertiary.light,
         fontWeight: 'bold',

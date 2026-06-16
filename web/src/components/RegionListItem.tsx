@@ -3,7 +3,7 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import React, { ReactElement } from 'react'
 
-import { regionContentPath, getMatchingAliases, MAX_NUMBER_OF_ALIASES_SHOWN, findWordStartMatches } from 'shared'
+import { regionContentPath, getMatchingAliases, MAX_NUMBER_OF_ALIASES_SHOWN } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import Highlighter from './Highlighter'
@@ -23,10 +23,10 @@ const RegionListItem = ({ filterText, region, language }: RegionEntryProps): Rea
     <ListItem alignItems='flex-start' disablePadding>
       <ListItemButton component={Link} to={regionContentPath({ regionCode: region.code, languageCode: language })}>
         <ListItemText
-          primary={<Highlighter search={filterText} text={region.name} findChunks={findWordStartMatches} />}
+          primary={<Highlighter search={filterText} text={region.name} wordStartOnly />}
           secondary={
             <>
-              <Highlighter search={filterText} text={aliasesText} findChunks={findWordStartMatches} />
+              <Highlighter search={filterText} text={aliasesText} wordStartOnly />
               {aliases.length > MAX_NUMBER_OF_ALIASES_SHOWN && <span> ... </span>}
             </>
           }

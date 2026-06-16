@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { getMatchingAliases, MAX_NUMBER_OF_ALIASES_SHOWN, findWordStartMatches } from 'shared'
+import { getMatchingAliases, MAX_NUMBER_OF_ALIASES_SHOWN } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import { AppContext } from '../contexts/AppContext'
@@ -48,7 +48,7 @@ const RegionEntry = ({ region, query, navigateToDashboard }: RegionEntryProps): 
       <AliasesWrapper>
         {aliases.map((it, index) => (
           <Fragment key={it}>
-            <AliasLabel search={query} text={it} findChunks={findWordStartMatches} />
+            <AliasLabel search={query} text={it} wordStartOnly />
             {index !== aliases.length - 1 && (
               <Text variant='body3' style={styles.separator}>
                 ,{' '}
@@ -70,7 +70,7 @@ const RegionEntry = ({ region, query, navigateToDashboard }: RegionEntryProps): 
       titleNumberOfLines={0}
       title={
         <View>
-          <Label search={query} text={region.name} findChunks={findWordStartMatches} />
+          <Label search={query} text={region.name} wordStartOnly />
         </View>
       }
       description={Aliases}
