@@ -33,7 +33,7 @@ See the corresponding sections for [native](../native/docs/build-configs.md#usin
 
 ## Structure and Available Options
 
-See the [build config types](./BuildConfigType.ts) for more information on structure, available options and their functionality.
+See the [build config types](src/BuildConfigType.ts) for more information on structure, available options and their functionality.
 
 ## Technical Information
 

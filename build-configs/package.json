@@ -24,20 +24,45 @@
       "default": "./dist/integreat-test-cms/index.js",
       "types": "./dist/integreat-test-cms/index.d.ts"
     },
+    "./integreat-test-cms": {
+      "import": "./src/integreat-test-cms/index.ts",
+      "types": "./src/integreat-test-cms/index.d.ts",
+      "default": "./src/integreat-test-cms/index.ts"
+    },
     "./integreat-test-cms/build-config-name": {
       "import": "./dist/integreat-test-cms/build-config-name/index.js",
       "default": "./dist/integreat-test-cms/build-config-name/index.js",
       "types": "./dist/integreat-test-cms/build-config-name/index.d.ts"
+    },
+    "./malte": {
+      "import": "./src/malte/index.ts",
+      "types": "./src/malte/index.d.ts",
+      "default": "./src/malte/index.ts"
+    },
+    "./malte/build-config-name": {
+      "import": "./src/malte/build-config-name/index.ts",
+      "types": "./src/malte/build-config-name/index.d.ts",
+      "default": "./src/malte/build-config-name/index.ts"
+    },
+    "./malte-test-cms": {
+      "import": "./src/malte-test-cms/index.ts",
+      "types": "./src/malte-test-cms/index.d.ts",
+      "default": "./src/malte-test-cms/index.ts"
+    },
+    "./malte-test-cms/build-config-name": {
+      "import": "./src/malte-test-cms/build-config-name/index.ts",
+      "types": "./src/malte-test-cms/build-config-name/index.d.ts",
+      "default": "./src/malte-test-cms/build-config-name/index.ts"
     },
     "./obdach": {
       "import": "./dist/obdach/index.js",
       "default": "./dist/obdach/index.js",
       "types": "./dist/obdach/index.d.ts"
     },
-    "./aschaffenburg/assets/*": "./aschaffenburg/assets/*",
-    "./integreat/assets/*": "./integreat/assets/*",
-    "./malte/assets/*": "./malte/assets/*",
-    "./obdach/assets/*": "./obdach/assets/*",
+    "./aschaffenburg/assets/*": "./src/aschaffenburg/assets/*",
+    "./integreat/assets/*": "./src/integreat/assets/*",
+    "./malte/assets/*": "./src/malte/assets/*",
+    "./obdach/assets/*": "./src/obdach/assets/*",
     "./*": {
       "import": "./dist/*.js",
       "default": "./dist/*.js",
