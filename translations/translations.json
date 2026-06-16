@@ -7738,7 +7738,8 @@
       "skipToContent": "Zum Inhalt springen",
       "shareQrCodeTitle": "Über QR-Code teilen",
       "shareQrCodeDescription": "Teile diese Seite einfach, indem du den QR-Code auf einem anderen Gerät scannst.",
-      "qrCode": "QR-Code"
+      "qrCode": "QR-Code",
+      "backToContent": "Zurück zum Inhalt"
     },
     "am": {
       "imprint": "ዕትም",
@@ -8053,7 +8054,8 @@
       "skipToContent": "Skip to content",
       "shareQrCodeTitle": "Share via QR code",
       "shareQrCodeDescription": "Share this page easily by scanning the QR code on another device.",
-      "qrCode": "QR code"
+      "qrCode": "QR code",
+      "backToContent": "Back to content"
     },
     "es": {
       "imprint": "Aviso legal",
