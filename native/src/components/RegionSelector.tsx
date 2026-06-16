@@ -66,10 +66,9 @@ const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): 
     <View>
       <SearchBar>
         <SearchInput
-          filterText={filterText}
-          onFilterTextChange={setFilterText}
+          setValue={setFilterText}
+          value={filterText}
           placeholderText={exampleRegion?.sortingName ?? REGION_SEARCH_EXAMPLE}
-          spaceSearch={false}
           description={t('searchRegionDescription', { exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE })}
         />
       </SearchBar>
