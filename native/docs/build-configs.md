@@ -50,7 +50,7 @@ All conversions are done with the [manage.ts script](../../build-configs/tools/m
 
 To make the selected build config available in the Typescript code, we map the non-existing module `build-config-name`
 to the right name constant in the corresponding build config directory in the [build-configs workspace](../../build-configs),
-e.g. [this file](../../build-configs/integreat/build-config-name/index.ts) for Integreat.
+e.g. [this file](../../build-configs/src/integreat/build-config-name/index.ts) for Integreat.
 This is done with a proxy in the [metro config](../metro.config.js) in the `extraNodeModules` prop.
 
 To access the values of the build config use [this method](../src/constants/buildConfig.ts).
