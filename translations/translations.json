@@ -325,7 +325,9 @@
       "unreadMessages_two": "{{count}} ungelesene Chat-Nachrichten",
       "unreadMessages_few": "{{count}} ungelesene Chat-Nachrichten",
       "unreadMessages_many": "{{count}} ungelesene Chat-Nachrichten",
-      "unreadMessages_other": "{{count}} ungelesene Chat-Nachrichten"
+      "unreadMessages_other": "{{count}} ungelesene Chat-Nachrichten",
+      "consultationQrCodeTitle": "QR-Code (Beratung)",
+      "consultationQrCodeDescription": "Scannen Sie diesen QR-Code, um das Beratungsticket dieses Chats zu öffnen."
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -426,7 +428,9 @@
       "unreadMessages_two": "{{count}} unread chat messages",
       "unreadMessages_few": "{{count}} unread chat messages",
       "unreadMessages_many": "{{count}} unread chat messages",
-      "unreadMessages_other": "{{count}} unread chat messages"
+      "unreadMessages_other": "{{count}} unread chat messages",
+      "consultationQrCodeTitle": "QR code (Consultation)",
+      "consultationQrCodeDescription": "Scan this QR code to open the consultation ticket of this chat."
     },
     "es": {
       "bot": "Chatbot",

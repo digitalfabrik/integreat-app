@@ -6,10 +6,12 @@ import { JsonChatMessagesType } from '../types.js'
 export type ChatMessagesReturn = {
   botTyping: boolean
   messages: ChatMessageModel[]
+  ticketUrl: string | null
 }
 
 export const mapChatMessages = (json: JsonChatMessagesType): ChatMessagesReturn => ({
   botTyping: json.chatbot_typing,
+  ticketUrl: json.ticket_url ?? null,
   messages: json.messages.map(
     chatMessage =>
       new ChatMessageModel({

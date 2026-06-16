@@ -22,6 +22,7 @@ describe('createChatMessagesEndpoint', () => {
   it('should map fetched data to model', () => {
     const messageJson = {
       chatbot_typing: false,
+      ticket_url: 'https://example.com/#ticket/zoom/1',
       messages: [
         {
           id: 2,
@@ -36,6 +37,7 @@ describe('createChatMessagesEndpoint', () => {
     expect(JSON.stringify(chatMessageModel)).toEqual(
       JSON.stringify({
         botTyping: false,
+        ticketUrl: 'https://example.com/#ticket/zoom/1',
         messages: [
           new ChatMessageModel({
             id: 2,

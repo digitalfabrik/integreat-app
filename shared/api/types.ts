@@ -92,6 +92,7 @@ export type JsonChatMessageType = {
 export type JsonChatMessagesType = {
   chatbot_typing: boolean
   messages: JsonChatMessageType[]
+  ticket_url?: string
 }
 
 export type JsonImprintType = JsonCategoryType
