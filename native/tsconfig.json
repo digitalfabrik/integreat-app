@@ -5,7 +5,6 @@
     "outDir": "dist",
     "rootDir": "src",
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
     "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Bundler",
