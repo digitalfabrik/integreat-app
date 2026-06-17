@@ -254,7 +254,9 @@ export default defineConfig([
     languageOptions: {
       parser: plugins.typescriptEslint.parser,
       parserOptions: {
-        projectService: true,
+        projectService: {
+          allowDefaultProject: ['native/index.ts'],
+        },
         tsconfigRootDir: import.meta.dirname,
       },
     },
