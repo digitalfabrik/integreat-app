@@ -22,6 +22,10 @@ describe('Endpoint', () => {
     has: jest.fn(),
     set: jest.fn(),
     forEach: jest.fn(),
+    entries: jest.fn(),
+    keys: jest.fn(),
+    values: jest.fn(),
+    [Symbol.iterator]: jest.fn(),
   }
   const defaultMapParamsToBody = () => body
 
@@ -38,6 +42,10 @@ describe('Endpoint', () => {
     set: jest.fn(),
     forEach: jest.fn(),
     getSetCookie: jest.fn(),
+    entries: jest.fn(),
+    keys: jest.fn(),
+    values: jest.fn(),
+    [Symbol.iterator]: jest.fn(),
   }
 
   const responseBody: Body = {
