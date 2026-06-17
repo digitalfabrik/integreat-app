@@ -14,9 +14,6 @@
     "noEmit": false,
     "outDir": "dist",
     "sourceMap": true,
-    "paths": {
-      "normalize-strings": ["../shared/@types/normalize-strings"]
-    },
     "skipLibCheck": true,
     "target": "ES2022",
     "types": ["jest", "node", "react"]
