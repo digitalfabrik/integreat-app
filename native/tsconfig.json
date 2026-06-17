@@ -19,15 +19,7 @@
     "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
     "types": ["jest", "node"]
   },
-  "include": [
-    "src/**/*",
-    "jest.setup.ts",
-    "src/assets/licenses.json",
-    "index.ts",
-    "jest.config.ts",
-    "babel.config.js",
-    "stylelint.config.js"
-  ],
+  "include": ["src/**/*", "src/**/*.json"],
   "exclude": ["metro.config.js", "metro.config.ci.js"],
   "references": [
     {

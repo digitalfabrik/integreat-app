@@ -20,14 +20,7 @@
       "react",
     ]
   },
-  "include": [
-    "src/**/*",
-    "tools/*",
-    "src/assets/licenses.json",
-    "jest.setup.ts",
-    "jest.config.ts",
-    "stylelint.config.js"
-  ],
+  "include": ["src/**/*", "src/**/*.json"],
   "references": [
     {
       "path": "../translations"
