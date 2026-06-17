@@ -1,21 +1,21 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "allowJs": true,
+    "outDir": "dist",
+    "rootDir": "src",
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "isolatedModules": true,
     "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "outDir": "dist",
+    "declaration": true,
+    "emitDeclarationOnly": true, // We only build JS with metro, not tsc; tsc emits only declarations (required for project references)
     "paths": {
       "normalize-strings": ["../shared/@types/normalize-strings"],
-      "@dr.pogodin/react-native-static-server": ["src/@types/react-native-static-server"],
-      "@react-native-async-storage/async-storage/jest/async-storage-mock": ["src/@types/untyped"]
+      "@dr.pogodin/react-native-static-server": ["./src/@types/react-native-static-server"],
+      "@react-native-async-storage/async-storage/jest/async-storage-mock": ["./src/@types/untyped"]
     },
-    "skipLibCheck": true,
     "typeRoots": ["./src/@types", "./node_modules/@types", "../node_modules/@types"],
     "types": ["jest", "node"]
   },

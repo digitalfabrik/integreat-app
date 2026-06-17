@@ -1,15 +1,22 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "lib": ["ES5", "ES6", "dom"],
-    "isolatedModules": true,
     // Fixes "Static class blocks are not enabled. Please add `@babel/plugin-transform-class-static-block` to your configuration"
     "target": "ES2021",
-    "outDir": "dist",
     "types": ["jest", "node"],
     "typeRoots": [
-      "./src/@types", "node_modules/@types", "../node_modules/@types"]
+      "./src/@types",
+      "node_modules/@types",
+      // TODO This assumes a certain layout of node_modules, which may break in the
+      //   future. We should add the "@types/jest" package to this package's dependencies.
+      "../node_modules/@types"
+    ]
   },
   "include": ["jest.config.ts", "jest.setup.ts", "src"]
 }
