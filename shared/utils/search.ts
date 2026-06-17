@@ -38,9 +38,11 @@ export const filterSortRegions = (
 ): RegionModel[] => regions.filter(regionFilter(filterText, developerFriendly)).sort(regionSort)
 
 export const getMatchingAliases = (aliases: Record<string, unknown> | null, filterText: string): string[] => {
-  const normalizedFilter = normalizeString(filterText)
   if (!aliases) {
     return []
   }
+
+  const normalizedFilter = normalizeString(filterText)
+
   return Object.keys(aliases).filter(alias => matchesWordStart(alias, normalizedFilter))
 }
