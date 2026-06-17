@@ -11,7 +11,7 @@
       "node" // for scripts in tools/
     ]
   },
-  "include": ["src"],
+  "include": ["src/**/*"],
   "references": [
     {
       "path": "../translations"

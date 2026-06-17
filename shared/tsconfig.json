@@ -12,5 +12,5 @@
     "types": ["jest", "node"],
     "typeRoots": ["./src/@types", "node_modules/@types", "../node_modules/@types"]
   },
-  "include": ["jest.config.ts", "jest.setup.ts", "src"]
+  "include": ["src/**/*"]
 }

@@ -9,7 +9,5 @@
     "types": ["node", "@wdio/globals/types", "@wdio/jasmine-framework", "@types/jest"],
     "sourceMap": false
   },
-  "include": [
-    "src",
-  ]
+  "include": ["src/**/*"]
 }
