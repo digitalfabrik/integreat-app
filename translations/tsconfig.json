@@ -1,9 +1,11 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "isolatedModules": true,
     "outDir": "dist",
+    "rootDir": "src",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "types": [
       "jest",
       "node" // for scripts in tools in src/__tests__/loadTranslations.spec.ts
