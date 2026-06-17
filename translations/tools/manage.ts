@@ -3,12 +3,12 @@ import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify'
 import flat from 'flat'
 import fs from 'fs'
-import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash'
+import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash-es'
 import path from 'path'
 
-import { TranslationsType } from '../src'
-import config from '../src/config'
-import { KeyValueType } from '../src/types'
+import config from '../src/config.js'
+import { TranslationsType } from '../src/index.js'
+import { KeyValueType } from '../src/types.js'
 
 const { unflatten } = flat
 

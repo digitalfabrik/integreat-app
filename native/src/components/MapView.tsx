@@ -15,7 +15,7 @@ import {
 import type { BBox } from 'geojson'
 import React, { ReactElement, type Ref, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { NativeSyntheticEvent, View } from 'react-native'
+import { NativeSyntheticEvent, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import {

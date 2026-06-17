@@ -13,7 +13,15 @@
 
 <!-- List all related components that have not been explicitly changed but may be affected by this PR -->
 
--
+N/A
+
+### Checklist
+
+- [ ] Followed the [contributing guidelines](https://github.com/digitalfabrik/integreat-app/blob/main/docs/contributing.md) and [conventions](https://github.com/digitalfabrik/integreat-app/blob/main/docs/conventions.md)
+- [ ] Considered accessibility impacts and made the necessary adjustments
+- [ ] Added or updated unit tests (if applicable)
+- [ ] Added or updated documentation (if applicable)
+- [ ] Added a [release note](https://github.com/digitalfabrik/integreat-app/tree/main/release-notes) for native (if [applicable](https://github.com/digitalfabrik/integreat-app/blob/main/docs/contributing.md#release-notes))
 
 ### Testing
 

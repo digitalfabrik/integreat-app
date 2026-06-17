@@ -3,9 +3,11 @@
     "composite": true,
     "allowJs": true,
     "esModuleInterop": true,
+    "isolatedModules": true,
     "forceConsistentCasingInFileNames": false, // leads to oom when linting
-    "lib": ["ES5", "ES6"],
-    "moduleResolution": "Node",
+    "lib": ["ES2022", "DOM"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noUncheckedIndexedAccess": true,
@@ -17,7 +19,7 @@
     "outDir": "dist",
     "types": ["jest"]
   },
-  "include": ["jest.config.ts", ".prettierrc", "eslint.config.mjs"],
+  "include": ["jest.config.ts", ".prettierrc", "eslint.config.js"],
   "references": [
     { "path": "shared" },
     { "path": "build-configs" },

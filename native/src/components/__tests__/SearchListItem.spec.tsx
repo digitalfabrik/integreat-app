@@ -5,7 +5,7 @@ import { CategoriesMapModelBuilder, RegionModelBuilder, LanguageModelBuilder } f
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import render from '../../testing/render'
+import render, { ReactTestInstance } from '../../testing/render'
 import SearchListItem from '../SearchListItem'
 
 jest.mock('react-i18next')
@@ -31,7 +31,7 @@ describe('SearchListItem', () => {
   const { mocked } = jest
   mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
 
-  const assertHighlighting = (element: HTMLElement, highlighted: boolean) =>
+  const assertHighlighting = (element: ReactTestInstance, highlighted: boolean) =>
     highlighted
       ? expect(element).toHaveStyle({ fontWeight: 'bold' })
       : expect(element).not.toHaveStyle({ fontWeight: 'bold' })

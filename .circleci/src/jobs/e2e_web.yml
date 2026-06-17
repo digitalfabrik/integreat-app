@@ -8,6 +8,9 @@ steps:
   - prepare_workspace
   - restore_yarn_cache
   - run:
+      name: Build files
+      command: yarn ts:check
+  - run:
       name: 'Start WebApp'
       command: yarn workspace web start:integreat-e2e
       background: true

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 import { OpeningHoursModel } from 'shared/api'
 
-import { TypographyVariant } from '../../../build-configs/TypographyType'
+import type { TypographyVariant } from '../../../build-configs/TypographyType'
 import AppointmentOnlyIcon from './AppointmentOnlyIcon'
 
 const StyledListItem = styled(ListItem)({

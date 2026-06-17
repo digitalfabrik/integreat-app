@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   extends: ['stylelint-config-recommended', 'stylelint-config-standard'],
   plugins: ['stylelint-use-logical'],
   customSyntax: 'postcss-styled-syntax',

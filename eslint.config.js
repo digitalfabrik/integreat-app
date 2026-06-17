@@ -267,7 +267,7 @@ export default defineConfig([
       '**/android/',
       '**/dist/',
       '.eslintrc.js',
-      'eslint.config.mjs',
+      'eslint.config.js',
       '**/*.js',
       '.yarn/',
       'web/www/',

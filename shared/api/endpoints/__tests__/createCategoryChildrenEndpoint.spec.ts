@@ -1,7 +1,7 @@
-import { API_VERSION } from '../../constants'
-import mapCategoryJson from '../../mapping/mapCategoryJson'
-import createCategoryChildrenEndpoint from '../createCategoryChildrenEndpoint'
-import CategoriesMapModelBuilder from '../testing/CategoriesMapModelBuilder'
+import { API_VERSION } from '../../constants/index.js'
+import mapCategoryJson from '../../mapping/mapCategoryJson.js'
+import createCategoryChildrenEndpoint from '../createCategoryChildrenEndpoint.js'
+import CategoriesMapModelBuilder from '../testing/CategoriesMapModelBuilder.js'
 
 jest.mock('../../mapping/mapCategoryJson')
 

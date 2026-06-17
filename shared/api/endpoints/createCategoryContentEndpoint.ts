@@ -1,9 +1,9 @@
-import Endpoint from '../Endpoint'
-import EndpointBuilder from '../EndpointBuilder'
-import { API_VERSION } from '../constants'
-import mapCategoryJson from '../mapping/mapCategoryJson'
-import CategoryModel from '../models/CategoryModel'
-import { JsonCategoryType } from '../types'
+import Endpoint from '../Endpoint.js'
+import EndpointBuilder from '../EndpointBuilder.js'
+import { API_VERSION } from '../constants/index.js'
+import mapCategoryJson from '../mapping/mapCategoryJson.js'
+import CategoryModel from '../models/CategoryModel.js'
+import { JsonCategoryType } from '../types.js'
 
 export const CATEGORY_CONTENT_ENDPOINT_NAME = 'categoryContent'
 type ParamsType = {

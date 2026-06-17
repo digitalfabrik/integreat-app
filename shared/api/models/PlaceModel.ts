@@ -1,15 +1,15 @@
 import distance from '@turf/distance'
 import { DateTime } from 'luxon'
 
-import { GeoJsonPlace, LocationType } from '../../constants/map'
-import isCurrentlyOpen from '../../utils/isCurrentlyOpen'
-import ContactModel from './ContactModel'
-import DocumentModel from './DocumentModel'
-import ExtendedDocumentModel from './ExtendedDocumentModel'
-import LocationModel from './LocationModel'
-import OpeningHoursModel from './OpeningHoursModel'
-import OrganizationModel from './OrganizationModel'
-import PlaceCategoryModel from './PlaceCategoryModel'
+import { GeoJsonPlace, LocationType } from '../../constants/map.js'
+import isCurrentlyOpen from '../../utils/isCurrentlyOpen.js'
+import ContactModel from './ContactModel.js'
+import DocumentModel from './DocumentModel.js'
+import ExtendedDocumentModel from './ExtendedDocumentModel.js'
+import LocationModel from './LocationModel.js'
+import OpeningHoursModel from './OpeningHoursModel.js'
+import OrganizationModel from './OrganizationModel.js'
+import PlaceCategoryModel from './PlaceCategoryModel.js'
 
 class PlaceModel extends ExtendedDocumentModel {
   _location: LocationModel<number>

@@ -7,6 +7,8 @@ import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../co
 import TestingAppContext from './TestingAppContext'
 import wrapWithTheme from './wrapWithTheme'
 
+export type ReactTestInstance = ReturnType<ReturnType<typeof render>['getByText']>
+
 type ReactNavigationProps<T extends RoutesType> = {
   route: RouteProps<T>
   navigation: NavigationProps<T>

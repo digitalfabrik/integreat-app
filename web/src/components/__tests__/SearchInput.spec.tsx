@@ -29,4 +29,16 @@ describe('SearchInput', () => {
     })
     expect(outerFilterTextChange).toHaveBeenCalledWith('test')
   })
+
+  it('should blur the input when pressing Enter to dismiss the keyboard', () => {
+    const { getByPlaceholderText } = renderWithTheme(
+      <SearchInput filterText='Test' placeholderText='Placeholder' onFilterTextChange={jest.fn()} />,
+    )
+    const input = getByPlaceholderText('Placeholder')
+    input.focus()
+    expect(input).toHaveFocus()
+
+    fireEvent.keyDown(input, { key: 'Enter' })
+    expect(input).not.toHaveFocus()
+  })
 })

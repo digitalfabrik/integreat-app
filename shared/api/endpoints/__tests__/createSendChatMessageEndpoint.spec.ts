@@ -1,5 +1,5 @@
-import { API_VERSION } from '../../constants'
-import createSendChatMessageEndpoint from '../createSendChatMessageEndpoint'
+import { API_VERSION } from '../../constants/index.js'
+import createSendChatMessageEndpoint from '../createSendChatMessageEndpoint.js'
 
 describe('createSendChatMessageEndpoint', () => {
   const baseUrl = 'https://example.com'

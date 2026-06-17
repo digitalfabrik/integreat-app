@@ -1,4 +1,4 @@
-import { CommonColorPalette, CommonColors } from '../../ThemeType'
+import { CommonColorPalette, CommonColors } from '../../ThemeType.js'
 
 const commonColors: CommonColors = {
   error: {

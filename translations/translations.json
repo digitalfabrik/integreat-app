@@ -320,7 +320,12 @@
       "newChat": "Neuen Chat starten",
       "newChatConfirmation": "Möchtest du wirklich einen neuen Chat starten?",
       "newChatConfirmationMessage": "Der aktuelle Chatverlauf wird gelöscht.",
-      "chatOptions": "Chat-Optionen"
+      "chatOptions": "Chat-Optionen",
+      "unreadMessages_one": "1 ungelesene Chat-Nachricht",
+      "unreadMessages_two": "{{count}} ungelesene Chat-Nachrichten",
+      "unreadMessages_few": "{{count}} ungelesene Chat-Nachrichten",
+      "unreadMessages_many": "{{count}} ungelesene Chat-Nachrichten",
+      "unreadMessages_other": "{{count}} ungelesene Chat-Nachrichten"
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -416,7 +421,12 @@
       "newChat": "Start new chat",
       "newChatConfirmation": "Do you really want to start a new chat?",
       "newChatConfirmationMessage": "The current chat history will be lost.",
-      "chatOptions": "Chat options"
+      "chatOptions": "Chat options",
+      "unreadMessages_one": "1 unread chat message",
+      "unreadMessages_two": "{{count}} unread chat messages",
+      "unreadMessages_few": "{{count}} unread chat messages",
+      "unreadMessages_many": "{{count}} unread chat messages",
+      "unreadMessages_other": "{{count}} unread chat messages"
     },
     "es": {
       "bot": "Chatbot",

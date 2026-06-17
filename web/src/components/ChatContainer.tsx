@@ -14,7 +14,7 @@ import useLocalStorage, { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY } from '../hooks/us
 import useLockedBody from '../hooks/useLockedBody'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
-import { chatIdKey, generateChatId } from '../utils/chat'
+import { chatIdKey, chatSeenMessagesKey, generateChatId } from '../utils/chat'
 import Chat from './Chat'
 import ChatFab from './ChatFab'
 import ChatMenu from './ChatMenu'
@@ -50,6 +50,10 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     key: CHAT_UNSYNCED_MESSAGES_STORAGE_KEY,
     initialValue: [],
   })
+  const [seenMessages, setSeenMessages] = useLocalStorage<number>({
+    key: chatSeenMessagesKey(region.code),
+    initialValue: 0,
+  })
 
   const response = useQueryFromEndpoint(
     createChatMessagesEndpoint,
@@ -65,6 +69,14 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
   const { data, refetch } = response
   const botTyping = data?.botTyping
   const messageCount = data?.messages.length ?? 0
+  const incomingMessageCount = data?.messages.filter(message => !message.userIsAuthor).length ?? 0
+  const unreadMessageCount = incomingMessageCount - seenMessages
+
+  useEffect(() => {
+    if (visible && incomingMessageCount > seenMessages) {
+      setSeenMessages(incomingMessageCount)
+    }
+  }, [incomingMessageCount, seenMessages, setSeenMessages, visible])
 
   useEffect(() => {
     if (!isBrowserTabActive || messageCount === 0) {
@@ -77,6 +89,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
   const resetChat = () => {
     setUnsyncedMessages([])
     setChatId(generateChatId())
+    setSeenMessages(0)
   }
 
   const hideChatButton = xsmall && ttsPlayerVisible
@@ -117,7 +130,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     )
   }
 
-  return <ChatFab onClick={open} />
+  return <ChatFab onClick={open} unreadMessageCount={unreadMessageCount} />
 }
 
 export default ChatContainer
