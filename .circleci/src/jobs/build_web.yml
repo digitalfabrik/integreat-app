@@ -32,5 +32,5 @@ steps:
   - persist_to_workspace:
       root: web
       paths:
-        - dist
+        - dist/<<parameters.build_config_name >>
   - notify

@@ -427,7 +427,7 @@ jobs:
                 path: web/dist/<< parameters.build_config_name >>.tar.gz
             - persist_to_workspace:
                 paths:
-                    - dist
+                    - dist/<<parameters.build_config_name >>
                 root: web
             - notify
     bump_version:
