@@ -3,15 +3,13 @@ import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { normalizeString } from 'shared'
+import { getMatchingAliases, MAX_NUMBER_OF_ALIASES_SHOWN } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import { AppContext } from '../contexts/AppContext'
 import testID from '../testing/testID'
 import Highlighter from './Highlighter'
 import Text from './base/Text'
-
-const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 
 const Label = styled(Highlighter)`
   color: ${props => props.theme.colors.onSurface};
@@ -41,11 +39,7 @@ const RegionEntry = ({ region, query, navigateToDashboard }: RegionEntryProps): 
       color: theme.colors.onSurfaceVariant,
     },
   })
-  const normalizedQuery = normalizeString(query)
-  const matchingAliases =
-    region.aliases && normalizedQuery.length >= 1
-      ? Object.keys(region.aliases).filter(alias => normalizeString(alias).includes(normalizedQuery))
-      : []
+  const matchingAliases = getMatchingAliases(region.aliases, query)
   const aliases = matchingAliases.slice(0, MAX_NUMBER_OF_ALIASES_SHOWN)
   const { languageCode } = useContext(AppContext)
 
@@ -54,7 +48,7 @@ const RegionEntry = ({ region, query, navigateToDashboard }: RegionEntryProps): 
       <AliasesWrapper>
         {aliases.map((it, index) => (
           <Fragment key={it}>
-            <AliasLabel search={normalizedQuery} text={it} />
+            <AliasLabel search={query} text={it} wordStartOnly />
             {index !== aliases.length - 1 && (
               <Text variant='body3' style={styles.separator}>
                 ,{' '}
@@ -76,7 +70,7 @@ const RegionEntry = ({ region, query, navigateToDashboard }: RegionEntryProps): 
       titleNumberOfLines={0}
       title={
         <View>
-          <Label search={normalizedQuery} text={region.name} />
+          <Label search={query} text={region.name} wordStartOnly />
         </View>
       }
       description={Aliases}
