@@ -54,7 +54,6 @@ type LanguageSelectionProps = {
   languageChangePaths: LanguageChangePath[]
   languageCode: string
   close?: () => void
-  availableOnly?: boolean
   asList?: boolean
   onUnavailableLanguageClick?: () => void
 }
@@ -63,7 +62,6 @@ const LanguageSelection = ({
   languageChangePaths,
   languageCode,
   close,
-  availableOnly = false,
   asList = false,
   onUnavailableLanguageClick,
 }: LanguageSelectionProps): ReactElement => {
@@ -71,10 +69,7 @@ const LanguageSelection = ({
   const { t } = useTranslation('layout')
   const { mobile } = useDimensions()
 
-  const allOptions = languageChangePaths.filter(item => !availableOnly || !!item.path)
-
-  const currentLanguage = allOptions.find(item => item.code === languageCode)
-
+  const currentLanguage = languageChangePaths.find(item => item.code === languageCode)
   const filteredLanguageChangePaths = filterLanguages(languageChangePaths, query, languageCode, config.sourceLanguage)
 
   if (mobile || asList) {

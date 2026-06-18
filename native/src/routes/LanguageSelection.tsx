@@ -1,12 +1,13 @@
 import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill'
 import '@formatjs/intl-locale/polyfill'
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { filterLanguages, LanguagesRouteType } from 'shared'
+import { useLoadAsync } from 'shared/api'
 import { config } from 'translations'
 
 import SearchInput from '../components/SearchInput'
@@ -53,36 +54,23 @@ type LanguageSelectionProps = {
 const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): ReactElement => {
   const { languages, availableLanguages } = route.params
   const { languageCode, changeLanguageCode } = useContext(AppContext)
+  const { loading } = useLoadAsync(useCallback(() => loadPolyfillIfNeeded(languageCode), [languageCode]))
   const [query, setQuery] = useState('')
-  const [polyfillLoaded, setPolyfillLoaded] = useState(false)
   const [isUnavailableDialogOpen, setIsUnavailableDialogOpen] = useState(false)
   const { t } = useTranslation('layout')
 
-  const currentLanguageName = languages.find(lang => lang.code === languageCode)?.name
+  const currentLanguage = languages.find(lang => lang.code === languageCode)
+  const filteredLanguages = loading ? languages : filterLanguages(languages, query, languageCode, config.sourceLanguage)
 
-  useEffect(() => {
-    loadPolyfillIfNeeded(languageCode).then(() => setPolyfillLoaded(true))
-  }, [languageCode])
+  const userLanguageNames = !loading ? new Intl.DisplayNames([languageCode], { type: 'language' }) : null
 
-  const getFilteredLanguages = () => {
-    if (!polyfillLoaded) {
-      return languages
-    }
-    return filterLanguages(languages, query, languageCode, config.sourceLanguage)
-  }
-
-  const filteredLanguages = getFilteredLanguages()
-
-  const languageNamesInCurrentLanguage = polyfillLoaded
-    ? new Intl.DisplayNames([languageCode], { type: 'language' })
-    : undefined
   const selectorItems = filteredLanguages.map(({ code, name }) => {
     const isLanguageAvailable = availableLanguages.includes(code)
     return new SelectorItemModel({
       code,
       name,
       enabled: isLanguageAvailable,
-      accessibilityLabel: languageNamesInCurrentLanguage?.of(code) ?? name,
+      accessibilityLabel: userLanguageNames?.of(code),
       onPress: isLanguageAvailable
         ? () => {
             if (code !== languageCode) {
@@ -100,7 +88,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
         <SearchInput
           setValue={setQuery}
           value={query}
-          placeholderText={currentLanguageName}
+          placeholderText={currentLanguage?.name}
           style={styles.horizontalMargin}
         />
         <Selector selectedItemCode={languageCode} items={selectorItems} />

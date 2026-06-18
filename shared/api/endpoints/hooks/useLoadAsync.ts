@@ -26,7 +26,7 @@ export const loadAsync = async <T>(
   }
 }
 
-export type Return<T extends object> = {
+export type Return<T> = {
   data: T | null
   error: Error | null
   loading: boolean
@@ -34,7 +34,7 @@ export type Return<T extends object> = {
   setData: Dispatch<SetStateAction<T | null>>
 }
 
-export const useLoadAsync = <T extends object>(request: (refresh: boolean) => Promise<T | null>): Return<T> => {
+export const useLoadAsync = <T>(request: (refresh: boolean) => Promise<T | null>): Return<T> => {
   const [data, setData] = useState<T | null>(null)
   const [error, setError] = useState<Error | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
