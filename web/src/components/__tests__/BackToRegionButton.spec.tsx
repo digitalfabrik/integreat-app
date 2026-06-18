@@ -4,7 +4,7 @@ import React from 'react'
 import { mockDimensions } from '../../__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import BackToContentButton from '../BackToContentButton'
+import BackToRegionButton from '../BackToRegionButton'
 
 const mockNavigate = jest.fn()
 jest.mock('react-i18next')
@@ -14,7 +14,7 @@ jest.mock('react-router', () => ({
   useNavigate: () => mockNavigate,
 }))
 
-describe('BackToContentButton', () => {
+describe('BackToRegionButton', () => {
   const { mocked } = jest
 
   const setHistoryIndex = (idx: number) => window.history.replaceState({ idx }, '')
@@ -26,7 +26,7 @@ describe('BackToContentButton', () => {
   })
 
   it('should render on mobile and navigate back on click', () => {
-    const { getByText } = renderWithRouterAndTheme(<BackToContentButton />)
+    const { getByText } = renderWithRouterAndTheme(<BackToRegionButton />)
 
     fireEvent.click(getByText('layout:backToContent'))
 
@@ -35,7 +35,7 @@ describe('BackToContentButton', () => {
 
   it('should render nothing when there is no history to go back to', () => {
     setHistoryIndex(0)
-    const { queryByText } = renderWithRouterAndTheme(<BackToContentButton />)
+    const { queryByText } = renderWithRouterAndTheme(<BackToRegionButton />)
 
     expect(queryByText('layout:backToContent')).toBeFalsy()
   })

@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useRef } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
@@ -12,29 +12,27 @@ const StyledButton = styled(Button)({
   alignSelf: 'flex-start',
 })
 
-const historyIndex = (): number => window.history.state?.idx ?? 0
-
-const BackToContentButton = (): ReactElement | null => {
+const BackToRegionButton = (): ReactElement | null => {
   const navigate = useNavigate()
   const { mobile } = useDimensions()
   const { t } = useTranslation('layout')
+  const currentHistoryIndex = window.history.state?.idx ?? 0
 
-  // Index of the content page we arrived from so that we can navigate back even if the language changed.
-  const entryIndex = useRef(historyIndex()).current
+  // Initial history index to account for language changes or other user interactions on this page.
+  const [initialHistoryIndex] = useState(currentHistoryIndex)
 
-  if (!mobile || entryIndex === 0) {
+  if (!mobile || initialHistoryIndex === 0) {
     return null
   }
 
   return (
     <StyledButton
-      onClick={() => navigate(entryIndex - historyIndex() - 1)}
+      onClick={() => navigate(initialHistoryIndex - currentHistoryIndex - 1)}
       startIcon={<DirectionDependentBackIcon />}
-      color='inherit'
-      aria-label={t('backToContent')}>
+      color='inherit'>
       {t('backToContent')}
     </StyledButton>
   )
 }
 
-export default BackToContentButton
+export default BackToRegionButton
