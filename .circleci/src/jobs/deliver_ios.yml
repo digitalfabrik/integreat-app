@@ -17,6 +17,7 @@ steps:
   - prepare_workspace
   - restore_environment_variables
   - restore_yarn_cache
+  - restore_yarn_tools_cache
   - restore_ruby_cache:
       directory: native
   - restore_ruby_cache:
