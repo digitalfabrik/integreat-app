@@ -6,7 +6,7 @@ import {
   BOTTOM_TAB_ROUTE,
   BottomTabRouteType,
   CategoriesRouteType,
-  CHANGE_LANGUAGE_MODAL_ROUTE,
+  LANGUAGES_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
@@ -36,12 +36,12 @@ import buildConfig from './constants/buildConfig'
 import useLoadRegions from './hooks/useLoadRegions'
 import { useAppContext } from './hooks/useRegionAppContext'
 import useSnackbar from './hooks/useSnackbar'
-import ChangeLanguageModal from './routes/ChangeLanguageModal'
 import Consent from './routes/Consent'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
 import ImprintContainer from './routes/ImprintContainer'
 import Intro from './routes/Intro'
+import LanguageSelection from './routes/LanguageSelection'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import MainImprint from './routes/MainImprint'
@@ -157,7 +157,7 @@ const Navigator = (): ReactElement | null => {
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
-        <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
+        <Stack.Screen name={LANGUAGES_ROUTE} component={LanguageSelection} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
         {buildConfig().featureFlags.suggestToRegion && (
           <Stack.Screen name={SUGGEST_TO_REGION_ROUTE} component={SuggestToRegion} />

@@ -19,7 +19,7 @@ import Chat from './Chat'
 import ChatFab from './ChatFab'
 import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
-import { LanguageChangePath } from './LanguageList'
+import { LanguageChangePath } from './LanguageSelection'
 import Dialog from './base/Dialog'
 
 const StyledDialog = styled(Dialog)({

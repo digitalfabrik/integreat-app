@@ -5,7 +5,7 @@ import { View, Linking, Share } from 'react-native'
 import {
   CATEGORIES_ROUTE,
   CategoriesRouteType,
-  CHANGE_LANGUAGE_MODAL_ROUTE,
+  LANGUAGES_ROUTE,
   IMPRINT_ROUTE,
   ImprintRouteType,
   NewsRouteType,
@@ -121,7 +121,7 @@ describe('Header', () => {
 
     fireEvent.press(getByLabelText(t('changeLanguage')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(2))
-    expect(navigation.navigate).toHaveBeenCalledWith(CHANGE_LANGUAGE_MODAL_ROUTE, {
+    expect(navigation.navigate).toHaveBeenCalledWith(LANGUAGES_ROUTE, {
       availableLanguages: defaultAvailableLanguages,
       languages: languageModels,
     })

@@ -6,7 +6,7 @@ import { StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { ChangeLanguageModalRouteType, normalizeString } from 'shared'
+import { LanguagesRouteType, normalizeString } from 'shared'
 import { LanguageModel } from 'shared/api'
 import { config } from 'translations'
 
@@ -60,12 +60,12 @@ const styles = StyleSheet.create({
   },
 })
 
-type ChangeLanguageModalProps = {
-  route: RouteProps<ChangeLanguageModalRouteType>
-  navigation: NavigationProps<ChangeLanguageModalRouteType>
+type LanguageSelectionProps = {
+  route: RouteProps<LanguagesRouteType>
+  navigation: NavigationProps<LanguagesRouteType>
 }
 
-const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): ReactElement => {
+const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): ReactElement => {
   const { languages, availableLanguages } = route.params
   const { languageCode, changeLanguageCode } = useContext(AppContext)
   const [query, setQuery] = useState('')
@@ -137,4 +137,4 @@ const ChangeLanguageModal = ({ navigation, route }: ChangeLanguageModalProps): R
   )
 }
 
-export default ChangeLanguageModal
+export default LanguageSelection

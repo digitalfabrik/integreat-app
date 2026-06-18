@@ -1,13 +1,13 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CHANGE_LANGUAGE_MODAL_ROUTE, ChangeLanguageModalRouteType } from 'shared'
+import { LANGUAGES_ROUTE, LanguagesRouteType } from 'shared'
 import { LanguageModelBuilder } from 'shared/api'
 
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import ChangeLanguageModal from '../ChangeLanguageModal'
+import LanguageSelection from '../LanguageSelection'
 
 jest.mock('react-i18next', () => ({
   useTranslation: () => ({
@@ -15,7 +15,7 @@ jest.mock('react-i18next', () => ({
   }),
 }))
 
-describe('ChangeLanguageModal', () => {
+describe('LanguageSelection', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -35,19 +35,19 @@ describe('ChangeLanguageModal', () => {
       languages,
       availableLanguages,
     },
-    name: CHANGE_LANGUAGE_MODAL_ROUTE,
+    name: LANGUAGES_ROUTE,
   }
-  const navigation = createNavigationScreenPropMock<ChangeLanguageModalRouteType>()
+  const navigation = createNavigationScreenPropMock<LanguagesRouteType>()
 
-  const renderChangeLanguageModel = () =>
+  const renderLanguageSelection = () =>
     render(
       <TestingAppContext languageCode={languageCode} changeLanguageCode={changeLanguageCode}>
-        <ChangeLanguageModal route={route} navigation={navigation} />
+        <LanguageSelection route={route} navigation={navigation} />
       </TestingAppContext>,
     )
 
   it('should change language if language is available and not selected', () => {
-    const { getByText } = renderChangeLanguageModel()
+    const { getByText } = renderLanguageSelection()
 
     fireEvent.press(getByText(availableLanguage.name))
 
@@ -57,7 +57,7 @@ describe('ChangeLanguageModal', () => {
   })
 
   it('should only navigate back if language is currently selected', () => {
-    const { getByText } = renderChangeLanguageModel()
+    const { getByText } = renderLanguageSelection()
 
     fireEvent.press(getByText(selectedLanguage.name))
 
@@ -66,7 +66,7 @@ describe('ChangeLanguageModal', () => {
   })
 
   it('should open unavailable dialog if language is neither available nor selected', () => {
-    const { getByText, queryByText } = renderChangeLanguageModel()
+    const { getByText, queryByText } = renderLanguageSelection()
 
     expect(queryByText('noTranslation')).toBeNull()
 

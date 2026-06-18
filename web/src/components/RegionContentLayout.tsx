@@ -10,7 +10,7 @@ import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
 import FeedbackContainer from './FeedbackContainer'
 import Footer from './Footer'
-import { LanguageChangePath } from './LanguageList'
+import { LanguageChangePath } from './LanguageSelection'
 import Layout from './Layout'
 import RegionContentHeader from './RegionContentHeader'
 

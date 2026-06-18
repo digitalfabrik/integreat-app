@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { RegionModel } from 'shared/api'
 
-import LanguageList, { LanguageChangePath } from './LanguageList'
+import LanguageSelection, { LanguageChangePath } from './LanguageSelection'
 import H1 from './base/H1'
 
 const ChooseLanguage = styled('p')`
@@ -24,7 +24,7 @@ const LanguageFailure = ({ regionModel, languageCode, languageChangePaths }: Lan
     <>
       <H1>{regionModel.name}</H1>
       <ChooseLanguage>{t('notFound.language')}</ChooseLanguage>
-      <LanguageList languageCode={languageCode} languageChangePaths={languageChangePaths} availableOnly asList />
+      <LanguageSelection languageCode={languageCode} languageChangePaths={languageChangePaths} availableOnly asList />
     </>
   )
 }

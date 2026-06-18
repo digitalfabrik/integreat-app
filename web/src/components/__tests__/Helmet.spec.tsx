@@ -5,7 +5,7 @@ import { RegionModel, RegionModelBuilder } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import Helmet from '../Helmet'
-import { LanguageChangePath } from '../LanguageList'
+import { LanguageChangePath } from '../LanguageSelection'
 
 describe('Helmet', () => {
   const config = buildConfig()

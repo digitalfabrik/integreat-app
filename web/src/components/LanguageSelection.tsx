@@ -67,7 +67,7 @@ const UnavailableLanguageButton = ({ onClick, label }: UnavailableLanguageButton
   </StyledUnavailableLanguageButton>
 )
 
-type LanguageListProps = {
+type LanguageSelectionProps = {
   languageChangePaths: LanguageChangePath[]
   languageCode: string
   close?: () => void
@@ -76,14 +76,14 @@ type LanguageListProps = {
   onUnavailableLanguageClick?: () => void
 }
 
-const LanguageList = ({
+const LanguageSelection = ({
   languageChangePaths,
   languageCode,
   close,
   availableOnly = false,
   asList = false,
   onUnavailableLanguageClick,
-}: LanguageListProps): ReactElement => {
+}: LanguageSelectionProps): ReactElement => {
   const [query, setQuery] = useState('')
   const { t } = useTranslation('layout')
   const { mobile } = useDimensions()
@@ -173,4 +173,4 @@ const LanguageList = ({
     />
   )
 }
-export default LanguageList
+export default LanguageSelection
