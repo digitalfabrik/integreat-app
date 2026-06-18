@@ -47,6 +47,14 @@ export const getMatchingAliases = (aliases: Record<string, unknown> | null, filt
   return Object.keys(aliases).filter(alias => matchesWordStart(alias, normalizedFilter))
 }
 
+const getLanguageNames = (languageCode: string): Intl.DisplayNames | null => {
+  try {
+    return new Intl.DisplayNames([languageCode], { type: 'language' })
+  } catch (_) {
+    return null
+  }
+}
+
 export const filterLanguages = <T extends { name: string; code: string }>(
   languages: T[],
   query: string,
@@ -58,13 +66,13 @@ export const filterLanguages = <T extends { name: string; code: string }>(
     return languages
   }
 
-  const userLanguageNames = new Intl.DisplayNames([userLanguageCode], { type: 'language' })
-  const sourceLanguageNames = new Intl.DisplayNames([sourceLanguageCode], { type: 'language' })
+  const userDisplayNames = getLanguageNames(userLanguageCode)
+  const sourceDisplayNames = getLanguageNames(sourceLanguageCode)
 
   return languages.filter(
     language =>
       normalizeString(language.name).includes(normalizedQuery) ||
-      normalizeString(userLanguageNames.of(language.code) ?? '').includes(normalizedQuery) ||
-      normalizeString(sourceLanguageNames.of(language.code) ?? '').includes(normalizedQuery),
+      normalizeString(userDisplayNames?.of(language.code) ?? '').includes(normalizedQuery) ||
+      normalizeString(sourceDisplayNames?.of(language.code) ?? '').includes(normalizedQuery),
   )
 }

@@ -158,4 +158,26 @@ describe('filterLanguages', () => {
     const query = 'xyz'
     expect(filterLanguages(languages, query, userLanguage, userLanguage)).toEqual([])
   })
+
+  it('should not crash if the user language code is invalid', () => {
+    const query = 'english'
+    expect(() => filterLanguages(languages, query, 'asdf', sourceLanguage)).not.toThrow()
+    expect(filterLanguages(languages, query, 'asdf', sourceLanguage)).toEqual(languages)
+  })
+
+  it('should not crash if the source language code is invalid', () => {
+    const query = 'english'
+    expect(() => filterLanguages(languages, query, userLanguage, 'asdf')).not.toThrow()
+    expect(filterLanguages(languages, query, userLanguage, 'asdf')).toEqual(languages)
+  })
+
+  it('should still match by language name when both display-name locales are invalid', () => {
+    const query = 'english'
+    expect(filterLanguages(languages, query, 'asdf', 'asdf')).toEqual(languages)
+  })
+
+  it('should return no matches for a non-name query when both display-name locales are invalid', () => {
+    const query = 'englisch'
+    expect(filterLanguages(languages, query, 'asdf', 'asdf')).toEqual([])
+  })
 })
