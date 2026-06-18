@@ -1,9 +1,12 @@
 import CloseIcon from '@mui/icons-material/Close'
+import Button from '@mui/material/Button'
 import MuiDialog, { dialogClasses } from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -51,6 +54,30 @@ const AlertDialog = ({ title, close, children, className, actions }: DialogProps
       <DialogContent>{children}</DialogContent>
       {actions}
     </StyledMuiDialog>
+  )
+}
+
+export type SimpleAlertDialogProps = {
+  title: string
+  body: string
+  close: () => void
+}
+
+export const SimpleAlertDialog = ({ title, body, close }: SimpleAlertDialogProps): ReactElement => {
+  const { t } = useTranslation('layout')
+  return (
+    <AlertDialog
+      title={title}
+      close={close}
+      actions={
+        <DialogActions>
+          <Button onClick={close} variant='outlined'>
+            {t('common:close')}
+          </Button>
+        </DialogActions>
+      }>
+      <Typography variant='body2'>{body}</Typography>
+    </AlertDialog>
   )
 }
 

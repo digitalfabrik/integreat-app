@@ -56,7 +56,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
   const { languageCode, changeLanguageCode } = useContext(AppContext)
   const { loading } = useLoadAsync(useCallback(() => loadPolyfillIfNeeded(languageCode), [languageCode]))
   const [query, setQuery] = useState('')
-  const [isUnavailableDialogOpen, setIsUnavailableDialogOpen] = useState(false)
+  const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
   const { t } = useTranslation('layout')
 
   const currentLanguage = languages.find(lang => lang.code === languageCode)
@@ -78,7 +78,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
             }
             navigation.goBack()
           }
-        : () => setIsUnavailableDialogOpen(true),
+        : () => setAlertDialogTitle(t('noTranslation')),
     })
   })
 
@@ -92,14 +92,17 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
           style={styles.horizontalMargin}
         />
         <Selector selectedItemCode={languageCode} items={selectorItems} />
-        <Button mode='outlined' onPress={() => setIsUnavailableDialogOpen(true)} style={styles.horizontalMargin}>
+        <Button
+          mode='outlined'
+          onPress={() => setAlertDialogTitle(t('languageNotFoundQuestion'))}
+          style={styles.horizontalMargin}>
           {t('languageNotFoundQuestion')}
         </Button>
       </Wrapper>
       <AlertDialog
-        visible={isUnavailableDialogOpen}
-        close={() => setIsUnavailableDialogOpen(false)}
-        title={<Text variant='subtitle1'>{t('noTranslation')}</Text>}>
+        visible={!!alertDialogTitle}
+        close={() => setAlertDialogTitle(null)}
+        title={<Text variant='subtitle1'>{alertDialogTitle}</Text>}>
         <Text>{t('languageNotAvailableMessage')}</Text>
       </AlertDialog>
     </>

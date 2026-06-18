@@ -44,7 +44,7 @@ type LanguageSelectionProps = {
   languageCode: string
   close?: () => void
   asList?: boolean
-  onUnavailableLanguageClick?: () => void
+  openAlertDialog: (title: string) => void
 }
 
 const LanguageSelection = ({
@@ -52,7 +52,7 @@ const LanguageSelection = ({
   languageCode,
   close,
   asList = false,
-  onUnavailableLanguageClick,
+  openAlertDialog,
 }: LanguageSelectionProps): ReactElement => {
   const [query, setQuery] = useState('')
   const { t } = useTranslation('layout')
@@ -61,8 +61,11 @@ const LanguageSelection = ({
   const currentLanguage = languageChangePaths.find(item => item.code === languageCode)
   const filteredLanguageChangePaths = filterLanguages(languageChangePaths, query, languageCode, config.sourceLanguage)
 
+  const openLanguageUnavailableDialog = () => openAlertDialog(t('languageNotFoundQuestion'))
+  const openTranslationUnavailableDialog = () => openAlertDialog(t('noTranslation'))
+
   const languageNotFoundButton = (
-    <StyledLanguageNotFondButton variant='outlined' onClick={onUnavailableLanguageClick}>
+    <StyledLanguageNotFondButton onClick={openLanguageUnavailableDialog} variant='outlined'>
       {t('languageNotFoundQuestion')}
     </StyledLanguageNotFondButton>
   )
@@ -80,7 +83,7 @@ const LanguageSelection = ({
               name={language.name}
               close={close}
               selectedLanguageCode={currentLanguage?.code}
-              onUnavailableLanguageClick={onUnavailableLanguageClick}
+              onUnavailableLanguageClick={openTranslationUnavailableDialog}
             />
           ))}
         </List>
@@ -110,7 +113,7 @@ const LanguageSelection = ({
             name={language.name}
             close={close}
             selectedLanguageCode={currentLanguage?.code}
-            onUnavailableLanguageClick={onUnavailableLanguageClick}
+            onUnavailableLanguageClick={openTranslationUnavailableDialog}
             key={language.code}
           />
           {index === filteredLanguageChangePaths.length - 1 && languageNotFoundButton}
