@@ -28,7 +28,7 @@ const StyledTextField = styled(TextField)({
   },
 })
 
-const StyledUnavailableLanguageButton = styled(Button)({
+const StyledLanguageNotFondButton = styled(Button)({
   margin: '2px 8px',
   textTransform: 'none',
 })
@@ -38,17 +38,6 @@ export type LanguageChangePath = {
   path: string | null
   name: string
 }
-
-type UnavailableLanguageButtonProps = {
-  onClick?: () => void
-  label: string
-}
-
-const UnavailableLanguageButton = ({ onClick, label }: UnavailableLanguageButtonProps): ReactElement => (
-  <StyledUnavailableLanguageButton variant='outlined' onClick={onClick}>
-    {label}
-  </StyledUnavailableLanguageButton>
-)
 
 type LanguageSelectionProps = {
   languageChangePaths: LanguageChangePath[]
@@ -72,6 +61,12 @@ const LanguageSelection = ({
   const currentLanguage = languageChangePaths.find(item => item.code === languageCode)
   const filteredLanguageChangePaths = filterLanguages(languageChangePaths, query, languageCode, config.sourceLanguage)
 
+  const languageNotFoundButton = (
+    <StyledLanguageNotFondButton variant='outlined' onClick={onUnavailableLanguageClick}>
+      {t('languageNotFoundQuestion')}
+    </StyledLanguageNotFondButton>
+  )
+
   if (mobile || asList) {
     return (
       <Stack gap={2}>
@@ -89,7 +84,7 @@ const LanguageSelection = ({
             />
           ))}
         </List>
-        <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
+        {languageNotFoundButton}
       </Stack>
     )
   }
@@ -118,14 +113,10 @@ const LanguageSelection = ({
             onUnavailableLanguageClick={onUnavailableLanguageClick}
             key={language.code}
           />
-          {index === filteredLanguageChangePaths.length - 1 && (
-            <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
-          )}
+          {index === filteredLanguageChangePaths.length - 1 && languageNotFoundButton}
         </Fragment>
       )}
-      noOptionsText={
-        <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
-      }
+      noOptionsText={languageNotFoundButton}
       disablePortal
       slotProps={{
         popper: {
