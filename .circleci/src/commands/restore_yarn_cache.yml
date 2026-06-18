@@ -13,6 +13,11 @@ steps:
       # corepack prefix is necessary on macos
       # https://github.com/nodejs/corepack/issues/507
       command: corepack yarn --immutable
+  - run:
+      name: Build files
+      # corepack prefix is necessary on macos
+      # https://github.com/nodejs/corepack/issues/507
+      command: corepack yarn ts:check
   - save_cache:
       name: Save Yarn Package Cache
       key: 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
