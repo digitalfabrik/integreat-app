@@ -23,21 +23,26 @@ type ChatMenuProps = {
 const ChatMenu = ({ chatId, ticketUrl, resetChat }: ChatMenuProps): ReactElement => {
   const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLElement | null>(null)
   const [newChatConfirmationDialogOpen, setNewChatConfirmationDialogOpen] = useState(false)
-  const [qrCodeDialogOpen, setQrCodeDialogOpen] = useState(false)
+  const [consultationQrOpen, setConsultationQrOpen] = useState(false)
   const { t } = useTranslation('chat')
 
   const cancelNewChat = () => {
-    setMenuAnchorElement(null)
     setNewChatConfirmationDialogOpen(false)
   }
   const createNewChat = () => {
-    setMenuAnchorElement(null)
     resetChat()
     setNewChatConfirmationDialogOpen(false)
   }
-  const closeConsultationQrCodeDialog = () => {
+  const confirmNewChat = () => {
     setMenuAnchorElement(null)
-    setQrCodeDialogOpen(false)
+    setNewChatConfirmationDialogOpen(true)
+  }
+  const closeConsultationQrCodeDialog = () => {
+    setConsultationQrOpen(false)
+  }
+  const openConsultationQrCodeDialog = () => {
+    setMenuAnchorElement(null)
+    setConsultationQrOpen(true)
   }
 
   return (
@@ -50,24 +55,24 @@ const ChatMenu = ({ chatId, ticketUrl, resetChat }: ChatMenuProps): ReactElement
       </IconButton>
       <MuiMenu
         anchorEl={menuAnchorElement}
-        open={menuAnchorElement !== null && !newChatConfirmationDialogOpen && !qrCodeDialogOpen}
+        open={menuAnchorElement !== null}
         onClose={() => setMenuAnchorElement(null)}>
         <MenuItem
           text={t('newChat')}
           icon={<AddCommentOutlinedIcon fontSize='small' />}
           disabled={chatId === null}
-          onClick={() => setNewChatConfirmationDialogOpen(true)}
+          onClick={confirmNewChat}
         />
         <MenuItem
           text={t('consultationQrCodeTitle')}
           icon={<QrCode2Icon fontSize='small' />}
           disabled={ticketUrl === null}
-          onClick={() => setQrCodeDialogOpen(true)}
+          onClick={openConsultationQrCodeDialog}
         />
       </MuiMenu>
 
       <QrCodeDialog
-        open={qrCodeDialogOpen}
+        open={consultationQrOpen}
         close={closeConsultationQrCodeDialog}
         title={t('consultationQrCodeTitle')}
         description={t('consultationQrCodeDescription')}
