@@ -14,9 +14,6 @@ steps:
       name: Prettier
       command: yarn prettier:check
   - run:
-      name: TS check
-      command: yarn ts:check:ci
-  - run:
       name: Check circular dependencies
       command: yarn check-circular-dependencies
   - run:

@@ -191,6 +191,9 @@ commands:
             - run:
                 command: corepack yarn --immutable
                 name: Yarn
+            - run:
+                command: corepack yarn ts:check
+                name: Build files
             - save_cache:
                 key: 11-yarn-{{ arch }}-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-{{ checksum "native/package.json" }}-{{ checksum "web/package.json" }}
                 name: Save Yarn Package Cache
@@ -265,9 +268,6 @@ jobs:
                 command: bundle exec fastlane android keystore
                 name: '[FL] Prepare Android Keystore'
                 working_directory: native/android
-            - run:
-                command: yarn ts:check
-                name: Build files
             - run:
                 command: bundle exec fastlane android build build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] << parameters.build_config_name >> Android Build'
@@ -351,9 +351,6 @@ jobs:
                 command: brew install cmake
                 name: Install CMake
             - run:
-                command: yarn ts:check
-                name: Build files
-            - run:
                 command: bundle exec fastlane ios build build_config_name:<< parameters.build_config_name >> version_name:${NEW_VERSION_NAME} version_code:${NEW_VERSION_CODE}
                 name: '[FL] << parameters.build_config_name >> iOS Build'
                 working_directory: native/ios
@@ -414,9 +411,6 @@ jobs:
             - prepare_workspace
             - restore_environment_variables
             - run:
-                command: yarn ts:check
-                name: Build files
-            - run:
                 command: yarn workspace web build:<< parameters.build_config_name >> --env commit_sha=${CIRCLE_SHA1} --env version_name=${NEW_VERSION_NAME}
                 name: << parameters.build_config_name >> build
             - store_artifacts:
@@ -433,7 +427,7 @@ jobs:
                 path: web/dist/<< parameters.build_config_name >>.tar.gz
             - persist_to_workspace:
                 paths:
-                    - dist
+                    - dist/<<parameters.build_config_name >>
                 root: web
             - notify
     bump_version:
@@ -492,9 +486,6 @@ jobs:
             - run:
                 command: yarn prettier:check
                 name: Prettier
-            - run:
-                command: yarn ts:check:ci
-                name: TS check
             - run:
                 command: yarn check-circular-dependencies
                 name: Check circular dependencies
@@ -763,9 +754,6 @@ jobs:
             - checkout
             - prepare_workspace
             - restore_yarn_cache
-            - run:
-                command: yarn ts:check
-                name: Build files
             - run:
                 background: true
                 command: yarn workspace web start:integreat-e2e

@@ -1,5 +1,8 @@
 import { Chunk, FindAll, findAll, findChunks, FindChunks } from 'highlight-words-core'
 
+import normalizeString from './normalizeString.js'
+import { MATCH_WHITESPACE_AND_DASHES } from './search.js'
+
 const charsAddedByNormalization = (text: string, until: number) => {
   let charsAdded = 0
   for (let i = 0; i < until - charsAdded; i += 1) {
@@ -10,9 +13,11 @@ const charsAddedByNormalization = (text: string, until: number) => {
   return charsAdded
 }
 
-const findNormalizedMatches = (props: FindChunks): Chunk[] => {
-  const chunks: Chunk[] = findChunks(props)
-  return chunks.map(chunk => {
+const findNormalizedMatches = (
+  props: FindChunks,
+  { wordStartOnly = false }: { wordStartOnly?: boolean } = {},
+): Chunk[] => {
+  const normalizedMatches = (chunk: Chunk): Chunk => {
     const charsAddedBeforeMatch = charsAddedByNormalization(props.textToHighlight, chunk.start)
     const charsAddedIncludingMatch = charsAddedByNormalization(props.textToHighlight, chunk.end)
     return {
@@ -20,7 +25,20 @@ const findNormalizedMatches = (props: FindChunks): Chunk[] => {
       start: chunk.start - charsAddedBeforeMatch,
       end: chunk.end - charsAddedIncludingMatch,
     }
-  })
+  }
+
+  const chunks = findChunks(props)
+  if (!wordStartOnly) {
+    return chunks.map(normalizedMatches)
+  }
+
+  const normalized = normalizeString(props.textToHighlight)
+  return (
+    chunks
+      // Match at the beginning or in the middle where the new word starts
+      .filter(chunk => chunk.start === 0 || MATCH_WHITESPACE_AND_DASHES.test(normalized[chunk.start - 1] ?? ''))
+      .map(normalizedMatches)
+  )
 }
 
 export const findAllMatches: (args: FindAll) => Chunk[] = findAll
