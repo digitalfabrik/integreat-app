@@ -23,7 +23,6 @@
     "prettier:write": "prettier --write .",
     "check-circular-dependencies": "./tools/checkCircularDependencies.sh",
     "ts:check": "tsc --build",
-    "ts:check:ci": "yarn node --max-old-space-size=1536 $(yarn bin tsc) --build",
     "postinstall": "yarn workspace native postinstall && yarn workspace web postinstall"
   },
   "resolutions": {
