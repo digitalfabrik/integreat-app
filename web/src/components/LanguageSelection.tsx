@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles'
 import React, { Fragment, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { normalizeString } from 'shared'
+import { filterLanguages } from 'shared'
 import { config } from 'translations'
 
 import useDimensions from '../hooks/useDimensions'
@@ -37,23 +37,6 @@ export type LanguageChangePath = {
   code: string
   path: string | null
   name: string
-}
-
-export const filterLanguageChangePath = (
-  languageChangePath: LanguageChangePath,
-  query: string,
-  languageNamesInCurrentLanguage: Intl.DisplayNames,
-  languageNamesInFallbackLanguage: Intl.DisplayNames,
-): boolean => {
-  if (query === '') {
-    return true
-  }
-  const normalizedQuery = normalizeString(query)
-  return (
-    normalizeString(languageChangePath.name).includes(normalizedQuery) ||
-    normalizeString(languageNamesInCurrentLanguage.of(languageChangePath.code) || '').includes(normalizedQuery) ||
-    normalizeString(languageNamesInFallbackLanguage.of(languageChangePath.code) || '').includes(normalizedQuery)
-  )
 }
 
 type UnavailableLanguageButtonProps = {
@@ -92,11 +75,7 @@ const LanguageSelection = ({
 
   const currentLanguage = allOptions.find(item => item.code === languageCode)
 
-  const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
-  const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
-  const filteredLanguageChangePaths = languageChangePaths.filter(item =>
-    filterLanguageChangePath(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
-  )
+  const filteredLanguageChangePaths = filterLanguages(languageChangePaths, query, languageCode, config.sourceLanguage)
 
   if (mobile || asList) {
     return (

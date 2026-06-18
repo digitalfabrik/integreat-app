@@ -6,8 +6,7 @@ import { StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { LanguagesRouteType, normalizeString } from 'shared'
-import { LanguageModel } from 'shared/api'
+import { filterLanguages, LanguagesRouteType } from 'shared'
 import { config } from 'translations'
 
 import SearchInput from '../components/SearchInput'
@@ -28,20 +27,6 @@ const loadPolyfillIfNeeded = async (locale: string): Promise<void> => {
   await import('@formatjs/intl-displaynames/polyfill-force')
   await importDisplayNamesPackage(locale)
   await importDisplayNamesPackage(config.sourceLanguage)
-}
-
-const filterLanguages = (
-  languageList: LanguageModel,
-  query: string,
-  languageNamesInCurrentLanguage: Intl.DisplayNames,
-  languageNamesInFallbackLanguage: Intl.DisplayNames,
-): boolean => {
-  const normalizedQuery = normalizeString(query)
-  return (
-    normalizeString(languageList.name).includes(normalizedQuery) ||
-    normalizeString(languageNamesInCurrentLanguage.of(languageList.code) || '').includes(normalizedQuery) ||
-    normalizeString(languageNamesInFallbackLanguage.of(languageList.code) || '').includes(normalizedQuery)
-  )
 }
 
 const Wrapper = styled.ScrollView`
@@ -80,14 +65,10 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
   }, [languageCode])
 
   const getFilteredLanguages = () => {
-    if (query === '' || !polyfillLoaded) {
+    if (!polyfillLoaded) {
       return languages
     }
-    const languageNamesForFilter = new Intl.DisplayNames([languageCode], { type: 'language' })
-    const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
-    return languages.filter(item =>
-      filterLanguages(item, query, languageNamesForFilter, languageNamesInFallbackLanguage),
-    )
+    return filterLanguages(languages, query, languageCode, config.sourceLanguage)
   }
 
   const filteredLanguages = getFilteredLanguages()

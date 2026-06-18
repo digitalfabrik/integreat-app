@@ -1,6 +1,6 @@
 import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder.js'
 import RegionModel from '../../api/models/RegionModel.js'
-import { filterSortRegions } from '../../index.js'
+import { filterLanguages, filterSortRegions } from '../../index.js'
 
 describe('search', () => {
   describe('filterSortRegions', () => {
@@ -126,5 +126,36 @@ describe('search', () => {
       ]
       expect(filterSortRegions(regions, 'ba')).toEqual([])
     })
+  })
+})
+
+describe('filterLanguages', () => {
+  const languages = [{ code: 'en', path: '/augsburg/en/', name: 'English' }]
+  const userLanguage = 'de'
+  const sourceLanguage = 'fr'
+
+  it('should return true for an empty query', () => {
+    const query = ''
+    expect(filterLanguages(languages, query, userLanguage, userLanguage)).toEqual(languages)
+  })
+
+  it('should return true if the query matches the name in the language of the current languages', () => {
+    const query = 'english'
+    expect(filterLanguages(languages, query, userLanguage, userLanguage)).toEqual(languages)
+  })
+
+  it('should return true if the query matches the name in the current language', () => {
+    const query = 'angl'
+    expect(filterLanguages(languages, query, sourceLanguage, userLanguage)).toEqual(languages)
+  })
+
+  it('should return true if the query matches the name in the fallback language', () => {
+    const query = 'englisch'
+    expect(filterLanguages(languages, query, sourceLanguage, userLanguage)).toEqual(languages)
+  })
+
+  it('should return false if nothing matches', () => {
+    const query = 'xyz'
+    expect(filterLanguages(languages, query, userLanguage, userLanguage)).toEqual([])
   })
 })
