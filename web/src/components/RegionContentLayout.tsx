@@ -8,6 +8,7 @@ import useDimensions from '../hooks/useDimensions'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
+import FeedbackContainer from './FeedbackContainer'
 import Footer from './Footer'
 import { LanguageChangePath } from './LanguageList'
 import Layout from './Layout'
@@ -23,6 +24,7 @@ export type RegionContentLayoutProps = {
   fitScreen?: boolean
   category?: CategoryModel
   pageTitle: string | null
+  slug: string | null
 }
 
 const RegionContentLayout = ({
@@ -35,6 +37,7 @@ const RegionContentLayout = ({
   toolbar,
   fitScreen = false,
   pageTitle,
+  slug,
 }: RegionContentLayoutProps): ReactElement => {
   const { route } = useRegionContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
@@ -65,6 +68,7 @@ const RegionContentLayout = ({
           {chatVisible && (
             <ChatContainer region={region} languageCode={languageCode} languageChangePaths={languageChangePaths} />
           )}
+          <FeedbackContainer slug={slug} />
           {mobile && <BottomNavigation regionModel={region} languageCode={languageCode} />}
         </>
       }

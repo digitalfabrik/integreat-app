@@ -56,7 +56,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
         {t('searchResultsCount', { count: results.length })}
       </Typography>
       <List items={items} />
-      <SearchFeedback noResults={results.length === 0} query={query} />
+      <SearchFeedback noResults={results.length === 0} />
     </>
   )
 }
@@ -124,6 +124,7 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
     languageChangePaths,
     languageCode,
     pageTitle: null,
+    slug: null,
   }
 
   if (error) {

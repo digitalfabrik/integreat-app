@@ -120,6 +120,7 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
                 isLoading
                 region={region}
                 pageTitle={null}
+                slug={null}
               />
             ) : (
               <Layout />
