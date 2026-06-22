@@ -1,12 +1,20 @@
 import LinkIcon from '@mui/icons-material/Link'
 import LocationIcon from '@mui/icons-material/LocationOnOutlined'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
-import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
+import {
+  EVENTS_ROUTE,
+  pathnameFromRouteInformation,
+  useDateFilter,
+  DateGroupKey,
+  groupEvents,
+  GROUP_ORDER,
+} from 'shared'
 import { createEventsEndpoint, NotFoundError } from 'shared/api'
 
 import DatesPageDetail from '../components/DatesPageDetail'
@@ -48,6 +56,8 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     language: languageCode,
   })
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events ?? null)
+
+  const groupedEvents = groupEvents(events ?? [])
 
   // Support legacy slugs of old recurring events with one event per recurrence
   const pathnameWithoutDate = pathname.split('$')[0]
@@ -143,15 +153,51 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     )
   }
 
-  const items = (filteredEvents ?? []).map(event => (
-    <EventListItem
-      event={event}
-      languageCode={languageCode}
-      key={event.path}
-      filterStartDate={startDate}
-      filterEndDate={endDate}
+  const groupedListSections = GROUP_ORDER.map((key: DateGroupKey) => {
+    const eventsGroup = groupedEvents[key]
+    if (eventsGroup.length === 0) {
+      return []
+    }
+
+    return (
+      <section key={key}>
+        <Typography component='span' variant='body1' dir='auto'>
+          {t(key)}
+        </Typography>
+        <List
+          items={eventsGroup.map(event => (
+            <EventListItem event={event} languageCode={languageCode} key={event.path} />
+          ))}
+        />
+      </section>
+    )
+  })
+
+  const filteredListItems = (
+    <List
+      items={(filteredEvents ?? []).map(event => (
+        <EventListItem
+          event={event}
+          languageCode={languageCode}
+          key={event.path}
+          filterStartDate={startDate}
+          filterEndDate={endDate}
+        />
+      ))}
+      noItemsMessage='events:currentlyNoEvents'
     />
-  ))
+  )
+
+  const groupedList = GROUP_ORDER.some(key => groupedEvents[key].length > 0)
+
+  let eventsList
+  if (startDate || endDate) {
+    eventsList = filteredListItems
+  } else if (groupedList) {
+    eventsList = groupedListSections
+  } else {
+    eventsList = <List items={[]} noItemsMessage='events:currentlyNoEvents' />
+  }
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
@@ -164,11 +210,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
         setEndDate={setEndDate}
         startDateError={startDateError}
       />
-      {events ? (
-        <List items={items} noItemsMessage='events:currentlyNoEvents' />
-      ) : (
-        <SkeletonList listItemHeight={80} listItemIcon={<Icon />} />
-      )}
+      {events ? eventsList : <SkeletonList listItemHeight={80} listItemIcon={<Icon />} />}
     </RegionContentLayout>
   )
 }

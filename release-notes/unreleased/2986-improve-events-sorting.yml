@@ -1,0 +1,7 @@
+issue_key: 2986
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Events are now sorted according to the group they belong to.
+de: Die Veranstaltungen sind nun nach der Gruppe sortiert, zu der sie gehören.

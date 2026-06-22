@@ -190,22 +190,6 @@ class DateModel {
     })
   }
 
-  getDateIcon(): { icon: DateIcon; label: string } | null {
-    const isRecurring = this.hasMoreRecurrencesThan(1)
-    const isToday = this.isToday
-
-    if (isRecurring && isToday) {
-      return { icon: 'CalendarTodayRecurringIcon', label: 'todayRecurring' }
-    }
-    if (isRecurring) {
-      return { icon: 'CalendarRecurringIcon', label: 'recurring' }
-    }
-    if (isToday) {
-      return { icon: 'CalendarTodayIcon', label: 'today' }
-    }
-    return null
-  }
-
   private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType {
     const startDate = recurrenceRule.options.dtstart
     const offsetStartDate = formatDateICal(

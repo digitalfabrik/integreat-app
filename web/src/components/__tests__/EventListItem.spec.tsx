@@ -2,21 +2,15 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { rrulestr } from 'rrule'
 
-import { getExcerpt } from 'shared'
-import { EventModelBuilder, DateModel } from 'shared/api'
+import { getExcerpt, getGroupKey, groupEvents } from 'shared'
+import { EventModelBuilder, DateModel, EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../../assets'
 import { EXCERPT_MAX_CHARS } from '../../constants'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import EventListItem, { getDateIcon } from '../EventListItem'
+import EventListItem from '../EventListItem'
 
 jest.mock('react-i18next')
-jest.mock(
-  '@mui/material/Tooltip',
-  () =>
-    ({ title }: { title: string }) =>
-      title,
-)
 
 jest.useFakeTimers({ now: new Date('2023-10-02T05:23:57.443+02:00') })
 describe('EventListItem', () => {
@@ -57,61 +51,60 @@ describe('EventListItem', () => {
     expect(getByText(excerpt)).toBeTruthy()
   })
 
-  describe('date icon', () => {
-    const createEvent = (rrule?: string) =>
+  describe('groupEvents', () => {
+    const createEvent = (startISO: string, rrule?: string) =>
       Object.assign(event, {
         _date: new DateModel({
-          startDate: DateTime.fromISO('2023-10-09T07:00:00.000+02:00'),
-          endDate: DateTime.fromISO('2023-10-10T09:00:00.000+02:00'),
+          startDate: DateTime.fromISO(startISO),
+          endDate: null,
           allDay: false,
           recurrenceRule: rrule ? rrulestr(rrule) : null,
           onlyWeekdays: false,
         }),
       })
 
-    it('should show no icon if neither recurring nor today', () => {
-      const event = createEvent()
-      expect(getDateIcon(event.date)?.tooltip).toBeUndefined()
-
-      const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
-
-      expect(queryByText('events:todayRecurring')).toBeFalsy()
-      expect(queryByText('events:recurring')).toBeFalsy()
-      expect(queryByText('events:today')).toBeFalsy()
+    it('should put an event starting tomorrow into the tomorrow group', () => {
+      const event = createEvent('2023-10-03T15:00:00.000+02:00')
+      expect(getGroupKey(event)).toBe('tomorrow')
     })
 
-    it('should show icon if recurring and today', () => {
-      const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231029T050000')
-
-      const { queryByText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
-
-      expect(queryByText('events:todayRecurring')).toBeTruthy()
-      expect(queryByText('events:recurring')).toBeFalsy()
-      expect(queryByText('events:today')).toBeFalsy()
+    it('should put an event in 4 days into this week group', () => {
+      const event = createEvent('2023-10-07T15:00:00.000+02:00')
+      expect(getGroupKey(event)).toBe('thisWeek')
     })
 
-    it('should show icon if recurring but not today', () => {
-      const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=TU;UNTIL=20231029T050000')
+    it('should put an event 3 weeks after into this month group', () => {
+      const event = createEvent('2023-10-25T15:00:00.000+02:00')
+      expect(getGroupKey(event)).toBe('thisMonth')
+    })
 
-      const { queryByText, getByText } = renderWithRouterAndTheme(
-        <EventListItem event={event} languageCode={language} />,
+    it('should put an event beyond 30 days into further group', () => {
+      const event = createEvent('2023-12-01T15:00:00.000+02:00')
+      expect(getGroupKey(event)).toBe('further')
+    })
+
+    it('should sort one-time event before recurring event within the same group', () => {
+      const makeEvent = (startISO: string, rrule?: string): EventModel =>
+        Object.assign(Object.create(Object.getPrototypeOf(event)), event, {
+          _date: new DateModel({
+            startDate: DateTime.fromISO(startISO),
+            endDate: null,
+            allDay: false,
+            recurrenceRule: rrule ? rrulestr(rrule) : null,
+            onlyWeekdays: false,
+          }),
+        })
+
+      const oneTimeEvent = makeEvent('2023-10-02T18:00:00.000+02:00')
+      const recurringEvent = makeEvent(
+        '2023-10-02T09:00:00.000+02:00',
+        'DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO',
       )
 
-      expect(queryByText('events:todayRecurring')).toBeFalsy()
-      expect(getByText('events:recurring')).toBeTruthy()
-      expect(queryByText('events:today')).toBeFalsy()
-    })
-
-    it('should show icon if today but not recurring', () => {
-      const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231003T050000')
-
-      const { queryByText, getByText } = renderWithRouterAndTheme(
-        <EventListItem event={event} languageCode={language} />,
-      )
-
-      expect(queryByText('events:todayRecurring')).toBeFalsy()
-      expect(queryByText('events:recurring')).toBeFalsy()
-      expect(getByText('events:today')).toBeTruthy()
+      const groups = groupEvents([recurringEvent, oneTimeEvent])
+      expect(groups.today.indexOf(oneTimeEvent)).toBeLessThan(groups.today.indexOf(recurringEvent))
+      expect(getGroupKey(oneTimeEvent)).toBe('today')
+      expect(getGroupKey(recurringEvent)).toBe('today')
     })
   })
 })
