@@ -5,7 +5,7 @@ const mainImprint = `
   Wertachstr. 29<br />
   86153 Augsburg
 </p>
-<p>vertreten durch Clara Bracklo, Daniel Kehne</p>
+<p>vertreten durch Antonia Hauf, Daniel Kehne</p>
 <p>Prokura: Fritjof Knier</p>
 <p>
   Aufsichtsbehörde: Finanzamt Augsburg-Stadt<br />

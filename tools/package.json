@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "devDependencies": {
+    "@sentry/cli": "^3.4.0",
     "app-toolbelt": "github:digitalfabrik/app-toolbelt#semver:1.0.0"
   }
 }

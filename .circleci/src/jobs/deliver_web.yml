@@ -78,6 +78,7 @@ steps:
           - equal: [production, << parameters.delivery >>]
           - equal: [beta, << parameters.delivery >>]
       steps:
+        - restore_yarn_tools_cache
         - run:
             name: Upload Source Maps to Sentry
             command: |
