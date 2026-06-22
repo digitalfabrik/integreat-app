@@ -39,18 +39,18 @@ This is a monorepo and contains the following projects:
 
 Both projects are whitelabelled with different [build configs](build-configs/README.md).
 
-There are also separate sub-projects used by both projects:
+There are also separate subprojects used by both projects:
 
 - **[translations](translations/README.md)**: Translated texts and utilities to manage them
-- **[shared](shared/README.md)**: Contains common shared utilities, for example related to implementation of the endpoints (v3) of the integreat cms
+- **[shared](shared/README.md)**: Contains commonly shared utilities, for example, related to implementation of the endpoints (v3) of the integreat cms
 - **[build-configs](build-configs/README.md)**: Configuration files to build different versions of the apps
 
 ## Getting Started
 
 ### Prerequisites
 
-_We recommend to use either a Linux distribution or MacOS for development.
-If you want to develop on Windows anyway, we recommend to use the `Windows Subsystem for Linux (WSL)`
+_We recommend using either a Linux distribution or macOS for development.
+If you want to develop on Windows anyway, we recommend using the `Windows Subsystem for Linux (WSL)`
 and follow the docs [here](./docs/wsl-setup.md) first._
 
 - Rate our apps in the [PlayStore](https://play.google.com/store/apps/developer?id=T%C3%BCr+an+T%C3%BCr+-+Digitalfabrik+gGmbH)
@@ -60,7 +60,7 @@ and follow the docs [here](./docs/wsl-setup.md) first._
 
 ### Project setup
 
-We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as IDE. JetBrains provides free licences for students.
+We suggest **[IntelliJ IDEA Ultimate](https://www.jetbrains.com/idea/)** as an IDE. JetBrains provides free licences for students.
 If you are using a different IDE like Visual Studio Code the steps might [differ](./docs/vscode.md).
 
 - Import this project (VCS > Get from Version Control).

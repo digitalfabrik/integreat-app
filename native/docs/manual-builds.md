@@ -1,7 +1,7 @@
 # Manually Running and Building the App
 
 If you want to run the app locally or create `.ipa` or `.apk` builds for testing purposes you can follow this guide. If
-you only want to quickly push an update to the stores then take a look at
+you only want to quickly push an update to the stores, then take a look at
 the [CI/CD documentation](../../docs/cicd.md#triggering-a-delivery-using-the-ci).
 
 ## Contents
@@ -13,7 +13,7 @@ the [CI/CD documentation](../../docs/cicd.md#triggering-a-delivery-using-the-ci)
 - Android
   - [Setup and prerequisites](#setup-on-android)
   - [Running the app](#running-the-app-on-android)
-  - [Running the App via ADB network on mobile device](#running-the-app-via-adb-network)
+  - [Running the App via ADB network on a mobile device](#running-the-app-via-adb-network)
   - [Building the app using a test signing keystore](#building-the-app-using-a-test-signing-keystore-without-fastlane)
   - [Building the app using for the Play Store](#building-the-app-for-the-play-store)
 
@@ -45,7 +45,7 @@ If you need any of these permissions, ask for them in the ~team-app channel on M
 cd ios && fastlane match development
 ```
 
-If you want to build for for a different environment than development (e.g. production), put that one in the command.
+If you want to build for a different environment than development (e.g. production), put that one in the command.
 
 - If you get an error that you can't clone the repo `app-signing`, request access.
 
@@ -114,7 +114,7 @@ found [here](build-configs.md).**
 
 #### Prerequisites
 
-- Install and setup the Android SDK.
+- Install and set up the Android SDK.
 - **Building for the Play Store only:** [Install and setup Fastlane](../../docs/cicd.md#fastlane-setup) (necessary for
   keystore management).
 
@@ -136,12 +136,12 @@ yarn start
 yarn android
 ```
 
-Alternatively, you can also use the GUI in Android Studio to build and run the app, this sometimes helps with
+Alternatively, you can also use the GUI in Android Studio to build and run the app. This sometimes helps with
 troubleshooting.
 
 ### Running the App via ADB network
 
-Start the app on mobile device using **ADB over network**
+Start the app on a mobile device using **ADB over network**
 
 1. Enable ADB via Network on your phone (Dev Settings)
 2. Connect phone via usb
@@ -192,7 +192,7 @@ export KEYSTORE_PATH=/tmp/keystore.jks
 More information about the necessary environment variables can be
 found [here](../../docs/cicd.md#environment-variables-and-dependencies).
 
-- Setup the production JKS:
+- Set up the production JKS:
 
 ```bash
 cd android && bundle exec fastlane keystore
