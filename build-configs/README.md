@@ -40,6 +40,6 @@ See the [build config types](./BuildConfigType.ts) for more information on struc
 Each build config is a set of javascript files (possibly including common files) that can be found in the [corresponding directory]().
 See the corresponding sections for [native](../native/docs/build-configs.md#technical-information) and [web](../web/docs/build-configs.md#technical-information).
 
-## Whitelabelling
+## White Labeling
 
-If you want to add more build configs in order to create a new whitelabelled app, have a look at the [whitelabelling docu](../docs/whitelabelling.md).
+If you want to add more build configs in order to create a new whitelabelled app, have a look at the [white labeling documentation](../docs/whitelabelling.md).

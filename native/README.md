@@ -24,7 +24,7 @@ _Make sure to have read and followed the steps in the [general README](../README
 - Take a look at the [available scripts](package.json). The most important scripts are also available as IntelliJ Run
   Configurations.
 
-Depending on whether you want to develop for Android, iOS or both the following extra steps are necessary:
+Depending on whether you want to develop for Android, iOS or both, the following extra steps are necessary:
 
 ### Android
 
@@ -61,19 +61,19 @@ run the app.
 
 In development builds, i.e. `yarn start`, the test cms is used as default.
 
-To switch between production and test cms, go to **Settings**, scroll down to the **Version** and tap it 10 times. To switch back to default cms url, press the button **Switch back to default API** on the very top of the **Settings** screen.
-On iOS it may be required to close and reopen the app after changing the cms instance.
+To switch between production and test cms, go to **Settings**, scroll down to the **Version** and tap it 10 times. To switch back to the default CMS URL, press the button **Switch back to default API** on the very top of the **Settings** screen.
+On iOS, it may be required to close and reopen the app after changing the CMS instance.
 
-The cms repository can be found [here](https://github.com/digitalfabrik/integreat-cms).
-There is no up-to-date api documentation but an outdated one can be found [here](https://github.com/Integreat/cms/wiki/REST-APIv3-Documentation).
+The CMS repository can be found [here](https://github.com/digitalfabrik/integreat-cms).
+There is no up-to-date API documentation, but an outdated one can be found [here](https://github.com/Integreat/cms/wiki/REST-APIv3-Documentation).
 
 ### Testing CMS Content
 
-To test with content from the cms the **testumgebung** can be used. If you don't know how to do that, reach out to us.
+To test with content from the CMS, the **testumgebung** can be used. If you don't know how to do that, reach out to us.
 
 ### Hidden Regions
 
-Hidden regions, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the regions page.
+Hidden regions, especially the testumgebung, can be shown by entering the search query `wirschaffendas` in the region page.
 
 ### Additional Notes
 
