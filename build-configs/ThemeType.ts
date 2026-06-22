@@ -48,6 +48,11 @@ export type TypeTtsPlayer = {
   playIconColor: string
 }
 
+export type TypeChatIcons = {
+  main: string
+  focus: string
+}
+
 export type CommonColorPalette = CommonColors & {
   mode: PaletteMode
   primary: PaletteColor
@@ -56,6 +61,7 @@ export type CommonColorPalette = CommonColors & {
   text: TypeText
   action: ActionColor
   ttsPlayer: TypeTtsPlayer
+  chatIcons: TypeChatIcons
 }
 
 export type ThemeColorPalette = CommonColorPalette & {

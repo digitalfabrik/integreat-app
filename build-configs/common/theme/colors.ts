@@ -46,6 +46,10 @@ export const commonLightColors: CommonColorPalette = {
     secondary: '#585858',
     disabled: '#858585',
   },
+  chatIcons: {
+    main: '#6A6A6A',
+    focus: '#000000',
+  },
   action: {
     disabledBackground: '#FFFFFF',
     disabled: '#C9C9C9',
@@ -81,6 +85,10 @@ export const commonDarkColors: CommonColorPalette = {
     primary: '#E6E0E9',
     secondary: '#919EB4',
     disabled: '#858585',
+  },
+  chatIcons: {
+    main: '#FFFFFF',
+    focus: '#E7E7E7',
   },
   action: {
     disabledBackground: '#000000',

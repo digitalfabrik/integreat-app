@@ -1,16 +1,12 @@
 import InfoIcon from '@mui/icons-material/Info'
-import MailLock from '@mui/icons-material/MailLock'
 import RefreshIcon from '@mui/icons-material/Refresh'
-import SendIcon from '@mui/icons-material/Send'
 import Alert from '@mui/material/Alert'
-import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
-import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { KeyboardEvent, ReactElement, SetStateAction, useState } from 'react'
+import React, { ReactElement, SetStateAction, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -25,7 +21,6 @@ import {
   SerializedChatMessage,
 } from 'shared/api'
 
-import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useLocalStorage, {
   CHAT_HINT_VISIBLE_STORAGE_KEY,
@@ -34,9 +29,9 @@ import useLocalStorage, {
 import { UseQueryFromEndpointReturn } from '../hooks/useQueryFromEndpoint'
 import { captureError } from '../utils/sentry'
 import ChatConversation from './ChatConversation'
+import ChatInput from './ChatInput'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
-import Link from './base/Link'
 
 const Container = styled(Stack)(({ theme }) => ({
   height: '100%',
@@ -141,17 +136,6 @@ const Chat = ({
     }).catch(captureError)
   }
 
-  const submitDisabled = textInput.trim().length === 0
-  const submitOnEnter = (event: KeyboardEvent) => {
-    if (event.key !== 'Enter' || event.shiftKey) {
-      return
-    }
-    event.preventDefault()
-    if (!submitDisabled) {
-      onSubmit()
-    }
-  }
-
   if (!privacyPolicyAccepted) {
     return (
       <Container>
@@ -191,29 +175,7 @@ const Chat = ({
             <Typography variant='body2'>{t('conversationHelperText')}</Typography>
           </Alert>
         )}
-        <TextField
-          id='chat-input'
-          label={t('inputLabel')}
-          value={textInput}
-          onChange={event => setTextInput(event.target.value)}
-          onKeyDown={submitOnEnter}
-          multiline
-          rows={2}
-          placeholder={t('chatInputHelperText')}
-        />
-        <Stack direction='row' alignItems='center' gap={1}>
-          <Button onClick={onSubmit} startIcon={<SendIcon />} variant='contained' disabled={submitDisabled} fullWidth>
-            {t('sendButton')}
-          </Button>
-          <Tooltip title={t('settings:privacyPolicy')}>
-            <IconButton
-              component={Link}
-              to={region.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}
-              aria-label={t('layout:privacy')}>
-              <MailLock />
-            </IconButton>
-          </Tooltip>
-        </Stack>
+        <ChatInput value={textInput} setValue={setTextInput} onSubmit={onSubmit} region={region} />
       </Stack>
     </Container>
   )
