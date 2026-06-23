@@ -61,8 +61,8 @@ export const SETTINGS_ROUTE: SettingsRouteType = 'settings'
 export type BottomTabRouteType = 'bottomTab'
 export const BOTTOM_TAB_ROUTE: BottomTabRouteType = 'bottomTab'
 
-export type ChangeLanguageModalRouteType = 'changeLanguage'
-export const CHANGE_LANGUAGE_MODAL_ROUTE: ChangeLanguageModalRouteType = 'changeLanguage'
+export type LanguagesRouteType = 'languages'
+export const LANGUAGES_ROUTE: LanguagesRouteType = 'languages'
 
 export type PdfViewModalRouteType = 'pdf'
 export const PDF_VIEW_MODAL_ROUTE: PdfViewModalRouteType = 'pdf'

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
 import HeaderActionItem from './HeaderActionItem'
-import LanguageList, { LanguageChangePath } from './LanguageList'
+import LanguageSelection, { LanguageChangePath } from './LanguageSelection'
 import Sidebar from './Sidebar'
 import AlertDialog from './base/AlertDialog'
 
@@ -48,9 +48,9 @@ const HeaderLanguageSelectorItem = ({
 
   const currentLanguageName = languageChangePaths.find(item => item.code === languageCode)?.name
 
-  const ChangeLanguageButton = (
+  const LanguageSelectionButton = (
     <HeaderActionItem
-      key='languageChange'
+      key='languages'
       onClick={open}
       text={isOpen ? '' : t('changeLanguage') /* to not cover the dropdown with the tooltip */}
       icon={<TranslateOutlinedIcon />}
@@ -76,8 +76,8 @@ const HeaderLanguageSelectorItem = ({
   if (mobile) {
     return (
       <>
-        <StyledSidebar openButton={ChangeLanguageButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
-          <LanguageList
+        <StyledSidebar openButton={LanguageSelectionButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
+          <LanguageSelection
             languageChangePaths={languageChangePaths}
             languageCode={languageCode}
             close={close}
@@ -91,7 +91,7 @@ const HeaderLanguageSelectorItem = ({
 
   return (
     <>
-      {ChangeLanguageButton}
+      {LanguageSelectionButton}
       <Popover
         open={isOpen}
         onClose={close}
@@ -109,7 +109,7 @@ const HeaderLanguageSelectorItem = ({
             sx: { boxShadow: 'none', overflow: 'visible' },
           },
         }}>
-        <LanguageList
+        <LanguageSelection
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}
           close={close}
