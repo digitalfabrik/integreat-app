@@ -70,14 +70,15 @@ const ChatMenu = ({ chatId, ticketUrl, resetChat }: ChatMenuProps): ReactElement
           onClick={openConsultationQrCodeDialog}
         />
       </MuiMenu>
-
-      <QrCodeDialog
-        open={consultationQrOpen}
-        close={closeConsultationQrCodeDialog}
-        title={t('consultationQrCodeTitle')}
-        description={t('consultationQrCodeDescription')}
-        content={ticketUrl ?? ''}
-      />
+      {ticketUrl && (
+        <QrCodeDialog
+          open={consultationQrOpen}
+          close={closeConsultationQrCodeDialog}
+          title={t('consultationQrCodeTitle')}
+          description={t('consultationQrCodeDescription')}
+          content={ticketUrl}
+        />
+      )}
 
       {newChatConfirmationDialogOpen && (
         <AlertDialog
