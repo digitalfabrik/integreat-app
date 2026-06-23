@@ -2,7 +2,9 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import SendIcon from '@mui/icons-material/Send'
-import IconButton from '@mui/material/IconButton'
+import { buttonBaseClasses } from '@mui/material/ButtonBase'
+import IconButton, { iconButtonClasses } from '@mui/material/IconButton'
+import { outlinedInputClasses } from '@mui/material/OutlinedInput'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
@@ -20,7 +22,7 @@ const INLINE_PADDING = 8
 
 const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 'expanded' })<{ expanded: boolean }>(
   ({ theme, expanded }) => ({
-    '& .MuiOutlinedInput-root': {
+    [`& .${outlinedInputClasses.root}`]: {
       ...theme.typography.body2,
       borderRadius: 12,
       minHeight: 56,
@@ -35,8 +37,8 @@ const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 
 )
 
 const ChatIconButton = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.chatIcons.main,
-  '&.Mui-focusVisible': { color: theme.palette.chatIcons.focus },
+  color: theme.palette.text.secondary,
+  [`&.${buttonBaseClasses.focusVisible}`]: { color: theme.palette.text.primary },
 })) as typeof IconButton
 
 const SendButton = styled(IconButton)(({ theme }) => ({
@@ -45,9 +47,9 @@ const SendButton = styled(IconButton)(({ theme }) => ({
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
-  '&.Mui-disabled': {
+  [`&.${iconButtonClasses.disabled}`]: {
     backgroundColor: theme.isContrastTheme ? 'transparent' : theme.palette.action.disabledBackground,
-    color: theme.isContrastTheme ? theme.palette.chatIcons.main : theme.palette.action.disabled,
+    color: theme.palette.action.disabled,
   },
 
   [theme.breakpoints.up('md')]: {

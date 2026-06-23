@@ -31,10 +31,6 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     tertiary: PaletteColor
-    chatIcons: {
-      main: string
-      focus: string
-    }
     tuNews: {
       light: string
       main: string
@@ -43,10 +39,6 @@ declare module '@mui/material/styles' {
 
   interface PaletteOptions {
     tertiary: PaletteColor
-    chatIcons: {
-      main: string
-      focus: string
-    }
     tuNews: {
       light: string
       main: string
