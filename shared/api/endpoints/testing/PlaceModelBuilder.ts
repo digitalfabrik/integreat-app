@@ -9,13 +9,13 @@ import PlaceModel from '../../models/PlaceModel.js'
 
 const places = [
   new PlaceModel({
-    path: '/augsburg/de/locations/test',
+    path: '/augsburg/de/places/test',
     title: 'Test Title',
     content: 'My extremely long test content',
     thumbnail: 'test',
     availableLanguages: {
-      de: '/augsburg/de/locations/test',
-      en: '/augsburg/en/locations/test-translated',
+      de: '/augsburg/de/places/test',
+      en: '/augsburg/en/places/test-translated',
     },
     excerpt: 'excerpt',
     metaDescription: 'meta',
@@ -65,13 +65,13 @@ const places = [
     barrierFree: true,
   }),
   new PlaceModel({
-    path: '/augsburg/en/locations/test_path_2',
+    path: '/augsburg/en/places/test_path_2',
     title: 'test title 2',
     content: 'test content 2',
     thumbnail: 'test thumbnail 2',
     availableLanguages: {
-      de: '/augsburg/de/locations/test',
-      en: '/augsburg/en/locations/test-translated',
+      de: '/augsburg/de/places/test',
+      en: '/augsburg/en/places/test-translated',
     },
     excerpt: 'test excerpt 2',
     metaDescription: 'meta 2',
@@ -108,13 +108,13 @@ const places = [
     barrierFree: false,
   }),
   new PlaceModel({
-    path: '/augsburg/en/locations/another_test_path',
+    path: '/augsburg/en/places/another_test_path',
     title: 'Another test title',
     content: 'another test content',
     thumbnail: 'another test thumbnail',
     availableLanguages: {
-      de: '/augsburg/de/locations/test',
-      en: '/augsburg/en/locations/test-translated',
+      de: '/augsburg/de/places/test',
+      en: '/augsburg/en/places/test-translated',
     },
     excerpt: 'Another test excerpt',
     metaDescription: null,

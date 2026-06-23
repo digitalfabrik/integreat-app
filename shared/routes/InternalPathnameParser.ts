@@ -13,6 +13,7 @@ import {
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
   LEGACY_REGIONS_ROUTE,
+  LEGACY_PLACES_ROUTE,
 } from './index.js'
 import { parseQueryParams } from './query.js'
 
@@ -129,7 +130,7 @@ class InternalPathnameParser {
   }
 
   places = (): RouteInformationType => {
-    const params = this.regionContentParams(PLACES_ROUTE)
+    const params = this.regionContentParams(PLACES_ROUTE) ?? this.regionContentParams(LEGACY_PLACES_ROUTE)
 
     if (!params) {
       return null

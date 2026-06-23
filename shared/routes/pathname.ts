@@ -50,7 +50,7 @@ export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteI
   }
   if (routeInformation.route === EVENTS_ROUTE || routeInformation.route === PLACES_ROUTE) {
     const { regionCode, languageCode, route, slug } = routeInformation
-    // https://integreat.app/augsburg/de/locations, https://integreat.app/augsburg/de/events/my-event-1234
+    // https://integreat.app/augsburg/de/places, https://integreat.app/augsburg/de/events/my-event-1234
     return constructPathname([regionCode, languageCode, route, slug])
   }
   if (

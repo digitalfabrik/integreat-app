@@ -128,7 +128,7 @@ describe('NavigationTabs', () => {
   })
 
   it('should highlight places tab', () => {
-    const { getByRole } = renderAllRoutes('/augsburg/de/locations', {
+    const { getByRole } = renderAllRoutes('/augsburg/de/places', {
       RegionContentElement: (
         <NavigationTabs languageCode={languageCode} regionModel={regionModel(true, true, true, true)} />
       ),

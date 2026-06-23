@@ -10,6 +10,7 @@ import {
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
   LEGACY_REGIONS_ROUTE,
+  LEGACY_PLACES_ROUTE,
 } from '../index.js'
 import { MULTI_PLACE_QUERY_KEY, PLACE_CATEGORY_QUERY_KEY, SEARCH_QUERY_KEY, ZOOM_QUERY_KEY } from '../query.js'
 
@@ -122,6 +123,41 @@ describe('InternalPathnameParser', () => {
 
   it('should match multiPlace route', () => {
     const pathname = `/${regionCode}/${languageCode}/${PLACES_ROUTE}`
+    const query = `?${MULTI_PLACE_QUERY_KEY}=1&${PLACE_CATEGORY_QUERY_KEY}=8`
+    const parser = new InternalPathnameParser(pathname, languageCode, null, query)
+    expect(parser.route()).toEqual({
+      route: PLACES_ROUTE,
+      languageCode,
+      regionCode,
+      multiPlace: 1,
+      placeCategoryId: 8,
+    })
+  })
+
+  it('should match places route if pathname uses the legacy places slug', () => {
+    const pathname = `/${regionCode}/${languageCode}/${LEGACY_PLACES_ROUTE}`
+    const parser = new InternalPathnameParser(pathname, languageCode, null)
+    expect(parser.route()).toEqual({
+      route: PLACES_ROUTE,
+      languageCode,
+      regionCode,
+    })
+  })
+
+  it('should match single places route if pathname uses the legacy places slug', () => {
+    const slug = 'tuer-an-tuer'
+    const pathname = `/${regionCode}/${languageCode}/${LEGACY_PLACES_ROUTE}/${slug}`
+    const parser = new InternalPathnameParser(pathname, languageCode, null)
+    expect(parser.route()).toEqual({
+      route: PLACES_ROUTE,
+      languageCode,
+      regionCode,
+      slug,
+    })
+  })
+
+  it('should match multiPlace route if pathname uses the legacy places slug', () => {
+    const pathname = `/${regionCode}/${languageCode}/${LEGACY_PLACES_ROUTE}`
     const query = `?${MULTI_PLACE_QUERY_KEY}=1&${PLACE_CATEGORY_QUERY_KEY}=8`
     const parser = new InternalPathnameParser(pathname, languageCode, null, query)
     expect(parser.route()).toEqual({
@@ -548,6 +584,28 @@ describe('InternalPathnameParser', () => {
         regionCode,
         multiPlace: 1,
         placeCategoryId: 8,
+      })
+    })
+
+    it('should match places route if pathname uses the legacy places slug', () => {
+      const pathname = `/${regionCode}/${LEGACY_PLACES_ROUTE}`
+      const parser = new InternalPathnameParser(pathname, languageCode, null)
+      expect(parser.route()).toEqual({
+        route: PLACES_ROUTE,
+        languageCode,
+        regionCode,
+      })
+    })
+
+    it('should match single places route if pathname uses the legacy places slug', () => {
+      const slug = 'tuer-an-tuer'
+      const pathname = `/${regionCode}/${LEGACY_PLACES_ROUTE}/${slug}`
+      const parser = new InternalPathnameParser(pathname, languageCode, null)
+      expect(parser.route()).toEqual({
+        route: PLACES_ROUTE,
+        languageCode,
+        regionCode,
+        slug,
       })
     })
 
