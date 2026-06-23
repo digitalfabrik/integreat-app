@@ -9,6 +9,7 @@ type CustomIconProps = {
   height?: number | string
   className?: string
   ariaLabel?: string
+  overrideFillColors?: string
 }
 
 const Svg = ({
@@ -17,6 +18,7 @@ const Svg = ({
   height = DEFAULT_ICON_SIZE,
   className,
   ariaLabel,
+  overrideFillColors,
 }: CustomIconProps): ReactElement => (
   <ReactSVG
     src={src}
@@ -24,7 +26,12 @@ const Svg = ({
     beforeInjection={svg => {
       svg.setAttribute('width', String(width))
       svg.setAttribute('height', String(height))
-      svg.setAttribute('style', 'color: inherit')
+      if (overrideFillColors) {
+        svg.querySelectorAll('[fill]').forEach(el => el.setAttribute('fill', 'currentColor'))
+        svg.setAttribute('style', `color: ${overrideFillColors}`)
+      } else {
+        svg.setAttribute('style', 'color: inherit')
+      }
     }}
     wrapper='span'
     {...(ariaLabel ? { role: 'img', 'aria-label': ariaLabel } : {})}
