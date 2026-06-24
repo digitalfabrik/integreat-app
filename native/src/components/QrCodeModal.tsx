@@ -41,7 +41,13 @@ const QrCodeModal = ({ modalVisible, closeModal, title, description, content }: 
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={title} scrollView={false}>
       <View style={styles.content}>
         <Text>{description}</Text>
-        <SvgXml xml={svgXml} width={QR_CODE_SIZE} height={QR_CODE_SIZE} fill={theme.colors.onSurface} />
+        <SvgXml
+          xml={svgXml}
+          width={QR_CODE_SIZE}
+          height={QR_CODE_SIZE}
+          fill={theme.colors.onSurface}
+          aria-label={t('qrCode')}
+        />
         <Text selectable style={styles.text}>
           {content}
         </Text>
