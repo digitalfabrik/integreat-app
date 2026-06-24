@@ -42,7 +42,7 @@
     "@types/react": "19.2.14",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
-    "app-toolbelt": "github:digitalfabrik/app-toolbelt#semver:1.0.0",
+    "app-toolbelt": "catalog:",
     "commander": "^14.0.3",
     "eslint": "^9.39.4",
     "eslint-config-airbnb-extended": "^3.0.1",
