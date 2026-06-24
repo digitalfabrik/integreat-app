@@ -8,25 +8,15 @@ const require = createRequire(import.meta.url)
 
 /** @type {import('@react-native/metro-config').MetroConfig} */
 const defaultConfig = getDefaultConfig(dirname)
-// Needed for rn-header-buttons, will be enabled by default in a future version of react-native
-// https://github.com/vonovak/react-navigation-header-buttons/blob/master/INSTALL.md#installation--setup
-defaultConfig.resolver.unstable_enablePackageExports = true
-const {
-  resolver: { assetExts, sourceExts },
-} = defaultConfig
+const buildConfigName = process.env.BUILD_CONFIG_NAME || 'integreat-test-cms'
 
 /** @type {import('metro-config').MetroConfig} */
 const config = {
   resolver: {
-    assetExts: assetExts.filter(ext => ext !== 'svg'),
-    sourceExts: [...sourceExts, 'svg'],
+    assetExts: defaultConfig.resolver.assetExts.filter(ext => ext !== 'svg'),
+    sourceExts: [...defaultConfig.resolver.sourceExts, 'svg'],
     extraNodeModules: {
-      'build-config-name': path.resolve(
-        dirname,
-        '../build-configs',
-        process.env.BUILD_CONFIG_NAME || 'integreat-test-cms',
-        'build-config-name',
-      ),
+      'build-config-name': path.resolve(dirname, '..', 'build-configs', buildConfigName, 'build-config-name'),
     },
     nodeModulesPaths: [path.resolve(dirname, './node_modules')],
 
@@ -39,6 +29,8 @@ const config = {
           : moduleName
       return context.resolveRequest(context, module, platform)
     },
+    // Needed for rn-header-buttons, will be enabled by default in a future version of react-native
+    // https://github.com/vonovak/react-navigation-header-buttons/blob/master/INSTALL.md#installation--setup
     unstable_enablePackageExports: true,
   },
   watchFolders: [path.resolve(dirname, '../')],
