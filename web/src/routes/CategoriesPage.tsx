@@ -160,7 +160,8 @@ const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     languageCode,
     category,
     pageTitle,
-    toolbar: <RegionContentToolbar slug={category && !category.isRoot() ? category.slug : undefined} />,
+    slug: category && !category.isRoot() ? category.slug : null,
+    toolbar: <RegionContentToolbar />,
   }
   const isDataAvailable = !categories || !parents || !category
   const isLoadingData = categoriesLoading || parentsLoading || pathname !== previousPathname

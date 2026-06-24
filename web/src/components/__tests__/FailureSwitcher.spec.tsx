@@ -26,7 +26,7 @@ describe('FailureSwitcher', () => {
     ${'event'}         | ${'1234'}       | ${'event'}    | ${'events'}     | ${'/augsburg/de/events'}
     ${LOCAL_NEWS_TYPE} | ${'1'}          | ${'news'}     | ${'news'}       | ${'/augsburg/de/news/local'}
     ${TU_NEWS_TYPE}    | ${'1'}          | ${'news'}     | ${'news'}       | ${'/augsburg/de/news/tu-news'}
-    ${'place'}         | ${'1234'}       | ${'place'}    | ${'places'}     | ${'/augsburg/de/locations'}
+    ${'place'}         | ${'1234'}       | ${'place'}    | ${'places'}     | ${'/augsburg/de/places'}
   `('should render $type not found failure', ({ type, id, notFoundKey, goToKey, goToPath }) => {
     const error = new NotFoundError({ type, id, language, region })
     const { getByText } = renderWithRouterAndTheme(<FailureSwitcherWithHelmet error={error} />)

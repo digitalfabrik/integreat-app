@@ -2,6 +2,7 @@ import { PreparePlacesReturn as ImportedPreparePlacesReturn } from './utils/plac
 
 export type PreparePlacesReturn = ImportedPreparePlacesReturn
 export type { Chunk, FindAll, FindChunks } from 'highlight-words-core'
+export { findAll, findChunks } from 'highlight-words-core'
 export { default as useSearch, prepareSearchDocuments } from './hooks/useSearch.js'
 export { default as useDebounce } from './hooks/useDebounce.js'
 export { default as useDateFilter } from './hooks/useDateFilter.js'

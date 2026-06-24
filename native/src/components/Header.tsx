@@ -6,7 +6,7 @@ import {
   BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CategoriesRouteType,
-  CHANGE_LANGUAGE_MODAL_ROUTE,
+  LANGUAGES_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   EventsRouteType,
@@ -105,7 +105,7 @@ const Header = ({
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
       showSnackbar({ text: 'layout:noTranslation' })
     } else if (languages && availableLanguages) {
-      navigation.navigate(CHANGE_LANGUAGE_MODAL_ROUTE, {
+      navigation.navigate(LANGUAGES_ROUTE, {
         languages,
         availableLanguages,
       })

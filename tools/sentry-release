@@ -118,11 +118,6 @@ assign_positional_args 1 "${_positionals[@]}"
 set -e
 shopt -s nullglob
 
-if ! command -v sentry-cli &> /dev/null
-then
-  curl -sL https://sentry.io/get-cli/ | bash
-fi
-
 package_name=$_arg_package_name
 version_name=$_arg_version_name
 version_code=$_arg_version_code
@@ -144,8 +139,8 @@ then
 fi
 
 
-sentry-cli releases new "$version" --finalize
+tools/node_modules/.bin/sentry-cli releases new "$version" --finalize
 
-sentry-cli sourcemaps upload --release="$version" --dist "$version_code" "$sourcemap_directory"
+tools/node_modules/.bin/sentry-cli sourcemaps upload --release="$version" --dist "$version_code" "$sourcemap_directory"
 
 # ] <-- needed because of Argbash

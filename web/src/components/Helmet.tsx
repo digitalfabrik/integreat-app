@@ -3,7 +3,7 @@ import React, { ReactElement, useEffect } from 'react'
 import { RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
-import { LanguageChangePath } from './LanguageList'
+import { LanguageChangePath } from './LanguageSelection'
 
 type HelmetProps = {
   pageTitle: string

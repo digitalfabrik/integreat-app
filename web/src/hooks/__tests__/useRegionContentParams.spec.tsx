@@ -34,7 +34,7 @@ describe('useRegionContentParams', () => {
     ${'/augsburg/de'}                  | ${CATEGORIES_ROUTE}
     ${'/augsburg/de/willkommen/hallo'} | ${CATEGORIES_ROUTE}
     ${'/augsburg/de/events'}           | ${EVENTS_ROUTE}
-    ${'/augsburg/de/locations'}        | ${PLACES_ROUTE}
+    ${'/augsburg/de/places'}           | ${PLACES_ROUTE}
     ${'/augsburg/de/imprint'}          | ${IMPRINT_ROUTE}
     ${'/augsburg/de/news'}             | ${NEWS_ROUTE}
     ${'/augsburg/de/news/local'}       | ${NEWS_ROUTE}
