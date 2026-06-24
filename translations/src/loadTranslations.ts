@@ -1,7 +1,7 @@
 import { deepmerge } from 'deepmerge-ts'
 
-import defaultTranslations from '../translations.json' with { type: 'json' }
 import transformTranslations from './transformTranslations.js'
+import defaultTranslations from './translations.json' with { type: 'json' }
 import { TranslationsType, TransformedTranslationsType } from './types.js'
 
 const loadTranslations = (translationsOverride?: TranslationsType): TransformedTranslationsType => {
