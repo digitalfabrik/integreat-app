@@ -165,12 +165,12 @@ describe('Places', () => {
     expect(localHistory.push).toHaveBeenCalledWith({ showFilterSelection: true })
   })
 
-  it('should call pop when showPlaces is pressed in filter modal', () => {
+  it('should call push to hide the filter modal when showPlaces is pressed', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
     fireEvent.press(getByText('showPlaces'))
 
-    expect(localHistory.pop).toHaveBeenCalledTimes(1)
+    expect(localHistory.push).toHaveBeenCalledWith({ showFilterSelection: false })
   })
 
   it('should call pushReset with category id when a category is selected in filter modal', () => {
@@ -178,7 +178,11 @@ describe('Places', () => {
 
     fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
 
-    expect(localHistory.pushReset).toHaveBeenCalledWith({ placeCategoryId: place1.category.id, currentlyOpen: false })
+    expect(localHistory.pushReset).toHaveBeenCalledWith({
+      placeCategoryId: place1.category.id,
+      currentlyOpen: false,
+      showFilterSelection: true,
+    })
   })
 
   it('should call pushReset to clear category when category chip is pressed', () => {
@@ -186,6 +190,10 @@ describe('Places', () => {
 
     fireEvent.press(getAllByText('Gastronomie')[0]!)
 
-    expect(localHistory.pushReset).toHaveBeenCalledWith({ placeCategoryId: undefined, currentlyOpen: false })
+    expect(localHistory.pushReset).toHaveBeenCalledWith({
+      placeCategoryId: undefined,
+      currentlyOpen: false,
+      showFilterSelection: false,
+    })
   })
 })
