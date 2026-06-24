@@ -24,7 +24,7 @@ You need to follow several steps to add new languages:
 - Add your language to the [polyfill list](../native/src/utils/importDisplayNamesPackage.ts).
 - Test the new language on both native and web.
 - Add the new language to the [wiki](https://wiki.tuerantuer.org/integreat-languages).
-- Translate our [translations](translations.json) in your new language, see [export and import workflow](#export-and-import-workflow).
+- Translate our [translations](src/translations.json) in your new language, see [export and import workflow](#export-and-import-workflow).
 
 If you need a new font for your language, the following steps are required:
 
@@ -70,7 +70,7 @@ The following regex can be used to find invalid placeholders (make sure to enabl
 ## Conversion between JSON, CSV and ODS
 
 External translators generally need csv or ods files.
-For conversion between json and csv the [manage tool](tools/manage.ts) can be used.
+For conversion between json and csv the [manage tool](src/manage.ts) can be used.
 For conversion between csv and ods the [csv-to-ods](tools/csv-to-ods) and [ods-to-csv](tools/ods-to-csv) can be used.
 
 **In order to convert json to ods and vice versa, the intermediate step of converting to csv has to be made.**
@@ -80,7 +80,7 @@ For conversion between csv and ods the [csv-to-ods](tools/csv-to-ods) and [ods-t
 Convert the specified json file to multiple csv (one per language) in the given directory:
 `yarn manage convert <json file> <csv directory> csv`
 
-Example: `yarn manage convert ./translations.json translations-csv csv`
+Example: `yarn manage convert ./src/translations.json translations-csv csv`
 
 Notes:
 
