@@ -9456,7 +9456,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"build-configs@npm:0.0.1, build-configs@workspace:build-configs":
+"build-configs@workspace:^, build-configs@workspace:build-configs":
   version: 0.0.0-use.local
   resolution: "build-configs@workspace:build-configs"
   dependencies:
@@ -17002,7 +17002,7 @@ __metadata:
     "@types/lodash": "npm:^4.17.24"
     "@types/url-parse": "npm:^1.4.11"
     babel-jest: "npm:^30.3.0"
-    build-configs: "npm:0.0.1"
+    build-configs: "workspace:^"
     commander: "npm:^14.0.3"
     cross-env: "npm:^10.1.0"
     htmlparser2: "npm:^10.1.0"
@@ -17036,10 +17036,10 @@ __metadata:
     react-native-worklets: "npm:^0.8.1"
     react-test-renderer: "npm:19.2.3"
     rrule: "npm:^2.8.1"
-    shared: "npm:0.0.1"
+    shared: "workspace:^"
     styled-components: "npm:6.3.12"
     stylis: "npm:^4.3.6"
-    translations: "npm:0.0.1"
+    translations: "workspace:^"
     url-parse: "npm:^1.5.10"
   languageName: unknown
   linkType: soft
@@ -20125,7 +20125,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shared@npm:0.0.1, shared@workspace:shared":
+"shared@workspace:^, shared@workspace:shared":
   version: 0.0.0-use.local
   resolution: "shared@workspace:shared"
   dependencies:
@@ -21510,7 +21510,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"translations@npm:0.0.1, translations@workspace:translations":
+"translations@npm:0.0.1, translations@workspace:^, translations@workspace:translations":
   version: 0.0.0-use.local
   resolution: "translations@workspace:translations"
   dependencies:
@@ -22537,7 +22537,7 @@ __metadata:
     "@types/react-infinite-scroller": "npm:^1.2.5"
     "@types/stylis": "npm:^4.2.7"
     "@vitejs/plugin-react": "npm:^6.0.2"
-    build-configs: "npm:0.0.1"
+    build-configs: "workspace:^"
     core-js: "npm:^3.49.0"
     cross-env: "npm:^10.1.0"
     css-loader: "npm:^7.1.4"
@@ -22564,9 +22564,9 @@ __metadata:
     react-spring-bottom-sheet: "npm:^3.4.1"
     react-svg: "npm:^17.2.4"
     schema-dts: "npm:^2.0.0"
-    shared: "npm:0.0.1"
+    shared: "workspace:^"
     stylis: "npm:^4.3.6"
-    translations: "npm:0.0.1"
+    translations: "workspace:^"
     vite: "npm:^8.0.16"
     vite-plugin-generate-file: "npm:^0.3.1"
   languageName: unknown
