@@ -1,4 +1,4 @@
-import Payload from '../Payload.js'
+import Payload from '../Payload.ts'
 
 describe('Payload', () => {
   const data = {

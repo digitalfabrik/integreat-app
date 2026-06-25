@@ -1,5 +1,5 @@
-import RegionModel from '../api/models/RegionModel.js'
-import { normalizeString } from './normalizeString.js'
+import RegionModel from '../api/models/RegionModel.ts'
+import { normalizeString } from './normalizeString.ts'
 
 export const MATCH_WHITESPACE_AND_DASHES = /[\s-]+/
 

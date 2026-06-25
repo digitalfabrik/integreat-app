@@ -1,4 +1,4 @@
-import ContactModel from '../ContactModel.js'
+import ContactModel from '../ContactModel.ts'
 
 describe('ContactModel', () => {
   const contactWithAllInformation = new ContactModel({

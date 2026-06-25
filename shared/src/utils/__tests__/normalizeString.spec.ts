@@ -1,4 +1,4 @@
-import normalizeString from '../normalizeString.js'
+import normalizeString from '../normalizeString.ts'
 
 describe('normalizeString', () => {
   it('should normalize search string', () => {

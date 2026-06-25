@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import LocalNewsModel from '../../models/LocalNewsModel.js'
+import LocalNewsModel from '../../models/LocalNewsModel.ts'
 
 class LocalNewsModelBuilder {
   _newsCount: number

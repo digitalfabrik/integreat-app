@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
-import CategoriesMapModel from '../CategoriesMapModel.js'
-import CategoryModel from '../CategoryModel.js'
+import CategoriesMapModel from '../CategoriesMapModel.ts'
+import CategoryModel from '../CategoryModel.ts'
 
 describe('CategoriesMapModel', () => {
   const farsiCategory = new CategoryModel({

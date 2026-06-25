@@ -4,11 +4,19 @@
     "composite": true,
     "outDir": "dist",
     "rootDir": "src",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
     "lib": ["ES5", "ES6", "dom"],
     // Fixes "Static class blocks are not enabled. Please add `@babel/plugin-transform-class-static-block` to your configuration"
     "target": "ES2021",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+
+    // Metro will watch and import the files under /src directly, but it can only strip types.
+    // These options let it import files directly, while still supports type checking with tsc
+    "erasableSyntaxOnly": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "emitDeclarationOnly": true,
+
     "types": ["jest", "node"],
     "typeRoots": ["./src/@types", "node_modules/@types", "../node_modules/@types"]
   },

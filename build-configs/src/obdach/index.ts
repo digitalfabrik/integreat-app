@@ -1,10 +1,10 @@
 import obdachOverrideTranslations from 'translations/override-translations/obdach.json' with { type: 'json' }
 
-import { OBDACH_ASSETS } from '../AssetsType.js'
-import { CommonBuildConfigType, WebBuildConfigType } from '../BuildConfigType.js'
-import mainImprint from './mainImprint.js'
-import fonts from './theme/fonts.js'
-import { darkTheme, lightTheme } from './theme/index.js'
+import { OBDACH_ASSETS } from '../AssetsType.ts'
+import type { CommonBuildConfigType, WebBuildConfigType } from '../BuildConfigType.ts'
+import mainImprint from './mainImprint.ts'
+import fonts from './theme/fonts.ts'
+import { darkTheme, lightTheme } from './theme/index.ts'
 
 const commonObdachBuildConfig: CommonBuildConfigType = {
   appName: 'Netzwerk Obdach & Wohnen',

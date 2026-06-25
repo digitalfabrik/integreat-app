@@ -1,14 +1,14 @@
 import { DateTime } from 'luxon'
 
-import { LOCAL_NEWS_TYPE } from '../../routes/index.js'
-import Endpoint from '../Endpoint.js'
-import EndpointBuilder from '../EndpointBuilder.js'
-import { API_VERSION } from '../constants/index.js'
-import MappingError from '../errors/MappingError.js'
-import NotFoundError from '../errors/NotFoundError.js'
-import { mapNewsAvailableLanguages } from '../mapping/mapAvailableLanguages.js'
-import LocalNewsModel from '../models/LocalNewsModel.js'
-import { JsonLocalNewsType } from '../types.js'
+import { LOCAL_NEWS_TYPE } from '../../routes/index.ts'
+import Endpoint from '../Endpoint.ts'
+import EndpointBuilder from '../EndpointBuilder.ts'
+import { API_VERSION } from '../constants/index.ts'
+import MappingError from '../errors/MappingError.ts'
+import NotFoundError from '../errors/NotFoundError.ts'
+import { mapNewsAvailableLanguages } from '../mapping/mapAvailableLanguages.ts'
+import LocalNewsModel from '../models/LocalNewsModel.ts'
+import { JsonLocalNewsType } from '../types.ts'
 
 export const LOCAL_NEWS_ELEMENT_ENDPOINT_NAME = 'localNewsElement'
 type ParamsType = {

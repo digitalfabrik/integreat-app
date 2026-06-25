@@ -1,7 +1,7 @@
 import segment from 'sentencex'
 import { v4 } from 'uuid'
 
-export { formatDateICal } from './date.js'
+export { formatDateICal } from './date.ts'
 
 export const getSlugFromPath = (path: string): string => path.split('/').pop() ?? ''
 

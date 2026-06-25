@@ -1,4 +1,4 @@
-import { NonNullableRouteInformationType } from './RouteInformationTypes.js'
+import { NonNullableRouteInformationType } from './RouteInformationTypes.ts'
 import {
   CATEGORIES_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
@@ -11,7 +11,7 @@ import {
   NEWS_ROUTE,
   PLACES_ROUTE,
   SEARCH_ROUTE,
-} from './index.js'
+} from './index.ts'
 
 type RegionContentRouteUrlType = {
   regionCode: string

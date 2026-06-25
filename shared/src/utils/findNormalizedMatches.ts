@@ -1,7 +1,7 @@
 import { Chunk, FindAll, findAll, findChunks, FindChunks } from 'highlight-words-core'
 
-import normalizeString from './normalizeString.js'
-import { MATCH_WHITESPACE_AND_DASHES } from './search.js'
+import normalizeString from './normalizeString.ts'
+import { MATCH_WHITESPACE_AND_DASHES } from './search.ts'
 
 const charsAddedByNormalization = (text: string, until: number) => {
   let charsAdded = 0

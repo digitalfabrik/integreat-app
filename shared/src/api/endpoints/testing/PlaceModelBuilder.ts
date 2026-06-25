@@ -1,11 +1,11 @@
 import { DateTime } from 'luxon'
 
-import ContactModel from '../../models/ContactModel.js'
-import LocationModel from '../../models/LocationModel.js'
-import OpeningHoursModel from '../../models/OpeningHoursModel.js'
-import OrganizationModel from '../../models/OrganizationModel.js'
-import PlaceCategoryModel from '../../models/PlaceCategoryModel.js'
-import PlaceModel from '../../models/PlaceModel.js'
+import ContactModel from '../../models/ContactModel.ts'
+import LocationModel from '../../models/LocationModel.ts'
+import OpeningHoursModel from '../../models/OpeningHoursModel.ts'
+import OrganizationModel from '../../models/OrganizationModel.ts'
+import PlaceCategoryModel from '../../models/PlaceCategoryModel.ts'
+import PlaceModel from '../../models/PlaceModel.ts'
 
 const places = [
   new PlaceModel({

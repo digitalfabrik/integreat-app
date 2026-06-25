@@ -1,6 +1,6 @@
-import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder.js'
-import RegionModel from '../../api/models/RegionModel.js'
-import getNearbyRegions from '../getNearbyRegions.js'
+import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder.ts'
+import RegionModel from '../../api/models/RegionModel.ts'
+import getNearbyRegions from '../getNearbyRegions.ts'
 
 describe('getNearbyRegions', () => {
   const createRegion = (

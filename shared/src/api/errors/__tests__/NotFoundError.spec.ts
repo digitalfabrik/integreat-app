@@ -1,4 +1,4 @@
-import NotFoundError from '../NotFoundError.js'
+import NotFoundError from '../NotFoundError.ts'
 
 const escapeRegExp = (regexString: string): string => regexString.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') // $& means the whole matched string
 

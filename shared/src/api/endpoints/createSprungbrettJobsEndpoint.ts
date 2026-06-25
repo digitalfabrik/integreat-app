@@ -1,7 +1,7 @@
-import Endpoint from '../Endpoint.js'
-import EndpointBuilder from '../EndpointBuilder.js'
-import SprungbrettJobModel from '../models/SprungbrettJobModel.js'
-import { JsonSprungbrettJobType } from '../types.js'
+import Endpoint from '../Endpoint.ts'
+import EndpointBuilder from '../EndpointBuilder.ts'
+import SprungbrettJobModel from '../models/SprungbrettJobModel.ts'
+import { JsonSprungbrettJobType } from '../types.ts'
 
 export const SPRUNGBRETT_JOBS_ENDPOINT_NAME = 'sprungbrettJobs'
 

@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 
-import TuNewsModel from '../../models/TuNewsModel.js'
-import { JsonTuNewsType } from '../../types.js'
-import createTuNewsElementEndpoint from '../createTuNewsElementEndpoint.js'
+import TuNewsModel from '../../models/TuNewsModel.ts'
+import { JsonTuNewsType } from '../../types.ts'
+import createTuNewsElementEndpoint from '../createTuNewsElementEndpoint.ts'
 
 describe('tuNews', () => {
   const baseUrl = 'https://cms-test.integreat-app.de'

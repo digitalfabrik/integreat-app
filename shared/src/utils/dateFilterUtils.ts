@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
-import { DateModel, EventModel } from '../api/index.js'
-import { MAX_DATE_RECURRENCES } from '../constants/index.js'
+import { DateModel, EventModel } from '../api/index.ts'
+import { MAX_DATE_RECURRENCES } from '../constants/index.ts'
 
 const isWithinDateRange = (
   startDate: DateTime | null,

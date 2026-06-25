@@ -1,4 +1,4 @@
-import normalizeString from './normalizeString.js'
+import normalizeString from './normalizeString.ts'
 
 type TruncateTextOptions = {
   maxChars: number

@@ -12,7 +12,7 @@ import {
   PlacesRouteType,
   SearchRouteType,
   TuNewsType,
-} from './index.js'
+} from './index.ts'
 
 type ParamsType = {
   regionCode: string

@@ -1,7 +1,7 @@
-import Endpoint from '../Endpoint.js'
-import Payload from '../Payload.js'
-import FetchError from '../errors/FetchError.js'
-import ResponseError from '../errors/ResponseError.js'
+import Endpoint from '../Endpoint.ts'
+import Payload from '../Payload.ts'
+import FetchError from '../errors/FetchError.ts'
+import ResponseError from '../errors/ResponseError.ts'
 
 describe('Endpoint', () => {
   const defaultMapParamsToUrl = (params: { var1: string; var2: string }) =>

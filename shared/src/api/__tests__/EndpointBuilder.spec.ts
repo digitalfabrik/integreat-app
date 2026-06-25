@@ -1,4 +1,4 @@
-import EndpointBuilder from '../EndpointBuilder.js'
+import EndpointBuilder from '../EndpointBuilder.ts'
 
 describe('EndpointBuilder', () => {
   it('should produce the correct endpoint', () => {

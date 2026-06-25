@@ -2,11 +2,11 @@ import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
 import { v5 } from 'uuid'
 
-import { formatDateICal } from '../../utils/date.js'
-import DateModel from './DateModel.js'
-import ExtendedDocumentModel from './ExtendedDocumentModel.js'
-import FeaturedImageModel from './FeaturedImageModel.js'
-import LocationModel from './LocationModel.js'
+import { formatDateICal } from '../../utils/date.ts'
+import DateModel from './DateModel.ts'
+import ExtendedDocumentModel from './ExtendedDocumentModel.ts'
+import FeaturedImageModel from './FeaturedImageModel.ts'
+import LocationModel from './LocationModel.ts'
 
 class EventModel extends ExtendedDocumentModel {
   _date: DateModel

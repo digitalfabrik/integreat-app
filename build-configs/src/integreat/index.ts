@@ -1,15 +1,15 @@
-import { INTEGREAT_ASSETS } from '../AssetsType.js'
-import {
+import { INTEGREAT_ASSETS } from '../AssetsType.ts'
+import type {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   IosBuildConfigType,
   WebBuildConfigType,
-} from '../BuildConfigType.js'
-import { APP_STORE_TEAM_ID } from '../common/constants.js'
-import suggestToRegionTemplate from './assets/suggestToRegionTemplate.js'
-import mainImprint from './mainImprint.js'
-import fonts from './theme/fonts.js'
-import { darkTheme, lightTheme } from './theme/index.js'
+} from '../BuildConfigType.ts'
+import { APP_STORE_TEAM_ID } from '../common/constants.ts'
+import suggestToRegionTemplate from './assets/suggestToRegionTemplate.ts'
+import mainImprint from './mainImprint.ts'
+import fonts from './theme/fonts.ts'
+import { darkTheme, lightTheme } from './theme/index.ts'
 
 const APPLICATION_ID = 'tuerantuer.app.integreat'
 const BUNDLE_IDENTIFIER = 'de.integreat-app'

@@ -1,6 +1,6 @@
-import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder.js'
-import RegionModel from '../../api/models/RegionModel.js'
-import { filterLanguages, filterSortRegions } from '../../index.js'
+import LanguageModelBuilder from '../../api/endpoints/testing/LanguageModelBuilder.ts'
+import RegionModel from '../../api/models/RegionModel.ts'
+import { filterLanguages, filterSortRegions } from '../../index.ts'
 
 describe('search', () => {
   describe('filterSortRegions', () => {

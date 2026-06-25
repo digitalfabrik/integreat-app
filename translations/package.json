@@ -19,16 +19,12 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
+      "import": "./src/index.ts",
+      "types": "./src/index.d.ts",
+      "default": "./src/index.ts"
     },
-    "./*.json": "./dist/*.json",
-    "./*": {
-      "import": "./dist/*.js",
-      "types": "./dist/*.d.ts",
-      "default": "./dist/*.js"
-    }
+    "./*.json": "./src/*.json",
+    "./override-translations/*.json": "./override-translations/*.json"
   },
   "dependencies": {
     "deepmerge-ts": "^7.1.5"

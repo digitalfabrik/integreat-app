@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 
-import { API_VERSION } from '../../constants/index.js'
-import DocumentModel from '../../models/DocumentModel.js'
-import createImprintEndpoint from '../createImprintEndpoint.js'
+import { API_VERSION } from '../../constants/index.ts'
+import DocumentModel from '../../models/DocumentModel.ts'
+import createImprintEndpoint from '../createImprintEndpoint.ts'
 
 describe('imprint', () => {
   const baseUrl = 'https://integreat-api-url.de'

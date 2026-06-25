@@ -1,11 +1,11 @@
-import {
+import type {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   IosBuildConfigType,
   WebBuildConfigType,
-} from '../BuildConfigType.js'
-import suggestToRegionTemplate from '../integreat/assets/suggestToRegionTemplate.js'
-import integreatPlatformBuildConfigs from '../integreat/index.js'
+} from '../BuildConfigType.ts'
+import suggestToRegionTemplate from '../integreat/assets/suggestToRegionTemplate.ts'
+import integreatPlatformBuildConfigs from '../integreat/index.ts'
 
 const integreatE2e = {
   appName: 'IntegreatE2E',

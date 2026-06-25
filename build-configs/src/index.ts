@@ -1,25 +1,25 @@
-import {
+import type {
   AndroidBuildConfigType,
   CommonBuildConfigType,
   IosBuildConfigType,
   WebBuildConfigType,
-} from './BuildConfigType.js'
-import aschaffenburgBuildConfigName from './aschaffenburg/build-config-name/index.js'
-import aschaffenburgBuildConfig from './aschaffenburg/index.js'
-import integreatE2eBuildConfigName from './integreat-e2e/build-config-name/index.js'
-import integreatE2eBuildConfig from './integreat-e2e/index.js'
-import integreatTestCmsBuildConfigName from './integreat-test-cms/build-config-name/index.js'
-import integreatTestCmsBuildConfig from './integreat-test-cms/index.js'
-import integreatBuildConfigName from './integreat/build-config-name/index.js'
-import integreatBuildConfig from './integreat/index.js'
-import malteTestCmsBuildConfigName from './malte-test-cms/build-config-name/index.js'
-import malteTestCmsBuildConfig from './malte-test-cms/index.js'
-import malteBuildConfigName from './malte/build-config-name/index.js'
-import malteBuildConfig from './malte/index.js'
-import obdachBuildConfigName from './obdach/build-config-name/index.js'
-import obdachBuildConfig from './obdach/index.js'
+} from './BuildConfigType.ts'
+import aschaffenburgBuildConfigName from './aschaffenburg/build-config-name/index.ts'
+import aschaffenburgBuildConfig from './aschaffenburg/index.ts'
+import integreatE2eBuildConfigName from './integreat-e2e/build-config-name/index.ts'
+import integreatE2eBuildConfig from './integreat-e2e/index.ts'
+import integreatTestCmsBuildConfigName from './integreat-test-cms/build-config-name/index.ts'
+import integreatTestCmsBuildConfig from './integreat-test-cms/index.ts'
+import integreatBuildConfigName from './integreat/build-config-name/index.ts'
+import integreatBuildConfig from './integreat/index.ts'
+import malteTestCmsBuildConfigName from './malte-test-cms/build-config-name/index.ts'
+import malteTestCmsBuildConfig from './malte-test-cms/index.ts'
+import malteBuildConfigName from './malte/build-config-name/index.ts'
+import malteBuildConfig from './malte/index.ts'
+import obdachBuildConfigName from './obdach/build-config-name/index.ts'
+import obdachBuildConfig from './obdach/index.ts'
 
-export type { ThemeKey } from './ThemeKey.js'
+export type { ThemeKey } from './ThemeKey.ts'
 
 export const COMMON = 'common'
 export const ANDROID = 'android'

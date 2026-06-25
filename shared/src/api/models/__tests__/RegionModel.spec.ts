@@ -1,5 +1,5 @@
-import LanguageModelBuilder from '../../endpoints/testing/LanguageModelBuilder.js'
-import RegionModel from '../RegionModel.js'
+import LanguageModelBuilder from '../../endpoints/testing/LanguageModelBuilder.ts'
+import RegionModel from '../RegionModel.ts'
 
 describe('RegionModel', () => {
   const regions = [

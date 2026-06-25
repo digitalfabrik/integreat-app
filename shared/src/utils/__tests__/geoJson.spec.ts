@@ -1,7 +1,7 @@
-import { PlaceModelBuilder } from '../../api/endpoints/testing/index.js'
-import PlaceModel from '../../api/models/PlaceModel.js'
-import { MapFeature, MapFeatureCollection, featureLayerId } from '../../index.js'
-import { embedInCollection, prepareMapFeature, prepareMapFeatures } from '../geoJson.js'
+import { PlaceModelBuilder } from '../../api/endpoints/testing/index.ts'
+import PlaceModel from '../../api/models/PlaceModel.ts'
+import { MapFeature, MapFeatureCollection, featureLayerId } from '../../index.ts'
+import { embedInCollection, prepareMapFeature, prepareMapFeatures } from '../geoJson.ts'
 
 describe('geoJson', () => {
   const places = new PlaceModelBuilder(3).build()

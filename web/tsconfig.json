@@ -3,23 +3,17 @@
   "compilerOptions": {
     "composite": true,
     "rootDir": "src",
-    "outDir": "dist",
+
     "allowSyntheticDefaultImports": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
     "lib": ["dom", "dom.iterable", "ES2022"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "sourceMap": true,
-    "declaration": true,
-    "emitDeclarationOnly": true, // We only build JS with vite, not tsc; tsc emits only declarations (required for project references)
-    "types": [
-      "jest",
-      "@testing-library/jest-dom",
-      "node",
-      "react",
-      "vite/client",
-    ]
+    // We only build JS with vite, not tsc
+    "noEmit": true,
+
+    "types": ["jest", "@testing-library/jest-dom", "node", "react", "vite/client"]
   },
   "include": ["src/**/*", "src/**/*.json"],
   "references": [
