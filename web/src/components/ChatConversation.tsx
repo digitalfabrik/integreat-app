@@ -22,11 +22,11 @@ const StyledList = styled(List)({
 type ChatConversationProps = {
   retrySend: (message: ChatMessageModel) => void
   messages: ChatMessageModel[]
-  isTyping: boolean
+  botTyping: boolean
   loading?: boolean
 }
 
-const ChatConversation = ({ retrySend, messages, isTyping, loading }: ChatConversationProps): ReactElement => {
+const ChatConversation = ({ retrySend, messages, botTyping, loading }: ChatConversationProps): ReactElement => {
   const [messagesCount, setMessagesCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation('chat')
@@ -43,10 +43,10 @@ const ChatConversation = ({ retrySend, messages, isTyping, loading }: ChatConver
   }, [messages, messagesCount])
 
   useEffect(() => {
-    if (isTyping) {
+    if (botTyping) {
       scrollToBottom()
     }
-  }, [isTyping])
+  }, [botTyping])
 
   const lastMessage = messages[messages.length - 1]
   const lastMessageText = lastMessage ? parseHTML(lastMessage.content, true) : ''
@@ -76,7 +76,7 @@ const ChatConversation = ({ retrySend, messages, isTyping, loading }: ChatConver
               />
             ))}
           </StyledList>
-          <TypingIndicator isVisible={isTyping} />
+          <TypingIndicator isVisible={botTyping} />
           <div ref={messagesEndRef} />
         </>
       )}

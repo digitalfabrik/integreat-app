@@ -171,7 +171,7 @@ const Chat = ({
 
   return (
     <Container justifyContent='space-between'>
-      <ChatConversation retrySend={retrySend} messages={messages} isTyping={botTyping} loading={isPending} />
+      <ChatConversation retrySend={retrySend} messages={messages} botTyping={botTyping} loading={isPending} />
       <Stack paddingInline={2} gap={1}>
         {(error || sendingError) && (
           <Alert
