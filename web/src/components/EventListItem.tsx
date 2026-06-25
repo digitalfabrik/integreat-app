@@ -1,7 +1,9 @@
+import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
+import Tooltip from '@mui/material/Tooltip'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
@@ -9,7 +11,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getDisplayDate, getExcerpt } from 'shared'
-import { EventModel } from 'shared/api'
+import { DateModel, EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
@@ -62,18 +64,32 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]!
 }
 
+export const getDateIcon = (date: DateModel): { Icon: ReactElement; tooltip: string } | null => {
+  const iconToUse = date.getDateIcon()
+  return iconToUse
+    ? {
+        Icon: <EventRepeatOutlinedIcon />,
+        tooltip: iconToUse.label,
+      }
+    : null
+}
+
 const EventListItem = ({
   event,
   languageCode,
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
+  const dateIcon = getDateIcon(event.date)
   const { t } = useTranslation('events')
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
 
   return (
-    <StyledListItem dir='auto' disablePadding>
+    <StyledListItem
+      dir='auto'
+      disablePadding
+      secondaryAction={dateIcon && <Tooltip title={t(dateIcon.tooltip)}>{dateIcon.Icon}</Tooltip>}>
       <StyledListItemButton component={Link} to={event.path}>
         <ListItemIcon>
           <Icon src={thumbnailSrc} alt='' />
