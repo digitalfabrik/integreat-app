@@ -100,9 +100,9 @@ const Chat = ({
       () =>
         loadFromEndpoint(createSendChatMessageEndpoint, cmsApiBaseUrl, {
           regionCode: region.code,
-          language: languageCode,
+          languageCode,
+          chatId,
           message,
-          deviceId: chatId,
         }),
       {
         setData: newData => {

@@ -70,8 +70,8 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     cmsApiBaseUrl,
     {
       regionCode: region.code,
-      language: languageCode,
-      deviceId: chatId,
+      languageCode,
+      chatId,
     },
     { cached: false },
   )
