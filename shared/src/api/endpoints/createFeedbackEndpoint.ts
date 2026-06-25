@@ -18,16 +18,18 @@ export const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
 export const POSITIVE_RATING = 'up'
 export const NEGATIVE_RATING = 'down'
 
-export enum FeedbackType {
-  Page = 'page',
-  Categories = 'categories',
-  Search = 'search',
-  Event = 'event',
-  Events = 'events',
-  Imprint = 'imprint-page',
-  Place = 'poi',
-  Map = 'map',
+export const FeedbackTypes = {
+  Page: 'page',
+  Categories: 'categories',
+  Search: 'search',
+  Event: 'event',
+  Events: 'events',
+  Imprint: 'imprint-page',
+  Place: 'poi',
+  Map: 'map',
 }
+
+export type FeedbackType = (typeof FeedbackTypes)[keyof typeof FeedbackTypes]
 
 export const CONTENT_FEEDBACK_CATEGORY = 'Inhalte'
 
@@ -53,22 +55,22 @@ export type ParamsType = {
 const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackType => {
   switch (routeType) {
     case EVENTS_ROUTE:
-      return slug ? FeedbackType.Event : FeedbackType.Events
+      return slug ? FeedbackTypes.Event : FeedbackTypes.Events
 
     case IMPRINT_ROUTE:
-      return FeedbackType.Imprint
+      return FeedbackTypes.Imprint
 
     case PLACES_ROUTE:
-      return slug ? FeedbackType.Place : FeedbackType.Map
+      return slug ? FeedbackTypes.Place : FeedbackTypes.Map
 
     case CATEGORIES_ROUTE:
-      return slug ? FeedbackType.Page : FeedbackType.Categories
+      return slug ? FeedbackTypes.Page : FeedbackTypes.Categories
 
     case SEARCH_ROUTE:
-      return FeedbackType.Search
+      return FeedbackTypes.Search
 
     default:
-      return FeedbackType.Categories
+      return FeedbackTypes.Categories
   }
 }
 
