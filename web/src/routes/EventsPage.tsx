@@ -187,12 +187,12 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     />
   )
 
-  const groupedList = GROUP_ORDER.some(key => groupedEvents[key].length > 0)
+  const isGroupedList = GROUP_ORDER.some(key => groupedEvents[key].length > 0)
 
   let eventsList
   if (startDate || endDate) {
     eventsList = filteredListItems
-  } else if (groupedList) {
+  } else if (isGroupedList) {
     eventsList = groupedListSections
   } else {
     eventsList = <List items={[]} noItemsMessage='events:currentlyNoEvents' />

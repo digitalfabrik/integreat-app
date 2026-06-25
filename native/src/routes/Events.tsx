@@ -57,7 +57,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
 
   const groupedEvents = groupEvents(events)
 
-  const items: (string | EventModel)[] = useMemo(() => {
+  const items: EventListEntry[] = useMemo(() => {
     if (startDate || endDate) {
       return filteredEvents ?? []
     }
