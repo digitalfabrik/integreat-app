@@ -24,9 +24,16 @@ type ChatConversationProps = {
   messages: ChatMessageModel[]
   botTyping: boolean
   loading?: boolean
+  openUrl: ((url: string) => void) | null
 }
 
-const ChatConversation = ({ retrySend, messages, botTyping, loading }: ChatConversationProps): ReactElement => {
+const ChatConversation = ({
+  retrySend,
+  messages,
+  botTyping,
+  loading,
+  openUrl,
+}: ChatConversationProps): ReactElement => {
   const [messagesCount, setMessagesCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { t } = useTranslation('chat')
@@ -73,6 +80,7 @@ const ChatConversation = ({ retrySend, messages, botTyping, loading }: ChatConve
                 message={message}
                 key={message.id}
                 previousMessage={messages[index - 1]}
+                openUrl={openUrl}
               />
             ))}
           </StyledList>

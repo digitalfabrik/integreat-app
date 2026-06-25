@@ -23,6 +23,7 @@ import useLockedBody from '../hooks/useLockedBody'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import { chatIdKey, chatSeenMessagesKey } from '../utils/chat'
+import { openUrlInNewTab } from '../utils/openLink'
 import Chat from './Chat'
 import ChatFab from './ChatFab'
 import ChatMenu from './ChatMenu'
@@ -137,6 +138,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
           response={response}
           serializedUnsyncedMessages={unsyncedMessages}
           setUnsyncedMessages={setUnsyncedMessages}
+          openUrl={externalChatId ? openUrlInNewTab : null}
         />
       </StyledDialog>
     )

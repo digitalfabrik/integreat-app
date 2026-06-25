@@ -86,9 +86,10 @@ type ChatMessageProps = {
   retrySend: (message: ChatMessageModel) => void
   message: ChatMessageModel
   previousMessage: ChatMessageModel | undefined
+  openUrl: ((url: string) => void) | null
 }
 
-const ChatMessage = ({ retrySend, message, previousMessage }: ChatMessageProps): ReactElement => {
+const ChatMessage = ({ retrySend, message, previousMessage, openUrl }: ChatMessageProps): ReactElement => {
   const { t } = useTranslation('chat')
 
   const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
@@ -109,7 +110,7 @@ const ChatMessage = ({ retrySend, message, previousMessage }: ChatMessageProps):
           </Tooltip>
         ) : null
       }>
-      <RemoteContent html={message.content} smallText />
+      <RemoteContent html={message.content} onLinkClick={openUrl ?? undefined} smallText />
     </InnerChatMessage>
   )
 }
