@@ -1,4 +1,5 @@
 import segment from 'sentencex'
+import { v4 } from 'uuid'
 
 export { formatDateICal } from './date.js'
 
@@ -47,3 +48,5 @@ export const getGenericLanguageCode = (languageCode: string): string => {
 
 export const join = <T, U>(items: T[], separator: (index: number) => U): (T | U)[] =>
   items.flatMap((item, index) => [item, separator(index)]).slice(0, -1)
+
+export const uuid = (): string => v4()
