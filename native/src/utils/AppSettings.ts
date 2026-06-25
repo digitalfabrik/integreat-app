@@ -2,11 +2,20 @@ import LegacyAsyncStorage, { AsyncStorage, createAsyncStorage } from '@react-nat
 import { mapValues } from 'lodash'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
-import { ExternalSourcePermissions } from 'shared'
+import { ExternalSourcePermissions, uuid } from 'shared'
 
 import { log, captureError } from './sentry'
 
 export const ASYNC_STORAGE_VERSION = 2
+
+type ChatRegionSettings = {
+  id: string
+  seenMessages: number
+}
+type ChatSettings = Record<string, ChatRegionSettings>
+
+export const defaultChatRegionSettings = { id: uuid(), seenMessages: 0 }
+
 export type SettingsType = {
   storageVersion: number | null
   contentLanguage: string | null
@@ -17,7 +26,9 @@ export type SettingsType = {
   apiUrlOverride: string | null
   externalSourcePermissions: ExternalSourcePermissions
   selectedTheme: ThemeKey
+  chat: ChatSettings
 }
+
 export const defaultSettings: SettingsType = {
   storageVersion: null,
   contentLanguage: null,
@@ -28,7 +39,9 @@ export const defaultSettings: SettingsType = {
   apiUrlOverride: null,
   externalSourcePermissions: {},
   selectedTheme: 'light',
+  chat: {},
 }
+
 export const settingsStorage = createAsyncStorage('settings')
 
 const migrateToV2 = async (): Promise<void> => {

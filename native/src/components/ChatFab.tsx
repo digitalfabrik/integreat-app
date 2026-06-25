@@ -3,12 +3,10 @@ import { ViewStyle } from 'react-native'
 import { FAB, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { CATEGORIES_ROUTE, getChatName } from 'shared'
+import { CHAT_ROUTE, getChatName } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import useRegionAppContext from '../hooks/useRegionAppContext'
-import openExternalUrl from '../utils/openExternalUrl'
-import urlFromRouteInformation from '../utils/url'
+import useNavigate from '../hooks/useNavigate'
 
 const StyledFab = styled(FAB)`
   position: absolute;
@@ -21,24 +19,13 @@ type ChatFabProps = {
 }
 
 const ChatFab = ({ style }: ChatFabProps): ReactElement => {
-  const { regionCode, languageCode } = useRegionAppContext()
+  const { navigation } = useNavigate()
   const theme = useTheme()
 
   return (
     <StyledFab
       icon='forum-outline'
-      onPress={() =>
-        openExternalUrl(
-          urlFromRouteInformation({
-            route: CATEGORIES_ROUTE,
-            regionCode,
-            languageCode,
-            chat: true,
-            regionContentPath: `/${regionCode}/${languageCode}`,
-          }),
-          () => {},
-        )
-      }
+      onPress={() => navigation.navigate(CHAT_ROUTE)}
       accessibilityLabel={getChatName(buildConfig().appName)}
       variant='primary'
       style={{ ...style, backgroundColor: theme.colors.primary }}
