@@ -1,8 +1,16 @@
 import { dialogContentClasses } from '@mui/material/DialogContent'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect } from 'react'
+import { useSearchParams } from 'react-router'
 
-import { getChatName, CHAT_QUERY_KEY, CHAT_TYPING_POLLING_INTERVAL, CHAT_DEFAULT_POLLING_INTERVAL, uuid } from 'shared'
+import {
+  getChatName,
+  CHAT_QUERY_KEY,
+  CHAT_TYPING_POLLING_INTERVAL,
+  CHAT_DEFAULT_POLLING_INTERVAL,
+  uuid,
+  parseQueryParams,
+} from 'shared'
 import { createChatMessagesEndpoint, RegionModel, SerializedChatMessage } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
@@ -36,15 +44,17 @@ type ChatContainerProps = {
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const { open, close, openUrl, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
+  const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const isBrowserTabActive = useIsTabActive()
   useLockedBody(visible)
 
-  const [chatId, setChatId] = useLocalStorage<string>({
+  const [storageChatId, setChatId] = useLocalStorage<string>({
     key: chatIdKey(region.code),
     initialValue: uuid(),
   })
+  const chatId = externalChatId ?? storageChatId
 
   const [unsyncedMessages, setUnsyncedMessages] = useLocalStorage<SerializedChatMessage[]>({
     key: CHAT_UNSYNCED_MESSAGES_STORAGE_KEY,
