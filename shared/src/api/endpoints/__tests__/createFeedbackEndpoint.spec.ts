@@ -7,7 +7,7 @@ import {
   TU_NEWS_TYPE,
 } from '../../../routes/index.js'
 import { API_VERSION } from '../../constants/index.js'
-import createFeedbackEndpoint, { FeedbackType } from '../createFeedbackEndpoint.js'
+import createFeedbackEndpoint, { FeedbackTypes } from '../createFeedbackEndpoint.js'
 
 describe('feedback', () => {
   const baseUrl = 'https://integreat-api-url.de'
@@ -69,15 +69,15 @@ describe('feedback', () => {
 
   it.each`
     route               | props                     | feedbackType
-    ${CATEGORIES_ROUTE} | ${{}}                     | ${FeedbackType.Categories}
-    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }} | ${FeedbackType.Page}
-    ${EVENTS_ROUTE}     | ${{}}                     | ${FeedbackType.Events}
-    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackType.Event}
-    ${IMPRINT_ROUTE}    | ${{}}                     | ${FeedbackType.Imprint}
-    ${PLACES_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackType.Place}
-    ${PLACES_ROUTE}     | ${{}}                     | ${FeedbackType.Map}
-    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}    | ${FeedbackType.Search}
-    ${TU_NEWS_TYPE}     | ${{}}                     | ${FeedbackType.Categories}
+    ${CATEGORIES_ROUTE} | ${{}}                     | ${FeedbackTypes.Categories}
+    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }} | ${FeedbackTypes.Page}
+    ${EVENTS_ROUTE}     | ${{}}                     | ${FeedbackTypes.Events}
+    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackTypes.Event}
+    ${IMPRINT_ROUTE}    | ${{}}                     | ${FeedbackTypes.Imprint}
+    ${PLACES_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackTypes.Place}
+    ${PLACES_ROUTE}     | ${{}}                     | ${FeedbackTypes.Map}
+    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}    | ${FeedbackTypes.Search}
+    ${TU_NEWS_TYPE}     | ${{}}                     | ${FeedbackTypes.Categories}
   `(
     'should successfully request feedback for $feedbackType if rating was set',
     async ({ route, props, feedbackType }) => {
