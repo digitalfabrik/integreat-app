@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import {
   CategoriesMapModel,
   RegionModel,
-  ErrorCode,
+  ErrorCodes,
   createCategoriesEndpoint,
   createEventsEndpoint,
   createLocalNewsEndpoint,
@@ -15,6 +15,7 @@ import {
   PlaceModel,
   ReturnType,
   createRegionsEndpoint,
+  ErrorCode,
 } from 'shared/api'
 
 import dataContainer from '../utils/DefaultDataContainer'
@@ -121,10 +122,10 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshLocalNews }: Pa
       return null
     }
     if (regionsReturn.data && !region) {
-      return ErrorCode.RegionUnavailable
+      return ErrorCodes.RegionUnavailable
     }
     if (region && !language) {
-      return ErrorCode.LanguageUnavailable
+      return ErrorCodes.LanguageUnavailable
     }
     return (
       regionsReturn.error ??

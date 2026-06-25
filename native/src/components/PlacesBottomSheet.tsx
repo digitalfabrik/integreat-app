@@ -9,7 +9,7 @@ import { Platform, View } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import { LocationType } from 'shared'
-import { ErrorCode, PlaceModel } from 'shared/api'
+import { ErrorCodes, PlaceModel } from 'shared/api'
 
 import useAppStateListener from '../hooks/useAppStateListener'
 import useRegionAppContext from '../hooks/useRegionAppContext'
@@ -123,7 +123,7 @@ const PlacesBottomSheet = ({
       distance={userLocation && place.distance(userLocation)}
     />
   ) : (
-    <Failure code={ErrorCode.PageNotFound} retry={refresh} goTo={deselectAll} goToLabel={t('backToOverview')} />
+    <Failure code={ErrorCodes.PageNotFound} retry={refresh} goTo={deselectAll} goToLabel={t('backToOverview')} />
   )
 
   const renderPlaceListItem = ({ item: place }: { item: PlaceModel }): ReactElement => (
