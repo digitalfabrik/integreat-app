@@ -1,7 +1,7 @@
-import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from '../constants/index.js'
-import { safeParseInt } from '../utils/index.js'
-import { NonNullableRouteInformationType } from './RouteInformationTypes.js'
-import { PLACES_ROUTE, SEARCH_ROUTE } from './index.js'
+import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from '../constants/index.ts'
+import { safeParseInt } from '../utils/index.ts'
+import { NonNullableRouteInformationType } from './RouteInformationTypes.ts'
+import { PLACES_ROUTE, SEARCH_ROUTE } from './index.ts'
 
 export const MULTI_PLACE_QUERY_KEY = 'multiplace'
 export const SEARCH_QUERY_KEY = 'query'

@@ -2,11 +2,11 @@ import { sha256 } from 'js-sha256'
 import { DateTime } from 'luxon'
 import seedrandom from 'seedrandom'
 
-import { APPOINTMENT_BOOKING_OFFER_ALIAS } from '../../../constants/index.js'
-import CategoriesMapModel from '../../models/CategoriesMapModel.js'
-import CategoryModel from '../../models/CategoryModel.js'
-import OfferModel from '../../models/OfferModel.js'
-import OrganizationModel from '../../models/OrganizationModel.js'
+import { APPOINTMENT_BOOKING_OFFER_ALIAS } from '../../../constants/index.ts'
+import CategoriesMapModel from '../../models/CategoriesMapModel.ts'
+import CategoryModel from '../../models/CategoryModel.ts'
+import OfferModel from '../../models/OfferModel.ts'
+import OrganizationModel from '../../models/OrganizationModel.ts'
 
 type ResourceCacheEntryStateType = {
   readonly filePath: string

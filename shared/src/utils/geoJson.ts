@@ -1,7 +1,7 @@
 import distance from '@turf/distance'
 
-import PlaceModel from '../api/models/PlaceModel.js'
-import { featureLayerId, MapFeature, MapFeatureCollection } from '../constants/map.js'
+import PlaceModel from '../api/models/PlaceModel.ts'
+import { featureLayerId, MapFeature, MapFeatureCollection } from '../constants/map.ts'
 
 export const MIN_DISTANCE_THRESHOLD = 0.1
 

@@ -1,6 +1,6 @@
-import LanguageModel from '../models/LanguageModel.js'
-import RegionModel from '../models/RegionModel.js'
-import { JsonRegionType, JsonLanguageType } from '../types.js'
+import LanguageModel from '../models/LanguageModel.ts'
+import RegionModel from '../models/RegionModel.ts'
+import { JsonRegionType, JsonLanguageType } from '../types.ts'
 
 const stripSlashes = (path: string): string => {
   let code = path

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import normalizePath from '../utils/normalizePath.js'
-import { RouteInformationType } from './RouteInformationTypes.js'
+import normalizePath from '../utils/normalizePath.ts'
+import { RouteInformationType } from './RouteInformationTypes.ts'
 import {
   CATEGORIES_ROUTE,
   IMPRINT_ROUTE,
@@ -14,8 +14,8 @@ import {
   TU_NEWS_TYPE,
   LEGACY_REGIONS_ROUTE,
   LEGACY_PLACES_ROUTE,
-} from './index.js'
-import { parseQueryParams } from './query.js'
+} from './index.ts'
+import { parseQueryParams } from './query.ts'
 
 const ENTITY_ID_INDEX = 3
 

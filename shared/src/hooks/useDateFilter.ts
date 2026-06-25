@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
 import { useState, useMemo } from 'react'
 
-import EventModel from '../api/models/EventModel.js'
-import filteringEventsLogic from '../utils/filteringEventsLogic.js'
+import EventModel from '../api/models/EventModel.ts'
+import filteringEventsLogic from '../utils/filteringEventsLogic.ts'
 
 type UseDateFilterReturn = {
   startDate: DateTime | null

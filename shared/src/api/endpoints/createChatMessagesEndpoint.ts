@@ -1,8 +1,8 @@
-import Endpoint from '../Endpoint.js'
-import EndpointBuilder from '../EndpointBuilder.js'
-import { API_VERSION } from '../constants/index.js'
-import { ChatMessagesReturn, mapChatMessages } from '../mapping/mapChatMessages.js'
-import { CHAT_ENDPOINT_NAME } from './createSendChatMessageEndpoint.js'
+import Endpoint from '../Endpoint.ts'
+import EndpointBuilder from '../EndpointBuilder.ts'
+import { API_VERSION } from '../constants/index.ts'
+import { ChatMessagesReturn, mapChatMessages } from '../mapping/mapChatMessages.ts'
+import { CHAT_ENDPOINT_NAME } from './createSendChatMessageEndpoint.ts'
 
 type ParamsType = {
   regionCode: string

@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
 
-import normalizePath from '../../utils/normalizePath.js'
-import DocumentModel from './DocumentModel.js'
-import ExtendedDocumentModel from './ExtendedDocumentModel.js'
-import OfferModel from './OfferModel.js'
-import OrganizationModel from './OrganizationModel.js'
+import normalizePath from '../../utils/normalizePath.ts'
+import DocumentModel from './DocumentModel.ts'
+import ExtendedDocumentModel from './ExtendedDocumentModel.ts'
+import OfferModel from './OfferModel.ts'
+import OrganizationModel from './OrganizationModel.ts'
 
 class CategoryModel extends ExtendedDocumentModel {
   _root: boolean

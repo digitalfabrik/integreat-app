@@ -1,4 +1,4 @@
-import { LocalNewsType, TuNewsType } from '../../routes/index.js'
+import { LocalNewsType, TuNewsType } from '../../routes/index.ts'
 
 type NotFoundType = 'region' | 'category' | 'event' | 'place' | 'imprint' | TuNewsType | LocalNewsType | 'route'
 

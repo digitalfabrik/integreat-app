@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
 
-import parseHTML from '../../utils/parseHTML.js'
-import Endpoint from '../Endpoint.js'
-import EndpointBuilder from '../EndpointBuilder.js'
-import TuNewsModel from '../models/TuNewsModel.js'
-import { JsonTuNewsType } from '../types.js'
+import parseHTML from '../../utils/parseHTML.ts'
+import Endpoint from '../Endpoint.ts'
+import EndpointBuilder from '../EndpointBuilder.ts'
+import TuNewsModel from '../models/TuNewsModel.ts'
+import { JsonTuNewsType } from '../types.ts'
 
 export const TU_NEWS_ENDPOINT_NAME = 'tuNews'
 type ParamsType = {

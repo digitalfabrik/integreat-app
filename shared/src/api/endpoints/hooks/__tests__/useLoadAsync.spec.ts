@@ -1,4 +1,4 @@
-import { loadAsync } from '../useLoadAsync.js'
+import { loadAsync } from '../useLoadAsync.ts'
 
 describe('loadAsync', () => {
   const setData = jest.fn()

@@ -1,6 +1,6 @@
 import fc from 'fast-check'
 
-import normalizeString from '../normalizeString.js'
+import normalizeString from '../normalizeString.ts'
 
 describe('normalizeString (property-based)', () => {
   it('should always return lowercase, trimmed output without ß', () => {

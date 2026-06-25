@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
-import { DateModel } from '../../api/index.js'
-import { formatTime, getWeekdayFromIndex } from '../date.js'
+import { DateModel } from '../../api/index.ts'
+import { formatTime, getWeekdayFromIndex } from '../date.ts'
 
 const t = (key: string, options?: Record<string, unknown>) =>
   options

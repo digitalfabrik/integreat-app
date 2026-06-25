@@ -5,9 +5,9 @@ import {
   PLACES_ROUTE,
   SEARCH_ROUTE,
   TU_NEWS_TYPE,
-} from '../../../routes/index.js'
-import { API_VERSION } from '../../constants/index.js'
-import createFeedbackEndpoint, { FeedbackTypes } from '../createFeedbackEndpoint.js'
+} from '../../../routes/index.ts'
+import { API_VERSION } from '../../constants/index.ts'
+import createFeedbackEndpoint, { FeedbackTypes } from '../createFeedbackEndpoint.ts'
 
 describe('feedback', () => {
   const baseUrl = 'https://integreat-api-url.de'

@@ -1,7 +1,7 @@
-import FetchError from './errors/FetchError.js'
-import MappingError from './errors/MappingError.js'
-import NotFoundError from './errors/NotFoundError.js'
-import ResponseError from './errors/ResponseError.js'
+import FetchError from './errors/FetchError.ts'
+import MappingError from './errors/MappingError.ts'
+import NotFoundError from './errors/NotFoundError.ts'
+import ResponseError from './errors/ResponseError.ts'
 
 const FORBIDDEN_CODE = 403
 const RATE_LIMIT_CODE = 429

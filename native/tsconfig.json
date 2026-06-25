@@ -2,14 +2,16 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
-    "outDir": "dist",
     "rootDir": "src",
+
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "declaration": true,
-    "emitDeclarationOnly": true, // We only build JS with metro, not tsc; tsc emits only declarations (required for project references)
+    // We only build JS with vite, not tsc
+    "noEmit": true,
+
     "paths": {
       "normalize-strings": ["../shared/@types/normalize-strings"],
       "@dr.pogodin/react-native-static-server": ["./src/@types/react-native-static-server"],

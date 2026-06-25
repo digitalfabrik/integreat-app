@@ -3,9 +3,9 @@ import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 import seedrandom from 'seedrandom'
 
-import DateModel from '../../models/DateModel.js'
-import EventModel from '../../models/EventModel.js'
-import LocationModel from '../../models/LocationModel.js'
+import DateModel from '../../models/DateModel.ts'
+import EventModel from '../../models/EventModel.ts'
+import LocationModel from '../../models/LocationModel.ts'
 
 type PageResourceCacheEntryStateType = {
   readonly filePath: string

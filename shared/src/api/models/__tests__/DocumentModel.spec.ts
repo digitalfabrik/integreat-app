@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import DocumentModel from '../DocumentModel.js'
+import DocumentModel from '../DocumentModel.ts'
 
 describe('DocumentModel', () => {
   const page = new DocumentModel({

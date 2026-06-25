@@ -1,7 +1,7 @@
 {
   "name": "build-configs",
   "version": "0.0.1",
-  "description": "Build configs for the integreat project",
+  "description": "Build configs for the Integreat project",
   "private": true,
   "type": "module",
   "dependencies": {
@@ -9,19 +9,19 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./src/index.ts",
+      "types": "./src/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./aschaffenburg/build-config-name": {
+      "import": "./src/integreat/build-config-name/index.ts",
+      "types": "./src/integreat/build-config-name/index.d.ts",
+      "default": "./src/integreat/build-config-name/index.ts"
     },
     "./integreat/build-config-name": {
-      "import": "./dist/integreat/build-config-name/index.js",
-      "default": "./dist/integreat/build-config-name/index.js",
-      "types": "./dist/integreat/build-config-name/index.d.ts"
-    },
-    "./integreat-test-cms": {
-      "import": "./dist/integreat-test-cms/index.js",
-      "default": "./dist/integreat-test-cms/index.js",
-      "types": "./dist/integreat-test-cms/index.d.ts"
+      "import": "./src/integreat-test-cms/index.js",
+      "types": "./src/integreat-test-cms/index.d.ts",
+      "default": "./src/integreat-test-cms/index.js"
     },
     "./integreat-test-cms": {
       "import": "./src/integreat-test-cms/index.ts",
@@ -29,23 +29,29 @@
       "default": "./src/integreat-test-cms/index.ts"
     },
     "./integreat-test-cms/build-config-name": {
-      "import": "./dist/integreat-test-cms/build-config-name/index.js",
-      "default": "./dist/integreat-test-cms/build-config-name/index.js",
-      "types": "./dist/integreat-test-cms/build-config-name/index.d.ts"
+      "import": "./src/integreat-test-cms/build-config-name/index.ts",
+      "types": "./src/integreat-test-cms/build-config-name/index.d.ts",
+      "default": "./src/integreat-test-cms/build-config-name/index.ts"
+    },
+    "./obdach/build-config-name": {
+      "import": "./src/obdach/build-config-name/index.ts",
+      "types": "./src/obdach/build-config-name/index.d.ts",
+      "default": "./src/obdach/build-config-name/index.ts"
     },
     "./obdach": {
-      "import": "./dist/obdach/index.js",
-      "default": "./dist/obdach/index.js",
-      "types": "./dist/obdach/index.d.ts"
+      "import": "./src/obdach/index.ts",
+      "types": "./src/obdach/index.d.ts",
+      "default": "./src/obdach/index.ts"
     },
-    "./aschaffenburg/assets/*": "./src/aschaffenburg/assets/*",
-    "./integreat/assets/*": "./src/integreat/assets/*",
-    "./malte/assets/*": "./src/malte/assets/*",
-    "./obdach/assets/*": "./src/obdach/assets/*",
+    "./*.svg": {
+      "import": "./src/*.svg",
+      "types": "./src/*.svg",
+      "default": "./src/*.svg"
+    },
     "./*": {
-      "import": "./dist/*.js",
-      "default": "./dist/*.js",
-      "types": "./dist/*.d.ts"
+      "import": "./src/*.ts",
+      "types": "./src/*.ts",
+      "default": "./src/*.ts"
     }
   },
   "devDependencies": {

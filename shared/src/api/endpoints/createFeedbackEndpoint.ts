@@ -9,10 +9,10 @@ import {
   PlacesRouteType,
   SEARCH_ROUTE,
   SearchRouteType,
-} from '../../routes/index.js'
-import Endpoint from '../Endpoint.js'
-import EndpointBuilder from '../EndpointBuilder.js'
-import { API_VERSION } from '../constants/index.js'
+} from '../../routes/index.ts'
+import Endpoint from '../Endpoint.ts'
+import EndpointBuilder from '../EndpointBuilder.ts'
+import { API_VERSION } from '../constants/index.ts'
 
 export const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
 export const POSITIVE_RATING = 'up'

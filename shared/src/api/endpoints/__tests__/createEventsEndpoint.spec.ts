@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
-import { API_VERSION } from '../../constants/index.js'
-import { DateModel, EventModel, FeaturedImageModel, LocationModel } from '../../index.js'
-import { JsonEventType } from '../../types.js'
-import createEventsEndpoint from '../createEventsEndpoint.js'
+import { API_VERSION } from '../../constants/index.ts'
+import { DateModel, EventModel, FeaturedImageModel, LocationModel } from '../../index.ts'
+import { JsonEventType } from '../../types.ts'
+import createEventsEndpoint from '../createEventsEndpoint.ts'
 
 jest.useFakeTimers({ now: new Date('2023-10-02T15:23:57.443+02:00') })
 describe('events', () => {

@@ -1,12 +1,12 @@
 import MiniSearch, { SearchResult } from 'minisearch'
 import { useEffect, useState } from 'react'
 
-import CategoriesMapModel from '../api/models/CategoriesMapModel.js'
-import EventModel from '../api/models/EventModel.js'
-import ExtendedDocumentModel from '../api/models/ExtendedDocumentModel.js'
-import PlaceModel from '../api/models/PlaceModel.js'
-import normalizeString from '../utils/normalizeString.js'
-import parseHTML from '../utils/parseHTML.js'
+import CategoriesMapModel from '../api/models/CategoriesMapModel.ts'
+import EventModel from '../api/models/EventModel.ts'
+import ExtendedDocumentModel from '../api/models/ExtendedDocumentModel.ts'
+import PlaceModel from '../api/models/PlaceModel.ts'
+import normalizeString from '../utils/normalizeString.ts'
+import parseHTML from '../utils/parseHTML.ts'
 
 const removeDuplicatedPaths = (documents: ExtendedDocumentModel[]) => {
   const paths = new Set()

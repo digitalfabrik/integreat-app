@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
-import ChatMessageModel from '../models/ChatMessageModel.js'
-import { JsonChatMessagesType } from '../types.js'
+import ChatMessageModel from '../models/ChatMessageModel.ts'
+import { JsonChatMessagesType } from '../types.ts'
 
 export type ChatMessagesReturn = {
   botTyping: boolean

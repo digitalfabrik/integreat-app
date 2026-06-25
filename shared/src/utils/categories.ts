@@ -1,7 +1,7 @@
-import CategoryModel from '../api/models/CategoryModel.js'
-import { APPOINTMENT_BOOKING_OFFER_ALIAS, INTERNAL_OFFERS } from '../constants/index.js'
-import TileModel from '../models/TileModel.js'
-import { addSubdomain } from './index.js'
+import CategoryModel from '../api/models/CategoryModel.ts'
+import { APPOINTMENT_BOOKING_OFFER_ALIAS, INTERNAL_OFFERS } from '../constants/index.ts'
+import TileModel from '../models/TileModel.ts'
+import { addSubdomain } from './index.ts'
 
 export const getCategoryTiles = ({
   categories,

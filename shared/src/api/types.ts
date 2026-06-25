@@ -6,6 +6,7 @@ export type JsonAvailableLanguagesType = Record<
     path: string
   }
 >
+
 export type JsonLocationType<T> = {
   id: T
   name: string

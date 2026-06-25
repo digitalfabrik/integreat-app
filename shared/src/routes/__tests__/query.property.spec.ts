@@ -1,6 +1,6 @@
 import fc from 'fast-check'
 
-import { parseQueryParams, toQueryParams } from '../query.js'
+import { parseQueryParams, toQueryParams } from '../query.ts'
 
 describe('query params round-trip (property-based)', () => {
   it('should preserve the params through a toQueryParams/parseQueryParams round-trip', () => {

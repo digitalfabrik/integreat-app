@@ -1,5 +1,5 @@
-import RegionModel from '../../models/RegionModel.js'
-import LanguageModelBuilder from './LanguageModelBuilder.js'
+import RegionModel from '../../models/RegionModel.ts'
+import LanguageModelBuilder from './LanguageModelBuilder.ts'
 
 const languages = new LanguageModelBuilder(3).build()
 
