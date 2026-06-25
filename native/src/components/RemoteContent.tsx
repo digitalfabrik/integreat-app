@@ -6,7 +6,7 @@ import { Platform, useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import { CONSENT_ROUTE } from 'shared'
-import { ErrorCode } from 'shared/api'
+import { ErrorCodes } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
@@ -39,11 +39,11 @@ const ORIGIN_WHITELIST = ['*'] as const
 
 export const renderWebviewError = (
   errorDomain: string | null | undefined,
-  errorCode: number,
+  errorCodes: number,
   errorDesc: string,
 ): React.ReactElement => (
   <Text>
-    ${errorDomain} ${errorCode} ${errorDesc}
+    ${errorDomain} ${errorCodes} ${errorDesc}
   </Text>
 )
 
@@ -154,7 +154,7 @@ const RemoteContent = ({
   }
 
   if (error) {
-    return <Failure code={ErrorCode.UnknownError} retry={null} />
+    return <Failure code={ErrorCodes.UnknownError} retry={null} />
   }
 
   return (

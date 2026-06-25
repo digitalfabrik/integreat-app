@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback } from 'react'
 
 import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType, TU_NEWS_TYPE } from 'shared'
-import { ErrorCode } from 'shared/api'
+import { ErrorCodes } from 'shared/api'
 
 import NewsHeader from '../components/NewsHeader'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -32,7 +32,7 @@ const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement 
   const selectNewsType = (newsType: NewsType) => navigation.setParams({ newsType, newsId: null })
 
   const isDisabled = data && (newsType === LOCAL_NEWS_TYPE ? !data.region.localNewsEnabled : !data.region.tuNewsEnabled)
-  const error = isDisabled ? ErrorCode.PageNotFound : response.error
+  const error = isDisabled ? ErrorCodes.PageNotFound : response.error
 
   return (
     <LoadingErrorHandler {...response} error={error}>

@@ -6,37 +6,39 @@ import ResponseError from './errors/ResponseError.js'
 const FORBIDDEN_CODE = 403
 const RATE_LIMIT_CODE = 429
 
-export enum ErrorCode {
-  RegionUnavailable = 'regionUnavailable',
-  LanguageUnavailable = 'languageUnavailable',
-  ForbiddenError = 'forbidden',
-  PageNotFound = 'pageNotFound',
-  NetworkConnectionFailed = 'networkConnectionFailed',
-  NetworkRequestFailed = 'networkRequestFailed',
-  RateLimited = 'rateLimited',
-  ResponseMappingFailed = 'responseMappingFailed',
-  UnknownError = 'unknownError',
+export const ErrorCodes = {
+  RegionUnavailable: 'regionUnavailable',
+  LanguageUnavailable: 'languageUnavailable',
+  ForbiddenError: 'forbidden',
+  PageNotFound: 'pageNotFound',
+  NetworkConnectionFailed: 'networkConnectionFailed',
+  NetworkRequestFailed: 'networkRequestFailed',
+  RateLimited: 'rateLimited',
+  ResponseMappingFailed: 'responseMappingFailed',
+  UnknownError: 'unknownError',
 }
+
+export type ErrorCode = (typeof ErrorCodes)[keyof typeof ErrorCodes]
 
 export const fromError = (error: unknown): ErrorCode => {
   if (error instanceof ResponseError) {
     if (error.response.status === FORBIDDEN_CODE) {
-      return ErrorCode.ForbiddenError
+      return ErrorCodes.ForbiddenError
     }
     if (error.response.status === RATE_LIMIT_CODE) {
-      return ErrorCode.RateLimited
+      return ErrorCodes.RateLimited
     }
-    return ErrorCode.NetworkRequestFailed
+    return ErrorCodes.NetworkRequestFailed
   }
   if (error instanceof MappingError) {
-    return ErrorCode.ResponseMappingFailed
+    return ErrorCodes.ResponseMappingFailed
   }
   if (error instanceof FetchError) {
-    return ErrorCode.NetworkConnectionFailed
+    return ErrorCodes.NetworkConnectionFailed
   }
   if (error instanceof NotFoundError) {
-    return ErrorCode.PageNotFound
+    return ErrorCodes.PageNotFound
   }
 
-  return ErrorCode.UnknownError
+  return ErrorCodes.UnknownError
 }

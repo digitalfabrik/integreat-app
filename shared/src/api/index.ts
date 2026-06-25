@@ -14,7 +14,7 @@ export { default as mapAvailableLanguages } from './mapping/mapAvailableLanguage
 export type { ChatMessagesReturn } from './mapping/mapChatMessages.js'
 export * from './types.js'
 export * from './endpoints/testing/index.js'
-export { ErrorCode, fromError } from './ErrorCodes.js'
+export { type ErrorCode, ErrorCodes, fromError } from './ErrorCodes.js'
 export { setUserAgent, request } from './request.js'
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
