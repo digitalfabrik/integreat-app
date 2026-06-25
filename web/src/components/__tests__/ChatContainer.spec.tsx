@@ -135,6 +135,34 @@ describe('ChatContainer', () => {
     expect(router.state.location.search).toBe('?')
   })
 
+  it('should hide the dialog header when an external chat id is set', () => {
+    const { queryByLabelText, queryByText } = renderRoute(
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+        searchParams: '?chat=true&chatId=external-id',
+      },
+    )
+
+    expect(queryByLabelText('layout:common:close')).toBeNull()
+    expect(queryByText(getChatName('IntegreatTestCms'))).toBeNull()
+  })
+
+  it('should show the dialog header when no external chat id is set', () => {
+    const { getByLabelText, getByText } = renderRoute(
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+        searchParams: '?chat=true',
+      },
+    )
+
+    expect(getByLabelText('layout:common:close')).toBeTruthy()
+    expect(getByText(getChatName('IntegreatTestCms'))).toBeTruthy()
+  })
+
   it('should switch the language', () => {
     const { getByText, getByLabelText, router } = renderRoute(
       <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,

@@ -117,6 +117,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
       <StyledDialog
         title={chatName}
         close={close}
+        showHeader={!externalChatId}
         actions={[
           ...(languageChangePaths
             ? [
