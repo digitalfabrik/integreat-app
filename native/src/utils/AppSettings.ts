@@ -2,19 +2,17 @@ import LegacyAsyncStorage, { AsyncStorage, createAsyncStorage } from '@react-nat
 import { mapValues } from 'lodash'
 
 import { ThemeKey } from 'build-configs/ThemeKey'
-import { ExternalSourcePermissions, uuid } from 'shared'
+import { ExternalSourcePermissions } from 'shared'
 
 import { log, captureError } from './sentry'
 
 export const ASYNC_STORAGE_VERSION = 2
 
-type ChatRegionSettings = {
+export type ChatRegionSettings = {
   id: string
   seenMessages: number
 }
 type ChatSettings = Record<string, ChatRegionSettings>
-
-export const defaultChatRegionSettings = { id: uuid(), seenMessages: 0 }
 
 export type SettingsType = {
   storageVersion: number | null

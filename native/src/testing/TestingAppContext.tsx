@@ -12,11 +12,13 @@ export const testingAppContext = ({
   changeRegionCode = jest.fn(),
   changeLanguageCode = jest.fn(),
   updateSettings = jest.fn(),
+  updateChatSettings = jest.fn(),
 }: TestingAppContextParams): AppContextType => ({
   settings: { ...defaultSettings, ...settings },
   regionCode,
   languageCode,
   updateSettings,
+  updateChatSettings,
   changeRegionCode,
   changeLanguageCode,
 })
