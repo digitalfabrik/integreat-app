@@ -9,7 +9,7 @@ import useDimensions from '../hooks/useDimensions'
 import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
-import { LanguageChangePath } from './LanguageList'
+import { LanguageChangePath } from './LanguageSelection'
 import NavigationTabs from './NavigationTabs'
 import RegionContentMenu from './RegionContentMenu'
 

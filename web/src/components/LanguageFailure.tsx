@@ -1,10 +1,11 @@
 import { styled } from '@mui/material/styles'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RegionModel } from 'shared/api'
 
-import LanguageList, { LanguageChangePath } from './LanguageList'
+import LanguageSelection, { LanguageChangePath } from './LanguageSelection'
+import { SimpleAlertDialog } from './base/AlertDialog'
 import H1 from './base/H1'
 
 const ChooseLanguage = styled('p')`
@@ -19,12 +20,26 @@ type LanguageFailureProps = {
 }
 
 const LanguageFailure = ({ regionModel, languageCode, languageChangePaths }: LanguageFailureProps): ReactElement => {
+  const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
   const { t } = useTranslation('error')
+
   return (
     <>
       <H1>{regionModel.name}</H1>
       <ChooseLanguage>{t('notFound.language')}</ChooseLanguage>
-      <LanguageList languageCode={languageCode} languageChangePaths={languageChangePaths} availableOnly asList />
+      <LanguageSelection
+        openAlertDialog={setAlertDialogTitle}
+        languageCode={languageCode}
+        languageChangePaths={languageChangePaths}
+        asList
+      />
+      {alertDialogTitle ? (
+        <SimpleAlertDialog
+          title={alertDialogTitle}
+          body={t('layout:languageNotAvailableMessage')}
+          close={() => setAlertDialogTitle(null)}
+        />
+      ) : null}
     </>
   )
 }

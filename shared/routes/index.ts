@@ -8,8 +8,8 @@ export const SUGGEST_TO_REGION_ROUTE: SuggestToRegionRouteType = 'recommend'
 export type CategoriesRouteType = 'categories'
 export const CATEGORIES_ROUTE: CategoriesRouteType = 'categories'
 
-export type PlacesRouteType = 'locations'
-export const PLACES_ROUTE: PlacesRouteType = 'locations'
+export type PlacesRouteType = 'places'
+export const PLACES_ROUTE: PlacesRouteType = 'places'
 
 export type EventsRouteType = 'events'
 export const EVENTS_ROUTE: EventsRouteType = 'events'
@@ -28,6 +28,7 @@ export const LICENSES_ROUTE: LicensesRouteType = 'licenses'
 
 // Legacy routes
 export const LEGACY_REGIONS_ROUTE = 'landing'
+export const LEGACY_PLACES_ROUTE = 'locations'
 
 // News types
 export type LocalNewsType = 'local'
@@ -60,8 +61,8 @@ export const SETTINGS_ROUTE: SettingsRouteType = 'settings'
 export type BottomTabRouteType = 'bottomTab'
 export const BOTTOM_TAB_ROUTE: BottomTabRouteType = 'bottomTab'
 
-export type ChangeLanguageModalRouteType = 'changeLanguage'
-export const CHANGE_LANGUAGE_MODAL_ROUTE: ChangeLanguageModalRouteType = 'changeLanguage'
+export type LanguagesRouteType = 'languages'
+export const LANGUAGES_ROUTE: LanguagesRouteType = 'languages'
 
 export type PdfViewModalRouteType = 'pdf'
 export const PDF_VIEW_MODAL_ROUTE: PdfViewModalRouteType = 'pdf'
@@ -102,4 +103,5 @@ export const RESERVED_REGION_CONTENT_SLUGS: string[] = [
   EVENTS_ROUTE,
   NEWS_ROUTE,
   PLACES_ROUTE,
+  LEGACY_PLACES_ROUTE,
 ]

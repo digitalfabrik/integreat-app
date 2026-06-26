@@ -101,7 +101,7 @@
     "url-parse": "^1.5.10"
   },
   "devDependencies": {
-    "@babel/core": "^7.29.0",
+    "@babel/core": "^7.29.6",
     "@babel/plugin-transform-export-namespace-from": "^7.27.1",
     "@babel/preset-env": "^7.29.2",
     "@babel/preset-typescript": "^7.28.5",

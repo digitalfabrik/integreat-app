@@ -320,7 +320,14 @@
       "newChat": "Neuen Chat starten",
       "newChatConfirmation": "Möchtest du wirklich einen neuen Chat starten?",
       "newChatConfirmationMessage": "Der aktuelle Chatverlauf wird gelöscht.",
-      "chatOptions": "Chat-Optionen"
+      "chatOptions": "Chat-Optionen",
+      "unreadMessages_one": "1 ungelesene Chat-Nachricht",
+      "unreadMessages_two": "{{count}} ungelesene Chat-Nachrichten",
+      "unreadMessages_few": "{{count}} ungelesene Chat-Nachrichten",
+      "unreadMessages_many": "{{count}} ungelesene Chat-Nachrichten",
+      "unreadMessages_other": "{{count}} ungelesene Chat-Nachrichten",
+      "consultationQrCodeTitle": "QR-Code (Beratung)",
+      "consultationQrCodeDescription": "Zeige diesen QR-Code in der Beratung. So kann dein Chat direkt geöffnet werden."
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -416,7 +423,14 @@
       "newChat": "Start new chat",
       "newChatConfirmation": "Do you really want to start a new chat?",
       "newChatConfirmationMessage": "The current chat history will be lost.",
-      "chatOptions": "Chat options"
+      "chatOptions": "Chat options",
+      "unreadMessages_one": "1 unread chat message",
+      "unreadMessages_two": "{{count}} unread chat messages",
+      "unreadMessages_few": "{{count}} unread chat messages",
+      "unreadMessages_many": "{{count}} unread chat messages",
+      "unreadMessages_other": "{{count}} unread chat messages",
+      "consultationQrCodeTitle": "QR code (Consultation)",
+      "consultationQrCodeDescription": "Show this QR code during the consultation. This will open your chat right away."
     },
     "es": {
       "bot": "Chatbot",
@@ -7701,7 +7715,7 @@
       "news": "Nachrichten",
       "noLanguages": "Nicht verfügbar in anderen Sprachen",
       "noTranslation": "Keine Übersetzung verfügbar",
-      "languageNotAvailableMessage": "Dieser Inhalt ist noch nicht in allen Sprachen verfügbar. Wir erweitern unser Sprachangebot aktiv. Du kannst deine Sprache über die Feedback-Funktion anfragen.",
+      "languageNotAvailableMessage": "Diese Seite ist noch nicht in allen Sprachen verfügbar. Wir erweitern unser Sprachangebot aktiv. Du kannst deine Sprache über die Feedback-Funktion anfragen.",
       "noLanguageFound": "Keine Sprache gefunden",
       "languageNotFoundQuestion": "Sprache nicht gefunden?",
       "search": "Suchen",
@@ -8016,7 +8030,7 @@
       "news": "News",
       "noLanguages": "Not available in other languages",
       "noTranslation": "No translation available",
-      "languageNotAvailableMessage": "This content is not yet available in all languages. We are actively expanding our language options. You can request your language via the feedback feature.",
+      "languageNotAvailableMessage": "This page is not yet available in all languages. We are actively expanding our language options. You can request your language via the feedback feature.",
       "noLanguageFound": "No language found",
       "languageNotFoundQuestion": "Language not found?",
       "search": "Search",

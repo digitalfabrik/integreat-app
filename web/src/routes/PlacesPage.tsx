@@ -53,6 +53,7 @@ const PlacesPage = ({ regionCode, languageCode, region, pathname }: RegionRouteP
     languageChangePaths,
     languageCode,
     pageTitle: null,
+    slug: place?.slug ?? null,
     fitScreen: true,
   }
 

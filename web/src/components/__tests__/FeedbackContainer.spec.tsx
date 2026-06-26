@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { Rating, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
+import { SEARCH_ROUTE } from 'shared'
 
 import { renderAllRoutes } from '../../testing/render'
 import FeedbackContainer from '../FeedbackContainer'
@@ -24,58 +24,45 @@ jest.mock('shared/api', () => ({
 describe('FeedbackContainer', () => {
   beforeEach(jest.clearAllMocks)
 
-  const renderFeedbackContainer = (
-    path: string,
-    { query, initialRating }: { query?: string; initialRating?: Rating } = {},
-  ) =>
+  const renderFeedbackContainer = (path: string) =>
     renderAllRoutes(path, {
-      RegionContentElement: <FeedbackContainer query={query} initialRating={initialRating ?? null} />,
+      RegionContentElement: <FeedbackContainer slug={null} />,
     })
 
-  it('should display thanks message snackbar', async () => {
-    const { findByText, getByText } = renderFeedbackContainer('/augsburg/de', {
-      initialRating: RATING_POSITIVE,
-    })
+  it('should display dialog when feedback query param is set', () => {
+    const { getByText, queryByText } = renderFeedbackContainer('/augsburg/de?feedback=positive')
+
+    expect(getByText('feedback:headline')).toBeTruthy()
+    expect(queryByText('feedback:thanksHeadline')).toBeFalsy()
+  })
+
+  it('should not be visible without feedback query param', () => {
+    const { queryByText } = renderFeedbackContainer('/augsburg/de')
+
+    expect(queryByText('feedback:headline')).toBeNull()
+  })
+
+  it('should display search term field on search route', () => {
+    const { getByLabelText } = renderFeedbackContainer('/augsburg/de/search?feedback=positive&query=test')
+
+    expect(getByLabelText('feedback:wantedInformation')).toBeTruthy()
+  })
+
+  it('should display success snackbar after submit', async () => {
+    const { findByText, getByText } = renderFeedbackContainer('/augsburg/de?feedback=true')
+
     fireEvent.click(getByText('feedback:useful'))
-
-    getByText('feedback:useful').click()
     getByText('common:privacyPolicy').click()
-
     fireEvent.click(getByText('feedback:send'))
 
     expect(await findByText('feedback:thanksMessage')).toBeTruthy()
-  })
-
-  it('should display thanks message snackbar for search', async () => {
-    const { findByText, getByText, queryByText } = renderFeedbackContainer('/augsburg/de/search', { query: 'test' })
-
-    getByText('common:privacyPolicy').click()
-
-    fireEvent.click(getByText('feedback:send'))
-
-    expect(await findByText('feedback:thanksMessage')).toBeTruthy()
-    expect(queryByText('feedback:close')).toBeNull()
-  })
-
-  it('should display error message snackbar for search', async () => {
-    mockRequest.mockImplementationOnce(() => {
-      throw new Error()
-    })
-    const { findByText, getByText } = renderFeedbackContainer('/augsburg/de/search', { query: 'test' })
-
-    getByText('common:privacyPolicy').click()
-
-    fireEvent.click(getByText('feedback:send'))
-
-    expect(await findByText('feedback:failedSendingFeedback')).toBeTruthy()
   })
 
   it('should send query for search', async () => {
     const query = 'zeugnis'
-    const { getByText } = renderFeedbackContainer('/augsburg/de/search', { query })
+    const { getByText } = renderFeedbackContainer(`/augsburg/de/search?feedback=positive&query=${query}`)
 
     getByText('common:privacyPolicy').click()
-
     fireEvent.click(getByText('feedback:send'))
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
@@ -84,9 +71,9 @@ describe('FeedbackContainer', () => {
       language: 'de',
       comment: '',
       contactMail: '',
-      isPositiveRating: false,
+      isPositiveRating: true,
       query,
-      searchTerm: 'zeugnis',
+      searchTerm: query,
       slug: undefined,
     })
   })
@@ -94,12 +81,13 @@ describe('FeedbackContainer', () => {
   it('should send original search term if updated', () => {
     const query = 'Zeugnis'
     const fullSearchTerm = 'Zeugnisübergabe'
-    const { getByDisplayValue, getByText } = renderFeedbackContainer('/augsburg/de/search', { query })
+    const { getByDisplayValue, getByText } = renderFeedbackContainer(
+      `/augsburg/de/search?feedback=negative&query=${query}`,
+    )
     const input = getByDisplayValue(query)
     fireEvent.change(input, { target: { value: fullSearchTerm } })
 
     getByText('common:privacyPolicy').click()
-
     fireEvent.click(getByText('feedback:send'))
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({

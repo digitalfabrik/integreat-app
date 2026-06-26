@@ -62,6 +62,7 @@ const TuNewsDetailPage = ({ region, pathname, regionCode, languageCode }: Region
     languageChangePaths,
     languageCode,
     pageTitle,
+    slug: null,
     toolbar: <RegionContentToolbar />,
   }
 

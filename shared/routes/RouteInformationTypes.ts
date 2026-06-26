@@ -66,7 +66,7 @@ export type EventsRouteInformationType = ParamsType & {
 }
 
 export type PlacesRouteInformationType = ParamsType & {
-  // Route with customizable ids and search params, e.g. '/augsburg/de/locations/1234?multiplace=2'
+  // Route with customizable ids and search params, e.g. '/augsburg/de/places/1234?multiplace=2'
   route: PlacesRouteType
   slug?: string
   multiPlace?: number

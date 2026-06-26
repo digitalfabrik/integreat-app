@@ -67,6 +67,7 @@ const LocalNewsPage = ({ region, pathname, languageCode, regionCode }: RegionRou
     languageChangePaths,
     languageCode,
     pageTitle,
+    slug: null,
     toolbar: <RegionContentToolbar />,
   }
 
