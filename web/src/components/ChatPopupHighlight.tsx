@@ -56,7 +56,7 @@ const StyledPaper = styled(Paper)`
     content: '';
     position: absolute;
     bottom: -16px;
-    inset-inline-end: 16px;
+    ${props => (props.theme.contentDirection === 'rtl' ? 'inset-inline-start: 16px' : 'inset-inline-end: 16px')};
     width: 16px;
     height: 16px;
     background: inherit;
@@ -97,7 +97,7 @@ const ChatPopupHighlight = ({ anchorEl, chatName }: ChatPopupHighlightProps): Re
               </StyledAvatar>
             )}
             <Typography variant='body2' flex={1}>
-              {t('welcomeGreeting')}
+              {t('welcomeGreeting')} 👋
             </Typography>
             <IconButton
               onClick={() => setVisible(false)}

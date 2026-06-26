@@ -18,7 +18,7 @@ describe('ChatPopupHighlight', () => {
     const anchorEl = document.createElement('button')
     const { getByText } = renderWithTheme(<ChatPopupHighlight anchorEl={anchorEl} chatName={chatName} />)
 
-    expect(getByText('chat:welcomeGreeting')).toBeTruthy()
+    expect(getByText('chat:welcomeGreeting 👋')).toBeTruthy()
     expect(getByText('chat:welcomeText')).toBeTruthy()
     expect(localStorage.getItem(CHAT_POPUP_HIGHLIGHT_VISIBLE_STORAGE_KEY)).toBe('true')
   })
