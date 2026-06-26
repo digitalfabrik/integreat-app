@@ -1684,7 +1684,7 @@ PODS:
     - ReactNativeDependencies
     - Yoga
   - react-native-vector-icons-material-design-icons (13.0.0)
-  - react-native-webview (13.17.1):
+  - react-native-webview (13.17.4):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2972,7 +2972,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: f6ef8e2319c27b4f48599b85fc827f64b69c5c6d
   react-native-safe-area-context: 90476586077446d5eab1d41ac3e767b016ac41d6
   react-native-vector-icons-material-design-icons: 1955bd08457a8310e6a2d3c87c7f1ebaca159098
-  react-native-webview: 8cb7597ccc815e831d07dacde956fd13fb041d79
+  react-native-webview: aa723c1d2a42fcfd02f22fc9e59f4da885df05d4
   React-NativeModulesApple: 5ba0903927f6b8d335a091700e9fda143980f819
   React-networking: ad2727500e93943a43da70d3b162454af151469c
   React-oscompat: ff26abf0ae3e3fdbe47b44224571e3fc7226a573
