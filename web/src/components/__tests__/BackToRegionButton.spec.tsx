@@ -28,7 +28,7 @@ describe('BackToRegionButton', () => {
   it('should render on mobile and navigate back on click', () => {
     const { getByText } = renderWithRouterAndTheme(<BackToRegionButton />)
 
-    fireEvent.click(getByText('layout:backToContent'))
+    fireEvent.click(getByText('common:back'))
 
     expect(mockNavigate).toHaveBeenCalledWith(-1)
   })
@@ -37,6 +37,6 @@ describe('BackToRegionButton', () => {
     setHistoryIndex(0)
     const { queryByText } = renderWithRouterAndTheme(<BackToRegionButton />)
 
-    expect(queryByText('layout:backToContent')).toBeFalsy()
+    expect(queryByText('common:back')).toBeFalsy()
   })
 })

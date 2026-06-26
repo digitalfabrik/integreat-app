@@ -15,7 +15,7 @@ const StyledButton = styled(Button)({
 const BackToRegionButton = (): ReactElement | null => {
   const navigate = useNavigate()
   const { mobile } = useDimensions()
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation('common')
   const currentHistoryIndex = window.history.state?.idx ?? 0
 
   // Initial history index to account for language changes or other user interactions on this page.
@@ -30,7 +30,7 @@ const BackToRegionButton = (): ReactElement | null => {
       onClick={() => navigate(initialHistoryIndex - currentHistoryIndex - 1)}
       startIcon={<DirectionDependentBackIcon />}
       color='inherit'>
-      {t('backToContent')}
+      {t('back')}
     </StyledButton>
   )
 }
