@@ -1,5 +1,5 @@
 import { mapValues } from 'lodash'
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components/native'
@@ -8,7 +8,7 @@ import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { useAppContext } from '../hooks/useRegionAppContext'
 import useResourceCache from '../hooks/useResourceCache'
-import { getStaticServerFileUrl } from '../utils/helpers'
+import { getStaticServerFileUrl, sanitizeContent } from '../utils/helpers'
 import renderHtml from '../utils/renderHtml'
 import { StaticServerContext } from './StaticServerProvider'
 import WebView from './WebView'
@@ -33,6 +33,8 @@ const RemoteContent = ({ onLoad, content, language, loading }: RemoteContentProp
 
   const resourceMap = mapValues(resourceCache, filePath => getStaticServerFileUrl(filePath, staticServerUrl))
 
+  const sanitizedContent = useMemo(() => sanitizeContent(content), [content])
+
   if (content.length === 0) {
     return null
   }
@@ -42,7 +44,7 @@ const RemoteContent = ({ onLoad, content, language, loading }: RemoteContentProp
       source={{
         baseUrl: staticServerUrl,
         html: renderHtml(
-          content,
+          sanitizedContent,
           resourceMap,
           buildConfig().supportedIframeSources,
           theme,
