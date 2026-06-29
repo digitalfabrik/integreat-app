@@ -28,7 +28,6 @@ _Make sure you read and followed the steps in the [general README](../README.md#
 
 ### Debug the App (IntelliJ)
 
-- Make sure that `sourceMap` is set to `true` in the [tsconfig.json](tsconfig.json).
 - Start the `Debug with Chrome` IntelliJ run configuration in debug mode.
 - You can now debug the webapp directly in IntelliJ.
 

@@ -17,9 +17,9 @@ A list of necessary information to build and deliver a whitelabelled app.
 Information the customer needs to provide for their own whitelabelled app.
 Some points may overlap and are therefore duplicated.
 
-#### For build config
+#### For build-config
 
-Information necessary for the creation of a new build config.
+Information necessary for the creation of a new build-config.
 
 - App name
 - Application id / bundle identifier
@@ -86,7 +86,7 @@ Information needed from our CMS.
 
 Things the AppTeam has to do and therefore probably create issues for.
 
-- Add build config
+- Add build-config
 - Setup app store presence
 - Add new App to permissions of GooglePlay CI service account
 - Modify assets: intro slide icons, location marker

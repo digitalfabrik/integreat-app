@@ -37,7 +37,7 @@ This is a monorepo and contains the following projects:
 - **[web](web/README.md)**: React JS webapp
 - **[native](native/README.md)**: React Native Android and iOS apps
 
-Both projects are whitelabelled with different [build configs](build-configs/README.md).
+Both projects are whitelabelled with different [build-configs](build-configs/README.md).
 
 There are also separate subprojects used by both projects:
 

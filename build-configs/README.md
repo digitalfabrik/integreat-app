@@ -1,6 +1,6 @@
 # Build Configs
 
-We use the concept of build configs to build different versions of the app. A build config defines for example the following aspects:
+We use the concept of build-configs to build different versions of the app. A build-config defines for example the following aspects:
 
 - Enabling and disabling of features
 - Design, fonts, icons and theme colors
@@ -25,7 +25,7 @@ We use the concept of build configs to build different versions of the app. A bu
 - **integreat-e2e**: Build config for [E2E-Tests](../native/docs/e2e-testing.md), primarily used in the [CI](../docs/cicd.md).
 
 **NOTE: Testing and developing with the live cms instance should be avoided.
-Therefore, the `integreat-test-cms` build config should be used primarily.**
+Therefore, the `integreat-test-cms` build-config should be used primarily.**
 
 ## Usage
 
@@ -33,13 +33,13 @@ See the corresponding sections for [native](../native/docs/build-configs.md#usin
 
 ## Structure and Available Options
 
-See the [build config types](src/BuildConfigType.ts) for more information on structure, available options and their functionality.
+See the [build-config types](src/BuildConfigType.ts) for more information on structure, available options and their functionality.
 
 ## Technical Information
 
-Each build config is a set of javascript files (possibly including common files) that can be found in the [corresponding directory]().
+Each build-config is a set of TypeScript files (possibly including common files) that can be found in the corresponding directory.
 See the corresponding sections for [native](../native/docs/build-configs.md#technical-information) and [web](../web/docs/build-configs.md#technical-information).
 
 ## White Labeling
 
-If you want to add more build configs in order to create a new whitelabelled app, have a look at the [white labeling documentation](../docs/whitelabelling.md).
+If you want to add more build-configs in order to create a new whitelabelled app, have a look at the [white labeling documentation](../docs/whitelabelling.md).
