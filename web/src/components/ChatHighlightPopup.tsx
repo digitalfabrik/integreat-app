@@ -13,7 +13,7 @@ import buildConfig from '../constants/buildConfig'
 import useLocalStorage, { CHAT_POPUP_HIGHLIGHT_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import Svg from './base/Svg'
 
-const POPUP_OFFSET = -24
+const POPUP_OFFSET = -8
 const AVATAR_SIZE = 24
 
 const StyledPopper = styled(Popper)`
@@ -64,12 +64,12 @@ const StyledPaper = styled(Paper)`
   }
 `
 
-type ChatPopupHighlightProps = {
+type ChatHighlightPopupProps = {
   anchorEl: HTMLElement | null
   chatName: string
 }
 
-const ChatPopupHighlight = ({ anchorEl, chatName }: ChatPopupHighlightProps): ReactElement => {
+const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): ReactElement => {
   const { t } = useTranslation('chat')
   const { icons } = buildConfig()
   const [visible, setVisible] = useLocalStorage<boolean>({
@@ -99,16 +99,12 @@ const ChatPopupHighlight = ({ anchorEl, chatName }: ChatPopupHighlightProps): Re
             <Typography variant='body2' flex={1}>
               {t('welcomeGreeting')} 👋
             </Typography>
-            <IconButton
-              onClick={() => setVisible(false)}
-              size='small'
-              aria-label={t('common:close')}
-              sx={{ mt: -1, mr: -1 }}>
+            <IconButton onClick={() => setVisible(false)} size='small' aria-label={t('common:close')}>
               <CloseIcon fontSize='small' />
             </IconButton>
           </Stack>
           <Typography variant='body2'>
-            <Trans i18nKey='chat:welcomeText' values={{ chatName }} components={{ strong: <strong /> }} />
+            <Trans i18nKey='chat:welcomeText' values={{ name: chatName }} components={{ strong: <strong /> }} />
           </Typography>
         </Stack>
       </StyledPaper>
@@ -116,4 +112,4 @@ const ChatPopupHighlight = ({ anchorEl, chatName }: ChatPopupHighlightProps): Re
   )
 }
 
-export default ChatPopupHighlight
+export default ChatHighlightPopup

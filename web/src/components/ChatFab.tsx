@@ -10,7 +10,7 @@ import { getChatName } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
-import ChatPopupHighlight from './ChatPopupHighlight'
+import ChatHighlightPopup from './ChatHighlightPopup'
 import LiveAnnouncer from './LiveAnnouncer'
 
 const ChatButtonContainer = styled('div')<{ bottom: number }>`
@@ -44,7 +44,7 @@ const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement
           <QuestionAnswerOutlinedIcon fontSize='large' />
         </Fab>
       </Badge>
-      <ChatPopupHighlight anchorEl={anchorEl} chatName={chatName} />
+      <ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />
       {desktop && (
         <Typography textAlign='center' aria-hidden>
           {chatName}

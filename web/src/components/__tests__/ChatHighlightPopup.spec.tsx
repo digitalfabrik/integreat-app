@@ -3,11 +3,11 @@ import React from 'react'
 
 import { CHAT_POPUP_HIGHLIGHT_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { renderWithTheme } from '../../testing/render'
-import ChatPopupHighlight from '../ChatPopupHighlight'
+import ChatHighlightPopup from '../ChatHighlightPopup'
 
 jest.mock('react-i18next')
 
-describe('ChatPopupHighlight', () => {
+describe('ChatHighlightPopup', () => {
   const chatName = 'Frag Integreat'
 
   afterEach(() => {
@@ -16,7 +16,7 @@ describe('ChatPopupHighlight', () => {
 
   it('should render popup when anchorEl is provided', () => {
     const anchorEl = document.createElement('button')
-    const { getByText } = renderWithTheme(<ChatPopupHighlight anchorEl={anchorEl} chatName={chatName} />)
+    const { getByText } = renderWithTheme(<ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />)
 
     expect(getByText('chat:welcomeGreeting 👋')).toBeTruthy()
     expect(getByText('chat:welcomeText')).toBeTruthy()
@@ -24,7 +24,7 @@ describe('ChatPopupHighlight', () => {
   })
 
   it('should not render popup when anchorEl is null', () => {
-    const { queryByText } = renderWithTheme(<ChatPopupHighlight anchorEl={null} chatName={chatName} />)
+    const { queryByText } = renderWithTheme(<ChatHighlightPopup anchorEl={null} chatName={chatName} />)
 
     expect(queryByText('chat:welcomeGreeting')).toBeFalsy()
     expect(queryByText('chat:welcomeText')).toBeFalsy()
@@ -33,7 +33,7 @@ describe('ChatPopupHighlight', () => {
   it('should hide popup when close button is clicked', () => {
     const anchorEl = document.createElement('button')
     const { getByLabelText, queryByText } = renderWithTheme(
-      <ChatPopupHighlight anchorEl={anchorEl} chatName={chatName} />,
+      <ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />,
     )
 
     fireEvent.click(getByLabelText('chat:common:close'))
@@ -46,7 +46,7 @@ describe('ChatPopupHighlight', () => {
   it('should not render popup when previously dismissed', () => {
     localStorage.setItem(CHAT_POPUP_HIGHLIGHT_VISIBLE_STORAGE_KEY, 'false')
     const anchorEl = document.createElement('button')
-    const { queryByText } = renderWithTheme(<ChatPopupHighlight anchorEl={anchorEl} chatName={chatName} />)
+    const { queryByText } = renderWithTheme(<ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />)
 
     expect(queryByText('chat:welcomeGreeting')).toBeFalsy()
     expect(queryByText('chat:welcomeText')).toBeFalsy()

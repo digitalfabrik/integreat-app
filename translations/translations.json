@@ -329,7 +329,7 @@
       "consultationQrCodeTitle": "QR-Code (Beratung)",
       "consultationQrCodeDescription": "Zeige diesen QR-Code in der Beratung. So kann dein Chat direkt geöffnet werden.",
       "welcomeGreeting": "Hallo!",
-      "welcomeText": "Ich bin <strong> Frag Integreat </strong>, dein Digitaler Suchassistent. Stell mir gerne deine Frage."
+      "welcomeText": "Ich bin <strong>{{name}}</strong>, dein Digitaler Suchassistent. Stell mir gerne deine Frage."
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -434,7 +434,7 @@
       "consultationQrCodeTitle": "QR code (Consultation)",
       "consultationQrCodeDescription": "Show this QR code during the consultation. This will open your chat right away.",
       "welcomeGreeting": "Hello!",
-      "welcomeText": "I'm <strong>Frag Integreat</strong>, your digital search assistant. Feel free to ask me your question."
+      "welcomeText": "I'm <strong>{{name}}</strong>, your digital search assistant. Feel free to ask me your question."
     },
     "es": {
       "bot": "Chatbot",

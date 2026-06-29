@@ -27,7 +27,7 @@ const Svg = ({
       svg.setAttribute('width', String(width))
       svg.setAttribute('height', String(height))
       if (overrideFillColors) {
-        svg.querySelectorAll('[fill]').forEach(el => el.setAttribute('fill', 'currentColor'))
+        svg.querySelectorAll('[fill]').forEach(element => element.setAttribute('fill', 'currentColor'))
         svg.setAttribute('style', `color: ${overrideFillColors}`)
       } else {
         svg.setAttribute('style', 'color: inherit')
