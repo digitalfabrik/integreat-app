@@ -19,7 +19,7 @@ the [CI/CD documentation](../../docs/cicd.md#triggering-a-delivery-using-the-ci)
 
 ## iOS
 
-**NOTE: This section just covers the use of the integreat-test-cms build config. More information can be
+**NOTE: This section just covers the use of the integreat-test-cms build-config. More information can be
 found [here](build-configs.md).**
 
 ### Setup on iOS
@@ -107,7 +107,7 @@ another way.
 
 ## Android
 
-**NOTE: This section just covers the use of the integreat-test-cms build config. More information can be
+**NOTE: This section just covers the use of the integreat-test-cms build-config. More information can be
 found [here](build-configs.md).**
 
 ### Setup on Android
