@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles'
 import React, { Fragment, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { normalizeString } from 'shared'
+import { filterLanguages } from 'shared'
 import { config } from 'translations'
 
 import useDimensions from '../hooks/useDimensions'
@@ -28,7 +28,7 @@ const StyledTextField = styled(TextField)({
   },
 })
 
-const StyledUnavailableLanguageButton = styled(Button)({
+const StyledLanguageNotFondButton = styled(Button)({
   margin: '2px 8px',
   textTransform: 'none',
 })
@@ -39,63 +39,35 @@ export type LanguageChangePath = {
   name: string
 }
 
-export const filterLanguageChangePath = (
-  languageChangePath: LanguageChangePath,
-  query: string,
-  languageNamesInCurrentLanguage: Intl.DisplayNames,
-  languageNamesInFallbackLanguage: Intl.DisplayNames,
-): boolean => {
-  if (query === '') {
-    return true
-  }
-  const normalizedQuery = normalizeString(query)
-  return (
-    normalizeString(languageChangePath.name).includes(normalizedQuery) ||
-    normalizeString(languageNamesInCurrentLanguage.of(languageChangePath.code) || '').includes(normalizedQuery) ||
-    normalizeString(languageNamesInFallbackLanguage.of(languageChangePath.code) || '').includes(normalizedQuery)
-  )
-}
-
-type UnavailableLanguageButtonProps = {
-  onClick?: () => void
-  label: string
-}
-
-const UnavailableLanguageButton = ({ onClick, label }: UnavailableLanguageButtonProps): ReactElement => (
-  <StyledUnavailableLanguageButton variant='outlined' onClick={onClick}>
-    {label}
-  </StyledUnavailableLanguageButton>
-)
-
 type LanguageSelectionProps = {
   languageChangePaths: LanguageChangePath[]
   languageCode: string
   close?: () => void
-  availableOnly?: boolean
   asList?: boolean
-  onUnavailableLanguageClick?: () => void
+  openAlertDialog: (title: string) => void
 }
 
 const LanguageSelection = ({
   languageChangePaths,
   languageCode,
   close,
-  availableOnly = false,
   asList = false,
-  onUnavailableLanguageClick,
+  openAlertDialog,
 }: LanguageSelectionProps): ReactElement => {
   const [query, setQuery] = useState('')
   const { t } = useTranslation('layout')
   const { mobile } = useDimensions()
 
-  const allOptions = languageChangePaths.filter(item => !availableOnly || !!item.path)
+  const currentLanguage = languageChangePaths.find(item => item.code === languageCode)
+  const filteredLanguageChangePaths = filterLanguages(languageChangePaths, query, languageCode, config.sourceLanguage)
 
-  const currentLanguage = allOptions.find(item => item.code === languageCode)
+  const openLanguageUnavailableDialog = () => openAlertDialog(t('languageNotFoundQuestion'))
+  const openTranslationUnavailableDialog = () => openAlertDialog(t('noTranslation'))
 
-  const languageNamesInCurrentLanguage = new Intl.DisplayNames([languageCode], { type: 'language' })
-  const languageNamesInFallbackLanguage = new Intl.DisplayNames([config.sourceLanguage], { type: 'language' })
-  const filteredLanguageChangePaths = languageChangePaths.filter(item =>
-    filterLanguageChangePath(item, query, languageNamesInCurrentLanguage, languageNamesInFallbackLanguage),
+  const languageNotFoundButton = (
+    <StyledLanguageNotFondButton onClick={openLanguageUnavailableDialog} variant='outlined'>
+      {t('languageNotFoundQuestion')}
+    </StyledLanguageNotFondButton>
   )
 
   if (mobile || asList) {
@@ -111,11 +83,11 @@ const LanguageSelection = ({
               name={language.name}
               close={close}
               selectedLanguageCode={currentLanguage?.code}
-              onUnavailableLanguageClick={onUnavailableLanguageClick}
+              onUnavailableLanguageClick={openTranslationUnavailableDialog}
             />
           ))}
         </List>
-        <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
+        {languageNotFoundButton}
       </Stack>
     )
   }
@@ -141,17 +113,13 @@ const LanguageSelection = ({
             name={language.name}
             close={close}
             selectedLanguageCode={currentLanguage?.code}
-            onUnavailableLanguageClick={onUnavailableLanguageClick}
+            onUnavailableLanguageClick={openTranslationUnavailableDialog}
             key={language.code}
           />
-          {index === filteredLanguageChangePaths.length - 1 && (
-            <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
-          )}
+          {index === filteredLanguageChangePaths.length - 1 && languageNotFoundButton}
         </Fragment>
       )}
-      noOptionsText={
-        <UnavailableLanguageButton onClick={onUnavailableLanguageClick} label={t('languageNotFoundQuestion')} />
-      }
+      noOptionsText={languageNotFoundButton}
       disablePortal
       slotProps={{
         popper: {
