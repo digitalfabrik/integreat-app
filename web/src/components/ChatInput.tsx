@@ -15,9 +15,9 @@ import { useTranslation } from 'react-i18next'
 import { RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
+import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
-const ICON_FONT_SIZE = { xs: 24, md: 32 }
 const INLINE_PADDING = 8
 
 const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 'expanded' })<{ expanded: boolean }>(
@@ -81,6 +81,8 @@ type ChatInputProps = {
 
 const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): ReactElement => {
   const { t } = useTranslation('chat')
+  const { desktop } = useDimensions()
+  const iconFontSize = desktop ? 'large' : 'medium'
   const [expanded, setExpanded] = useState(false)
   const [expansionLength, setExpansionLength] = useState(0)
 
@@ -98,19 +100,17 @@ const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): React
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const textarea = event.target
-    if (!textarea.value.length) {
+    const isMultiline = textarea.scrollHeight - textarea.clientHeight > 1
+    if (isMultiline && !expanded) {
+      setExpansionLength(textarea.value.length)
+      setExpanded(true)
+    } else if (expanded && textarea.value.length < expansionLength) {
       setExpanded(false)
-    } else {
-      const isMultiline = textarea.scrollHeight - textarea.clientHeight > 1
-      if (isMultiline && !expanded) {
-        setExpansionLength(textarea.value.length)
-        setExpanded(true)
-      } else if (expanded && textarea.value.length < expansionLength) {
-        setExpanded(false)
-      }
     }
     setValue(textarea.value)
   }
+
+  const privacyPolicyUrl = region.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default
 
   return (
     <StyledTextField
@@ -128,22 +128,15 @@ const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): React
           endAdornment: (
             <ButtonStack expanded={expanded}>
               <SendButton onClick={onSubmit} disabled={submitDisabled} aria-label={t('sendButton')}>
-                <SendIcon sx={{ fontSize: ICON_FONT_SIZE }} />
+                <SendIcon fontSize={iconFontSize} />
               </SendButton>
               <Stack direction='row'>
-                {/* <ChatIconButton
-                  component={Link}
-                  to={region.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}
-                  aria-label={t('layout:uploadFiles')}
-                >
-                  <AttachFileIcon sx={{ fontSize: ICON_FONT_SIZE }} />
+                {/* <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t('layout:uploadFiles')}>
+                  <AttachFileIcon fontSize={iconFontSize} />
                 </ChatIconButton> */}
                 <Tooltip title={t('settings:privacyPolicy')}>
-                  <ChatIconButton
-                    component={Link}
-                    to={region.chatPrivacyPolicyUrl ?? buildConfig().privacyUrls.default}
-                    aria-label={t('layout:privacy')}>
-                    <PrivacyTipIcon sx={{ fontSize: ICON_FONT_SIZE }} />
+                  <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t('layout:privacy')}>
+                    <PrivacyTipIcon fontSize={iconFontSize} />
                   </ChatIconButton>
                 </Tooltip>
               </Stack>
