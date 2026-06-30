@@ -9,6 +9,7 @@ import render from '../../testing/render'
 import Chat from '../Chat'
 
 jest.mock('react-i18next')
+jest.mock('@react-native-community/netinfo', () => ({ useNetInfo: jest.fn(() => ({ isConnected: true })) }))
 jest.mock('../../utils/sentry', () => ({ captureError: jest.fn() }))
 jest.mock('../../utils/helpers', () => ({ determineApiUrl: jest.fn(async () => 'https://api') }))
 
@@ -36,6 +37,8 @@ describe('Chat', () => {
     focusCallback = null
   })
 
+  const { mocked } = jest
+
   it('shows a spinner and seeds default chat settings if none exist for the region', async () => {
     const updateChatSettings = jest.fn()
     const { getByLabelText, queryByTestId } = render(
@@ -62,7 +65,6 @@ describe('Chat', () => {
   })
 
   it('updates seenMessages on blur using the incoming message count', async () => {
-    const { mocked } = jest
     const buildMessage = (id: number, userIsAuthor: boolean) =>
       new ChatMessageModel({ id, content: '', created: DateTime.now(), userIsAuthor, automaticAnswer: false })
     mocked(loadFromEndpoint).mockResolvedValue({

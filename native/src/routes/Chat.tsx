@@ -1,9 +1,11 @@
+import { useNetInfo } from '@react-native-community/netinfo'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useEffect } from 'react'
 
 import { CATEGORIES_ROUTE, regionContentPath, uuid } from 'shared'
-import { createChatMessagesEndpoint, loadFromEndpoint } from 'shared/api'
+import { createChatMessagesEndpoint, ErrorCode, loadFromEndpoint } from 'shared/api'
 
+import Failure from '../components/Failure'
 import ProgressSpinner from '../components/ProgressSpinner'
 import WebView from '../components/WebView'
 import useRegionAppContext from '../hooks/useRegionAppContext'
@@ -12,6 +14,7 @@ import { captureError } from '../utils/sentry'
 import urlFromRouteInformation from '../utils/url'
 
 const Chat = (): ReactElement => {
+  const { isConnected } = useNetInfo()
   const { regionCode, languageCode, settings, updateChatSettings } = useRegionAppContext()
   const chatSettings = settings.chat[regionCode]
 
@@ -43,6 +46,10 @@ const Chat = (): ReactElement => {
       [chatId, regionCode, languageCode, updateChatSettings],
     ),
   )
+
+  if (isConnected === false) {
+    return <Failure code={ErrorCode.NetworkConnectionFailed} retry={null} />
+  }
 
   if (!chatSettings) {
     return <ProgressSpinner />
