@@ -3,5 +3,5 @@ show_in_stores: true
 platforms:
   - android
   - ios
-en: Events are now sorted according to the group they belong to.
-de: Die Veranstaltungen sind nun nach der Gruppe sortiert, zu der sie gehören.
+en: Events are now grouped by their next recurrence.
+de: Veranstaltungen werden nun nach ihrer nächsten Wiederholung gruppiert.

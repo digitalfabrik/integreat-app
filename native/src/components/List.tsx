@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { FlatList, FlatListProps, RefreshControl, ViewStyle } from 'react-native'
-import { Divider } from 'react-native-paper'
 
 import Text from './base/Text'
 
@@ -31,7 +30,7 @@ const List = <T,>({
   scrollEnabled,
   style,
   keyboardShouldPersistTaps = 'never',
-  itemSeparatorComponent = Divider,
+  itemSeparatorComponent,
 }: ListProps<T>): ReactElement => (
   <FlatList
     data={items}
