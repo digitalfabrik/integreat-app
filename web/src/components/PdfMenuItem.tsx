@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CategoryModel } from 'shared/api'
-import config from 'translations/src/config'
+import { config } from 'translations'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import MenuItem from './MenuItem'

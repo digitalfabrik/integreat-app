@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 
 import { NewsRouteType, NewsType, TU_NEWS_TYPE, replaceLinks, tuNewsLabel } from 'shared'
-import { LocalNewsModel, TuNewsModel, ErrorCode } from 'shared/api'
+import { LocalNewsModel, TuNewsModel, ErrorCodes } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
@@ -98,7 +98,7 @@ const News = ({
   }
 
   if (newsId !== null) {
-    return <Failure code={ErrorCode.PageNotFound} retry={refresh} />
+    return <Failure code={ErrorCodes.PageNotFound} retry={refresh} />
   }
 
   return (

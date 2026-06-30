@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useMemo } from 'react'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType, regionContentPath } from 'shared'
-import { ErrorCode } from 'shared/api'
+import { ErrorCodes } from 'shared/api'
 import { config } from 'translations'
 
 import Categories from '../components/Categories'
@@ -53,7 +53,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
   const error =
-    data?.categories && !category && previousLanguageCode === languageCode ? ErrorCode.PageNotFound : response.error
+    data?.categories && !category && previousLanguageCode === languageCode ? ErrorCodes.PageNotFound : response.error
 
   return (
     <LoadingErrorHandler refresh={response.refresh} loading={response.loading} error={error} scrollView>

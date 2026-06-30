@@ -4,10 +4,10 @@ import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { TypographyVariant } from 'build-configs/TypographyType'
 import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
-import { TypographyVariant } from '../../../build-configs/TypographyType'
 import OpeningHoursListItem from './OpeningHoursListItem'
 
 const StyledList = styled(List)({

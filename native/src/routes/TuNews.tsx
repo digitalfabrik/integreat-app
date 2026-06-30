@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 import { NEWS_ROUTE, NewsRouteType, TU_NEWS_TYPE } from 'shared'
-import { ErrorCode } from 'shared/api'
+import { ErrorCodes } from 'shared/api'
 
 import News from '../components/News'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
@@ -35,7 +35,7 @@ const TuNews = ({ route, navigation, data, navigateToNews }: TuNewsProps): React
 
   const error =
     availableLanguageCodes && !availableLanguageCodes.find(it => it === languageCode)
-      ? ErrorCode.LanguageUnavailable
+      ? ErrorCodes.LanguageUnavailable
       : response.error
 
   return (

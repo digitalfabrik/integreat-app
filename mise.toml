@@ -1,0 +1,5 @@
+[tools]
+java = 'temurin-17'
+node = '24'
+yarn = 'latest'
+cocoapods = '1.12.1'

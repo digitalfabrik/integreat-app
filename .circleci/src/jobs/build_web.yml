@@ -26,11 +26,11 @@ steps:
   - run:
       name: Create tarball
       command: tar -czf << parameters.build_config_name >>.tar.gz ./<< parameters.build_config_name >>
-      working_directory: web/dist
+      working_directory: web/build
   - store_artifacts:
-      path: web/dist/<< parameters.build_config_name >>.tar.gz
+      path: web/build/<< parameters.build_config_name >>.tar.gz
   - persist_to_workspace:
       root: web
       paths:
-        - dist/<<parameters.build_config_name >>
+        - build/<<parameters.build_config_name >>
   - notify

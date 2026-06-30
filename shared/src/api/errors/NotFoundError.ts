@@ -1,0 +1,48 @@
+import { LocalNewsType, TuNewsType } from '../../routes/index.ts'
+
+type NotFoundType = 'region' | 'category' | 'event' | 'place' | 'imprint' | TuNewsType | LocalNewsType | 'route'
+
+const getMessage = (type: NotFoundType, id: string): string => `The ${type} ${id} does not exist here.`
+
+class NotFoundError extends Error {
+  _type: NotFoundType
+  _id: string | number
+  _region: string | undefined
+  _language: string | undefined
+
+  constructor(params: { id: string; type: NotFoundType; region?: string; language?: string }) {
+    super(getMessage(params.type, params.id))
+
+    // captureStackTrace is not always defined on mobile
+    // https://sentry.tuerantuer.org/organizations/digitalfabrik/issues/263/
+    // https://sentry.tuerantuer.org/organizations/digitalfabrik/issues/265/
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition,@typescript-eslint/strict-boolean-expressions
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, NotFoundError)
+    }
+
+    this.name = 'NotFoundError'
+    this._id = params.id
+    this._type = params.type
+    this._region = params.region
+    this._language = params.language
+  }
+
+  get type(): NotFoundType {
+    return this._type
+  }
+
+  get id(): string | number {
+    return this._id
+  }
+
+  get region(): string | undefined {
+    return this._region
+  }
+
+  get language(): string | undefined {
+    return this._language
+  }
+}
+
+export default NotFoundError
