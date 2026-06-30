@@ -5,8 +5,6 @@ import { formatDateICal, formatTime, getWeekdayFromIndex, TranslateFunction } fr
 
 const MAX_RECURRENCE_YEARS = 6
 
-export type DateIcon = 'CalendarRecurringIcon'
-
 type FormattedEventDate = {
   date: string
   weekday: string | undefined
@@ -188,14 +186,6 @@ class DateModel {
     return t('startingFrom', {
       date: this.startDate.toLocaleString(format, { locale }),
     })
-  }
-
-  getDateIcon(): { icon: DateIcon; label: string } | null {
-    const isRecurring = this.hasMoreRecurrencesThan(1)
-    if (isRecurring) {
-      return { icon: 'CalendarRecurringIcon', label: 'recurring' }
-    }
-    return null
   }
 
   private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType {

@@ -11,7 +11,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getDisplayDate, getExcerpt } from 'shared'
-import { DateModel, EventModel } from 'shared/api'
+import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
@@ -64,32 +64,23 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]!
 }
 
-export const getDateIcon = (date: DateModel): { Icon: ReactElement; tooltip: string } | null => {
-  const iconToUse = date.getDateIcon()
-  return iconToUse
-    ? {
-        Icon: <EventRepeatOutlinedIcon />,
-        tooltip: iconToUse.label,
-      }
-    : null
-}
-
 const EventListItem = ({
   event,
   languageCode,
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
-  const dateIcon = getDateIcon(event.date)
   const { t } = useTranslation('events')
+  const isRecurringDateIcon = event.isRecurring ? (
+    <Tooltip title={t('recurring')}>
+      <EventRepeatOutlinedIcon />
+    </Tooltip>
+  ) : undefined
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
 
   return (
-    <StyledListItem
-      dir='auto'
-      disablePadding
-      secondaryAction={dateIcon && <Tooltip title={t(dateIcon.tooltip)}>{dateIcon.Icon}</Tooltip>}>
+    <StyledListItem dir='auto' disablePadding secondaryAction={isRecurringDateIcon}>
       <StyledListItemButton component={Link} to={event.path}>
         <ListItemIcon>
           <Icon src={thumbnailSrc} alt='' />

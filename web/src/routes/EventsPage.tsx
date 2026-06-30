@@ -1,25 +1,17 @@
 import LinkIcon from '@mui/icons-material/Link'
 import LocationIcon from '@mui/icons-material/LocationOnOutlined'
-import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
-import {
-  EVENTS_ROUTE,
-  pathnameFromRouteInformation,
-  useDateFilter,
-  DateGroupKey,
-  groupEvents,
-  GROUP_ORDER,
-} from 'shared'
+import { EVENTS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createEventsEndpoint, NotFoundError } from 'shared/api'
 
 import DatesPageDetail from '../components/DatesPageDetail'
-import EventListItem, { Icon } from '../components/EventListItem'
-import EventsDateFilter from '../components/EventsDateFilter'
+import EventList from '../components/EventList'
+import { Icon } from '../components/EventListItem'
 import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
@@ -30,7 +22,6 @@ import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonList from '../components/SkeletonList'
 import SkeletonPage from '../components/SkeletonPage'
 import H1 from '../components/base/H1'
-import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useJsonLd from '../hooks/useJsonLd'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
@@ -55,9 +46,6 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     region: regionCode,
     language: languageCode,
   })
-  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events ?? null)
-
-  const groupedEvents = groupEvents(events ?? [])
 
   // Support legacy slugs of old recurring events with one event per recurrence
   const pathnameWithoutDate = pathname.split('$')[0]
@@ -153,64 +141,15 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     )
   }
 
-  const groupedListSections = GROUP_ORDER.map((key: DateGroupKey) => {
-    const eventsGroup = groupedEvents[key]
-    if (eventsGroup.length === 0) {
-      return []
-    }
-
-    return (
-      <section key={key}>
-        <Typography component='span' variant='body1' dir='auto'>
-          {t(key)}
-        </Typography>
-        <List
-          items={eventsGroup.map(event => (
-            <EventListItem event={event} languageCode={languageCode} key={event.path} />
-          ))}
-        />
-      </section>
-    )
-  })
-
-  const filteredListItems = (
-    <List
-      items={(filteredEvents ?? []).map(event => (
-        <EventListItem
-          event={event}
-          languageCode={languageCode}
-          key={event.path}
-          filterStartDate={startDate}
-          filterEndDate={endDate}
-        />
-      ))}
-      noItemsMessage='events:currentlyNoEvents'
-    />
-  )
-
-  const isGroupedList = GROUP_ORDER.some(key => groupedEvents[key].length > 0)
-
-  let eventsList
-  if (startDate || endDate) {
-    eventsList = filteredListItems
-  } else if (isGroupedList) {
-    eventsList = groupedListSections
-  } else {
-    eventsList = <List items={[]} noItemsMessage='events:currentlyNoEvents' />
-  }
-
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
       <H1>{t('events')}</H1>
-      <EventsDateFilter
-        startDate={startDate}
-        setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        startDateError={startDateError}
-      />
-      {events ? eventsList : <SkeletonList listItemHeight={80} listItemIcon={<Icon />} />}
+      {events ? (
+        <EventList events={events} languageCode={languageCode} />
+      ) : (
+        <SkeletonList listItemHeight={80} listItemIcon={<Icon />} />
+      )}
     </RegionContentLayout>
   )
 }
