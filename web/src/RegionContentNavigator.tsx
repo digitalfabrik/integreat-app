@@ -98,7 +98,11 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
     if (!region) {
       return <LoadingSpinner />
     }
-    return <ChatContainer region={region} languageCode={languageCode} languageChangePaths={[]} />
+    return (
+      <Layout fitScreen>
+        <ChatContainer region={region} languageCode={languageCode} languageChangePaths={[]} />
+      </Layout>
+    )
   }
 
   const regionRouteProps: RegionRouteProps = {
