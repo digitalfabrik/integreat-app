@@ -18,7 +18,7 @@ import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
-const INLINE_PADDING = 8
+const LEFT_PADDING = 8
 
 const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 'expanded' })<{ expanded: boolean }>(
   ({ theme, expanded }) => ({
@@ -33,6 +33,12 @@ const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 
         flexDirection: 'row',
       },
     },
+    [`& .${outlinedInputClasses.input}::-webkit-input-placeholder`]: {
+      opacity: 0.8,
+    },
+    [`& .${outlinedInputClasses.input}::-moz-placeholder`]: {
+      opacity: 0.8,
+    },
   }),
 )
 
@@ -44,6 +50,9 @@ const ChatIconButton = styled(IconButton)(({ theme }) => ({
 const SendButton = styled(IconButton)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   color: theme.isContrastTheme ? theme.palette.common.white : theme.palette.primary.contrastText,
+  '& svg': {
+    transform: theme.direction === 'rtl' ? 'scaleX(-1)' : undefined,
+  },
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
@@ -58,7 +67,6 @@ const SendButton = styled(IconButton)(({ theme }) => ({
 }))
 
 const ButtonStack = styled(Stack, { shouldForwardProp })<{ expanded: boolean }>(({ theme, expanded }) => ({
-  alignItems: 'flex-start',
   gap: 4,
   flexDirection: expanded ? 'row-reverse' : 'row',
   justifyContent: expanded ? 'space-between' : 'flex-end',
@@ -68,7 +76,7 @@ const ButtonStack = styled(Stack, { shouldForwardProp })<{ expanded: boolean }>(
     flexDirection: expanded ? 'column' : 'row',
     justifyContent: 'flex-end',
     alignSelf: 'flex-end',
-    paddingInline: expanded ? INLINE_PADDING : 0,
+    paddingLeft: expanded ? LEFT_PADDING : 0,
   },
 }))
 
