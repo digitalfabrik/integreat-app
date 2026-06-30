@@ -9,7 +9,7 @@ export type AppContextType = {
   settings: SettingsType
   regionCode: string | null
   languageCode: string
-  updateSettings: (settings: UpdateSettingsType) => void
+  updateSettings: (settings: UpdateSettingsType | ((oldSettings: SettingsType) => UpdateSettingsType)) => void
   updateChatSettings: (settings: Partial<ChatRegionSettings>) => void
   changeRegionCode: (regionCode: string | null) => void
   changeLanguageCode: (languageCode: string) => void
