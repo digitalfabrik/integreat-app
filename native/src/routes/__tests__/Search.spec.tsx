@@ -13,13 +13,9 @@ jest.mock('react-native-inappbrowser-reborn', () => ({
   isAvailable: () => false,
 }))
 
-jest.mock('shared/hooks/useDebounce', () => ({
-  __esModule: true,
-  default: (value: string) => value,
-}))
-
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
+  useDebounce: (value: string) => value,
   useSearch: ({ userLanguageDocuments, query }: { userLanguageDocuments: ExtendedDocumentModel[]; query: string }) => ({
     data: query === 'no results, please' ? [] : userLanguageDocuments,
     error: null,

@@ -25,7 +25,7 @@ describe('Endpoint', () => {
     entries: jest.fn(),
     keys: jest.fn(),
     values: jest.fn(),
-    [Symbol.iterator]: jest.fn(),
+    [Symbol.iterator]: jest.fn(() => [][Symbol.iterator]()),
   }
   const defaultMapParamsToBody = () => body
 
