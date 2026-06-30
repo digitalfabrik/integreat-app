@@ -6,7 +6,7 @@ import jsxA11Y from 'eslint-plugin-jsx-a11y'
 import preferArrow from 'eslint-plugin-prefer-arrow'
 import styledComponentsA11Y from 'eslint-plugin-styled-components-a11y'
 import unicorn from 'eslint-plugin-unicorn'
-import { defineConfig } from 'eslint/config'
+import { defineConfig, globalIgnores } from 'eslint/config'
 import globals from 'globals'
 
 const jsConfig = defineConfig([
@@ -39,6 +39,7 @@ export default defineConfig([
   ...reactConfig,
   ...typescriptConfig,
   ...prettierConfig,
+  globalIgnores(['**/vite.config.ts', '**/jest.*.ts']),
   {
     languageOptions: {
       globals: {
