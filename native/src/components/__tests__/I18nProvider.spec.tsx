@@ -8,7 +8,10 @@ import I18nProvider from '../I18nProvider'
 import Text from '../base/Text'
 
 jest.mock('../../utils/NativeLanguageDetector')
-jest.mock('translations/src/loadTranslations')
+jest.mock('translations', () => ({
+  ...jest.requireActual('translations'),
+  loadTranslations: jest.requireActual('../../../../translations/src/__mocks__/loadTranslations').default,
+}))
 
 const { mocked } = jest
 const mockDetect = mocked(NativeLanguageDetector.detect)

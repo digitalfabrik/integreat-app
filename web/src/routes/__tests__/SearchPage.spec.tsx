@@ -24,12 +24,9 @@ jest.mock('react-i18next', () => ({
 }))
 jest.mock('stylis')
 
-jest.mock('shared/hooks/useDebounce', () => ({
-  __esModule: true,
-  default: (value: string) => value,
-}))
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
+  useDebounce: (value: string) => value,
   useSearch: ({ userLanguageDocuments, query }: { userLanguageDocuments: ExtendedDocumentModel[]; query: string }) => ({
     data: query === 'no results, please' ? [] : userLanguageDocuments,
     error: null,
