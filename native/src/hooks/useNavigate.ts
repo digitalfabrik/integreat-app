@@ -64,15 +64,17 @@ const navigate = <T extends RoutesType>(
   if ((appRegionCode && appRegionCode !== regionCode) || appLanguageCode !== languageCode) {
     // We need to remove or replace the redirect route if only opening the inappbrowser
     // Otherwise this leads to a blank (redirect) screen when navigating back from the inappbrowser
-    if (redirect && navigation.canGoBack()) {
-      navigation.pop()
-    } else {
-      navigation.replace(BOTTOM_TAB_ROUTE, {
-        screen: CATEGORIES_TAB_ROUTE,
-        params: {
-          screen: CATEGORIES_ROUTE,
-        },
-      })
+    if (redirect) {
+      if (navigation.canGoBack()) {
+        navigation.pop()
+      } else {
+        navigation.replace(BOTTOM_TAB_ROUTE, {
+          screen: CATEGORIES_TAB_ROUTE,
+          params: {
+            screen: CATEGORIES_ROUTE,
+          },
+        })
+      }
     }
     openExternalUrl(url, showSnackbar).catch(captureError)
     return
