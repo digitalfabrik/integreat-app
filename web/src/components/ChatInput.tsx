@@ -18,8 +18,6 @@ import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
-const LEFT_PADDING = 8
-
 const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 'expanded' })<{ expanded: boolean }>(
   ({ theme, expanded }) => ({
     [`& .${outlinedInputClasses.root}`]: {
@@ -32,12 +30,6 @@ const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 
       [theme.breakpoints.up('md')]: {
         flexDirection: 'row',
       },
-    },
-    [`& .${outlinedInputClasses.input}::-webkit-input-placeholder`]: {
-      opacity: 0.8,
-    },
-    [`& .${outlinedInputClasses.input}::-moz-placeholder`]: {
-      opacity: 0.8,
     },
   }),
 )
@@ -76,7 +68,7 @@ const ButtonStack = styled(Stack, { shouldForwardProp })<{ expanded: boolean }>(
     flexDirection: expanded ? 'column' : 'row',
     justifyContent: 'flex-end',
     alignSelf: 'flex-end',
-    paddingLeft: expanded ? LEFT_PADDING : 0,
+    paddingLeft: 8,
   },
 }))
 
