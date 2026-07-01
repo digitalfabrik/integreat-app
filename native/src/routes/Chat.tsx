@@ -55,7 +55,7 @@ const Chat = (): ReactElement => {
     return <ProgressSpinner />
   }
 
-  return <WebView source={{ uri: chatUrl }} domStorageEnabled />
+  return <WebView source={{ uri: chatUrl }} />
 }
 
 export default Chat

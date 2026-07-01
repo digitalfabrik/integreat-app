@@ -34,13 +34,12 @@ const ORIGIN_WHITELIST = ['*'] as const
 
 type WebViewProps = {
   source: { baseUrl: string; html: string; uri?: undefined } | { uri: string; baseUrl?: undefined }
-  domStorageEnabled: boolean
   onLoad?: () => void
   loading?: boolean
 }
 
 // If the app crashes without an error message while using WebView, consider wrapping it in a ScrollView or setting a manual height
-const WebView = ({ source, domStorageEnabled, onLoad, loading }: WebViewProps): ReactElement | null => {
+const WebView = ({ source, onLoad, loading }: WebViewProps): ReactElement | null => {
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
   const { settings, updateSettings } = useAppContext()
@@ -135,7 +134,7 @@ const WebView = ({ source, domStorageEnabled, onLoad, loading }: WebViewProps): 
       javaScriptEnabled
       dataDetectorTypes={DATA_DETECTOR_TYPES}
       userAgent={userAgent}
-      domStorageEnabled={domStorageEnabled}
+      domStorageEnabled={isUriSource}
       allowsFullscreenVideo
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}

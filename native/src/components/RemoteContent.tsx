@@ -55,7 +55,6 @@ const RemoteContent = ({ onLoad, content, language, loading }: RemoteContentProp
       }}
       onLoad={onLoad}
       loading={loading}
-      domStorageEnabled={false}
     />
   )
 }
