@@ -49,6 +49,8 @@ const WebView = ({ source, domStorageEnabled, onLoad, loading }: WebViewProps): 
   const navigateToLink = useNavigateToLink()
 
   const webviewUrl = source.uri ?? source.baseUrl
+  const isUriSource = source.uri !== undefined
+  const opacity = loading ? LOADING_OPACITY : DEFAULT_OPACITY
 
   const [webViewHeight, setWebViewHeight] = useState<number>(DEFAULT_WEBVIEW_HEIGHT)
 
@@ -137,18 +139,17 @@ const WebView = ({ source, domStorageEnabled, onLoad, loading }: WebViewProps): 
       allowsFullscreenVideo
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
-      // To disable scrolling in iOS
-      scrollEnabled={false}
+      // Disable for HTML (sized via HEIGHT_MESSAGE_TYPE), enabled otherwise to handle iOS keyboard focus
+      scrollEnabled={isUriSource}
+      // Prevent the iOS overscroll with open keyboard from exposing the WKWebView's gray underPageBackground
+      bounces={false}
       onMessage={onMessage}
       renderError={<Failure code={ErrorCode.UnknownError} retry={null} />}
       onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
       // To allow custom handling of link clicks in android
       // https://github.com/react-native-webview/react-native-webview/issues/1869
       setSupportMultipleWindows={false}
-      style={{
-        height: webViewHeight,
-        opacity: loading ? LOADING_OPACITY : DEFAULT_OPACITY,
-      }}
+      style={isUriSource ? { flex: 1, opacity } : { height: webViewHeight, opacity }}
     />
   )
 }
