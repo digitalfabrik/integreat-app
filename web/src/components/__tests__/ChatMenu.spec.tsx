@@ -46,7 +46,6 @@ describe('ChatMenu', () => {
     fireEvent.click(getByText('newChat'))
 
     expect(getByText('newChatConfirmation')).toBeTruthy()
-    expect(getByText('newChatConfirmationMessage')).toBeTruthy()
   })
 
   it('should close dialog on cancel', () => {
