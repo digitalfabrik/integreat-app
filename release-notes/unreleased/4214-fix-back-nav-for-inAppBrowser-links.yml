@@ -1,0 +1,8 @@
+issue_key: 4214
+show_in_stores: true
+platforms: # relevant platforms, possible values are android and ios
+  - android
+  - ios
+en: Improved the navigation behavior when opening external links in the in-app browser.
+# de is required for notes with show_in_stores set to true
+de: Verbessertes Navigationsverhalten beim Öffnen externer Links im In-App-Browser.
