@@ -2001,16 +2001,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dr.pogodin/react-native-webview@npm:^13.17.1":
-  version: 13.17.1
-  resolution: "@dr.pogodin/react-native-webview@npm:13.17.1"
+"@dr.pogodin/react-native-webview@npm:^13.17.4":
+  version: 13.17.4
+  resolution: "@dr.pogodin/react-native-webview@npm:13.17.4"
   dependencies:
     escape-string-regexp: "npm:^5.0.0"
     invariant: "npm:2.2.4"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/9fd7aa904d86f36925f3ee3df4d1d9d94fb0585af7ef449813d74ac2fc85d14d2493cb95c2d7a166e0b8860117aad55c9f0a5e4cd1b9f7526cfff3ca59e0b001
+  checksum: 10c0/a45c54bc442fa7f27625a3fe32f303ac008f33b2891fd4559ddc6675c139ae40633f5fa7dd20e3951e1501976bd6f2f8fb403308048a74e76a667598b4a9eab0
   languageName: node
   linkType: hard
 
@@ -18085,7 +18085,7 @@ __metadata:
     "@babel/runtime": "npm:^7.29.2"
     "@dr.pogodin/react-native-fs": "npm:^2.37.0"
     "@dr.pogodin/react-native-static-server": "npm:^0.26.0"
-    "@dr.pogodin/react-native-webview": "npm:^13.17.1"
+    "@dr.pogodin/react-native-webview": "npm:^13.17.4"
     "@formatjs/intl-displaynames": "npm:^6.8.13"
     "@formatjs/intl-locale": "npm:^4.2.13"
     "@gorhom/bottom-sheet": "npm:^5.2.8"

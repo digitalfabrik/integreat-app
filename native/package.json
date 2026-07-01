@@ -44,7 +44,7 @@
   "dependencies": {
     "@dr.pogodin/react-native-fs": "^2.37.0",
     "@dr.pogodin/react-native-static-server": "^0.26.0",
-    "@dr.pogodin/react-native-webview": "^13.17.1",
+    "@dr.pogodin/react-native-webview": "^13.17.4",
     "@formatjs/intl-displaynames": "^6.8.13",
     "@formatjs/intl-locale": "^4.2.13",
     "@gorhom/bottom-sheet": "^5.2.8",

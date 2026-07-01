@@ -8,14 +8,14 @@ describe('createChatMessagesEndpoint', () => {
   const baseUrl = 'https://example.com'
   const params = {
     regionCode: 'augsburg',
-    language: 'fa',
-    deviceId: '23123-dsasd1-2dsa12',
+    languageCode: 'fa',
+    chatId: '23123-dsasd1-2dsa12',
   }
   const endpoint = createChatMessagesEndpoint(baseUrl)
 
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/api/${API_VERSION}/${params.regionCode}/${params.language}/chat/${params.deviceId}/`,
+      `${baseUrl}/api/${API_VERSION}/${params.regionCode}/${params.languageCode}/chat/${params.chatId}/`,
     )
   })
 

@@ -24,6 +24,8 @@ const isRelativeInternalLink = (link: string): boolean => {
 
 export const isInternalLink = (link: string): boolean => isRelativeInternalLink(link) || isInternalUrl(link)
 
+export const openUrlInNewTab = (url: string): Window | null => window.open(url, NEW_TAB, NEW_TAB_FEATURES)
+
 const openLink = (navigate: NavigateFunction, link: string): void => {
   if (isRelativeInternalLink(link)) {
     navigate(link)
@@ -31,7 +33,7 @@ const openLink = (navigate: NavigateFunction, link: string): void => {
     const url = new URL(decodeURIComponent(link))
     navigate(decodeURIComponent(`${url.pathname}${url.search}${url.hash}`))
   } else {
-    window.open(link, NEW_TAB, NEW_TAB_FEATURES)
+    openUrlInNewTab(link)
   }
 }
 

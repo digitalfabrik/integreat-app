@@ -54,6 +54,7 @@ type ChatProps = {
   chatId: string
   region: RegionModel
   languageCode: string
+  openUrl: ((url: string) => void) | null
 }
 
 const Chat = ({
@@ -63,6 +64,7 @@ const Chat = ({
   chatId,
   region,
   languageCode,
+  openUrl,
 }: ChatProps): ReactElement => {
   const [sendingError, setSendingError] = useState<Error | null>(null)
   const [textInput, setTextInput] = useState<string>('')
@@ -100,9 +102,9 @@ const Chat = ({
       () =>
         loadFromEndpoint(createSendChatMessageEndpoint, cmsApiBaseUrl, {
           regionCode: region.code,
-          language: languageCode,
+          languageCode,
+          chatId,
           message,
-          deviceId: chatId,
         }),
       {
         setData: newData => {
@@ -171,7 +173,13 @@ const Chat = ({
 
   return (
     <Container justifyContent='space-between'>
-      <ChatConversation retrySend={retrySend} messages={messages} isTyping={botTyping} loading={isPending} />
+      <ChatConversation
+        retrySend={retrySend}
+        messages={messages}
+        botTyping={botTyping}
+        loading={isPending}
+        openUrl={openUrl}
+      />
       <Stack paddingInline={2} gap={1}>
         {(error || sendingError) && (
           <Alert

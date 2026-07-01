@@ -7,8 +7,8 @@ export const CHAT_ENDPOINT_NAME = 'chat'
 
 type ParamsType = {
   regionCode: string
-  language: string
-  deviceId: string
+  languageCode: string
+  chatId: string
   message: string
 }
 
@@ -16,7 +16,7 @@ export default (baseUrl: string): Endpoint<ParamsType, ChatMessagesReturn> =>
   new EndpointBuilder<ParamsType, ChatMessagesReturn>(CHAT_ENDPOINT_NAME)
     .withParamsToUrlMapper(
       (params: ParamsType): string =>
-        `${baseUrl}/api/${API_VERSION}/${params.regionCode}/${params.language}/${CHAT_ENDPOINT_NAME}/${params.deviceId}/`,
+        `${baseUrl}/api/${API_VERSION}/${params.regionCode}/${params.languageCode}/${CHAT_ENDPOINT_NAME}/${params.chatId}/`,
     )
     .withParamsToBodyMapper((params: ParamsType): FormData => {
       const { message } = params

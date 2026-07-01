@@ -14,7 +14,9 @@ jest.useFakeTimers()
 const retrySend = jest.fn()
 
 const render = (messages: ChatMessageModel[], isTyping: boolean) =>
-  renderWithRouterAndTheme(<ChatConversation retrySend={retrySend} messages={messages} isTyping={isTyping} />)
+  renderWithRouterAndTheme(
+    <ChatConversation retrySend={retrySend} messages={messages} botTyping={isTyping} openUrl={jest.fn()} />,
+  )
 
 describe('ChatConversation', () => {
   const testMessages: ChatMessageModel[] = [
@@ -124,7 +126,14 @@ describe('ChatConversation', () => {
     })
     const { queryByLabelText, rerender } = render(testMessages, true)
     expect(queryByLabelText('chat:generateAnswer')).toBeTruthy()
-    rerender(<ChatConversation retrySend={retrySend} messages={[...testMessages, botMessage]} isTyping={false} />)
+    rerender(
+      <ChatConversation
+        retrySend={retrySend}
+        messages={[...testMessages, botMessage]}
+        botTyping={false}
+        openUrl={jest.fn()}
+      />,
+    )
     expect(queryByLabelText('chat:generateAnswer')).toBeNull()
   })
 

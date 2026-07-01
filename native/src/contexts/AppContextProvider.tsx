@@ -1,10 +1,10 @@
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { hasProp } from 'shared'
+import { hasProp, uuid } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import appSettings, { SettingsType } from '../utils/AppSettings'
+import appSettings, { ChatRegionSettings, SettingsType } from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
 import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManager'
 import { captureError } from '../utils/sentry'
@@ -57,6 +57,17 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
     [updateSettings, regionCode, languageCode, allowPushNotifications],
   )
 
+  const updateChatSettings = useCallback(
+    (newChatSettings: Partial<ChatRegionSettings>): void => {
+      if (!settings || !regionCode) {
+        return
+      }
+      const chatRegionSettings = settings.chat[regionCode] ?? { id: uuid(), seenMessages: 0 }
+      updateSettings({ chat: { ...settings.chat, [regionCode]: { ...chatRegionSettings, ...newChatSettings } } })
+    },
+    [updateSettings, regionCode, settings],
+  )
+
   useEffect(() => {
     if (regionCode) {
       dataContainer.storeLastUsage(regionCode).catch(captureError)
@@ -77,8 +88,16 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
   }, [settings, changeLanguageCode, languageCode, uiLanguage])
 
   const appContext = useMemo(
-    () => ({ settings, regionCode, languageCode, updateSettings, changeRegionCode, changeLanguageCode }),
-    [settings, regionCode, languageCode, updateSettings, changeRegionCode, changeLanguageCode],
+    () => ({
+      settings,
+      regionCode,
+      languageCode,
+      updateSettings,
+      changeRegionCode,
+      changeLanguageCode,
+      updateChatSettings,
+    }),
+    [settings, regionCode, languageCode, updateSettings, updateChatSettings, changeRegionCode, changeLanguageCode],
   )
 
   return hasProp(appContext, 'settings') && hasProp(appContext, 'languageCode') ? (
