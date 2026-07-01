@@ -76,6 +76,9 @@ export const FEEDBACK_MODAL_ROUTE: FeedbackModalRouteType = 'feedback'
 export type ConsentRouteType = 'consent'
 export const CONSENT_ROUTE: ConsentRouteType = 'consent'
 
+export type ChatRouteType = 'chat'
+export const CHAT_ROUTE: ChatRouteType = 'chat'
+
 // Web routes
 export type MainImprintRouteType = 'main-imprint'
 export const MAIN_IMPRINT_ROUTE: MainImprintRouteType = 'main-imprint'

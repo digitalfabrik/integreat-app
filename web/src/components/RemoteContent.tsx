@@ -19,17 +19,23 @@ import {
 import openLink from '../utils/openLink'
 import RemoteContentSandBox from './RemoteContentSandBox'
 
-type RemoteContentProps = {
-  html: string
-  centered?: boolean
-  smallText?: boolean
-}
-
 const DOMPURIFY_TAG_IFRAME = 'iframe'
 const DOMPURIFY_ATTRIBUTE_FULLSCREEN = 'allowfullscreen'
 const DOMPURIFY_ATTRIBUTE_TARGET = 'target'
 
-const RemoteContent = ({ html, centered = false, smallText = false }: RemoteContentProps): ReactElement => {
+type RemoteContentProps = {
+  html: string
+  centered?: boolean
+  smallText?: boolean
+  onLinkClick?: (url: string) => void
+}
+
+const RemoteContent = ({
+  html,
+  centered = false,
+  smallText = false,
+  onLinkClick,
+}: RemoteContentProps): ReactElement => {
   const navigate = useNavigate()
   const sandBoxRef = React.createRef<HTMLDivElement>()
   const [externalSources, setExternalSources] = useLocalStorage<ExternalSourcePermissions>({
@@ -46,9 +52,13 @@ const RemoteContent = ({ html, centered = false, smallText = false }: RemoteCont
     (event: MouseEvent) => {
       event.preventDefault()
       const target = event.currentTarget as HTMLAnchorElement
-      openLink(navigate, target.href)
+      if (onLinkClick) {
+        onLinkClick(target.href)
+      } else {
+        openLink(navigate, target.href)
+      }
     },
-    [navigate],
+    [onLinkClick, navigate],
   )
 
   const addExternalSource = useCallback(

@@ -3,7 +3,6 @@ import React, { ReactElement, ReactNode, useCallback, useState } from 'react'
 import styled from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
-import useNavigateToLink from '../hooks/useNavigateToLink'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import Caption from './Caption'
 import RemoteContent from './RemoteContent'
@@ -37,8 +36,7 @@ const Page = ({
   lastUpdate,
   padding = true,
 }: PageProps): ReactElement => {
-  const [loading, setLoading] = useState(true)
-  const navigateToLink = useNavigateToLink()
+  const [loading, setLoading] = useState(content.length !== 0)
   const { visible: ttsPlayerVisible } = useTtsPlayer()
 
   const onLoad = useCallback(() => setLoading(false), [setLoading])
@@ -47,13 +45,7 @@ const Page = ({
     <Container $padding={padding}>
       {!loading && title ? <Caption title={title} language={language} /> : null}
       {!loading && beforeContent}
-      <RemoteContent
-        content={content}
-        onLinkPress={navigateToLink}
-        onLoad={onLoad}
-        loading={loading}
-        language={language}
-      />
+      <RemoteContent content={content} onLoad={onLoad} loading={loading} language={language} />
       {!loading && afterContent}
       {!loading && !!content && lastUpdate && <TimeStamp lastUpdate={lastUpdate} />}
       {!loading && footer}

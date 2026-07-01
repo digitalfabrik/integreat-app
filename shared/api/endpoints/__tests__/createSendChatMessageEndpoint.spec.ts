@@ -5,14 +5,14 @@ describe('createSendChatMessageEndpoint', () => {
   const baseUrl = 'https://example.com'
   const params = {
     regionCode: 'augsburg',
-    language: 'fa',
-    deviceId: '23123-dsasd1-2dsa12',
+    languageCode: 'fa',
+    chatId: '23123-dsasd1-2dsa12',
     message: 'Ich habe eine Frage',
   }
   const endpoint = createSendChatMessageEndpoint(baseUrl)
   it('should map params to url', () => {
     expect(endpoint.mapParamsToUrl(params)).toBe(
-      `${baseUrl}/api/${API_VERSION}/${params.regionCode}/${params.language}/chat/${params.deviceId}/`,
+      `${baseUrl}/api/${API_VERSION}/${params.regionCode}/${params.languageCode}/chat/${params.chatId}/`,
     )
   })
 
@@ -27,8 +27,8 @@ describe('createSendChatMessageEndpoint', () => {
     expect(
       endpoint.mapParamsToBody({
         regionCode: 'augsburg',
-        language: 'fa',
-        deviceId: params.deviceId,
+        languageCode: 'fa',
+        chatId: params.chatId,
         message: params.message,
       }),
     ).toEqual(formData)
