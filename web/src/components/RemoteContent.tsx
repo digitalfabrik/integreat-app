@@ -1,10 +1,9 @@
 import { useTheme } from '@mui/material/styles'
-import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
-import { ExternalSourcePermissions } from 'shared'
+import { ExternalSourcePermissions, sanitizeContent } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
@@ -19,10 +18,6 @@ import {
 import openLink from '../utils/openLink'
 import RemoteContentSandBox from './RemoteContentSandBox'
 
-const DOMPURIFY_TAG_IFRAME = 'iframe'
-const DOMPURIFY_ATTRIBUTE_FULLSCREEN = 'allowfullscreen'
-const DOMPURIFY_ATTRIBUTE_TARGET = 'target'
-
 type RemoteContentProps = {
   html: string
   centered?: boolean
@@ -30,8 +25,7 @@ type RemoteContentProps = {
   onLinkClick?: (url: string) => void
 }
 
-const RemoteContent = ({
-  html,
+const RemoteContent = ({ html,
   centered = false,
   smallText = false,
   onLinkClick,
@@ -128,15 +122,8 @@ const RemoteContent = ({
     isContrastTheme,
   ])
 
-  const dangerouslySetInnerHTML = useMemo(
-    () => ({
-      __html: Dompurify.sanitize(html, {
-        ADD_TAGS: [DOMPURIFY_TAG_IFRAME],
-        ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN, DOMPURIFY_ATTRIBUTE_TARGET],
-      }),
-    }),
-    [html],
-  )
+  const sanitizedContent = sanitizeContent(html)
+  const dangerouslySetInnerHTML = useMemo(() => ({ __html: sanitizedContent }), [sanitizedContent])
 
   return (
     <RemoteContentSandBox

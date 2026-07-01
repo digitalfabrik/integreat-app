@@ -1,7 +1,6 @@
 import { last } from 'lodash'
 import { Platform } from 'react-native'
 import BlobUtil from 'react-native-blob-util'
-import sanitizeHtml from 'sanitize-html'
 import Url from 'url-parse'
 
 import buildConfig from '../constants/buildConfig'
@@ -117,21 +116,4 @@ type GetCachedResourceParams = {
 export const getCachedResource = (resourceUrl: string, { resourceCache }: GetCachedResourceParams): string => {
   const cachedFilePath = resourceCache[resourceUrl]
   return cachedFilePath ? getLocalFilePath(cachedFilePath) : resourceUrl
-}
-
-export const sanitizeContent = (content: string): string => {
-  if (!content) {
-    return ''
-  }
-
-  return sanitizeHtml(content, {
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['iframe', 'img', 'details', 'summary']),
-    allowedAttributes: {
-      ...sanitizeHtml.defaults.allowedAttributes,
-      iframe: ['src', 'allowfullscreen'],
-      a: ['href', 'name', 'target'],
-      '*': ['class', 'style', 'dir'],
-    },
-    allowedIframeHostnames: buildConfig().supportedIframeSources,
-  })
 }
