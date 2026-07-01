@@ -150,7 +150,6 @@ const createConfig = (
 
   const root = resolve(dirname, '../..')
   const configAssets = resolve(root, `node_modules/build-configs/${buildConfigName}/assets`)
-  const rootNodeModules = resolve(root, 'node_modules')
 
   const projectRoot = resolve(dirname, '..')
   const wwwDirectory = resolve(projectRoot, 'www')
@@ -173,7 +172,6 @@ const createConfig = (
     mode: devServer ? 'development' : 'production',
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
-      modules: [rootNodeModules],
       alias: {
         'mapbox-gl': 'maplibre-gl',
       },

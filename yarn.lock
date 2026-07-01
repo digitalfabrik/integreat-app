@@ -7582,6 +7582,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/sanitize-html@npm:^2.16.1":
+  version: 2.16.1
+  resolution: "@types/sanitize-html@npm:2.16.1"
+  dependencies:
+    htmlparser2: "npm:^10.1"
+  checksum: 10c0/4e0d326a5243edb49780105d3b9a246e6672d998e20aefbc29e5d840bf51a0b03825a20901851ed8f333b4a52ea58b2ac634132792d3c1b0ce91fded9ffe8315
+  languageName: node
+  linkType: hard
+
 "@types/seedrandom@npm:^3.0.8":
   version: 3.0.8
   resolution: "@types/seedrandom@npm:3.0.8"
@@ -7688,13 +7697,6 @@ __metadata:
   version: 1.3.5
   resolution: "@types/triple-beam@npm:1.3.5"
   checksum: 10c0/d5d7f25da612f6d79266f4f1bb9c1ef8f1684e9f60abab251e1261170631062b656ba26ff22631f2760caeafd372abc41e64867cde27fba54fafb73a35b9056a
-  languageName: node
-  linkType: hard
-
-"@types/trusted-types@npm:^2.0.7":
-  version: 2.0.7
-  resolution: "@types/trusted-types@npm:2.0.7"
-  checksum: 10c0/4c4855f10de7c6c135e0d32ce462419d8abbbc33713b31d294596c0cc34ae1fa6112a2f9da729c8f7a20707782b0d69da3b1f8df6645b0366d08825ca1522e0c
   languageName: node
   linkType: hard
 
@@ -11368,6 +11370,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.11.7":
+  version: 1.11.21
+  resolution: "dayjs@npm:1.11.21"
+  checksum: 10c0/bd97dfdc4bfea3c66268635690313828b386faa040fbc1f829ff42a2bd748b72c9d9b3c8f9616ce9e61fcb78923f1461a462c969c54b1084458ae1b715898fb0
+  languageName: node
+  linkType: hard
+
 "dayjs@npm:^1.8.15":
   version: 1.11.20
   resolution: "dayjs@npm:1.11.20"
@@ -11496,7 +11505,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deepmerge@npm:^4.3.0, deepmerge@npm:^4.3.1":
+"deepmerge@npm:^4.2.2, deepmerge@npm:^4.3.0, deepmerge@npm:^4.3.1":
   version: 4.3.1
   resolution: "deepmerge@npm:4.3.1"
   checksum: 10c0/e53481aaf1aa2c4082b5342be6b6d8ad9dfe387bc92ce197a66dea08bd4265904a087e75e464f14d1347cf2ac8afe1e4c16b266e0561cc5df29382d3c5f80044
@@ -11872,18 +11881,6 @@ __metadata:
   dependencies:
     domelementtype: "npm:^2.3.0"
   checksum: 10c0/bba1e5932b3e196ad6862286d76adc89a0dbf0c773e5ced1eb01f9af930c50093a084eff14b8de5ea60b895c56a04d5de8bbc4930c5543d029091916770b2d2a
-  languageName: node
-  linkType: hard
-
-"dompurify@npm:^3.4.11":
-  version: 3.4.11
-  resolution: "dompurify@npm:3.4.11"
-  dependencies:
-    "@types/trusted-types": "npm:^2.0.7"
-  dependenciesMeta:
-    "@types/trusted-types":
-      optional: true
-  checksum: 10c0/31439481c7e8fc3805d40c376936fd66936620fb1b1a31a2ec097f6165412c37f2d868e082c9ceba62bb37661c1ea132a5db4d5213434317e30df68d4aca9cc9
   languageName: node
   linkType: hard
 
@@ -14755,7 +14752,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"htmlparser2@npm:^10.1.0":
+"htmlparser2@npm:^10.1, htmlparser2@npm:^10.1.0":
   version: 10.1.0
   resolution: "htmlparser2@npm:10.1.0"
   dependencies:
@@ -16880,6 +16877,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"launder@npm:^1.7.1":
+  version: 1.7.1
+  resolution: "launder@npm:1.7.1"
+  dependencies:
+    dayjs: "npm:^1.11.7"
+  checksum: 10c0/c4884c08cc5a1a19cbec840aac7fa97db4928c25fc99ea2981a0482df3ebdbf1cf6605226a3c968e3281025126ff10055686e81f428ecc0e8f8666ca05bae8cc
+  languageName: node
+  linkType: hard
+
 "lazystream@npm:^1.0.0":
   version: 1.0.1
   resolution: "lazystream@npm:1.0.1"
@@ -18065,6 +18071,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^3.3.12":
+  version: 3.3.15
+  resolution: "nanoid@npm:3.3.15"
+  bin:
+    nanoid: bin/nanoid.cjs
+  checksum: 10c0/e0b12e3a1d361f74150fa4b25631d0ae29f7162dab01a12f0f1be1f53b7a2a219f9b729504e474d4821207d0fe349bd3c97569ab5cf7ec2fff6aa94711956c93
+  languageName: node
+  linkType: hard
+
 "napi-postinstall@npm:^0.3.0":
   version: 0.3.4
   resolution: "napi-postinstall@npm:0.3.4"
@@ -18921,6 +18936,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"parse-srcset@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "parse-srcset@npm:1.0.2"
+  checksum: 10c0/2f268e3d110d4c53d06ed2a8e8ee61a7da0cee13bf150819a6da066a8ca9b8d15b5600d6e6cae8be940e2edc50ee7c1e1052934d6ec858324065ecef848f0497
+  languageName: node
+  linkType: hard
+
 "parse-statements@npm:1.0.11":
   version: 1.0.11
   resolution: "parse-statements@npm:1.0.11"
@@ -19320,6 +19342,17 @@ __metadata:
   peerDependencies:
     postcss: ^8.2.9
   checksum: 10c0/633b8bc7c46f7b6e2b1cb1f33aa0222a5cacb7f485eb41e6f902b5f37ab9884cd8e7e7b0706afb7e3c7766d85096b59e65f59a1eaefac55e2fc952a24f23bcb8
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.3.11":
+  version: 8.5.15
+  resolution: "postcss@npm:8.5.15"
+  dependencies:
+    nanoid: "npm:^3.3.12"
+    picocolors: "npm:^1.1.1"
+    source-map-js: "npm:^1.2.1"
+  checksum: 10c0/7f2e63ae22fbe43aace1bf652bd99da4e90737c64194d49e51ddc9cd0f9e51ff2861a7d734379b494deffa03a880a5c65eec70bc29ee9ebaa7136dde3eee8f31
   languageName: node
   linkType: hard
 
@@ -21087,6 +21120,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sanitize-html@npm:^2.17.5":
+  version: 2.17.5
+  resolution: "sanitize-html@npm:2.17.5"
+  dependencies:
+    deepmerge: "npm:^4.2.2"
+    escape-string-regexp: "npm:^4.0.0"
+    htmlparser2: "npm:^10.1.0"
+    is-plain-object: "npm:^5.0.0"
+    launder: "npm:^1.7.1"
+    parse-srcset: "npm:^1.0.2"
+    postcss: "npm:^8.3.11"
+  checksum: 10c0/b3e1c0f42a87dece0a02c1ee4aee663be69d33661b94f7dbc006f341a34577b3ddb9ace5ff415ddd62efbc4e944845265ef2fe2702ad0ede8d3575bf7a36b9df
+  languageName: node
+  linkType: hard
+
 "sass-lookup@npm:^6.1.2":
   version: 6.1.2
   resolution: "sass-lookup@npm:6.1.2"
@@ -21439,6 +21487,7 @@ __metadata:
     "@turf/distance": "npm:^7.3.4"
     "@types/geojson": "npm:^7946.0.16"
     "@types/normalize-path": "npm:^3.0.2"
+    "@types/sanitize-html": "npm:^2.16.1"
     "@types/seedrandom": "npm:^3.0.8"
     "@types/uuid": "npm:^10.0.0"
     deepmerge-ts: "npm:^7.1.5"
@@ -21453,6 +21502,7 @@ __metadata:
     qr: "npm:^0.6.0"
     react: "npm:19.2.3"
     rrule: "npm:2.8.1"
+    sanitize-html: "npm:^2.17.5"
     seedrandom: "npm:^3.0.5"
     sentencex: "npm:^0.4.2"
     uuid: "npm:^11.1.1"
@@ -23929,7 +23979,6 @@ __metadata:
     core-js: "npm:^3.49.0"
     cross-env: "npm:^7.0.3"
     css-loader: "npm:^7.1.4"
-    dompurify: "npm:^3.4.11"
     easy-speech: "npm:^2.4.0"
     es-check: "npm:^9.6.3"
     file-loader: "npm:^6.2.0"

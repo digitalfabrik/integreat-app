@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
+import { sanitizeContent } from 'shared'
+
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { useAppContext } from '../hooks/useRegionAppContext'
@@ -33,6 +35,8 @@ const RemoteContent = ({ onLoad, content, language, loading }: RemoteContentProp
 
   const resourceMap = mapValues(resourceCache, filePath => getStaticServerFileUrl(filePath, staticServerUrl))
 
+  const sanitizedContent = sanitizeContent(content)
+
   if (content.length === 0) {
     return null
   }
@@ -42,7 +46,7 @@ const RemoteContent = ({ onLoad, content, language, loading }: RemoteContentProp
       source={{
         baseUrl: staticServerUrl,
         html: renderHtml(
-          content,
+          sanitizedContent,
           resourceMap,
           buildConfig().supportedIframeSources,
           theme,
