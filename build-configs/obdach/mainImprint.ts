@@ -5,7 +5,7 @@ const mainImprint = `
   Wertachstr. 29<br />
   86153 Augsburg
 </p>
-<p>vertreten durch Herrn Daniel Kehne, Herrn Fritjof Knier</p>
+<p>vertreten durch Antonia Hauf, Daniel Kehne</p>
 <p>
   Aufsichtsbehörde: Finanzamt Augsburg-Stadt<br />
   Sitz der Gesellschaft: Augsburg<br />
