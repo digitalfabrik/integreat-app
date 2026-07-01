@@ -7392,13 +7392,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/trusted-types@npm:^2.0.7":
-  version: 2.0.7
-  resolution: "@types/trusted-types@npm:2.0.7"
-  checksum: 10c0/4c4855f10de7c6c135e0d32ce462419d8abbbc33713b31d294596c0cc34ae1fa6112a2f9da729c8f7a20707782b0d69da3b1f8df6645b0366d08825ca1522e0c
-  languageName: node
-  linkType: hard
-
 "@types/url-parse@npm:^1.4.11":
   version: 1.4.11
   resolution: "@types/url-parse@npm:1.4.11"
@@ -11026,18 +11019,6 @@ __metadata:
   dependencies:
     domelementtype: "npm:^2.3.0"
   checksum: 10c0/bba1e5932b3e196ad6862286d76adc89a0dbf0c773e5ced1eb01f9af930c50093a084eff14b8de5ea60b895c56a04d5de8bbc4930c5543d029091916770b2d2a
-  languageName: node
-  linkType: hard
-
-"dompurify@npm:^3.4.11":
-  version: 3.4.11
-  resolution: "dompurify@npm:3.4.11"
-  dependencies:
-    "@types/trusted-types": "npm:^2.0.7"
-  dependenciesMeta:
-    "@types/trusted-types":
-      optional: true
-  checksum: 10c0/31439481c7e8fc3805d40c376936fd66936620fb1b1a31a2ec097f6165412c37f2d868e082c9ceba62bb37661c1ea132a5db4d5213434317e30df68d4aca9cc9
   languageName: node
   linkType: hard
 
@@ -17040,7 +17021,6 @@ __metadata:
     "@testing-library/react-native": "npm:^13.3.3"
     "@types/geojson": "npm:^7946.0.16"
     "@types/lodash": "npm:^4.17.24"
-    "@types/sanitize-html": "npm:^2.16.1"
     "@types/url-parse": "npm:^1.4.11"
     babel-jest: "npm:^30.3.0"
     build-configs: "workspace:^"
@@ -17077,7 +17057,6 @@ __metadata:
     react-native-worklets: "npm:^0.8.1"
     react-test-renderer: "npm:19.2.3"
     rrule: "npm:^2.8.1"
-    sanitize-html: "npm:^2.17.5"
     shared: "workspace:^"
     styled-components: "npm:6.3.12"
     stylis: "npm:^4.3.6"
@@ -20210,6 +20189,7 @@ __metadata:
     "@turf/distance": "npm:^7.3.4"
     "@types/geojson": "npm:^7946.0.16"
     "@types/normalize-path": "npm:^3.0.2"
+    "@types/sanitize-html": "npm:^2.16.1"
     "@types/seedrandom": "npm:^3.0.8"
     "@types/uuid": "npm:^10.0.0"
     deepmerge-ts: "npm:^7.1.5"
@@ -20224,6 +20204,7 @@ __metadata:
     qr: "npm:^0.6.0"
     react: "npm:19.2.3"
     rrule: "npm:2.8.1"
+    sanitize-html: "npm:^2.17.5"
     seedrandom: "npm:^3.0.5"
     sentencex: "npm:^0.4.2"
     uuid: "npm:^11.1.1"
@@ -22610,13 +22591,13 @@ __metadata:
     "@types/react-dom": "npm:19.2.3"
     "@types/react-highlight-words": "npm:^0.20.1"
     "@types/react-infinite-scroller": "npm:^1.2.5"
+    "@types/sanitize-html": "npm:^2.16.1"
     "@types/stylis": "npm:^4.2.7"
     "@vitejs/plugin-react": "npm:^6.0.2"
     build-configs: "workspace:^"
     core-js: "npm:^3.49.0"
     cross-env: "npm:^10.1.0"
     css-loader: "npm:^7.1.4"
-    dompurify: "npm:^3.4.11"
     easy-speech: "npm:^2.4.0"
     ejs: "npm:^6.0.1"
     es-check: "npm:^9.6.3"
@@ -22638,6 +22619,7 @@ __metadata:
     react-router: "npm:^7.15.1"
     react-spring-bottom-sheet: "npm:^3.4.1"
     react-svg: "npm:^17.2.4"
+    sanitize-html: "npm:^2.17.5"
     schema-dts: "npm:^2.0.0"
     shared: "workspace:^"
     stylis: "npm:4.2.0"
