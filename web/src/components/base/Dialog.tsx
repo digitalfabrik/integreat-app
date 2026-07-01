@@ -34,9 +34,10 @@ type DialogProps = {
   close: () => void
   children: ReactElement | ReactElement[]
   className?: string
+  showHeader?: boolean
 }
 
-const Dialog = ({ title, close, children, className, actions }: DialogProps): ReactElement => {
+const Dialog = ({ title, close, children, className, actions, showHeader = true }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
 
@@ -51,20 +52,22 @@ const Dialog = ({ title, close, children, className, actions }: DialogProps): Re
 
   return (
     <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={mobile} className={className} open>
-      <Stack
-        direction={desktop ? 'row-reverse' : 'row'}
-        alignItems='center'
-        justifyContent={desktop ? 'space-between' : undefined}
-        marginInline={1}>
-        <IconButton aria-label={t('common:close')} onClick={close}>
-          {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
-        </IconButton>
-        {desktop && Actions}
-        <StyledDialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
-          {title}
-        </StyledDialogTitle>
-        {mobile && Actions}
-      </Stack>
+      {showHeader && (
+        <Stack
+          direction={desktop ? 'row-reverse' : 'row'}
+          alignItems='center'
+          justifyContent={desktop ? 'space-between' : undefined}
+          marginInline={1}>
+          <IconButton aria-label={t('common:close')} onClick={close}>
+            {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
+          </IconButton>
+          {desktop && Actions}
+          <StyledDialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
+            {title}
+          </StyledDialogTitle>
+          {mobile && Actions}
+        </Stack>
+      )}
       <DialogContent>{children}</DialogContent>
     </StyledMuiDialog>
   )

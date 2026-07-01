@@ -23,6 +23,7 @@ import {
   RedirectRouteType,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
+  CHAT_ROUTE,
 } from 'shared'
 
 import BottomTabNavigator from './BottomTabNavigator'
@@ -36,6 +37,7 @@ import buildConfig from './constants/buildConfig'
 import useLoadRegions from './hooks/useLoadRegions'
 import { useAppContext } from './hooks/useRegionAppContext'
 import useSnackbar from './hooks/useSnackbar'
+import Chat from './routes/Chat'
 import Consent from './routes/Consent'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
@@ -152,6 +154,7 @@ const Navigator = (): ReactElement | null => {
       <Stack.Group screenOptions={{ header: defaultHeader }}>
         <Stack.Screen name={IMPRINT_ROUTE} component={ImprintContainer} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
+        <Stack.Screen name={CHAT_ROUTE} component={Chat} />
         <Stack.Screen name={REGIONS_ROUTE} component={Regions} />
       </Stack.Group>
 

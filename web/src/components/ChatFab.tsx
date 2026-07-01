@@ -33,13 +33,18 @@ type ChatButtonProps = {
 const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement => {
   const { desktop, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
   const { t } = useTranslation('chat')
+
   const chatName = getChatName(buildConfig().appName)
+  const unreadMessages = t('unreadMessages', { count: unreadMessageCount })
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
   return (
     <ChatButtonContainer bottom={bottomNavigationHeight ?? visibleFooterHeight}>
-      <LiveAnnouncer message={unreadMessageCount > 0 ? t('unreadMessages', { count: unreadMessageCount }) : ''} />
-      <Badge badgeContent={unreadMessageCount > 0 ? unreadMessageCount : undefined} color='error'>
+      <LiveAnnouncer message={unreadMessageCount > 0 ? unreadMessages : ''} />
+      <Badge
+        badgeContent={unreadMessageCount > 0 ? unreadMessageCount : undefined}
+        color='error'
+        aria-label={unreadMessages}>
         <Fab ref={setAnchorEl} onClick={onClick} color='primary' aria-label={chatName}>
           <QuestionAnswerOutlinedIcon fontSize='large' />
         </Fab>

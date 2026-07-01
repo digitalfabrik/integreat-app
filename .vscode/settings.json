@@ -3,5 +3,11 @@
     "^@mui/[^/]+$",
     "(?=^|[^/])shared/((?!api)|api/(?!endpoints/testing)).+"
   ],
-  "codescene.enableTelemetry": false
+  "codescene.enableTelemetry": false,
+  "jest.virtualFolders": [
+    { "name": "web", "rootPath": "web" },
+    { "name": "native", "rootPath": "native" },
+    { "name": "shared", "rootPath": "shared" },
+    { "name": "translations", "rootPath": "translations" }
+  ]
 }

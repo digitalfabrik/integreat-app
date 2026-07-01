@@ -7,6 +7,13 @@ import { ExternalSourcePermissions } from 'shared'
 import { log, captureError } from './sentry'
 
 export const ASYNC_STORAGE_VERSION = 2
+
+export type ChatRegionSettings = {
+  id: string
+  seenMessages: number
+}
+type ChatSettings = Record<string, ChatRegionSettings>
+
 export type SettingsType = {
   storageVersion: number | null
   contentLanguage: string | null
@@ -17,7 +24,9 @@ export type SettingsType = {
   apiUrlOverride: string | null
   externalSourcePermissions: ExternalSourcePermissions
   selectedTheme: ThemeKey
+  chat: ChatSettings
 }
+
 export const defaultSettings: SettingsType = {
   storageVersion: null,
   contentLanguage: null,
@@ -28,7 +37,9 @@ export const defaultSettings: SettingsType = {
   apiUrlOverride: null,
   externalSourcePermissions: {},
   selectedTheme: 'light',
+  chat: {},
 }
+
 export const settingsStorage = createAsyncStorage('settings')
 
 const migrateToV2 = async (): Promise<void> => {

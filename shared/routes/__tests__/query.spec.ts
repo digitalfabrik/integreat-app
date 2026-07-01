@@ -47,6 +47,10 @@ describe('queryStringFromRouteInformation', () => {
 
     expect(queryStringFromRouteInformation({ ...routeInformation })).toBeUndefined()
     expect(queryStringFromRouteInformation({ ...routeInformation, chat: true })).toBe('?chat=true')
+    expect(queryStringFromRouteInformation({ ...routeInformation, chat: true, chatId: 'abc-123' })).toBe(
+      '?chat=true&chatId=abc-123',
+    )
+    expect(queryStringFromRouteInformation({ ...routeInformation, chatId: 'abc-123' })).toBe('?chatId=abc-123')
   })
 })
 
@@ -69,6 +73,11 @@ describe('parse query params', () => {
   it('should get chat query params', () => {
     expect(parseQueryParams(new URLSearchParams(''))).toEqual({})
     expect(parseQueryParams(new URLSearchParams('?chat=true'))).toEqual({ chat: true })
+    expect(parseQueryParams(new URLSearchParams('?chat=true&chatId=abc-123'))).toEqual({
+      chat: true,
+      chatId: 'abc-123',
+    })
+    expect(parseQueryParams(new URLSearchParams('?chatId=abc-123'))).toEqual({ chatId: 'abc-123' })
   })
 })
 
@@ -93,5 +102,7 @@ describe('toQueryParams', () => {
   it('should get chat query params', () => {
     expect(toQueryParams({ chat: true })).toEqual(new URLSearchParams('?chat=true'))
     expect(toQueryParams({ chat: undefined })).toEqual(new URLSearchParams(''))
+    expect(toQueryParams({ chat: true, chatId: 'abc-123' })).toEqual(new URLSearchParams('?chat=true&chatId=abc-123'))
+    expect(toQueryParams({ chatId: 'abc-123' })).toEqual(new URLSearchParams('?chatId=abc-123'))
   })
 })

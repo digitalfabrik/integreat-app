@@ -82,10 +82,10 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
   const updateShowFilterSelection = (showFilterSelection: boolean) => localHistory.push({ showFilterSelection })
 
   const updatePlaceCategoryFilter = (placeCategory: PlaceCategoryModel | null) =>
-    localHistory.pushReset({ placeCategoryId: placeCategory?.id, currentlyOpen })
+    localHistory.pushReset({ placeCategoryId: placeCategory?.id, currentlyOpen, showFilterSelection })
 
   const updatePlaceCurrentlyOpenFilter = (currentlyOpen: boolean) =>
-    localHistory.pushReset({ placeCategoryId, currentlyOpen })
+    localHistory.pushReset({ placeCategoryId, currentlyOpen, showFilterSelection })
 
   const selectMapFeature = (mapFeature: MapFeature | null) => {
     setBottomSheetSnapPointIndex(1)
@@ -140,7 +140,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     <Container>
       <PlaceFiltersModal
         modalVisible={showFilterSelection}
-        closeModal={localHistory.pop}
+        closeModal={() => updateShowFilterSelection(false)}
         placeCategories={placeCategories}
         selectedPlaceCategory={placeCategory}
         setSelectedPlaceCategory={updatePlaceCategoryFilter}

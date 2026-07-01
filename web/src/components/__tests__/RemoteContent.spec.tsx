@@ -40,6 +40,25 @@ describe('RemoteContent', () => {
     expect(window.open).not.toHaveBeenCalled()
   })
 
+  it('should delegate link clicks to onLinkClick instead of opening them when provided', () => {
+    const onLinkClick = jest.fn()
+    const internalHref = 'https://integreat.app/augsburg/de'
+    const externalHref = 'https://example.com/'
+    const html = `<a href=${internalHref}>Internal</a><a href=${externalHref} class="link-external">External</a>`
+
+    const { getAllByRole } = renderWithTheme(<RemoteContent html={html} onLinkClick={onLinkClick} />)
+    const [internalLink, externalLink] = getAllByRole('link')
+
+    fireEvent.click(internalLink!)
+    fireEvent.click(externalLink!)
+
+    expect(onLinkClick).toHaveBeenCalledTimes(2)
+    expect(onLinkClick).toHaveBeenNthCalledWith(1, internalHref)
+    expect(onLinkClick).toHaveBeenNthCalledWith(2, externalHref)
+    expect(navigate).not.toHaveBeenCalled()
+    expect(window.open).not.toHaveBeenCalled()
+  })
+
   it('should open external links in a new tab', () => {
     const href = 'https://example.com/'
     const html = `<a href=${href} class="link-external">Test Anchor</a>`

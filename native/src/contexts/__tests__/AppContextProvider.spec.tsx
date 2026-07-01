@@ -96,6 +96,7 @@ describe('AppContextProvider', () => {
       apiUrlOverride: 'https://webnext.integreat.app',
       externalSourcePermissions: { 'https://vimeo.com': true },
       selectedTheme: 'light',
+      chat: {},
     }
     await appSettings.setSettings(settings)
     const { getByText } = renderAppContextProvider({})

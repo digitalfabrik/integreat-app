@@ -66,7 +66,7 @@ const navigate = <T extends RoutesType>(
     // Otherwise this leads to a blank (redirect) screen when navigating back from the inappbrowser
     if (redirect && navigation.canGoBack()) {
       navigation.pop()
-    } else {
+    } else if (redirect) {
       navigation.replace(BOTTOM_TAB_ROUTE, {
         screen: CATEGORIES_TAB_ROUTE,
         params: {
