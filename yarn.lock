@@ -23957,7 +23957,7 @@ __metadata:
     schema-dts: "npm:^2.0.0"
     shared: "npm:0.0.1"
     style-loader: "npm:^4.0.0"
-    stylis: "npm:^4.3.6"
+    stylis: "npm:4.2.0"
     terser-webpack-plugin: "npm:5.4.0"
     translations: "npm:0.0.1"
     ts-loader: "npm:^9.5.4"

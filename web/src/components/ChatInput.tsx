@@ -3,7 +3,7 @@ import shouldForwardProp from '@emotion/is-prop-valid'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import SendIcon from '@mui/icons-material/Send'
 import { buttonBaseClasses } from '@mui/material/ButtonBase'
-import IconButton, { iconButtonClasses } from '@mui/material/IconButton'
+import IconButton from '@mui/material/IconButton'
 import { outlinedInputClasses } from '@mui/material/OutlinedInput'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
@@ -41,16 +41,12 @@ const ChatIconButton = styled(IconButton)(({ theme }) => ({
 
 const SendButton = styled(IconButton)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
-  color: theme.isContrastTheme ? theme.palette.common.white : theme.palette.primary.contrastText,
+  color: theme.palette.primary.contrastText,
   '& svg': {
     transform: theme.direction === 'rtl' ? 'scaleX(-1)' : undefined,
   },
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
-  },
-  [`&.${iconButtonClasses.disabled}`]: {
-    backgroundColor: theme.isContrastTheme ? 'transparent' : theme.palette.action.disabledBackground,
-    color: theme.palette.action.disabled,
   },
 
   [theme.breakpoints.up('md')]: {
