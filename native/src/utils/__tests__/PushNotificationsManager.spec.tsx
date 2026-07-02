@@ -114,7 +114,7 @@ describe('PushNotificationsManager', () => {
     const message: FirebaseMessagingTypes.RemoteMessage = {
       notification: { title: 'Test PN', body: 'Test Body' },
       data: {
-        region_code: 'augsburg',
+        city_code: 'augsburg',
         language_code: 'de',
         news_id: '123',
         group: 'news',
@@ -134,7 +134,7 @@ describe('PushNotificationsManager', () => {
           title: 'Test PN',
           body: 'Test Body',
           data: {
-            region_code: 'augsburg',
+            city_code: 'augsburg',
             language_code: 'de',
             news_id: '123',
             group: 'news',
