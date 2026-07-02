@@ -10,7 +10,7 @@ import { PlaceCategoryModel, PlaceModel, RegionModel } from 'shared/api'
 
 import { EditLocationIcon } from '../assets'
 import MapView from '../components/MapView'
-import PlaceFiltersModal from '../components/PlaceFiltersModal'
+import PlaceFiltersModal, { PlaceFilters } from '../components/PlaceFiltersModal'
 import PlacesBottomSheet from '../components/PlacesBottomSheet'
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
@@ -73,6 +73,12 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     params: { slug, multiPlace, placeCategoryId, currentlyOpen },
   })
 
+  const getPlacesCount = ({ placeCategoryFilter, currentlyOpenFilter }: PlaceFilters) =>
+    preparePlaces({
+      places: allPlaces,
+      params: { slug, multiPlace, placeCategoryId: placeCategoryFilter?.id, currentlyOpen: currentlyOpenFilter },
+    }).places.length
+
   const handleZoomInRef = useCallback((view: View | null) => {
     setZoomInFocusTarget(findNodeHandle(view) ?? undefined)
   }, [])
@@ -82,10 +88,10 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
   const updateShowFilterSelection = (showFilterSelection: boolean) => localHistory.push({ showFilterSelection })
 
   const updatePlaceCategoryFilter = (placeCategory: PlaceCategoryModel | null) =>
-    localHistory.pushReset({ placeCategoryId: placeCategory?.id, currentlyOpen, showFilterSelection })
+    localHistory.pushReset({ placeCategoryId: placeCategory?.id, currentlyOpen })
 
   const updatePlaceCurrentlyOpenFilter = (currentlyOpen: boolean) =>
-    localHistory.pushReset({ placeCategoryId, currentlyOpen, showFilterSelection })
+    localHistory.pushReset({ placeCategoryId, currentlyOpen })
 
   const selectMapFeature = (mapFeature: MapFeature | null) => {
     setBottomSheetSnapPointIndex(1)
@@ -96,6 +102,11 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     } else if (slug || localHistory.current.slug) {
       localHistory.push({ multiPlace: undefined, slug })
     }
+  }
+
+  const closeModal = ({ placeCategoryFilter, currentlyOpenFilter }: PlaceFilters) => {
+    localHistory.pop()
+    localHistory.pushReset({ placeCategoryId: placeCategoryFilter?.id, currentlyOpen: currentlyOpenFilter })
   }
 
   const selectPlace = (place: PlaceModel) => localHistory.push({ slug: place.slug })
@@ -140,13 +151,11 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     <Container>
       <PlaceFiltersModal
         modalVisible={showFilterSelection}
-        closeModal={() => updateShowFilterSelection(false)}
+        closeModal={closeModal}
         placeCategories={placeCategories}
-        selectedPlaceCategory={placeCategory}
-        setSelectedPlaceCategory={updatePlaceCategoryFilter}
+        placeCategoryFilter={placeCategory}
         currentlyOpenFilter={currentlyOpen}
-        setCurrentlyOpenFilter={updatePlaceCurrentlyOpenFilter}
-        placesCount={places.length}
+        getPlacesCount={getPlacesCount}
       />
       <MapView
         selectFeature={selectMapFeature}
