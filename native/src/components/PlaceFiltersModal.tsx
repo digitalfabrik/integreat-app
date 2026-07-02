@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -56,30 +56,34 @@ const StyledSvgUri = styled(SvgUri)<{ active: boolean }>`
   }};
 `
 
-type PlaceFiltersModalProps = {
-  modalVisible: boolean
-  closeModal: () => void
-  placeCategories: PlaceCategoryModel[]
-  selectedPlaceCategory: PlaceCategoryModel | undefined
-  setSelectedPlaceCategory: (placeCategory: PlaceCategoryModel | null) => void
+export type PlaceFilters = {
+  placeCategoryFilter: PlaceCategoryModel | undefined
   currentlyOpenFilter: boolean
-  setCurrentlyOpenFilter: (currentlyOpen: boolean) => void
-  placesCount: number
+}
+
+type PlaceFiltersModalProps = PlaceFilters & {
+  closeModal: (filters: PlaceFilters) => void
+  placeCategories: PlaceCategoryModel[]
+  getPlacesCount: (filters: PlaceFilters) => number
 }
 
 const PlaceFiltersModal = ({
-  modalVisible,
   closeModal,
   placeCategories,
-  selectedPlaceCategory,
-  setSelectedPlaceCategory,
+  placeCategoryFilter,
   currentlyOpenFilter,
-  setCurrentlyOpenFilter,
-  placesCount,
+  getPlacesCount,
 }: PlaceFiltersModalProps): ReactElement => {
+  const [tempPlaceCategory, setTempPlaceCategory] = useState(placeCategoryFilter)
+  const [tempCurrentlyOpen, setTempCurrentlyOpen] = useState(currentlyOpenFilter)
   const { t } = useTranslation('places')
+
+  const filters = { placeCategoryFilter: tempPlaceCategory, currentlyOpenFilter: tempCurrentlyOpen }
+  const close = () => closeModal(filters)
+  const placesCount = getPlacesCount(filters)
+
   return (
-    <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle='' title={t('adjustFilters')}>
+    <Modal closeModal={close} headerTitle='' title={t('adjustFilters')} modalVisible>
       <Container>
         <Section>
           <Row>
@@ -97,11 +101,7 @@ const PlaceFiltersModal = ({
             </Text>
             <FlexEnd>
               {/* key is a workaround for iOS 26 where the Switch animation does not update on first click */}
-              <Switch
-                key={`${currentlyOpenFilter}`}
-                onValueChange={setCurrentlyOpenFilter}
-                value={currentlyOpenFilter}
-              />
+              <Switch key={`${currentlyOpenFilter}`} onValueChange={setTempCurrentlyOpen} value={tempCurrentlyOpen} />
             </FlexEnd>
           </StyledRow>
         </Section>
@@ -122,15 +122,15 @@ const PlaceFiltersModal = ({
               <StyledToggleButton
                 key={it.id}
                 text={it.name}
-                active={it.id === selectedPlaceCategory?.id}
-                onPress={() => setSelectedPlaceCategory(it.id === selectedPlaceCategory?.id ? null : it)}
-                icon={<StyledSvgUri uri={it.icon} active={it.id === selectedPlaceCategory?.id} />}
+                active={it.id === tempPlaceCategory?.id}
+                onPress={() => setTempPlaceCategory(it.id === tempPlaceCategory?.id ? undefined : it)}
+                icon={<StyledSvgUri uri={it.icon} active={it.id === tempPlaceCategory?.id} />}
               />
             ))}
           </TileRow>
         </Section>
         <Section style={{ marginBottom: 8 }}>
-          <Button onPress={closeModal} mode='contained' disabled={placesCount === 0}>
+          <Button onPress={close} mode='contained' disabled={placesCount === 0}>
             {t('showPlaces', { count: placesCount })}
           </Button>
         </Section>
