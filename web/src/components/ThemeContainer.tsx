@@ -132,6 +132,14 @@ const createTheme = (
                 },
               },
             },
+            input: {
+              '&::-webkit-input-placeholder': {
+                opacity: 0.8,
+              },
+              '&::-moz-placeholder': {
+                opacity: 0.8,
+              },
+            },
           },
         },
       },
