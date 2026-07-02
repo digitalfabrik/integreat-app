@@ -62,7 +62,7 @@ type HeaderProps = {
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
 
-const settingsHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} showMenu={false} />
+const settingsHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} menu={null} />
 
 const Stack = createStackNavigator<RoutesParamsType>()
 
