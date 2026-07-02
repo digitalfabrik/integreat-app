@@ -129,7 +129,7 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
   }
 
   const { eventsEnabled, placesEnabled, localNewsEnabled, tuNewsEnabled, chatEnabled } = cachedData.region
-  const chatVisible = buildConfig().featureFlags.chat && chatEnabled
+  const chatVisible = buildConfig().featureFlags.chat && chatEnabled && regionCode === 'testumgebung'
 
   const Tabs = [
     <Tab.Screen
