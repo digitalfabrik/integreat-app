@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { rrulestr } from 'rrule'
 
-import { EventModelBuilder, DateModel } from 'shared/api'
+import { DateModel, EventModelBuilder } from 'shared/api'
 
 import render from '../../testing/render'
 import EventListItem from '../EventListItem'
@@ -35,52 +35,24 @@ describe('EventListItem', () => {
         }),
       })
 
-    it('should show no icon if neither recurring nor today', () => {
+    it('should show no icon for for one time event', () => {
       const event = createEvent()
 
       const { queryByLabelText } = render(
         <EventListItem event={event} language={language} navigateToEvent={navigateToEvent} />,
       )
 
-      expect(queryByLabelText('todayRecurring')).toBeFalsy()
       expect(queryByLabelText('recurring')).toBeFalsy()
-      expect(queryByLabelText('today')).toBeFalsy()
     })
 
-    it('should show icon if recurring and today', () => {
+    it('should show icon if recurring event', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231029T050000')
 
-      const { queryByLabelText, getByLabelText } = render(
+      const { queryByLabelText } = render(
         <EventListItem event={event} language={language} navigateToEvent={navigateToEvent} />,
       )
 
-      expect(getByLabelText('todayRecurring')).toBeTruthy()
-      expect(queryByLabelText('recurring')).toBeFalsy()
-      expect(queryByLabelText('today')).toBeFalsy()
-    })
-
-    it('should show icon if recurring but not today', () => {
-      const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=TU;UNTIL=20231029T050000')
-
-      const { queryByLabelText, getByLabelText } = render(
-        <EventListItem event={event} language={language} navigateToEvent={navigateToEvent} />,
-      )
-
-      expect(getByLabelText('recurring')).toBeTruthy()
-      expect(queryByLabelText('todayRecurring')).toBeFalsy()
-      expect(queryByLabelText('today')).toBeFalsy()
-    })
-
-    it('should show icon if today but not recurring', () => {
-      const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231003T050000')
-
-      const { queryByLabelText, getByLabelText } = render(
-        <EventListItem event={event} language={language} navigateToEvent={navigateToEvent} />,
-      )
-
-      expect(getByLabelText('today')).toBeTruthy()
-      expect(queryByLabelText('todayRecurring')).toBeFalsy()
-      expect(queryByLabelText('recurring')).toBeFalsy()
+      expect(queryByLabelText('recurring')).toBeTruthy()
     })
   })
 })

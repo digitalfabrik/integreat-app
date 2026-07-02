@@ -1,5 +1,4 @@
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
-import TodayOutlinedIcon from '@mui/icons-material/TodayOutlined'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
@@ -12,17 +11,11 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getDisplayDate, getExcerpt } from 'shared'
-import { DateIcon, DateModel, EventModel } from 'shared/api'
+import { EventModel } from 'shared/api'
 
-import {
-  CalendarTodayRecurringIcon,
-  EventThumbnailPlaceholder1,
-  EventThumbnailPlaceholder2,
-  EventThumbnailPlaceholder3,
-} from '../assets'
+import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
 import Link from './base/Link'
-import Svg from './base/Svg'
 
 const StyledListItem = styled(ListItem)`
   [class*='MuiListItemSecondaryAction-root'] {
@@ -71,37 +64,23 @@ const getEventPlaceholder = (path: string): string => {
   return placeholders[pseudoId % placeholders.length]!
 }
 
-export const getDateIcon = (date: DateModel): { Icon: ReactElement; tooltip: string } | null => {
-  const icons: { [key in DateIcon]: ReactElement } = {
-    CalendarTodayRecurringIcon: <Svg src={CalendarTodayRecurringIcon} />,
-    CalendarRecurringIcon: <EventRepeatOutlinedIcon />,
-    CalendarTodayIcon: <TodayOutlinedIcon />,
-  }
-  const iconToUse = date.getDateIcon()
-  return iconToUse
-    ? {
-        Icon: icons[iconToUse.icon],
-        tooltip: iconToUse.label,
-      }
-    : null
-}
-
 const EventListItem = ({
   event,
   languageCode,
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
-  const dateIcon = getDateIcon(event.date)
   const { t } = useTranslation('events')
+  const isRecurringDateIcon = event.isRecurring ? (
+    <Tooltip title={t('recurring')}>
+      <EventRepeatOutlinedIcon />
+    </Tooltip>
+  ) : undefined
   const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
 
   return (
-    <StyledListItem
-      dir='auto'
-      disablePadding
-      secondaryAction={dateIcon && <Tooltip title={t(dateIcon.tooltip)}>{dateIcon.Icon}</Tooltip>}>
+    <StyledListItem dir='auto' disablePadding secondaryAction={isRecurringDateIcon}>
       <StyledListItemButton component={Link} to={event.path}>
         <ListItemIcon>
           <Icon src={thumbnailSrc} alt='' />
