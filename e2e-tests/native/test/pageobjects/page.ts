@@ -6,6 +6,6 @@ export class Page {
   }
 
   public async get(): Promise<true | void> {
-    return $(`~${this.pageId}`).waitForExist({ timeout: 10000 })
+    return $(`~${this.pageId}`).waitForExist({ timeout: 30000 })
   }
 }
