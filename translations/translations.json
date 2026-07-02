@@ -326,7 +326,9 @@
       "unreadMessages_many": "{{count}} ungelesene Chat-Nachrichten",
       "unreadMessages_other": "{{count}} ungelesene Chat-Nachrichten",
       "consultationQrCodeTitle": "QR-Code (Beratung)",
-      "consultationQrCodeDescription": "Zeige diesen QR-Code in der Beratung. So kann dein Chat direkt geöffnet werden."
+      "consultationQrCodeDescription": "Zeige diesen QR-Code in der Beratung. So kann dein Chat direkt geöffnet werden.",
+      "welcomeGreeting": "Hallo!",
+      "welcomeText": "Ich bin <strong>{{name}}</strong>, dein Digitaler Suchassistent. Stell mir gerne deine Frage."
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -428,7 +430,9 @@
       "unreadMessages_many": "{{count}} unread chat messages",
       "unreadMessages_other": "{{count}} unread chat messages",
       "consultationQrCodeTitle": "QR code (Consultation)",
-      "consultationQrCodeDescription": "Show this QR code during the consultation. This will open your chat right away."
+      "consultationQrCodeDescription": "Show this QR code during the consultation. This will open your chat right away.",
+      "welcomeGreeting": "Hello!",
+      "welcomeText": "I'm <strong>{{name}}</strong>, your digital search assistant. Feel free to ask me your question."
     },
     "es": {
       "bot": "Chatbot",

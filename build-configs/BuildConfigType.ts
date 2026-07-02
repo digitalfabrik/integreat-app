@@ -91,6 +91,7 @@ export type WebBuildConfigType = CommonBuildConfigType & {
   icons: {
     appLogo: string
     appLogoMobile: string
+    appLogoMobileInverted?: string
     appleTouchIcon: string
     socialMediaPreview: string
     favicons: string

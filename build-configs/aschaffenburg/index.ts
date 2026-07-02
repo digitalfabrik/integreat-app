@@ -95,6 +95,7 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
   icons: {
     appLogo: '/app-icon-round.svg',
     appLogoMobile: '/app-icon-round.svg',
+    appLogoMobileInverted: '/app-icon-inverted.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',
