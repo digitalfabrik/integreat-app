@@ -49,9 +49,9 @@
       "default": "./src/integreat-test-cms/index.ts"
     },
     "./integreat-e2e/build-config-name": {
-      "import": "./dist/integreat/build-config-name/index.js",
-      "default": "./dist/integreat/build-config-name/index.js",
-      "types": "./dist/integreat/build-config-name/index.d.ts"
+      "import": "./dist/integreat-e2e/build-config-name/index.js",
+      "default": "./dist/integreat-e2e/build-config-name/index.js",
+      "types": "./dist/integreat-e2e/build-config-name/index.d.ts"
     },
     "./integreat-test-cms/build-config-name": {
       "import": "./src/integreat-test-cms/build-config-name/index.ts",
