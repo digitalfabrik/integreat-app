@@ -22,6 +22,7 @@ const StyledImage = styled('img')`
   width: 40px;
   height: 40px;
   filter: ${props => (props.theme.isContrastTheme ? 'invert(1)' : 'none')};
+  object-fit: contain;
 `
 const StyledListItemButton = styled(ListItemButton)`
   min-height: 56px;
