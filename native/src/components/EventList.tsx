@@ -19,6 +19,7 @@ import EventListItem from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
 import Layout from '../components/Layout'
 import Text from '../components/base/Text'
+import { contentAlignment } from '../constants/contentDirection'
 
 const ListContainer = styled(Layout)`
   padding: 0 8px;
@@ -38,7 +39,7 @@ type EventListProps = {
 }
 
 const EventList = ({ events, regionModel, language, navigateTo, refresh }: EventListProps): ReactElement => {
-  const { t } = useTranslation('events')
+  const { t } = useTranslation('events', { lng: language })
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
 
   let sections: EventSection[]
@@ -75,7 +76,9 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
   }
 
   const renderSectionHeader = ({ section }: { section: EventSection }) =>
-    section.title ? <PaperList.Subheader>{section.title}</PaperList.Subheader> : null
+    section.title ? (
+      <PaperList.Subheader style={{ textAlign: contentAlignment(language) }}>{section.title}</PaperList.Subheader>
+    ) : null
 
   return (
     <ListContainer>
