@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
-import { FlatList, FlatListProps, RefreshControl, ViewStyle } from 'react-native'
+import { FlatList, RefreshControl, ViewStyle } from 'react-native'
+import { Divider } from 'react-native-paper'
 
 import Text from './base/Text'
 
@@ -15,7 +16,6 @@ type ListProps<T> = {
   onEndReached?: () => void
   style?: ViewStyle
   keyboardShouldPersistTaps?: 'always' | 'never' | 'handled'
-  itemSeparatorComponent?: FlatListProps<T>['ItemSeparatorComponent']
 }
 
 const List = <T,>({
@@ -30,7 +30,6 @@ const List = <T,>({
   scrollEnabled,
   style,
   keyboardShouldPersistTaps = 'never',
-  itemSeparatorComponent,
 }: ListProps<T>): ReactElement => (
   <FlatList
     data={items}
@@ -61,7 +60,7 @@ const List = <T,>({
     accessibilityLabel={accessibilityLabel}
     style={style}
     keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-    ItemSeparatorComponent={itemSeparatorComponent}
+    ItemSeparatorComponent={Divider}
   />
 )
 

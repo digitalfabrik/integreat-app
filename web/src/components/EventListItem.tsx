@@ -88,7 +88,7 @@ const EventListItem = ({
         <ListItemText
           disableTypography
           primary={
-            <Typography component='h2' variant='subtitle1'>
+            <Typography component='h3' variant='subtitle1'>
               {event.title}
             </Typography>
           }

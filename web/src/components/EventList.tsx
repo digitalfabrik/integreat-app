@@ -1,13 +1,31 @@
-import Typography from '@mui/material/Typography'
+import ListSubheader from '@mui/material/ListSubheader'
+import Stack from '@mui/material/Stack'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useDateFilter, DateGroupKey, groupEventsByDate, EVENT_DATE_GROUPS } from 'shared'
+import { useDateFilter, groupEventsByDate, EVENT_DATE_GROUPS } from 'shared'
 import { EventModel } from 'shared/api'
 
 import EventListItem from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
 import List from './base/List'
+
+type EventListGroupProps = {
+  title: string
+  events: EventModel[]
+  languageCode: string
+}
+
+export const EventListGroup = ({ title, events, languageCode }: EventListGroupProps): ReactElement => (
+  <Stack paddingBlock={1}>
+    <ListSubheader component='h2' disableSticky>
+      {title}
+    </ListSubheader>
+    {events.map(event => (
+      <EventListItem event={event} languageCode={languageCode} key={event.path} />
+    ))}
+  </Stack>
+)
 
 type EventListProps = {
   events: EventModel[]
@@ -18,64 +36,46 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
   const { t } = useTranslation('events')
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
 
-  const groupedEvents = groupEventsByDate(events)
-
-  const groupedListSections = EVENT_DATE_GROUPS.map((key: DateGroupKey) => {
-    const dateGroup = groupedEvents[key]
-    if (dateGroup.length === 0) {
-      return null
-    }
-
-    return (
-      <section key={key}>
-        <Typography component='span' variant='body1' dir='auto'>
-          {t(key)}
-        </Typography>
-        <List
-          items={dateGroup.map(event => (
-            <EventListItem event={event} languageCode={languageCode} key={event.path} />
-          ))}
-        />
-      </section>
-    )
-  })
-
-  const filteredListItems = (
-    <List
-      items={(filteredEvents ?? []).map(event => (
-        <EventListItem
-          event={event}
-          languageCode={languageCode}
-          key={event.path}
-          filterStartDate={startDate}
-          filterEndDate={endDate}
-        />
-      ))}
-      noItemsMessage='events:currentlyNoEvents'
+  const dateFilter = (
+    <EventsDateFilter
+      startDate={startDate}
+      setStartDate={setStartDate}
+      endDate={endDate}
+      setEndDate={setEndDate}
+      startDateError={startDateError}
     />
   )
 
-  const isGroupedList = EVENT_DATE_GROUPS.some(key => groupedEvents[key].length > 0)
-
-  let eventsList
   if (startDate || endDate) {
-    eventsList = filteredListItems
-  } else if (isGroupedList) {
-    eventsList = groupedListSections
-  } else {
-    eventsList = <List items={[]} noItemsMessage='events:currentlyNoEvents' />
+    return (
+      <>
+        {dateFilter}
+        <List
+          items={filteredEvents.map(event => (
+            <EventListItem
+              event={event}
+              languageCode={languageCode}
+              key={event.path}
+              filterStartDate={startDate}
+              filterEndDate={endDate}
+            />
+          ))}
+          noItemsMessage='events:currentlyNoEvents'
+        />
+      </>
+    )
   }
+
+  const groupedEvents = groupEventsByDate(events)
+
+  const dateGroups = EVENT_DATE_GROUPS.filter(key => groupedEvents[key].length > 0).map(key => (
+    <EventListGroup key={key} title={t(key)} events={groupedEvents[key]} languageCode={languageCode} />
+  ))
 
   return (
     <>
-      <EventsDateFilter
-        startDate={startDate}
-        setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        startDateError={startDateError}
-      />
-      {eventsList}
+      {dateFilter}
+      <List items={dateGroups} noItemsMessage='events:currentlyNoEvents' />
     </>
   )
 }

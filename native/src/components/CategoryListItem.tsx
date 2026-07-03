@@ -71,7 +71,6 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
               />
             )}
             scrollEnabled={false}
-            itemSeparatorComponent={Divider}
           />
         </>
       )}

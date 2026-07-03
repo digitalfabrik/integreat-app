@@ -2,7 +2,6 @@ import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
-import { Divider } from 'react-native-paper'
 
 import { NewsRouteType, NewsType, TU_NEWS_TYPE, replaceLinks, tuNewsLabel } from 'shared'
 import { LocalNewsModel, TuNewsModel, ErrorCodes } from 'shared/api'
@@ -110,7 +109,6 @@ const News = ({
       footer={loadingMore ? <LoadingSpinner testID='loadingSpinner' /> : undefined}
       renderItem={rendersNewsListItem}
       refresh={refresh}
-      itemSeparatorComponent={Divider}
     />
   )
 }

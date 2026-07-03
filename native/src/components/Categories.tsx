@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { Divider } from 'react-native-paper'
 
 import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared'
 import { CategoriesMapModel, CategoryModel, RegionModel } from 'shared/api'
@@ -74,7 +73,6 @@ const Categories = ({
               />
             )}
             scrollEnabled={false}
-            itemSeparatorComponent={Divider}
           />
         ) : (
           <EmbeddedOffers category={category} regionCode={regionModel.code} languageCode={language} goBack={goBack} />

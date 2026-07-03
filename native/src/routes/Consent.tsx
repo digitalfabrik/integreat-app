@@ -43,7 +43,6 @@ const Consent = (): ReactElement | null => {
           </>
         }
         noItemsMessage={t('noSources')}
-        itemSeparatorComponent={Divider}
       />
     </Layout>
   )

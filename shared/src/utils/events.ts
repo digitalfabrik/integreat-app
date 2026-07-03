@@ -1,6 +1,23 @@
 import { DateTime } from 'luxon'
 
 import EventModel from '../api/models/EventModel.js'
+import { isEventWithinRange } from './dateFilterUtils.js'
+
+export const filterEvents = (
+  events: EventModel[],
+  startDate: DateTime | null,
+  endDate: DateTime | null,
+): EventModel[] => {
+  const isStartAfterEnd = startDate && endDate && startDate > endDate
+  if (!startDate && !endDate) {
+    return events
+  }
+
+  if (isStartAfterEnd) {
+    return []
+  }
+  return events.filter(event => isEventWithinRange(event, startDate, endDate))
+}
 
 export type DateGroupKey = 'today' | 'tomorrow' | 'thisWeek' | 'thisMonth' | 'further'
 
@@ -20,7 +37,7 @@ export const getGroupKey = (event: EventModel): DateGroupKey => {
 }
 
 const sortGroup = (events: EventModel[]): EventModel[] =>
-  [...events].sort((a, b) => {
+  events.sort((a, b) => {
     if (a.isRecurring !== b.isRecurring) {
       return a.isRecurring ? 1 : -1
     }
