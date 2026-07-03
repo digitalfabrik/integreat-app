@@ -12,11 +12,13 @@ import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import { determineApiUrl } from '../utils/helpers'
+import ChatHighlightPopup from './ChatHighlightPopup'
 
 const Container = styled.View`
   position: absolute;
   right: 0;
   margin: 16px;
+  align-items: flex-end;
 `
 
 const StyledBadge = styled(Badge)`
@@ -57,6 +59,7 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
 
   return (
     <Container style={style}>
+      <ChatHighlightPopup chatName={getChatName(buildConfig().appName)} />
       <FAB
         icon='forum-outline'
         onPress={() => navigation.navigate(CHAT_ROUTE)}

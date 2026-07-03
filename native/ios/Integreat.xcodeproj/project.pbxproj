@@ -28,6 +28,8 @@
 		7BF11495226F61BC0031D233 /* FetcherModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF11490226F4E6D0031D233 /* FetcherModule.m */; };
 		A330D33322AA9F54005736D0 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D32E22AA9F54005736D0 /* Raleway-Regular.ttf */; };
 		A330D33722AA9F54005736D0 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */; };
+		F36735FE7A2D324132FE4B04 /* Inter-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FCD1129C01A9CFF0159B05B /* Inter-Regular.ttf */; };
+		C261B0A49E1E68239D9740DD /* Inter-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F539BFE48D6D66E93C751FF7 /* Inter-Bold.ttf */; };
 		B8BF8F3C260B402B00F436B7 /* VarelaRound-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8BF8F3B260B402B00F436B7 /* VarelaRound-Regular.ttf */; };
 		D8A132BA08CFC4B2FC6AE11E /* Pods_Integreat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5E84E5C2AF2512FD73FED7E /* Pods_Integreat.framework */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
@@ -70,6 +72,8 @@
 		7BF11490226F4E6D0031D233 /* FetcherModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FetcherModule.m; sourceTree = "<group>"; };
 		A330D32E22AA9F54005736D0 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-Bold.ttf"; sourceTree = "<group>"; };
+		8FCD1129C01A9CFF0159B05B /* Inter-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.ttf"; sourceTree = "<group>"; };
+		F539BFE48D6D66E93C751FF7 /* Inter-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Bold.ttf"; sourceTree = "<group>"; };
 		B844D9F326E8A50400B6E963 /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B848D0B2252DF2A200D4695A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B848D0B3252DF2A500D4695A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -218,6 +222,8 @@
 				B8BF8F3B260B402B00F436B7 /* VarelaRound-Regular.ttf */,
 				A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */,
 				A330D32E22AA9F54005736D0 /* Raleway-Regular.ttf */,
+				F539BFE48D6D66E93C751FF7 /* Inter-Bold.ttf */,
+				8FCD1129C01A9CFF0159B05B /* Inter-Regular.ttf */,
 			);
 			name = fonts;
 			path = Integreat/fonts;
@@ -324,6 +330,8 @@
 				2E0440F826C127B000183828 /* NotoSans-Bold.ttf in Resources */,
 				2E0440FA26C127B000183828 /* NotoSansArabic-Bold.ttf in Resources */,
 				A330D33722AA9F54005736D0 /* Raleway-Bold.ttf in Resources */,
+				C261B0A49E1E68239D9740DD /* Inter-Bold.ttf in Resources */,
+				F36735FE7A2D324132FE4B04 /* Inter-Regular.ttf in Resources */,
 				7B7EDC2D2428EE0900E64563 /* fastlane in Resources */,
 				A330D33322AA9F54005736D0 /* Raleway-Regular.ttf in Resources */,
 				B8BF8F3C260B402B00F436B7 /* VarelaRound-Regular.ttf in Resources */,

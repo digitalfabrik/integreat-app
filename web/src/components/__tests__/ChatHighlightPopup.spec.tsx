@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { CHAT_POPUP_HIGHLIGHT_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
+import { CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { renderWithTheme } from '../../testing/render'
 import ChatHighlightPopup from '../ChatHighlightPopup'
 
@@ -20,7 +20,7 @@ describe('ChatHighlightPopup', () => {
 
     expect(getByText('chat:welcomeGreeting 👋')).toBeTruthy()
     expect(getByText('chat:welcomeText')).toBeTruthy()
-    expect(localStorage.getItem(CHAT_POPUP_HIGHLIGHT_VISIBLE_STORAGE_KEY)).toBe('true')
+    expect(localStorage.getItem(CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 
   it('should not render popup when anchorEl is null', () => {
@@ -40,11 +40,11 @@ describe('ChatHighlightPopup', () => {
 
     expect(queryByText('chat:welcomeGreeting')).toBeFalsy()
     expect(queryByText('chat:welcomeText')).toBeFalsy()
-    expect(localStorage.getItem(CHAT_POPUP_HIGHLIGHT_VISIBLE_STORAGE_KEY)).toBe('false')
+    expect(localStorage.getItem(CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY)).toBe('false')
   })
 
   it('should not render popup when previously dismissed', () => {
-    localStorage.setItem(CHAT_POPUP_HIGHLIGHT_VISIBLE_STORAGE_KEY, 'false')
+    localStorage.setItem(CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY, 'false')
     const anchorEl = document.createElement('button')
     const { queryByText } = renderWithTheme(<ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />)
 

@@ -10,7 +10,7 @@ import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
-import useLocalStorage, { CHAT_POPUP_HIGHLIGHT_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
+import useLocalStorage, { CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import Svg from './base/Svg'
 
 const POPUP_OFFSET = -8
@@ -73,7 +73,7 @@ const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): Re
   const { t } = useTranslation('chat')
   const { icons } = buildConfig()
   const [visible, setVisible] = useLocalStorage<boolean>({
-    key: CHAT_POPUP_HIGHLIGHT_VISIBLE_STORAGE_KEY,
+    key: CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY,
     initialValue: true,
   })
 

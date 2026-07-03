@@ -14,6 +14,7 @@ type MD3Theme = {
     secondaryContainer: string
     tertiary: string
     tertiaryContainer: string
+    tertiaryDark: string
     surface: string
     surfaceVariant: string
     surfaceDisabled: string
