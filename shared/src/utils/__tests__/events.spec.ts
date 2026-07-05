@@ -52,10 +52,10 @@ describe('events', () => {
     const now = DateTime.local()
 
     const events = [
-      createEvent(1, now.minus({ days: 5 }), now.minus({ days: 5 }).plus({ hours: 2 })), // start: 2024-11-02, end: start + plus 2H
-      createEvent(2, now.minus({ days: 2 }), now.minus({ days: 2 }).plus({ hours: 2 })), // start: 2024-11-05, end: start + plus 2H
-      createEvent(3, now.plus({ days: 1 }), now.plus({ days: 1 }).plus({ hours: 2 })), // start: 2024-11-08, end: start + plus 2H
-      createEvent(4, now.plus({ days: 4 }), now.plus({ days: 4 }).plus({ hours: 2 })), // start: 2024-11-11, end: start + plus 2H
+      createEvent(1, now.minus({ days: 5 }), now.minus({ days: 5 }).plus({ hours: 2 })), // start: 2023-11-02, end: start + plus 2H
+      createEvent(2, now.minus({ days: 2 }), now.minus({ days: 2 }).plus({ hours: 2 })), // start: 2023-11-05, end: start + plus 2H
+      createEvent(3, now.plus({ days: 1 }), now.plus({ days: 1 }).plus({ hours: 2 })), // start: 2023-11-08, end: start + plus 2H
+      createEvent(4, now.plus({ days: 4 }), now.plus({ days: 4 }).plus({ hours: 2 })), // start: 2023-11-11, end: start + plus 2H
     ]
 
     it('returns all events when startDate and endDate are null', () => {
