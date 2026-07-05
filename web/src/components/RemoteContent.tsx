@@ -25,7 +25,8 @@ type RemoteContentProps = {
   onLinkClick?: (url: string) => void
 }
 
-const RemoteContent = ({ html,
+const RemoteContent = ({
+  html,
   centered = false,
   smallText = false,
   onLinkClick,
@@ -122,8 +123,10 @@ const RemoteContent = ({ html,
     isContrastTheme,
   ])
 
-  const sanitizedContent = sanitizeContent(html)
-  const dangerouslySetInnerHTML = useMemo(() => ({ __html: sanitizedContent }), [sanitizedContent])
+  const dangerouslySetInnerHTML = useMemo(
+    () => ({ __html: sanitizeContent(html, { supportedIframeSources: buildConfig().supportedIframeSources }) }),
+    [html],
+  )
 
   return (
     <RemoteContentSandBox

@@ -1,32 +1,50 @@
 import { sanitizeContent } from '../sanitizeContent.js'
 
-const cleanHTML = (input: string): string => sanitizeContent(input)
-
 describe('sanitizeContent', () => {
+  const allowedIframes = ['vimeo.com']
+
   it('should keep the iframe attributes', () => {
-    const sanitizedContent = cleanHTML('<iframe title="vimeo" src="https://vimeo.com"></iframe>')
+    const sanitizedContent = sanitizeContent('<iframe title="vimeo" src="https://vimeo.com"/>', {
+      supportedIframeSources: allowedIframes,
+    })
     expect(sanitizedContent).toContain('<iframe title="vimeo" src="https://vimeo.com"></iframe>')
   })
 
+  it('should strip iframe from a non-supported host', () => {
+    const out = sanitizeContent('<iframe title="x" src="https://test.example"></iframe>', {
+      supportedIframeSources: ['vimeo.com'],
+    })
+    expect(out).not.toContain('<iframe title="x" src="https://test.example"></iframe>')
+  })
+
   it('should remove script tags', () => {
-    expect(cleanHTML('<script>alert(1)</script><p>ok</p>')).not.toContain('<script')
+    const sanitizedContent = sanitizeContent('<script>alert(1)</script><p>ok</p>', {
+      supportedIframeSources: allowedIframes,
+    })
+    expect(sanitizedContent).not.toContain('<script>alert(1)</script>')
+    expect(sanitizedContent).toContain('<p>ok</p>')
   })
 
   it('should remove inline event handlers', () => {
-    const sanitizedContent = cleanHTML('<img src="x" onerror="alert(1)">')
+    const sanitizedContent = sanitizeContent('<img src="x" onerror="alert(1)">', {
+      supportedIframeSources: allowedIframes,
+    })
     expect(sanitizedContent).not.toContain('onerror')
     expect(sanitizedContent).not.toContain('alert')
   })
 
   it('should remove event handlers even on allowed iframe', () => {
-    const sanitizedContent = cleanHTML('<iframe title="x" src="https://vimeo.com" onload="alert(1)"></iframe>')
+    const sanitizedContent = sanitizeContent('<iframe title="x" src="https://vimeo.com" onload="alert(1)"/>', {
+      supportedIframeSources: allowedIframes,
+    })
     expect(sanitizedContent).not.toContain('onload')
-    expect(sanitizedContent).toContain('<iframe')
+    expect(sanitizedContent).toContain('<iframe title="x" src="https://vimeo.com"></iframe>')
   })
 
-  it('keeps the img with its attributes', () => {
-    const sanitizedContent = cleanHTML(
+  it('should keep img with its attributes', () => {
+    const sanitizedContent = sanitizeContent(
       '<img src="https://example.com/pic.png" alt="a picture" width="100" height="80"/>',
+      { supportedIframeSources: allowedIframes },
     )
     expect(sanitizedContent).toContain('<img')
     expect(sanitizedContent).toContain('src="https://example.com/pic.png"')
@@ -36,12 +54,38 @@ describe('sanitizeContent', () => {
   })
 
   it('should keep details/summary', () => {
-    const sanitizedContent = cleanHTML('<details><summary>more</summary><p>body</p></details>')
+    const sanitizedContent = sanitizeContent('<details><summary>more</summary><p>body</p></details>', {
+      supportedIframeSources: allowedIframes,
+    })
     expect(sanitizedContent).toContain('<details>')
     expect(sanitizedContent).toContain('<summary>')
   })
 
-  it('should keep class on any element', () => {
-    expect(sanitizeContent('<p class="test">x</p>')).toContain('class="test"')
+  it('should keep class and inline style on any element', () => {
+    expect(
+      sanitizeContent('<p class="test" style="color: rgb(0, 0, 0)">text</p>', {
+        supportedIframeSources: allowedIframes,
+      }),
+    ).toContain('<p class="test" style="color:rgb(0, 0, 0)">text</p>')
+  })
+
+  it('should keep dir on elements', () => {
+    const sanitizedContent = sanitizeContent('<span dir="rtl">test</span>', { supportedIframeSources: allowedIframes })
+    expect(sanitizedContent).toContain('dir="rtl"')
+  })
+
+  it('should keep aria-* attributes', () => {
+    const sanitizedContent = sanitizeContent('<div aria-label="Close">x</div>', {
+      supportedIframeSources: allowedIframes,
+    })
+    expect(sanitizedContent).toContain('aria-label="Close"')
+  })
+
+  it('should keep data-* attributes', () => {
+    const sanitizedContent = sanitizeContent('<div data-testid="widget" data-source="cms">x</div>', {
+      supportedIframeSources: allowedIframes,
+    })
+    expect(sanitizedContent).toContain('data-testid="widget"')
+    expect(sanitizedContent).toContain('data-source="cms"')
   })
 })
