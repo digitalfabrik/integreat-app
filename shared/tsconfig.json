@@ -1,14 +1,24 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
+    "outDir": "dist",
+    "rootDir": "src",
     "lib": ["ES5", "ES6", "dom"],
-    "isolatedModules": true,
     // Fixes "Static class blocks are not enabled. Please add `@babel/plugin-transform-class-static-block` to your configuration"
     "target": "ES2021",
-    "outDir": "dist",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+
+    // Metro will watch and import the files under /src directly, but it can only strip types.
+    // These options let it import files directly, while still supports type checking with tsc
+    "erasableSyntaxOnly": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "emitDeclarationOnly": true,
+
     "types": ["jest", "node"],
-    "typeRoots": ["./@types", "node_modules/@types", "../node_modules/@types"]
+    "typeRoots": ["./src/@types", "node_modules/@types", "../node_modules/@types"]
   },
-  "include": ["jest.config.ts", "jest.setup.ts", "**/*"]
+  "include": ["src/**/*"]
 }

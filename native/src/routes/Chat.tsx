@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-paper'
 
 import { ChatRouteType, uuid } from 'shared'
-import { createChatMessagesEndpoint, ErrorCode, loadFromEndpoint, useLoadFromEndpoint } from 'shared/api'
+import { createChatMessagesEndpoint, ErrorCodes, loadFromEndpoint, useLoadFromEndpoint } from 'shared/api'
 
 import Failure from '../components/Failure'
 import HeaderMenu from '../components/HeaderMenu'
@@ -111,7 +111,7 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
   useHeader({ navigation, route, data, availableLanguages, menu })
 
   if (isConnected === false) {
-    return <Failure code={ErrorCode.NetworkConnectionFailed} retry={null} />
+    return <Failure code={ErrorCodes.NetworkConnectionFailed} retry={null} />
   }
 
   if (!chatSettings) {

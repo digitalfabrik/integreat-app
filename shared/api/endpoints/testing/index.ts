@@ -1,6 +1,0 @@
-export { default as CategoriesMapModelBuilder } from './CategoriesMapModelBuilder.js'
-export { default as RegionModelBuilder } from './RegionModelBuilder.js'
-export { default as EventModelBuilder } from './EventModelBuilder.js'
-export { default as LanguageModelBuilder } from './LanguageModelBuilder.js'
-export { default as NewsModelBuilder } from './NewsModelBuilder.js'
-export { default as PlaceModelBuilder } from './PlaceModelBuilder.js'

@@ -4,7 +4,7 @@ import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { NonNullableRouteInformationType, REGIONS_ROUTE } from 'shared'
-import { ErrorCode } from 'shared/api'
+import { ErrorCode, ErrorCodes } from 'shared/api'
 
 import { AppContext } from '../contexts/AppContext'
 import useNavigate from '../hooks/useNavigate'
@@ -21,9 +21,9 @@ const Container = styled.View`
 
 const getErrorIcon = (errorCode: ErrorCode) => {
   switch (errorCode) {
-    case ErrorCode.NetworkConnectionFailed:
+    case ErrorCodes.NetworkConnectionFailed:
       return 'wifi-off'
-    case ErrorCode.UnknownError:
+    case ErrorCodes.UnknownError:
       return 'alert-outline'
     default:
       return 'emoticon-sad-outline'
@@ -47,7 +47,7 @@ const Failure = ({ code, retry, goTo, goToLabel }: FailureProps): ReactElement =
   return (
     <Container>
       <Icon size={160} source={getErrorIcon(code)} />
-      <Text role='alert'>{t(code === ErrorCode.RegionUnavailable ? 'notFound.region' : code)}</Text>
+      <Text role='alert'>{t(code === ErrorCodes.RegionUnavailable ? 'notFound.region' : code)}</Text>
       {retry && (
         <Button mode='contained' onPress={retry}>
           {t('tryAgain')}
