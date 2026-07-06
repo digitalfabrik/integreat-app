@@ -22573,7 +22573,7 @@ __metadata:
     react-svg: "npm:^17.2.4"
     schema-dts: "npm:^2.0.0"
     shared: "workspace:^"
-    stylis: "npm:^4.3.6"
+    stylis: "npm:4.2.0"
     translations: "workspace:^"
     vite: "npm:^8.0.16"
     vite-plugin-generate-file: "npm:^0.3.1"
