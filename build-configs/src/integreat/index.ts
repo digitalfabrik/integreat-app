@@ -96,6 +96,7 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
   icons: {
     appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
+    appLogoMobileInverted: '/app-icon-inverted.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',

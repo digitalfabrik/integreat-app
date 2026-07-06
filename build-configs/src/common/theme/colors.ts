@@ -69,7 +69,7 @@ export const commonDarkColors: CommonColorPalette = {
   tertiary: {
     light: '#E9EDFB',
     main: '#AFBACC',
-    dark: '#364153',
+    dark: '#242D3B',
     contrastText: '#E6E0E9',
   },
   background: {

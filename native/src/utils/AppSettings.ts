@@ -25,6 +25,7 @@ export type SettingsType = {
   externalSourcePermissions: ExternalSourcePermissions
   selectedTheme: ThemeKey
   chat: ChatSettings
+  chatHighlightPopupVisible: boolean
 }
 
 export const defaultSettings: SettingsType = {
@@ -38,6 +39,7 @@ export const defaultSettings: SettingsType = {
   externalSourcePermissions: {},
   selectedTheme: 'light',
   chat: {},
+  chatHighlightPopupVisible: false,
 }
 
 export const settingsStorage = createAsyncStorage('settings')
