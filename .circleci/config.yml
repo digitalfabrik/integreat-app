@@ -411,7 +411,7 @@ jobs:
             - prepare_workspace
             - restore_environment_variables
             - run:
-                command: yarn workspace web build:<< parameters.build_config_name >> --env commit_sha=${CIRCLE_SHA1} --env version_name=${NEW_VERSION_NAME}
+                command: yarn workspace web build:<< parameters.build_config_name >>
                 name: << parameters.build_config_name >> build
             - store_artifacts:
                 name: Store output of bundle analyzer
@@ -422,12 +422,12 @@ jobs:
             - run:
                 command: tar -czf << parameters.build_config_name >>.tar.gz ./<< parameters.build_config_name >>
                 name: Create tarball
-                working_directory: web/dist
+                working_directory: web/build
             - store_artifacts:
-                path: web/dist/<< parameters.build_config_name >>.tar.gz
+                path: web/build/<< parameters.build_config_name >>.tar.gz
             - persist_to_workspace:
                 paths:
-                    - dist/<<parameters.build_config_name >>
+                    - build/<<parameters.build_config_name >>
                 root: web
             - notify
     bump_version:
@@ -636,16 +636,16 @@ jobs:
                         - << parameters.delivery >>
                 steps:
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/integreat.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/integreat/ web@web.integreat-app.de:/var/www/integreat.app
                         name: Integreat production delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/malteapp.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/malte/ web@web.integreat-app.de:/var/www/malteapp.de
                         name: Malte production delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/aschaffenburg/ web@web.integreat-app.de:/var/www/aschaffenburg.app
                         name: Aschaffenburg production delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/netzwerkobdachwohnen.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/obdach/ web@web.integreat-app.de:/var/www/netzwerkobdachwohnen.de
                         name: Obdach production delivery
             - when:
                 condition:
@@ -654,16 +654,16 @@ jobs:
                         - << parameters.delivery >>
                 steps:
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat/ web@web.integreat-app.de:/var/www/beta.integreat.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/integreat/ web@web.integreat-app.de:/var/www/beta.integreat.app
                         name: Integreat beta delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte/ web@web.integreat-app.de:/var/www/beta.malteapp.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/malte/ web@web.integreat-app.de:/var/www/beta.malteapp.de
                         name: Malte beta delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/beta.aschaffenburg.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/aschaffenburg/ web@web.integreat-app.de:/var/www/beta.aschaffenburg.app
                         name: Aschaffenburg beta delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/beta.netzwerkobdachwohnen.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/obdach/ web@web.integreat-app.de:/var/www/beta.netzwerkobdachwohnen.de
                         name: Obdach beta delivery
             - when:
                 condition:
@@ -672,16 +672,16 @@ jobs:
                         - << parameters.delivery >>
                 steps:
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/integreat-test-cms/ web@web.integreat-app.de:/var/www/webnext.integreat.app
                         name: Integreat webnext delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/malte-test-cms/ web@web.integreat-app.de:/var/www/webnext.malteapp.de
                         name: Malte webnext delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/aschaffenburg/ web@web.integreat-app.de:/var/www/webnext.aschaffenburg.app
                         name: Aschaffenburg webnext delivery
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/obdach/ web@web.integreat-app.de:/var/www/webnext.netzwerkobdachwohnen.de
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/obdach/ web@web.integreat-app.de:/var/www/webnext.netzwerkobdachwohnen.de
                         name: Obdach webnext delivery
             - when:
                 condition:
@@ -690,7 +690,7 @@ jobs:
                         - << parameters.delivery >>
                 steps:
                     - run:
-                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/dist/integreat-test-cms/ web@web.integreat-app.de:/var/www/future.integreat.app
+                        command: rsync -e "ssh -o StrictHostKeyChecking=no" -arv --delete $HOME/attached_workspace/build/integreat-test-cms/ web@web.integreat-app.de:/var/www/future.integreat.app
                         name: Integreat future delivery
             - when:
                 condition:
@@ -705,10 +705,10 @@ jobs:
                     - restore_yarn_tools_cache
                     - run:
                         command: |
-                            tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/dist/integreat
-                            tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/dist/malte
-                            tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/dist/aschaffenburg
-                            tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/dist/obdach
+                            tools/sentry-release web-integreat "${NEW_VERSION_NAME}" ~/attached_workspace/build/integreat
+                            tools/sentry-release web-malte "${NEW_VERSION_NAME}" ~/attached_workspace/build/malte
+                            tools/sentry-release web-aschaffenburg "${NEW_VERSION_NAME}" ~/attached_workspace/build/aschaffenburg
+                            tools/sentry-release web-obdach "${NEW_VERSION_NAME}" ~/attached_workspace/build/obdach
                         name: Upload Source Maps to Sentry
             - notify
     e2e_android:

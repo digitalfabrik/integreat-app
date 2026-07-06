@@ -1,0 +1,67 @@
+import obdachOverrideTranslations from 'translations/override-translations/obdach.json' with { type: 'json' }
+
+import { OBDACH_ASSETS } from '../AssetsType.ts'
+import type { CommonBuildConfigType, WebBuildConfigType } from '../BuildConfigType.ts'
+import mainImprint from './mainImprint.ts'
+import fonts from './theme/fonts.ts'
+import { darkTheme, lightTheme } from './theme/index.ts'
+
+const commonObdachBuildConfig: CommonBuildConfigType = {
+  appName: 'Netzwerk Obdach & Wohnen',
+  appIcon: 'app_icon_obdach',
+  lightTheme,
+  darkTheme,
+  fonts,
+  assets: OBDACH_ASSETS,
+  cmsUrl: 'https://cms.netzwerkobdachwohnen.de',
+  hostName: 'netzwerkobdachwohnen.de',
+  allowedHostNames: ['cms.netzwerkobdachwohnen.de', 'admin.netzwerkobdachwohnen.de'],
+  allowedLookalikes: [],
+  supportedIframeSources: ['vimeo.com'],
+  translationsOverride: obdachOverrideTranslations,
+  internalUrlPattern:
+    'https?:\\/\\/((cms\\.)?netzwerkobdachwohnen\\.de)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
+  featureFlags: {
+    introSlides: false,
+    sentry: false,
+    developerFriendly: false,
+    fixedRegion: null,
+    suggestToRegion: null,
+    chat: false,
+  },
+  aboutUrls: {
+    default: 'https://tuerantuer.de/digitalfabrik/projekte/netzwerkobdachwohnen/',
+  },
+  privacyUrls: {
+    default: 'https://integreat-app.de/datenschutz/',
+    en: 'https://integreat-app.de/en/privacy-policy/',
+  },
+  accessibilityUrls: {
+    default: 'https://integreat-app.de/barrierefreiheit/',
+  },
+  mainImprint,
+}
+
+export const webObdachBuildConfig: WebBuildConfigType = {
+  ...commonObdachBuildConfig,
+  appDescription:
+    'Netzwerk Obdach & Wohnen – die lokale und mehrsprachige Plattform für Obdachlose und Menschen die von Obdachlosigkeit bedroht sind',
+  manifestUrl: '/manifest.json',
+  icons: {
+    appLogo: '/app-logo.svg',
+    appLogoMobile: '/app-icon-round.svg',
+    appleTouchIcon: '/apple-touch-icon.png',
+    socialMediaPreview: '/social-media-preview.png',
+    favicons: '/favicons/',
+  },
+  apps: null,
+}
+
+const platformBuildConfigs = {
+  common: commonObdachBuildConfig,
+  web: webObdachBuildConfig,
+  android: null,
+  ios: null,
+}
+
+export default platformBuildConfigs

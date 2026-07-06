@@ -7,12 +7,12 @@
       <sourceFolder url="file://$MODULE_DIR$/locales" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/release-notes" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/assets" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build-configs" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/e2e-tests" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/shared" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/translations" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/native/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/build-configs/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/e2e-tests/src" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/translations/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/shared/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/native/android/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/native/android/app/build" />
       <excludeFolder url="file://$MODULE_DIR$/native/android/build" />

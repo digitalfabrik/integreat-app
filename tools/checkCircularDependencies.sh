@@ -70,10 +70,10 @@ check_workspace "$PROJECT_ROOT/web" ./src/index.tsx "web" "\.\.\/shared\/"
 echo ""
 check_workspace "$PROJECT_ROOT/native" ./src/index.tsx "native" "\.\.\/shared\/"
 echo ""
-check_workspace "$PROJECT_ROOT/shared" ./index.ts "shared"
+check_workspace "$PROJECT_ROOT/shared" ./src/index.ts "shared"
 echo ""
 check_workspace "$PROJECT_ROOT/translations" ./src/index.ts "translations"
 echo ""
-check_workspace "$PROJECT_ROOT/build-configs" ./index.ts "build-configs"
+check_workspace "$PROJECT_ROOT/build-configs" ./src/index.ts "build-configs"
 
 exit $exit_code

@@ -26,7 +26,7 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       tertiaryDark: palette.tertiary.dark,
       surface: palette.background.default,
       surfaceVariant: palette.background.accent,
-      surfaceDisabled: palette.background.default,
+      surfaceDisabled: palette.action.disabledBackground,
       background: palette.background.default,
       error: palette.error.main,
       errorContainer: palette.error.light,

@@ -24,7 +24,7 @@ type UpdateSettingsType = (settings: { allowPushNotifications: boolean }) => voi
 type Message = FirebaseMessagingTypes.RemoteMessage & {
   notification: { title: string }
   data: {
-    region_code: string
+    city_code: string
     language_code: string
     news_id: string
   }
@@ -106,7 +106,7 @@ const displayNotification = async (message: Message): Promise<void> => {
 }
 
 const routeInformationFromMessage = (message: Message): NonNullableRouteInformationType => ({
-  regionCode: message.data.region_code,
+  regionCode: message.data.city_code,
   languageCode: message.data.language_code,
   route: NEWS_ROUTE,
   newsType: LOCAL_NEWS_TYPE,

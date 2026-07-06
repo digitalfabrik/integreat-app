@@ -1,0 +1,7 @@
+issue_key: 4228
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Fix opening push notifications
+de: Push Nachrichten werden nun wieder korrekt geöffnet

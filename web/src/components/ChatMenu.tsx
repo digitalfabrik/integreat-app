@@ -5,7 +5,6 @@ import Button from '@mui/material/Button'
 import DialogActions from '@mui/material/DialogActions'
 import IconButton from '@mui/material/IconButton'
 import MuiMenu from '@mui/material/Menu'
-import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -94,10 +93,7 @@ const ChatMenu = ({ chatId, ticketUrl, resetChat }: ChatMenuProps): ReactElement
               </Button>
             </DialogActions>
           }>
-          <Stack>
-            <Typography variant='body2'>{t('newChatConfirmation')}</Typography>
-            <Typography variant='body2'>{t('newChatConfirmationMessage')}</Typography>
-          </Stack>
+          <Typography variant='body2'>{t('newChatConfirmation')}</Typography>
         </AlertDialog>
       )}
     </>

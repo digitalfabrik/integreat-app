@@ -12,7 +12,7 @@ import { config } from 'translations'
 
 import SearchInput from '../components/SearchInput'
 import Selector from '../components/Selector'
-import AlertDialog from '../components/base/AlertDialog'
+import { SimpleAlertDialog } from '../components/base/AlertDialog'
 import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContext'
@@ -99,12 +99,12 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
           {t('languageNotFoundQuestion')}
         </Button>
       </Wrapper>
-      <AlertDialog
+      <SimpleAlertDialog
         visible={!!alertDialogTitle}
         close={() => setAlertDialogTitle(null)}
         title={<Text variant='subtitle1'>{alertDialogTitle}</Text>}>
         <Text>{t('languageNotAvailableMessage')}</Text>
-      </AlertDialog>
+      </SimpleAlertDialog>
     </>
   )
 }

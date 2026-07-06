@@ -1,8 +1,7 @@
 {
   "name": "build-configs",
   "version": "0.0.1",
-  "main": "index.ts",
-  "description": "Build configs for the integreat project",
+  "description": "Build configs for the Integreat project",
   "private": true,
   "type": "module",
   "dependencies": {
@@ -10,38 +9,89 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "default": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./src/index.ts",
+      "types": "./src/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./aschaffenburg": {
+      "import": "./src/aschaffenburg/index.ts",
+      "types": "./src/aschaffenburg/index.d.ts",
+      "default": "./src/aschaffenburg/index.ts"
+    },
+    "./aschaffenburg/build-config-name": {
+      "import": "./src/aschaffenburg/build-config-name/index.ts",
+      "types": "./src/aschaffenburg/build-config-name/index.d.ts",
+      "default": "./src/aschaffenburg/build-config-name/index.ts"
+    },
+    "./integreat": {
+      "import": "./src/integreat/index.ts",
+      "types": "./src/integreat/index.d.ts",
+      "default": "./src/integreat/index.ts"
     },
     "./integreat/build-config-name": {
-      "import": "./dist/integreat/build-config-name/index.js",
-      "default": "./dist/integreat/build-config-name/index.js",
-      "types": "./dist/integreat/build-config-name/index.d.ts"
+      "import": "./src/integreat/build-config-name/index.ts",
+      "types": "./src/integreat/build-config-name/index.d.ts",
+      "default": "./src/integreat/build-config-name/index.ts"
+    },
+    "./integreat-e2e": {
+      "import": "./src/integreat-e2e/index.ts",
+      "types": "./src/integreat-e2e/index.d.ts",
+      "default": "./src/integreat-e2e/index.ts"
+    },
+    "./integreat-e2e/build-config-name": {
+      "import": "./src/integreat-e2e/build-config-name/index.ts",
+      "types": "./src/integreat-e2e/build-config-name/index.d.ts",
+      "default": "./src/integreat-e2e/build-config-name/index.ts"
     },
     "./integreat-test-cms": {
-      "import": "./dist/integreat-test-cms/index.js",
-      "default": "./dist/integreat-test-cms/index.js",
-      "types": "./dist/integreat-test-cms/index.d.ts"
+      "import": "./src/integreat-test-cms/index.ts",
+      "types": "./src/integreat-test-cms/index.d.ts",
+      "default": "./src/integreat-test-cms/index.ts"
     },
     "./integreat-test-cms/build-config-name": {
-      "import": "./dist/integreat-test-cms/build-config-name/index.js",
-      "default": "./dist/integreat-test-cms/build-config-name/index.js",
-      "types": "./dist/integreat-test-cms/build-config-name/index.d.ts"
+      "import": "./src/integreat-test-cms/build-config-name/index.ts",
+      "types": "./src/integreat-test-cms/build-config-name/index.d.ts",
+      "default": "./src/integreat-test-cms/build-config-name/index.ts"
+    },
+    "./malte": {
+      "import": "./src/malte/index.ts",
+      "types": "./src/malte/index.d.ts",
+      "default": "./src/malte/index.ts"
+    },
+    "./malte/build-config-name": {
+      "import": "./src/malte/build-config-name/index.ts",
+      "types": "./src/malte/build-config-name/index.d.ts",
+      "default": "./src/malte/build-config-name/index.ts"
+    },
+    "./malte-test-cms": {
+      "import": "./src/malte-test-cms/index.ts",
+      "types": "./src/malte-test-cms/index.d.ts",
+      "default": "./src/malte-test-cms/index.ts"
+    },
+    "./malte-test-cms/build-config-name": {
+      "import": "./src/malte-test-cms/build-config-name/index.ts",
+      "types": "./src/malte-test-cms/build-config-name/index.d.ts",
+      "default": "./src/malte-test-cms/build-config-name/index.ts"
     },
     "./obdach": {
-      "import": "./dist/obdach/index.js",
-      "default": "./dist/obdach/index.js",
-      "types": "./dist/obdach/index.d.ts"
+      "import": "./src/obdach/index.ts",
+      "types": "./src/obdach/index.d.ts",
+      "default": "./src/obdach/index.ts"
     },
-    "./aschaffenburg/assets/*": "./aschaffenburg/assets/*",
-    "./integreat/assets/*": "./integreat/assets/*",
-    "./malte/assets/*": "./malte/assets/*",
-    "./obdach/assets/*": "./obdach/assets/*",
+    "./obdach/build-config-name": {
+      "import": "./src/obdach/build-config-name/index.ts",
+      "types": "./src/obdach/build-config-name/index.d.ts",
+      "default": "./src/obdach/build-config-name/index.ts"
+    },
+    "./*.svg": {
+      "import": "./src/*.svg",
+      "types": "./src/*.svg",
+      "default": "./src/*.svg"
+    },
     "./*": {
-      "import": "./dist/*.js",
-      "default": "./dist/*.js",
-      "types": "./dist/*.d.ts"
+      "import": "./src/*.ts",
+      "types": "./src/*.ts",
+      "default": "./src/*.ts"
     }
   },
   "devDependencies": {

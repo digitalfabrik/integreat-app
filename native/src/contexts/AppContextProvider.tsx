@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { hasProp, uuid } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import appSettings, { ChatRegionSettings, SettingsType } from '../utils/AppSettings'
+import appSettings, { ChatRegionSettings, defaultSettings, SettingsType } from '../utils/AppSettings'
 import dataContainer from '../utils/DefaultDataContainer'
 import { subscribeNews, unsubscribeNews } from '../utils/PushNotificationsManager'
 import { captureError } from '../utils/sentry'
@@ -26,10 +26,16 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
     appSettings.loadSettings().then(setSettings).catch(captureError)
   }, [])
 
-  const updateSettings = useCallback((settings: Partial<SettingsType>) => {
-    setSettings(oldSettings => (oldSettings ? { ...oldSettings, ...settings } : null))
-    appSettings.setSettings(settings).catch(captureError)
-  }, [])
+  const updateSettings = useCallback(
+    (newSettings: Partial<SettingsType> | ((oldSettings: SettingsType) => Partial<SettingsType>)) => {
+      setSettings(oldSettings => {
+        const settings = typeof newSettings === 'function' ? newSettings(oldSettings ?? defaultSettings) : newSettings
+        appSettings.setSettings(settings).catch(captureError)
+        return oldSettings ? { ...oldSettings, ...settings } : null
+      })
+    },
+    [],
+  )
 
   const changeRegionCode = useCallback(
     (newRegionCode: string | null): void => {
@@ -59,13 +65,15 @@ const AppContextProvider = ({ children }: AppContextProviderProps): ReactElement
 
   const updateChatSettings = useCallback(
     (newChatSettings: Partial<ChatRegionSettings>): void => {
-      if (!settings || !regionCode) {
+      if (!regionCode) {
         return
       }
-      const chatRegionSettings = settings.chat[regionCode] ?? { id: uuid(), seenMessages: 0 }
-      updateSettings({ chat: { ...settings.chat, [regionCode]: { ...chatRegionSettings, ...newChatSettings } } })
+      updateSettings(oldSettings => {
+        const chatRegionSettings = oldSettings.chat[regionCode] ?? { id: uuid(), seenMessages: 0 }
+        return { chat: { ...oldSettings.chat, [regionCode]: { ...chatRegionSettings, ...newChatSettings } } }
+      })
     },
-    [updateSettings, regionCode, settings],
+    [updateSettings, regionCode],
   )
 
   useEffect(() => {
