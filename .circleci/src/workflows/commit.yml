@@ -1,4 +1,7 @@
 unless:
-  equal: [main, << pipeline.git.branch >>]
+  or:
+    - equal: [<< pipeline.git.branch >>, main]
+    - equal: [<< pipeline.trigger.type >>, api]
+    - equal: [<< pipeline.trigger.type >>, schedule]
 jobs:
   - check
