@@ -78,6 +78,7 @@ const TuNewsPage = ({ regionCode, languageCode, region }: RegionRouteProps): Rea
     languageChangePaths,
     languageCode,
     pageTitle,
+    slug: null,
     toolbar: <RegionContentToolbar />,
   }
 

@@ -8,11 +8,7 @@ import useRegionContentParams from '../hooks/useRegionContentParams'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import FeedbackToolbarItem from './FeedbackToolbarItem'
 
-type RegionContentToolbarProps = {
-  slug?: string
-}
-
-const RegionContentToolbar = ({ slug }: RegionContentToolbarProps): ReactElement | null => {
+const RegionContentToolbar = (): ReactElement | null => {
   const { route } = useRegionContentParams()
   useUpdateDimensions()
 
@@ -23,8 +19,8 @@ const RegionContentToolbar = ({ slug }: RegionContentToolbarProps): ReactElement
 
   return (
     <Stack id={TOOLBAR_ELEMENT_ID}>
-      <FeedbackToolbarItem key='positive' slug={slug} rating={RATING_POSITIVE} />
-      <FeedbackToolbarItem key='negative' slug={slug} rating={RATING_NEGATIVE} />
+      <FeedbackToolbarItem key='positive' rating={RATING_POSITIVE} />
+      <FeedbackToolbarItem key='negative' rating={RATING_NEGATIVE} />
     </Stack>
   )
 }

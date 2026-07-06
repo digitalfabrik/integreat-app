@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import { ImageViewModalRouteType } from 'shared'
-import { ErrorCode } from 'shared/api'
+import { ErrorCodes } from 'shared/api'
 
 import Failure from '../components/Failure'
 import PinchPanImage from '../components/PinchPanImage'
@@ -25,7 +25,7 @@ const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
   if (isError) {
     return (
       <Failure
-        code={ErrorCode.UnknownError}
+        code={ErrorCodes.UnknownError}
         retry={() => {
           setError(false)
           refresh()

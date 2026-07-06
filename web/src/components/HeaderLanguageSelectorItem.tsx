@@ -1,18 +1,15 @@
 import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
-import Button from '@mui/material/Button'
-import DialogActions from '@mui/material/DialogActions'
 import { drawerClasses } from '@mui/material/Drawer'
 import Popover from '@mui/material/Popover'
-import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
 import HeaderActionItem from './HeaderActionItem'
-import LanguageList, { LanguageChangePath } from './LanguageList'
+import LanguageSelection, { LanguageChangePath } from './LanguageSelection'
 import Sidebar from './Sidebar'
-import AlertDialog from './base/AlertDialog'
+import { SimpleAlertDialog } from './base/AlertDialog'
 
 const StyledSidebar = styled(Sidebar)({
   [`&.${drawerClasses.root}`]: {
@@ -33,24 +30,24 @@ const HeaderLanguageSelectorItem = ({
   forceText = false,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
   const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(null)
-  const [isLanguageNotAvailableDialogOpen, setIsLanguageNotAvailableDialogOpen] = useState(false)
+  const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
 
   const open = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorElement(event.currentTarget)
   const close = () => setAnchorElement(null)
-  const openUnavailableLanguageDialog = () => {
-    setIsLanguageNotAvailableDialogOpen(true)
+  const isOpen = anchorElement !== null
+
+  const openAlertDialog = (title: string) => {
+    setAlertDialogTitle(title)
     close()
   }
-  const closeUnavailableLanguageDialog = () => setIsLanguageNotAvailableDialogOpen(false)
-  const isOpen = anchorElement !== null
 
   const currentLanguageName = languageChangePaths.find(item => item.code === languageCode)?.name
 
-  const ChangeLanguageButton = (
+  const LanguageSelectionButton = (
     <HeaderActionItem
-      key='languageChange'
+      key='languages'
       onClick={open}
       text={isOpen ? '' : t('changeLanguage') /* to not cover the dropdown with the tooltip */}
       icon={<TranslateOutlinedIcon />}
@@ -58,30 +55,23 @@ const HeaderLanguageSelectorItem = ({
     />
   )
 
-  const languageNotAvailableDialog = isLanguageNotAvailableDialogOpen ? (
-    <AlertDialog
-      title={t('noTranslation')}
-      close={closeUnavailableLanguageDialog}
-      actions={
-        <DialogActions>
-          <Button onClick={closeUnavailableLanguageDialog} variant='outlined'>
-            {t('common:close')}
-          </Button>
-        </DialogActions>
-      }>
-      <Typography variant='body2'>{t('languageNotAvailableMessage')}</Typography>
-    </AlertDialog>
+  const languageNotAvailableDialog = alertDialogTitle ? (
+    <SimpleAlertDialog
+      title={alertDialogTitle}
+      body={t('languageNotAvailableMessage')}
+      close={() => setAlertDialogTitle(null)}
+    />
   ) : null
 
   if (mobile) {
     return (
       <>
-        <StyledSidebar openButton={ChangeLanguageButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
-          <LanguageList
+        <StyledSidebar openButton={LanguageSelectionButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
+          <LanguageSelection
             languageChangePaths={languageChangePaths}
             languageCode={languageCode}
             close={close}
-            onUnavailableLanguageClick={openUnavailableLanguageDialog}
+            openAlertDialog={openAlertDialog}
           />
         </StyledSidebar>
         {languageNotAvailableDialog}
@@ -91,7 +81,7 @@ const HeaderLanguageSelectorItem = ({
 
   return (
     <>
-      {ChangeLanguageButton}
+      {LanguageSelectionButton}
       <Popover
         open={isOpen}
         onClose={close}
@@ -109,11 +99,11 @@ const HeaderLanguageSelectorItem = ({
             sx: { boxShadow: 'none', overflow: 'visible' },
           },
         }}>
-        <LanguageList
+        <LanguageSelection
           languageChangePaths={languageChangePaths}
           languageCode={languageCode}
           close={close}
-          onUnavailableLanguageClick={openUnavailableLanguageDialog}
+          openAlertDialog={openAlertDialog}
         />
       </Popover>
       {languageNotAvailableDialog}

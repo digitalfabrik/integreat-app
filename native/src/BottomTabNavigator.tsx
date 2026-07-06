@@ -2,8 +2,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { NavigationProps, RoutesParamsType } from 'src/constants/NavigationTypes'
 import { DefaultTheme, useTheme } from 'styled-components/native'
 
 import {
@@ -20,10 +20,13 @@ import {
 } from 'shared'
 
 import { SignPostIcon } from './assets'
+import ChatFab from './components/ChatFab'
 import { defaultHeader } from './components/DefaultHeader'
 import Icon from './components/base/Icon'
 import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'
+import { NavigationProps, RoutesParamsType } from './constants/NavigationTypes'
+import buildConfig from './constants/buildConfig'
 import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
 import useRegionAppContext from './hooks/useRegionAppContext'
@@ -125,7 +128,8 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
     return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
-  const { eventsEnabled, placesEnabled, localNewsEnabled, tuNewsEnabled } = cachedData.region
+  const { eventsEnabled, placesEnabled, localNewsEnabled, tuNewsEnabled, chatEnabled } = cachedData.region
+  const chatVisible = buildConfig().featureFlags.chat && chatEnabled && regionCode === 'testumgebung'
 
   const Tabs = [
     <Tab.Screen
@@ -175,22 +179,25 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
   const bottomTabsVisible = Tabs.length > 1
 
   return (
-    <Tab.Navigator
-      id={TAB_NAVIGATOR_ID}
-      backBehavior='history'
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: theme.colors.onSurface,
-        tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
-        tabBarStyle: {
-          height: TAB_HEIGHT + insets.bottom,
-          backgroundColor: theme.colors.surfaceVariant,
-          display: bottomTabsVisible ? 'flex' : 'none',
-        },
-        sceneStyle: bottomTabsVisible ? undefined : { paddingBottom: insets.bottom },
-      }}>
-      {Tabs}
-    </Tab.Navigator>
+    <View style={{ flex: 1 }}>
+      <Tab.Navigator
+        id={TAB_NAVIGATOR_ID}
+        backBehavior='history'
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: theme.colors.onSurface,
+          tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
+          tabBarStyle: {
+            height: TAB_HEIGHT + insets.bottom,
+            backgroundColor: theme.colors.surfaceVariant,
+            display: bottomTabsVisible ? 'flex' : 'none',
+          },
+          sceneStyle: bottomTabsVisible ? undefined : { paddingBottom: insets.bottom },
+        }}>
+        {Tabs}
+      </Tab.Navigator>
+      {chatVisible && <ChatFab style={{ bottom: TAB_HEIGHT + insets.bottom }} />}
+    </View>
   )
 }
 

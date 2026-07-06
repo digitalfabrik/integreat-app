@@ -3,7 +3,7 @@ import PdfRendererView from 'react-native-pdf-renderer'
 import styled from 'styled-components/native'
 
 import { PdfViewModalRouteType } from 'shared'
-import { ErrorCode } from 'shared/api'
+import { ErrorCodes } from 'shared/api'
 
 import Failure from '../components/Failure'
 import Layout from '../components/Layout'
@@ -47,7 +47,7 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
     return (
       <Layout>
         <Failure
-          code={ErrorCode.UnknownError}
+          code={ErrorCodes.UnknownError}
           retry={() => {
             setError(false)
             refresh()

@@ -1,7 +1,6 @@
 {
   "name": "native",
   "version": "0.0.1",
-  "main": "index.ts",
   "private": true,
   "type": "module",
   "scripts": {
@@ -44,7 +43,7 @@
   "dependencies": {
     "@dr.pogodin/react-native-fs": "^2.37.0",
     "@dr.pogodin/react-native-static-server": "^0.26.0",
-    "@dr.pogodin/react-native-webview": "^13.17.1",
+    "@dr.pogodin/react-native-webview": "^13.17.4",
     "@formatjs/intl-displaynames": "^6.8.13",
     "@formatjs/intl-locale": "^4.2.13",
     "@gorhom/bottom-sheet": "^5.2.8",
@@ -64,7 +63,7 @@
     "@react-navigation/stack": "^7.8.9",
     "@sentry/react-native": "^8.6.0",
     "@sentry/types": "^10.46.0",
-    "build-configs": "0.0.1",
+    "build-configs": "workspace:^",
     "htmlparser2": "^10.1.0",
     "i18next": "^26.0.1",
     "intl-pluralrules": "^2.0.1",
@@ -94,10 +93,10 @@
     "react-native-url-polyfill": "^3.0.0",
     "react-native-worklets": "^0.8.1",
     "rrule": "^2.8.1",
-    "shared": "0.0.1",
+    "shared": "workspace:^",
     "styled-components": "6.3.12",
     "stylis": "^4.3.6",
-    "translations": "0.0.1",
+    "translations": "workspace:^",
     "url-parse": "^1.5.10"
   },
   "devDependencies": {

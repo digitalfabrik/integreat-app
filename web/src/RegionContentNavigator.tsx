@@ -1,5 +1,5 @@
 import React, { FunctionComponent, ReactElement, Suspense } from 'react'
-import { Navigate, Route, Routes, useLocation, useParams } from 'react-router'
+import { Navigate, Route, Routes, useLocation, useParams, useSearchParams } from 'react-router'
 
 import {
   CATEGORIES_ROUTE,
@@ -10,14 +10,17 @@ import {
   normalizePath,
   PLACES_ROUTE,
   SEARCH_ROUTE,
+  parseQueryParams,
 } from 'shared'
 import { NotFoundError, createRegionEndpoint } from 'shared/api'
 
+import ChatContainer from './components/ChatContainer'
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
 import Footer from './components/Footer'
 import GeneralHeader from './components/GeneralHeader'
 import LanguageFailure from './components/LanguageFailure'
 import Layout from './components/Layout'
+import LoadingSpinner from './components/LoadingSpinner'
 import RegionContentLayout from './components/RegionContentLayout'
 import { cmsApiBaseUrl } from './constants/urls'
 import useQueryFromEndpoint from './hooks/useQueryFromEndpoint'
@@ -45,6 +48,7 @@ type RegionContentNavigatorProps = {
 }
 
 const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): ReactElement => {
+  const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   // This component is only opened when there is a regionCode in the route
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const regionCode = useParams().regionCode!
@@ -90,6 +94,17 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
     )
   }
 
+  if (externalChatId) {
+    if (!region) {
+      return <LoadingSpinner />
+    }
+    return (
+      <Layout fitScreen>
+        <ChatContainer region={region} languageCode={languageCode} languageChangePaths={[]} />
+      </Layout>
+    )
+  }
+
   const regionRouteProps: RegionRouteProps = {
     region: region ?? null,
     pathname,
@@ -120,6 +135,7 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
                 isLoading
                 region={region}
                 pageTitle={null}
+                slug={null}
               />
             ) : (
               <Layout />

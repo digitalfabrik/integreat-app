@@ -12,6 +12,7 @@ jest.mock('../../hooks/useDimensions')
 jest.mock('../Footer', () => () => <div>Footer</div>)
 jest.mock('../RegionContentHeader', () => () => <div>RegionContentHeader</div>)
 jest.mock('react-i18next')
+jest.mock('../FeedbackContainer', () => () => <div>FeedbackContainer</div>)
 
 describe('RegionContentLayout', () => {
   beforeEach(jest.clearAllMocks)
@@ -34,6 +35,7 @@ describe('RegionContentLayout', () => {
           languageCode={language}
           languageChangePaths={languageChangePaths}
           pageTitle='Test Page'
+          slug={null}
           isLoading={isLoading}>
           <MockNode />
         </RegionContentLayout>
@@ -71,5 +73,10 @@ describe('RegionContentLayout', () => {
     const { getByText } = renderRegionContentLayout(true)
     expect(getByText('RegionContentHeader')).toBeTruthy()
     expect(() => getByText('Footer')).toThrow()
+  })
+
+  it('should show FeedbackContainer', () => {
+    const { getByText } = renderRegionContentLayout(false)
+    expect(getByText('FeedbackContainer')).toBeTruthy()
   })
 })

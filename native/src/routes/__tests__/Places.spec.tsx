@@ -165,20 +165,43 @@ describe('Places', () => {
     expect(localHistory.push).toHaveBeenCalledWith({ showFilterSelection: true })
   })
 
-  it('should call pop when showPlaces is pressed in filter modal', () => {
+  it('should not push to history when a category is selected inside the filter modal', () => {
+    const { localHistory, getByRole } = renderPlaces({ ...resetHistory, showFilterSelection: true })
+
+    fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
+
+    expect(localHistory.push).not.toHaveBeenCalled()
+    expect(localHistory.pushReset).not.toHaveBeenCalled()
+  })
+
+  it('should pop the filter modal entry before pushReset when showPlaces is pressed', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
     fireEvent.press(getByText('showPlaces'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
+    expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
+    expect(localHistory.pushReset).toHaveBeenCalledWith({
+      placeCategoryId: undefined,
+      currentlyOpen: false,
+    })
+    const popOrder = (localHistory.pop as jest.Mock).mock.invocationCallOrder[0]!
+    const pushResetOrder = (localHistory.pushReset as jest.Mock).mock.invocationCallOrder[0]!
+    expect(popOrder).toBeLessThan(pushResetOrder)
   })
 
-  it('should call pushReset with category id when a category is selected in filter modal', () => {
-    const { localHistory, getByRole } = renderPlaces({ ...resetHistory, showFilterSelection: true })
+  it('should apply the newly selected category when showPlaces is pressed', () => {
+    const { localHistory, getByRole, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
     fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
+    fireEvent.press(getByText('showPlaces'))
 
-    expect(localHistory.pushReset).toHaveBeenCalledWith({ placeCategoryId: place1.category.id, currentlyOpen: false })
+    expect(localHistory.pop).toHaveBeenCalledTimes(1)
+    expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
+    expect(localHistory.pushReset).toHaveBeenCalledWith({
+      placeCategoryId: place1.category.id,
+      currentlyOpen: false,
+    })
   })
 
   it('should call pushReset to clear category when category chip is pressed', () => {
@@ -186,6 +209,68 @@ describe('Places', () => {
 
     fireEvent.press(getAllByText('Gastronomie')[0]!)
 
-    expect(localHistory.pushReset).toHaveBeenCalledWith({ placeCategoryId: undefined, currentlyOpen: false })
+    expect(localHistory.pushReset).toHaveBeenCalledWith({
+      placeCategoryId: undefined,
+      currentlyOpen: false,
+    })
+  })
+
+  it('should call pushReset to clear currentlyOpen when currentlyOpen chip is pressed', () => {
+    const { localHistory, getByText } = renderPlaces({ ...resetHistory, currentlyOpen: true })
+
+    fireEvent.press(getByText('opened'))
+
+    expect(localHistory.pushReset).toHaveBeenCalledWith({
+      placeCategoryId: undefined,
+      currentlyOpen: false,
+    })
+  })
+
+  it('should open the filter modal with the current filter values after clearing via the chip', () => {
+    const renderAt = (current: PlaceHistory) => {
+      const localHistory = createLocalHistory(current)
+      return {
+        localHistory,
+        element: (
+          <TestingAppContext>
+            <Places
+              refresh={() => undefined}
+              localHistory={localHistory}
+              places={places}
+              regionModel={region}
+              initialZoom={undefined}
+            />
+          </TestingAppContext>
+        ),
+      }
+    }
+
+    const initial = renderAt({ ...resetHistory, showFilterSelection: true })
+    const { getByRole, getByText, getAllByText, rerender } = renderWithTheme(initial.element)
+
+    fireEvent.press(getByRole('switch', { name: 'Gastronomie' }))
+    fireEvent.press(getByText('showPlaces'))
+    expect(initial.localHistory.pushReset).toHaveBeenLastCalledWith({
+      placeCategoryId: place0.category.id,
+      currentlyOpen: false,
+    })
+
+    const filtered = renderAt({ ...resetHistory, placeCategoryId: place0.category.id })
+    rerender(filtered.element)
+
+    fireEvent.press(getAllByText('Gastronomie')[0]!)
+    expect(filtered.localHistory.pushReset).toHaveBeenLastCalledWith({
+      placeCategoryId: undefined,
+      currentlyOpen: false,
+    })
+
+    const reopened = renderAt({ ...resetHistory, showFilterSelection: true })
+    rerender(reopened.element)
+
+    fireEvent.press(getByText('showPlaces'))
+    expect(reopened.localHistory.pushReset).toHaveBeenLastCalledWith({
+      placeCategoryId: undefined,
+      currentlyOpen: false,
+    })
   })
 })

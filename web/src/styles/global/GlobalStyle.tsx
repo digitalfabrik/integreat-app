@@ -3,6 +3,7 @@ import { Theme } from '@mui/material/styles'
 
 const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
   body {
+    margin: 0;
     position: relative;
 
     /* stylelint-disable selector-class-pattern */

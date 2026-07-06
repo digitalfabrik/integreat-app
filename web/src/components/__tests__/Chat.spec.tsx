@@ -51,6 +51,7 @@ const render = (response = mockResponse(), serializedUnsyncedMessages: Serialize
       languageCode='de'
       serializedUnsyncedMessages={serializedUnsyncedMessages}
       setUnsyncedMessages={mockSetUnsyncedMessages}
+      openUrl={jest.fn()}
     />,
   )
 

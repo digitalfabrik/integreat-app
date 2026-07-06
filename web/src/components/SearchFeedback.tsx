@@ -1,13 +1,14 @@
 import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { FEEDBACK_QUERY_KEY, RATING_NEGATIVE } from 'shared'
 import { config } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
+import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import useRegionContentParams from '../hooks/useRegionContentParams'
-import FeedbackContainer from './FeedbackContainer'
 
 const Container = styled('div')`
   display: flex;
@@ -28,24 +29,15 @@ const Hint = styled('p')`
 `
 
 type SearchFeedbackProps = {
-  query: string
   noResults: boolean
 }
 
-const SearchFeedback = ({ query, noResults }: SearchFeedbackProps): ReactElement => {
-  const [showFeedback, setShowFeedback] = useState<boolean>(false)
+const SearchFeedback = ({ noResults }: SearchFeedbackProps): ReactElement => {
   const { languageCode } = useRegionContentParams()
   const { t } = useTranslation('feedback')
+  const { open } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
 
-  useEffect(() => setShowFeedback(false), [query])
-
-  if (showFeedback) {
-    return (
-      <Container>
-        <FeedbackContainer query={query} initialRating={null} noResults={noResults} />
-      </Container>
-    )
-  }
+  const openFeedback = () => open(RATING_NEGATIVE)
 
   if (noResults) {
     const fallbackLanguage = config.sourceLanguage
@@ -57,7 +49,7 @@ const SearchFeedback = ({ query, noResults }: SearchFeedbackProps): ReactElement
         </SmallTitle>
         <Hint>{t('checkQuery', { appName: buildConfig().appName })}</Hint>
         <SmallTitle>{t('informationMissing')}</SmallTitle>
-        <Button onClick={() => setShowFeedback(true)} variant='outlined'>
+        <Button onClick={openFeedback} variant='outlined'>
           {t('giveFeedback')}
         </Button>
       </CenteredContainer>
@@ -66,7 +58,7 @@ const SearchFeedback = ({ query, noResults }: SearchFeedbackProps): ReactElement
 
   return (
     <Container>
-      <Button onClick={() => setShowFeedback(true)}>{t('informationNotFound')}</Button>
+      <Button onClick={openFeedback}>{t('informationNotFound')}</Button>
     </Container>
   )
 }

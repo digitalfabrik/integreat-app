@@ -1,8 +1,16 @@
 import { dialogContentClasses } from '@mui/material/DialogContent'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect } from 'react'
+import { useSearchParams } from 'react-router'
 
-import { getChatName, CHAT_QUERY_KEY, CHAT_TYPING_POLLING_INTERVAL, CHAT_DEFAULT_POLLING_INTERVAL } from 'shared'
+import {
+  getChatName,
+  CHAT_QUERY_KEY,
+  CHAT_TYPING_POLLING_INTERVAL,
+  CHAT_DEFAULT_POLLING_INTERVAL,
+  uuid,
+  parseQueryParams,
+} from 'shared'
 import { createChatMessagesEndpoint, RegionModel, SerializedChatMessage } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
@@ -14,12 +22,13 @@ import useLocalStorage, { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY } from '../hooks/us
 import useLockedBody from '../hooks/useLockedBody'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
-import { chatIdKey, chatSeenMessagesKey, generateChatId } from '../utils/chat'
+import { chatIdKey, chatSeenMessagesKey } from '../utils/chat'
+import { openUrlInNewTab } from '../utils/openLink'
 import Chat from './Chat'
 import ChatFab from './ChatFab'
 import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
-import { LanguageChangePath } from './LanguageList'
+import { LanguageChangePath } from './LanguageSelection'
 import Dialog from './base/Dialog'
 
 const StyledDialog = styled(Dialog)({
@@ -36,15 +45,17 @@ type ChatContainerProps = {
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const { open, close, openUrl, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
+  const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const isBrowserTabActive = useIsTabActive()
   useLockedBody(visible)
 
-  const [chatId, setChatId] = useLocalStorage<string>({
+  const [storageChatId, setChatId] = useLocalStorage<string>({
     key: chatIdKey(region.code),
-    initialValue: generateChatId(),
+    initialValue: uuid(),
   })
+  const chatId = externalChatId ?? storageChatId
 
   const [unsyncedMessages, setUnsyncedMessages] = useLocalStorage<SerializedChatMessage[]>({
     key: CHAT_UNSYNCED_MESSAGES_STORAGE_KEY,
@@ -60,14 +71,15 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     cmsApiBaseUrl,
     {
       regionCode: region.code,
-      language: languageCode,
-      deviceId: chatId,
+      languageCode,
+      chatId,
     },
     { cached: false },
   )
 
   const { data, refetch } = response
   const botTyping = data?.botTyping
+  const ticketUrl = data?.ticketUrl ?? null
   const messageCount = data?.messages.length ?? 0
   const incomingMessageCount = data?.messages.filter(message => !message.userIsAuthor).length ?? 0
   const unreadMessageCount = incomingMessageCount - seenMessages
@@ -88,7 +100,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
 
   const resetChat = () => {
     setUnsyncedMessages([])
-    setChatId(generateChatId())
+    setChatId(uuid())
     setSeenMessages(0)
   }
 
@@ -106,6 +118,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
       <StyledDialog
         title={chatName}
         close={close}
+        showHeader={!externalChatId}
         actions={[
           ...(languageChangePaths
             ? [
@@ -116,7 +129,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
                 />,
               ]
             : []),
-          <ChatMenu key='chatMenu' chatId={chatId} resetChat={resetChat} />,
+          <ChatMenu key='chatMenu' chatId={chatId} ticketUrl={ticketUrl} resetChat={resetChat} />,
         ]}>
         <Chat
           chatId={chatId}
@@ -125,6 +138,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
           response={response}
           serializedUnsyncedMessages={unsyncedMessages}
           setUnsyncedMessages={setUnsyncedMessages}
+          openUrl={externalChatId ? openUrlInNewTab : null}
         />
       </StyledDialog>
     )

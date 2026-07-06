@@ -1,8 +1,9 @@
 import { fireEvent } from '@testing-library/react'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { getChatName } from 'shared'
-import { RegionModelBuilder } from 'shared/api'
+import { ChatMessageModel, RegionModelBuilder } from 'shared/api'
 
 import { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
@@ -133,6 +134,97 @@ describe('ChatContainer', () => {
     )
     expect(getAllByText(getChatName('IntegreatTestCms'))).toHaveLength(1)
     expect(router.state.location.search).toBe('?')
+  })
+
+  it('should open chat message links in a new tab when an external chat id is set', () => {
+    const href = 'https://example.com/'
+    mockUseQueryFromEndpointWithData({
+      messages: [
+        new ChatMessageModel({
+          id: 1,
+          content: `<a href="${href}">external link</a>`,
+          created: DateTime.fromISO('2026-03-10T10:28:00.000Z'),
+          userIsAuthor: false,
+          automaticAnswer: false,
+        }),
+      ],
+      botTyping: false,
+    })
+    const windowOpen = jest.spyOn(window, 'open').mockReturnValue(null)
+
+    const { getByRole } = renderRoute(
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+        searchParams: '?chat=true&chatId=external-id',
+      },
+    )
+
+    fireEvent.click(getByRole('link', { name: 'external link' }))
+    expect(windowOpen).toHaveBeenCalledWith(href, '_blank', 'noreferrer')
+
+    windowOpen.mockRestore()
+  })
+
+  it('should follow chat message links via the router when no external chat id is set', () => {
+    const href = 'https://integreat.app/augsburg/en'
+    mockUseQueryFromEndpointWithData({
+      messages: [
+        new ChatMessageModel({
+          id: 1,
+          content: `<a href="${href}">internal link</a>`,
+          created: DateTime.fromISO('2026-03-10T10:28:00.000Z'),
+          userIsAuthor: false,
+          automaticAnswer: false,
+        }),
+      ],
+      botTyping: false,
+    })
+    const windowOpen = jest.spyOn(window, 'open').mockReturnValue(null)
+
+    const { getByRole, router } = renderRoute(
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern: '/:regionCode/:languageCode/*',
+        searchParams: '?chat=true',
+      },
+    )
+
+    fireEvent.click(getByRole('link', { name: 'internal link' }))
+    expect(router.state.location.pathname).toBe('/augsburg/en')
+    expect(windowOpen).not.toHaveBeenCalled()
+
+    windowOpen.mockRestore()
+  })
+
+  it('should hide the dialog header when an external chat id is set', () => {
+    const { queryByLabelText, queryByText } = renderRoute(
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+        searchParams: '?chat=true&chatId=external-id',
+      },
+    )
+
+    expect(queryByLabelText('layout:common:close')).toBeNull()
+    expect(queryByText(getChatName('IntegreatTestCms'))).toBeNull()
+  })
+
+  it('should show the dialog header when no external chat id is set', () => {
+    const { getByLabelText, getByText } = renderRoute(
+      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      {
+        pathname,
+        routePattern,
+        searchParams: '?chat=true',
+      },
+    )
+
+    expect(getByLabelText('layout:common:close')).toBeTruthy()
+    expect(getByText(getChatName('IntegreatTestCms'))).toBeTruthy()
   })
 
   it('should switch the language', () => {

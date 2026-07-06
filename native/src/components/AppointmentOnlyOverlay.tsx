@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
 import Link from './Link'
-import AlertDialog from './base/AlertDialog'
+import { SimpleAlertDialog } from './base/AlertDialog'
 import Text from './base/Text'
 
 type AppointmentOnlyOverlayProps = {
@@ -19,7 +19,7 @@ const AppointmentOnlyOverlay = ({
   const { t } = useTranslation('places')
 
   return (
-    <AlertDialog
+    <SimpleAlertDialog
       visible={isVisible}
       close={closeOverlay}
       title={<Text variant='subtitle2'>{t('appointmentNecessary')}</Text>}>
@@ -29,7 +29,7 @@ const AppointmentOnlyOverlay = ({
           {appointmentUrl ? <Link url={appointmentUrl}>by react-i18next</Link> : <Text>by react-i18next</Text>}
         </Trans>
       </Text>
-    </AlertDialog>
+    </SimpleAlertDialog>
   )
 }
 

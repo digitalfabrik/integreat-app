@@ -1,4 +1,4 @@
-import config from '../config.js'
+import config from '../config.ts'
 
 describe('config', () => {
   it('should decide correctly whether a language is supported', () => {

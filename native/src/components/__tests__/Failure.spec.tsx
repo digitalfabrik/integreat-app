@@ -2,7 +2,7 @@ import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 
 import { NonNullableRouteInformationType, REGIONS_ROUTE } from 'shared'
-import { ErrorCode } from 'shared/api'
+import { ErrorCode, ErrorCodes } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -26,7 +26,7 @@ describe('Failure', () => {
 
   const renderFailure = (
     retry: (() => void) | null = null,
-    code: ErrorCode = ErrorCode.UnknownError,
+    code: ErrorCode = ErrorCodes.UnknownError,
     goTo?: NonNullableRouteInformationType | (() => void),
     goToLabel?: string,
   ): RenderAPI => render(<Failure code={code} retry={retry} goTo={goTo} goToLabel={goToLabel} />)
@@ -43,11 +43,11 @@ describe('Failure', () => {
 
   it('should show the error code as message', () => {
     const { getByText } = renderFailure()
-    expect(getByText(ErrorCode.UnknownError)).toBeTruthy()
+    expect(getByText(ErrorCodes.UnknownError)).toBeTruthy()
   })
 
   it('should show notFound.region for RegionUnavailable', () => {
-    const { getByText } = renderFailure(null, ErrorCode.RegionUnavailable)
+    const { getByText } = renderFailure(null, ErrorCodes.RegionUnavailable)
     expect(getByText('notFound.region')).toBeTruthy()
   })
 
@@ -64,27 +64,27 @@ describe('Failure', () => {
   })
 
   it('should use goToLabel for the back button when provided', () => {
-    const { getByText } = renderFailure(null, ErrorCode.UnknownError, undefined, 'error:goToRegions')
+    const { getByText } = renderFailure(null, ErrorCodes.UnknownError, undefined, 'error:goToRegions')
     expect(getByText('error:goToRegions')).toBeTruthy()
   })
 
   it('should call goTo when the back button is pressed and goTo is a function', () => {
     const goTo = jest.fn()
-    const { getByText } = renderFailure(null, ErrorCode.UnknownError, goTo)
+    const { getByText } = renderFailure(null, ErrorCodes.UnknownError, goTo)
     fireEvent.press(getByText('common:back'))
     expect(goTo).toHaveBeenCalled()
   })
 
   it('should call navigateTo with the route when goTo is a route object', () => {
     const goTo: NonNullableRouteInformationType = { route: REGIONS_ROUTE, languageCode: 'de' }
-    const { getByText } = renderFailure(null, ErrorCode.UnknownError, goTo)
+    const { getByText } = renderFailure(null, ErrorCodes.UnknownError, goTo)
     fireEvent.press(getByText('common:back'))
     expect(navigateTo).toHaveBeenCalledWith(goTo)
   })
 
   it('should navigate back if goTo is not passed', () => {
     mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation: { ...navigation, canGoBack: () => true } }))
-    const { getByText } = renderFailure(null, ErrorCode.UnknownError)
+    const { getByText } = renderFailure(null, ErrorCodes.UnknownError)
     fireEvent.press(getByText('common:back'))
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
@@ -94,7 +94,7 @@ describe('Failure', () => {
       navigateTo,
       navigation: { ...navigation, canGoBack: () => false },
     }))
-    const { getByText } = renderFailure(null, ErrorCode.UnknownError)
+    const { getByText } = renderFailure(null, ErrorCodes.UnknownError)
     fireEvent.press(getByText('common:back'))
     expect(navigateTo).toHaveBeenCalledTimes(1)
     expect(navigateTo).toHaveBeenCalledWith({ route: REGIONS_ROUTE, languageCode: '' })

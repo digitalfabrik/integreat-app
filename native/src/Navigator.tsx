@@ -6,7 +6,7 @@ import {
   BOTTOM_TAB_ROUTE,
   BottomTabRouteType,
   CategoriesRouteType,
-  CHANGE_LANGUAGE_MODAL_ROUTE,
+  LANGUAGES_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
@@ -23,6 +23,7 @@ import {
   RedirectRouteType,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
+  CHAT_ROUTE,
 } from 'shared'
 
 import BottomTabNavigator from './BottomTabNavigator'
@@ -36,12 +37,13 @@ import buildConfig from './constants/buildConfig'
 import useLoadRegions from './hooks/useLoadRegions'
 import { useAppContext } from './hooks/useRegionAppContext'
 import useSnackbar from './hooks/useSnackbar'
-import ChangeLanguageModal from './routes/ChangeLanguageModal'
+import Chat from './routes/Chat'
 import Consent from './routes/Consent'
 import FeedbackModalContainer from './routes/FeedbackModalContainer'
 import ImageViewModal from './routes/ImageViewModal'
 import ImprintContainer from './routes/ImprintContainer'
 import Intro from './routes/Intro'
+import LanguageSelection from './routes/LanguageSelection'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import MainImprint from './routes/MainImprint'
@@ -60,7 +62,7 @@ type HeaderProps = {
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
 
-const settingsHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} showMenu={false} />
+const settingsHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} menu={null} />
 
 const Stack = createStackNavigator<RoutesParamsType>()
 
@@ -152,12 +154,13 @@ const Navigator = (): ReactElement | null => {
       <Stack.Group screenOptions={{ header: defaultHeader }}>
         <Stack.Screen name={IMPRINT_ROUTE} component={ImprintContainer} />
         <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
+        <Stack.Screen name={CHAT_ROUTE} component={Chat} />
         <Stack.Screen name={REGIONS_ROUTE} component={Regions} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
         <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
-        <Stack.Screen name={CHANGE_LANGUAGE_MODAL_ROUTE} component={ChangeLanguageModal} />
+        <Stack.Screen name={LANGUAGES_ROUTE} component={LanguageSelection} />
         <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
         {buildConfig().featureFlags.suggestToRegion && (
           <Stack.Screen name={SUGGEST_TO_REGION_ROUTE} component={SuggestToRegion} />

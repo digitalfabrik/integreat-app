@@ -8,6 +8,7 @@ type CustomIconProps = {
   width?: number | string
   height?: number | string
   className?: string
+  ariaLabel?: string
 }
 
 const Svg = ({
@@ -15,6 +16,7 @@ const Svg = ({
   width = DEFAULT_ICON_SIZE,
   height = DEFAULT_ICON_SIZE,
   className,
+  ariaLabel,
 }: CustomIconProps): ReactElement => (
   <ReactSVG
     src={src}
@@ -25,6 +27,7 @@ const Svg = ({
       svg.setAttribute('style', 'color: inherit')
     }}
     wrapper='span'
+    {...(ariaLabel ? { role: 'img', 'aria-label': ariaLabel } : {})}
   />
 )
 

@@ -3,7 +3,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import {
   CategoriesRouteType,
-  ChangeLanguageModalRouteType,
+  LanguagesRouteType,
   ImprintRouteType,
   MainImprintRouteType,
   EventsRouteType,
@@ -29,7 +29,7 @@ import {
   MAIN_IMPRINT_ROUTE,
   SETTINGS_ROUTE,
   SEARCH_ROUTE,
-  CHANGE_LANGUAGE_MODAL_ROUTE,
+  LANGUAGES_ROUTE,
   PDF_VIEW_MODAL_ROUTE,
   IMAGE_VIEW_MODAL_ROUTE,
   FEEDBACK_MODAL_ROUTE,
@@ -49,6 +49,8 @@ import {
   PlacesTabRouteType,
   NEWS_TAB_ROUTE,
   NewsTabRouteType,
+  CHAT_ROUTE,
+  ChatRouteType,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
@@ -67,12 +69,13 @@ export type RootRoutesType =
   | MainImprintRouteType
   | SettingsRouteType
   | SearchRouteType
-  | ChangeLanguageModalRouteType
+  | LanguagesRouteType
   | PdfViewModalRouteType
   | ImageViewModalRouteType
   | FeedbackModalRouteType
   | LicensesRouteType
   | ConsentRouteType
+  | ChatRouteType
   | BottomTabRouteType
 
 export type RoutesType = RootRoutesType | TabRoutesType | NestedRoutesType
@@ -114,6 +117,7 @@ export type RootRoutesParamsType = {
   [INTRO_ROUTE]: undefined
   [REGIONS_ROUTE]: undefined
   [SUGGEST_TO_REGION_ROUTE]: undefined
+  [CHAT_ROUTE]: undefined
   [IMPRINT_ROUTE]: undefined
   [MAIN_IMPRINT_ROUTE]: undefined
   [CONSENT_ROUTE]: undefined
@@ -122,7 +126,7 @@ export type RootRoutesParamsType = {
     searchText?: string | null
   }
   [LICENSES_ROUTE]: undefined
-  [CHANGE_LANGUAGE_MODAL_ROUTE]: {
+  [LANGUAGES_ROUTE]: {
     languages: LanguageModel[]
     availableLanguages: string[]
   }

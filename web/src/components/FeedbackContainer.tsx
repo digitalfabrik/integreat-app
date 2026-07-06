@@ -2,41 +2,38 @@ import CloseIcon from '@mui/icons-material/Close'
 import IconButton from '@mui/material/IconButton'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router'
 
-import { Rating, SendingStatusType } from 'shared'
+import { FEEDBACK_QUERY_KEY, parseQueryParams, Rating, RATING_POSITIVE, SEARCH_ROUTE, SendingStatusType } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
+import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import { captureError } from '../utils/sentry'
 import Feedback from './Feedback'
+import Dialog from './base/Dialog'
 import Snackbar from './base/Snackbar'
 
 type FeedbackContainerProps = {
-  query?: string
-  noResults?: boolean
-  slug?: string
-  onSubmit?: () => void
-  onError?: () => void
-  initialRating: Rating | null
+  slug: string | null
 }
 
-export const FeedbackContainer = ({
-  query,
-  noResults,
-  slug,
-  onSubmit,
-  onError,
-  initialRating,
-}: FeedbackContainerProps): ReactElement => {
+const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | null => {
+  const { visible, open, close, value: rating } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
+  const [queryParams] = useSearchParams()
   const { t } = useTranslation('feedback')
-  const [rating, setRating] = useState<Rating | null>(initialRating)
+  const { route, regionCode, languageCode } = useRegionContentParams()
+  const { searchText } = parseQueryParams(queryParams)
+  const query = route === SEARCH_ROUTE ? searchText : undefined
+
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
-  const { route, regionCode, languageCode } = useRegionContentParams()
+
+  const setRating = (newRating: Rating | null) => open(newRating ?? undefined)
 
   useEffect(() => {
     setSearchTerm(query)
@@ -54,38 +51,41 @@ export const FeedbackContainer = ({
         comment,
         contactMail,
         query,
-        slug,
+        slug: slug ?? undefined,
         searchTerm,
-        isPositiveRating: !noResults && rating === 'positive',
+        isPositiveRating: rating === RATING_POSITIVE,
       })
 
       setSendingStatus('successful')
       setSnackbarOpen(true)
-      onSubmit?.()
+      close()
     }
 
     request().catch(err => {
       captureError(err)
       setSendingStatus('failed')
       setSnackbarOpen(true)
-      onError?.()
     })
   }
 
   return (
     <>
-      <Feedback
-        language={languageCode}
-        onCommentChanged={setComment}
-        onContactMailChanged={setContactMail}
-        onSubmit={handleSubmit}
-        rating={rating}
-        comment={comment}
-        setRating={setRating}
-        contactMail={contactMail}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-      />
+      {visible && (
+        <Dialog title={t('headline')} close={close}>
+          <Feedback
+            language={languageCode}
+            onCommentChanged={setComment}
+            onContactMailChanged={setContactMail}
+            onSubmit={handleSubmit}
+            rating={rating ?? null}
+            comment={comment}
+            setRating={setRating}
+            contactMail={contactMail}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+        </Dialog>
+      )}
       <Snackbar
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}

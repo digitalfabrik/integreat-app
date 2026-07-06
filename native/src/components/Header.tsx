@@ -6,7 +6,7 @@ import {
   BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CategoriesRouteType,
-  CHANGE_LANGUAGE_MODAL_ROUTE,
+  LANGUAGES_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   EventsRouteType,
@@ -17,12 +17,15 @@ import {
   PLACES_ROUTE,
   PlacesRouteType,
   SEARCH_ROUTE,
+  CHAT_ROUTE,
+  getChatName,
 } from 'shared'
 import { FeedbackRouteType, LanguageModel } from 'shared/api'
 import { config } from 'translations'
 
 import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContext'
 import useSnackbar from '../hooks/useSnackbar'
@@ -51,13 +54,13 @@ type HeaderProps = {
   route: RouteProps<RoutesType>
   navigation: NavigationProps<RoutesType>
   showItems?: boolean
-  showMenu?: boolean
   languages?: LanguageModel[]
   availableLanguages?: string[]
   shareUrl?: string
   regionName?: string
   forceText?: boolean
   goBack?: () => void
+  menu?: ReactElement | null
 }
 
 const Header = ({
@@ -66,11 +69,11 @@ const Header = ({
   availableLanguages = route.name === REGIONS_ROUTE ? supportedLanguages.map(it => it.code) : undefined,
   shareUrl,
   showItems = false,
-  showMenu = true,
   languages = route.name === REGIONS_ROUTE ? supportedLanguages : undefined,
   regionName,
   forceText = route.name === REGIONS_ROUTE,
   goBack,
+  menu,
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
   const { languageCode, regionCode } = useContext(AppContext)
@@ -105,7 +108,7 @@ const Header = ({
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
       showSnackbar({ text: 'layout:noTranslation' })
     } else if (languages && availableLanguages) {
-      navigation.navigate(CHANGE_LANGUAGE_MODAL_ROUTE, {
+      navigation.navigate(LANGUAGES_ROUTE, {
         languages,
         availableLanguages,
       })
@@ -183,6 +186,17 @@ const Header = ({
     />,
   ]
 
+  const defaultMenu = (
+    <HeaderMenu
+      navigation={navigation}
+      visible={menuVisible}
+      setVisible={setMenuVisible}
+      menuItems={menuItems}
+      shareUrl={shareUrl}
+      pageTitle={pageTitle}
+    />
+  )
+
   const isSinglePlaceFromPlacesRoute = (): boolean => {
     const placesRouteParams = route.params as RoutesParamsType[PlacesRouteType] | undefined
     const isSinglePlace = !!placesRouteParams?.slug || placesRouteParams?.multiPlace !== undefined
@@ -221,6 +235,10 @@ const Header = ({
       return { title: t('changeLocation'), language: undefined } // system language
     }
 
+    if (previousRoute.name === CHAT_ROUTE) {
+      return { title: getChatName(buildConfig().appName), language: undefined } // system language
+    }
+
     return { title: t(previousRoute.name), language: undefined } // system language
   }
 
@@ -239,16 +257,8 @@ const Header = ({
           regionsPath={regionsPath}
         />
         <ActionButtons items={items} />
-        {showMenu && (
-          <HeaderMenu
-            navigation={navigation}
-            visible={menuVisible}
-            setVisible={setMenuVisible}
-            menuItems={menuItems}
-            shareUrl={shareUrl}
-            pageTitle={pageTitle}
-          />
-        )}
+        {/* Passing null should hide the menu, so don't simplify this to menu ?? defaultMenu */}
+        {menu !== undefined ? menu : defaultMenu}
       </Horizontal>
     </BoxShadow>
   )

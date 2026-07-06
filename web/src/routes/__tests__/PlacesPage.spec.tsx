@@ -51,7 +51,7 @@ describe('PlacesPage', () => {
           <Route element={null} path=':slug' />
         </Route>
       </Routes>,
-      { pathname: path ?? '/locations' },
+      { pathname: path ?? '/places' },
     )
 
   it('should render a list with all places', () => {
@@ -78,7 +78,7 @@ describe('PlacesPage', () => {
 
   it('should calculate correct language change paths', () => {
     mockUseQueryFromEndpointWithData(places)
-    const { getAllByText, getByRole } = renderPlaces('/locations/test')
+    const { getAllByText, getByRole } = renderPlaces('/places/test')
     fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
 
     expect(getAllByText('English')[0]?.closest('a')).toHaveAttribute('href', place0.availableLanguages.en)
