@@ -71,7 +71,7 @@ const EventListItem = ({
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
   const { t } = useTranslation('events')
-  const isRecurringDateIcon = event.isRecurring ? (
+  const recurringDateIcon = event.isRecurring ? (
     <Tooltip title={t('recurring')}>
       <EventRepeatOutlinedIcon />
     </Tooltip>
@@ -80,7 +80,7 @@ const EventListItem = ({
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
 
   return (
-    <StyledListItem dir='auto' disablePadding secondaryAction={isRecurringDateIcon}>
+    <StyledListItem dir='auto' disablePadding secondaryAction={recurringDateIcon}>
       <StyledListItemButton component={Link} to={event.path}>
         <ListItemIcon>
           <Icon src={thumbnailSrc} alt='' />

@@ -2,24 +2,17 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
-import {
-  EVENTS_ROUTE,
-  EVENT_DATE_GROUPS,
-  groupEventsByDate,
-  RouteInformationType,
-  useDateFilter,
-  DateGroupKey,
-} from 'shared'
+import { EVENTS_ROUTE, groupEventsByDate, RouteInformationType, useDateFilter } from 'shared'
 import { RegionModel, EventModel } from 'shared/api'
 
 import Caption from '../components/Caption'
 import EventListItem from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
 import Layout from '../components/Layout'
-import Text from '../components/base/Text'
 import { contentAlignment } from '../constants/contentDirection'
+import { ListEmptyComponent } from './List'
 
 const ListContainer = styled(Layout)`
   padding: 0 8px;
@@ -39,6 +32,7 @@ type EventListProps = {
 }
 
 const EventList = ({ events, regionModel, language, navigateTo, refresh }: EventListProps): ReactElement => {
+  const theme = useTheme()
   const { t } = useTranslation('events', { lng: language })
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
 
@@ -46,13 +40,7 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
   if (startDate || endDate) {
     sections = filteredEvents.length > 0 ? [{ title: null, data: filteredEvents }] : []
   } else {
-    const groupedEvents = groupEventsByDate(events)
-    sections = EVENT_DATE_GROUPS.filter((key: DateGroupKey) => groupedEvents[key].length > 0).map(
-      (key: DateGroupKey) => ({
-        title: t(key),
-        data: groupedEvents[key],
-      }),
-    )
+    sections = groupEventsByDate(events).map(([key, events]) => ({ title: t(key), data: events }))
   }
 
   const renderEventListItem = ({ item }: { item: EventModel }) => {
@@ -77,7 +65,9 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
 
   const renderSectionHeader = ({ section }: { section: EventSection }) =>
     section.title ? (
-      <PaperList.Subheader style={{ textAlign: contentAlignment(language) }}>{section.title}</PaperList.Subheader>
+      <PaperList.Subheader style={{ textAlign: contentAlignment(language), backgroundColor: theme.colors.background }}>
+        {section.title}
+      </PaperList.Subheader>
     ) : null
 
   return (
@@ -86,6 +76,7 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
         sections={sections}
         renderItem={renderEventListItem}
         renderSectionHeader={renderSectionHeader}
+        stickySectionHeadersEnabled
         ListHeaderComponent={
           <>
             <Caption title={t('events')} />
@@ -99,16 +90,7 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
             />
           </>
         }
-        ListEmptyComponent={
-          <Text
-            variant='body2'
-            style={{
-              alignSelf: 'center',
-              marginTop: 20,
-            }}>
-            {t('currentlyNoEvents')}
-          </Text>
-        }
+        ListEmptyComponent={<ListEmptyComponent noItemsMessage={t('currentlyNoEvents')} />}
         refreshing={false}
         onRefresh={refresh}
         showsVerticalScrollIndicator={false}

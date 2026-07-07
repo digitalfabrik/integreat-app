@@ -1,11 +1,10 @@
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
-import { EventModelBuilder, DateModel } from 'shared/api'
+import { EventModelBuilder, DateModel, LocationModel } from 'shared/api'
 
-import { LocationModel } from '../../api/index.js'
-import EventModel from '../../api/models/EventModel.js'
-import { filterEvents, groupEventsByDate } from '../events.js'
+import EventModel from '../../api/models/EventModel.ts'
+import { DateGroupKey, filterEvents, groupEventsByDate } from '../events.ts'
 
 jest.useFakeTimers({ now: new Date('2023-10-02T10:00:00.000+02:00') })
 
@@ -116,6 +115,8 @@ describe('events', () => {
   describe('groupEventsByDate', () => {
     const language = 'de'
     const event = new EventModelBuilder('seed', 1, 'augsburg', language).build()[0]!
+    const getGroup = (groups: [DateGroupKey, EventModel[]][], key: DateGroupKey): EventModel[] =>
+      groups.find(([groupKey]) => groupKey === key)?.[1] ?? []
 
     const createEvent = (start: string, rrule?: string) =>
       Object.assign(event, {
@@ -131,31 +132,31 @@ describe('events', () => {
     it('should group an event starting today into today', () => {
       const event = createEvent('2023-10-02T15:00:00.000+02:00')
       const groups = groupEventsByDate([event])
-      expect(groups.today).toContain(event)
+      expect(getGroup(groups, 'today')).toContain(event)
     })
 
     it('should group an event starting tomorrow into tomorrow', () => {
       const event = createEvent('2023-10-03T15:00:00.000+02:00')
       const groups = groupEventsByDate([event])
-      expect(groups.tomorrow).toContain(event)
+      expect(getGroup(groups, 'tomorrow')).toContain(event)
     })
 
     it('should group an event a few days out into this week', () => {
       const event = createEvent('2023-10-07T15:00:00.000+02:00')
       const groups = groupEventsByDate([event])
-      expect(groups.thisWeek).toContain(event)
+      expect(getGroup(groups, 'thisWeek')).toContain(event)
     })
 
     it('should group an event a few weeks out into this month', () => {
       const event = createEvent('2023-10-25T15:00:00.000+02:00')
       const groups = groupEventsByDate([event])
-      expect(groups.thisMonth).toContain(event)
+      expect(getGroup(groups, 'thisMonth')).toContain(event)
     })
 
     it('should group an event beyond 30 days into further', () => {
       const event = createEvent('2023-12-01T15:00:00.000+02:00')
       const groups = groupEventsByDate([event])
-      expect(groups.further).toContain(event)
+      expect(getGroup(groups, 'further')).toContain(event)
     })
 
     it('should sort one-time events chronologically, then recurring chronologically', () => {
@@ -171,7 +172,7 @@ describe('events', () => {
       )
 
       const groups = groupEventsByDate([recurringLate, oneTimeLate, recurringEarly, oneTimeEarly])
-      expect(groups.today).toEqual([oneTimeEarly, oneTimeLate, recurringEarly, recurringLate])
+      expect(getGroup(groups, 'today')).toEqual([oneTimeEarly, oneTimeLate, recurringEarly, recurringLate])
     })
 
     it('should group a recurring event by its next occurrence', () => {
@@ -180,7 +181,7 @@ describe('events', () => {
         'DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO',
       )
       const groups = groupEventsByDate([recurring])
-      expect(groups.today).toContain(recurring)
+      expect(getGroup(groups, 'today')).toContain(recurring)
     })
   })
 })

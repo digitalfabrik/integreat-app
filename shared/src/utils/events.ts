@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 
-import EventModel from '../api/models/EventModel.js'
-import { isEventWithinRange } from './dateFilterUtils.js'
+import EventModel from '../api/models/EventModel.ts'
+import { isEventWithinRange } from './dateFilterUtils.ts'
 
 export const filterEvents = (
   events: EventModel[],
@@ -44,7 +44,8 @@ const sortGroup = (events: EventModel[]): EventModel[] =>
     return a.date.startDate.toMillis() - b.date.startDate.toMillis()
   })
 
-export const groupEventsByDate = (events: EventModel[]): Record<DateGroupKey, EventModel[]> =>
-  Object.fromEntries(
-    EVENT_DATE_GROUPS.map(key => [key, sortGroup(events.filter(event => getGroupKey(event) === key))]),
-  ) as Record<DateGroupKey, EventModel[]>
+export const groupEventsByDate = (events: EventModel[]): [DateGroupKey, EventModel[]][] =>
+  EVENT_DATE_GROUPS.map((key): [DateGroupKey, EventModel[]] => [
+    key,
+    sortGroup(events.filter(event => getGroupKey(event) === key)),
+  ]).filter(([_, events]) => events.length > 0)
