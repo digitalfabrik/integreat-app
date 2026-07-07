@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { KeyboardAvoidingView, Platform } from 'react-native'
+import { KeyboardAvoidingView, Platform, View } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import { MAX_SEARCH_RESULTS, parseHTML, SEARCH_ROUTE, SearchRouteType, useDebounce, useSearch } from 'shared'
@@ -62,7 +62,7 @@ const Search = ({
   )
 
   return (
-    <Layout {...testID('Search-Page')}>
+    <Layout>
       <SearchHeader navigation={navigation} query={query} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {debouncedQuery.length > 0 && (

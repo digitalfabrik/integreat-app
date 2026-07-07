@@ -28,6 +28,15 @@ export class Selector {
     return this
   }
 
+  public byContentDesc(text: string): Selector {
+    if (driver.isAndroid) {
+      this.queries.push(`.description("${text}")`)
+    } else {
+      this.queries.push(`label LIKE '${text}'`)
+    }
+    return this
+  }
+
   public build(): string {
     if (driver.isAndroid) {
       return `android=new UiSelector()${this.queries.join('')}`

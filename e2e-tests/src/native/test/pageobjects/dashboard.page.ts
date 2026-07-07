@@ -10,7 +10,7 @@ class DashboardPage extends Page {
   }
 
   get headerOverflowButton(): ReturnType<typeof $> {
-    return $('~More options')
+    return $('~Settings')
   }
 
   get languageIcon(): ReturnType<typeof $> {
