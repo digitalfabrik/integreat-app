@@ -4,8 +4,9 @@ import { useTheme } from 'styled-components/native'
 
 const Switch = (props: SwitchProps): ReactElement => {
   const theme = useTheme()
-  // The ios_backgroundColor prop is used to set the background under the handle to improve contrast on iOS.
-  return <RNSwitch ios_backgroundColor={theme.colors.outline} {...props} />
+  // ios_backgroundColor sets the OFF-state track color on iOS. outline rendered too subtle to tell
+  // an off switch from an on one, so use onSurfaceVariant, a clearly visible gray.
+  return <RNSwitch ios_backgroundColor={theme.colors.onSurfaceVariant} {...props} />
 }
 
 export default Switch
