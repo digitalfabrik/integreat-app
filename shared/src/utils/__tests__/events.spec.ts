@@ -62,7 +62,7 @@ describe('events', () => {
       expect(result).toEqual(events)
     })
 
-    it('returns null when startDate is after endDate', () => {
+    it('returns empty array when startDate is after endDate', () => {
       const startDate = now.plus({ days: 2 })
       const endDate = now
       const result = filterEvents(events, startDate, endDate)
