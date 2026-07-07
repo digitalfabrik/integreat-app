@@ -133,7 +133,7 @@ function buildConfigAssetsPlugin(assetsDir: string): Plugin {
     },
     closeBundle() {
       if (existsSync(assetsDir)) {
-        cpSync(assetsDir, outDir, { recursive: true })
+        cpSync(assetsDir, outDir, { recursive: true, dereference: true })
       }
     },
   }
