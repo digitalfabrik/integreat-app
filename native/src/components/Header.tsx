@@ -104,17 +104,6 @@ const Header = ({
   const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t(route.name)
   const pageTitle = regionName !== routeTitle ? `${routeTitle} - ${regionName}` : routeTitle
 
-  const goToLanguageChange = () => {
-    if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
-      showSnackbar({ text: 'layout:noTranslation' })
-    } else if (languages && availableLanguages) {
-      navigation.navigate(LANGUAGES_ROUTE, {
-        languages,
-        availableLanguages,
-      })
-    }
-  }
-
   const getCategorySlug = (path?: string): string | undefined => (path ? getSlugFromPath(path) : undefined)
 
   const getSlugForRoute = (): string | undefined => {
@@ -133,6 +122,19 @@ const Header = ({
 
       default:
         return undefined
+    }
+  }
+
+  const goToLanguageChange = () => {
+    if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
+      showSnackbar({ text: 'layout:noTranslation' })
+    } else if (languages && availableLanguages) {
+      navigation.navigate(LANGUAGES_ROUTE, {
+        languages,
+        availableLanguages,
+        previousRouteType: route.name as FeedbackRouteType,
+        slug: getSlugForRoute(),
+      })
     }
   }
 
