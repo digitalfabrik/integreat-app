@@ -11,7 +11,7 @@ describe('navigate to search result', () => {
     await DashboardPage.searchIcon.click()
     await SearchPage.get()
 
-    const searchBar = await SearchPage.search
+    const searchBar = await SearchPage.contentSearch
     await searchBar.addValue(contentSearch)
 
     const searchResult = $(new Selector().byBeginsWith('Language').build())

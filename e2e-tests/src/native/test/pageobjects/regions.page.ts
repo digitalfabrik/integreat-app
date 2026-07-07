@@ -14,7 +14,7 @@ class RegionsPage extends Page {
   }
 
   get search(): ReturnType<typeof $> {
-    return $('~Search-Input')
+    return $('~Search region')
   }
 
   region(name: string) {

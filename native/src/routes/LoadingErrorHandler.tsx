@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import React, { ReactElement, ReactNode, useContext, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 
 import { REGIONS_ROUTE } from 'shared'
@@ -15,7 +15,7 @@ import { AppContext } from '../contexts/AppContext'
 const LOADING_TIMEOUT = 800
 
 type LoadingErrorHandlerProps = {
-  children?: ReactElement | null
+  children?: ReactNode | null
   error: Error | ErrorCode | null
   loading: boolean
   refresh: () => void

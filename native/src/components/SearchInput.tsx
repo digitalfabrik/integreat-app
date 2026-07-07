@@ -21,9 +21,17 @@ type SearchInputProps = {
   setValue: (value: string) => void
   description?: string
   style?: StyleProp<ViewStyle>
+  ariaLabel: string
 }
 
-const SearchInput = ({ placeholderText, value, setValue, description, style }: SearchInputProps): ReactElement => {
+const SearchInput = ({
+  placeholderText,
+  value,
+  setValue,
+  description,
+  style,
+  ariaLabel,
+}: SearchInputProps): ReactElement => {
   const { t } = useTranslation('search')
   const theme = useTheme()
 
@@ -37,7 +45,7 @@ const SearchInput = ({ placeholderText, value, setValue, description, style }: S
           onBlur={Keyboard.dismiss}
           placeholderTextColor={theme.colors.onSurfaceVariant}
           placeholder={placeholderText}
-          aria-label={placeholderText}
+          aria-label={ariaLabel}
           value={value}
           onChangeText={setValue}
           role='searchbox'

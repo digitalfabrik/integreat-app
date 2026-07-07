@@ -1,11 +1,14 @@
 import React, { ReactElement } from 'react'
+import { View } from 'react-native'
 
 import { prepareSearchDocuments, SearchRouteType } from 'shared'
 import { config } from 'translations'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
 import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useRegionAppContext from '../hooks/useRegionAppContext'
+import testID from '../testing/testID'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Search from './Search'
 
@@ -28,6 +31,7 @@ const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElem
 
   return (
     <LoadingErrorHandler {...response}>
+      {buildConfig().e2e && <View {...testID('Search-Page')} style={{ height: 0.5 }} />}
       {data && (
         <Search
           navigation={navigation}
