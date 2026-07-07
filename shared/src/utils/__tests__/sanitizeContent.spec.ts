@@ -1,4 +1,4 @@
-import { sanitizeContent } from '../sanitizeContent.js'
+import { sanitizeContent } from '../sanitizeContent.ts'
 
 describe('sanitizeContent', () => {
   const allowedIframes = ['vimeo.com']

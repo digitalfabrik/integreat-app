@@ -1,6 +1,6 @@
 import sanitizeHtml from 'sanitize-html'
 
-export const sanitizeContent = (content: string, options: { supportedIframeSources?: string[] }): string => {
+export const sanitizeContent = (content: string, options: { supportedIframeSources: string[] }): string => {
   if (!content) {
     return ''
   }
@@ -15,8 +15,6 @@ export const sanitizeContent = (content: string, options: { supportedIframeSourc
       img: ['src', 'srcset', 'alt', 'title', 'width', 'height', 'loading', 'style'],
       '*': ['class', 'style', 'dir', 'aria-*', 'data-*'],
     },
-    ...(supportedIframeSources && supportedIframeSources.length > 0
-      ? { allowedIframeHostnames: supportedIframeSources }
-      : {}),
+    allowedIframeHostnames: supportedIframeSources,
   })
 }
