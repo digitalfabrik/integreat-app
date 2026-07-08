@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { KeyboardAvoidingView, Platform, View } from 'react-native'
+import { KeyboardAvoidingView, Platform } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import { MAX_SEARCH_RESULTS, parseHTML, SEARCH_ROUTE, SearchRouteType, useDebounce, useSearch } from 'shared'
@@ -15,7 +15,6 @@ import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useCaptureError from '../hooks/useCaptureError'
-import testID from '../testing/testID'
 
 export type SearchProps = {
   navigation: NavigationProps<SearchRouteType>

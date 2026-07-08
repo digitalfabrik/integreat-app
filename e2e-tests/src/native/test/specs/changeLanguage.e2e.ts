@@ -16,6 +16,7 @@ describe('change language', () => {
 
     const german = $(new Selector().byText('Deutsch').build())
     await german.waitForExist({ timeout: 10000 })
+    // requires double click to work (the first click selects the language and the second click fires it)
     await german.click()
     await german.click()
     await $(new Selector().byText('Willkommen').build()).waitForDisplayed({ timeout: 50000 })

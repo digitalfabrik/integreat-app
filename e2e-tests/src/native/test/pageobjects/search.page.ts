@@ -8,6 +8,10 @@ class SearchPage extends Page {
   get contentSearch(): ReturnType<typeof $> {
     return $('~Search content')
   }
+
+  public async get(): Promise<true | void> {
+    return $('~Search content').waitForExist({ timeout: 10000 })
+  }
 }
 
 export default new SearchPage()

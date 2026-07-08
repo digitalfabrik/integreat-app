@@ -86,7 +86,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
     <>
       <Wrapper contentContainerStyle={styles.contentContainer}>
         <SearchInput
-          ariaLabel={t('Search language')}
+          ariaLabel={t('searchLanguage')}
           setValue={setQuery}
           value={query}
           placeholderText={currentLanguage?.name}
