@@ -13,6 +13,8 @@ describe('SearchInput', () => {
     const onClickInput = jest.fn()
     const { getByPlaceholderText } = renderWithTheme(
       <SearchInput
+        id='unique id'
+        ariaLabel='aria label'
         filterText='Test'
         placeholderText='Placeholder'
         onClickInput={onClickInput}
@@ -32,7 +34,13 @@ describe('SearchInput', () => {
 
   it('should blur the input when pressing Enter to dismiss the keyboard', () => {
     const { getByPlaceholderText } = renderWithTheme(
-      <SearchInput filterText='Test' placeholderText='Placeholder' onFilterTextChange={jest.fn()} />,
+      <SearchInput
+        id='unique id'
+        ariaLabel='aria label'
+        filterText='Test'
+        placeholderText='Placeholder'
+        onFilterTextChange={jest.fn()}
+      />,
     )
     const input = getByPlaceholderText('Placeholder')
     input.focus()
