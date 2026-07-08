@@ -6880,7 +6880,7 @@
     "de": {
       "welcome": "Willkommen bei {{appName}}.",
       "welcomeInformation": "Dein digitaler Guide für alle Informationen, die du brauchst. Bitte wähle deine Region aus.",
-      "searchRegion": "Suche",
+      "searchRegion": "Suche Region",
       "noRegionsFound": "Keine Ergebnisse",
       "nearbyRegions": "In der Nähe",
       "noNearbyRegions": "Keine Regionen in der Nähe gefunden.",
@@ -7020,7 +7020,7 @@
     "en": {
       "welcome": "Welcome to {{appName}}.",
       "welcomeInformation": "Your digital guide for all the information you need. Please select your region.",
-      "searchRegion": "Search",
+      "searchRegion": "Search region",
       "noRegionsFound": "No results",
       "nearbyRegions": "In the vicinity",
       "noNearbyRegions": "No region found in the vicinity.",
@@ -7382,7 +7382,7 @@
       "searchRegionDescription": "Birin ti regia jali aver majbari diz, sar so si o {{exampleRegion}}"
     },
     "ru": {
-      "searchRegion": "Поиск",
+      "searchRegion": "Поиск региона",
       "noRegionsFound": "Результаты не найдены",
       "nearbyRegions": "Близлежащие регионы",
       "noNearbyRegions": "Близлежащие регионы не найдены.",
@@ -7636,7 +7636,8 @@
       "languageNotAvailableMessage": "Diese Seite ist noch nicht in allen Sprachen verfügbar. Wir erweitern unser Sprachangebot aktiv. Du kannst deine Sprache über die Feedback-Funktion anfragen.",
       "noLanguageFound": "Keine Sprache gefunden",
       "languageNotFoundQuestion": "Sprache nicht gefunden?",
-      "search": "Suchen",
+      "search": "Suche",
+      "searchLanguage": "Suche Sprache",
       "locations": "Karte",
       "changeLocation": "Standort wechseln",
       "changeLanguage": "Sprache wechseln",
@@ -7952,6 +7953,7 @@
       "noLanguageFound": "No language found",
       "languageNotFoundQuestion": "Language not found?",
       "search": "Search",
+      "searchLanguage": "Search language",
       "locations": "Map",
       "changeLocation": "Change location",
       "changeLanguage": "Change language",
@@ -8757,6 +8759,7 @@
       "noLanguages": "Недоступно на других языках",
       "noTranslation": "Перевод недоступен",
       "search": "Поиск",
+      "searchLanguage": "Поиск языка",
       "locations": "Карта",
       "changeLocation": "Изменить местоположение",
       "changeLanguage": "Изменить язык",
@@ -14332,7 +14335,7 @@
   "search": {
     "de": {
       "nothingFound": "Es wurden leider keine passenden Ergebnisse gefunden.",
-      "searchPlaceholder": "Suche",
+      "searchContent": "Suche Inhalt",
       "itemHint": "Suchergebnis öffnen",
       "searchResultsCount_zero": "0 Suchergebnisse",
       "searchResultsCount_one": "1 Suchergebnis",
@@ -14436,7 +14439,7 @@
     },
     "en": {
       "nothingFound": "Sorry, we could not find any matching results.",
-      "searchPlaceholder": "Search",
+      "searchContent": "Search content",
       "itemHint": "View search result",
       "searchResultsCount_zero": "0 search results",
       "searchResultsCount_one": "1 search result",
@@ -14709,7 +14712,7 @@
     },
     "ru": {
       "nothingFound": "К сожалению, подходящие результаты не найдены.",
-      "searchPlaceholder": "Поиск",
+      "searchContent": "Поиск информации",
       "itemHint": "Открыть результат поиска",
       "searchResultsCount_zero": "0 результатов поиска",
       "searchResultsCount_one": "1 результат поиска",

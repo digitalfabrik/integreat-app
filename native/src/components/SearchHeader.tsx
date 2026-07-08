@@ -39,10 +39,10 @@ const SearchHeader = ({ query, navigation, onSearchChanged }: SearchHeaderProps)
           iconColor={theme.colors.onSurface}
         />
         <SearchInput
-          ariaLabel={t('Search content')}
+          ariaLabel={t('search:searchContent')}
           setValue={onSearchChanged}
           value={query}
-          placeholderText={t('search:searchPlaceholder')}
+          placeholderText={t('search:searchContent')}
           style={{ flex: 1 }}
         />
       </Horizontal>

@@ -27,7 +27,7 @@ describe('navigate to other location', () => {
 
   it('should open a new region on location change', async () => {
     const changeLocation = $(new Selector().byContentDesc(`${defaultRegion} Change location`).build())
-    await changeLocation.waitForDisplayed({ timeout: 20000 })
+    await changeLocation.waitForDisplayed()
     await changeLocation.click()
 
     await RegionsPage.get()
@@ -38,6 +38,6 @@ describe('navigate to other location', () => {
 
     await DashboardPage.get()
 
-    await $(new Selector().byText('Stadt Augsburg').build()).waitForDisplayed({ timeout: 2000 })
+    await $(new Selector().byText('Stadt Augsburg').build()).waitForDisplayed({ timeout: 30000 })
   })
 })

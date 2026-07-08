@@ -68,7 +68,7 @@ const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): 
         <SearchInput
           setValue={setFilterText}
           value={filterText}
-          ariaLabel={t('Search region')}
+          ariaLabel={t('searchRegion')}
           placeholderText={exampleRegion?.sortingName ?? REGION_SEARCH_EXAMPLE}
           description={t('searchRegionDescription', { exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE })}
         />
