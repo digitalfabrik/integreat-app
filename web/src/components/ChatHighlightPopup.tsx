@@ -17,7 +17,7 @@ const POPUP_OFFSET = -8
 const AVATAR_SIZE = 24
 
 const StyledPopper = styled(Popper)`
-  z-index: ${props => props.theme.zIndex.tooltip};
+  z-index: ${props => props.theme.zIndex.fab};
 `
 
 const StyledAvatar = styled(Avatar)`
