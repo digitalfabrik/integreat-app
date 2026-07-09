@@ -782,7 +782,11 @@ jobs:
             - restore_yarn_tools_cache
             - run:
                 command: |
-                    RELEASE=$(npx --no app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+                    NO_SET_LATEST=""
+                    if [ "<< parameters.platform >>" = "web" ]; then
+                      NO_SET_LATEST="--no-set-latest"
+                    fi
+                    RELEASE=$(npx --no app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} ${NO_SET_LATEST})
                     echo "export RELEASE='${RELEASE}'" >> $BASH_ENV
                 name: Remove prerelease flag from github release
                 working_directory: tools
@@ -813,7 +817,11 @@ jobs:
             - generate_sbom
             - run:
                 command: |
-                    RELEASE=$(npx --no app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release<</ parameters.production_delivery >>)
+                    NO_SET_LATEST=""
+                    if [ "<< parameters.platform >>" = "web" ]; then
+                      NO_SET_LATEST="--no-set-latest"
+                    fi
+                    RELEASE=$(npx --no app-toolbelt v0 release create << parameters.platform >> ${NEW_VERSION_NAME} ${NEW_VERSION_CODE} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} <<# parameters.production_delivery >>--production-release ${NO_SET_LATEST}<</ parameters.production_delivery >>)
                     echo "export RELEASE_ID=$(echo ${RELEASE} | jq .id)" >> ${BASH_ENV}
                     echo "export RELEASE_NOTES=$(echo ${RELEASE} | jq .releaseNotes)" >> ${BASH_ENV}
                 name: Create github release
