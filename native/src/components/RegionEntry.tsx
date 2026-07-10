@@ -74,7 +74,6 @@ const RegionEntry = ({ region, query, navigateToDashboard }: RegionEntryProps): 
       }
       description={Aliases}
       role='link'
-      testID='Region-Entry'
       accessibilityLabel={region.name}
       onPress={() => navigateToDashboard(region)}
       accessibilityLanguage={languageCode}

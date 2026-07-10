@@ -4,8 +4,7 @@ import DashboardPage from '../pageobjects/dashboard.page.js'
 import RegionsPage from '../pageobjects/regions.page.js'
 
 export const navigateToDashboard = async (): Promise<void> => {
-  const regionsPage = RegionsPage
-  await regionsPage.get()
+  await RegionsPage.get()
   const search = await RegionsPage.search
   await search.setValue(filter)
   await Keyboard.hide()

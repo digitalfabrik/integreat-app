@@ -1,16 +1,13 @@
+import { identifyByLabel } from '../helpers/identifyByLabel.js'
 import { Page } from './page.js'
 
 class SearchPage extends Page {
-  constructor() {
-    super('Search-Page')
-  }
-
   get contentSearch(): ReturnType<typeof $> {
-    return driver.isAndroid ? $('~Search content') : $('//*[@label="Search content"]')
+    return identifyByLabel('Search content')
   }
 
-  public async get(): Promise<true | void> {
-    return this.contentSearch.waitForExist({ timeout: 10000 })
+  async get(): Promise<void> {
+    await this.contentSearch.waitForExist({ timeout: 10000 })
   }
 }
 

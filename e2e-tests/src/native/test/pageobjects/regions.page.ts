@@ -1,20 +1,17 @@
 import Gestures from '../helpers/Gestures.js'
 import { Selector } from '../helpers/Selector.js'
+import { identifyByLabel } from '../helpers/identifyByLabel.js'
 import { Page } from './page.js'
 
 const MAX_SCROLLS = 4
 
 class RegionsPage extends Page {
-  constructor() {
-    super('Regions-Page')
-  }
-
-  get regions(): ReturnType<typeof $$> {
-    return $$('~Region-Entry')
-  }
-
   get search(): ReturnType<typeof $> {
-    return driver.isAndroid ? $('~Search region') : $('//*[@label="Search region"]')
+    return identifyByLabel('Search region')
+  }
+
+  async get(): Promise<void> {
+    await this.search.waitForDisplayed({ timeout: 40000 })
   }
 
   region(name: string) {

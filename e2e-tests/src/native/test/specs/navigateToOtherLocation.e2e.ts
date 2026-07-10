@@ -6,13 +6,14 @@ import RegionsPage from '../pageobjects/regions.page.js'
 
 describe('navigate to other location', () => {
   it('should open a region on location selection', async () => {
-    const regionsPage = RegionsPage
-    await regionsPage.get()
+    await RegionsPage.get()
 
-    const regions = RegionsPage.regions
     const search = RegionsPage.search
 
-    expect(await regions.length).toBeGreaterThan(0)
+    // check whether regions exist
+    await $(`~StädteRegion Aachen`).waitForDisplayed({ timeout: 10000 })
+    await $(`~Landkreis Aichach-Friedberg`).waitForDisplayed({ timeout: 10000 })
+
     await search.waitForDisplayed()
     await search.click()
     await search.setValue(filter)
@@ -37,9 +38,10 @@ describe('navigate to other location', () => {
     const newRegion = await RegionsPage.region(augsburgRegion)
     await newRegion.waitForDisplayed({ timeout: 30000 })
     await newRegion.click()
-    console.log(driver.getPageSource())
-    await DashboardPage.get()
 
-    await $(new Selector().byText('Stadt Augsburg Change location').build()).waitForDisplayed({ timeout: 30000 })
+    const welcomeDashboardCategory = $(new Selector().byContentDesc(`Welcome to Augsburg`).build())
+    await welcomeDashboardCategory.waitForDisplayed({ timeout: 40000 })
+
+    await $(new Selector().byContentDesc('Stadt Augsburg Change location').build()).waitForDisplayed()
   })
 })
