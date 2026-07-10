@@ -9,7 +9,7 @@ type ListProps = {
   noItemsMessage?: string | ReactElement
   disablePadding?: boolean
   className?: string
-  withDividers?: boolean
+  showDividers?: boolean
 }
 
 const List = ({
@@ -17,7 +17,7 @@ const List = ({
   noItemsMessage,
   disablePadding,
   className,
-  withDividers: showDividers = true,
+  showDividers = true,
 }: ListProps): ReactElement | null => {
   if (items.length === 0) {
     return typeof noItemsMessage === 'string' ? <Failure errorMessage={noItemsMessage} /> : (noItemsMessage ?? null)
