@@ -9,6 +9,7 @@ import { EventModel } from 'shared/api'
 
 import EventListItem from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
+import { withDividers } from '../utils'
 import List from './base/List'
 
 type EventListGroupProps = {
@@ -17,16 +18,14 @@ type EventListGroupProps = {
   languageCode: string
 }
 
-export const EventListGroup = ({ title, events, languageCode }: EventListGroupProps): ReactElement => {
+const EventListGroup = ({ title, events, languageCode }: EventListGroupProps): ReactElement => {
   const theme = useTheme()
   return (
     <Stack paddingBlock={1}>
       <ListSubheader component='h2' style={{ backgroundColor: theme.palette.background.default }}>
         {title}
       </ListSubheader>
-      {events.map(event => (
-        <EventListItem event={event} languageCode={languageCode} key={event.path} />
-      ))}
+      {withDividers(events.map(event => <EventListItem event={event} languageCode={languageCode} key={event.path} />))}
     </Stack>
   )
 }
@@ -77,7 +76,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
   return (
     <>
       {dateFilter}
-      <List items={dateGroups} noItemsMessage='events:currentlyNoEvents' />
+      <List items={dateGroups} noItemsMessage='events:currentlyNoEvents' withDividers={false} />
     </>
   )
 }

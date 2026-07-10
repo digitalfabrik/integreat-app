@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList } from 'react-native'
-import { List as PaperList } from 'react-native-paper'
+import { Divider, List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { EVENTS_ROUTE, groupEventsByDate, RouteInformationType, useDateFilter } from 'shared'
@@ -94,6 +94,7 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
         refreshing={false}
         onRefresh={refresh}
         showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={Divider}
       />
     </ListContainer>
   )
