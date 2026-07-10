@@ -1,15 +1,9 @@
-import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Trans } from 'react-i18next'
 
 import { RATING_NEGATIVE, toQueryParams } from 'shared'
 
 import Link from './base/Link'
-
-const StyledLink = styled(Link)(({ theme }) => ({
-  color: theme.palette.primary.main,
-  textDecoration: 'underline',
-}))
 
 type LanguageNotAvailableMessageProps = {
   feedbackAvailable?: boolean
@@ -23,9 +17,9 @@ const LanguageNotAvailableMessage = ({
   <Trans i18nKey='layout:languageNotAvailableMessage'>
     This gets replaced
     {feedbackAvailable ? (
-      <StyledLink to={`?${toQueryParams({ feedback: RATING_NEGATIVE })}`} onClick={close}>
+      <Link to={`?${toQueryParams({ feedback: RATING_NEGATIVE })}`} onClick={close} highlighted>
         by react-i18next
-      </StyledLink>
+      </Link>
     ) : (
       <span>by react-i18next</span>
     )}

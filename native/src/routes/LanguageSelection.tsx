@@ -53,7 +53,7 @@ type LanguageSelectionProps = {
 }
 
 const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): ReactElement => {
-  const { languages, availableLanguages, previousRouteType, slug } = route.params
+  const { languages, availableLanguages, routeType, slug } = route.params
   const { languageCode, changeLanguageCode } = useContext(AppContext)
   const { loading } = useLoadAsync(useCallback(() => loadPolyfillIfNeeded(languageCode), [languageCode]))
   const [query, setQuery] = useState('')
@@ -108,7 +108,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
         title={<Text variant='subtitle1'>{alertDialogTitle}</Text>}>
         <LanguageNotAvailableMessage
           navigation={navigation}
-          previousRouteType={previousRouteType}
+          routeType={routeType}
           slug={slug}
           close={closeAlertDialog}
         />

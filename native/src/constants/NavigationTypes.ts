@@ -129,7 +129,7 @@ export type RootRoutesParamsType = {
   [LANGUAGES_ROUTE]: {
     languages: LanguageModel[]
     availableLanguages: string[]
-    previousRouteType?: FeedbackRouteType
+    routeType?: FeedbackRouteType
     slug?: string
   }
   [PDF_VIEW_MODAL_ROUTE]: {

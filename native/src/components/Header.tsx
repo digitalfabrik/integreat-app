@@ -132,7 +132,7 @@ const Header = ({
       navigation.navigate(LANGUAGES_ROUTE, {
         languages,
         availableLanguages,
-        previousRouteType: route.name as FeedbackRouteType,
+        routeType: route.name as FeedbackRouteType,
         slug: getSlugForRoute(),
       })
     }
