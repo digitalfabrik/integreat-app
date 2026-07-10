@@ -31,7 +31,7 @@ Before first starting the test:
 - Then verify it is installed: `appium driver list --installed`. If any required tools are missing, run: `appium driver doctor xcuitest`.
 
 - Choose or create a simulator. Check whether a simulator matching the capabilities in `wdio-ios.conf.ts` is available: `xcrun simctl list devices available`.
-If the simulator specified in the capabilities in `wdio-ios.conf.ts` is not in the list, create it in Xcode via **Window → Devices and Simulators → Simulators → +**, then run the command above again to confirm it now appears.
+  If the simulator specified in the capabilities in `wdio-ios.conf.ts` is not in the list, create it in Xcode via **Window → Devices and Simulators → Simulators → +**, then run the command above again to confirm it now appears.
 
 - Once it is in the list, boot it (use the device name from the list): `xcrun simctl boot "iPhone 16e"`.
 
