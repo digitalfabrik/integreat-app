@@ -9,6 +9,7 @@ describe('navigate to other location', () => {
     await RegionsPage.get()
 
     const search = RegionsPage.search
+    Keyboard.hide()
 
     // check whether regions exist
     await $(`~StädteRegion Aachen`).waitForDisplayed({ timeout: 10000 })
