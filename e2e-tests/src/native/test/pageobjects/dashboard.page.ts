@@ -6,15 +6,15 @@ class DashboardPage extends Page {
   }
 
   get searchIcon(): ReturnType<typeof $> {
-    return $('~Search')
+    return driver.isAndroid ? $('~Search') : $('//*[@label="Search"]')
   }
 
-  get headerOverflowButton(): ReturnType<typeof $> {
-    return $('~Settings')
+  get settintgsIcon(): ReturnType<typeof $> {
+    return driver.isAndroid ? $('~Settings') : $('//*[@label="Settings"]')
   }
 
   get languageIcon(): ReturnType<typeof $> {
-    return $('~Change language')
+    return driver.isAndroid ? $('~Change language') : $('//*[@label="Change language"]')
   }
 }
 

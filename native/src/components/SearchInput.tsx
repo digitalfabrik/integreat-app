@@ -4,7 +4,6 @@ import { Keyboard, StyleProp, View, ViewStyle } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import testID from '../testing/testID'
 import Text from './base/Text'
 
 const InputWrapper = styled.View`
@@ -39,7 +38,6 @@ const SearchInput = ({
     <View style={style}>
       <InputWrapper>
         <TextInput
-          {...testID('Search-Input')}
           multiline={false}
           autoFocus
           onBlur={Keyboard.dismiss}

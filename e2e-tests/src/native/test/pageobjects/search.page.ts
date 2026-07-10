@@ -6,11 +6,11 @@ class SearchPage extends Page {
   }
 
   get contentSearch(): ReturnType<typeof $> {
-    return $('~Search content')
+    return driver.isAndroid ? $('~Search content') : $('//*[@label="Search content"]')
   }
 
   public async get(): Promise<true | void> {
-    return $('~Search content').waitForExist({ timeout: 10000 })
+    return this.contentSearch.waitForExist({ timeout: 10000 })
   }
 }
 

@@ -14,7 +14,7 @@ class RegionsPage extends Page {
   }
 
   get search(): ReturnType<typeof $> {
-    return $('~Search region')
+    return driver.isAndroid ? $('~Search region') : $('//*[@label="Search region"]')
   }
 
   region(name: string) {

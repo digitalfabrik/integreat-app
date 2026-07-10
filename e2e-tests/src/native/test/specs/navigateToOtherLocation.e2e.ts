@@ -1,4 +1,5 @@
 import { augsburgRegion, defaultRegion, filter } from '../../../shared/constants.js'
+import Keyboard from '../helpers/Keyboard.js'
 import { Selector } from '../helpers/Selector.js'
 import DashboardPage from '../pageobjects/dashboard.page.js'
 import RegionsPage from '../pageobjects/regions.page.js'
@@ -15,6 +16,7 @@ describe('navigate to other location', () => {
     await search.waitForDisplayed()
     await search.click()
     await search.setValue(filter)
+    await Keyboard.hide()
 
     const filteredRegion = await RegionsPage.region(defaultRegion)
 
@@ -31,13 +33,13 @@ describe('navigate to other location', () => {
     await changeLocation.click()
 
     await RegionsPage.get()
-
+    await Keyboard.hide()
     const newRegion = await RegionsPage.region(augsburgRegion)
     await newRegion.waitForDisplayed({ timeout: 30000 })
     await newRegion.click()
-
+    console.log(driver.getPageSource())
     await DashboardPage.get()
 
-    await $(new Selector().byText('Stadt Augsburg').build()).waitForDisplayed({ timeout: 30000 })
+    await $(new Selector().byText('Stadt Augsburg Change location').build()).waitForDisplayed({ timeout: 30000 })
   })
 })

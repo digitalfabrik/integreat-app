@@ -7,7 +7,6 @@ import { getMatchingAliases, MAX_NUMBER_OF_ALIASES_SHOWN } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import { AppContext } from '../contexts/AppContext'
-import testID from '../testing/testID'
 import Highlighter from './Highlighter'
 import Text from './base/Text'
 
@@ -75,7 +74,8 @@ const RegionEntry = ({ region, query, navigateToDashboard }: RegionEntryProps): 
       }
       description={Aliases}
       role='link'
-      {...testID('Region-Entry')}
+      testID='Region-Entry'
+      accessibilityLabel={region.name}
       onPress={() => navigateToDashboard(region)}
       accessibilityLanguage={languageCode}
     />
