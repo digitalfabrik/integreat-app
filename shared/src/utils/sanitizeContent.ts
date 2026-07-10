@@ -15,6 +15,6 @@ export const sanitizeContent = (content: string, options: { supportedIframeSourc
       img: ['src', 'srcset', 'alt', 'title', 'width', 'height', 'loading', 'style'],
       '*': ['class', 'style', 'dir', 'aria-*', 'data-*'],
     },
-    allowedIframeHostnames: supportedIframeSources,
+    allowedIframeDomains: supportedIframeSources,
   })
 }
