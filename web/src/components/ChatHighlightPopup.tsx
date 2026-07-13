@@ -17,7 +17,7 @@ const POPUP_OFFSET = -8
 const AVATAR_SIZE = 24
 
 const StyledPopper = styled(Popper)`
-  z-index: ${props => props.theme.zIndex.tooltip};
+  z-index: ${props => props.theme.zIndex.fab};
 `
 
 const StyledAvatar = styled(Avatar)`
@@ -82,7 +82,7 @@ const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): Re
       open={visible && Boolean(anchorEl)}
       anchorEl={anchorEl}
       placement='top-end'
-      modifiers={[{ name: 'offset', options: { offset: [POPUP_OFFSET, 0] } }]}>
+      modifiers={[{ name: 'offset', options: { offset: [POPUP_OFFSET, 4] } }]}>
       <StyledPaper elevation={2}>
         <Stack padding={2} gap={1}>
           <Stack direction='row' alignItems='center' gap={1}>
