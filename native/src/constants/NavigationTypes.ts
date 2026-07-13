@@ -145,6 +145,8 @@ export type RootRoutesParamsType = {
     language: string
     regionCode: string
     slug?: string
+    // used noResults here just to set the initial feedback to negative.
+    noResults?: boolean
   }
   [BOTTOM_TAB_ROUTE]: { screen: TabRoutesType; params: TabRoutesParamsType[TabRoutesType] } | {}
 }

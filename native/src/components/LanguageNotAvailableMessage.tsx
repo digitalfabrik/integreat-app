@@ -33,6 +33,7 @@ const LanguageNotAvailableMessage = ({
         language: languageCode,
         regionCode,
         slug,
+        noResults: true,
       })
     }
   }
