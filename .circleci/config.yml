@@ -949,9 +949,16 @@ workflows:
         jobs:
             - check
         unless:
-            equal:
-                - main
-                - << pipeline.git.branch >>
+            or:
+                - equal:
+                    - << pipeline.git.branch >>
+                    - main
+                - equal:
+                    - << pipeline.trigger.type >>
+                    - api
+                - equal:
+                    - << pipeline.trigger.type >>
+                    - schedule
     commit_main:
         jobs:
             - bump_version:
@@ -971,9 +978,18 @@ workflows:
                 requires:
                     - build_web
         when:
-            equal:
-                - main
-                - << pipeline.git.branch >>
+            and:
+                - equal:
+                    - << pipeline.git.branch >>
+                    - main
+                - not:
+                    or:
+                        - equal:
+                            - << pipeline.trigger.type >>
+                            - api
+                        - equal:
+                            - << pipeline.trigger.type >>
+                            - schedule
     delivery:
         jobs:
             - bump_version:
