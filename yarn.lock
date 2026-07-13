@@ -8491,9 +8491,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"app-toolbelt@github:digitalfabrik/app-toolbelt#semver:1.1.0":
-  version: 0.10.0
-  resolution: "app-toolbelt@https://github.com/digitalfabrik/app-toolbelt.git#commit=5f187615098119059206f36508b2944e66ba838a"
+"app-toolbelt@github:digitalfabrik/app-toolbelt#semver:1.2.0":
+  version: 1.2.0
+  resolution: "app-toolbelt@https://github.com/digitalfabrik/app-toolbelt.git#commit=2c09f8ff01b7ef1ef5739e904f822899190dc3c7"
   dependencies:
     "@expo/plist": "npm:^0.5.2"
     "@octokit/auth-app": "npm:^8.2.0"
@@ -8513,7 +8513,7 @@ __metadata:
     typescript: "npm:^6.0.3"
   bin:
     app-toolbelt: bin/app-toolbelt
-  checksum: 10c0/8b7af4dd0bbf35ee594d9baf01b026d1989d6ad8646361d20b5214f73cfcef68ad09111b3ecd063a90a017a539cc70b772639649f9a670bb54383e3f41d15c39
+  checksum: 10c0/fc5c56fefa1f48b834be65d47f3b4a60342f5a352aead19e0d947ba8f6c0a7ef6f090576645fa9986512bd10e21db3035d2117d863dad0adfbe28cd96a6f6b2a
   languageName: node
   linkType: hard
 
