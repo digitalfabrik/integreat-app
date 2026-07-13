@@ -19,6 +19,7 @@ type ParamsType = {
   languageCode: string
   chat?: boolean
   chatId?: string
+  theme?: string
 }
 
 export type RegionsRouteInformationType = {

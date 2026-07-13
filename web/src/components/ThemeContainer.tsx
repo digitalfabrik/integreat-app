@@ -3,10 +3,11 @@ import { CacheProvider, Global } from '@emotion/react'
 import { chipClasses } from '@mui/material/Chip'
 import { createTheme as createMuiTheme, responsiveFontSizes, Theme, ThemeProvider } from '@mui/material/styles'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
-import React, { ReactElement, ReactNode, useMemo } from 'react'
+import React, { ReactElement, ReactNode, useEffect, useMemo } from 'react'
 import { prefixer } from 'stylis'
 
 import { ThemeKey } from 'build-configs'
+import { parseQueryParams } from 'shared'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
@@ -152,10 +153,22 @@ type ThemeContainerProps = {
 
 const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
   const dimensions = useDimensions()
+  const url = new URL(window.location.href)
+  const { theme: queryTheme } = parseQueryParams(url.searchParams)
   const [themeType, setThemeType] = useLocalStorage<ThemeKey>({
     key: THEME_STORAGE_KEY,
     initialValue: 'light',
   })
+
+  useEffect(() => {
+    // process theme from query param into localStorage and remove it from the URL
+    if (queryTheme === 'light' || queryTheme === 'contrast') {
+      setThemeType(queryTheme)
+      url.searchParams.delete('theme')
+      window.history.replaceState({}, '', url.href)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const theme: Theme = useMemo(() => {
     const toggleTheme = () => {

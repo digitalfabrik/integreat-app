@@ -7,6 +7,7 @@ export const MULTI_PLACE_QUERY_KEY = 'multiplace'
 export const SEARCH_QUERY_KEY = 'query'
 export const CHAT_QUERY_KEY = 'chat'
 export const CHAT_ID_QUERY_KEY = 'chatId'
+export const THEME_QUERY_KEY = 'theme'
 export const FEEDBACK_QUERY_KEY = 'feedback'
 export const PLACE_CATEGORY_QUERY_KEY = 'category'
 export const ZOOM_QUERY_KEY = 'zoom'
@@ -20,6 +21,9 @@ export const queryStringFromRouteInformation = (
   }
   if (CHAT_ID_QUERY_KEY in routeInformation && routeInformation.chatId) {
     queryParams.push([CHAT_ID_QUERY_KEY, routeInformation.chatId])
+  }
+  if (THEME_QUERY_KEY in routeInformation && routeInformation.theme) {
+    queryParams.push([THEME_QUERY_KEY, routeInformation.theme])
   }
   if (routeInformation.route === PLACES_ROUTE) {
     const { multiPlace, placeCategoryId, zoom } = routeInformation
@@ -49,6 +53,7 @@ export type VisibilityQueryParams = {
 
 type QueryParams = VisibilityQueryParams & {
   chatId?: string
+  theme?: string
   searchText?: string
   multiPlace?: number
   placeCategoryId?: number
@@ -59,12 +64,13 @@ export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const searchText = queryParams.get(SEARCH_QUERY_KEY) ?? undefined
   const chat = queryParams.get(CHAT_QUERY_KEY) === 'true' || undefined
   const chatId = queryParams.get(CHAT_ID_QUERY_KEY) ?? undefined
+  const theme = queryParams.get(THEME_QUERY_KEY) ?? undefined
   const feedbackQuery = queryParams.get(FEEDBACK_QUERY_KEY) ?? undefined
   const feedback = feedbackQuery === RATING_POSITIVE || feedbackQuery === RATING_NEGATIVE ? feedbackQuery : undefined
   const multiPlace = safeParseInt(queryParams.get(MULTI_PLACE_QUERY_KEY))
   const placeCategoryId = safeParseInt(queryParams.get(PLACE_CATEGORY_QUERY_KEY))
   const zoom = safeParseInt(queryParams.get(ZOOM_QUERY_KEY))
-  return { searchText, multiPlace, placeCategoryId, zoom, chat, chatId, feedback }
+  return { searchText, multiPlace, placeCategoryId, zoom, chat, chatId, theme, feedback }
 }
 
 export const toQueryParams = ({
@@ -74,12 +80,14 @@ export const toQueryParams = ({
   searchText,
   chat,
   chatId,
+  theme,
   feedback,
 }: QueryParams): URLSearchParams => {
   const queryParams: [string, string | undefined][] = [
     [SEARCH_QUERY_KEY, searchText],
     [CHAT_QUERY_KEY, chat?.toString()],
     [CHAT_ID_QUERY_KEY, chatId],
+    [THEME_QUERY_KEY, theme],
     [FEEDBACK_QUERY_KEY, feedback],
     [MULTI_PLACE_QUERY_KEY, multiPlace?.toString()],
     [PLACE_CATEGORY_QUERY_KEY, placeCategoryId?.toString()],
