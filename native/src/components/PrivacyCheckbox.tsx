@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
-import { Trans } from 'react-i18next'
-import { StyleSheet } from 'react-native'
+import { Trans, useTranslation } from 'react-i18next'
+import { StyleSheet, Platform } from 'react-native'
 import { Checkbox, TouchableRipple } from 'react-native-paper'
 
 import buildConfig from '../constants/buildConfig'
@@ -25,11 +25,13 @@ type PrivacyCheckboxProps = {
 const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps): ReactElement => {
   const { privacyUrls } = buildConfig()
   const privacyUrl = privacyUrls[language] || privacyUrls.default
+  const { t } = useTranslation('common')
   return (
     <TouchableRipple
       borderless
       onPress={() => setChecked(!checked)}
       role='checkbox'
+      accessibilityLabel={Platform.OS === 'ios' ? t('privacyPolicy') : undefined}
       style={styles.TouchableRippleStyle}>
       <>
         <Checkbox.Android status={checked ? 'checked' : 'unchecked'} onPress={() => setChecked(!checked)} />
