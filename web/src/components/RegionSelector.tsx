@@ -50,6 +50,8 @@ const RegionSelector = ({ regions, language, stickyTop, loading }: RegionSelecto
       <H1>{t('welcome', { appName: buildConfig().appName })}</H1>
       <Typography variant='body1'>{t('welcomeInformation')}</Typography>
       <SearchInput
+        id='search-region'
+        ariaLabel={t('searchRegion')}
         filterText={filterText}
         placeholderText={exampleRegion?.sortingName ?? REGION_SEARCH_EXAMPLE}
         onFilterTextChange={setFilterText}

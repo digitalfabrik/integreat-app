@@ -15,7 +15,6 @@ import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useCaptureError from '../hooks/useCaptureError'
-import testID from '../testing/testID'
 
 export type SearchProps = {
   navigation: NavigationProps<SearchRouteType>
@@ -62,7 +61,7 @@ const Search = ({
   )
 
   return (
-    <Layout {...testID('Search-Page')}>
+    <Layout>
       <SearchHeader navigation={navigation} query={query} onSearchChanged={setQuery} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
         {debouncedQuery.length > 0 && (

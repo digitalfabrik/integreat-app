@@ -24,15 +24,23 @@ Before first starting the test:
 
 ### iOS
 
-1. Create an emulator with the settings from `wdio-ios.conf.ts`; if necessary, install the driver
+Before first starting the test:
 
-   1.1. If the driver isn't available anymore, update the settings in the config file to a more recent one, ideally the
-   ones from `e2e-tests/native/capabilities.ts`.
+- Make sure to install the XCUITest driver: `appium driver install xcuitest`.
 
-2. Start the app: `yarn prepare:native:start`
-3. Find your build file folder: Product > Copy Build Folder Path
-4. Add the BUILD_DIR to your environment. In zshell you do this via `BUILD_DIR=your/copied/build/folder/path; export BUILD_DIR` but your command line might differ.
-5. Run tests via `yarn test:native:ios`
+- Then verify it is installed: `appium driver list --installed`. If any required tools are missing, run: `appium driver doctor xcuitest`.
+
+- Choose or create a simulator. Check whether a simulator matching the capabilities in `wdio-ios.conf.ts` is available: `xcrun simctl list devices available`.
+  If the simulator specified in the capabilities in `wdio-ios.conf.ts` is not in the list, create it in Xcode via **Window → Devices and Simulators → Simulators → +**, then run the command above again to confirm it now appears.
+
+- Once it is in the list, boot it (use the device name from the list): `xcrun simctl boot "iPhone 16e"`.
+
+- Set the build directory. In Xcode, go to **Product → "Copy Build Folder Path"** and paste it into the `BUILD_DIR` environment variable in your terminal: `export BUILD_DIR=PATH_TO_FOLDER`.
+
+- Verify the path is set and the app exists at it: `echo $BUILD_DIR` or also `ls "$BUILD_DIR/Products/Debug-iphonesimulator/Integreat.app"`.
+
+1. Start the app in another terminal: `yarn prepare:native:start`.
+2. Then, in the terminal where you set `BUILD_DIR`, run: `yarn test:native:ios`.
 
 ### Using Appium Inspector
 

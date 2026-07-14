@@ -23,7 +23,16 @@ export class Selector {
     if (driver.isAndroid) {
       this.queries.push(`.textContains("${text}")`)
     } else {
-      this.queries.push(`(name CONTAINS '${text}' OR label CONTAINS '${text}' OR value CONTAINS '${text}`)
+      this.queries.push(`(name CONTAINS '${text}' OR label CONTAINS '${text}' OR value CONTAINS '${text}')`)
+    }
+    return this
+  }
+
+  public byContentDesc(text: string): Selector {
+    if (driver.isAndroid) {
+      this.queries.push(`.description("${text}")`)
+    } else {
+      this.queries.push(`label LIKE '${text}'`)
     }
     return this
   }
