@@ -8,7 +8,7 @@ import { ChatMessageModel, RegionModelBuilder } from 'shared/api'
 import { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../../testing/render'
-import { chatSeenMessagesKey } from '../../utils/chat'
+import { chatIdKey, chatSeenMessagesKey } from '../../utils/chat'
 import ChatContainer from '../ChatContainer'
 
 jest.mock('react-i18next', () => ({
@@ -17,6 +17,10 @@ jest.mock('react-i18next', () => ({
     t: (key: string) => (namespace ? `${namespace}:${key}` : key),
   }),
   Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
+}))
+jest.mock('shared', () => ({
+  ...jest.requireActual('shared'),
+  uuid: jest.fn(() => '11111111-2222-3333-4444-555555555555'),
 }))
 jest.mock('../../hooks/useQueryFromEndpoint')
 
@@ -225,6 +229,17 @@ describe('ChatContainer', () => {
 
     expect(getByLabelText('layout:common:close')).toBeTruthy()
     expect(getByText(getChatName('IntegreatTestCms'))).toBeTruthy()
+  })
+
+  it('should reinitialize a null chat id previously written to local storage', () => {
+    localStorage.setItem(chatIdKey(region.code), 'null')
+
+    renderRoute(<ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />, {
+      pathname,
+      routePattern,
+    })
+
+    expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify('11111111-2222-3333-4444-555555555555'))
   })
 
   it('should switch the language', () => {
