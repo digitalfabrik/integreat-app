@@ -5,13 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-paper'
 
 import { ChatRouteType, uuid } from 'shared'
-import { createChatMessagesEndpoint, ErrorCodes, loadFromEndpoint, useLoadFromEndpoint } from 'shared/api'
+import { createChatMessagesEndpoint, ErrorCodes, loadFromEndpoint } from 'shared/api'
 
 import Failure from '../components/Failure'
 import HeaderMenu from '../components/HeaderMenu'
 import HeaderMenuItem from '../components/HeaderMenuItem'
 import ProgressSpinner from '../components/ProgressSpinner'
-import QrCodeModal from '../components/QrCodeModal'
 import WebView from '../components/WebView'
 import AlertDialog from '../components/base/AlertDialog'
 import Text from '../components/base/Text'
@@ -31,7 +30,6 @@ type ChatProps = {
 const Chat = ({ route, navigation }: ChatProps): ReactElement => {
   const [menuVisible, setMenuVisible] = useState(false)
   const [newChatConfirmationVisible, setNewChatConfirmationVisible] = useState(false)
-  const [qrModalVisible, setQrModalVisible] = useState(false)
   const { isConnected } = useNetInfo()
   const { regionCode, languageCode, settings, updateChatSettings } = useRegionAppContext()
   const { data } = useLoadRegionContent({ regionCode, languageCode })
@@ -39,12 +37,6 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
 
   const chatSettings = settings.chat[regionCode]
   const chatId = chatSettings?.id ?? ''
-
-  const chatResponse = useLoadFromEndpoint(createChatMessagesEndpoint, determineApiUrl, {
-    regionCode,
-    languageCode,
-    chatId,
-  })
 
   const chatUrl = getChatUrl({ regionCode, languageCode, chatId })
   const availableLanguages = data?.languages.map(it => it.code)
@@ -67,13 +59,6 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
     ),
   )
 
-  const openMenu = (visible: boolean) => {
-    setMenuVisible(visible)
-    if (visible) {
-      chatResponse.refresh()
-    }
-  }
-
   const menuItems = [
     <HeaderMenuItem
       key='newChat'
@@ -85,24 +70,13 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
       closeMenu={() => setNewChatConfirmationVisible(false)}
       icon='comment-plus-outline'
     />,
-    <HeaderMenuItem
-      key='consultationQr'
-      title={t('consultationQrCodeTitle')}
-      disabled={!chatResponse.data}
-      onPress={() => {
-        setMenuVisible(false)
-        setQrModalVisible(true)
-      }}
-      closeMenu={() => setQrModalVisible(false)}
-      icon='qrcode'
-    />,
   ]
 
   const menu = (
     <HeaderMenu
       navigation={navigation}
       visible={menuVisible}
-      setVisible={openMenu}
+      setVisible={setMenuVisible}
       menuItems={menuItems}
       pageTitle={null}
     />
@@ -140,15 +114,6 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
         ]}>
         <Text>{t('newChatConfirmation')}</Text>
       </AlertDialog>
-      {!!chatResponse.data && (
-        <QrCodeModal
-          modalVisible={qrModalVisible}
-          closeModal={() => setQrModalVisible(false)}
-          title={t('consultationQrCodeTitle')}
-          description={t('consultationQrCodeDescription')}
-          content={chatResponse.data.ticketUrl}
-        />
-      )}
     </>
   )
 }
