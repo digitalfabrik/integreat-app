@@ -1,10 +1,20 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
+import { useSearchParams } from 'react-router'
 
 import { SEARCH_ROUTE } from 'shared'
 
 import { renderAllRoutes } from '../../testing/render'
 import FeedbackContainer from '../FeedbackContainer'
+
+const FeedbackOpener = ({ rating }: { rating: string }) => {
+  const [, setSearchParams] = useSearchParams()
+  return (
+    <button type='button' onClick={() => setSearchParams({ feedback: rating })}>
+      reopen
+    </button>
+  )
+}
 
 const mockRequest = jest.fn()
 jest.mock('react-i18next', () => ({
@@ -24,9 +34,14 @@ jest.mock('shared/api', () => ({
 describe('FeedbackContainer', () => {
   beforeEach(jest.clearAllMocks)
 
-  const renderFeedbackContainer = (path: string) =>
+  const renderFeedbackContainer = (path: string, opener?: React.ReactElement) =>
     renderAllRoutes(path, {
-      RegionContentElement: <FeedbackContainer slug={null} />,
+      RegionContentElement: (
+        <>
+          <FeedbackContainer slug={null} />
+          {opener}
+        </>
+      ),
     })
 
   it('should display dialog when feedback query param is set', () => {
@@ -76,6 +91,41 @@ describe('FeedbackContainer', () => {
       searchTerm: query,
       slug: undefined,
     })
+  })
+
+  it('should clear comment and contact mail when the dialog is closed', () => {
+    const { getByLabelText, getByText, queryByText } = renderFeedbackContainer(
+      '/augsburg/de?feedback=positive',
+      <FeedbackOpener rating='positive' />,
+    )
+
+    fireEvent.change(getByLabelText('feedback:commentHeadline'), { target: { value: 'my comment' } })
+    fireEvent.change(getByLabelText('feedback:contactMailAddress'), { target: { value: 'me@example.com' } })
+
+    fireEvent.click(getByLabelText('layout:common:close'))
+    expect(queryByText('feedback:headline')).toBeNull()
+
+    fireEvent.click(getByText('reopen'))
+    expect(getByLabelText('feedback:commentHeadline')).toHaveValue('')
+    expect(getByLabelText('feedback:contactMailAddress')).toHaveValue('')
+  })
+
+  it('should clear comment and contact mail after submitting', async () => {
+    const { getByLabelText, getByText, findByText } = renderFeedbackContainer(
+      '/augsburg/de?feedback=positive',
+      <FeedbackOpener rating='positive' />,
+    )
+
+    fireEvent.change(getByLabelText('feedback:commentHeadline'), { target: { value: 'my comment' } })
+    fireEvent.change(getByLabelText('feedback:contactMailAddress'), { target: { value: 'me@example.com' } })
+    getByText('common:privacyPolicy').click()
+    fireEvent.click(getByText('feedback:send'))
+
+    expect(await findByText('feedback:thanksMessage')).toBeTruthy()
+
+    fireEvent.click(getByText('reopen'))
+    expect(getByLabelText('feedback:commentHeadline')).toHaveValue('')
+    expect(getByLabelText('feedback:contactMailAddress')).toHaveValue('')
   })
 
   it('should send original search term if updated', () => {
