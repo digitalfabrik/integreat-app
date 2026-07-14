@@ -1,4 +1,4 @@
-import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from '../constants/index.ts'
+import { Rating, RATING_NEGATIVE, RATING_POSITIVE, THEME_CONTRAST, THEME_LIGHT, ThemeType } from '../constants/index.ts'
 import { safeParseInt } from '../utils/index.ts'
 import { NonNullableRouteInformationType } from './RouteInformationTypes.ts'
 import { PLACES_ROUTE, SEARCH_ROUTE } from './index.ts'
@@ -53,18 +53,21 @@ export type VisibilityQueryParams = {
 
 type QueryParams = VisibilityQueryParams & {
   chatId?: string
-  theme?: string
+  theme?: ThemeType
   searchText?: string
   multiPlace?: number
   placeCategoryId?: number
   zoom?: number
 }
 
+const parseTheme = (theme: string | null): ThemeType | undefined =>
+  theme === THEME_LIGHT || theme === THEME_CONTRAST ? theme : undefined
+
 export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const searchText = queryParams.get(SEARCH_QUERY_KEY) ?? undefined
   const chat = queryParams.get(CHAT_QUERY_KEY) === 'true' || undefined
   const chatId = queryParams.get(CHAT_ID_QUERY_KEY) ?? undefined
-  const theme = queryParams.get(THEME_QUERY_KEY) ?? undefined
+  const theme = parseTheme(queryParams.get(THEME_QUERY_KEY))
   const feedbackQuery = queryParams.get(FEEDBACK_QUERY_KEY) ?? undefined
   const feedback = feedbackQuery === RATING_POSITIVE || feedbackQuery === RATING_NEGATIVE ? feedbackQuery : undefined
   const multiPlace = safeParseInt(queryParams.get(MULTI_PLACE_QUERY_KEY))

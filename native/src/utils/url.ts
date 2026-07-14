@@ -6,6 +6,7 @@ import {
   pathnameFromRouteInformation,
   queryStringFromRouteInformation,
   regionContentPath,
+  ThemeType,
 } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
@@ -26,7 +27,7 @@ export const getChatUrl = ({
   regionCode: string
   languageCode: string
   chatId?: string
-  theme?: string
+  theme?: ThemeType
 }): string =>
   urlFromRouteInformation({
     route: CATEGORIES_ROUTE,

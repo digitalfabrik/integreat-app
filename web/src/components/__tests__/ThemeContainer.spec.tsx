@@ -1,3 +1,4 @@
+import { useTheme } from '@mui/material/styles'
 import { render } from '@testing-library/react'
 import React from 'react'
 
@@ -6,26 +7,38 @@ import ThemeContainer from '../ThemeContainer'
 
 jest.mock('react-i18next')
 
+const TestChild = () => {
+  const { isContrastTheme } = useTheme()
+  return <span>{isContrastTheme ? 'contrast' : 'light'}</span>
+}
+
+const renderThemeContainer = () =>
+  render(
+    <ThemeContainer contentDirection='ltr'>
+      <TestChild />
+    </ThemeContainer>,
+  )
+
 describe('ThemeContainer', () => {
   afterEach(() => {
     localStorage.clear()
   })
 
-  it('should process theme from query param into localStorage and remove it from the URL', () => {
+  it('should prefer the theme query param over the stored theme', () => {
+    localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify('light'))
     window.history.replaceState({}, '', '/test?theme=contrast')
 
-    render(<ThemeContainer contentDirection='ltr'>{null}</ThemeContainer>)
+    const { getByText } = renderThemeContainer()
 
-    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('"contrast"')
-    expect(window.location.search).not.toContain('theme')
+    expect(getByText('contrast')).toBeInTheDocument()
   })
 
-  it('should not change localStorage when no theme query param is present', () => {
-    localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify('light'))
+  it('should fall back to the stored theme when no theme query param is present', () => {
+    localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify('contrast'))
     window.history.replaceState({}, '', '/test')
 
-    render(<ThemeContainer contentDirection='ltr'>{null}</ThemeContainer>)
+    const { getByText } = renderThemeContainer()
 
-    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe('"light"')
+    expect(getByText('contrast')).toBeInTheDocument()
   })
 })

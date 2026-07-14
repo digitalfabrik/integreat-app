@@ -1,3 +1,4 @@
+import { ThemeType } from '../constants/index.ts'
 import {
   CategoriesRouteType,
   SuggestToRegionRouteType,
@@ -19,7 +20,7 @@ type ParamsType = {
   languageCode: string
   chat?: boolean
   chatId?: string
-  theme?: string
+  theme?: ThemeType
 }
 
 export type RegionsRouteInformationType = {
