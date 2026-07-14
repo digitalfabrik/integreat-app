@@ -88,7 +88,6 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
 
   const { data, refetch } = response
   const botTyping = data?.botTyping
-  const ticketUrl = data?.ticketUrl ?? null
   const messageCount = data?.messages.length ?? 0
   const incomingMessageCount = data?.messages.filter(message => !message.userIsAuthor).length ?? 0
   const unreadMessageCount = incomingMessageCount - seenMessages
@@ -138,7 +137,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
                 />,
               ]
             : []),
-          <ChatMenu key='chatMenu' chatId={chatId} ticketUrl={ticketUrl} resetChat={resetChat} />,
+          <ChatMenu key='chatMenu' chatId={chatId} resetChat={resetChat} />,
         ]}>
         <Chat
           chatId={chatId}
