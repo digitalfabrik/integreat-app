@@ -51,6 +51,7 @@ import {
   NewsTabRouteType,
   CHAT_ROUTE,
   ChatRouteType,
+  Rating,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
@@ -145,8 +146,7 @@ export type RootRoutesParamsType = {
     language: string
     regionCode: string
     slug?: string
-    // used noResults here just to set the initial feedback to negative.
-    noResults?: boolean
+    rating?: Rating
   }
   [BOTTOM_TAB_ROUTE]: { screen: TabRoutesType; params: TabRoutesParamsType[TabRoutesType] } | {}
 }
