@@ -15,7 +15,8 @@ const mapNewsJson = (json: JsonNewsType): NewsModel =>
   new NewsModel({
     id: json.id,
     title: json.title,
-    content: json.content,
+    // Remove manual heights for images which causes lots of whitespace for images in tü news details on small screens
+    content: json.content.replace(/\sheight="\d+"/g, ''),
     source: json.source,
     lastUpdate: DateTime.fromISO(json.display_date),
     availableLanguages: mapNewsAvailableLanguages(json.available_languages),
