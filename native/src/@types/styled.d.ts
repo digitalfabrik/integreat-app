@@ -43,6 +43,9 @@ type MD3Theme = {
       main: string
       light: string
     }
+    amalNews: {
+      main: string
+    }
     ttsPlayer: {
       background: string
       playIconColor: string

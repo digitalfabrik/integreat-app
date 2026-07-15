@@ -17,6 +17,9 @@ const commonColors: CommonColors = {
     main: '#0079A6',
     light: '#99CADC',
   },
+  amalNews: {
+    main: '#1A7579',
+  },
   divider: '#C9C9C9',
   link: '#4E80EE',
 }

@@ -4,11 +4,13 @@ import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
+import { parseHTML } from 'shared'
 import { NewsModel } from 'shared/api'
 
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentAlignmentRTLText, contentDirection } from '../constants/contentDirection'
 import { useAppContext } from '../hooks/useRegionAppContext'
+import NewsSourceChip from './NewsSourceChip'
 import TimeStamp from './TimeStamp'
 import Text from './base/Text'
 
@@ -23,16 +25,17 @@ const ReadMoreWrapper = styled.View<{ language: string }>`
   align-self: center;
 `
 
-const ListItemWrapper = styled.View`
-  padding: 0 5%;
-`
-
 const Styles = StyleSheet.create({
   bottomInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
+  },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
 })
 
@@ -46,48 +49,42 @@ const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactEle
   const theme = useTheme()
 
   return (
-    <ListItemWrapper>
-      <PaperList.Item
-        borderless
-        titleNumberOfLines={0}
-        descriptionNumberOfLines={0}
-        title={
-          <Text variant='h5' style={{ marginVertical: 8, textAlign: contentAlignmentRTLText(newsItem.title) }}>
+    <PaperList.Item
+      borderless
+      titleNumberOfLines={0}
+      descriptionNumberOfLines={0}
+      title={
+        <View style={Styles.titleRow}>
+          <Text variant='h5' style={{ textAlign: contentAlignmentRTLText(newsItem.title), flex: 1 }}>
             {newsItem.title}
           </Text>
-        }
-        description={
-          <Description>
-            <Text
-              variant='body2'
-              numberOfLines={EXCERPT_MAX_LINES}
-              style={{ letterSpacing: 0.5, textAlign: contentAlignmentRTLText(newsItem.title) }}>
-              {newsItem.content}
+          <NewsSourceChip source={newsItem.source} />
+        </View>
+      }
+      description={
+        <Description>
+          <Text
+            variant='body2'
+            numberOfLines={EXCERPT_MAX_LINES}
+            style={{ letterSpacing: 0.5, textAlign: contentAlignmentRTLText(newsItem.title) }}>
+            {parseHTML(newsItem.content)}
+          </Text>
+          <View style={Styles.bottomInfo}>
+            <Text variant='body2'>
+              <TimeStamp lastUpdate={newsItem.lastUpdate} showText={false} />
             </Text>
-            <View style={Styles.bottomInfo}>
-              <Text variant='body2' style={{ paddingVertical: 8 }}>
-                <TimeStamp lastUpdate={newsItem.lastUpdate} showText={false} />
+            <ReadMoreWrapper language={i18n.language}>
+              <Text variant='h6' onPress={navigateToNews} style={{ marginTop: 4, color: theme.colors.primary }}>
+                {t('common:more')}
               </Text>
-              <ReadMoreWrapper language={i18n.language}>
-                <Text
-                  variant='h6'
-                  onPress={navigateToNews}
-                  style={{
-                    marginTop: 4,
-                    color: theme.colors.primary,
-                  }}>
-                  {t('common:more')}
-                </Text>
-              </ReadMoreWrapper>
-            </View>
-          </Description>
-        }
-        onPress={navigateToNews}
-        accessibilityLanguage={languageCode}
-        role='link'
-        style={{ flexDirection: 'column' }}
-      />
-    </ListItemWrapper>
+            </ReadMoreWrapper>
+          </View>
+        </Description>
+      }
+      onPress={navigateToNews}
+      accessibilityLanguage={languageCode}
+      role='link'
+    />
   )
 }
 

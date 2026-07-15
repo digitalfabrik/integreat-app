@@ -54,6 +54,9 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
         main: palette.tuNews.main,
         light: palette.tuNews.light,
       },
+      amalNews: {
+        main: palette.amalNews.main,
+      },
       ttsPlayer: {
         background: palette.ttsPlayer.background,
         playIconColor: palette.ttsPlayer.playIconColor,
