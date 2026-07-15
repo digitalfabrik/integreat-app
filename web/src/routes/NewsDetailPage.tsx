@@ -1,38 +1,24 @@
 import Stack from '@mui/material/Stack'
-import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
 import { NEWS_ROUTE, pathnameFromRouteInformation } from 'shared'
-import { createNewsElementEndpoint, TU_NEWS_SOURCE } from 'shared/api'
+import { AMAL_NEWS_SOURCE, createNewsElementEndpoint, LOCAL_NEWS_SOURCE } from 'shared/api'
 
-import { TuNewsActiveIcon } from '../assets'
+import { AmalNewsLogo, TuNewsIcon } from '../assets'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Page from '../components/Page'
 import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonPage from '../components/SkeletonPage'
+import Link from '../components/base/Link'
 import Svg from '../components/base/Svg'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { RegionRouteProps } from './index'
-
-const TuNewsBanner = styled('div')(({ theme }) => ({
-  overflow: 'hidden',
-  marginBlock: 24,
-  backgroundColor: theme.palette.tuNews.light,
-  borderRadius: 12,
-  height: 60,
-  alignItems: 'start',
-}))
-
-const IconContainer = styled(Stack)(({ theme }) => ({
-  backgroundColor: theme.palette.tuNews.main,
-  shapeRendering: 'crispEdges',
-}))
 
 const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
   const { data: news, error } = useQueryFromEndpoint(createNewsElementEndpoint, cmsApiBaseUrl, {
@@ -90,12 +76,12 @@ const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRo
         <SkeletonPage />
       ) : (
         <>
-          {news.source === TU_NEWS_SOURCE && (
-            <TuNewsBanner>
-              <IconContainer width={180} height='100%'>
-                <Svg src={TuNewsActiveIcon} width='100%' height='100%' />
-              </IconContainer>
-            </TuNewsBanner>
+          {news.source !== LOCAL_NEWS_SOURCE && (
+            <Stack paddingTop={2}>
+              <Link to={news.externalUrl}>
+                <Svg src={news.source === AMAL_NEWS_SOURCE ? AmalNewsLogo : TuNewsIcon} height={64} width='100%' />
+              </Link>
+            </Stack>
           )}
           <Page title={news.title} content={news.content} lastUpdate={news.lastUpdate} showLastUpdateText={false} />
         </>

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ScrollView, View } from 'react-native'
+import { Pressable, ScrollView, View } from 'react-native'
 import styled from 'styled-components/native'
 
 import {
@@ -10,13 +10,16 @@ import {
   NewsSourceFilter as NewsSourceFilterType,
   replaceLinks,
 } from 'shared'
-import { ErrorCodes, fromError, LOCAL_NEWS_SOURCE, NewsModel, PaginatedReturnType } from 'shared/api'
+import { AMAL_NEWS_SOURCE, ErrorCodes, fromError, LOCAL_NEWS_SOURCE, NewsModel, PaginatedReturnType } from 'shared/api'
 
+import { AmalNewsLogo, TuNewsIcon } from '../assets'
 import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
+import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
+import openExternalUrl from '../utils/openExternalUrl'
 import Caption from './Caption'
 import Failure from './Failure'
 import List from './List'
@@ -25,7 +28,17 @@ import NewsListItem from './NewsListItem'
 import Page from './Page'
 import TimeStamp from './TimeStamp'
 import ToggleTextButtonGroup from './ToggleTextButtonGroup'
+import Icon from './base/Icon'
 import Text from './base/Text'
+
+const NewsSourceLogo = styled(Icon)`
+  width: 100%;
+  height: 64px;
+`
+
+const NewsSourceLink = styled(Pressable)`
+  padding-top: 16px;
+`
 
 const ListHeaderContainer = styled(View)`
   padding-inline: 16px;
@@ -47,6 +60,7 @@ const News = ({ response, news, id, languageCode, regionCode, newsSource, setNew
   const selectedNewsItem = news.find(item => item.id === id)
   const { navigateTo } = useNavigate()
   const { t } = useTranslation('news')
+  const showSnackbar = useSnackbar()
   useTtsPlayer(selectedNewsItem)
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
@@ -63,6 +77,11 @@ const News = ({ response, news, id, languageCode, regionCode, newsSource, setNew
   if (selectedNewsItem) {
     return (
       <ScrollView>
+        {selectedNewsItem.source !== LOCAL_NEWS_SOURCE && (
+          <NewsSourceLink onPress={() => openExternalUrl(selectedNewsItem.externalUrl, showSnackbar)} role='link'>
+            <NewsSourceLogo icon={selectedNewsItem.source === AMAL_NEWS_SOURCE ? AmalNewsLogo : TuNewsIcon} />
+          </NewsSourceLink>
+        )}
         <Page
           title={selectedNewsItem.title}
           content={
