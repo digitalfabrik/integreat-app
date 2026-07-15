@@ -1,14 +1,13 @@
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { parseHTML } from 'shared'
 import { NewsModel } from 'shared/api'
 
 import { EXCERPT_MAX_LINES } from '../constants'
-import { contentAlignmentRTLText, contentDirection } from '../constants/contentDirection'
+import { contentAlignmentRTLText } from '../constants/contentDirection'
 import { useAppContext } from '../hooks/useRegionAppContext'
 import NewsSourceChip from './NewsSourceChip'
 import TimeStamp from './TimeStamp'
@@ -18,12 +17,6 @@ type NewsListItemProps = {
   newsItem: NewsModel
   navigateToNews: () => void
 }
-
-const ReadMoreWrapper = styled.View<{ language: string }>`
-  flex-direction: ${props => contentDirection(props.language)};
-  justify-content: flex-end;
-  align-self: center;
-`
 
 const Styles = StyleSheet.create({
   bottomInfo: {
@@ -44,9 +37,7 @@ export const Description = styled.View`
 `
 
 const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactElement => {
-  const { t, i18n } = useTranslation('news')
   const { languageCode } = useAppContext()
-  const theme = useTheme()
 
   return (
     <PaperList.Item
@@ -73,11 +64,6 @@ const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactEle
             <Text variant='body2'>
               <TimeStamp lastUpdate={newsItem.lastUpdate} showText={false} />
             </Text>
-            <ReadMoreWrapper language={i18n.language}>
-              <Text variant='h6' onPress={navigateToNews} style={{ marginTop: 4, color: theme.colors.primary }}>
-                {t('common:more')}
-              </Text>
-            </ReadMoreWrapper>
           </View>
         </Description>
       }

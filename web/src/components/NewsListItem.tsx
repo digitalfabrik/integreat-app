@@ -2,10 +2,8 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { getExcerpt, NEWS_ROUTE, parseHTML, pathnameFromRouteInformation } from 'shared'
 import { NewsModel } from 'shared/api'
@@ -45,7 +43,6 @@ type NewsListItemProps = {
 }
 
 const NewsListItem = ({ news, regionCode, languageCode }: NewsListItemProps): ReactElement => {
-  const { t } = useTranslation('news')
   const excerpt = getExcerpt(parseHTML(news.content), { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
 
   return (
@@ -66,9 +63,6 @@ const NewsListItem = ({ news, regionCode, languageCode }: NewsListItemProps): Re
           />
           <LastUpdateInfo lastUpdate={news.lastUpdate} withText={false} />
         </StyledStack>
-        <Typography color='primary' variant='button'>
-          {t('common:more')}
-        </Typography>
       </StyledListItemButton>
     </ListItem>
   )
