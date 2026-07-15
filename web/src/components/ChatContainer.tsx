@@ -1,6 +1,11 @@
+import Avatar from '@mui/material/Avatar'
+import { dialogClasses } from '@mui/material/Dialog'
 import { dialogContentClasses } from '@mui/material/DialogContent'
-import { styled } from '@mui/material/styles'
+import { dialogTitleClasses } from '@mui/material/DialogTitle'
+import { stackClasses } from '@mui/material/Stack'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
 import {
@@ -30,10 +35,42 @@ import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageSelection'
 import Dialog from './base/Dialog'
+import Svg from './base/Svg'
 
-const StyledDialog = styled(Dialog)({
+const HEADER_BORDER_RADIUS = 12
+const AVATAR_ICON_SIZE = 40
+
+const StyledDialog = styled(Dialog)(({ theme }) => ({
+  [`.${dialogClasses.paper}:not(.${dialogClasses.paperFullScreen})`]: {
+    borderRadius: `${HEADER_BORDER_RADIUS}px ${HEADER_BORDER_RADIUS}px 0 0`,
+    boxShadow: 'none',
+    border: `1px solid ${theme.palette.divider}`,
+  },
+  [`.${dialogClasses.paper} > .${stackClasses.root}`]: {
+    margin: 0,
+    padding: theme.spacing(1),
+    backgroundColor: theme.isContrastTheme ? theme.palette.background.chat : theme.palette.background.accent,
+    borderBottom: `1px solid ${theme.palette.divider}`,
+
+    [`.${dialogTitleClasses.root}`]: {
+      padding: theme.spacing(1),
+    },
+  },
   [`.${dialogContentClasses.root}`]: {
-    padding: '0 0 16px',
+    padding: theme.spacing(0, 0, 2),
+    backgroundColor: theme.palette.background.chat,
+  },
+}))
+
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  width: AVATAR_ICON_SIZE,
+  height: AVATAR_ICON_SIZE,
+  backgroundColor: theme.isContrastTheme ? theme.palette.text.primary : theme.palette.tertiary.dark,
+}))
+
+const CenteredSvg = styled(Svg)({
+  '& svg': {
+    display: 'block',
   },
 })
 
@@ -45,6 +82,8 @@ type ChatContainerProps = {
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const { open, close, openUrl, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
+  const { t } = useTranslation('chat')
+  const theme = useTheme()
   const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
@@ -119,12 +158,26 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
 
   if (visible) {
     const chatName = getChatName(buildConfig().appName)
+    const appLogo = buildConfig().icons.appLogoMobileInverted
     const chatLanguageChangePaths =
       languageChangePaths?.map(({ path, ...rest }) => ({ ...rest, path: openUrl(path) })) ?? []
 
     return (
       <StyledDialog
         title={chatName}
+        subtitle={t('subtitle')}
+        icon={
+          appLogo ? (
+            <StyledAvatar>
+              <CenteredSvg
+                src={appLogo}
+                width={AVATAR_ICON_SIZE}
+                height={AVATAR_ICON_SIZE}
+                overrideFillColors={theme.palette.background.paper}
+              />
+            </StyledAvatar>
+          ) : null
+        }
         close={close}
         showHeader={!externalChatId}
         actions={[

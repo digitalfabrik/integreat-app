@@ -60,7 +60,7 @@ const ChatConversation = ({
 
   if (messages.length === 0 && !loading) {
     return (
-      <Stack paddingInline={3} gap={1}>
+      <Stack paddingInline={3} gap={1} paddingTop={2}>
         <Typography variant='subtitle1'>{t('conversationText')}</Typography>
       </Stack>
     )

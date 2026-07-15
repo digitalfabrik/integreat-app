@@ -5,6 +5,7 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -30,6 +31,8 @@ const StyledDialogTitle = styled(DialogTitle)({
 
 type DialogProps = {
   title: string
+  subtitle?: string
+  icon?: ReactElement | null
   actions?: ReactElement[] | null
   close: () => void
   children: ReactElement | ReactElement[]
@@ -37,7 +40,16 @@ type DialogProps = {
   showHeader?: boolean
 }
 
-const Dialog = ({ title, close, children, className, actions, showHeader = true }: DialogProps): ReactElement => {
+const Dialog = ({
+  title,
+  subtitle,
+  icon,
+  close,
+  children,
+  className,
+  actions,
+  showHeader = true,
+}: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
 
@@ -62,8 +74,16 @@ const Dialog = ({ title, close, children, className, actions, showHeader = true 
             {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
           </IconButton>
           {desktop && Actions}
-          <StyledDialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
-            {title}
+          <StyledDialogTitle component='div'>
+            <Stack direction='row' alignItems='center' gap={1.5}>
+              {icon}
+              <Stack minWidth={0}>
+                <Typography component='h2' variant='h4' noWrap>
+                  {title}
+                </Typography>
+                {!!subtitle && <Typography variant='body3'>{subtitle}</Typography>}
+              </Stack>
+            </Stack>
           </StyledDialogTitle>
           {mobile && Actions}
         </Stack>

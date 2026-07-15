@@ -41,6 +41,8 @@ export type TypeBackground = {
   default: string
   paper: string
   accent: string
+  chat: string
+  chatMessage: string
 }
 
 export type TypeTtsPlayer = {

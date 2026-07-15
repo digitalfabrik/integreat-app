@@ -27,6 +27,8 @@ declare module '@mui/material/styles' {
 
   interface TypeBackground {
     accent: string
+    chat: string
+    chatMessage: string
   }
 
   interface Palette {

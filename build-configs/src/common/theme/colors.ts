@@ -40,6 +40,8 @@ export const commonLightColors: CommonColorPalette = {
     default: '#FFFFFF',
     paper: '#FFFFFF',
     accent: '#EAEEF9',
+    chat: '#FFFFFF',
+    chatMessage: '#EAEEF9',
   },
   text: {
     primary: '#1D1B20',
@@ -76,6 +78,8 @@ export const commonDarkColors: CommonColorPalette = {
     default: '#020202',
     paper: '#020202',
     accent: '#20293A',
+    chat: '#1E1E1E',
+    chatMessage: '#181818',
   },
   text: {
     primary: '#E6E0E9',

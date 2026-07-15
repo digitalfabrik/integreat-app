@@ -307,7 +307,6 @@
       "bot": "Chatbot",
       "conversationTitle": "Bitte gib deine Frage in das Textfeld ein.",
       "conversationText": "Sie können nach lokalen Informationen oder Ihrer persönlichen Situation fragen.",
-      "conversationHelperText": "Bitte stellen Sie pro Nachricht eine vollständige Frage.",
       "dataSecurity": "Datenschutz und Sicherheit: Deine Privatsphäre ist uns sehr wichtig. Alle Gespräche werden vertraulich behandelt und deine Daten werden sicher verarbeitet. Mehr Informationen zum Datenschutz findest du in unseren Datenschutzrichtlinien.",
       "consultant": "Berater*in",
       "chatInputHelperText": "Bitte gib deine Frage ein...",
@@ -327,7 +326,8 @@
       "consultationQrCodeTitle": "QR-Code (Beratung)",
       "consultationQrCodeDescription": "Zeige diesen QR-Code in der Beratung. So kann dein Chat direkt geöffnet werden.",
       "welcomeGreeting": "Hallo!",
-      "welcomeText": "Ich bin <strong>{{name}}</strong>, dein Digitaler Suchassistent. Stell mir gerne deine Frage."
+      "welcomeText": "Ich bin <strong>{{name}}</strong>, dein Digitaler Suchassistent. Stell mir gerne deine Frage.",
+      "subtitle": "Dein Digitaler Suchassistent"
     },
     "am": {
       "bot": "የውይይት ቦት",
@@ -396,7 +396,6 @@
       "bot": "Chatbot",
       "conversationTitle": "Please enter your question in the text field.",
       "conversationText": "You can ask about local information or your personal situation.",
-      "conversationHelperText": "Please ask one complete question per message.",
       "dataSecurity": "Data protection and security: Your privacy is very important to us. All conversations are treated confidentially and your data is processed securely. You can find more information on data protection in our privacy policy.",
       "consultant": "Consultant",
       "chatInputHelperText": "Please enter your question...",
@@ -416,7 +415,8 @@
       "consultationQrCodeTitle": "QR code (Consultation)",
       "consultationQrCodeDescription": "Show this QR code during the consultation. This will open your chat right away.",
       "welcomeGreeting": "Hello!",
-      "welcomeText": "I'm <strong>{{name}}</strong>, your digital search assistant. Feel free to ask me your question."
+      "welcomeText": "I'm <strong>{{name}}</strong>, your digital search assistant. Feel free to ask me your question.",
+      "subtitle": "Your digital search assistant"
     },
     "es": {
       "bot": "Chatbot",

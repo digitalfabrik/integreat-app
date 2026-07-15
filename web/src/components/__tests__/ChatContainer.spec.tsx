@@ -61,7 +61,6 @@ describe('ChatContainer', () => {
     expect(router.state.location.search).toBe('?test=asdf&chat=true')
 
     expect(getByText('chat:conversationText')).toBeTruthy()
-    expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
 
     fireEvent.click(getByLabelText('layout:common:close'))
 
@@ -101,7 +100,6 @@ describe('ChatContainer', () => {
       },
     )
     expect(getByText('chat:conversationText')).toBeTruthy()
-    expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
     expect(router.state.location.search).toBe('?chat=true&test=asdf')
   })
 
@@ -215,6 +213,7 @@ describe('ChatContainer', () => {
 
     expect(queryByLabelText('layout:common:close')).toBeNull()
     expect(queryByText(getChatName('IntegreatTestCms'))).toBeNull()
+    expect(queryByText('chat:subtitle')).toBeNull()
   })
 
   it('should show the dialog header when no external chat id is set', () => {
@@ -229,6 +228,7 @@ describe('ChatContainer', () => {
 
     expect(getByLabelText('layout:common:close')).toBeTruthy()
     expect(getByText(getChatName('IntegreatTestCms'))).toBeTruthy()
+    expect(getByText('chat:subtitle')).toBeTruthy()
   })
 
   it('should reinitialize a null chat id previously written to local storage', () => {

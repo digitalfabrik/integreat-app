@@ -87,20 +87,6 @@ describe('Chat', () => {
     expect(createSendChatMessageEndpoint).toHaveBeenCalledTimes(1)
   })
 
-  it('should display helper alert when not dismissed', () => {
-    const { getByText } = render()
-    expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
-  })
-
-  it('should hide helper alert after closing it', () => {
-    const { getByText, getByLabelText, queryByText } = render()
-    expect(getByText('chat,error:conversationHelperText')).toBeTruthy()
-
-    fireEvent.click(getByLabelText('Close'))
-
-    expect(queryByText('chat,error:conversationHelperText')).toBeNull()
-  })
-
   it('should show error alert when response has an error', () => {
     const { getByText } = render(mockResponse({ error: new Error('api error') }))
     expect(getByText('chat,error:unknownError')).toBeTruthy()

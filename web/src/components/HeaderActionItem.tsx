@@ -9,10 +9,12 @@ import Link from './base/Link'
 const StyledButton = styled(MuiButton)`
   padding: 2px 12px;
   border: 1px solid;
+  background-color: ${props => (props.theme.isContrastTheme ? undefined : props.theme.palette.background.chat)};
 ` as typeof MuiButton
 
 const StyledIconButton = styled(IconButton)`
   border: 1px solid;
+  background-color: ${props => (props.theme.isContrastTheme ? undefined : props.theme.palette.background.chat)};
 ` as typeof IconButton
 
 type HeaderActionItemLinkProps = {
