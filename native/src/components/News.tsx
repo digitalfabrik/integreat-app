@@ -91,16 +91,9 @@ const News = ({ response, news, id, languageCode, regionCode, newsSource, setNew
           }
           language={languageCode}
           footer={
-            selectedNewsItem.source === LOCAL_NEWS_SOURCE && (
-              <Text
-                style={{
-                  paddingVertical: 16,
-                  textAlign: contentAlignmentRTLText(selectedNewsItem.title),
-                  alignSelf: 'center',
-                }}>
-                <TimeStamp lastUpdate={selectedNewsItem.lastUpdate} showText={false} />
-              </Text>
-            )
+            <Text style={{ paddingVertical: 16, textAlign: contentAlignmentRTLText(selectedNewsItem.title) }}>
+              <TimeStamp lastUpdate={selectedNewsItem.lastUpdate} showText={false} />
+            </Text>
           }
         />
       </ScrollView>
