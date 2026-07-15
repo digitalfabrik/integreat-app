@@ -25,6 +25,7 @@ export type CommonColors = {
   success: SimplePaletteColor
   info?: SimplePaletteColor
   tuNews: SimplePaletteColor & { light: string }
+  amalNews: SimplePaletteColor
   divider: string
   link: string
 }
