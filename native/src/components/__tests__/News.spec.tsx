@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 
 import { replaceLinks } from 'shared'
-import { LanguageModelBuilder, RegionModel, NewsModel } from 'shared/api'
+import { LanguageModelBuilder, NewsModel, PaginatedReturnType, RegionModel } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -15,6 +15,7 @@ import mocked = jest.mocked
 jest.mock('react-i18next')
 jest.mock('../../components/Page')
 jest.mock('../../hooks/useNavigate')
+jest.mock('../../utils/openExternalUrl')
 
 const defaultNews: [NewsModel, NewsModel] = [
   new NewsModel({
@@ -38,6 +39,17 @@ const defaultNews: [NewsModel, NewsModel] = [
   }),
 ]
 
+const buildResponse = (overrides: Partial<PaginatedReturnType<NewsModel>> = {}): PaginatedReturnType<NewsModel> => ({
+  data: null,
+  error: null,
+  loading: false,
+  loadingMore: false,
+  hasMore: false,
+  loadMore: jest.fn(),
+  refresh: jest.fn(),
+  ...overrides,
+})
+
 describe('News', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -47,19 +59,17 @@ describe('News', () => {
   const navigateTo = jest.fn()
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
   const language = 'de'
-  const loadMore = jest.fn()
-  const refresh = jest.fn()
 
   const renderNews = ({
     id = null,
     news = defaultNews,
-    loadingMore = false,
+    response = buildResponse(),
     tuNewsEnabled = true,
     localNewsEnabled = true,
   }: {
     id?: number | null
     news?: NewsModel[]
-    loadingMore?: boolean
+    response?: PaginatedReturnType<NewsModel>
     tuNewsEnabled?: boolean
     localNewsEnabled?: boolean
   }) => {
@@ -81,10 +91,8 @@ describe('News', () => {
       chatEnabled: false,
       chatPrivacyPolicyUrl: null,
     })
-    const props = { regionModel, language, loadMore, refresh }
-    return render(
-      <News {...props} news={news} id={id} loadingMore={loadingMore} languageCode='de' regionCode='augsburg' />,
-    )
+    const props = { regionModel, language }
+    return render(<News {...props} news={news} id={id} languageCode='de' regionCode='augsburg' response={response} />)
   }
 
   it('should show not found error if news with id not found', () => {
@@ -121,11 +129,16 @@ describe('News', () => {
   })
 
   it('should show loading spinner if loading more', () => {
-    const { getByText, getByTestId } = renderNews({ loadingMore: true })
+    const { getByText, getByTestId } = renderNews({ response: buildResponse({ loadingMore: true }) })
     expect(getByTestId('loadingSpinner')).toBeTruthy()
 
     expect(getByText(defaultNews[0].title)).toBeTruthy()
     expect(getByText(defaultNews[1].title)).toBeTruthy()
+  })
+
+  it('should show pagination failure when the response has an error', () => {
+    const { getByText } = renderNews({ response: buildResponse({ error: new Error('boom') }) })
+    expect(getByText('unknownError')).toBeTruthy()
   })
 
   it('should not add links in list', () => {
