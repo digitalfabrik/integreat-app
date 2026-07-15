@@ -1,9 +1,8 @@
 import React, { ReactElement, useCallback } from 'react'
 
 import { NEWS_ROUTE, NewsRouteType } from 'shared'
-import { createNewsEndpoint, fromError, loadFromEndpoint, usePaginatedLoadAsync } from 'shared/api'
+import { createNewsEndpoint, loadFromEndpoint, usePaginatedLoadAsync } from 'shared/api'
 
-import Failure from '../components/Failure'
 import News from '../components/News'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
@@ -28,7 +27,7 @@ const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement 
     refreshNews: true,
   })
 
-  const { data, loadMore, loadingMore, ...response } = usePaginatedLoadAsync(
+  const response = usePaginatedLoadAsync(
     useCallback(
       (page: number) =>
         loadFromEndpoint(createNewsEndpoint, determineApiUrl, {
@@ -40,7 +39,8 @@ const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement 
     ),
   )
 
-  const news = data ?? regionContent?.news
+  // Always try to load news to support pagination and only fallback to offline available news if that fails
+  const news = response.data ?? regionContent?.news
   const currentNews = id != null ? news?.find(it => it.id === id) : undefined
   const availableLanguages = currentNews
     ? Object.keys(currentNews.availableLanguages ?? {})
@@ -67,20 +67,7 @@ const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement 
 
   return (
     <LoadingErrorHandler {...regionContentResponse} loading={regionContentResponse.loading || response.loading}>
-      <>
-        {news && (
-          <News
-            id={id}
-            news={news}
-            regionCode={regionCode}
-            languageCode={languageCode}
-            refresh={response.refresh}
-            loadMore={loadMore}
-            loadingMore={loadingMore}
-          />
-        )}
-        {response.error && <Failure retry={response.refresh} code={fromError(response.error)} />}
-      </>
+      {news && <News id={id} news={news} regionCode={regionCode} languageCode={languageCode} response={response} />}
     </LoadingErrorHandler>
   )
 }

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 
 import { NEWS_ROUTE, NewsRouteType, replaceLinks } from 'shared'
-import { ErrorCodes, LOCAL_NEWS_SOURCE, NewsModel } from 'shared/api'
+import { ErrorCodes, fromError, LOCAL_NEWS_SOURCE, NewsModel, PaginatedReturnType } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
@@ -20,16 +20,14 @@ import TimeStamp from './TimeStamp'
 import Text from './base/Text'
 
 type NewsProps = {
+  response: PaginatedReturnType<NewsModel>
   news: NewsModel[]
   id: number | null
   regionCode: string
   languageCode: string
-  loadMore?: () => void
-  loadingMore?: boolean
-  refresh: () => void
 }
 
-const News = ({ news, loadMore, id, languageCode, regionCode, refresh, loadingMore }: NewsProps): ReactElement => {
+const News = ({ response, news, id, languageCode, regionCode }: NewsProps): ReactElement => {
   const selectedNewsItem = news.find(item => item.id === id)
   const { navigateTo } = useNavigate()
   const { t } = useTranslation('news')
@@ -75,19 +73,23 @@ const News = ({ news, loadMore, id, languageCode, regionCode, refresh, loadingMo
   }
 
   if (id !== null) {
-    return <Failure code={ErrorCodes.PageNotFound} retry={refresh} />
+    return <Failure code={ErrorCodes.PageNotFound} retry={response.refresh} />
   }
+
+  const paginationError = response.error ? (
+    <Failure retry={response.refresh} code={fromError(response.error)} />
+  ) : undefined
 
   return (
     <>
       <Caption title={t('news')} />
       <List
         items={news}
-        onEndReached={loadMore}
+        onEndReached={response.loadMore}
         noItemsMessage={t('currentlyNoNews')}
-        footer={loadingMore ? <LoadingSpinner testID='loadingSpinner' /> : undefined}
+        footer={response.loadingMore ? <LoadingSpinner testID='loadingSpinner' /> : paginationError}
         renderItem={rendersNewsListItem}
-        refresh={refresh}
+        refresh={response.refresh}
       />
     </>
   )
