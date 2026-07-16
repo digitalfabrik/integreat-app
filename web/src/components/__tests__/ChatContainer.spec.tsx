@@ -62,7 +62,7 @@ describe('ChatContainer', () => {
 
     expect(getByText('chat:conversationText')).toBeTruthy()
 
-    fireEvent.click(getByLabelText('layout:common:close'))
+    fireEvent.click(getByLabelText('layout:common:minimize'))
 
     expect(router.state.location.search).toBe('?test=asdf')
 
@@ -82,9 +82,9 @@ describe('ChatContainer', () => {
 
     fireEvent.click(chatButtonContainer!)
 
-    const closeButton = getByLabelText('layout:common:close')
+    const minimizeButton = getByLabelText('layout:common:minimize')
 
-    fireEvent.click(closeButton)
+    fireEvent.click(minimizeButton)
 
     expect(queryByText('chat:conversationTitle')).toBeFalsy()
     expect(queryByText('chat:conversationText')).toBeFalsy()
@@ -211,7 +211,7 @@ describe('ChatContainer', () => {
       },
     )
 
-    expect(queryByLabelText('layout:common:close')).toBeNull()
+    expect(queryByLabelText('layout:common:minimize')).toBeNull()
     expect(queryByText(getChatName('IntegreatTestCms'))).toBeNull()
     expect(queryByText('chat:subtitle')).toBeNull()
   })
@@ -226,7 +226,7 @@ describe('ChatContainer', () => {
       },
     )
 
-    expect(getByLabelText('layout:common:close')).toBeTruthy()
+    expect(getByLabelText('layout:common:minimize')).toBeTruthy()
     expect(getByText(getChatName('IntegreatTestCms'))).toBeTruthy()
     expect(getByText('chat:subtitle')).toBeTruthy()
   })

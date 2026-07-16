@@ -161,6 +161,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
         }
         close={close}
         showHeader={!externalChatId}
+        minimize
         actions={[
           ...(languageChangePaths
             ? [

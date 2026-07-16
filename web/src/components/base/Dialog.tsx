@@ -1,5 +1,6 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import CloseIcon from '@mui/icons-material/Close'
+import RemoveIcon from '@mui/icons-material/Remove'
 import MuiDialog, { dialogClasses } from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -38,6 +39,7 @@ type DialogProps = {
   children: ReactElement | ReactElement[]
   className?: string
   showHeader?: boolean
+  minimize?: boolean
 }
 
 const Dialog = ({
@@ -49,9 +51,11 @@ const Dialog = ({
   className,
   actions,
   showHeader = true,
+  minimize = false,
 }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation('layout')
+  const closeIcon = minimize ? <RemoveIcon /> : <CloseIcon />
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
@@ -70,8 +74,8 @@ const Dialog = ({
           alignItems='center'
           justifyContent={desktop ? 'space-between' : undefined}
           marginInline={1}>
-          <IconButton aria-label={t('common:close')} onClick={close}>
-            {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
+          <IconButton aria-label={t(minimize ? 'common:minimize' : 'common:close')} onClick={close}>
+            {desktop ? closeIcon : <DirectionDependentBackIcon />}
           </IconButton>
           {desktop && Actions}
           <StyledDialogTitle component='div'>
