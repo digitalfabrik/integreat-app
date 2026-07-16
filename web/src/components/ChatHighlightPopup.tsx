@@ -1,5 +1,4 @@
 import CloseIcon from '@mui/icons-material/Close'
-import Avatar from '@mui/material/Avatar'
 import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
 import Popper from '@mui/material/Popper'
@@ -11,25 +10,13 @@ import { Trans, useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
 import useLocalStorage, { CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
-import Svg from './base/Svg'
+import { AppLogoIcon, ChatAvatar } from './ChatAvatar'
 
 const POPUP_OFFSET = -8
 const AVATAR_SIZE = 24
 
 const StyledPopper = styled(Popper)`
   z-index: ${props => props.theme.zIndex.fab};
-`
-
-const StyledAvatar = styled(Avatar)`
-  width: ${AVATAR_SIZE}px;
-  height: ${AVATAR_SIZE}px;
-  background-color: ${props => props.theme.palette.tertiary.dark};
-`
-
-const CenteredSvg = styled(Svg)`
-  & svg {
-    display: block;
-  }
 `
 
 const StyledPaper = styled(Paper)`
@@ -71,7 +58,7 @@ type ChatHighlightPopupProps = {
 
 const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): ReactElement => {
   const { t } = useTranslation('chat')
-  const { icons } = buildConfig()
+  const appLogo = buildConfig().icons.appLogoMobileInverted
   const [visible, setVisible] = useLocalStorage<boolean>({
     key: CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY,
     initialValue: true,
@@ -86,15 +73,10 @@ const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): Re
       <StyledPaper elevation={2}>
         <Stack padding={2} gap={1}>
           <Stack direction='row' alignItems='center' gap={1}>
-            {icons.appLogoMobileInverted && (
-              <StyledAvatar>
-                <CenteredSvg
-                  src={icons.appLogoMobileInverted}
-                  width={AVATAR_SIZE}
-                  height={AVATAR_SIZE}
-                  overrideFillColors='white'
-                />
-              </StyledAvatar>
+            {appLogo && (
+              <ChatAvatar size={AVATAR_SIZE}>
+                <AppLogoIcon size={AVATAR_SIZE} />
+              </ChatAvatar>
             )}
             <Typography variant='body2' flex={1}>
               {t('welcomeGreeting')} 👋

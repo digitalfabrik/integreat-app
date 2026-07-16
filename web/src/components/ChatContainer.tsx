@@ -1,9 +1,8 @@
-import Avatar from '@mui/material/Avatar'
 import { dialogClasses } from '@mui/material/Dialog'
 import { dialogContentClasses } from '@mui/material/DialogContent'
 import { dialogTitleClasses } from '@mui/material/DialogTitle'
 import { stackClasses } from '@mui/material/Stack'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
@@ -30,12 +29,12 @@ import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import { chatIdKey, chatSeenMessagesKey } from '../utils/chat'
 import { openUrlInNewTab } from '../utils/openLink'
 import Chat from './Chat'
+import { AppLogoIcon, ChatAvatar } from './ChatAvatar'
 import ChatFab from './ChatFab'
 import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageSelection'
 import Dialog from './base/Dialog'
-import Svg from './base/Svg'
 
 const HEADER_BORDER_RADIUS = 12
 const AVATAR_ICON_SIZE = 40
@@ -62,18 +61,6 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
   },
 }))
 
-const StyledAvatar = styled(Avatar)(({ theme }) => ({
-  width: AVATAR_ICON_SIZE,
-  height: AVATAR_ICON_SIZE,
-  backgroundColor: theme.isContrastTheme ? theme.palette.text.primary : theme.palette.tertiary.dark,
-}))
-
-const CenteredSvg = styled(Svg)({
-  '& svg': {
-    display: 'block',
-  },
-})
-
 type ChatContainerProps = {
   region: RegionModel
   languageCode: string
@@ -83,7 +70,6 @@ type ChatContainerProps = {
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const { open, close, openUrl, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
   const { t } = useTranslation('chat')
-  const theme = useTheme()
   const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
@@ -168,14 +154,9 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
         subtitle={t('subtitle')}
         icon={
           appLogo ? (
-            <StyledAvatar>
-              <CenteredSvg
-                src={appLogo}
-                width={AVATAR_ICON_SIZE}
-                height={AVATAR_ICON_SIZE}
-                overrideFillColors={theme.palette.background.paper}
-              />
-            </StyledAvatar>
+            <ChatAvatar size={AVATAR_ICON_SIZE}>
+              <AppLogoIcon size={AVATAR_ICON_SIZE} />
+            </ChatAvatar>
           ) : null
         }
         close={close}

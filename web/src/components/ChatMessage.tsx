@@ -2,20 +2,19 @@ import shouldForwardProp from '@emotion/is-prop-valid'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined'
-import Avatar from '@mui/material/Avatar'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ChatMessageModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
+import { AppLogoIcon, ChatAvatar } from './ChatAvatar'
 import RemoteContent from './RemoteContent'
-import Svg from './base/Svg'
 
 export const Message = styled('div', { shouldForwardProp })<{ userIsAuthor: boolean }>(({ theme, userIsAuthor }) => ({
   maxWidth: '70%',
@@ -36,18 +35,7 @@ const RetryButton = styled(IconButton)({
   alignSelf: 'center',
 })
 
-const StyledAvatar = styled(Avatar, { shouldForwardProp })<{ visible: boolean }>(({ theme, visible }) => ({
-  opacity: visible ? 1 : 0,
-  width: 40,
-  height: 40,
-  backgroundColor: theme.isContrastTheme ? theme.palette.text.primary : theme.palette.tertiary.dark,
-}))
-
-const CenteredSvg = styled(Svg)({
-  '& svg': {
-    display: 'block',
-  },
-})
+const MESSAGE_AVATAR_SIZE = 40
 
 type MessageAvatarProps = {
   userIsAuthor: boolean
@@ -57,19 +45,16 @@ type MessageAvatarProps = {
 
 const MessageAvatar = ({ userIsAuthor, isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
   const { t } = useTranslation('chat')
-  const theme = useTheme()
   const label = t(isAutomaticAnswer ? 'bot' : 'consultant')
   const appLogo = buildConfig().icons.appLogoMobileInverted
 
   if (userIsAuthor) {
-    return <StyledAvatar visible={visible} aria-label={t('user')} />
+    return <ChatAvatar size={MESSAGE_AVATAR_SIZE} visible={visible} aria-label={t('user')} />
   }
 
   let avatarIcon: ReactElement
   if (isAutomaticAnswer && appLogo) {
-    avatarIcon = (
-      <CenteredSvg src={appLogo} width={40} height={40} overrideFillColors={theme.palette.background.paper} />
-    )
+    avatarIcon = <AppLogoIcon size={MESSAGE_AVATAR_SIZE} />
   } else if (isAutomaticAnswer) {
     avatarIcon = <SmartToyOutlinedIcon />
   } else {
@@ -78,9 +63,9 @@ const MessageAvatar = ({ userIsAuthor, isAutomaticAnswer, visible }: MessageAvat
 
   return (
     <Tooltip title={label} disableHoverListener={!visible}>
-      <StyledAvatar visible={visible} aria-label={label}>
+      <ChatAvatar size={MESSAGE_AVATAR_SIZE} visible={visible} aria-label={label}>
         {avatarIcon}
-      </StyledAvatar>
+      </ChatAvatar>
     </Tooltip>
   )
 }
