@@ -62,17 +62,9 @@ type HeaderProps = {
   regionName?: string
   language: string
   tabBar?: ReactNode
-  onStickyTopChanged?: (stickyTop: number) => void
 }
 
-export const Header = ({
-  actionItems = [],
-  logoHref,
-  regionName,
-  language,
-  tabBar,
-  onStickyTopChanged,
-}: HeaderProps): ReactElement => {
+export const Header = ({ actionItems = [], logoHref, regionName, language, tabBar }: HeaderProps): ReactElement => {
   const { rect: headerRect, ref } = useElementRect()
   useUpdateDimensions()
 
@@ -80,7 +72,7 @@ export const Header = ({
   const regionsPath = pathnameFromRouteInformation({ route: REGIONS_ROUTE, languageCode: language })
 
   return (
-    <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2} onStickyTopChanged={onStickyTopChanged}>
+    <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2}>
       <StyledPaper>
         <HeaderContainer ref={ref}>
           <Row>

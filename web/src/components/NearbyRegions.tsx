@@ -8,26 +8,29 @@ import { useTranslation } from 'react-i18next'
 import { getNearbyRegions } from 'shared'
 import { RegionModel } from 'shared/api'
 
+import useDimensions from '../hooks/useDimensions'
 import useUserLocation from '../hooks/useUserLocation'
-import RegionListGroup, { RegionGroupHeader } from './RegionListGroup'
+import RegionListGroup from './RegionListGroup'
+import { StickyListSubheader } from './base/List'
 
 type NearbyRegionsProps = {
   regions: RegionModel[]
   language: string
   filterText: string
-  stickyTop: number
 }
 
-const NearbyRegions = ({ regions, language, filterText, stickyTop }: NearbyRegionsProps): ReactElement => {
-  const { t } = useTranslation('regions')
+const NearbyRegions = ({ regions, language, filterText }: NearbyRegionsProps): ReactElement => {
   const { data: userLocation, refresh } = useUserLocation()
+  const { stickyTop } = useDimensions()
+  const { t } = useTranslation('regions')
+
   const liveRegions = regions.filter(region => region.live)
   const nearbyRegions = userLocation ? getNearbyRegions(userLocation, liveRegions) : []
 
   if (nearbyRegions.length === 0) {
     return (
       <Stack paddingBlock={1}>
-        <RegionGroupHeader stickyTop={stickyTop}>{t('common:nearby')}</RegionGroupHeader>
+        <StickyListSubheader stickyTop={stickyTop}>{t('common:nearby')}</StickyListSubheader>
         <Stack direction='row' alignItems='center' justifyContent='space-between' paddingInline={2}>
           <ListItemText primary={t(userLocation ? 'noNearbyRegions' : 'locationError')} />
           <IconButton aria-label={t('refresh')} onClick={refresh}>
@@ -42,7 +45,6 @@ const NearbyRegions = ({ regions, language, filterText, stickyTop }: NearbyRegio
     <RegionListGroup
       title={t('common:nearby')}
       regions={nearbyRegions}
-      stickyTop={stickyTop}
       languageCode={language}
       filterText={filterText}
     />
