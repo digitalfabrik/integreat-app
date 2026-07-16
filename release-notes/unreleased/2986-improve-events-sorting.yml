@@ -1,0 +1,7 @@
+issue_key: 2986
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Events are now grouped by their next recurrence.
+de: Veranstaltungen werden nun nach ihrer nächsten Wiederholung gruppiert.

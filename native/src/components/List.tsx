@@ -4,6 +4,14 @@ import { Divider } from 'react-native-paper'
 
 import Text from './base/Text'
 
+type ListEmptyComponentProps = { noItemsMessage: string }
+
+export const ListEmptyComponent = ({ noItemsMessage }: ListEmptyComponentProps): ReactElement => (
+  <Text variant='body2' style={{ alignSelf: 'center', marginTop: 20 }}>
+    {noItemsMessage}
+  </Text>
+)
+
 type ListProps<T> = {
   items: T[]
   noItemsMessage?: ReactElement | string
@@ -39,18 +47,7 @@ const List = <T,>({
     ListFooterComponentStyle={{ flex: 1, justifyContent: 'flex-end' }}
     refreshControl={refresh ? <RefreshControl onRefresh={refresh} refreshing={false} /> : undefined}
     ListEmptyComponent={
-      typeof noItemsMessage === 'string' ? (
-        <Text
-          variant='body2'
-          style={{
-            alignSelf: 'center',
-            marginTop: 20,
-          }}>
-          {noItemsMessage}
-        </Text>
-      ) : (
-        noItemsMessage
-      )
+      typeof noItemsMessage === 'string' ? <ListEmptyComponent noItemsMessage={noItemsMessage} /> : noItemsMessage
     }
     onEndReached={onEndReached}
     showsVerticalScrollIndicator={false}
