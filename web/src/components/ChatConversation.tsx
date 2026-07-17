@@ -16,7 +16,7 @@ import TypingIndicator from './TypingIndicator'
 const StyledList = styled(List)({
   display: 'flex',
   flexDirection: 'column',
-  gap: 8,
+  gap: 16,
 })
 
 type ChatConversationProps = {
