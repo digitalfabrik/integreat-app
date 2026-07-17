@@ -7,7 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -54,6 +54,7 @@ const Dialog = ({
   minimize = false,
 }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
+  const { contentDirection } = useTheme()
   const { t } = useTranslation('layout')
   const closeIcon = minimize ? <RemoveIcon /> : <CloseIcon />
 
@@ -78,7 +79,7 @@ const Dialog = ({
             {desktop ? closeIcon : <DirectionDependentBackIcon />}
           </IconButton>
           {desktop && Actions}
-          <StyledDialogTitle component='div'>
+          <StyledDialogTitle component='div' dir={contentDirection}>
             <Stack direction='row' alignItems='center' gap={1.5}>
               {icon}
               <Stack minWidth={0}>

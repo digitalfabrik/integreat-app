@@ -27,8 +27,6 @@ declare module '@mui/material/styles' {
 
   interface TypeBackground {
     accent: string
-    chat: string
-    chatMessage: string
   }
 
   interface Palette {
@@ -37,6 +35,14 @@ declare module '@mui/material/styles' {
       light: string
       main: string
     }
+    chat: {
+      background: string
+      headerBackground: string
+      messageBackground: string
+      userMessageBackground: string
+      messageBorderColor: string
+      headerActionBackground: string
+    }
   }
 
   interface PaletteOptions {
@@ -44,6 +50,14 @@ declare module '@mui/material/styles' {
     tuNews: {
       light: string
       main: string
+    }
+    chat: {
+      background: string
+      headerBackground: string
+      messageBackground: string
+      userMessageBackground: string
+      messageBorderColor: string
+      headerActionBackground: string
     }
   }
 }

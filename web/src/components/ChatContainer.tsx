@@ -29,26 +29,23 @@ import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import { chatIdKey, chatSeenMessagesKey } from '../utils/chat'
 import { openUrlInNewTab } from '../utils/openLink'
 import Chat from './Chat'
-import { AppLogoIcon, ChatAvatar } from './ChatAvatar'
+import { ChatLogoAvatar } from './ChatAvatar'
 import ChatFab from './ChatFab'
 import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageSelection'
 import Dialog from './base/Dialog'
 
-const HEADER_BORDER_RADIUS = 12
-const AVATAR_ICON_SIZE = 40
-
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   [`.${dialogClasses.paper}:not(.${dialogClasses.paperFullScreen})`]: {
-    borderRadius: `${HEADER_BORDER_RADIUS}px ${HEADER_BORDER_RADIUS}px 0 0`,
+    borderRadius: 12,
     boxShadow: 'none',
     border: `1px solid ${theme.palette.divider}`,
   },
   [`.${dialogClasses.paper} > .${stackClasses.root}`]: {
     margin: 0,
     padding: theme.spacing(1),
-    backgroundColor: theme.isContrastTheme ? theme.palette.background.chat : theme.palette.background.accent,
+    backgroundColor: theme.palette.chat.headerBackground,
     borderBottom: `1px solid ${theme.palette.divider}`,
 
     [`.${dialogTitleClasses.root}`]: {
@@ -57,7 +54,7 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
   },
   [`.${dialogContentClasses.root}`]: {
     padding: theme.spacing(0, 0, 2),
-    backgroundColor: theme.palette.background.chat,
+    backgroundColor: theme.palette.chat.background,
   },
 }))
 
@@ -144,7 +141,6 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
 
   if (visible) {
     const chatName = getChatName(buildConfig().appName)
-    const appLogo = buildConfig().icons.appLogoMobileInverted
     const chatLanguageChangePaths =
       languageChangePaths?.map(({ path, ...rest }) => ({ ...rest, path: openUrl(path) })) ?? []
 
@@ -152,13 +148,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
       <StyledDialog
         title={chatName}
         subtitle={t('subtitle')}
-        icon={
-          appLogo ? (
-            <ChatAvatar size={AVATAR_ICON_SIZE}>
-              <AppLogoIcon size={AVATAR_ICON_SIZE} />
-            </ChatAvatar>
-          ) : null
-        }
+        icon={<ChatLogoAvatar />}
         close={close}
         showHeader={!externalChatId}
         minimize

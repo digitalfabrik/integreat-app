@@ -8,9 +8,8 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
-import buildConfig from '../constants/buildConfig'
 import useLocalStorage, { CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
-import { AppLogoIcon, ChatAvatar } from './ChatAvatar'
+import { ChatLogoAvatar } from './ChatAvatar'
 
 const POPUP_OFFSET = -8
 const AVATAR_SIZE = 24
@@ -58,7 +57,6 @@ type ChatHighlightPopupProps = {
 
 const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): ReactElement => {
   const { t } = useTranslation('chat')
-  const appLogo = buildConfig().icons.appLogoMobileInverted
   const [visible, setVisible] = useLocalStorage<boolean>({
     key: CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY,
     initialValue: true,
@@ -73,11 +71,7 @@ const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): Re
       <StyledPaper elevation={2}>
         <Stack padding={2} gap={1}>
           <Stack direction='row' alignItems='center' gap={1}>
-            {appLogo && (
-              <ChatAvatar size={AVATAR_SIZE}>
-                <AppLogoIcon size={AVATAR_SIZE} />
-              </ChatAvatar>
-            )}
+            <ChatLogoAvatar size={AVATAR_SIZE} />
             <Typography variant='body2' flex={1}>
               {t('welcomeGreeting')} 👋
             </Typography>
