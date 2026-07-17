@@ -5815,7 +5815,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native/metro-babel-transformer@npm:0.84.1, @react-native/metro-babel-transformer@npm:^0.84.1":
+"@react-native/metro-babel-transformer@npm:0.84.1":
   version: 0.84.1
   resolution: "@react-native/metro-babel-transformer@npm:0.84.1"
   dependencies:
@@ -16963,7 +16963,6 @@ __metadata:
   resolution: "native@workspace:native"
   dependencies:
     "@babel/core": "npm:^7.29.6"
-    "@babel/plugin-transform-export-namespace-from": "npm:^7.27.1"
     "@babel/preset-env": "npm:^7.29.2"
     "@babel/preset-typescript": "npm:^7.28.5"
     "@babel/runtime": "npm:^7.29.2"
@@ -16988,7 +16987,6 @@ __metadata:
     "@react-native-vector-icons/material-design-icons": "npm:^13.0.0"
     "@react-native/babel-preset": "npm:^0.84.1"
     "@react-native/eslint-config": "npm:^0.84.1"
-    "@react-native/metro-babel-transformer": "npm:^0.84.1"
     "@react-native/metro-config": "npm:^0.84.1"
     "@react-navigation/bottom-tabs": "npm:^7.15.9"
     "@react-navigation/elements": "npm:^2.9.14"
