@@ -21,7 +21,7 @@ import Link from './base/Link'
 const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 'expanded' })<{ expanded: boolean }>(
   ({ theme, expanded }) => ({
     [`& .${outlinedInputClasses.root}`]: {
-      ...theme.typography.body1,
+      ...theme.typography.body1, // should be set to 16px or above to avoid webview zoom-in in native ios
       borderRadius: 12,
       minHeight: 56,
       alignItems: 'flex-start',
