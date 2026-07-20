@@ -59,7 +59,7 @@ const AlertDialog = ({ title, close, children, className, actions }: DialogProps
 
 export type SimpleAlertDialogProps = {
   title: string
-  body: string
+  body: ReactElement | string
   close: () => void
 }
 

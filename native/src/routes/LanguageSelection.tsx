@@ -10,6 +10,7 @@ import { filterLanguages, LanguagesRouteType } from 'shared'
 import { useLoadAsync } from 'shared/api'
 import { config } from 'translations'
 
+import LanguageNotAvailableMessage from '../components/LanguageNotAvailableMessage'
 import SearchInput from '../components/SearchInput'
 import Selector from '../components/Selector'
 import { SimpleAlertDialog } from '../components/base/AlertDialog'
@@ -52,7 +53,7 @@ type LanguageSelectionProps = {
 }
 
 const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): ReactElement => {
-  const { languages, availableLanguages } = route.params
+  const { languages, availableLanguages, routeType, slug } = route.params
   const { languageCode, changeLanguageCode } = useContext(AppContext)
   const { loading } = useLoadAsync(useCallback(() => loadPolyfillIfNeeded(languageCode), [languageCode]))
   const [query, setQuery] = useState('')
@@ -82,6 +83,8 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
     })
   })
 
+  const closeAlertDialog = () => setAlertDialogTitle(null)
+
   return (
     <>
       <Wrapper contentContainerStyle={styles.contentContainer}>
@@ -102,9 +105,14 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
       </Wrapper>
       <SimpleAlertDialog
         visible={!!alertDialogTitle}
-        close={() => setAlertDialogTitle(null)}
+        close={closeAlertDialog}
         title={<Text variant='subtitle1'>{alertDialogTitle}</Text>}>
-        <Text>{t('languageNotAvailableMessage')}</Text>
+        <LanguageNotAvailableMessage
+          navigation={navigation}
+          routeType={routeType}
+          slug={slug}
+          close={closeAlertDialog}
+        />
       </SimpleAlertDialog>
     </>
   )

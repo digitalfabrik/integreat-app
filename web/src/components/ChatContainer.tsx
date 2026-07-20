@@ -134,6 +134,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
                   key='languageChange'
                   languageChangePaths={chatLanguageChangePaths}
                   languageCode={languageCode}
+                  feedbackAvailable
                 />,
               ]
             : []),

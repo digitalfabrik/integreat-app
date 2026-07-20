@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
 import HeaderActionItem from './HeaderActionItem'
+import LanguageNotAvailableMessage from './LanguageNotAvailableMessage'
 import LanguageSelection, { LanguageChangePath } from './LanguageSelection'
 import Sidebar from './Sidebar'
 import { SimpleAlertDialog } from './base/AlertDialog'
@@ -22,12 +23,14 @@ type HeaderLanguageSelectorItemProps = {
   languageChangePaths: LanguageChangePath[]
   languageCode: string
   forceText?: boolean
+  feedbackAvailable?: boolean
 }
 
 const HeaderLanguageSelectorItem = ({
   languageChangePaths,
   languageCode,
   forceText = false,
+  feedbackAvailable = false,
 }: HeaderLanguageSelectorItemProps): ReactElement => {
   const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(null)
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
@@ -55,11 +58,12 @@ const HeaderLanguageSelectorItem = ({
     />
   )
 
+  const closeAlertDialog = () => setAlertDialogTitle(null)
   const languageNotAvailableDialog = alertDialogTitle ? (
     <SimpleAlertDialog
       title={alertDialogTitle}
-      body={t('languageNotAvailableMessage')}
-      close={() => setAlertDialogTitle(null)}
+      body={<LanguageNotAvailableMessage feedbackAvailable={feedbackAvailable} close={closeAlertDialog} />}
+      close={closeAlertDialog}
     />
   ) : null
 
