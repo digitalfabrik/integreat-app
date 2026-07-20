@@ -38,10 +38,9 @@ declare module '@mui/material/styles' {
     chat: {
       background: string
       headerBackground: string
-      messageBackground: string
+      answerMessageBackground: string
       userMessageBackground: string
       messageBorderColor: string
-      headerActionBackground: string
     }
   }
 
@@ -54,10 +53,9 @@ declare module '@mui/material/styles' {
     chat: {
       background: string
       headerBackground: string
-      messageBackground: string
+      answerMessageBackground: string
       userMessageBackground: string
       messageBorderColor: string
-      headerActionBackground: string
     }
   }
 }

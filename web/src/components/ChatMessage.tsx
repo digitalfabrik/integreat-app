@@ -19,7 +19,7 @@ export const Message = styled('div', { shouldForwardProp })<{ userIsAuthor: bool
   padding: 16,
   borderRadius: 8,
   wordBreak: 'break-word',
-  backgroundColor: userIsAuthor ? theme.palette.chat.userMessageBackground : theme.palette.chat.messageBackground,
+  backgroundColor: userIsAuthor ? theme.palette.chat.userMessageBackground : theme.palette.chat.answerMessageBackground,
   border: `1px solid ${theme.palette.chat.messageBorderColor}`,
 }))
 

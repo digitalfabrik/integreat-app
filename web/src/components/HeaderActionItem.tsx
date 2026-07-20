@@ -9,12 +9,12 @@ import Link from './base/Link'
 const StyledButton = styled(MuiButton)`
   padding: 2px 12px;
   border: 1px solid;
-  background-color: ${props => props.theme.palette.chat.headerActionBackground};
+  background-color: ${props => (props.theme.isContrastTheme ? 'transparent' : props.theme.palette.background.default)};
 ` as typeof MuiButton
 
 const StyledIconButton = styled(IconButton)`
   border: 1px solid;
-  background-color: ${props => props.theme.palette.chat.headerActionBackground};
+  background-color: ${props => (props.theme.isContrastTheme ? 'transparent' : props.theme.palette.background.default)};
 ` as typeof IconButton
 
 type HeaderActionItemLinkProps = {

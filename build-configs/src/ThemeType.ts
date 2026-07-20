@@ -51,10 +51,9 @@ export type TypeTtsPlayer = {
 export type TypeChat = {
   background: string
   headerBackground: string
-  messageBackground: string
+  answerMessageBackground: string
   userMessageBackground: string
   messageBorderColor: string
-  headerActionBackground: string
 }
 
 export type CommonColorPalette = CommonColors & {

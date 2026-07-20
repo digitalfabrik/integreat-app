@@ -1,6 +1,5 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
-import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined'
 import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import { styled, useTheme } from '@mui/material/styles'
@@ -28,36 +27,18 @@ const CenteredSvg = styled(Svg)({
   },
 })
 
-type ChatLogoProps = {
-  size?: number
-}
-
-const ChatLogo = ({ size = DEFAULT_AVATAR_SIZE }: ChatLogoProps): ReactElement | null => {
-  const theme = useTheme()
-  const appLogo = buildConfig().icons.appLogoMobileInverted
-
-  if (!appLogo) {
-    return null
-  }
-
-  return <CenteredSvg src={appLogo} width={size} height={size} overrideFillColors={theme.palette.background.paper} />
-}
-
 type ChatLogoAvatarProps = {
   size?: number
   visible?: boolean
 }
 
-export const ChatLogoAvatar = ({ size = DEFAULT_AVATAR_SIZE, visible }: ChatLogoAvatarProps): ReactElement | null => {
-  const appLogo = buildConfig().icons.appLogoMobileInverted
-
-  if (!appLogo) {
-    return null
-  }
+export const ChatLogoAvatar = ({ size = DEFAULT_AVATAR_SIZE, visible }: ChatLogoAvatarProps): ReactElement => {
+  const theme = useTheme()
+  const appLogo = buildConfig().icons.appLogoInverted
 
   return (
     <ChatAvatar size={size} visible={visible}>
-      <ChatLogo size={size} />
+      <CenteredSvg src={appLogo} width={size} height={size} overrideFillColors={theme.palette.background.paper} />
     </ChatAvatar>
   )
 }
@@ -70,26 +51,27 @@ type MessageAvatarProps = {
 
 export const MessageAvatar = ({ userIsAuthor, isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
   const { t } = useTranslation('chat')
+  const theme = useTheme()
   const label = t(isAutomaticAnswer ? 'bot' : 'consultant')
-  const appLogo = buildConfig().icons.appLogoMobileInverted
+  const appLogo = buildConfig().icons.appLogoInverted
 
   if (userIsAuthor) {
     return <ChatAvatar visible={visible} aria-label={t('user')} />
   }
 
-  let avatarIcon: ReactElement
-  if (isAutomaticAnswer && appLogo) {
-    avatarIcon = <ChatLogo />
-  } else if (isAutomaticAnswer) {
-    avatarIcon = <SmartToyOutlinedIcon />
-  } else {
-    avatarIcon = <PersonOutlinedIcon />
-  }
-
   return (
     <Tooltip title={label} disableHoverListener={!visible}>
       <ChatAvatar visible={visible} aria-label={label}>
-        {avatarIcon}
+        {isAutomaticAnswer ? (
+          <CenteredSvg
+            src={appLogo}
+            width={DEFAULT_AVATAR_SIZE}
+            height={DEFAULT_AVATAR_SIZE}
+            overrideFillColors={theme.palette.background.paper}
+          />
+        ) : (
+          <PersonOutlinedIcon />
+        )}
       </ChatAvatar>
     </Tooltip>
   )

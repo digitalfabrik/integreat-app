@@ -58,10 +58,9 @@ export const commonLightColors: CommonColorPalette = {
   chat: {
     background: '#FFFFFF',
     headerBackground: '#EAEEF9',
-    messageBackground: '#EAEEF9',
+    answerMessageBackground: '#EAEEF9',
     userMessageBackground: '#F5F5F5',
     messageBorderColor: 'transparent',
-    headerActionBackground: '#FFFFFF',
   },
 }
 
@@ -102,9 +101,8 @@ export const commonDarkColors: CommonColorPalette = {
   chat: {
     background: '#1E1E1E',
     headerBackground: '#1E1E1E',
-    messageBackground: '#181818',
+    answerMessageBackground: '#181818',
     userMessageBackground: '#20293A',
     messageBorderColor: '#C9C9C9',
-    headerActionBackground: 'transparent',
   },
 }
