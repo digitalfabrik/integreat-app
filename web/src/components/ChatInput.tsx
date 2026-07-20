@@ -21,7 +21,7 @@ import Link from './base/Link'
 const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 'expanded' })<{ expanded: boolean }>(
   ({ theme, expanded }) => ({
     [`& .${outlinedInputClasses.root}`]: {
-      ...theme.typography.body2,
+      ...theme.typography.body1,
       borderRadius: 12,
       minHeight: 56,
       alignItems: 'flex-start',
