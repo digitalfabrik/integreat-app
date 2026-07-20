@@ -1,7 +1,5 @@
-import ListSubheader from '@mui/material/ListSubheader'
 import Stack from '@mui/material/Stack'
-import { styled } from '@mui/material/styles'
-import React, { ElementType, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useDateFilter, groupEventsByDate } from 'shared'
@@ -11,16 +9,7 @@ import EventListItem from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
 import useDimensions from '../hooks/useDimensions'
 import { withDividers } from '../utils'
-import List from './base/List'
-
-const StyledListSubheader = styled(ListSubheader, { shouldForwardProp: prop => prop !== 'stickyTop' })<{
-  stickyTop: number
-  component?: ElementType
-}>(({ theme, stickyTop }) => ({
-  backgroundColor: theme.palette.background.default,
-  top: stickyTop,
-  transition: 'top 0.2s ease-out',
-}))
+import List, { StickyListSubheader } from './base/List'
 
 type EventListGroupProps = {
   title: string
@@ -32,9 +21,9 @@ const EventListGroup = ({ title, events, languageCode }: EventListGroupProps): R
   const { stickyTop } = useDimensions()
   return (
     <Stack paddingBlock={1}>
-      <StyledListSubheader component='h2' stickyTop={stickyTop}>
+      <StickyListSubheader component='h2' stickyTop={stickyTop}>
         {title}
-      </StyledListSubheader>
+      </StickyListSubheader>
       {withDividers(events.map(event => <EventListItem event={event} languageCode={languageCode} key={event.path} />))}
     </Stack>
   )

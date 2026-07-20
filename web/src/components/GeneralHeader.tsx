@@ -16,10 +16,9 @@ import MenuItem from './MenuItem'
 type GeneralHeaderProps = {
   languageCode: string
   regionLanguages?: LanguageModel[]
-  onStickyTopChanged?: (stickyTop: number) => void
 }
 
-const GeneralHeader = ({ languageCode, regionLanguages, onStickyTopChanged }: GeneralHeaderProps): ReactElement => {
+const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): ReactElement => {
   const slug = useLocation().pathname.split('/')[1]
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
@@ -45,14 +44,7 @@ const GeneralHeader = ({ languageCode, regionLanguages, onStickyTopChanged }: Ge
     </HeaderMenu>,
   ]
 
-  return (
-    <Header
-      logoHref={regionsPath}
-      actionItems={actionItems}
-      language={languageCode}
-      onStickyTopChanged={onStickyTopChanged}
-    />
-  )
+  return <Header logoHref={regionsPath} actionItems={actionItems} language={languageCode} />
 }
 
 export default GeneralHeader
