@@ -39,6 +39,13 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
     setSearchTerm(query)
   }, [query])
 
+  const closeAndReset = () => {
+    close()
+    setComment('')
+    setContactMail('')
+    setSearchTerm(query)
+  }
+
   const handleSubmit = () => {
     setSendingStatus('sending')
 
@@ -58,7 +65,7 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
 
       setSendingStatus('successful')
       setSnackbarOpen(true)
-      close()
+      closeAndReset()
     }
 
     request().catch(err => {
@@ -71,7 +78,7 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
   return (
     <>
       {visible && (
-        <Dialog title={t('headline')} close={close}>
+        <Dialog title={t('headline')} close={closeAndReset}>
           <Feedback
             language={languageCode}
             onCommentChanged={setComment}

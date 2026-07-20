@@ -5,22 +5,20 @@ import { navigateToDashboard } from '../utils/navigationUtils.js'
 describe('change language', () => {
   it('should display language icon', async () => {
     await navigateToDashboard()
-
-    dashboardPage.languageIcon.waitForDisplayed()
+    await dashboardPage.languageIcon.waitForDisplayed({ timeout: 20000 })
   })
 
   it('should change language', async () => {
     const englishContent = $(new Selector().byText('Welcome').build())
-    await englishContent.waitForDisplayed()
+    await englishContent.waitForDisplayed({ timeout: 10000 })
 
     await dashboardPage.languageIcon.click()
 
-    await $(new Selector().byText('Deutsch').build()).click()
-
-    await (
-      await $(new Selector().byContainedText('Loading').build())
-    ).waitForDisplayed({ timeout: 30000, interval: 2000, reverse: true })
-
-    await $(new Selector().byText('Willkommen').build()).waitForDisplayed()
+    const german = $(new Selector().byText('Deutsch').build())
+    await german.waitForExist({ timeout: 10000 })
+    // requires double click to work (the first click selects the language and the second click fires it)
+    await german.click()
+    await german.click()
+    await $(new Selector().byText('Willkommen').build()).waitForDisplayed({ timeout: 50000 })
   })
 })

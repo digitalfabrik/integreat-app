@@ -84,7 +84,7 @@ describe('SearchPage', () => {
     expect(queryByText(event0.title)).toBeNull()
     expect(queryByText(place0.title)).toBeNull()
 
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
+    fireEvent.change(getByPlaceholderText('search:searchContent'), {
       target: {
         value: 'all results, please',
       },
@@ -98,7 +98,7 @@ describe('SearchPage', () => {
   it('should display nothing found for search', () => {
     const { getByPlaceholderText, getByText } = renderSearch()
 
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
+    fireEvent.change(getByPlaceholderText('search:searchContent'), {
       target: {
         value: 'no results, please',
       },
@@ -113,14 +113,14 @@ describe('SearchPage', () => {
 
       const { getByPlaceholderText } = renderSearch({ query })
 
-      expect((getByPlaceholderText('search:searchPlaceholder') as HTMLInputElement).value).toBe('SearchForThis')
+      expect((getByPlaceholderText('search:searchContent') as HTMLInputElement).value).toBe('SearchForThis')
     })
   })
 
   it('should set url when state changes', async () => {
     const { getByPlaceholderText, router } = renderRoute(searchPage, { pathname, routePattern })
 
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
+    fireEvent.change(getByPlaceholderText('search:searchContent'), {
       target: {
         value: 'ChangeToThis',
       },
@@ -136,7 +136,7 @@ describe('SearchPage', () => {
       previousRoutes: [{ pathname: '/augsburg/en' }],
     })
 
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), { target: { value: 'testQuery' } })
+    fireEvent.change(getByPlaceholderText('search:searchContent'), { target: { value: 'testQuery' } })
     await waitFor(() => {
       expect(router.state.location.search).toBe('?query=testQuery')
     })
@@ -152,7 +152,7 @@ describe('SearchPage', () => {
 
     const { getByPlaceholderText } = renderSearch({ query })
 
-    fireEvent.change(getByPlaceholderText('search:searchPlaceholder'), {
+    fireEvent.change(getByPlaceholderText('search:searchContent'), {
       target: {
         value: '',
       },

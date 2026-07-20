@@ -1,12 +1,13 @@
+import { identifyByLabel } from '../helpers/identifyByLabel.js'
 import { Page } from './page.js'
 
 class SearchPage extends Page {
-  constructor() {
-    super('Search-Page')
+  get contentSearch(): ReturnType<typeof $> {
+    return identifyByLabel('Search content')
   }
 
-  get search(): ReturnType<typeof $> {
-    return $('~Search-Input')
+  async get(): Promise<void> {
+    await this.contentSearch.waitForExist({ timeout: 10000 })
   }
 }
 

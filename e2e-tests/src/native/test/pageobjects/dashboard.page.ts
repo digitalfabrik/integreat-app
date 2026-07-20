@@ -1,20 +1,34 @@
+import { Selector } from '../helpers/Selector.js'
+import { identifyByLabel } from '../helpers/identifyByLabel.js'
 import { Page } from './page.js'
 
 class DashboardPage extends Page {
-  constructor() {
-    super('Dashboard-Page')
-  }
-
   get searchIcon(): ReturnType<typeof $> {
-    return $('~Search')
+    return identifyByLabel('Search')
   }
 
-  get headerOverflowButton(): ReturnType<typeof $> {
-    return $('~More options')
+  get settingsIcon(): ReturnType<typeof $> {
+    return identifyByLabel('Settings')
   }
 
   get languageIcon(): ReturnType<typeof $> {
-    return $('~Change language')
+    return identifyByLabel('Change language')
+  }
+
+  get welcomeText() {
+    return $(new Selector().byText('Welcome').build())
+  }
+
+  get willkommenText() {
+    return $(new Selector().byText('Willkommen').build())
+  }
+
+  async get(): Promise<void> {
+    try {
+      await this.welcomeText.waitForDisplayed({ timeout: 40000 })
+    } catch {
+      await this.willkommenText.waitForDisplayed({ timeout: 40000 })
+    }
   }
 }
 

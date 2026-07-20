@@ -13,7 +13,6 @@ import { NavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContext'
 import useLoadRegions from '../hooks/useLoadRegions'
-import testID from '../testing/testID'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
 const Wrapper = styled(View)`
@@ -44,7 +43,7 @@ const Regions = ({ navigation }: RegionsProps): ReactElement => {
     <LoadingErrorHandler {...response} refresh={refresh} scrollView>
       {regions && (
         <>
-          <Wrapper {...testID('Regions-Page')}>
+          <Wrapper>
             <Text variant='h3'>{t('welcome', { appName: buildConfig().appName })}</Text>
             <Text variant='body2'>{t('welcomeInformation')}</Text>
             <RegionSelector regions={regions} navigateToDashboard={navigateToDashboard} />

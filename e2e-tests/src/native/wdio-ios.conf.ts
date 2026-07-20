@@ -16,6 +16,7 @@ const iosCapabilities: WebdriverIO.Capabilities = {
   */
   'appium:app': `${process.env.BUILD_DIR}/Products/Debug-iphonesimulator/Integreat.app`,
   'appium:newCommandTimeout': 240,
+  'appium:autoAcceptAlerts': true,
 }
 
 export const config: WebdriverIO.Config = {

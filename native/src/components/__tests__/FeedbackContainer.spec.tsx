@@ -165,14 +165,14 @@ describe('FeedbackContainer', () => {
 
   it('should send negative rating on submit if there are no search results found', async () => {
     const query = 'gesundheitsversicherung'
-    const noResults = true
+    const rating = 'negative'
     const { getByText, findByText } = render(
       <FeedbackContainer
         routeType={SEARCH_ROUTE}
         language={language}
         regionCode={region}
         query={query}
-        noResults={noResults}
+        rating={rating}
       />,
     )
     const buttonToOpenFeedback = getByText('giveFeedback')

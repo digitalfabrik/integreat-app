@@ -4,7 +4,6 @@ import { Keyboard, StyleProp, View, ViewStyle } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import testID from '../testing/testID'
 import Text from './base/Text'
 
 const InputWrapper = styled.View`
@@ -21,9 +20,17 @@ type SearchInputProps = {
   setValue: (value: string) => void
   description?: string
   style?: StyleProp<ViewStyle>
+  ariaLabel: string
 }
 
-const SearchInput = ({ placeholderText, value, setValue, description, style }: SearchInputProps): ReactElement => {
+const SearchInput = ({
+  placeholderText,
+  value,
+  setValue,
+  description,
+  style,
+  ariaLabel,
+}: SearchInputProps): ReactElement => {
   const { t } = useTranslation('search')
   const theme = useTheme()
 
@@ -31,13 +38,12 @@ const SearchInput = ({ placeholderText, value, setValue, description, style }: S
     <View style={style}>
       <InputWrapper>
         <TextInput
-          {...testID('Search-Input')}
           multiline={false}
           autoFocus
           onBlur={Keyboard.dismiss}
           placeholderTextColor={theme.colors.onSurfaceVariant}
           placeholder={placeholderText}
-          aria-label={placeholderText}
+          aria-label={ariaLabel}
           value={value}
           onChangeText={setValue}
           role='searchbox'
