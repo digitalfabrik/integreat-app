@@ -6,7 +6,7 @@ import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
 import { prefixer } from 'stylis'
 
-import { ThemeKey } from 'build-configs'
+import { parseQueryParams, ThemeType } from 'shared'
 import { UiDirectionType } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
@@ -27,10 +27,7 @@ const rtlCache = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
 })
 
-const createTheme = (
-  themeType: 'light' | 'contrast',
-  contentDirection: UiDirectionType,
-): Omit<Theme, 'toggleTheme'> => {
+const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): Omit<Theme, 'toggleTheme'> => {
   const isContrast = themeType === 'contrast'
   const theme = isContrast ? buildConfig().darkTheme : buildConfig().lightTheme
   const typography = prepareTypography(buildConfig().fonts)
@@ -152,21 +149,25 @@ type ThemeContainerProps = {
 
 const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
   const dimensions = useDimensions()
-  const [themeType, setThemeType] = useLocalStorage<ThemeKey>({
+  const url = new URL(window.location.href)
+  const { theme: queryTheme } = parseQueryParams(url.searchParams)
+  const [storageThemeType, setStorageThemeType] = useLocalStorage<ThemeType>({
     key: THEME_STORAGE_KEY,
     initialValue: 'light',
   })
 
+  const themeType = queryTheme ?? storageThemeType
+
   const theme: Theme = useMemo(() => {
     const toggleTheme = () => {
       const currentTheme = themeType === 'light' ? 'contrast' : 'light'
-      setThemeType(currentTheme)
+      setStorageThemeType(currentTheme)
     }
 
     const theme = createTheme(themeType, contentDirection)
     document.body.style.backgroundColor = theme.palette.background.accent
     return { ...theme, toggleTheme }
-  }, [themeType, setThemeType, contentDirection])
+  }, [themeType, setStorageThemeType, contentDirection])
 
   return (
     <CacheProvider value={contentDirection === 'rtl' ? rtlCache : ltrCache}>

@@ -3,8 +3,7 @@ import { TFunction } from 'i18next'
 import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
-import { ThemeKey } from 'build-configs/ThemeKey'
-import { CONSENT_ROUTE, IMPRINT_ROUTE, LICENSES_ROUTE, MAIN_IMPRINT_ROUTE, SettingsRouteType } from 'shared'
+import { CONSENT_ROUTE, IMPRINT_ROUTE, LICENSES_ROUTE, MAIN_IMPRINT_ROUTE, SettingsRouteType, ThemeType } from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
@@ -89,7 +88,7 @@ const createSettingsSections = ({
     description: t('layout:contrastThemeDescription'),
     getSettingValue: (settings: SettingsType) => settings.selectedTheme === 'contrast',
     onPress: () => {
-      const newTheme: ThemeKey = settings.selectedTheme === 'light' ? 'contrast' : 'light'
+      const newTheme: ThemeType = settings.selectedTheme === 'light' ? 'contrast' : 'light'
       updateSettings({ selectedTheme: newTheme })
     },
   },

@@ -1,6 +1,7 @@
 import RNWebView, { WebViewMessageEvent, WebViewNavigation } from '@dr.pogodin/react-native-webview'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
+import { useTheme } from 'styled-components/native'
 
 import { CONSENT_ROUTE } from 'shared'
 import { ErrorCodes } from 'shared/api'
@@ -42,6 +43,7 @@ type WebViewProps = {
 const WebView = ({ source, onLoad, loading }: WebViewProps): ReactElement | null => {
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
+  const theme = useTheme()
   const { settings, updateSettings } = useAppContext()
   const { navigateTo } = useNavigate()
   const { externalSourcePermissions } = settings
@@ -148,7 +150,11 @@ const WebView = ({ source, onLoad, loading }: WebViewProps): ReactElement | null
       // To allow custom handling of link clicks in android
       // https://github.com/react-native-webview/react-native-webview/issues/1869
       setSupportMultipleWindows={false}
-      style={isUriSource ? { flex: 1, opacity } : { height: webViewHeight, opacity }}
+      style={
+        isUriSource
+          ? { flex: 1, opacity, backgroundColor: theme.colors.background }
+          : { height: webViewHeight, opacity, backgroundColor: theme.colors.background }
+      }
     />
   )
 }
