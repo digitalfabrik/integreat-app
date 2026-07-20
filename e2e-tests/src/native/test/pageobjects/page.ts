@@ -1,11 +1,3 @@
-export class Page {
-  readonly pageId
-
-  constructor(pageId: string) {
-    this.pageId = pageId
-  }
-
-  public async get(): Promise<true | void> {
-    return $(`~${this.pageId}`).waitForExist({ timeout: 10000 })
-  }
+export abstract class Page {
+  abstract get(): Promise<void>
 }

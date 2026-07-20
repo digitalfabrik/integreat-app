@@ -144,8 +144,10 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
       />
       <Stack paddingTop={4} gap={2}>
         <SearchInput
+          id='search-content'
+          ariaLabel={t('searchContent')}
           filterText={query}
-          placeholderText={t('searchPlaceholder')}
+          placeholderText={t('searchContent')}
           onFilterTextChange={setQuery}
           autoFocus
         />

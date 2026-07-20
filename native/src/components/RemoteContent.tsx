@@ -1,8 +1,10 @@
 import { mapValues } from 'lodash'
-import React, { ReactElement, useContext } from 'react'
+import React, { ReactElement, useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useWindowDimensions } from 'react-native'
 import { useTheme } from 'styled-components/native'
+
+import { sanitizeContent } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
@@ -33,6 +35,11 @@ const RemoteContent = ({ onLoad, content, language, loading }: RemoteContentProp
 
   const resourceMap = mapValues(resourceCache, filePath => getStaticServerFileUrl(filePath, staticServerUrl))
 
+  const sanitizedContent = useMemo(
+    () => sanitizeContent(content, { supportedIframeSources: buildConfig().supportedIframeSources }),
+    [content],
+  )
+
   if (content.length === 0) {
     return null
   }
@@ -42,7 +49,7 @@ const RemoteContent = ({ onLoad, content, language, loading }: RemoteContentProp
       source={{
         baseUrl: staticServerUrl,
         html: renderHtml(
-          content,
+          sanitizedContent,
           resourceMap,
           buildConfig().supportedIframeSources,
           theme,

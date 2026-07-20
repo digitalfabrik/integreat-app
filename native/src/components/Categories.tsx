@@ -5,7 +5,6 @@ import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared
 import { CategoriesMapModel, CategoryModel, RegionModel } from 'shared/api'
 
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import testID from '../testing/testID'
 import CategoryListItem from './CategoryListItem'
 import EmbeddedOffers from './EmbeddedOffers'
 import List from './List'
@@ -44,7 +43,7 @@ const Categories = ({
 
   if (category.isRoot()) {
     return (
-      <View {...testID('Dashboard-Page')}>
+      <View>
         <Tiles
           tiles={getCategoryTiles({ categories: children, regionCode })}
           language={language}

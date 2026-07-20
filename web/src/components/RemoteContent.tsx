@@ -1,10 +1,9 @@
 import { useTheme } from '@mui/material/styles'
-import Dompurify from 'dompurify'
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
-import { ExternalSourcePermissions } from 'shared'
+import { ExternalSourcePermissions, sanitizeContent } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
@@ -18,10 +17,6 @@ import {
 } from '../utils/iframes'
 import openLink from '../utils/openLink'
 import RemoteContentSandBox from './RemoteContentSandBox'
-
-const DOMPURIFY_TAG_IFRAME = 'iframe'
-const DOMPURIFY_ATTRIBUTE_FULLSCREEN = 'allowfullscreen'
-const DOMPURIFY_ATTRIBUTE_TARGET = 'target'
 
 type RemoteContentProps = {
   html: string
@@ -129,12 +124,7 @@ const RemoteContent = ({
   ])
 
   const dangerouslySetInnerHTML = useMemo(
-    () => ({
-      __html: Dompurify.sanitize(html, {
-        ADD_TAGS: [DOMPURIFY_TAG_IFRAME],
-        ADD_ATTR: [DOMPURIFY_ATTRIBUTE_FULLSCREEN, DOMPURIFY_ATTRIBUTE_TARGET],
-      }),
-    }),
+    () => ({ __html: sanitizeContent(html, { supportedIframeSources: buildConfig().supportedIframeSources }) }),
     [html],
   )
 

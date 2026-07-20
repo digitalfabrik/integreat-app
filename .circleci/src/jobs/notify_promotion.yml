@@ -12,7 +12,11 @@ steps:
   - run:
       name: Remove prerelease flag from github release
       command: |
-        RELEASE=$(npx --no app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME})
+        NO_SET_LATEST=""
+        if [ "<< parameters.platform >>" = "web" ]; then
+          NO_SET_LATEST="--no-set-latest"
+        fi
+        RELEASE=$(npx --no app-toolbelt v0 release promote --platform << parameters.platform >> --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME} ${NO_SET_LATEST})
         echo "export RELEASE='${RELEASE}'" >> $BASH_ENV
       working_directory: tools
   - notify:

@@ -9,15 +9,22 @@ type ListProps = {
   noItemsMessage?: string | ReactElement
   disablePadding?: boolean
   className?: string
+  showDividers?: boolean
 }
 
-const List = ({ items, noItemsMessage, disablePadding, className }: ListProps): ReactElement | null => {
+const List = ({
+  items,
+  noItemsMessage,
+  disablePadding,
+  className,
+  showDividers = true,
+}: ListProps): ReactElement | null => {
   if (items.length === 0) {
     return typeof noItemsMessage === 'string' ? <Failure errorMessage={noItemsMessage} /> : (noItemsMessage ?? null)
   }
   return (
     <MuiList className={className} disablePadding={disablePadding}>
-      {withDividers(items)}
+      {showDividers ? withDividers(items) : items}
     </MuiList>
   )
 }

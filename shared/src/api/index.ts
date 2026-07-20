@@ -83,7 +83,7 @@ export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsy
 export { default as CategoriesMapModel } from './models/CategoriesMapModel.ts'
 export { default as CategoryModel } from './models/CategoryModel.ts'
 export { default as RegionModel } from './models/RegionModel.ts'
-export { default as DateModel, type DateIcon } from './models/DateModel.ts'
+export { default as DateModel } from './models/DateModel.ts'
 export { default as EventModel } from './models/EventModel.ts'
 export { default as LocalNewsModel } from './models/LocalNewsModel.ts'
 export { default as TuNewsModel } from './models/TuNewsModel.ts'
