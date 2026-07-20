@@ -17,7 +17,7 @@ const commonMalteTestCmsBuildConfig: CommonBuildConfigType = {
     developerFriendly: true,
     fixedRegion: null,
     suggestToRegion: null,
-    chat: false,
+    chat: true,
   },
 }
 
