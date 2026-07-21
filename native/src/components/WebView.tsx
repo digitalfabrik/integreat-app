@@ -136,6 +136,8 @@ const WebView = ({ source, onLoad, loading }: WebViewProps): ReactElement | null
       javaScriptEnabled
       dataDetectorTypes={DATA_DETECTOR_TYPES}
       userAgent={userAgent}
+      // Disable pinch to zoom-in in android
+      setBuiltInZoomControls={false}
       domStorageEnabled={isUriSource}
       allowsFullscreenVideo
       showsVerticalScrollIndicator={false}
