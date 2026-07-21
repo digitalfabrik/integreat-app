@@ -2,6 +2,7 @@ import { useNetInfo } from '@react-native-community/netinfo'
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Platform, View } from 'react-native'
 import { Button } from 'react-native-paper'
 
 import { ChatRouteType, uuid } from 'shared'
@@ -16,6 +17,7 @@ import AlertDialog from '../components/base/AlertDialog'
 import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
+import useKeyboardHeight from '../hooks/useKeyboardHeight'
 import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import { determineApiUrl } from '../utils/helpers'
@@ -34,6 +36,7 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
   const { regionCode, languageCode, settings, updateChatSettings } = useRegionAppContext()
   const { data } = useLoadRegionContent({ regionCode, languageCode })
   const { t } = useTranslation('chat')
+  const keyboardHeight = useKeyboardHeight()
 
   const chatSettings = settings.chat[regionCode]
   const chatId = chatSettings?.id ?? ''
@@ -99,7 +102,9 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
 
   return (
     <>
-      <WebView source={{ uri: chatUrl }} />
+      <View style={{ flex: 1, paddingBottom: Platform.OS === 'android' ? keyboardHeight : 0 }}>
+        <WebView source={{ uri: chatUrl }} />
+      </View>
       <AlertDialog
         visible={newChatConfirmationVisible}
         close={() => setNewChatConfirmationVisible(false)}
