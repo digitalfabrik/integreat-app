@@ -39,10 +39,11 @@
     "@types/jest": "^30.0.0",
     "@types/luxon": "^3.7.1",
     "@types/node": "^24.12.0",
+    "@types/raf": "^3.4.3",
     "@types/react": "19.2.14",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
-    "app-toolbelt": "github:digitalfabrik/app-toolbelt#semver:1.0.0",
+    "app-toolbelt": "catalog:",
     "commander": "^14.0.3",
     "eslint": "^9.39.4",
     "eslint-config-airbnb-extended": "^3.0.1",
@@ -65,19 +66,19 @@
     "minimatch": "^10.2.4",
     "postcss": "^8.5.10",
     "postcss-styled-syntax": "^0.7.1",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.4",
     "stylelint": "^17.6.0",
     "stylelint-config-react-native-styled-components": "^0.7.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-react-native": "^2.7.0",
     "stylelint-use-logical": "^2.1.3",
-    "ts-jest": "^29.4.6",
+    "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": ">= 22.11.0"
   },
-  "packageManager": "yarn@4.13.0"
+  "packageManager": "yarn@4.17.0"
 }

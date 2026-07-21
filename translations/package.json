@@ -2,15 +2,14 @@
   "name": "translations",
   "version": "0.0.1",
   "description": "Translations for the integreat frontend projects",
-  "main": "src/index.ts",
   "private": true,
   "type": "module",
   "scripts": {
-    "manage": "tsx tools/manage.ts",
-    "export:ods:translations": "yarn manage convert translations.json translations-csv csv && ./tools/csv-to-ods translations-csv translations-ods && rm -rf translations-csv",
+    "manage": "tsx src/manage.ts",
+    "export:ods:translations": "yarn manage convert src/translations.json translations-csv csv && ./tools/csv-to-ods translations-csv translations-ods && rm -rf translations-csv",
     "export:ods:override-malte": "yarn manage convert override-translations/malte.json malte-csv csv && ./tools/csv-to-ods malte-csv malte-ods && rm -rf malte-csv",
     "export:ods:override-aschaffenburg": "yarn manage convert override-translations/aschaffenburg.json aschaffenburg-csv csv && ./tools/csv-to-ods aschaffenburg-csv aschaffenburg-ods && rm -rf aschaffenburg-csv",
-    "import:ods:translations": "./tools/ods-to-csv translations-ods translations-csv && yarn manage convert translations-csv translations.json json && rm -rf translations-csv",
+    "import:ods:translations": "./tools/ods-to-csv translations-ods translations-csv && yarn manage convert translations-csv src/translations.json json && rm -rf translations-csv",
     "import:ods:override-malte": "./tools/ods-to-csv malte-ods malte-csv && yarn manage convert malte-csv override-translations/malte.json json&& rm -rf malte-csv ",
     "import:ods:override-aschaffenburg": "./tools/ods-to-csv aschaffenburg-ods aschaffenburg-csv && yarn manage convert aschaffenburg-csv override-translations/aschaffenburg.json json && rm -rf aschaffenburg-csv",
     "test": "jest --config jest.config.ts",
@@ -20,16 +19,12 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/src/index.js",
-      "default": "./dist/src/index.js",
-      "types": "./dist/src/index.d.ts"
+      "import": "./src/index.ts",
+      "types": "./src/index.d.ts",
+      "default": "./src/index.ts"
     },
-    "./*.json": "./dist/*.json",
-    "./*": {
-      "import": "./dist/*.js",
-      "default": "./dist/*.js",
-      "types": "./dist/*.d.ts"
-    }
+    "./*.json": "./src/*.json",
+    "./override-translations/*.json": "./override-translations/*.json"
   },
   "dependencies": {
     "deepmerge-ts": "^7.1.5"

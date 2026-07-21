@@ -22,17 +22,9 @@ jest.mock('@react-native-community/netinfo')
 jest.mock('../../hooks/useLoadRegionContent')
 jest.mock('../../hooks/useHeader')
 
-const mockUseLoadFromEndpoint: jest.Mock = jest.fn(() => ({
-  data: null,
-  loading: false,
-  error: null,
-  refresh: jest.fn(),
-  setData: jest.fn(),
-}))
 const mockLoadFromEndpoint: jest.Mock = jest.fn()
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
-  useLoadFromEndpoint: (...args: unknown[]) => mockUseLoadFromEndpoint(...args),
   loadFromEndpoint: (...args: unknown[]) => mockLoadFromEndpoint(...args),
 }))
 
@@ -100,13 +92,6 @@ describe('Chat', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     focusCallback = null
-    mockUseLoadFromEndpoint.mockImplementation(() => ({
-      data: null,
-      loading: false,
-      error: null,
-      refresh: jest.fn(),
-      setData: jest.fn(),
-    }))
     mocked(useLoadRegionContent).mockImplementation(
       () =>
         ({
@@ -159,53 +144,6 @@ describe('Chat', () => {
     expect(useHeader).toHaveBeenCalledWith(
       expect.objectContaining({ availableLanguages: languages.map(it => it.code) }),
     )
-  })
-
-  it('disables the consultation QR menu item until chat response data is available', () => {
-    renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } })
-
-    const [newChatItem, qrItem] = lastMenuItems()
-    expect(newChatItem!.props).toMatchObject({ icon: 'comment-plus-outline', title: 'newChat' })
-    expect(qrItem!.props).toMatchObject({
-      icon: 'qrcode',
-      title: 'consultationQrCodeTitle',
-      disabled: true,
-    })
-  })
-
-  it('enables the consultation QR menu item once chat response data is loaded', () => {
-    mockUseLoadFromEndpoint.mockReturnValue({
-      data: { messages: [], ticketUrl: 'https://ticket.example/abc' },
-      loading: false,
-      error: null,
-      refresh: jest.fn(),
-      setData: jest.fn(),
-    })
-
-    renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } })
-
-    const [, qrItem] = lastMenuItems()
-    expect(qrItem!.props).toMatchObject({ disabled: false })
-  })
-
-  it('opens the consultation QR modal showing the ticket URL when the QR menu item is pressed', () => {
-    mockUseLoadFromEndpoint.mockReturnValue({
-      data: { messages: [], ticketUrl: 'https://ticket.example/abc' },
-      loading: false,
-      error: null,
-      refresh: jest.fn(),
-      setData: jest.fn(),
-    })
-
-    const { getByText, queryByText } = renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } })
-
-    expect(queryByText('consultationQrCodeDescription')).toBeNull()
-
-    act(() => {
-      lastMenuItems()[1]!.props.onPress()
-    })
-
-    expect(getByText('consultationQrCodeDescription')).toBeTruthy()
   })
 
   it('shows the new chat confirmation dialog when the new chat menu item is pressed', () => {

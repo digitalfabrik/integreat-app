@@ -1,9 +1,10 @@
 import RNWebView, { WebViewMessageEvent, WebViewNavigation } from '@dr.pogodin/react-native-webview'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
+import { useTheme } from 'styled-components/native'
 
 import { CONSENT_ROUTE } from 'shared'
-import { ErrorCode } from 'shared/api'
+import { ErrorCodes } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { userAgent } from '../constants/endpoint'
@@ -42,6 +43,7 @@ type WebViewProps = {
 const WebView = ({ source, onLoad, loading }: WebViewProps): ReactElement | null => {
   const [error, setError] = useState<string | null>(null)
   const [pressedUrl, setPressedUrl] = useState<string | null>(null)
+  const theme = useTheme()
   const { settings, updateSettings } = useAppContext()
   const { navigateTo } = useNavigate()
   const { externalSourcePermissions } = settings
@@ -123,7 +125,7 @@ const WebView = ({ source, onLoad, loading }: WebViewProps): ReactElement | null
   )
 
   if (error) {
-    return <Failure code={ErrorCode.UnknownError} retry={null} />
+    return <Failure code={ErrorCodes.UnknownError} retry={null} />
   }
 
   return (
@@ -134,6 +136,8 @@ const WebView = ({ source, onLoad, loading }: WebViewProps): ReactElement | null
       javaScriptEnabled
       dataDetectorTypes={DATA_DETECTOR_TYPES}
       userAgent={userAgent}
+      // Disable pinch to zoom-in in android
+      setBuiltInZoomControls={false}
       domStorageEnabled={isUriSource}
       allowsFullscreenVideo
       showsVerticalScrollIndicator={false}
@@ -143,12 +147,16 @@ const WebView = ({ source, onLoad, loading }: WebViewProps): ReactElement | null
       // Prevent the iOS overscroll with open keyboard from exposing the WKWebView's gray underPageBackground
       bounces={false}
       onMessage={onMessage}
-      renderError={<Failure code={ErrorCode.UnknownError} retry={null} />}
+      renderError={<Failure code={ErrorCodes.UnknownError} retry={null} />}
       onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
       // To allow custom handling of link clicks in android
       // https://github.com/react-native-webview/react-native-webview/issues/1869
       setSupportMultipleWindows={false}
-      style={isUriSource ? { flex: 1, opacity } : { height: webViewHeight, opacity }}
+      style={
+        isUriSource
+          ? { flex: 1, opacity, backgroundColor: theme.colors.background }
+          : { height: webViewHeight, opacity, backgroundColor: theme.colors.background }
+      }
     />
   )
 }

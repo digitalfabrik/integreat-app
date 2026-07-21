@@ -1,0 +1,127 @@
+import malteOverrideTranslations from 'translations/override-translations/malte.json' with { type: 'json' }
+
+import { MALTE_ASSETS } from '../AssetsType.ts'
+import type {
+  AndroidBuildConfigType,
+  CommonBuildConfigType,
+  IosBuildConfigType,
+  WebBuildConfigType,
+} from '../BuildConfigType.ts'
+import { APP_STORE_TEAM_ID } from '../common/constants.ts'
+import mainImprint from './mainImprint.ts'
+import fonts from './theme/fonts.ts'
+import { darkTheme, lightTheme } from './theme/index.ts'
+
+const APPLICATION_ID = 'de.malteapp'
+const BUNDLE_IDENTIFIER = 'de.malteapp'
+
+const commonMalteBuildConfig: CommonBuildConfigType = {
+  appName: 'Malte',
+  appIcon: 'app_icon_malte',
+  notificationIcon: 'notification_icon_malte',
+  lightTheme,
+  darkTheme,
+  fonts,
+  assets: MALTE_ASSETS,
+  cmsUrl: 'https://cms.malteapp.de',
+  switchCmsUrl: 'https://malte-test.tuerantuer.org',
+  allowedHostNames: ['cms.malteapp.de', 'malte-test.tuerantuer.org'],
+  allowedLookalikes: [],
+  supportedIframeSources: ['vimeo.com'],
+  translationsOverride: malteOverrideTranslations,
+  internalUrlPattern:
+    'https?:\\/\\/((cms\\.)?malteapp\\.de|malte-test\\.tuerantuer\\.org)(?!\\/(media|[^/]*\\/(wp-content|wp-admin|wp-json))\\/.*).*',
+  hostName: 'malteapp.de',
+  featureFlags: {
+    introSlides: true,
+    sentry: true,
+    developerFriendly: false,
+    fixedRegion: null,
+    suggestToRegion: null,
+    chat: true,
+  },
+  aboutUrls: {
+    default: 'https://www.malteser-werke.de/malte-app',
+  },
+  privacyUrls: {
+    default: 'https://www.malteser-werke.de/datenschutzerklaerung-malte.html',
+  },
+  accessibilityUrls: {
+    default: 'https://integreat-app.de/barrierefreiheit/',
+  },
+  mainImprint,
+}
+
+const androidMalteBuildConfig: AndroidBuildConfigType = {
+  ...commonMalteBuildConfig,
+  splashScreen: false,
+  applicationId: APPLICATION_ID,
+  googleServices: {
+    googleAppId: '1:146599424234:android:b110d70b79ff7ce351a793',
+    gcmDefaultSenderId: '146599424234',
+    defaultWebClientId: '146599424234-ekfbl5uo9bfi7u1p6lu417tbdolorhnl.apps.googleusercontent.com',
+    gaTrackingId: null,
+    firebaseDatabaseUrl: 'https://malte-2020.firebaseio.com',
+    googleApiKey: 'AIzaSyDZNWm7Cvh3O4DjfTupTGErQVtvz1o77q8',
+    googleCrashReportingApiKey: 'AIzaSyDZNWm7Cvh3O4DjfTupTGErQVtvz1o77q8',
+    projectId: 'malte-2020',
+  },
+}
+
+const iosMalteBuildConfig: IosBuildConfigType = {
+  ...commonMalteBuildConfig,
+  bundleIdentifier: BUNDLE_IDENTIFIER,
+  provisioningProfileSpecifier: `match Development ${BUNDLE_IDENTIFIER}`,
+  googleServices: {
+    apiKey: 'AIzaSyAWOaqdFwZ7-tbwiQ79dwMyzpmR_g1cBbI',
+    googleAppId: '1:146599424234:ios:56dde1442250260651a793',
+    gcmSenderId: '146599424234',
+    bundleId: BUNDLE_IDENTIFIER,
+    projectId: 'malte-2020',
+    plistVersion: '1',
+    storageBucket: 'malte-2020.appspot.com',
+    isAdsEnabled: false,
+    isAnalyticsEnabled: false,
+    isAppInviteEnabled: true,
+    isGCMEnabled: true,
+    isSigninEnabled: true,
+  },
+  launchScreen: 'LaunchScreenDefault',
+}
+
+const webMalteBuildConfig: WebBuildConfigType = {
+  ...commonMalteBuildConfig,
+  appDescription: 'Guide of the Malteser Werke for Refugees. Digital. Multilingual. Free.',
+  icons: {
+    appLogo: '/app-logo.svg',
+    appLogoMobile: '/app-icon-round.svg',
+    appleTouchIcon: '/apple-touch-icon.png',
+    socialMediaPreview: '/social-media-preview.png',
+    favicons: '/favicons/',
+  },
+  apps: {
+    android: {
+      applicationId: APPLICATION_ID,
+      sha256CertFingerprint:
+        '35:0C:AC:0B:70:EC:81:3A:35:41:30:03:27:FE:C1:E4:4A:93:F2:58:FF:C3:C9:BB:6F:08:47:0B:56:80:6B:81',
+    },
+    ios: {
+      bundleIdentifier: BUNDLE_IDENTIFIER,
+      appStoreId: '1535758339',
+      appStoreName: 'malte',
+      appleAppSiteAssociationAppIds: [
+        `${APP_STORE_TEAM_ID}.${BUNDLE_IDENTIFIER}`,
+        `${APP_STORE_TEAM_ID}.de.malteapp.test`,
+      ],
+    },
+  },
+}
+
+const platformBuildConfigs = {
+  common: commonMalteBuildConfig,
+  web: webMalteBuildConfig,
+  android: androidMalteBuildConfig,
+  ios: iosMalteBuildConfig,
+}
+
+export default platformBuildConfigs

@@ -17,11 +17,10 @@ import List from './base/List'
 type RegionSelectorProps = {
   regions: RegionModel[]
   language: string
-  stickyTop: number
   loading: boolean
 }
 
-const RegionSelector = ({ regions, language, stickyTop, loading }: RegionSelectorProps): ReactElement => {
+const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
   const { t } = useTranslation('regions')
 
@@ -35,13 +34,12 @@ const RegionSelector = ({ regions, language, stickyTop, loading }: RegionSelecto
       key={group}
       regions={resultRegions.filter(it => it.sortCategory === group)}
       title={group}
-      stickyTop={stickyTop}
       languageCode={language}
       filterText={filterText}
     />
   ))
   const groups = [
-    <NearbyRegions key='nearby' stickyTop={stickyTop} regions={regions} language={language} filterText={filterText} />,
+    <NearbyRegions key='nearby' regions={regions} language={language} filterText={filterText} />,
     ...firstLetterGroups,
   ]
 
@@ -50,6 +48,8 @@ const RegionSelector = ({ regions, language, stickyTop, loading }: RegionSelecto
       <H1>{t('welcome', { appName: buildConfig().appName })}</H1>
       <Typography variant='body1'>{t('welcomeInformation')}</Typography>
       <SearchInput
+        id='search-region'
+        ariaLabel={t('searchRegion')}
         filterText={filterText}
         placeholderText={exampleRegion?.sortingName ?? REGION_SEARCH_EXAMPLE}
         onFilterTextChange={setFilterText}

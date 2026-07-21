@@ -1,14 +1,25 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "composite": true,
     "outDir": "dist",
+    "rootDir": "src",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+
+    // Metro will watch and import the files under /src directly, but it can only strip types.
+    // These options let it import files directly, while still supports type checking with tsc
+    "erasableSyntaxOnly": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "emitDeclarationOnly": true,
+
     "types": [
       "jest",
       "node" // for scripts in tools/
     ]
   },
-  "include": ["**/*"],
+  "include": ["src/**/*"],
   "references": [
     {
       "path": "../translations"

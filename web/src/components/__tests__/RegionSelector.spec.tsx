@@ -39,7 +39,7 @@ describe('RegionSelector', () => {
 
   it('should render skeleton list while loading', () => {
     const { queryByLabelText, getByRole } = renderWithRouterAndTheme(
-      <RegionSelector language='de' regions={regions} stickyTop={0} loading />,
+      <RegionSelector language='de' regions={regions} loading />,
     )
 
     expect(getByRole('list')).toBeTruthy()
@@ -48,7 +48,7 @@ describe('RegionSelector', () => {
 
   it('should show only live regions', () => {
     const { queryByLabelText } = renderWithRouterAndTheme(
-      <RegionSelector language='de' regions={regions} stickyTop={0} loading={false} />,
+      <RegionSelector language='de' regions={regions} loading={false} />,
     )
 
     regions.filter(region => !region.live).forEach(region => expect(queryByLabelText(region.name)).toBeFalsy())
@@ -57,7 +57,7 @@ describe('RegionSelector', () => {
 
   it('should show live regions matching filter text', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <RegionSelector language='de' regions={regions} stickyTop={0} loading={false} />,
+      <RegionSelector language='de' regions={regions} loading={false} />,
     )
 
     changeFilterText(getByPlaceholderText, region.name.slice(5, 9))
@@ -68,7 +68,7 @@ describe('RegionSelector', () => {
 
   it('should not show any region if filter text does not match', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <RegionSelector language='de' regions={regions} stickyTop={0} loading={false} />,
+      <RegionSelector language='de' regions={regions} loading={false} />,
     )
 
     changeFilterText(getByPlaceholderText, 'Does not exist')
@@ -79,7 +79,7 @@ describe('RegionSelector', () => {
 
   it('should not show any region if filter text does not match a live region', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <RegionSelector language='de' regions={regions} stickyTop={0} loading={false} />,
+      <RegionSelector language='de' regions={regions} loading={false} />,
     )
 
     changeFilterText(getByPlaceholderText, 'oldtown')
@@ -89,7 +89,7 @@ describe('RegionSelector', () => {
 
   it('should show all non-live regions if filter text is "wirschaffendas"', () => {
     const { queryByLabelText, getByPlaceholderText } = renderWithRouterAndTheme(
-      <RegionSelector language='de' regions={regions} stickyTop={0} loading={false} />,
+      <RegionSelector language='de' regions={regions} loading={false} />,
     )
 
     changeFilterText(getByPlaceholderText, 'wirschaffendas')

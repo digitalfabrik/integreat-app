@@ -2,6 +2,8 @@ import React, { ReactElement, useMemo } from 'react'
 import { configureFonts, PaperProvider } from 'react-native-paper'
 import { DefaultTheme, ThemeProvider } from 'styled-components/native'
 
+import { ThemeType } from 'shared'
+
 import buildConfig from '../constants/buildConfig'
 import { prepareTypography } from '../constants/typography'
 import { useAppContext } from '../hooks/useRegionAppContext'
@@ -10,7 +12,7 @@ type ThemeContainerProps = {
   children: ReactElement
 }
 
-export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
+export const theme = (themeType: ThemeType): DefaultTheme => {
   const palette = themeType === 'contrast' ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette
 
   return {
@@ -23,6 +25,7 @@ export const theme = (themeType: 'light' | 'contrast'): DefaultTheme => {
       secondaryContainer: palette.secondary.light,
       tertiary: palette.tertiary.main,
       tertiaryContainer: palette.tertiary.light,
+      tertiaryDark: palette.tertiary.dark,
       surface: palette.background.default,
       surfaceVariant: palette.background.accent,
       surfaceDisabled: palette.action.disabledBackground,

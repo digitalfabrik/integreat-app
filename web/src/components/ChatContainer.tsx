@@ -1,6 +1,6 @@
 import { dialogContentClasses } from '@mui/material/DialogContent'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useContext, useEffect } from 'react'
+import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 
 import {
@@ -51,11 +51,20 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
   const isBrowserTabActive = useIsTabActive()
   useLockedBody(visible)
 
-  const [storageChatId, setChatId] = useLocalStorage<string>({
+  const [initialChatId] = useState<string>(uuid)
+  const [storageChatId, setChatId] = useLocalStorage<string | null>({
     key: chatIdKey(region.code),
-    initialValue: uuid(),
+    initialValue: initialChatId,
   })
-  const chatId = externalChatId ?? storageChatId
+
+  // We previously saved null as chat id for unstarted chats
+  // Therefore reinitialize with a correct chat id
+  useEffect(() => {
+    if (storageChatId === null) {
+      setChatId(initialChatId)
+    }
+  }, [storageChatId, setChatId, initialChatId])
+  const chatId = externalChatId ?? storageChatId ?? initialChatId
 
   const [unsyncedMessages, setUnsyncedMessages] = useLocalStorage<SerializedChatMessage[]>({
     key: CHAT_UNSYNCED_MESSAGES_STORAGE_KEY,
@@ -79,7 +88,6 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
 
   const { data, refetch } = response
   const botTyping = data?.botTyping
-  const ticketUrl = data?.ticketUrl ?? null
   const messageCount = data?.messages.length ?? 0
   const incomingMessageCount = data?.messages.filter(message => !message.userIsAuthor).length ?? 0
   const unreadMessageCount = incomingMessageCount - seenMessages
@@ -126,10 +134,11 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
                   key='languageChange'
                   languageChangePaths={chatLanguageChangePaths}
                   languageCode={languageCode}
+                  feedbackAvailable
                 />,
               ]
             : []),
-          <ChatMenu key='chatMenu' chatId={chatId} ticketUrl={ticketUrl} resetChat={resetChat} />,
+          <ChatMenu key='chatMenu' chatId={chatId} resetChat={resetChat} />,
         ]}>
         <Chat
           chatId={chatId}

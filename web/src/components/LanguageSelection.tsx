@@ -73,7 +73,13 @@ const LanguageSelection = ({
   if (mobile || asList) {
     return (
       <Stack gap={2}>
-        <SearchInput placeholderText={currentLanguage?.name ?? ''} filterText={query} onFilterTextChange={setQuery} />
+        <SearchInput
+          id='search-language'
+          ariaLabel={t('searchLanguage')}
+          placeholderText={currentLanguage?.name ?? ''}
+          filterText={query}
+          onFilterTextChange={setQuery}
+        />
         <List disablePadding>
           {filteredLanguageChangePaths.map(language => (
             <LanguageListItem

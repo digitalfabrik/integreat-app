@@ -2,7 +2,7 @@ import React, { ReactElement, useContext, useEffect, useState } from 'react'
 import { RefreshControl } from 'react-native'
 
 import { REGIONS_ROUTE } from 'shared'
-import { ErrorCode, fromError, LanguageModel } from 'shared/api'
+import { ErrorCode, ErrorCodes, fromError, LanguageModel } from 'shared/api'
 
 import Failure from '../components/Failure'
 import LanguageNotAvailablePage from '../components/LanguageNotAvailablePage'
@@ -56,13 +56,13 @@ const LoadingErrorHandler = ({
     return <Layout>{children ?? <ProgressSpinner />}</Layout>
   }
 
-  if (error === ErrorCode.LanguageUnavailable) {
+  if (error === ErrorCodes.LanguageUnavailable) {
     return <LanguageNotAvailablePage availableLanguages={availableLanguages} />
   }
 
   if (error !== null) {
     const errorCode = error instanceof Error ? fromError(error) : error
-    const goTo = [ErrorCode.RegionUnavailable, ErrorCode.ForbiddenError].includes(errorCode)
+    const goTo = [ErrorCodes.RegionUnavailable, ErrorCodes.ForbiddenError].includes(errorCode)
       ? { route: REGIONS_ROUTE, languageCode }
       : undefined
 

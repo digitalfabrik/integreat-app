@@ -28,6 +28,8 @@ const StyledTextField = styled(TextField)`
 `
 
 type SearchInputProps = {
+  id: string
+  ariaLabel: string
   placeholderText: string
   filterText: string
   onFilterTextChange: (filterText: string) => void
@@ -37,6 +39,8 @@ type SearchInputProps = {
 }
 
 const SearchInput = ({
+  id,
+  ariaLabel,
   placeholderText,
   filterText,
   onClickInput,
@@ -47,9 +51,9 @@ const SearchInput = ({
   const { t } = useTranslation('common')
   return (
     <StyledTextField
-      id='search'
+      id={id}
       placeholder={placeholderText}
-      aria-label={description ? undefined : placeholderText}
+      aria-label={ariaLabel}
       value={filterText}
       helperText={description}
       onChange={event => onFilterTextChange(event.target.value)}

@@ -13,13 +13,9 @@ jest.mock('react-native-inappbrowser-reborn', () => ({
   isAvailable: () => false,
 }))
 
-jest.mock('shared/hooks/useDebounce', () => ({
-  __esModule: true,
-  default: (value: string) => value,
-}))
-
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
+  useDebounce: (value: string) => value,
   useSearch: ({ userLanguageDocuments, query }: { userLanguageDocuments: ExtendedDocumentModel[]; query: string }) => ({
     data: query === 'no results, please' ? [] : userLanguageDocuments,
     error: null,
@@ -59,7 +55,7 @@ describe('Search', () => {
   it('should show nothing found if there are no search results', () => {
     const { getByText, getByPlaceholderText } = renderSearch(props)
 
-    fireEvent.changeText(getByPlaceholderText('search:searchPlaceholder'), 'no results, please')
+    fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'no results, please')
 
     expect(getByText('noResultsInUserLanguage')).toBeTruthy()
   })
@@ -67,6 +63,6 @@ describe('Search', () => {
   it('should open with an initial search text if one is supplied', () => {
     const initialSearchText = 'zeugnis'
     const { getByPlaceholderText } = renderSearch({ ...props, initialSearchText })
-    expect(getByPlaceholderText('search:searchPlaceholder').props.value).toBe(initialSearchText)
+    expect(getByPlaceholderText('search:searchContent').props.value).toBe(initialSearchText)
   })
 })

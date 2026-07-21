@@ -3,17 +3,19 @@ import Badge from '@mui/material/Badge'
 import Fab from '@mui/material/Fab'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getChatName } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
+import ChatHighlightPopup from './ChatHighlightPopup'
 import LiveAnnouncer from './LiveAnnouncer'
 
 const ChatButtonContainer = styled('div')<{ bottom: number }>`
   position: fixed;
+  z-index: ${props => props.theme.zIndex.fab};
   bottom: ${props => props.bottom}px;
   inset-inline-end: 16px;
   margin-bottom: 16px;
@@ -35,6 +37,7 @@ const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement
 
   const chatName = getChatName(buildConfig().appName)
   const unreadMessages = t('unreadMessages', { count: unreadMessageCount })
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
   return (
     <ChatButtonContainer bottom={bottomNavigationHeight ?? visibleFooterHeight}>
@@ -43,10 +46,11 @@ const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement
         badgeContent={unreadMessageCount > 0 ? unreadMessageCount : undefined}
         color='error'
         aria-label={unreadMessages}>
-        <Fab onClick={onClick} color='primary' aria-label={chatName}>
+        <Fab ref={setAnchorEl} onClick={onClick} color='primary' aria-label={chatName}>
           <QuestionAnswerOutlinedIcon fontSize='large' />
         </Fab>
       </Badge>
+      <ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />
       {desktop && (
         <Typography textAlign='center' aria-hidden>
           {chatName}

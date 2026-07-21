@@ -6,7 +6,10 @@ import BrowserLanguageDetector from '../../utils/BrowserLanguageDetector'
 import I18nProvider from '../I18nProvider'
 
 jest.mock('../../utils/BrowserLanguageDetector')
-jest.mock('translations/src/loadTranslations')
+jest.mock('translations', () => ({
+  ...jest.requireActual('translations'),
+  loadTranslations: jest.requireActual('../../../../translations/src/__mocks__/loadTranslations').default,
+}))
 
 describe('I18nProvider', () => {
   const { mocked } = jest
