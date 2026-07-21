@@ -32,6 +32,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
       onPress={() => setChecked(!checked)}
       role='checkbox'
       accessibilityLabel={Platform.OS === 'ios' ? t('privacyPolicy') : undefined}
+      accessibilityState={{ checked }}
       style={styles.TouchableRippleStyle}>
       <>
         <Checkbox.Android status={checked ? 'checked' : 'unchecked'} onPress={() => setChecked(!checked)} />
