@@ -30,7 +30,7 @@ const dimensions: DimensionsType = {
   fontScaling: 0.04,
   headerTextSize: 20,
   bottomSheetHandle: {
-    height: 40,
+    height: 56,
   },
   locationFab: {
     margin: 8,

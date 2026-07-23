@@ -13,10 +13,11 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
     [data-rsbs-header] {
       background-color: ${theme.palette.background.default};
       box-shadow: none;
-      padding-top: calc(24px + env(safe-area-inset-top));
+      padding-top: calc(16px + env(safe-area-inset-top));
     }
 
     [data-rsbs-header]::before {
+      content: none;
       background-color: ${theme.palette.text.primary};
       width: 28px;
       height: 4px;
@@ -33,7 +34,7 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
     }
 
     [data-rsbs-overlay] {
-      min-height: 40px;
+      min-height: 56px;
     }
 
     [data-rsbs-scroll='true'] {
