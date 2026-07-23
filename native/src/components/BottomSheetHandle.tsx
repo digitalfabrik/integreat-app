@@ -6,7 +6,7 @@ import Icon from './base/Icon'
 
 const Handle = styled.Pressable`
   align-items: center;
-  padding: 16px 0;
+  padding: 12px 0;
 `
 
 type BottomSheetHandleProps = {
@@ -19,7 +19,7 @@ const BottomSheetHandle = ({ nextFocusForward, isFullscreen = false }: BottomShe
   return (
     // @ts-expect-error Pressable doesn't have a type for nextFocusForward but it is a valid prop
     <Handle focusable nextFocusForward={nextFocusForward} accessibilityLabel={t('handle')}>
-      <Icon source={isFullscreen ? 'chevron-down' : 'chevron-up'} />
+      <Icon size={32} source={isFullscreen ? 'chevron-down' : 'chevron-up'} />
     </Handle>
   )
 }

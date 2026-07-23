@@ -70,7 +70,7 @@ const BottomActionSheet = ({ children, sibling, ref }: BottomActionSheetProps): 
     <StyledBottomSheet
       ref={bottomSheetRef}
       open
-      header={<HandleIcon sx={{ color: 'text.primary' }} />}
+      header={<HandleIcon sx={{ color: 'text.primary', fontSize: 32 }} />}
       sibling={sibling}
       scrollLocking={false}
       blocking={false}
