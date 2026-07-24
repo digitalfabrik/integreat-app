@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/consistent-type-definitions */
-import { PaletteColor, Palette, PaletteOptions, TypeBackground } from '@mui/material/styles'
+import { PaletteColor, Palette, PaletteOptions, SimplePaletteColorOptions, TypeBackground } from '@mui/material/styles'
 
 import { Dimensions } from '../hooks/useDimensions'
 
@@ -31,6 +31,7 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     tertiary: PaletteColor
+    amalNews: SimplePaletteColorOptions
     tuNews: {
       light: string
       main: string
@@ -39,6 +40,7 @@ declare module '@mui/material/styles' {
 
   interface PaletteOptions {
     tertiary: PaletteColor
+    amalNews: SimplePaletteColorOptions
     tuNews: {
       light: string
       main: string

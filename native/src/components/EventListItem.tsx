@@ -64,7 +64,6 @@ const EventListItem = ({
       borderless
       titleNumberOfLines={0}
       descriptionNumberOfLines={0}
-      style={{ paddingHorizontal: 8 }}
       title={<Text variant='h5'>{event.title}</Text>}
       description={
         <View>

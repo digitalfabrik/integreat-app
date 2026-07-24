@@ -8,6 +8,7 @@ import { LanguageModelBuilder, NewsModel, RegionModel } from 'shared/api'
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
+import openExternalUrl from '../../utils/openExternalUrl'
 import News from '../News'
 
 import mocked = jest.mocked
@@ -47,6 +48,7 @@ describe('News', () => {
   const navigation = createNavigationPropMock()
   const navigateTo = jest.fn()
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
+  const setNewsSource = jest.fn()
   const language = 'de'
 
   const renderNews = ({
@@ -78,7 +80,6 @@ describe('News', () => {
       chatEnabled: false,
       chatPrivacyPolicyUrl: null,
     })
-    const setNewsSource = jest.fn()
     const props = { regionModel, language }
     return render(
       <News
@@ -145,5 +146,24 @@ describe('News', () => {
     expect(getByText(defaultNews[1].title)).toBeTruthy()
     expect(queryByText(defaultNews[1].content)).toBeFalsy()
     expect(queryByText(replaceLinks(defaultNews[1].content))).toBeTruthy()
+  })
+
+  it('should call setNewsSource when a filter option is pressed', () => {
+    const { getByText } = renderNews({})
+
+    fireEvent.press(getByText('national'))
+    expect(setNewsSource).toHaveBeenCalledWith('national')
+  })
+
+  it('should render an external source link for tü news detail', () => {
+    const { getByRole } = renderNews({ id: defaultNews[0].id })
+    const link = getByRole('link')
+    fireEvent.press(link)
+    expect(openExternalUrl).toHaveBeenCalledWith(defaultNews[0].externalUrl, expect.any(Function))
+  })
+
+  it('should not render an external source link for local news detail', () => {
+    const { queryByRole } = renderNews({ id: defaultNews[1].id })
+    expect(queryByRole('link')).toBeNull()
   })
 })
