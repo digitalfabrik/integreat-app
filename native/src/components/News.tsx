@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native'
 
 import { NEWS_ROUTE, NewsRouteType, replaceLinks } from 'shared'
-import { ErrorCodes, fromError, LOCAL_NEWS_SOURCE, NewsModel, PaginatedReturnType } from 'shared/api'
+import { ErrorCodes, LOCAL_NEWS_SOURCE, NewsModel } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
@@ -13,21 +13,20 @@ import useTtsPlayer from '../hooks/useTtsPlayer'
 import Caption from './Caption'
 import Failure from './Failure'
 import List from './List'
-import LoadingSpinner from './LoadingSpinner'
 import NewsListItem from './NewsListItem'
 import Page from './Page'
 import TimeStamp from './TimeStamp'
 import Text from './base/Text'
 
 type NewsProps = {
-  response: PaginatedReturnType<NewsModel>
   news: NewsModel[]
   id: number | null
   regionCode: string
   languageCode: string
+  refresh: () => void
 }
 
-const News = ({ response, news, id, languageCode, regionCode }: NewsProps): ReactElement => {
+const News = ({ news, id, languageCode, regionCode, refresh }: NewsProps): ReactElement => {
   const selectedNewsItem = news.find(item => item.id === id)
   const { navigateTo } = useNavigate()
   const { t } = useTranslation('news')
@@ -73,24 +72,13 @@ const News = ({ response, news, id, languageCode, regionCode }: NewsProps): Reac
   }
 
   if (id !== null) {
-    return <Failure code={ErrorCodes.PageNotFound} retry={response.refresh} />
+    return <Failure code={ErrorCodes.PageNotFound} retry={refresh} />
   }
-
-  const paginationError = response.error ? (
-    <Failure retry={response.refresh} code={fromError(response.error)} />
-  ) : undefined
 
   return (
     <>
       <Caption title={t('news')} />
-      <List
-        items={news}
-        onEndReached={response.loadMore}
-        noItemsMessage={t('currentlyNoNews')}
-        footer={response.loadingMore ? <LoadingSpinner testID='loadingSpinner' /> : paginationError}
-        renderItem={rendersNewsListItem}
-        refresh={response.refresh}
-      />
+      <List items={news} noItemsMessage={t('currentlyNoNews')} renderItem={rendersNewsListItem} refresh={refresh} />
     </>
   )
 }

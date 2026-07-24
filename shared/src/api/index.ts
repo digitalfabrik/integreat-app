@@ -6,7 +6,6 @@ import {
   ParamsType as ImportedFeedbackParamsType,
 } from './endpoints/createFeedbackEndpoint.ts'
 import { Return as ImportedReturnType } from './endpoints/hooks/useLoadAsync.ts'
-import { Return as ImportedPaginatedReturnType } from './endpoints/hooks/usePaginatedLoadAsync.ts'
 
 export { default as Endpoint } from './Endpoint.ts'
 export { default as EndpointBuilder } from './EndpointBuilder.ts'
@@ -24,7 +23,6 @@ export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
 export type FeedbackParamsType = ImportedFeedbackParamsType
 export type FeedbackRouteType = ImportedFeedbackRouteType
 export type ReturnType<T extends object> = ImportedReturnType<T>
-export type PaginatedReturnType<T extends object> = ImportedPaginatedReturnType<T>
 export { default as FetchError } from './errors/FetchError.ts'
 export { default as ResponseError } from './errors/ResponseError.ts'
 export { default as MappingError } from './errors/MappingError.ts'
@@ -74,7 +72,6 @@ export {
 } from './endpoints/createSprungbrettJobsEndpoint.ts'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint.ts'
 export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsync.ts'
-export { default as usePaginatedLoadAsync } from './endpoints/hooks/usePaginatedLoadAsync.ts'
 export { default as CategoriesMapModel } from './models/CategoriesMapModel.ts'
 export { default as CategoryModel } from './models/CategoryModel.ts'
 export { default as RegionModel } from './models/RegionModel.ts'
