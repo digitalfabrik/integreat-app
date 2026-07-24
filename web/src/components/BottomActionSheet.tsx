@@ -1,3 +1,5 @@
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, RefObject, useImperativeHandle, useRef, useState } from 'react'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
@@ -37,6 +39,7 @@ type BottomActionSheetProps = {
 
 const BottomActionSheet = ({ children, sibling, ref }: BottomActionSheetProps): ReactElement => {
   const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
+  const [isFullscreen, setIsFullscreen] = useState(false)
   const bottomSheetRef = useRef<BottomSheetRef>(null)
   const { dimensions, contentDirection } = useTheme()
 
@@ -56,14 +59,23 @@ const BottomActionSheet = ({ children, sibling, ref }: BottomActionSheetProps): 
     }
   }
 
+  const updateFullscreen = () => {
+    const { max } = dimensions.bottomSheet.snapPoints
+    setIsFullscreen((bottomSheetRef.current?.height ?? 0) >= max)
+  }
+
+  const HandleIcon = isFullscreen ? KeyboardArrowDownIcon : KeyboardArrowUpIcon
+
   return (
     <StyledBottomSheet
       ref={bottomSheetRef}
       open
+      header={<HandleIcon sx={{ color: 'text.primary', fontSize: 32 }} />}
       sibling={sibling}
       scrollLocking={false}
       blocking={false}
       onSpringStart={initializeScrollElement}
+      onSpringEnd={updateFullscreen}
       snapPoints={() => dimensions.bottomSheet.snapPoints.all}
       defaultSnap={() => dimensions.bottomSheet.snapPoints.medium}>
       <StyledLayout dir={contentDirection}>{children}</StyledLayout>

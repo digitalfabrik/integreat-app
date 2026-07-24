@@ -111,8 +111,8 @@ const PlacesBottomSheet = ({
   }
 
   const HandleComponent = useCallback(
-    () => <BottomSheetHandle nextFocusForward={zoomInFocusTarget} />,
-    [zoomInFocusTarget],
+    () => <BottomSheetHandle nextFocusForward={zoomInFocusTarget} isFullscreen={isFullscreen} />,
+    [zoomInFocusTarget, isFullscreen],
   )
 
   const PlaceDetail = place ? (
