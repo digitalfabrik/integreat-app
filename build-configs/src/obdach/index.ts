@@ -50,6 +50,7 @@ export const webObdachBuildConfig: WebBuildConfigType = {
   icons: {
     appLogo: '/app-logo.svg',
     appLogoMobile: '/app-icon-round.svg',
+    appLogoInverted: '/app-icon-inverted.svg',
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',

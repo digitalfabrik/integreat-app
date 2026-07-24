@@ -1,8 +1,5 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
-import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import RefreshIcon from '@mui/icons-material/Refresh'
-import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined'
-import Avatar from '@mui/material/Avatar'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
@@ -13,48 +10,23 @@ import { useTranslation } from 'react-i18next'
 
 import { ChatMessageModel } from 'shared/api'
 
+import { MessageAvatar } from './ChatAvatar'
 import RemoteContent from './RemoteContent'
 
-export const Message = styled('div')(({ theme }) => ({
+export const Message = styled('div', { shouldForwardProp })<{ userIsAuthor: boolean }>(({ theme, userIsAuthor }) => ({
   maxWidth: '70%',
   width: 'max-content',
-  padding: 8,
-  border: `1px solid ${theme.palette.divider}`,
+  padding: 16,
   borderRadius: 8,
   wordBreak: 'break-word',
+  backgroundColor: userIsAuthor ? theme.palette.chat.userMessageBackground : theme.palette.chat.answerMessageBackground,
+  border: `1px solid ${theme.palette.chat.messageBorderColor}`,
 }))
 
 const RetryButton = styled(IconButton)({
   height: 40,
   alignSelf: 'center',
 })
-
-const StyledAvatar = styled(Avatar, { shouldForwardProp })<{ visible: boolean }>(({ visible }) => ({
-  opacity: visible ? 1 : 0,
-}))
-
-type MessageAvatarProps = {
-  userIsAuthor: boolean
-  isAutomaticAnswer: boolean
-  visible: boolean
-}
-
-const MessageAvatar = ({ userIsAuthor, isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
-  const { t } = useTranslation('chat')
-  const label = t(isAutomaticAnswer ? 'bot' : 'consultant')
-
-  if (userIsAuthor) {
-    return <StyledAvatar visible={visible} aria-label={t('user')} />
-  }
-
-  return (
-    <Tooltip title={label} disableHoverListener={!visible}>
-      <StyledAvatar visible={visible} aria-label={label}>
-        {isAutomaticAnswer ? <SmartToyOutlinedIcon /> : <PersonOutlinedIcon />}
-      </StyledAvatar>
-    </Tooltip>
-  )
-}
 
 type InnerChatMessageProps = {
   userIsAuthor: boolean
@@ -73,7 +45,7 @@ export const InnerChatMessage = ({
 }: InnerChatMessageProps): ReactElement => (
   <Stack direction={userIsAuthor ? 'row-reverse' : 'row'} gap={1}>
     <MessageAvatar userIsAuthor={userIsAuthor} isAutomaticAnswer={isAutomaticAnswer} visible={showAvatar} />
-    <Message>
+    <Message userIsAuthor={userIsAuthor}>
       <Typography variant='body2' component='div'>
         {children}
       </Typography>

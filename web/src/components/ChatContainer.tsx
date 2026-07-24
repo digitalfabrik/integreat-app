@@ -1,6 +1,10 @@
+import { dialogClasses } from '@mui/material/Dialog'
 import { dialogContentClasses } from '@mui/material/DialogContent'
+import { dialogTitleClasses } from '@mui/material/DialogTitle'
+import { stackClasses } from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useContext, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
 import {
@@ -25,17 +29,34 @@ import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
 import { chatIdKey, chatSeenMessagesKey } from '../utils/chat'
 import { openUrlInNewTab } from '../utils/openLink'
 import Chat from './Chat'
+import { ChatLogoAvatar } from './ChatAvatar'
 import ChatFab from './ChatFab'
 import ChatMenu from './ChatMenu'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageSelection'
 import Dialog from './base/Dialog'
 
-const StyledDialog = styled(Dialog)({
-  [`.${dialogContentClasses.root}`]: {
-    padding: '0 0 16px',
+const StyledDialog = styled(Dialog)(({ theme }) => ({
+  [`.${dialogClasses.paper}:not(.${dialogClasses.paperFullScreen})`]: {
+    borderRadius: 12,
+    boxShadow: 'none',
+    border: `1px solid ${theme.palette.divider}`,
   },
-})
+  [`.${dialogClasses.paper} > .${stackClasses.root}`]: {
+    margin: 0,
+    padding: theme.spacing(1),
+    backgroundColor: theme.palette.chat.headerBackground,
+    borderBottom: `1px solid ${theme.palette.divider}`,
+
+    [`.${dialogTitleClasses.root}`]: {
+      padding: theme.spacing(1),
+    },
+  },
+  [`.${dialogContentClasses.root}`]: {
+    padding: theme.spacing(0, 0, 2),
+    backgroundColor: theme.palette.chat.background,
+  },
+}))
 
 type ChatContainerProps = {
   region: RegionModel
@@ -45,6 +66,7 @@ type ChatContainerProps = {
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const { open, close, openUrl, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
+  const { t } = useTranslation('chat')
   const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
@@ -125,8 +147,11 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     return (
       <StyledDialog
         title={chatName}
+        subtitle={t('subtitle')}
+        icon={<ChatLogoAvatar />}
         close={close}
         showHeader={!externalChatId}
+        minimize
         actions={[
           ...(languageChangePaths
             ? [
