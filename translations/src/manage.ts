@@ -7,8 +7,8 @@ import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPair
 import path from 'path'
 
 import config from '../src/config.js'
-import { TranslationsType } from '../src/index.js'
-import { KeyValueType } from '../src/types.js'
+import { TranslationsType } from './index.ts'
+import { KeyValueType } from './types.ts'
 
 const { unflatten } = flat
 

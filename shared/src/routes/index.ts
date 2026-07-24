@@ -30,15 +30,6 @@ export const LICENSES_ROUTE: LicensesRouteType = 'licenses'
 export const LEGACY_REGIONS_ROUTE = 'landing'
 export const LEGACY_PLACES_ROUTE = 'locations'
 
-// News types
-export type LocalNewsType = 'local'
-export const LOCAL_NEWS_TYPE: LocalNewsType = 'local'
-
-export type TuNewsType = 'tu-news'
-export const TU_NEWS_TYPE: TuNewsType = 'tu-news'
-
-export type NewsType = LocalNewsType | TuNewsType
-
 // Internal native routes
 export type CategoriesTabRouteType = 'categoriesTab'
 export const CATEGORIES_TAB_ROUTE: CategoriesTabRouteType = 'categoriesTab'

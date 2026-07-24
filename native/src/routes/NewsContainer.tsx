@@ -1,63 +1,75 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { ReactElement, useCallback, useState } from 'react'
 
-import { LOCAL_NEWS_TYPE, NEWS_ROUTE, NewsRouteType, NewsType, TU_NEWS_TYPE } from 'shared'
-import { ErrorCodes } from 'shared/api'
+import {
+  NEWS_ALL_SOURCES_FILTER,
+  NEWS_ROUTE,
+  newsFilterToSources,
+  NewsRouteType,
+  NewsSourceFilter as NewsSourceFilterType,
+} from 'shared'
 
-import NewsHeader from '../components/NewsHeader'
+import News from '../components/News'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import useHeader from '../hooks/useHeader'
 import useLoadRegionContent from '../hooks/useLoadRegionContent'
-import useNavigate from '../hooks/useNavigate'
+import usePreviousProp from '../hooks/usePreviousProp'
 import useRegionAppContext from '../hooks/useRegionAppContext'
+import urlFromRouteInformation from '../utils/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
-import LocalNews from './LocalNews'
-import TuNews from './TuNews'
-import TuNewsDetail from './TuNewsDetail'
 
 type NewsContainerProps = {
   route: RouteProps<NewsRouteType>
   navigation: NavigationProps<NewsRouteType>
 }
 
-const NewsContainer = ({ route, navigation }: NewsContainerProps): ReactElement | null => {
-  const { newsType, newsId } = route.params
+const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement | null => {
+  const { id } = route.params
   const { regionCode, languageCode } = useRegionAppContext()
-  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode, refreshLocalNews: true })
-  const { navigateTo } = useNavigate()
+  const [newsSourceFilter, setNewsSourceFilter] = useState<NewsSourceFilterType>(NEWS_ALL_SOURCES_FILTER)
+  const { data, ...response } = useLoadRegionContent({
+    regionCode,
+    languageCode,
+    refreshNews: true,
+  })
 
-  const navigateToNews = useCallback(
-    (newsId: number) => navigateTo({ route: NEWS_ROUTE, regionCode, languageCode, newsType, newsId }),
-    [regionCode, languageCode, newsType, navigateTo],
+  const newsSources = newsFilterToSources(newsSourceFilter)
+  const news = data?.news.filter(news => !newsSources || newsSources.includes(news.source))
+  const currentNews = id != null ? data?.news.find(it => it.id === id) : undefined
+  const availableLanguages = currentNews
+    ? Object.keys(currentNews.availableLanguages ?? {})
+    : data?.languages.map(it => it.code)
+
+  const shareUrl = urlFromRouteInformation({
+    route: NEWS_ROUTE,
+    languageCode,
+    regionCode,
+    id: id ?? undefined,
+  })
+  useHeader({ navigation, route, availableLanguages, data, shareUrl })
+
+  const onLanguageChange = useCallback(
+    (newLanguage: string) => {
+      if (currentNews) {
+        const newId = currentNews.availableLanguages?.[newLanguage]
+        navigation.setParams({ id: newId })
+      }
+    },
+    [currentNews, navigation],
   )
-
-  const selectNewsType = (newsType: NewsType) => navigation.setParams({ newsType, newsId: null })
-
-  const isDisabled = data && (newsType === LOCAL_NEWS_TYPE ? !data.region.localNewsEnabled : !data.region.tuNewsEnabled)
-  const error = isDisabled ? ErrorCodes.PageNotFound : response.error
+  usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
   return (
-    <LoadingErrorHandler {...response} error={error}>
-      {data && (
-        <>
-          {newsId === null && (
-            <NewsHeader selectedNewsType={newsType} regionModel={data.region} selectNewsType={selectNewsType} />
-          )}
-          {newsType === LOCAL_NEWS_TYPE && (
-            <LocalNews
-              route={route}
-              navigation={navigation}
-              navigateToNews={navigateToNews}
-              newsId={newsId}
-              data={data}
-              refresh={response.refresh}
-            />
-          )}
-          {newsType === TU_NEWS_TYPE &&
-            (newsId === null ? (
-              <TuNews route={route} navigation={navigation} navigateToNews={navigateToNews} data={data} />
-            ) : (
-              <TuNewsDetail route={route} navigation={navigation} newsId={newsId} data={data} />
-            ))}
-        </>
+    <LoadingErrorHandler {...response} loading={response.loading}>
+      {news && (
+        <News
+          id={id}
+          news={news}
+          regionCode={regionCode}
+          languageCode={languageCode}
+          refresh={response.refresh}
+          newsSource={newsSourceFilter}
+          setNewsSource={setNewsSourceFilter}
+        />
       )}
     </LoadingErrorHandler>
   )

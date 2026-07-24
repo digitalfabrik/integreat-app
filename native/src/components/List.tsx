@@ -21,7 +21,6 @@ type ListProps<T> = {
   scrollEnabled?: boolean
   accessibilityLabel?: string
   refresh?: () => void
-  onEndReached?: () => void
   style?: ViewStyle
   keyboardShouldPersistTaps?: 'always' | 'never' | 'handled'
 }
@@ -34,7 +33,6 @@ const List = <T,>({
   footer,
   refresh,
   accessibilityLabel,
-  onEndReached,
   scrollEnabled,
   style,
   keyboardShouldPersistTaps = 'never',
@@ -49,7 +47,6 @@ const List = <T,>({
     ListEmptyComponent={
       typeof noItemsMessage === 'string' ? <ListEmptyComponent noItemsMessage={noItemsMessage} /> : noItemsMessage
     }
-    onEndReached={onEndReached}
     showsVerticalScrollIndicator={false}
     onEndReachedThreshold={1}
     scrollEnabled={scrollEnabled}

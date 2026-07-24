@@ -1,7 +1,7 @@
 import { difference, omitBy } from 'lodash'
 import { DateTime } from 'luxon'
 
-import { CategoriesMapModel, RegionModel, EventModel, LocalNewsModel, PlaceModel } from 'shared/api'
+import { CategoriesMapModel, RegionModel, EventModel, NewsModel, PlaceModel } from 'shared/api'
 
 import Cache from '../models/Cache'
 import DatabaseContext from '../models/DatabaseContext'
@@ -15,7 +15,7 @@ type CacheType = {
   regions: Cache<RegionModel[]>
   events: Cache<EventModel[]>
   categories: Cache<CategoriesMapModel>
-  localNews: Cache<LocalNewsModel[]>
+  news: Cache<NewsModel[]>
   resourceCache: Cache<RegionResourceCacheStateType>
   lastUpdate: Cache<DateTime | null>
 }
@@ -51,11 +51,11 @@ class DefaultDataContainer implements DataContainer {
         (value: CategoriesMapModel, connector: DatabaseConnector, context: DatabaseContext) =>
           connector.storeCategories(value, context),
       ),
-      localNews: new Cache<LocalNewsModel[]>(
+      news: new Cache<NewsModel[]>(
         this._databaseConnector,
-        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadLocalNews(context),
-        (value: LocalNewsModel[], connector: DatabaseConnector, context: DatabaseContext) =>
-          connector.storeLocalNews(value, context),
+        (connector: DatabaseConnector, context: DatabaseContext) => connector.loadNews(context),
+        (value: NewsModel[], connector: DatabaseConnector, context: DatabaseContext) =>
+          connector.storeNews(value, context),
       ),
       resourceCache: new Cache<RegionResourceCacheStateType>(
         this._databaseConnector,
@@ -100,8 +100,8 @@ class DefaultDataContainer implements DataContainer {
   getPlaces = (region: string, language: string): Promise<PlaceModel[]> =>
     this.caches.places.get(new DatabaseContext(region, language))
 
-  getLocalNews = (region: string, language: string): Promise<LocalNewsModel[]> =>
-    this.caches.localNews.get(new DatabaseContext(region, language))
+  getNews = (region: string, language: string): Promise<NewsModel[]> =>
+    this.caches.news.get(new DatabaseContext(region, language))
 
   getResourceCache = async (region: string, language: string): Promise<LanguageResourceCacheStateType> => {
     const resourceCache = await this.caches.resourceCache.get(new DatabaseContext(region))
@@ -119,8 +119,8 @@ class DefaultDataContainer implements DataContainer {
     await this.caches.places.cache(places, new DatabaseContext(region, language))
   }
 
-  setLocalNews = async (region: string, language: string, localNews: LocalNewsModel[]): Promise<void> => {
-    await this.caches.localNews.cache(localNews, new DatabaseContext(region, language))
+  setNews = async (region: string, language: string, news: NewsModel[]): Promise<void> => {
+    await this.caches.news.cache(news, new DatabaseContext(region, language))
   }
 
   setRegions = async (regions: RegionModel[]): Promise<void> => {
@@ -188,9 +188,9 @@ class DefaultDataContainer implements DataContainer {
     return this.isCached('events', context) || this._databaseConnector.isEventsPersisted(context)
   }
 
-  localNewsAvailable = async (region: string, language: string): Promise<boolean> => {
+  newsAvailable = async (region: string, language: string): Promise<boolean> => {
     const context = new DatabaseContext(region, language)
-    return this.isCached('localNews', context) || this._databaseConnector.isLocalNewsPersisted(context)
+    return this.isCached('news', context) || this._databaseConnector.isNewsPersisted(context)
   }
 
   storeLastUsage = async (region: string): Promise<void> => {
