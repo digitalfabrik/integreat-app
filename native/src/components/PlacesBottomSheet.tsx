@@ -111,8 +111,15 @@ const PlacesBottomSheet = ({
   }
 
   const HandleComponent = useCallback(
-    () => <BottomSheetHandle nextFocusForward={zoomInFocusTarget} isFullscreen={isFullscreen} />,
-    [zoomInFocusTarget, isFullscreen],
+    () => (
+      <BottomSheetHandle
+        nextFocusForward={zoomInFocusTarget}
+        isFullscreen={isFullscreen}
+        title={slug ? undefined : t('common:nearby')}
+        onPress={() => bottomSheetRef.current?.snapToIndex(isFullscreen ? 1 : snapPoints.length - 1)}
+      />
+    ),
+    [zoomInFocusTarget, isFullscreen, slug, snapPoints.length, t],
   )
 
   const PlaceDetail = place ? (
@@ -163,7 +170,6 @@ const PlacesBottomSheet = ({
           renderItem={renderPlaceListItem}
           onScrollBeginDrag={Platform.OS === 'ios' ? expandFullscreen : undefined}
           showsVerticalScrollIndicator={false}
-          ListHeaderComponent={<Text variant='h5'>{t('common:nearby')}</Text>}
           ListEmptyComponent={
             <Text
               variant='body2'

@@ -1,7 +1,11 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import IconButton from '@mui/material/IconButton'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, RefObject, useImperativeHandle, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
@@ -34,14 +38,18 @@ export type ScrollableBottomSheetRef = {
 type BottomActionSheetProps = {
   children: ReactNode
   sibling: ReactNode
+  title?: string
   ref: RefObject<ScrollableBottomSheetRef | null>
 }
 
-const BottomActionSheet = ({ children, sibling, ref }: BottomActionSheetProps): ReactElement => {
+const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetProps): ReactElement => {
   const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const bottomSheetRef = useRef<BottomSheetRef>(null)
   const { dimensions, contentDirection } = useTheme()
+  const { t } = useTranslation('common')
+  const { max, medium } = dimensions.bottomSheet.snapPoints
+  const HandleIcon = isFullscreen ? KeyboardArrowDownIcon : KeyboardArrowUpIcon
 
   useImperativeHandle(
     ref,
@@ -59,25 +67,34 @@ const BottomActionSheet = ({ children, sibling, ref }: BottomActionSheetProps): 
     }
   }
 
-  const updateFullscreen = () => {
-    const { max } = dimensions.bottomSheet.snapPoints
-    setIsFullscreen((bottomSheetRef.current?.height ?? 0) >= max)
-  }
-
-  const HandleIcon = isFullscreen ? KeyboardArrowDownIcon : KeyboardArrowUpIcon
+  const updateFullscreen = () => setIsFullscreen((bottomSheetRef.current?.height ?? 0) >= max)
 
   return (
     <StyledBottomSheet
       ref={bottomSheetRef}
       open
-      header={<HandleIcon sx={{ color: 'text.primary', fontSize: 32 }} />}
+      header={
+        <Stack alignItems='flex-start' color='text.primary'>
+          <IconButton
+            onClick={() => bottomSheetRef.current?.snapTo(isFullscreen ? medium : max)}
+            aria-label={t('handle')}
+            sx={{ alignSelf: 'stretch', padding: 0, borderRadius: 0, color: 'inherit' }}>
+            <HandleIcon sx={{ fontSize: 32, transform: 'scaleX(1.5)' }} />
+          </IconButton>
+          {!!title && (
+            <Typography component='h1' variant='h5'>
+              {title}
+            </Typography>
+          )}
+        </Stack>
+      }
       sibling={sibling}
       scrollLocking={false}
       blocking={false}
       onSpringStart={initializeScrollElement}
       onSpringEnd={updateFullscreen}
       snapPoints={() => dimensions.bottomSheet.snapPoints.all}
-      defaultSnap={() => dimensions.bottomSheet.snapPoints.medium}>
+      defaultSnap={() => medium}>
       <StyledLayout dir={contentDirection}>{children}</StyledLayout>
     </StyledBottomSheet>
   )

@@ -1,6 +1,5 @@
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
@@ -50,30 +49,15 @@ const SkeletonPlaceContent = () => (
 )
 
 type PlaceContentProps = {
-  canDeselect: boolean
   places: PlaceModel[]
   place: PlaceModel | undefined
   scrollToTop: () => void
   userLocation: LocationType | null
   slug: string | undefined
-  t: (key: string) => string
 }
 
-const PlaceContent = ({
-  canDeselect,
-  places,
-  place,
-  scrollToTop,
-  userLocation,
-  slug,
-  t,
-}: PlaceContentProps): ReactElement => (
+const PlaceContent = ({ places, place, scrollToTop, userLocation, slug }: PlaceContentProps): ReactElement => (
   <Stack padding={2} gap={1}>
-    {!canDeselect && (
-      <Typography component='h1' variant='h3' alignContent='center'>
-        {t('common:nearby')}
-      </Typography>
-    )}
     <PlaceSharedChildren
       places={places}
       place={place}
@@ -168,6 +152,7 @@ const PlacesMobile = ({
       />
       <BottomActionSheet
         ref={sheetRef}
+        title={canDeselect || loading ? undefined : t('common:nearby')}
         sibling={
           <>
             <MapControlsContainer>
@@ -183,13 +168,11 @@ const PlacesMobile = ({
           <SkeletonPlaceContent />
         ) : (
           <PlaceContent
-            canDeselect={canDeselect}
             places={places}
             place={place}
             scrollToTop={scrollToTop}
             userLocation={userLocation}
             slug={slug}
-            t={t}
           />
         )}
       </BottomActionSheet>

@@ -8,7 +8,7 @@ import {
 } from '../constants/layout'
 import { TtsContext } from '../contexts/TtsContext'
 
-const bottomSheetHandleHeight = 56
+export const bottomSheetHandleHeight = 80
 const midSnapPercentage = 0.5
 const mapIconsHeight = 60
 
