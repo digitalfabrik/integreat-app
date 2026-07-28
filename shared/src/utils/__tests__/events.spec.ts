@@ -141,16 +141,16 @@ describe('events', () => {
       expect(getGroup(groups, 'tomorrow')).toContain(event)
     })
 
-    it('should group an event a few days out into this week', () => {
+    it('should group an event a few days out into next 7 days', () => {
       const event = createEvent('2023-10-07T15:00:00.000+02:00')
       const groups = groupEventsByDate([event])
-      expect(getGroup(groups, 'thisWeek')).toContain(event)
+      expect(getGroup(groups, 'nextSevenDays')).toContain(event)
     })
 
-    it('should group an event a few weeks out into this month', () => {
+    it('should group an event a few weeks out into next 30 days', () => {
       const event = createEvent('2023-10-25T15:00:00.000+02:00')
       const groups = groupEventsByDate([event])
-      expect(getGroup(groups, 'thisMonth')).toContain(event)
+      expect(getGroup(groups, 'nextThirtyDays')).toContain(event)
     })
 
     it('should group an event beyond 30 days into further', () => {
