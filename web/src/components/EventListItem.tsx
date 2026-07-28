@@ -1,8 +1,11 @@
+import EventNoteIcon from '@mui/icons-material/EventNote'
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
+import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
@@ -15,6 +18,7 @@ import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
+import EventFurtherDates from './EventFurtherDates'
 import Link from './base/Link'
 
 const StyledListItem = styled(ListItem)`
@@ -94,8 +98,17 @@ const EventListItem = ({
           }
           secondary={
             <StyledTypography variant='body1' flexDirection='column' component='div'>
-              <p>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</p>
-              {event.location && <p>{event.location.name}</p>}
+              <Stack direction='row' alignItems='center' gap={1} component='p'>
+                <EventNoteIcon fontSize='small' />
+                <span>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</span>
+              </Stack>
+              <EventFurtherDates date={event.date} languageCode={languageCode} />
+              {event.location && (
+                <Stack direction='row' alignItems='center' gap={1} component='p'>
+                  <LocationOnOutlinedIcon fontSize='small' />
+                  <span>{event.location.name}</span>
+                </Stack>
+              )}
               <p>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</p>
             </StyledTypography>
           }

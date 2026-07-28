@@ -13,6 +13,7 @@ type FormattedEventDate = {
 
 const dateFormatWithoutWeekday: DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' }
 const dateFormatWithWeekday: DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
+const dateFormatShort: DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' }
 
 class DateModel {
   _startDate: DateTime
@@ -129,9 +130,9 @@ class DateModel {
     return frequency === RRuleType.MONTHLY || frequency === RRuleType.YEARLY
   }
 
-  formatMonthlyOrYearlyRecurrence(locale: string, t: TranslateFunction): FormattedEventDate {
+  formatMonthlyOrYearlyRecurrence(locale: string, t: TranslateFunction, shortFormat = false): FormattedEventDate {
     return {
-      date: this.startDate.toLocaleString(dateFormatWithWeekday, { locale }),
+      date: this.startDate.toLocaleString(shortFormat ? dateFormatShort : dateFormatWithWeekday, { locale }),
       weekday: undefined,
       time: formatTime(locale, this, t),
     }
