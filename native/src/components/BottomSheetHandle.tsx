@@ -46,7 +46,7 @@ const BottomSheetHandle = ({
         nextFocusForward={nextFocusForward}
         onPress={onPress}
         accessibilityLabel={t('handle')}>
-        <StyledIcon size={32} source={isFullscreen ? 'chevron-down' : 'chevron-up'} />
+        <StyledIcon source={isFullscreen ? 'chevron-down' : 'chevron-up'} />
       </Handle>
       {!!title && <StyledTitle variant='h5'>{title}</StyledTitle>}
     </Container>

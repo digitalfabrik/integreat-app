@@ -30,6 +30,12 @@ const StyledLayout = styled(RichLayout)`
   padding-bottom: ${props => props.theme.dimensions.ttsPlayerHeight}px;
 `
 
+const StyledIconButton = styled(IconButton)`
+  align-self: stretch;
+  padding: 0;
+  border-radius: 0;
+`
+
 export type ScrollableBottomSheetRef = {
   scrollElement: HTMLElement | null
   sheet?: BottomSheetRef | null
@@ -75,12 +81,11 @@ const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetP
       open
       header={
         <Stack alignItems='flex-start' color='text.primary'>
-          <IconButton
+          <StyledIconButton
             onClick={() => bottomSheetRef.current?.snapTo(isFullscreen ? medium : max)}
-            aria-label={t('handle')}
-            sx={{ alignSelf: 'stretch', padding: 0, borderRadius: 0, color: 'inherit' }}>
-            <HandleIcon sx={{ fontSize: 32, transform: 'scaleX(1.5)' }} />
-          </IconButton>
+            aria-label={t('handle')}>
+            <HandleIcon sx={{ transform: 'scaleX(1.5)' }} />
+          </StyledIconButton>
           {!!title && (
             <Typography component='h1' variant='h5'>
               {title}
