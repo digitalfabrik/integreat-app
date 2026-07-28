@@ -1,5 +1,5 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { regionContentPath, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
@@ -10,6 +10,7 @@ import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageSelection'
+import LiveAnnouncer from './LiveAnnouncer'
 import NavigationTabs from './NavigationTabs'
 import RegionContentMenu from './RegionContentMenu'
 
@@ -31,11 +32,21 @@ const RegionContentHeader = ({
   fitScreen,
 }: RegionContentHeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
+  const prevLanguage = useRef(languageCode)
+  const [announcement, setAnnouncement] = useState('')
 
   const params = { regionCode: regionModel.code, languageCode }
   const categoriesPath = regionContentPath(params)
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
   const { desktop } = useDimensions()
+
+  useEffect(() => {
+    if (prevLanguage.current !== languageCode) {
+      const languageName = languageChangePaths?.find(l => l.code === languageCode)?.name ?? languageCode
+      setAnnouncement(`${t('languageChangedTo')} ${languageName}`)
+      prevLanguage.current = languageCode
+    }
+  }, [languageCode, languageChangePaths, t])
 
   const actionItems = [
     <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />,
@@ -51,13 +62,16 @@ const RegionContentHeader = ({
   ].filter(Boolean)
 
   return (
-    <Header
-      logoHref={categoriesPath}
-      actionItems={actionItems}
-      regionName={regionModel.name}
-      language={languageCode}
-      tabBar={desktop && <NavigationTabs regionModel={regionModel} languageCode={languageCode} />}
-    />
+    <>
+      <LiveAnnouncer message={announcement} />
+      <Header
+        logoHref={categoriesPath}
+        actionItems={actionItems}
+        regionName={regionModel.name}
+        language={languageCode}
+        tabBar={desktop && <NavigationTabs regionModel={regionModel} languageCode={languageCode} />}
+      />
+    </>
   )
 }
 

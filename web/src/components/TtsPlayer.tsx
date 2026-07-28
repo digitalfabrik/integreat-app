@@ -99,11 +99,16 @@ const TtsPlayer = ({
   useUpdateDimensions()
 
   return (
-    <StyledTtsPlayer id={TTS_PLAYER_ELEMENT_ID} bottom={bottomNavigationHeight ?? visibleFooterHeight}>
+    <StyledTtsPlayer
+      id={TTS_PLAYER_ELEMENT_ID}
+      aria-label={t('readAloudPlayer')}
+      aria-describedby={`${TTS_PLAYER_ELEMENT_ID}-title`}
+      bottom={bottomNavigationHeight ?? visibleFooterHeight}
+      open>
       <CloseIconButton onClick={close} aria-label={t('common:close')}>
         <CloseIcon />
       </CloseIconButton>
-      <HeaderText component='span' variant='h4'>
+      <HeaderText id={`${TTS_PLAYER_ELEMENT_ID}-title`} component='span' variant='h4'>
         {title}
       </HeaderText>
       {/* Sound player panel shouldn't be rotated in rtl */}

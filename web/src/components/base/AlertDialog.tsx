@@ -40,7 +40,13 @@ const AlertDialog = ({ title, close, children, className, actions }: DialogProps
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
 
   return (
-    <StyledMuiDialog role='alertdialog' onClose={close} container={dialogContainer} className={className} open>
+    <StyledMuiDialog
+      role='alertdialog'
+      aria-describedby='dialog-description'
+      onClose={close}
+      container={dialogContainer}
+      className={className}
+      open>
       <Stack direction='row' alignItems='center' justifyContent='space-between' marginInline={1}>
         <DialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
           {title}
@@ -51,7 +57,7 @@ const AlertDialog = ({ title, close, children, className, actions }: DialogProps
           </IconButton>
         )}
       </Stack>
-      <DialogContent>{children}</DialogContent>
+      <DialogContent id='dialog-description'>{children}</DialogContent>
       {actions}
     </StyledMuiDialog>
   )

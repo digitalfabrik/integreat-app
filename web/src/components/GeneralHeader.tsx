@@ -1,6 +1,6 @@
 import ContrastIcon from '@mui/icons-material/Contrast'
 import { useTheme } from '@mui/material/styles'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 
@@ -11,6 +11,7 @@ import { supportedLanguages } from '../utils'
 import Header from './Header'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import HeaderMenu from './HeaderMenu'
+import LiveAnnouncer from './LiveAnnouncer'
 import MenuItem from './MenuItem'
 
 type GeneralHeaderProps = {
@@ -22,6 +23,8 @@ const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): R
   const slug = useLocation().pathname.split('/')[1]
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
+  const previousLanguage = useRef(languageCode)
+  const [announcement, setAnnouncement] = useState('')
 
   const regionsPath = pathnameFromRouteInformation({ route: REGIONS_ROUTE, languageCode })
   const languageChangePaths = (regionLanguages ?? supportedLanguages).map(language => ({
@@ -29,6 +32,14 @@ const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): R
     name: language.name,
     path: `/${slug}/${language.code}`,
   }))
+
+  useEffect(() => {
+    if (previousLanguage.current !== languageCode) {
+      const languageName = languageChangePaths.find(l => l.code === languageCode)?.name ?? languageCode
+      setAnnouncement(`${t('languageChangedTo')} ${languageName}`)
+      previousLanguage.current = languageCode
+    }
+  }, [languageCode, languageChangePaths, t])
 
   const actionItems = [
     languageChangePaths.length > 0 ? (
@@ -44,7 +55,12 @@ const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): R
     </HeaderMenu>,
   ]
 
-  return <Header logoHref={regionsPath} actionItems={actionItems} language={languageCode} />
+  return (
+    <>
+      <LiveAnnouncer message={announcement} />
+      <Header logoHref={regionsPath} actionItems={actionItems} language={languageCode} />
+    </>
+  )
 }
 
 export default GeneralHeader
