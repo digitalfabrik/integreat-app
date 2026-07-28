@@ -37,11 +37,6 @@ import { LanguageChangePath } from './LanguageSelection'
 import Dialog from './base/Dialog'
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
-  [`.${dialogClasses.paper}:not(.${dialogClasses.paperFullScreen})`]: {
-    borderRadius: 12,
-    boxShadow: 'none',
-    border: `1px solid ${theme.palette.divider}`,
-  },
   [`.${dialogClasses.paper} > .${stackClasses.root}`]: {
     margin: 0,
     padding: theme.spacing(1),

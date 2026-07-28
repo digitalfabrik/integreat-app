@@ -16,7 +16,7 @@ import RemoteContent from './RemoteContent'
 export const Message = styled('div', { shouldForwardProp })<{ userIsAuthor: boolean }>(({ theme, userIsAuthor }) => ({
   maxWidth: '70%',
   width: 'max-content',
-  padding: 16,
+  padding: 8,
   borderRadius: 8,
   wordBreak: 'break-word',
   backgroundColor: userIsAuthor ? theme.palette.chat.userMessageBackground : theme.palette.chat.answerMessageBackground,
