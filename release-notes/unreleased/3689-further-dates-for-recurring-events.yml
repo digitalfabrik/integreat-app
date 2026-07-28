@@ -1,0 +1,9 @@
+issue_key: 3689
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Recurring events now show their further dates in a collapsible section in the event list.
+# de is required for notes with show_in_stores set to true
+de: Wiederkehrende Veranstaltungen zeigen nun ihre weiteren Termine in einem aufklappbaren Bereich in der Veranstaltungsliste.
