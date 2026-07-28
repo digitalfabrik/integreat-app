@@ -12,6 +12,7 @@ import useQueryParam from '../hooks/useQueryParam'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import { captureError } from '../utils/sentry'
 import Feedback from './Feedback'
+import LiveAnnouncer from './LiveAnnouncer'
 import Dialog from './base/Dialog'
 import Snackbar from './base/Snackbar'
 
