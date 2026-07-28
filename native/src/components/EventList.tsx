@@ -4,7 +4,7 @@ import { SectionList } from 'react-native'
 import { Divider, List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { EVENTS_ROUTE, groupEventsByDate, RouteInformationType, useDateFilter } from 'shared'
+import { eventGroupTitle, EVENTS_ROUTE, groupEventsByDate, RouteInformationType, useDateFilter } from 'shared'
 import { RegionModel, EventModel } from 'shared/api'
 
 import Caption from '../components/Caption'
@@ -40,7 +40,7 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
   if (startDate || endDate) {
     sections = filteredEvents.length > 0 ? [{ title: null, data: filteredEvents }] : []
   } else {
-    sections = groupEventsByDate(events).map(([key, events]) => ({ title: t(key), data: events }))
+    sections = groupEventsByDate(events).map(([key, events]) => ({ title: t(...eventGroupTitle(key)), data: events }))
   }
 
   const renderEventListItem = ({ item }: { item: EventModel }) => {

@@ -2,7 +2,7 @@ import Stack from '@mui/material/Stack'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useDateFilter, groupEventsByDate } from 'shared'
+import { useDateFilter, groupEventsByDate, eventGroupTitle } from 'shared'
 import { EventModel } from 'shared/api'
 
 import EventListItem from '../components/EventListItem'
@@ -69,7 +69,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
   }
 
   const dateGroups = groupEventsByDate(events).map(([key, events]) => (
-    <EventListGroup key={key} title={t(key)} events={events} languageCode={languageCode} />
+    <EventListGroup key={key} title={t(...eventGroupTitle(key))} events={events} languageCode={languageCode} />
   ))
 
   return (
