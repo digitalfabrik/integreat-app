@@ -3853,7 +3853,8 @@
       "hideFilters": "إخفاء الفلاتر",
       "showFilters": "إظهار الفلاتر",
       "selectRange": "اختر النطاق",
-      "outOfRangeError": "التاريخ خارج النطاق"
+      "outOfRangeError": "التاريخ خارج النطاق",
+      "furtherDates": "المزيد من المواعيد"
     },
     "bg": {
       "address": "Адрес",

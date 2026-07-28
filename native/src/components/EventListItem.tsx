@@ -10,7 +10,7 @@ import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
-import { contentAlignment } from '../constants/contentDirection'
+import { contentAlignment, contentDirection } from '../constants/contentDirection'
 import EventFurtherDates from './EventFurtherDates'
 import SimpleImage from './SimpleImage'
 import Icon from './base/Icon'
@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const StyledView = styled.View`
-  flex-direction: row;
+const StyledView = styled.View<{ language: string }>`
+  flex-direction: ${props => contentDirection(props.language)};
   align-items: center;
   gap: 4px;
 `
@@ -75,7 +75,7 @@ const EventListItem = ({
       title={<Text variant='h5'>{event.title}</Text>}
       description={
         <View>
-          <StyledView>
+          <StyledView language={language}>
             <Icon source='calendar-text-outline' size={16} />
             <Text variant='body3' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
               {dateToDisplay.formatEventDateInOneLine(language, translateIntoContentLanguage)}
@@ -83,7 +83,7 @@ const EventListItem = ({
           </StyledView>
           <EventFurtherDates date={event.date} language={language} />
           {!!event.location && (
-            <StyledView>
+            <StyledView language={language}>
               <Icon source='map-marker-outline' size={16} />
               <Text variant='body3' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
                 {event.location.name}

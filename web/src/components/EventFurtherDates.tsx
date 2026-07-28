@@ -1,7 +1,7 @@
 import RepeatIcon from '@mui/icons-material/Repeat'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { MouseEvent, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -46,6 +46,7 @@ type EventFurtherDatesProps = {
 
 const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): ReactElement | null => {
   const { t } = useTranslation('events')
+  const { contentDirection } = useTheme()
 
   const furtherDates = date.isMonthlyOrYearlyRecurrence() ? date.recurrences(MAX_FURTHER_DATES).slice(1) : []
   if (furtherDates.length === 0) {
@@ -64,7 +65,7 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
   }
 
   return (
-    <AccordionWrapper onClick={stopLinkNavigation}>
+    <AccordionWrapper dir={contentDirection} onClick={stopLinkNavigation}>
       <Accordion
         id='further-dates'
         defaultCollapsed

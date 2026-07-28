@@ -1,4 +1,4 @@
-import EventNoteIcon from '@mui/icons-material/EventNote'
+import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined'
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import ListItem from '@mui/material/ListItem'
@@ -8,7 +8,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
 import Typography, { TypographyProps } from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -75,6 +75,7 @@ const EventListItem = ({
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
   const { t } = useTranslation('events')
+  const { contentDirection } = useTheme()
   const recurringDateIcon = event.isRecurring ? (
     <Tooltip title={t('recurring')}>
       <EventRepeatOutlinedIcon />
@@ -97,9 +98,9 @@ const EventListItem = ({
             </Typography>
           }
           secondary={
-            <StyledTypography variant='body1' flexDirection='column' component='div'>
+            <StyledTypography variant='body1' flexDirection='column' component='div' dir={contentDirection}>
               <Stack direction='row' alignItems='center' gap={1} component='p'>
-                <EventNoteIcon fontSize='small' />
+                <EventNoteOutlinedIcon fontSize='small' />
                 <span>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</span>
               </Stack>
               <EventFurtherDates date={event.date} languageCode={languageCode} />

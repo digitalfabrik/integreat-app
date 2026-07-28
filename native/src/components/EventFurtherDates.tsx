@@ -5,19 +5,19 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { DateModel } from 'shared/api'
 
-import { contentAlignment } from '../constants/contentDirection'
+import { contentAlignment, contentDirection } from '../constants/contentDirection'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
 const MAX_FURTHER_DATES = 6
 
-const Toggle = styled(TouchableRipple)`
-  align-self: flex-start;
-  padding: 8px;
+const Toggle = styled(TouchableRipple)<{ language: string }>`
+  align-self: ${props => (contentDirection(props.language) === 'row-reverse' ? 'flex-end' : 'flex-start')};
+  padding-block: 8px;
 `
 
-const ToggleContent = styled.View`
-  flex-direction: row;
+const ToggleContent = styled.View<{ language: string }>`
+  flex-direction: ${props => contentDirection(props.language)};
   align-items: center;
   gap: 4px;
 `
@@ -50,12 +50,13 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
   return (
     <>
       <Toggle
+        language={language}
         borderless
         accessibilityRole='button'
         accessibilityState={{ expanded }}
         onPress={() => setExpanded(previous => !previous)}>
-        <ToggleContent>
-          <Icon source='repeat' color={theme.colors.primary} />
+        <ToggleContent language={language}>
+          <Icon source='repeat' size={16} color={theme.colors.primary} />
           <Text variant='body3' style={{ color: theme.colors.primary }}>
             {t('furtherDates')}
           </Text>
