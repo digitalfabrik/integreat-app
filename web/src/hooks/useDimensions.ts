@@ -34,6 +34,7 @@ export type Dimensions = {
   bottomSheet: BottomSheet
 
   headerHeight: number
+  stickyTop: number
   visibleFooterHeight: number
   ttsPlayerHeight: number
   bottomNavigationHeight: number | undefined
@@ -59,6 +60,9 @@ const getDimensions = (): Dimensions => {
   const documentHeight = document.body.offsetHeight
   const visibleFooterHeight = Math.max(0, height + scrollY + footerHeight - documentHeight)
 
+  const headerElement = document.querySelector('header')
+  const stickyTop = Math.max(0, headerElement?.getBoundingClientRect().bottom ?? 0)
+
   const snapPoints = {
     min: bottomSheetHandleHeight + (bottomNavigationHeight ?? 0),
     medium: height * midSnapPercentage,
@@ -76,6 +80,7 @@ const getDimensions = (): Dimensions => {
     },
 
     headerHeight,
+    stickyTop,
     visibleFooterHeight,
     ttsPlayerHeight,
     bottomNavigationHeight,

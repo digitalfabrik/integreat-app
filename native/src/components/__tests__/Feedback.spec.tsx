@@ -15,20 +15,20 @@ describe('Feedback', () => {
   const onCommentChanged = jest.fn()
   const onFeedbackContactMailChanged = jest.fn()
   const onSubmit = jest.fn()
-  const setIsPositiveFeedback = jest.fn()
+  const setFeedbackRating = jest.fn()
   const setSearchTerm = jest.fn()
 
-  const buildProps = (isPositiveFeedback: boolean | null, comment: string, searchTerm?: string) => ({
+  const buildProps = (feedbackRating: boolean | null, comment: string, searchTerm?: string) => ({
     language: 'en',
     comment,
-    isPositiveFeedback,
+    feedbackRating,
     searchTerm,
     contactMail: 'test@example.com',
     sendingStatus: 'idle' as const,
     onCommentChanged,
     onFeedbackContactMailChanged,
     onSubmit,
-    setIsPositiveFeedback,
+    setFeedbackRating,
     setSearchTerm,
   })
 

@@ -1,0 +1,8 @@
+issue_key: 4250
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The chat now uses the correct app theme.
+# de is required for notes with show_in_stores set to true
+de: Der Chat verwendet nun das richtige App-Design.

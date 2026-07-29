@@ -6,13 +6,14 @@ import useSnackbar from '../hooks/useSnackbar'
 import openExternalUrl from '../utils/openExternalUrl'
 import Text from './base/Text'
 
-type LinkProps = {
-  url: string
+type LinkTargetProps = { url: string; onPress?: never } | { url?: never; onPress: () => void }
+
+type LinkProps = LinkTargetProps & {
   children: string
   style?: StyleProp<TextStyle>
 }
 
-const Link = ({ url, children, style }: LinkProps): ReactElement => {
+const Link = ({ url, onPress, children, style }: LinkProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const theme = useTheme()
 
@@ -29,7 +30,7 @@ const Link = ({ url, children, style }: LinkProps): ReactElement => {
     <Text
       variant='body2'
       style={[styles.linkText, style]}
-      onPress={() => openExternalUrl(url, showSnackbar)}
+      onPress={onPress ?? (() => openExternalUrl(url, showSnackbar))}
       role='link'>
       {children}
     </Text>

@@ -65,6 +65,10 @@ class EventModel extends ExtendedDocumentModel {
     return this._placePath
   }
 
+  get isRecurring(): boolean {
+    return this.date.hasMoreRecurrencesThan(1)
+  }
+
   toICal(baseUrl: string, appName: string, recurring: boolean): string {
     const { title, location, path, date, excerpt, lastUpdate } = this
     const url = `${baseUrl}${path}`

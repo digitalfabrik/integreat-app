@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { SendingStatusType } from 'shared'
+import { RATING_POSITIVE, Rating, SendingStatusType } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 import { config } from 'translations'
 
@@ -26,7 +26,7 @@ export type FeedbackContainerProps = {
   regionCode: string
   query?: string
   slug?: string
-  noResults?: boolean
+  rating?: Rating
 }
 
 const FeedbackContainer = ({
@@ -35,11 +35,11 @@ const FeedbackContainer = ({
   routeType,
   regionCode,
   slug,
-  noResults = false,
+  rating,
 }: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
-  const [isPositiveRating, setIsPositiveRating] = useState<boolean | null>(noResults ? false : null)
+  const [feedbackRating, setFeedbackRating] = useState<boolean | null>(rating ? rating === RATING_POSITIVE : null)
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
   const [showFeedback, setShowFeedback] = useState<boolean>(query === undefined)
@@ -63,7 +63,7 @@ const FeedbackContainer = ({
         query,
         slug,
         searchTerm,
-        isPositiveRating,
+        isPositiveRating: feedbackRating,
       })
       setSendingStatus('successful')
     }
@@ -84,8 +84,8 @@ const FeedbackContainer = ({
           sendingStatus={sendingStatus}
           onCommentChanged={setComment}
           onFeedbackContactMailChanged={setContactMail}
-          isPositiveFeedback={isPositiveRating}
-          setIsPositiveFeedback={setIsPositiveRating}
+          feedbackRating={feedbackRating}
+          setFeedbackRating={setFeedbackRating}
           onSubmit={handleSubmit}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}

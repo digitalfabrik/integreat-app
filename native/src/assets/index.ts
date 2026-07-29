@@ -1,7 +1,6 @@
 import EventThumbnailPlaceholder1 from '../../../assets/event-thumbnail-placeholder-1.jpg'
 import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placeholder-2.jpg'
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
-import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-recurring.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import NotAccessibleIcon from '../../../assets/icons/not-accessible.svg'
 import SignPostIcon from '../../../assets/icons/signpost-outline.svg'
@@ -16,7 +15,6 @@ import IntroSearchIcon from '../../../assets/intro/search.svg'
 import IntroWelcomeIcon from '../../../assets/intro/welcome.svg'
 
 export {
-  CalendarTodayRecurringIcon,
   EditLocationIcon,
   EventThumbnailPlaceholder1,
   EventThumbnailPlaceholder2,

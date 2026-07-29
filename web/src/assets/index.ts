@@ -2,7 +2,6 @@ import EventThumbnailPlaceholder1 from '../../../assets/event-thumbnail-placehol
 import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placeholder-2.jpg'
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
 import BookIcon from '../../../assets/icons/book.svg'
-import CalendarTodayRecurringIcon from '../../../assets/icons/calendar-today-recurring.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
 import PersonLightIcon from '../../../assets/icons/person-light.svg'
 import PersonIcon from '../../../assets/icons/person.svg'
@@ -13,7 +12,6 @@ import TuNewsInactiveIcon from '../../../assets/icons/tu-news-inactive.svg'
 
 export {
   BookIcon,
-  CalendarTodayRecurringIcon,
   EventThumbnailPlaceholder1,
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,

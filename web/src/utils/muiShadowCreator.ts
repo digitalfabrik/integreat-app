@@ -1,11 +1,13 @@
 import { Shadows } from '@mui/material/styles'
 
+import { ThemeType } from 'shared'
+
 /** This function creates a shadow array for the MUI theme that respects light and dark mode.
  * It creates all 25 shadows from 0-1 opacity to display different intensity shadows. */
 export const MUI_SHADOW_ARRAY_LENGTH = 25
 const RGB_COLOR_GREY = 96
 const RGB_COLOR_WHITE = 255
-export const muiShadowCreator = (themeType: 'light' | 'contrast'): Shadows => {
+export const muiShadowCreator = (themeType: ThemeType): Shadows => {
   const shadowRGBColor = themeType === 'contrast' ? RGB_COLOR_WHITE : RGB_COLOR_GREY
   return Array(MUI_SHADOW_ARRAY_LENGTH)
     .fill('none')

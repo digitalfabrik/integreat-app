@@ -27,8 +27,8 @@ export type FeedbackProps = {
   sendingStatus: SendingStatusType
   onCommentChanged: (comment: string) => void
   onFeedbackContactMailChanged: (contactMail: string) => void
-  isPositiveFeedback: boolean | null
-  setIsPositiveFeedback: (isPositive: boolean | null) => void
+  feedbackRating: boolean | null
+  setFeedbackRating: (isPositive: boolean | null) => void
   onSubmit: () => void
   searchTerm?: string
   setSearchTerm: (newTerm: string) => void
@@ -36,11 +36,11 @@ export type FeedbackProps = {
 
 const Feedback = ({
   language,
-  isPositiveFeedback,
+  feedbackRating,
   comment,
   contactMail,
   sendingStatus,
-  setIsPositiveFeedback,
+  setFeedbackRating,
   onFeedbackContactMailChanged,
   onCommentChanged,
   onSubmit,
@@ -52,7 +52,7 @@ const Feedback = ({
 
   const isSearchFeedback = searchTerm !== undefined
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
-  const feedbackFilled = isPositiveFeedback === null && comment.trim().length === 0 && !searchTerm
+  const feedbackFilled = feedbackRating === null && comment.trim().length === 0 && !searchTerm
   const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
 
   if (sendingStatus === 'sending') {
@@ -84,7 +84,7 @@ const Feedback = ({
         ) : (
           <>
             <Caption title={t('headline')} />
-            <FeedbackButtons isPositiveFeedback={isPositiveFeedback} setIsPositiveFeedback={setIsPositiveFeedback} />
+            <FeedbackButtons feedbackRating={feedbackRating} setFeedbackRating={setFeedbackRating} />
           </>
         )}
         <InputSection

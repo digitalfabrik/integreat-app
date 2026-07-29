@@ -168,6 +168,9 @@
     </style>
   </head>
   <body>
+    <!--# if expr="$render_title = yes" -->
+    <!--# include virtual="/proxy/raw-content/$request_uri" -->
+    <!--# else -->
     <noscript>
       <div class="no-js">
         <p>Please enable JavaScript to use this page!</p>
@@ -181,5 +184,6 @@
     <div id="container"></div>
     <script type="text/javascript" src="/iframe.js" defer></script>
     <script type="module" src="/src/index.tsx"></script>
+    <!--# endif -->
   </body>
 </html>

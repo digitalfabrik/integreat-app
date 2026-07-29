@@ -17,30 +17,30 @@ const Spacing = styled.View`
 `
 
 type FeedbackButtonsProps = {
-  isPositiveFeedback: boolean | null
-  setIsPositiveFeedback: (isPositive: boolean | null) => void
+  feedbackRating: boolean | null
+  setFeedbackRating: (isPositive: boolean | null) => void
 }
 
-const FeedbackButtons = ({ isPositiveFeedback, setIsPositiveFeedback }: FeedbackButtonsProps): ReactElement => {
+const FeedbackButtons = ({ feedbackRating, setFeedbackRating }: FeedbackButtonsProps): ReactElement => {
   const { t } = useTranslation('feedback')
   const theme = useTheme()
   const iconColor = (value: boolean) =>
-    isPositiveFeedback === value && theme.dark ? theme.colors.background : theme.colors.onSurfaceVariant
+    feedbackRating === value && theme.dark ? theme.colors.background : theme.colors.onSurfaceVariant
 
   return (
     <Container>
       <ToggleButton
         text={t('useful')}
-        onPress={() => setIsPositiveFeedback(isPositiveFeedback !== true ? true : null)}
+        onPress={() => setFeedbackRating(feedbackRating !== true ? true : null)}
         icon={<Icon size={32} color={iconColor(true)} source='emoticon-happy-outline' />}
-        active={isPositiveFeedback === true}
+        active={feedbackRating === true}
       />
       <Spacing />
       <ToggleButton
         text={t('notUseful')}
-        onPress={() => setIsPositiveFeedback(isPositiveFeedback !== false ? false : null)}
+        onPress={() => setFeedbackRating(feedbackRating !== false ? false : null)}
         icon={<Icon size={32} color={iconColor(false)} source='emoticon-sad-outline' />}
-        active={isPositiveFeedback === false}
+        active={feedbackRating === false}
       />
     </Container>
   )

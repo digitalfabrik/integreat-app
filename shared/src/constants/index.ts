@@ -18,6 +18,11 @@ export type SendingStatusType = 'idle' | 'sending' | 'failed' | 'successful'
 export const RATING_POSITIVE: Rating = 'positive'
 export const RATING_NEGATIVE: Rating = 'negative'
 
+export type ThemeType = 'light' | 'contrast'
+
+export const THEME_LIGHT: ThemeType = 'light'
+export const THEME_CONTRAST: ThemeType = 'contrast'
+
 export const REGION_SEARCH_EXAMPLE = 'Landkreis München'
 
 export const CHAT_DEFAULT_POLLING_INTERVAL = 15000

@@ -38,7 +38,7 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
   const chatSettings = settings.chat[regionCode]
   const chatId = chatSettings?.id ?? ''
 
-  const chatUrl = getChatUrl({ regionCode, languageCode, chatId })
+  const chatUrl = getChatUrl({ regionCode, languageCode, chatId, theme: settings.selectedTheme })
   const availableLanguages = data?.languages.map(it => it.code)
 
   useEffect(() => {

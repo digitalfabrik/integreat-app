@@ -97,7 +97,7 @@ describe('AppContextProvider', () => {
       externalSourcePermissions: { 'https://vimeo.com': true },
       selectedTheme: 'light',
       chat: {},
-      chatHighlightPopupVisible: false,
+      chatHighlightPopupDismissed: false,
     }
     await appSettings.setSettings(settings)
     const { getByText } = renderAppContextProvider({})

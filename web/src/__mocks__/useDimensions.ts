@@ -18,6 +18,7 @@ export const mockDimensions: Dimensions = {
   },
 
   headerHeight: 90,
+  stickyTop: 90,
   visibleFooterHeight: 64,
   bottomNavigationHeight: undefined,
   ttsPlayerHeight: 100,

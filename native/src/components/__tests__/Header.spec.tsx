@@ -124,6 +124,8 @@ describe('Header', () => {
     expect(navigation.navigate).toHaveBeenCalledWith(LANGUAGES_ROUTE, {
       availableLanguages: defaultAvailableLanguages,
       languages: languageModels,
+      routeType: CATEGORIES_ROUTE,
+      slug: undefined,
     })
   })
 

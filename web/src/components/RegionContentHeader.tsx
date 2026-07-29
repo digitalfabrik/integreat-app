@@ -44,6 +44,7 @@ const RegionContentHeader = ({
         key='languageChange'
         languageChangePaths={languageChangePaths}
         languageCode={languageCode}
+        feedbackAvailable
       />
     ) : null,
     <RegionContentMenu key='sidebar' category={category} pageTitle={pageTitle} fitScreen={fitScreen} />,

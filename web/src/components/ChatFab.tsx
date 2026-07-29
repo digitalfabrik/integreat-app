@@ -15,6 +15,7 @@ import LiveAnnouncer from './LiveAnnouncer'
 
 const ChatButtonContainer = styled('div')<{ bottom: number }>`
   position: fixed;
+  z-index: ${props => props.theme.zIndex.fab};
   bottom: ${props => props.bottom}px;
   inset-inline-end: 16px;
   margin-bottom: 16px;

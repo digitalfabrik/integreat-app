@@ -3,7 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
-import { MAX_SEARCH_RESULTS, parseHTML, SEARCH_ROUTE, SearchRouteType, useDebounce, useSearch } from 'shared'
+import {
+  MAX_SEARCH_RESULTS,
+  parseHTML,
+  RATING_NEGATIVE,
+  SEARCH_ROUTE,
+  SearchRouteType,
+  useDebounce,
+  useSearch,
+} from 'shared'
 import { ExtendedDocumentModel } from 'shared/api'
 
 import FeedbackContainer from '../components/FeedbackContainer'
@@ -83,7 +91,7 @@ const Search = ({
                   routeType={SEARCH_ROUTE}
                   language={languageCode}
                   regionCode={regionCode}
-                  noResults={searchResults.length === 0}
+                  rating={searchResults.length === 0 ? RATING_NEGATIVE : undefined}
                   query={debouncedQuery}
                 />
               }

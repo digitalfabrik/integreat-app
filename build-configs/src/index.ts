@@ -19,8 +19,6 @@ import malteBuildConfig from './malte/index.ts'
 import obdachBuildConfigName from './obdach/build-config-name/index.ts'
 import obdachBuildConfig from './obdach/index.ts'
 
-export type { ThemeKey } from './ThemeKey.ts'
-
 export const COMMON = 'common'
 export const ANDROID = 'android'
 export const IOS = 'ios'

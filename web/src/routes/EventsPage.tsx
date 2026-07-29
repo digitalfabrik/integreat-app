@@ -6,12 +6,12 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
-import { EVENTS_ROUTE, pathnameFromRouteInformation, useDateFilter } from 'shared'
+import { EVENTS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createEventsEndpoint, NotFoundError } from 'shared/api'
 
 import DatesPageDetail from '../components/DatesPageDetail'
-import EventListItem, { Icon } from '../components/EventListItem'
-import EventsDateFilter from '../components/EventsDateFilter'
+import EventList from '../components/EventList'
+import { Icon } from '../components/EventListItem'
 import ExportEventButton from '../components/ExportEventButton'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
@@ -22,7 +22,6 @@ import RegionContentToolbar from '../components/RegionContentToolbar'
 import SkeletonList from '../components/SkeletonList'
 import SkeletonPage from '../components/SkeletonPage'
 import H1 from '../components/base/H1'
-import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useJsonLd from '../hooks/useJsonLd'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
@@ -47,7 +46,6 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     region: regionCode,
     language: languageCode,
   })
-  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events ?? null)
 
   // Support legacy slugs of old recurring events with one event per recurrence
   const pathnameWithoutDate = pathname.split('$')[0]
@@ -143,29 +141,12 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     )
   }
 
-  const items = (filteredEvents ?? []).map(event => (
-    <EventListItem
-      event={event}
-      languageCode={languageCode}
-      key={event.path}
-      filterStartDate={startDate}
-      filterEndDate={endDate}
-    />
-  ))
-
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
       <H1>{t('events')}</H1>
-      <EventsDateFilter
-        startDate={startDate}
-        setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
-        startDateError={startDateError}
-      />
       {events ? (
-        <List items={items} noItemsMessage='events:currentlyNoEvents' />
+        <EventList events={events} languageCode={languageCode} />
       ) : (
         <SkeletonList listItemHeight={80} listItemIcon={<Icon />} />
       )}

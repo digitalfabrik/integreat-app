@@ -21,7 +21,10 @@ import Link from './base/Link'
 const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 'expanded' })<{ expanded: boolean }>(
   ({ theme, expanded }) => ({
     [`& .${outlinedInputClasses.root}`]: {
-      ...theme.typography.body2,
+      // Has to be set to 16px or above to avoid webview zoom-in in native ios on input focus
+      // https://github.com/digitalfabrik/integreat-app/issues/4266
+      // https://github.com/react-native-webview/react-native-webview/issues/3437
+      ...theme.typography.body1,
       borderRadius: 12,
       minHeight: 56,
       alignItems: 'flex-start',

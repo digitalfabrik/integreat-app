@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { createRegionsEndpoint } from 'shared/api'
@@ -21,7 +21,6 @@ type RegionsPageProps = {
 
 const RegionsPage = ({ languageCode }: RegionsPageProps): ReactElement => {
   const { data: regions, isPending, error } = useQueryFromEndpoint(createRegionsEndpoint, cmsApiBaseUrl, undefined)
-  const [stickyTop, setStickyTop] = useState<number>(0)
   const { t } = useTranslation('regions')
 
   const pageTitle = t('pageTitle')
@@ -37,7 +36,7 @@ const RegionsPage = ({ languageCode }: RegionsPageProps): ReactElement => {
 
   return (
     <Layout
-      header={<GeneralHeader languageCode={languageCode} onStickyTopChanged={setStickyTop} />}
+      header={<GeneralHeader languageCode={languageCode} />}
       footer={
         <>
           {buildConfig().featureFlags.suggestToRegion && <SuggestToRegionFooter languageCode={languageCode} />}
@@ -46,7 +45,7 @@ const RegionsPage = ({ languageCode }: RegionsPageProps): ReactElement => {
       }>
       <Helmet pageTitle={pageTitle} metaDescription={metaDescription} rootPage />
       <BackToRegionButton />
-      <RegionSelector regions={regions ?? []} language={languageCode} stickyTop={stickyTop} loading={isPending} />
+      <RegionSelector regions={regions ?? []} language={languageCode} loading={isPending} />
     </Layout>
   )
 }

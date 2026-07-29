@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { RegionModel } from 'shared/api'
 
+import LanguageNotAvailableMessage from './LanguageNotAvailableMessage'
 import LanguageSelection, { LanguageChangePath } from './LanguageSelection'
 import { SimpleAlertDialog } from './base/AlertDialog'
 import H1 from './base/H1'
@@ -23,6 +24,8 @@ const LanguageFailure = ({ regionModel, languageCode, languageChangePaths }: Lan
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
   const { t } = useTranslation('error')
 
+  const closeAlertDialog = () => setAlertDialogTitle(null)
+
   return (
     <>
       <H1>{regionModel.name}</H1>
@@ -36,8 +39,8 @@ const LanguageFailure = ({ regionModel, languageCode, languageChangePaths }: Lan
       {alertDialogTitle ? (
         <SimpleAlertDialog
           title={alertDialogTitle}
-          body={t('layout:languageNotAvailableMessage')}
-          close={() => setAlertDialogTitle(null)}
+          body={<LanguageNotAvailableMessage close={closeAlertDialog} />}
+          close={closeAlertDialog}
         />
       ) : null}
     </>

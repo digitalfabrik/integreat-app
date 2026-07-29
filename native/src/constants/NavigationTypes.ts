@@ -51,6 +51,7 @@ import {
   NewsTabRouteType,
   CHAT_ROUTE,
   ChatRouteType,
+  Rating,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
@@ -129,6 +130,8 @@ export type RootRoutesParamsType = {
   [LANGUAGES_ROUTE]: {
     languages: LanguageModel[]
     availableLanguages: string[]
+    routeType?: FeedbackRouteType
+    slug?: string
   }
   [PDF_VIEW_MODAL_ROUTE]: {
     url: string
@@ -143,6 +146,7 @@ export type RootRoutesParamsType = {
     language: string
     regionCode: string
     slug?: string
+    rating?: Rating
   }
   [BOTTOM_TAB_ROUTE]: { screen: TabRoutesType; params: TabRoutesParamsType[TabRoutesType] } | {}
 }
