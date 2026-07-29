@@ -52,7 +52,7 @@ const ToggleTextButtonGroup = <T extends string>({
     size='small'
     value={value}
     exclusive
-    onChange={(_, newValue) => setValue(newValue ?? value)}
+    onChange={(_, newValue: T | null) => setValue(newValue ?? value)}
     className={className}>
     {options.map(option => {
       const selected = option === value
