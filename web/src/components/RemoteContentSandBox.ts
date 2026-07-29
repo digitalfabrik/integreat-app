@@ -90,7 +90,9 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
   .link-external::after {
     content: '';
     display: inline-block;
-    background-image: url('${ExternalLinkIcon}');
+
+    /* prettier-ignore */
+    background-image: url("${ExternalLinkIcon}"); /* use double quotes otherwise it won't be rendered, see https://vite.dev/guide/assets about inlining SVGs through url()  */
     width: 16px;
     height: 16px;
     color: ${props => props.theme.palette.primary.main};
