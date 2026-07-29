@@ -9,14 +9,15 @@ import { DateModel } from 'shared/api'
 
 import Accordion from './base/Accordion'
 
-const MAX_FURTHER_DATES = 6
-
 const AccordionWrapper = styled('div')(({ theme }) => ({
   width: 'fit-content',
   backgroundColor: 'transparent',
 
   '& .MuiAccordion-root': {
     backgroundColor: 'transparent',
+  },
+  '& .MuiAccordionSummary-root': {
+    minHeight: 40,
   },
   '& .MuiAccordionSummary-content': {
     margin: 0,
@@ -28,12 +29,11 @@ const AccordionWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 0, 0, 4),
     display: 'flex',
     flexDirection: 'column',
+    gap: 4,
   },
 }))
 
 const StyledText = styled(Typography)(({ theme }) => ({
-  whiteSpace: 'nowrap',
-
   [theme.breakpoints.down('sm')]: {
     ...theme.typography.body2,
   },
@@ -48,15 +48,9 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
   const { t } = useTranslation('events')
   const { contentDirection } = useTheme()
 
-  const furtherDates = date.isMonthlyOrYearlyRecurrence() ? date.recurrences(MAX_FURTHER_DATES).slice(1) : []
+  const furtherDates = date.furtherDates()
   if (furtherDates.length === 0) {
     return null
-  }
-  const hasMoreDates = date.hasMoreRecurrencesThan(MAX_FURTHER_DATES)
-
-  const formatFurtherDate = (recurrence: DateModel): string => {
-    const { date: formattedDate, time } = recurrence.formatMonthlyOrYearlyRecurrence(languageCode, t, true)
-    return `${formattedDate} · ${time}`
   }
 
   const stopLinkNavigation = (event: MouseEvent): void => {
@@ -77,15 +71,12 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
             </StyledText>
           </Stack>
         }>
-        {furtherDates.map((recurrence, index) => {
-          const isLast = index === furtherDates.length - 1
-          const formattedDate = formatFurtherDate(recurrence)
-          return (
-            <StyledText key={recurrence.startDate.toISO()} variant='body1'>
-              {isLast && hasMoreDates ? `${formattedDate} …` : formattedDate}
-            </StyledText>
-          )
-        })}
+        {furtherDates.map(recurrence => (
+          <StyledText key={recurrence.startDate.toISO()} variant='body1'>
+            {recurrence.formatFurtherDate(languageCode, t)}
+          </StyledText>
+        ))}
+        {date.hasMoreFurtherDates() && <StyledText variant='body1'>…</StyledText>}
       </Accordion>
     </AccordionWrapper>
   )

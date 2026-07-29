@@ -69,7 +69,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatEventDateInOneLine(locale, t)).toBe('15. Oktober, 8:00 - 10:00')
+      expect(date.formatEventDateInOneLine(locale, t)).toBe('15. Oktober · 8:00 - 10:00')
     })
 
     it('should show the dates for a long-term event', () => {
@@ -85,7 +85,7 @@ describe('DateModel', () => {
       expect(date.formatEventDateInOneLine('de', t)).toBe('15. Oktober - 15. Dezember')
     })
 
-    it('should show the dates for a repeating event with an end date', () => {
+    it('should show the occurrence for a repeating event with an end date', () => {
       const date = new DateModel({
         startDate: DateTime.fromISO('2023-08-20T09:00:00+02:00'),
         endDate: DateTime.fromISO('2023-08-20T09:30:00+02:00'),
@@ -93,10 +93,10 @@ describe('DateModel', () => {
         recurrenceRule: rrulestr('DTSTART:20230820T070000\nRRULE:FREQ=WEEKLY;UNTIL=20231101T235959;BYDAY=WE,FR'),
         onlyWeekdays: false,
       })
-      expect(date.formatEventDateInOneLine('de', t)).toBe('20. August - 1. November')
+      expect(date.formatEventDateInOneLine('de', t)).toBe('20. August · 9:00 - 9:30')
     })
 
-    it('should show the start date for a repeating event without an end date', () => {
+    it('should show the occurrence for a repeating event without an end date', () => {
       const date = new DateModel({
         startDate: DateTime.fromISO('2023-08-20T09:00:00+02:00'),
         endDate: DateTime.fromISO('2023-08-20T09:30:00+02:00'),
@@ -104,7 +104,7 @@ describe('DateModel', () => {
         recurrenceRule: rrulestr('DTSTART:20230820T070000\nRRULE:FREQ=WEEKLY;BYDAY=WE,FR'),
         onlyWeekdays: false,
       })
-      expect(date.formatEventDateInOneLine('de', t)).toBe('startingFrom, date: 20. August')
+      expect(date.formatEventDateInOneLine('de', t)).toBe('20. August · 9:00 - 9:30')
     })
 
     it('should show the year for an event not this year', () => {
@@ -115,7 +115,7 @@ describe('DateModel', () => {
         recurrenceRule: rrulestr('DTSTART:20250820T070000\nRRULE:FREQ=WEEKLY;UNTIL=20261101T235959;BYDAY=WE,FR'),
         onlyWeekdays: false,
       })
-      expect(date.formatEventDateInOneLine('de', t)).toBe('20. August 2025 - 30. Oktober 2026')
+      expect(date.formatEventDateInOneLine('de', t)).toBe('20. August 2025 · 9:00 - 9:30')
     })
   })
 

@@ -21,10 +21,8 @@ describe('EventFurtherDates', () => {
       onlyWeekdays: false,
     })
 
-  it('should render nothing for a weekly recurring event', () => {
-    const { queryByText } = render(
-      <EventFurtherDates date={date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')} language='de' />,
-    )
+  it('should render nothing for a non-recurring event', () => {
+    const { queryByText } = render(<EventFurtherDates date={date()} language='de' />)
 
     expect(queryByText('furtherDates')).toBeFalsy()
   })
@@ -42,6 +40,19 @@ describe('EventFurtherDates', () => {
     expect(getByText('13. Nov. 2023 · 7:00 - 9:00')).toBeTruthy()
     expect(queryByText('9. Okt. 2023 · 7:00 - 9:00')).toBeFalsy()
     expect(getByText('11. Dez. 2023 · 7:00 - 9:00')).toBeTruthy()
-    expect(getByText('11. März 2024 · 7:00 - 9:00 …')).toBeTruthy()
+    expect(getByText('11. März 2024 · 7:00 - 9:00')).toBeTruthy()
+    expect(getByText('…')).toBeTruthy()
+  })
+
+  it('should reveal the upcoming dates when expanding a weekly recurring event', () => {
+    const { getByText } = render(
+      <EventFurtherDates date={date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')} language='de' />,
+    )
+
+    fireEvent.press(getByText('furtherDates'))
+
+    expect(getByText('16. Okt. 2023 · 7:00 - 9:00')).toBeTruthy()
+    expect(getByText('13. Nov. 2023 · 7:00 - 9:00')).toBeTruthy()
+    expect(getByText('…')).toBeTruthy()
   })
 })

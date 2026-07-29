@@ -1,4 +1,5 @@
 export const MAX_DATE_RECURRENCES = 3
+export const MAX_FURTHER_DATES = 6
 export const MAX_SEARCH_RESULTS = 75
 export const MAX_NUMBER_OF_ALIASES_SHOWN = 3
 export const DEFAULT_ROWS_NUMBER = 4

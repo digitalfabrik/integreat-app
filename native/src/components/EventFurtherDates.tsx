@@ -9,8 +9,6 @@ import { contentAlignment, contentDirection } from '../constants/contentDirectio
 import Icon from './base/Icon'
 import Text from './base/Text'
 
-const MAX_FURTHER_DATES = 6
-
 const Toggle = styled(TouchableRipple)<{ language: string }>`
   align-self: ${props => (contentDirection(props.language) === 'row-reverse' ? 'flex-end' : 'flex-start')};
   padding-block: 8px;
@@ -23,7 +21,8 @@ const ToggleContent = styled.View<{ language: string }>`
 `
 
 const Dates = styled.View`
-  padding-inline-start: 32px;
+  padding-inline-start: 24px;
+  gap: 4px;
 `
 
 type EventFurtherDatesProps = {
@@ -36,15 +35,9 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
   const theme = useTheme()
   const [expanded, setExpanded] = useState(false)
 
-  const furtherDates = date.isMonthlyOrYearlyRecurrence() ? date.recurrences(MAX_FURTHER_DATES).slice(1) : []
+  const furtherDates = date.furtherDates()
   if (furtherDates.length === 0) {
     return null
-  }
-  const hasMoreDates = date.hasMoreRecurrencesThan(MAX_FURTHER_DATES)
-
-  const formatFurtherDate = (recurrence: DateModel): string => {
-    const { date: formattedDate, time } = recurrence.formatMonthlyOrYearlyRecurrence(language, t, true)
-    return `${formattedDate} · ${time}`
   }
 
   return (
@@ -65,18 +58,16 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
       </Toggle>
       {expanded && (
         <Dates>
-          {furtherDates.map((recurrence, index) => {
-            const isLast = index === furtherDates.length - 1
-            const formattedDate = formatFurtherDate(recurrence)
-            return (
-              <Text
-                key={recurrence.startDate.toISO()}
-                variant='body3'
-                style={{ textAlign: contentAlignment(language) }}>
-                {isLast && hasMoreDates ? `${formattedDate} …` : formattedDate}
-              </Text>
-            )
-          })}
+          {furtherDates.map(recurrence => (
+            <Text key={recurrence.startDate.toISO()} variant='body3' style={{ textAlign: contentAlignment(language) }}>
+              {recurrence.formatFurtherDate(language, t)}
+            </Text>
+          ))}
+          {date.hasMoreFurtherDates() && (
+            <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
+              …
+            </Text>
+          )}
         </Dates>
       )}
     </>

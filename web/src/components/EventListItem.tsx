@@ -1,4 +1,4 @@
-import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined'
+import EventNoteIcon from '@mui/icons-material/EventNote'
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import ListItem from '@mui/material/ListItem'
@@ -100,7 +100,7 @@ const EventListItem = ({
           secondary={
             <StyledTypography variant='body1' flexDirection='column' component='div' dir={contentDirection}>
               <Stack direction='row' alignItems='center' gap={1} component='p'>
-                <EventNoteOutlinedIcon fontSize='small' />
+                <EventNoteIcon fontSize='small' />
                 <span>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</span>
               </Stack>
               <EventFurtherDates date={event.date} languageCode={languageCode} />

@@ -1,6 +1,7 @@
 import { DateTime, DateTimeFormatOptions, Duration } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
+import { MAX_FURTHER_DATES } from '../../constants/index.ts'
 import { formatDateICal, formatTime, getWeekdayFromIndex, TranslateFunction } from '../../utils/date.ts'
 
 const MAX_RECURRENCE_YEARS = 6
@@ -138,6 +139,19 @@ class DateModel {
     }
   }
 
+  furtherDates(): DateModel[] {
+    return this.recurrences(MAX_FURTHER_DATES).slice(1)
+  }
+
+  hasMoreFurtherDates(): boolean {
+    return this.hasMoreRecurrencesThan(MAX_FURTHER_DATES)
+  }
+
+  formatFurtherDate(locale: string, t: TranslateFunction): string {
+    const { date, time } = this.formatMonthlyOrYearlyRecurrence(locale, t, true)
+    return `${date} · ${time}`
+  }
+
   formatEventDate(locale: string, t: TranslateFunction): FormattedEventDate {
     const time = formatTime(locale, this, t)
     const mondayTranslation = getWeekdayFromIndex(0, locale)
@@ -174,19 +188,12 @@ class DateModel {
       month: 'long',
       year: showYear ? 'numeric' : undefined,
     }
-    if (this.isSingleOneDayEvent()) {
-      return `${this.startDate.toLocaleString(format, { locale })}, ${formatTime(locale, this, t)}`
+    if (this.recurrenceRule || this.isSingleOneDayEvent()) {
+      return `${this.startDate.toLocaleString(format, { locale })} · ${formatTime(locale, this, t)}`
     }
-    if (!this.recurrenceRule) {
-      return this.formatDateInterval(locale, this.endDate, { showYear })
-    }
-    const finalDate = this.getFinalDate(this)
-    if (finalDate) {
-      return this.formatDateInterval(locale, finalDate, { showYear })
-    }
-    return t('startingFrom', {
-      date: this.startDate.toLocaleString(format, { locale }),
-    })
+
+    // long-term event
+    return this.formatDateInterval(locale, this.endDate, { showYear })
   }
 
   private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType {

@@ -21,10 +21,8 @@ describe('EventFurtherDates', () => {
       onlyWeekdays: false,
     })
 
-  it('should render nothing for a weekly recurring event', () => {
-    const { queryByText } = renderWithTheme(
-      <EventFurtherDates date={date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')} languageCode='de' />,
-    )
+  it('should render nothing for a non-recurring event', () => {
+    const { queryByText } = renderWithTheme(<EventFurtherDates date={date()} languageCode='de' />)
 
     expect(queryByText('events:furtherDates')).toBeFalsy()
   })
@@ -45,6 +43,19 @@ describe('EventFurtherDates', () => {
     await waitFor(() => expect(getByText('13. Nov. 2023 · 7:00 - 9:00')).toBeVisible())
     expect(queryByText('9. Okt. 2023 · 7:00 - 9:00')).toBeFalsy()
     expect(getByText('11. Dez. 2023 · 7:00 - 9:00')).toBeVisible()
-    expect(getByText('11. März 2024 · 7:00 - 9:00 …')).toBeVisible()
+    expect(getByText('11. März 2024 · 7:00 - 9:00')).toBeVisible()
+    expect(getByText('…')).toBeVisible()
+  })
+
+  it('should reveal the upcoming dates when expanding a weekly recurring event', async () => {
+    const { getByRole, getByText } = renderWithTheme(
+      <EventFurtherDates date={date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')} languageCode='de' />,
+    )
+
+    fireEvent.click(getByRole('button'))
+
+    await waitFor(() => expect(getByText('16. Okt. 2023 · 7:00 - 9:00')).toBeVisible())
+    expect(getByText('13. Nov. 2023 · 7:00 - 9:00')).toBeVisible()
+    expect(getByText('…')).toBeVisible()
   })
 })
