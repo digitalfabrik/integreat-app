@@ -1,11 +1,13 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import CloseIcon from '@mui/icons-material/Close'
+import RemoveIcon from '@mui/icons-material/Remove'
 import MuiDialog, { dialogClasses } from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
-import { styled } from '@mui/material/styles'
+import Typography from '@mui/material/Typography'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -30,16 +32,31 @@ const StyledDialogTitle = styled(DialogTitle)({
 
 type DialogProps = {
   title: string
+  subtitle?: string
+  icon?: ReactElement | null
   actions?: ReactElement[] | null
   close: () => void
   children: ReactElement | ReactElement[]
   className?: string
   showHeader?: boolean
+  minimize?: boolean
 }
 
-const Dialog = ({ title, close, children, className, actions, showHeader = true }: DialogProps): ReactElement => {
+const Dialog = ({
+  title,
+  subtitle,
+  icon,
+  close,
+  children,
+  className,
+  actions,
+  showHeader = true,
+  minimize = false,
+}: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
+  const { contentDirection } = useTheme()
   const { t } = useTranslation('layout')
+  const closeIcon = minimize ? <RemoveIcon /> : <CloseIcon />
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
@@ -58,12 +75,20 @@ const Dialog = ({ title, close, children, className, actions, showHeader = true 
           alignItems='center'
           justifyContent={desktop ? 'space-between' : undefined}
           marginInline={1}>
-          <IconButton aria-label={t('common:close')} onClick={close}>
-            {desktop ? <CloseIcon /> : <DirectionDependentBackIcon />}
+          <IconButton aria-label={t(minimize ? 'common:minimize' : 'common:close')} onClick={close}>
+            {desktop ? closeIcon : <DirectionDependentBackIcon />}
           </IconButton>
           {desktop && Actions}
-          <StyledDialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
-            {title}
+          <StyledDialogTitle component='div' dir={contentDirection}>
+            <Stack direction='row' alignItems='center' gap={1.5}>
+              {icon}
+              <Stack minWidth={0}>
+                <Typography component='h2' variant='h4' noWrap>
+                  {title}
+                </Typography>
+                {!!subtitle && <Typography variant='body3'>{subtitle}</Typography>}
+              </Stack>
+            </Stack>
           </StyledDialogTitle>
           {mobile && Actions}
         </Stack>

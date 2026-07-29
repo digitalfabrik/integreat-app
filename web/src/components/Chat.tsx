@@ -1,10 +1,8 @@
-import InfoIcon from '@mui/icons-material/Info'
 import RefreshIcon from '@mui/icons-material/Refresh'
 import Alert from '@mui/material/Alert'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
-import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, SetStateAction, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -22,10 +20,7 @@ import {
 } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
-import useLocalStorage, {
-  CHAT_HINT_VISIBLE_STORAGE_KEY,
-  CHAT_PRIVACY_POLICIES_STORAGE_KEY,
-} from '../hooks/useLocalStorage'
+import useLocalStorage, { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../hooks/useLocalStorage'
 import { UseQueryFromEndpointReturn } from '../hooks/useQueryFromEndpoint'
 import { captureError } from '../utils/sentry'
 import ChatConversation from './ChatConversation'
@@ -66,12 +61,6 @@ const Chat = ({
   const { t } = useTranslation(['chat', 'error'])
 
   const unsyncedMessages = serializedUnsyncedMessages.map(ChatMessageModel.deserialize)
-
-  const [chatHintVisible, setChatHintVisible] = useLocalStorage<boolean>({
-    key: CHAT_HINT_VISIBLE_STORAGE_KEY,
-    initialValue: true,
-    isSessionStorage: true,
-  })
 
   const [acceptedPrivacyPolicies, setAcceptedPrivacyPolicies] = useLocalStorage<Record<string, boolean>>({
     key: CHAT_PRIVACY_POLICIES_STORAGE_KEY,
@@ -176,11 +165,6 @@ const Chat = ({
               </Tooltip>
             }>
             {t(fromError(error ?? sendingError), { ns: 'error' })}
-          </Alert>
-        )}
-        {chatHintVisible && (
-          <Alert severity='info' icon={<InfoIcon />} onClose={() => setChatHintVisible(false)}>
-            <Typography variant='body2'>{t('conversationHelperText')}</Typography>
           </Alert>
         )}
         <ChatInput value={textInput} setValue={setTextInput} onSubmit={onSubmit} region={region} />

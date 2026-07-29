@@ -2,7 +2,6 @@ import { useCallback, useState } from 'react'
 
 import { captureError } from '../utils/sentry'
 
-export const CHAT_HINT_VISIBLE_STORAGE_KEY = 'Chat-Hint-Visible'
 export const CHAT_PRIVACY_POLICIES_STORAGE_KEY = 'Chat-Privacy-Policies'
 export const CHAT_UNSYNCED_MESSAGES_STORAGE_KEY = 'Chat-Unsynced-Messages'
 export const CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY = 'Chat-Highlight-Popup-Visible'

@@ -55,6 +55,13 @@ export const commonLightColors: CommonColorPalette = {
     background: '#dedede',
     playIconColor: '#007aa8',
   },
+  chat: {
+    background: '#FFFFFF',
+    headerBackground: '#EAEEF9',
+    answerMessageBackground: '#EAEEF9',
+    userMessageBackground: '#F5F5F5',
+    messageBorderColor: 'transparent',
+  },
 }
 
 export const commonDarkColors: CommonColorPalette = {
@@ -90,5 +97,12 @@ export const commonDarkColors: CommonColorPalette = {
   ttsPlayer: {
     background: '#29354B',
     playIconColor: '#007aa8',
+  },
+  chat: {
+    background: '#1E1E1E',
+    headerBackground: '#1E1E1E',
+    answerMessageBackground: '#181818',
+    userMessageBackground: '#20293A',
+    messageBorderColor: '#C9C9C9',
   },
 }
