@@ -126,7 +126,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
     return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
-  const { eventsEnabled, placesEnabled, localNewsEnabled, tuNewsEnabled, chatEnabled } = cachedData.region
+  const { eventsEnabled, placesEnabled, newsEnabled, chatEnabled } = cachedData.region
   const chatVisible = buildConfig().featureFlags.chat && chatEnabled && activeTab !== PLACES_TAB_ROUTE
 
   const Tabs = [
@@ -150,7 +150,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         }}
       />
     ),
-    (localNewsEnabled || tuNewsEnabled) && (
+    newsEnabled && (
       <Tab.Screen
         name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}

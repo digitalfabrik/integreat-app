@@ -193,8 +193,8 @@ export type JsonRegionType = {
   languages: JsonLanguageType[]
   events: boolean
   pois: boolean
-  tunews: boolean
   push_notifications: boolean
+  external_news: boolean
   name_without_prefix: string
   prefix: string | null
   latitude: number

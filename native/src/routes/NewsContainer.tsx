@@ -60,11 +60,11 @@ const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement 
 
   return (
     <LoadingErrorHandler {...response} loading={response.loading}>
-      {news && (
+      {data && news && (
         <News
           id={id}
           news={news}
-          regionCode={regionCode}
+          region={data.region}
           languageCode={languageCode}
           refresh={response.refresh}
           newsSource={newsSourceFilter}

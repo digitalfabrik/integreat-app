@@ -11,7 +11,7 @@ describe('RegionModel', () => {
       eventsEnabled: false,
       placesEnabled: false,
       localNewsEnabled: false,
-      tuNewsEnabled: false,
+      externalNewsEnabled: false,
       sortingName: 'Region',
       prefix: 'prefix',
       latitude: 48.369696,

@@ -73,18 +73,21 @@ const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): React
     news?.map(item => <NewsListItem key={item.id} news={item} regionCode={regionCode} languageCode={languageCode} />) ??
     []
   const getLabel = (value: NewsSourceFilter): string => t(desktop ? `${value}News` : value)
+  const showNewsSourceFilter = region.localNewsEnabled && region.externalNewsEnabled
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
       <H1>{t('news')}</H1>
       <Stack gap={1}>
-        <NewsSourceFilterButtonGroup
-          setValue={setNewsSourceFilter}
-          options={NEWS_SOURCE_FILTERS}
-          value={newsSourceFilter}
-          getLabel={getLabel}
-        />
+        {showNewsSourceFilter && (
+          <NewsSourceFilterButtonGroup
+            setValue={setNewsSourceFilter}
+            options={NEWS_SOURCE_FILTERS}
+            value={newsSourceFilter}
+            getLabel={getLabel}
+          />
+        )}
         {response.isPending ? <SkeletonList /> : <List items={newsListItems} noItemsMessage='news:currentlyNoNews' />}
       </Stack>
     </RegionContentLayout>

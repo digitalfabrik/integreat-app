@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 
 import { NEWS_ALL_SOURCES_FILTER, replaceLinks } from 'shared'
-import { LanguageModelBuilder, NewsModel, RegionModel } from 'shared/api'
+import { LanguageModelBuilder, NewsModel, RegionModel, RegionModelBuilder } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -52,12 +52,12 @@ describe('News', () => {
   const renderNews = ({
     id = null,
     news = defaultNews,
-    tuNewsEnabled = true,
+    externalNewsEnabled = true,
     localNewsEnabled = true,
   }: {
     id?: number | null
     news?: NewsModel[]
-    tuNewsEnabled?: boolean
+    externalNewsEnabled?: boolean
     localNewsEnabled?: boolean
   }) => {
     const regionModel = new RegionModel({
@@ -68,7 +68,7 @@ describe('News', () => {
       eventsEnabled: true,
       placesEnabled: false,
       localNewsEnabled,
-      tuNewsEnabled,
+      externalNewsEnabled,
       sortingName: 'Oldtown',
       prefix: 'GoT',
       latitude: 48.369696,
@@ -86,7 +86,7 @@ describe('News', () => {
         news={news}
         id={id}
         languageCode='de'
-        regionCode='augsburg'
+        region={new RegionModelBuilder(1).build()[0]!}
         refresh={jest.fn}
         newsSource={NEWS_ALL_SOURCES_FILTER}
         setNewsSource={setNewsSource}

@@ -131,7 +131,7 @@ type ContentRegionJsonType = {
   latitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
   pushNotificationsEnabled: boolean
-  tuNewsEnabled: boolean
+  externalNewsEnabled: boolean
   boundingBox: BBox
 }
 
@@ -661,7 +661,7 @@ class DatabaseConnector {
         chatPrivacyPolicyUrl: region.chatPrivacyPolicyUrl,
         placesEnabled: region.placesEnabled,
         pushNotificationsEnabled: region.localNewsEnabled,
-        tuNewsEnabled: region.tuNewsEnabled,
+        externalNewsEnabled: region.externalNewsEnabled,
         sortingName: region.sortingName,
         longitude: region.longitude,
         latitude: region.latitude,
@@ -684,7 +684,7 @@ class DatabaseConnector {
             languages: jsonObject.languages.map(it => new LanguageModel(it.code, it.name)),
             eventsEnabled: jsonObject.eventsEnabled,
             localNewsEnabled: jsonObject.pushNotificationsEnabled,
-            tuNewsEnabled: jsonObject.tuNewsEnabled,
+            externalNewsEnabled: jsonObject.externalNewsEnabled,
             placesEnabled: jsonObject.placesEnabled,
             sortingName: jsonObject.sortingName,
             prefix: jsonObject.prefix,

@@ -10,7 +10,7 @@ import {
   NewsSourceFilter as NewsSourceFilterType,
   replaceLinks,
 } from 'shared'
-import { AMAL_NEWS_SOURCE, ErrorCodes, LOCAL_NEWS_SOURCE, NewsModel } from 'shared/api'
+import { AMAL_NEWS_SOURCE, ErrorCodes, LOCAL_NEWS_SOURCE, NewsModel, RegionModel } from 'shared/api'
 
 import { AmalNewsLogo, TuNewsIcon } from '../assets'
 import { NavigationProps } from '../constants/NavigationTypes'
@@ -48,14 +48,14 @@ const ListHeaderContainer = styled(View)`
 type NewsProps = {
   news: NewsModel[]
   id: number | null
-  regionCode: string
+  region: RegionModel
   languageCode: string
   refresh: () => void
   newsSource: NewsSourceFilterType
   setNewsSource: (value: NewsSourceFilterType) => void
 }
 
-const News = ({ news, id, languageCode, regionCode, refresh, newsSource, setNewsSource }: NewsProps): ReactElement => {
+const News = ({ news, id, languageCode, region, refresh, newsSource, setNewsSource }: NewsProps): ReactElement => {
   const selectedNewsItem = news.find(item => item.id === id)
   const { navigateTo } = useNavigate()
   const { t } = useTranslation('news')
@@ -69,7 +69,7 @@ const News = ({ news, id, languageCode, regionCode, refresh, newsSource, setNews
     <NewsListItem
       key={item.id}
       newsItem={item}
-      navigateToNews={() => navigateTo({ route: NEWS_ROUTE, regionCode, languageCode, id: item.id })}
+      navigateToNews={() => navigateTo({ route: NEWS_ROUTE, regionCode: region.code, languageCode, id: item.id })}
     />
   )
 
@@ -105,6 +105,8 @@ const News = ({ news, id, languageCode, regionCode, refresh, newsSource, setNews
     return <Failure code={ErrorCodes.PageNotFound} retry={refresh} />
   }
 
+  const showNewsSourceFilter = region.localNewsEnabled && region.externalNewsEnabled
+
   return (
     <List
       items={news}
@@ -112,12 +114,14 @@ const News = ({ news, id, languageCode, regionCode, refresh, newsSource, setNews
       header={
         <ListHeaderContainer>
           <Caption title={t('news')} />
-          <ToggleTextButtonGroup
-            setValue={setNewsSource}
-            value={newsSource}
-            options={NEWS_SOURCE_FILTERS}
-            getLabel={t}
-          />
+          {showNewsSourceFilter && (
+            <ToggleTextButtonGroup
+              setValue={setNewsSource}
+              value={newsSource}
+              options={NEWS_SOURCE_FILTERS}
+              getLabel={t}
+            />
+          )}
         </ListHeaderContainer>
       }
       renderItem={rendersNewsListItem}

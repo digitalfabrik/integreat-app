@@ -16,7 +16,7 @@ describe('getNearbyRegions', () => {
       eventsEnabled: true,
       placesEnabled: true,
       localNewsEnabled: false,
-      tuNewsEnabled: false,
+      externalNewsEnabled: false,
       sortingName: 'Augsburg',
       prefix: 'Stadt',
       longitude,
