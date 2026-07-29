@@ -1,6 +1,7 @@
 import createCache from '@emotion/cache'
 import { CacheProvider, Global } from '@emotion/react'
 import { chipClasses } from '@mui/material/Chip'
+import { dialogClasses } from '@mui/material/Dialog'
 import { createTheme as createMuiTheme, responsiveFontSizes, Theme, ThemeProvider } from '@mui/material/styles'
 import rtlPlugin from '@mui/stylis-plugin-rtl'
 import React, { ReactElement, ReactNode, useMemo } from 'react'
@@ -86,6 +87,17 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
           styleOverrides: {
             paper: {
               borderRadius: 16,
+            },
+          },
+        },
+        MuiDialog: {
+          styleOverrides: {
+            paper: {
+              [`&:not(.${dialogClasses.paperFullScreen})`]: {
+                borderRadius: 12,
+                boxShadow: 'none',
+                border: `1px solid ${theme.palette.divider}`,
+              },
             },
           },
         },
