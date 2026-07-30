@@ -79,6 +79,9 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
                 ':hover': {
                   backgroundColor: theme.palette.background.default,
                 },
+                [`&.${chipClasses.focusVisible}`]: {
+                  backgroundColor: theme.palette.background.default,
+                },
               },
             },
           },

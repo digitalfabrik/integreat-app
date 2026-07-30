@@ -1,3 +1,4 @@
+import Chip, { chipClasses } from '@mui/material/Chip'
 import { useTheme } from '@mui/material/styles'
 import { render } from '@testing-library/react'
 import React from 'react'
@@ -40,5 +41,18 @@ describe('ThemeContainer', () => {
     const { getByText } = renderThemeContainer()
 
     expect(getByText('contrast')).toBeInTheDocument()
+  })
+
+  it('should keep outlined chips visible on keyboard focus', () => {
+    const { getByRole } = render(
+      <ThemeContainer contentDirection='ltr'>
+        <Chip label='Filter locations' variant='outlined' clickable />
+      </ThemeContainer>,
+    )
+    const chip = getByRole('button', { name: 'Filter locations' })
+
+    chip.classList.add(chipClasses.focusVisible)
+
+    expect(getComputedStyle(chip).backgroundColor).toBe('rgb(255, 255, 255)')
   })
 })
