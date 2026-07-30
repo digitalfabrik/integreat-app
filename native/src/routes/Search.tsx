@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { KeyboardAvoidingView, Platform } from 'react-native'
+import { KeyboardAvoidingView } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from 'styled-components/native'
 
 import {
@@ -45,6 +46,7 @@ const Search = ({
   const debouncedQuery = useDebounce(query)
   const { t } = useTranslation('search')
   const theme = useTheme()
+  const insets = useSafeAreaInsets()
 
   const { data, error } = useSearch({
     userLanguageDocuments,
@@ -71,7 +73,7 @@ const Search = ({
   return (
     <Layout>
       <SearchHeader navigation={navigation} query={query} onSearchChanged={setQuery} />
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={insets.top + insets.bottom} style={{ flex: 1 }}>
         {debouncedQuery.length > 0 && (
           <>
             <Text

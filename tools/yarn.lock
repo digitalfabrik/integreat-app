@@ -453,74 +453,74 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/cli-darwin@npm:3.4.0":
-  version: 3.4.0
-  resolution: "@sentry/cli-darwin@npm:3.4.0"
+"@sentry/cli-darwin@npm:3.6.2":
+  version: 3.6.2
+  resolution: "@sentry/cli-darwin@npm:3.6.2"
   conditions: os=darwin
   languageName: node
   linkType: hard
 
-"@sentry/cli-linux-arm64@npm:3.4.0":
-  version: 3.4.0
-  resolution: "@sentry/cli-linux-arm64@npm:3.4.0"
+"@sentry/cli-linux-arm64@npm:3.6.2":
+  version: 3.6.2
+  resolution: "@sentry/cli-linux-arm64@npm:3.6.2"
   conditions: (os=linux | os=freebsd | os=android) & cpu=arm64
   languageName: node
   linkType: hard
 
-"@sentry/cli-linux-arm@npm:3.4.0":
-  version: 3.4.0
-  resolution: "@sentry/cli-linux-arm@npm:3.4.0"
+"@sentry/cli-linux-arm@npm:3.6.2":
+  version: 3.6.2
+  resolution: "@sentry/cli-linux-arm@npm:3.6.2"
   conditions: (os=linux | os=freebsd | os=android) & cpu=arm
   languageName: node
   linkType: hard
 
-"@sentry/cli-linux-i686@npm:3.4.0":
-  version: 3.4.0
-  resolution: "@sentry/cli-linux-i686@npm:3.4.0"
+"@sentry/cli-linux-i686@npm:3.6.2":
+  version: 3.6.2
+  resolution: "@sentry/cli-linux-i686@npm:3.6.2"
   conditions: (os=linux | os=freebsd | os=android) & (cpu=x86 | cpu=ia32)
   languageName: node
   linkType: hard
 
-"@sentry/cli-linux-x64@npm:3.4.0":
-  version: 3.4.0
-  resolution: "@sentry/cli-linux-x64@npm:3.4.0"
+"@sentry/cli-linux-x64@npm:3.6.2":
+  version: 3.6.2
+  resolution: "@sentry/cli-linux-x64@npm:3.6.2"
   conditions: (os=linux | os=freebsd | os=android) & cpu=x64
   languageName: node
   linkType: hard
 
-"@sentry/cli-win32-arm64@npm:3.4.0":
-  version: 3.4.0
-  resolution: "@sentry/cli-win32-arm64@npm:3.4.0"
+"@sentry/cli-win32-arm64@npm:3.6.2":
+  version: 3.6.2
+  resolution: "@sentry/cli-win32-arm64@npm:3.6.2"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@sentry/cli-win32-i686@npm:3.4.0":
-  version: 3.4.0
-  resolution: "@sentry/cli-win32-i686@npm:3.4.0"
+"@sentry/cli-win32-i686@npm:3.6.2":
+  version: 3.6.2
+  resolution: "@sentry/cli-win32-i686@npm:3.6.2"
   conditions: os=win32 & (cpu=x86 | cpu=ia32)
   languageName: node
   linkType: hard
 
-"@sentry/cli-win32-x64@npm:3.4.0":
-  version: 3.4.0
-  resolution: "@sentry/cli-win32-x64@npm:3.4.0"
+"@sentry/cli-win32-x64@npm:3.6.2":
+  version: 3.6.2
+  resolution: "@sentry/cli-win32-x64@npm:3.6.2"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@sentry/cli@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "@sentry/cli@npm:3.4.0"
+"@sentry/cli@npm:^3.4.0, @sentry/cli@npm:^3.6.2":
+  version: 3.6.2
+  resolution: "@sentry/cli@npm:3.6.2"
   dependencies:
-    "@sentry/cli-darwin": "npm:3.4.0"
-    "@sentry/cli-linux-arm": "npm:3.4.0"
-    "@sentry/cli-linux-arm64": "npm:3.4.0"
-    "@sentry/cli-linux-i686": "npm:3.4.0"
-    "@sentry/cli-linux-x64": "npm:3.4.0"
-    "@sentry/cli-win32-arm64": "npm:3.4.0"
-    "@sentry/cli-win32-i686": "npm:3.4.0"
-    "@sentry/cli-win32-x64": "npm:3.4.0"
+    "@sentry/cli-darwin": "npm:3.6.2"
+    "@sentry/cli-linux-arm": "npm:3.6.2"
+    "@sentry/cli-linux-arm64": "npm:3.6.2"
+    "@sentry/cli-linux-i686": "npm:3.6.2"
+    "@sentry/cli-linux-x64": "npm:3.6.2"
+    "@sentry/cli-win32-arm64": "npm:3.6.2"
+    "@sentry/cli-win32-i686": "npm:3.6.2"
+    "@sentry/cli-win32-x64": "npm:3.6.2"
     progress: "npm:^2.0.3"
     proxy-from-env: "npm:^1.1.0"
     undici: "npm:^6.22.0"
@@ -544,7 +544,7 @@ __metadata:
       optional: true
   bin:
     sentry-cli: bin/sentry-cli
-  checksum: 10c0/35f0b2268e9b70a93d5c2d1c001b7524da545512c887fceb79e93c04ca41886acb14007dc4a44f4e7d91c9a1ee6ce0e743b50c2a9ffd48c7ac7d8e2a4ab6f0d2
+  checksum: 10c0/1b661e6125ffe5b3a7672806e14a4a212cc35b5294e0d31e6802b33ae3b9ef1ccd3e6b189b3916ee2fe9c51d7e047bf845580e750af9aa9626c8ee705df6eda3
   languageName: node
   linkType: hard
 
@@ -1305,7 +1305,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "tools@workspace:."
   dependencies:
-    "@sentry/cli": "npm:^3.4.0"
+    "@sentry/cli": "npm:^3.6.2"
     app-toolbelt: "catalog:"
   languageName: unknown
   linkType: soft
