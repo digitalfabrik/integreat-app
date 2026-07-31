@@ -2129,7 +2129,7 @@ PODS:
     - React-utils (= 0.86.0)
     - ReactNativeDependencies
   - ReactNativeDependencies (0.86.0)
-  - ReactNativeFs (2.38.1):
+  - ReactNativeFs (2.39.2):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2173,7 +2173,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - ReactNativeStaticServer (0.26.0):
+  - ReactNativeStaticServer (0.27.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2487,7 +2487,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - RNSentry (8.7.0):
+  - RNSentry (8.21.0):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2509,7 +2509,6 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
-    - Sentry (= 9.8.0)
     - Yoga
   - RNSpeech (1.4.0):
     - hermes-engine
@@ -2649,9 +2648,6 @@ PODS:
     - ReactCommon/turbomodule/core
     - ReactNativeDependencies
     - Yoga
-  - Sentry (9.8.0):
-    - Sentry/Core (= 9.8.0)
-  - Sentry/Core (9.8.0)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -2772,7 +2768,6 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
-    - Sentry
 
 EXTERNAL SOURCES:
   AsyncStorage:
@@ -3078,9 +3073,9 @@ SPEC CHECKSUMS:
   ReactCodegen: cd296de5e1c422deebafff34134d1721b5c29704
   ReactCommon: d5c1bb4427bf51c443de5926aac332c89ddd9363
   ReactNativeDependencies: fa0a54b3f5319ae0e3b9aff32bfee7a424b88e66
-  ReactNativeFs: 9684a14e621fd6cea777a090267332843b03a2aa
+  ReactNativeFs: 1a3df27060be57d44dad3be7bddc8ba5f26c97b2
   ReactNativePdfRenderer: cac6ed1a4316c5e05edb4e18663e901054b6ce54
-  ReactNativeStaticServer: 108e90d62f3e18af9b023815a1268566079f7e53
+  ReactNativeStaticServer: e461529b2d571ed2ffb4a5e52a99955e42b55d9d
   RNCalendarEvents: f90f73666b6bcbb3cc8a491ffbb5e48c0db3de37
   RNCClipboard: 7a7d4557bfd3370b35c99dfecd92ae7b9fc4948a
   RNFBApp: 79b63f3ffec455179e6cebb37d5750be022c6fb8
@@ -3092,11 +3087,10 @@ SPEC CHECKSUMS:
   RNPermissions: 092aa6c3c0d99173a418a42c9bbd8c1bf44eb9be
   RNReanimated: 41ad1a808a5860d14883872f68ed7cae2efc8635
   RNScreens: c58f17578c73435d8c00998cac0d89ad8105263c
-  RNSentry: 0ed0f85214b504e6f0834e64aa9b926896557ca4
+  RNSentry: 64953288d9843fddda50eb8d7090df90085369a7
   RNSpeech: 3cb836e603e01f9082d5ca40d0ccb7d18d473abc
   RNSVG: 68c366b996064ea99cee1e55da62b8feafb33a78
   RNWorklets: 9052122d7f98de547d247e775ea2069839236d38
-  Sentry: 88746bf877eff714bc45315a39ad1d1efea2cdda
   Yoga: c30c859b7e9b75e547b600b486fe33165f60de00
 
 PODFILE CHECKSUM: edded0868ef1d90275164e8dcbc40354521933d9
