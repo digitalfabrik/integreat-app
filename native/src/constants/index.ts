@@ -1,4 +1,6 @@
 export const ROOT_NAVIGATOR_ID = 'rootNavigator'
+
+export const TAB_HEIGHT = 60
 export const TAB_NAVIGATOR_ID = 'tabNavigator'
 export type NavigatorIds = typeof ROOT_NAVIGATOR_ID | typeof TAB_NAVIGATOR_ID
 
