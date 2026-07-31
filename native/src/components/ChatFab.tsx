@@ -1,8 +1,8 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ViewStyle } from 'react-native'
-import { Badge, FAB, useTheme } from 'react-native-paper'
+import { Pressable, ViewStyle } from 'react-native'
+import { Badge, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { CHAT_DEFAULT_POLLING_INTERVAL, CHAT_ROUTE, getChatName } from 'shared'
@@ -13,12 +13,23 @@ import useNavigate from '../hooks/useNavigate'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import { determineApiUrl } from '../utils/helpers'
 import ChatHighlightPopup from './ChatHighlightPopup'
+import Icon from './base/Icon'
 
 const Container = styled.View`
   position: absolute;
   right: 0;
   margin: 16px;
   align-items: flex-end;
+`
+
+const PressableFab = styled(Pressable)`
+  width: 56px;
+  height: 56px;
+  border-radius: 10%;
+  background-color: ${props => props.theme.colors.primary};
+  justify-content: center;
+  align-items: center;
+  elevation: 5;
 `
 
 const StyledBadge = styled(Badge)`
@@ -60,17 +71,16 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
   return (
     <Container style={style}>
       <ChatHighlightPopup chatName={getChatName(buildConfig().appName)} />
-      <FAB
-        icon='forum-outline'
+      <PressableFab
         onPress={() => navigation.navigate(CHAT_ROUTE)}
         accessibilityLabel={getChatName(buildConfig().appName)}
-        variant='primary'
-        style={{ backgroundColor: theme.colors.primary }}
-        size='medium'
-        aria-label={getChatName(buildConfig().appName)}
-      />
+        testID='fab'>
+        <Icon size={24} source='forum-outline' color={theme.colors.background} />
+      </PressableFab>
       {unreadMessageCount > 0 && (
-        <StyledBadge aria-label={t('unreadMessages', { count: unreadMessageCount })}>{unreadMessageCount}</StyledBadge>
+        <StyledBadge accessibilityLabel={t('unreadMessages', { count: unreadMessageCount })}>
+          {unreadMessageCount}
+        </StyledBadge>
       )}
     </Container>
   )

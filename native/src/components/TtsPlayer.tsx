@@ -5,6 +5,7 @@ import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { css, useTheme } from 'styled-components/native'
 
+import { TAB_HEIGHT } from '../constants'
 import { isRTLText } from '../constants/contentDirection'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -91,7 +92,7 @@ const TtsPlayer = ({
   const { t } = useTranslation('layout')
 
   return (
-    <StyledTtsPlayer insetBottom={bottom}>
+    <StyledTtsPlayer insetBottom={TAB_HEIGHT + bottom} accessibilityLabel={t('readAloudPlayer')}>
       <TouchableRipple
         borderless
         role='button'

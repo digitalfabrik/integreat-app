@@ -7,6 +7,7 @@ import { useLocation } from 'react-router'
 import { REGIONS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { LanguageModel } from 'shared/api'
 
+import useAnnounceLanguageChange from '../hooks/useAnnounceLanguageChange'
 import { supportedLanguages } from '../utils'
 import Header from './Header'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
@@ -23,8 +24,6 @@ const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): R
   const slug = useLocation().pathname.split('/')[1]
   const { toggleTheme } = useTheme()
   const { t } = useTranslation('layout')
-  const previousLanguage = useRef(languageCode)
-  const [announcement, setAnnouncement] = useState('')
 
   const regionsPath = pathnameFromRouteInformation({ route: REGIONS_ROUTE, languageCode })
   const languageChangePaths = (regionLanguages ?? supportedLanguages).map(language => ({
@@ -33,13 +32,7 @@ const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): R
     path: `/${slug}/${language.code}`,
   }))
 
-  useEffect(() => {
-    if (previousLanguage.current !== languageCode) {
-      const languageName = languageChangePaths.find(l => l.code === languageCode)?.name ?? languageCode
-      setAnnouncement(`${t('languageChangedTo')} ${languageName}`)
-      previousLanguage.current = languageCode
-    }
-  }, [languageCode, languageChangePaths, t])
+  const announcement = useAnnounceLanguageChange(languageCode, languageChangePaths, t)
 
   const actionItems = [
     languageChangePaths.length > 0 ? (

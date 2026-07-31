@@ -61,7 +61,7 @@ const Feedback = ({
 
   if (sendingStatus === 'successful') {
     return (
-      <Wrapper>
+      <Wrapper accessible accessibilityRole='alert' accessibilityLiveRegion='assertive'>
         <Caption title={t('thanksHeadline')} />
         <Text>{t('thanksMessage')}</Text>
         <Button onPress={navigation.goBack} mode='contained' style={{ marginTop: 16 }}>
@@ -106,7 +106,11 @@ const Feedback = ({
           accessibilityRole='text'
         />
         {sendingStatus === 'failed' && (
-          <Text variant='body2' style={{ textAlign: 'left' }}>
+          <Text
+            variant='body2'
+            style={{ textAlign: 'left' }}
+            accessibilityRole='alert'
+            accessibilityLiveRegion='assertive'>
             {t('failedSendingFeedback')}
           </Text>
         )}

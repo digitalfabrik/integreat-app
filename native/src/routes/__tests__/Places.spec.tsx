@@ -168,7 +168,7 @@ describe('Places', () => {
   it('should not push to history when a category is selected inside the filter modal', () => {
     const { localHistory, getByRole } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
+    fireEvent.press(getByRole('button', { name: 'Dienstleistung' }))
 
     expect(localHistory.push).not.toHaveBeenCalled()
     expect(localHistory.pushReset).not.toHaveBeenCalled()
@@ -193,7 +193,7 @@ describe('Places', () => {
   it('should apply the newly selected category when showPlaces is pressed', () => {
     const { localHistory, getByRole, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
+    fireEvent.press(getByRole('button', { name: 'Dienstleistung' }))
     fireEvent.press(getByText('showPlaces'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
@@ -248,7 +248,7 @@ describe('Places', () => {
     const initial = renderAt({ ...resetHistory, showFilterSelection: true })
     const { getByRole, getByText, getAllByText, rerender } = renderWithTheme(initial.element)
 
-    fireEvent.press(getByRole('switch', { name: 'Gastronomie' }))
+    fireEvent.press(getByRole('button', { name: 'Gastronomie' }))
     fireEvent.press(getByText('showPlaces'))
     expect(initial.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: place0.category.id,

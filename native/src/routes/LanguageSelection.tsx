@@ -2,7 +2,7 @@ import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill'
 import '@formatjs/intl-locale/polyfill'
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet } from 'react-native'
+import { AccessibilityInfo, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
@@ -77,6 +77,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
             if (code !== languageCode) {
               changeLanguageCode(code)
             }
+            AccessibilityInfo.announceForAccessibility(`${t('languageChangedTo')} ${name}`)
             navigation.goBack()
           }
         : () => setAlertDialogTitle(t('noTranslation')),

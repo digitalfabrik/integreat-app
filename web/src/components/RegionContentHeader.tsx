@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { regionContentPath, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
 import { CategoryModel, RegionModel } from 'shared/api'
 
+import useAnnounceLanguageChange from '../hooks/useAnnounceLanguageChange'
 import useDimensions from '../hooks/useDimensions'
 import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
@@ -32,21 +33,13 @@ const RegionContentHeader = ({
   fitScreen,
 }: RegionContentHeaderProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const prevLanguage = useRef(languageCode)
-  const [announcement, setAnnouncement] = useState('')
 
   const params = { regionCode: regionModel.code, languageCode }
   const categoriesPath = regionContentPath(params)
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
   const { desktop } = useDimensions()
 
-  useEffect(() => {
-    if (prevLanguage.current !== languageCode) {
-      const languageName = languageChangePaths?.find(l => l.code === languageCode)?.name ?? languageCode
-      setAnnouncement(`${t('languageChangedTo')} ${languageName}`)
-      prevLanguage.current = languageCode
-    }
-  }, [languageCode, languageChangePaths, t])
+  const announcement = useAnnounceLanguageChange(languageCode, languageChangePaths, t)
 
   const actionItems = [
     <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />,
