@@ -83,11 +83,13 @@ const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetP
         <Stack alignItems='flex-start' color='text.primary'>
           <StyledIconButton
             onClick={() => bottomSheetRef.current?.snapTo(isFullscreen ? medium : max)}
-            aria-label={t('handle')}>
+            aria-label={t('handle')}
+            aria-describedby='title'
+            aria-expanded={isFullscreen}>
             <HandleIcon sx={{ transform: 'scaleX(1.5)' }} />
           </StyledIconButton>
           {!!title && (
-            <Typography component='h1' variant='h5'>
+            <Typography id='title' component='h1' variant='h5'>
               {title}
             </Typography>
           )}

@@ -45,7 +45,9 @@ const BottomSheetHandle = ({
         // @ts-expect-error Pressable doesn't have a type for nextFocusForward but it is a valid prop
         nextFocusForward={nextFocusForward}
         onPress={onPress}
-        accessibilityLabel={t('handle')}>
+        accessibilityLabel={t('handle')}
+        accessibilityState={{ expanded: isFullscreen }}
+        accessibilityHint={title}>
         <StyledIcon source={isFullscreen ? 'chevron-down' : 'chevron-up'} />
       </Handle>
       {!!title && <StyledTitle variant='h5'>{title}</StyledTitle>}
