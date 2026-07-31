@@ -44,8 +44,6 @@ const PlacesStack = createStackNavigator<RoutesParamsType>()
 const EventsStack = createStackNavigator<RoutesParamsType>()
 const NewsStack = createStackNavigator<RoutesParamsType>()
 
-const TAB_HEIGHT = 60
-
 const CategoriesStackScreen = () => (
   <CategoriesStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
     <CategoriesStack.Screen name={CATEGORIES_ROUTE} initialParams={{}} component={CategoriesContainer} />
