@@ -110,6 +110,7 @@ const HeaderMenu = ({
             iconColor={theme.colors.onSurface}
             onPress={() => setVisible(!visible)}
             accessibilityLabel={t($ => $.settings.title)}
+            accessibilityState={{ expanded: visible }}
             testID='header-overflow-menu-button'
           />
         }>
