@@ -2,7 +2,7 @@ import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
 import { drawerClasses } from '@mui/material/Drawer'
 import Popover from '@mui/material/Popover'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
