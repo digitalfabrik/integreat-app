@@ -12,6 +12,7 @@ import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import { determineApiUrl } from '../utils/helpers'
+import { elevatedStyle } from '../utils/styles'
 import ChatHighlightPopup from './ChatHighlightPopup'
 import Icon from './base/Icon'
 
@@ -25,11 +26,11 @@ const Container = styled.View`
 const PressableFab = styled(Pressable)`
   width: 56px;
   height: 56px;
-  border-radius: 10%;
+  border-radius: 30%;
   background-color: ${props => props.theme.colors.primary};
   justify-content: center;
   align-items: center;
-  elevation: 5;
+  ${elevatedStyle}
 `
 
 const StyledBadge = styled(Badge)`

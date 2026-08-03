@@ -1,6 +1,6 @@
 import ContrastIcon from '@mui/icons-material/Contrast'
 import { useTheme } from '@mui/material/styles'
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 
