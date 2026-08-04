@@ -42,6 +42,8 @@ declare module '@mui/material/styles' {
       answerMessageBackground: string
       userMessageBackground: string
       messageBorderColor: string
+      grayNeutral38: string
+      grayNeutral60: string
     }
   }
 
@@ -58,6 +60,8 @@ declare module '@mui/material/styles' {
       answerMessageBackground: string
       userMessageBackground: string
       messageBorderColor: string
+      grayNeutral38: string
+      grayNeutral60: string
     }
   }
 }

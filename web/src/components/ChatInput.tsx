@@ -33,12 +33,27 @@ const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 
       [theme.breakpoints.up('md')]: {
         flexDirection: 'row',
       },
+      // MUI hovers to text.primary, excluding the focused state
+      [`&:hover:not(.${outlinedInputClasses.focused}) .${outlinedInputClasses.notchedOutline}`]: {
+        borderColor: theme.palette.chat.grayNeutral60,
+      },
+    },
+
+    [`& .${outlinedInputClasses.notchedOutline}`]: {
+      borderColor: theme.palette.chat.grayNeutral38,
+      borderWidth: 2,
+    },
+
+    [`& .${outlinedInputClasses.input}::placeholder`]: {
+      color: theme.palette.chat.grayNeutral60,
+      // The global placeholder opacity must not dim the color any further
+      opacity: 1,
     },
   }),
 )
 
 const ChatIconButton = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.text.secondary,
+  color: theme.palette.chat.grayNeutral60,
   [`&.${buttonBaseClasses.focusVisible}`]: { color: theme.palette.text.primary },
 })) as typeof IconButton
 
@@ -51,7 +66,9 @@ const SendButton = styled(IconButton)(({ theme }) => ({
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
-
+  [`&.${buttonBaseClasses.disabled}`]: {
+    color: theme.palette.chat.grayNeutral38,
+  },
   [theme.breakpoints.up('md')]: {
     borderRadius: 12,
   },
