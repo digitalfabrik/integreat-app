@@ -62,7 +62,6 @@
     "@react-navigation/native": "^7.2.2",
     "@react-navigation/stack": "^7.8.9",
     "@sentry/react-native": "^8.21.0",
-    "@sentry/types": "^10.46.0",
     "build-configs": "workspace:^",
     "htmlparser2": "^10.1.0",
     "i18next": "^26.0.1",
