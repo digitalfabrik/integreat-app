@@ -7017,13 +7017,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/core@npm:10.47.0":
-  version: 10.47.0
-  resolution: "@sentry/core@npm:10.47.0"
-  checksum: 10c0/985dd751d26c3bbfd14ba491489ee0d38d7a4570b70538d36580d408c3171116a86883d18a7ddd6741455737fb72016786ff666dcea1ab95572257fc1e7f242b
-  languageName: node
-  linkType: hard
-
 "@sentry/core@npm:10.69.0":
   version: 10.69.0
   resolution: "@sentry/core@npm:10.69.0"
@@ -7117,15 +7110,6 @@ __metadata:
     "@sentry/browser-utils": "npm:10.69.0"
     "@sentry/core": "npm:10.69.0"
   checksum: 10c0/3c3918a037b9c1f8dc1d06b0cc456338d2316b10cef6ad42cc9154534631f48f47c4398fc503ad1d814326c489a075742e676abf27a61b3443c71265dcdadf30
-  languageName: node
-  linkType: hard
-
-"@sentry/types@npm:^10.46.0":
-  version: 10.47.0
-  resolution: "@sentry/types@npm:10.47.0"
-  dependencies:
-    "@sentry/core": "npm:10.47.0"
-  checksum: 10c0/51392e3fd13d8385fb2011ba26b9334f72d0c0a9929078a1f6645965ab7281fd710201d38e1389da834bb60592488437d711b6dfc418eeee21b6a1d22dc36c1e
   languageName: node
   linkType: hard
 
@@ -17791,7 +17775,6 @@ __metadata:
     "@react-navigation/native": "npm:^7.2.2"
     "@react-navigation/stack": "npm:^7.8.9"
     "@sentry/react-native": "npm:^8.21.0"
-    "@sentry/types": "npm:^10.46.0"
     "@testing-library/react-native": "npm:^13.3.3"
     "@types/geojson": "npm:^7946.0.16"
     "@types/lodash": "npm:^4.17.24"
@@ -23324,7 +23307,6 @@ __metadata:
     "@mui/stylis-plugin-rtl": "npm:^7.3.8"
     "@mui/x-date-pickers": "npm:^8.27.2"
     "@sentry/react": "npm:^10.69.0"
-    "@sentry/types": "npm:^10.46.0"
     "@tanstack/react-query": "npm:^5.101.4"
     "@testing-library/dom": "npm:^10.4.1"
     "@testing-library/jest-dom": "npm:7.0.0"
