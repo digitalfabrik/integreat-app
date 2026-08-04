@@ -54,6 +54,8 @@ export type TypeChat = {
   answerMessageBackground: string
   userMessageBackground: string
   messageBorderColor: string
+  grayNeutral38: string
+  grayNeutral60: string
 }
 
 export type CommonColorPalette = CommonColors & {

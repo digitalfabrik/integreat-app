@@ -61,6 +61,8 @@ export const commonLightColors: CommonColorPalette = {
     answerMessageBackground: '#EAEEF9',
     userMessageBackground: '#F5F5F5',
     messageBorderColor: 'transparent',
+    grayNeutral38: 'rgba(0, 0, 0, 0.38)',
+    grayNeutral60: 'rgba(0, 0, 0, 0.6)',
   },
 }
 
@@ -104,5 +106,7 @@ export const commonDarkColors: CommonColorPalette = {
     answerMessageBackground: '#181818',
     userMessageBackground: '#20293A',
     messageBorderColor: '#C9C9C9',
+    grayNeutral38: 'rgba(255, 255, 255, 0.38)',
+    grayNeutral60: 'rgba(255, 255, 255, 0.6)',
   },
 }
