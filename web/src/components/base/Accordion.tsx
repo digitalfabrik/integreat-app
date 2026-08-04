@@ -27,9 +27,17 @@ type AccordionProps = {
   title: string | ReactElement
   description?: ReactElement
   defaultCollapsed?: boolean
+  headingComponent?: React.ElementType
 }
 
-const Accordion = ({ children, title, description, id, defaultCollapsed = false }: AccordionProps): ReactElement => {
+const Accordion = ({
+  children,
+  title,
+  description,
+  id,
+  defaultCollapsed = false,
+  headingComponent = 'h2',
+}: AccordionProps): ReactElement => {
   const [expanded, setExpanded] = useState(!defaultCollapsed)
   const { t } = useTranslation('common')
 
@@ -39,7 +47,7 @@ const Accordion = ({ children, title, description, id, defaultCollapsed = false 
       elevation={0}
       expanded={expanded}
       onChange={(_, isExpanded) => setExpanded(isExpanded)}
-      slotProps={{ heading: { component: 'h2' } }}>
+      slotProps={{ heading: { component: headingComponent } }}>
       <StyledAccordionSummary
         id={`${id}-header`}
         aria-controls={`${id}-content`}

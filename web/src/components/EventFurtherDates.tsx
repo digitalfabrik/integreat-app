@@ -63,6 +63,7 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
       <Accordion
         id='further-dates'
         defaultCollapsed
+        headingComponent='span'
         title={
           <Stack direction='row' alignItems='center' gap={1}>
             <RepeatIcon color='primary' fontSize='small' />
