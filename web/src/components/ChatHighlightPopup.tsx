@@ -19,6 +19,7 @@ const StyledPopper = styled(Popper)`
 `
 
 const StyledPaper = styled(Paper)`
+  width: max-content;
   max-width: 224px;
   margin-bottom: 16px;
   border-radius: 16px;
@@ -67,6 +68,7 @@ const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): Re
       open={visible && Boolean(anchorEl)}
       anchorEl={anchorEl}
       placement='top-end'
+      disablePortal
       modifiers={[{ name: 'offset', options: { offset: [POPUP_OFFSET, 4] } }]}>
       <StyledPaper elevation={2}>
         <Stack padding={2} gap={1}>
