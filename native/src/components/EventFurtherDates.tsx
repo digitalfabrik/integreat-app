@@ -1,8 +1,10 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
+import { MAX_FURTHER_DATES_MOBILE } from 'shared'
 import { DateModel } from 'shared/api'
 
 import { contentAlignment, contentDirection } from '../constants/contentDirection'
@@ -22,7 +24,7 @@ const ToggleContent = styled.View<{ language: string }>`
 
 const Dates = styled.View`
   padding-inline-start: 24px;
-  gap: 4px;
+  gap: 8px;
 `
 
 type EventFurtherDatesProps = {
@@ -35,10 +37,17 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
   const theme = useTheme()
   const [expanded, setExpanded] = useState(false)
 
-  const furtherDates = date.furtherDates()
+  const furtherDates = date.furtherDates(MAX_FURTHER_DATES_MOBILE)
   if (furtherDates.length === 0) {
     return null
   }
+
+  const formattedRecurrences = furtherDates.map(recurrence => ({
+    key: recurrence.startDate.toISO(),
+    ...recurrence.formatMonthlyOrYearlyRecurrence(language, t, true),
+  }))
+  const firstRecurrenceTime = formattedRecurrences[0]?.time
+  const hasVaryingTimes = formattedRecurrences.some(recurrence => recurrence.time !== firstRecurrenceTime)
 
   return (
     <>
@@ -58,12 +67,19 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
       </Toggle>
       {expanded && (
         <Dates>
-          {furtherDates.map(recurrence => (
-            <Text key={recurrence.startDate.toISO()} variant='body3' style={{ textAlign: contentAlignment(language) }}>
-              {recurrence.formatFurtherDate(language, t)}
-            </Text>
+          {formattedRecurrences.map(recurrence => (
+            <View key={recurrence.key}>
+              <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
+                {recurrence.date}
+              </Text>
+              {hasVaryingTimes && (
+                <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
+                  {recurrence.time}
+                </Text>
+              )}
+            </View>
           ))}
-          {date.hasMoreFurtherDates() && (
+          {date.hasMoreFurtherDates(MAX_FURTHER_DATES_MOBILE) && (
             <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
               …
             </Text>

@@ -139,17 +139,12 @@ class DateModel {
     }
   }
 
-  furtherDates(): DateModel[] {
-    return this.recurrences(MAX_FURTHER_DATES).slice(1)
+  furtherDates(count = MAX_FURTHER_DATES): DateModel[] {
+    return this.recurrences(count).slice(1)
   }
 
-  hasMoreFurtherDates(): boolean {
-    return this.hasMoreRecurrencesThan(MAX_FURTHER_DATES)
-  }
-
-  formatFurtherDate(locale: string, t: TranslateFunction): string {
-    const { date, time } = this.formatMonthlyOrYearlyRecurrence(locale, t, true)
-    return `${date} · ${time}`
+  hasMoreFurtherDates(count = MAX_FURTHER_DATES): boolean {
+    return this.hasMoreRecurrencesThan(count)
   }
 
   formatEventDate(locale: string, t: TranslateFunction): FormattedEventDate {

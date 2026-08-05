@@ -49,6 +49,10 @@ const StyledTypography = styled(Typography)<TypographyProps>`
     margin: 0;
   }
 
+  p:first-of-type {
+    margin-top: 8px;
+  }
+
   p:nth-of-type(2) {
     margin-bottom: 4px;
   }
