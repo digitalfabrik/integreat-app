@@ -28,6 +28,7 @@ import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'
 import { RouteProps, RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
+import dimensions from './constants/dimensions'
 import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
 import useRegionAppContext from './hooks/useRegionAppContext'
@@ -194,7 +195,7 @@ const BottomTabNavigator = ({ route }: BottomTabNavigatorProps): ReactElement | 
           tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
           tabBarButton: TabButton,
           tabBarStyle: {
-            height: TAB_HEIGHT + insets.bottom,
+            height: dimensions.bottomNavigationHeight + insets.bottom,
             backgroundColor: theme.colors.surfaceVariant,
             display: bottomTabsVisible ? 'flex' : 'none',
           },
@@ -202,7 +203,7 @@ const BottomTabNavigator = ({ route }: BottomTabNavigatorProps): ReactElement | 
         }}>
         {Tabs}
       </Tab.Navigator>
-      {chatVisible && <ChatFab style={{ bottom: TAB_HEIGHT + insets.bottom }} />}
+      {chatVisible && <ChatFab style={{ bottom: dimensions.bottomNavigationHeight + insets.bottom }} />}
     </View>
   )
 }
