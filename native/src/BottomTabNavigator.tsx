@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
-import React, { ReactElement, useCallback, useRef } from 'react'
+import React, { ReactElement, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -99,6 +99,7 @@ type BottomTabNavigatorProps = {
 const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const { regionCode, languageCode } = useRegionAppContext()
+  const [activeTab, setActiveTab] = useState<string>(CATEGORIES_TAB_ROUTE)
   const { navigateTo } = useNavigate()
   const insets = useSafeAreaInsets()
   const { data, loading, error, refresh } = useLoadRegionContent({ regionCode, languageCode })
@@ -129,7 +130,7 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
   }
 
   const { eventsEnabled, placesEnabled, localNewsEnabled, tuNewsEnabled, chatEnabled } = cachedData.region
-  const chatVisible = buildConfig().featureFlags.chat && chatEnabled
+  const chatVisible = buildConfig().featureFlags.chat && chatEnabled && activeTab !== PLACES_TAB_ROUTE
 
   const Tabs = [
     <Tab.Screen
@@ -183,6 +184,14 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
       <Tab.Navigator
         id={TAB_NAVIGATOR_ID}
         backBehavior='history'
+        screenListeners={{
+          state: event => {
+            const route = event.data.state.routes[event.data.state.index]
+            if (route) {
+              setActiveTab(route.name)
+            }
+          },
+        }}
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: theme.colors.onSurface,
