@@ -1,7 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pressable, ViewStyle } from 'react-native'
+import { TouchableOpacity, ViewStyle } from 'react-native'
 import { Badge, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
@@ -23,7 +23,7 @@ const Container = styled.View`
   align-items: flex-end;
 `
 
-const PressableFab = styled(Pressable)`
+const TouchableFab = styled(TouchableOpacity)`
   width: 56px;
   height: 56px;
   border-radius: 30%;
@@ -72,12 +72,14 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
   return (
     <Container style={style}>
       <ChatHighlightPopup chatName={getChatName(buildConfig().appName)} />
-      <PressableFab
+      <TouchableFab
+        accessibilityRole='button'
+        activeOpacity={0.9}
         onPress={() => navigation.navigate(CHAT_ROUTE)}
         accessibilityLabel={getChatName(buildConfig().appName)}
         testID='fab'>
         <Icon size={24} source='forum-outline' color={theme.colors.background} />
-      </PressableFab>
+      </TouchableFab>
       {unreadMessageCount > 0 && (
         <StyledBadge accessibilityLabel={t('unreadMessages', { count: unreadMessageCount })}>
           {unreadMessageCount}
