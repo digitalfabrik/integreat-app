@@ -27,6 +27,7 @@ import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'
 import { NavigationProps, RouteProps, RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
+import dimensions from './constants/dimensions'
 import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
 import useRegionAppContext from './hooks/useRegionAppContext'
@@ -196,7 +197,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
           tabBarActiveTintColor: theme.colors.onSurface,
           tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
           tabBarStyle: {
-            height: TAB_HEIGHT + insets.bottom,
+            height: dimensions.bottomNavigationHeight + insets.bottom,
             backgroundColor: theme.colors.surfaceVariant,
             display: bottomTabsVisible ? 'flex' : 'none',
           },
@@ -204,7 +205,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         }}>
         {Tabs}
       </Tab.Navigator>
-      {chatVisible && <ChatFab style={{ bottom: TAB_HEIGHT + insets.bottom }} />}
+      {chatVisible && <ChatFab style={{ bottom: dimensions.bottomNavigationHeight + insets.bottom }} />}
     </View>
   )
 }
