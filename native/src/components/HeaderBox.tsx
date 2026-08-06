@@ -32,6 +32,7 @@ export const HeaderBackButton = ({ goBack }: HeaderBackButtonProps): ReactElemen
 
   return (
     <Appbar.BackAction
+      accessibilityRole='button'
       style={{ backgroundColor: 'transparent' }}
       onPress={goBack}
       accessibilityLabel={t($ => $.common.actions.back)}
