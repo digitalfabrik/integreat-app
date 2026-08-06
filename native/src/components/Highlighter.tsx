@@ -17,7 +17,7 @@ const Highlighter = ({ search, text, style, wordStartOnly = false }: Highlighter
   const theme = useTheme()
   const chunks = findAllMatches({
     textToHighlight: text,
-    searchWords: search.split(MATCH_WHITESPACE_AND_DASHES),
+    searchWords: wordStartOnly ? search.split(MATCH_WHITESPACE_AND_DASHES) : [search],
     sanitize: normalizeString,
     autoEscape: true,
     findChunks: (props: FindChunks) => findNormalizedMatches(props, { wordStartOnly }),

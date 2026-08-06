@@ -19,7 +19,7 @@ const Highlighter = ({ search, text, className, dir, wordStartOnly = false }: Hi
     <ReactHighlighter
       className={className}
       textToHighlight={text}
-      searchWords={search.split(MATCH_WHITESPACE_AND_DASHES)}
+      searchWords={wordStartOnly ? search.split(MATCH_WHITESPACE_AND_DASHES) : [search]}
       sanitize={normalizeString}
       findChunks={(props: FindChunks) => findNormalizedMatches(props, { wordStartOnly })}
       highlightStyle={{
