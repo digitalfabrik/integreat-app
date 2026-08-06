@@ -126,6 +126,19 @@ describe('search', () => {
       ]
       expect(filterSortRegions(regions, 'ba')).toEqual([])
     })
+
+    it('should match regions with dashes in their name', () => {
+      const regions = [
+        region({ sortingName: 'Rems-Murr-Kreis', prefix: '' }),
+        region({ sortingName: 'Alzey-Worms', prefix: 'Landkreis' }),
+        region({ sortingName: 'Breisgau-Hochschwarzwald', prefix: 'Landkreis' }),
+      ]
+      expect(filterSortRegions(regions, 'Rems-Murr-Kreis')).toEqual([regions[0]])
+      expect(filterSortRegions(regions, 'rems-murr')).toEqual([regions[0]])
+      expect(filterSortRegions(regions, 'Alzey-Worms')).toEqual([regions[1]])
+      expect(filterSortRegions(regions, 'alzey')).toEqual([regions[1]])
+      expect(filterSortRegions(regions, 'Landkreis Breisgau-Hochschwarzwald')).toEqual([regions[2]])
+    })
   })
 })
 
