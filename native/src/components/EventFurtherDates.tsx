@@ -1,6 +1,5 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -46,8 +45,6 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
     key: recurrence.startDate.toISO(),
     ...recurrence.formatMonthlyOrYearlyRecurrence(language, t, true),
   }))
-  const firstRecurrenceTime = formattedRecurrences[0]?.time
-  const hasVaryingTimes = formattedRecurrences.some(recurrence => recurrence.time !== firstRecurrenceTime)
 
   return (
     <>
@@ -68,16 +65,9 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
       {expanded && (
         <Dates>
           {formattedRecurrences.map(recurrence => (
-            <View key={recurrence.key}>
-              <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
-                {recurrence.date}
-              </Text>
-              {hasVaryingTimes && (
-                <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
-                  {recurrence.time}
-                </Text>
-              )}
-            </View>
+            <Text key={recurrence.key} variant='body3' style={{ textAlign: contentAlignment(language) }}>
+              {recurrence.date}
+            </Text>
           ))}
           {date.hasMoreFurtherDates(MAX_FURTHER_DATES_MOBILE) && (
             <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>

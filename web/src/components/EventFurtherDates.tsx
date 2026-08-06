@@ -63,9 +63,9 @@ type EventFurtherDatesProps = {
 const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): ReactElement | null => {
   const { t } = useTranslation('events')
   const { contentDirection } = useTheme()
-  const { mobile } = useDimensions()
+  const { desktop } = useDimensions()
 
-  const maxFurtherDates = mobile ? MAX_FURTHER_DATES_MOBILE : MAX_FURTHER_DATES
+  const maxFurtherDates = desktop ? MAX_FURTHER_DATES : MAX_FURTHER_DATES_MOBILE
   const furtherDates = date.furtherDates(maxFurtherDates)
   if (furtherDates.length === 0) {
     return null
@@ -75,9 +75,6 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
     key: recurrence.startDate.toISO(),
     ...recurrence.formatMonthlyOrYearlyRecurrence(languageCode, t, true),
   }))
-  const firstRecurrenceTime = formattedRecurrences[0]?.time
-  const hasVaryingTimes = formattedRecurrences.some(recurrence => recurrence.time !== firstRecurrenceTime)
-  const showTime = !mobile || hasVaryingTimes
 
   const stopLinkNavigation = (event: MouseEvent): void => {
     event.preventDefault()
@@ -103,7 +100,7 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
             <StyledText component='span' variant='body1'>
               {recurrence.date}
             </StyledText>
-            {showTime && (
+            {desktop && (
               <StyledText component='span' variant='body1'>
                 {recurrence.time}
               </StyledText>

@@ -58,20 +58,4 @@ describe('EventFurtherDates', () => {
     expect(queryByText('7:00 - 9:00')).toBeFalsy()
     expect(getByText('…')).toBeTruthy()
   })
-
-  it('should show the time if it differs between the dates', () => {
-    const { getByText } = render(
-      <EventFurtherDates
-        date={date('DTSTART:20231016T050000\nRDATE:20231016T050000\nRDATE:20231018T090000\nRDATE:20231020T130000')}
-        language='de'
-      />,
-    )
-
-    fireEvent.press(getByText('furtherDates'))
-
-    expect(getByText('18. Okt. 2023')).toBeTruthy()
-    expect(getByText('9:00 - 11:00')).toBeTruthy()
-    expect(getByText('20. Okt. 2023')).toBeTruthy()
-    expect(getByText('13:00 - 15:00')).toBeTruthy()
-  })
 })
