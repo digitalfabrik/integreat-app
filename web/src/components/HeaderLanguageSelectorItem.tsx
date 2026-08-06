@@ -55,7 +55,6 @@ const HeaderLanguageSelectorItem = ({
       text={isOpen ? '' : t($ => $.layout.changeLanguage) /* to not cover the dropdown with the tooltip */}
       icon={<TranslateOutlinedIcon />}
       innerText={forceText || desktop ? currentLanguageName : undefined}
-      aria-haspopup='listbox'
       aria-expanded={isOpen}
     />
   )
