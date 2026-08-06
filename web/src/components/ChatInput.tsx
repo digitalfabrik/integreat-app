@@ -35,17 +35,17 @@ const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 
       },
       // MUI hovers to text.primary, excluding the focused state
       [`&:hover:not(.${outlinedInputClasses.focused}) .${outlinedInputClasses.notchedOutline}`]: {
-        borderColor: theme.palette.chat.grayNeutral60,
+        borderColor: theme.palette.chat.chatInputPlaceholderColor,
       },
     },
 
     [`& .${outlinedInputClasses.notchedOutline}`]: {
-      borderColor: theme.palette.chat.grayNeutral38,
+      borderColor: theme.palette.chat.chatInputOutlineColor,
       borderWidth: 2,
     },
 
     [`& .${outlinedInputClasses.input}::placeholder`]: {
-      color: theme.palette.chat.grayNeutral60,
+      color: theme.palette.chat.chatInputPlaceholderColor,
       // The global placeholder opacity must not dim the color any further
       opacity: 1,
     },
@@ -53,7 +53,7 @@ const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 
 )
 
 const ChatIconButton = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.chat.grayNeutral60,
+  color: theme.palette.chat.chatInputPlaceholderColor,
   [`&.${buttonBaseClasses.focusVisible}`]: { color: theme.palette.text.primary },
 })) as typeof IconButton
 
@@ -67,7 +67,7 @@ const SendButton = styled(IconButton)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
   },
   [`&.${buttonBaseClasses.disabled}`]: {
-    color: theme.palette.chat.grayNeutral38,
+    color: theme.palette.chat.chatInputOutlineColor,
   },
   [theme.breakpoints.up('md')]: {
     borderRadius: 12,
