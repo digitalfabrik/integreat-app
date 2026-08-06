@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 
-const useLanguageChangeAnnouncement = (
+const useAnnounceLanguageChange = (
   languageCode: string,
   languageChangePaths: { code: string; name: string }[] | null,
   t: (key: string) => string,
@@ -19,4 +19,4 @@ const useLanguageChangeAnnouncement = (
   return announcement
 }
 
-export default useLanguageChangeAnnouncement
+export default useAnnounceLanguageChange
