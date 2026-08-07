@@ -80,7 +80,9 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
             if (code !== languageCode) {
               changeLanguageCode(code)
             }
-            AccessibilityInfo.announceForAccessibility(`${t('languageChangedTo')} ${name}`)
+            AccessibilityInfo.announceForAccessibility(
+              `${t('languageChangedTo')} ${userLanguageNames?.of(code) ?? name}`,
+            )
             navigation.goBack()
           }
         : () => setAlertDialogTitle(t($ => $.layout.noTranslation)),

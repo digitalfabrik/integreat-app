@@ -201,9 +201,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
             backgroundColor: theme.colors.surfaceVariant,
             display: bottomTabsVisible ? 'flex' : 'none',
           },
-          sceneStyle: bottomTabsVisible
-            ? undefined
-            : { paddingBottom: insets.bottom + dimensions.bottomNavigationHeight },
+          sceneStyle: bottomTabsVisible ? undefined : { paddingBottom: insets.bottom },
         }}>
         {Tabs}
       </Tab.Navigator>
