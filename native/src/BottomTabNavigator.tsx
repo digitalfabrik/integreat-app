@@ -199,9 +199,7 @@ const BottomTabNavigator = ({ route }: BottomTabNavigatorProps): ReactElement | 
             backgroundColor: theme.colors.surfaceVariant,
             display: bottomTabsVisible ? 'flex' : 'none',
           },
-          sceneStyle: bottomTabsVisible
-            ? undefined
-            : { paddingBottom: insets.bottom + dimensions.bottomNavigationHeight },
+          sceneStyle: bottomTabsVisible ? undefined : { paddingBottom: insets.bottom },
         }}>
         {Tabs}
       </Tab.Navigator>
