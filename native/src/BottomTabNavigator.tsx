@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { getFocusedRouteNameFromRoute, useNavigationState } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import React, { ReactElement, useCallback, useRef, useState } from 'react'
+import React, { ReactElement, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -25,7 +26,7 @@ import { defaultHeader } from './components/DefaultHeader'
 import Icon from './components/base/Icon'
 import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'
-import { NavigationProps, RoutesParamsType } from './constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
@@ -93,17 +94,18 @@ const createTabLabel =
   )
 
 type BottomTabNavigatorProps = {
+  route: RouteProps<BottomTabRouteType>
   navigation: NavigationProps<BottomTabRouteType>
 }
 
-const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactElement | null => {
+const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const { regionCode, languageCode } = useRegionAppContext()
-  const [activeTab, setActiveTab] = useState<string>(CATEGORIES_TAB_ROUTE)
   const { navigateTo } = useNavigate()
   const insets = useSafeAreaInsets()
   const { data, loading, error, refresh } = useLoadRegionContent({ regionCode, languageCode })
   const cachedDataRef = useRef(data)
+  const activeTab = useNavigationState(() => getFocusedRouteNameFromRoute(route))
 
   // Preserve previous data during language changes to prevent unmounting
   if (data) {
@@ -184,14 +186,6 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
       <Tab.Navigator
         id={TAB_NAVIGATOR_ID}
         backBehavior='history'
-        screenListeners={{
-          state: event => {
-            const route = event.data.state.routes[event.data.state.index]
-            if (route) {
-              setActiveTab(route.name)
-            }
-          },
-        }}
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: theme.colors.onSurface,
