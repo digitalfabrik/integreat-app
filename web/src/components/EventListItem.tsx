@@ -107,7 +107,7 @@ const EventListItem = ({
                 <EventNoteIcon fontSize='small' />
                 <span>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</span>
               </Stack>
-              <EventFurtherDates date={event.date} languageCode={languageCode} />
+              {event.isRecurring && <EventFurtherDates date={event.date} languageCode={languageCode} />}
               {event.location && (
                 <Stack direction='row' alignItems='center' gap={1} component='p'>
                   <LocationOnOutlinedIcon fontSize='small' />
