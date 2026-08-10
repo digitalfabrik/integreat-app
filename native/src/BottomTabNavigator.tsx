@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { getFocusedRouteNameFromRoute, useNavigationState } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -25,7 +26,7 @@ import { defaultHeader } from './components/DefaultHeader'
 import Icon from './components/base/Icon'
 import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'
-import { NavigationProps, RoutesParamsType } from './constants/NavigationTypes'
+import { NavigationProps, RouteProps, RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
@@ -93,16 +94,18 @@ const createTabLabel =
   )
 
 type BottomTabNavigatorProps = {
+  route: RouteProps<BottomTabRouteType>
   navigation: NavigationProps<BottomTabRouteType>
 }
 
-const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactElement | null => {
+const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation('layout')
   const { regionCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
   const insets = useSafeAreaInsets()
   const { data, loading, error, refresh } = useLoadRegionContent({ regionCode, languageCode })
   const cachedDataRef = useRef(data)
+  const activeTab = useNavigationState(() => getFocusedRouteNameFromRoute(route))
 
   // Preserve previous data during language changes to prevent unmounting
   if (data) {
@@ -129,7 +132,7 @@ const BottomTabNavigator = ({ navigation }: BottomTabNavigatorProps): ReactEleme
   }
 
   const { eventsEnabled, placesEnabled, localNewsEnabled, tuNewsEnabled, chatEnabled } = cachedData.region
-  const chatVisible = buildConfig().featureFlags.chat && chatEnabled
+  const chatVisible = buildConfig().featureFlags.chat && chatEnabled && activeTab !== PLACES_TAB_ROUTE
 
   const Tabs = [
     <Tab.Screen
