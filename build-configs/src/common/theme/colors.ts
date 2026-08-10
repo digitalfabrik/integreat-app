@@ -61,8 +61,8 @@ export const commonLightColors: CommonColorPalette = {
     answerMessageBackground: '#EAEEF9',
     userMessageBackground: '#F5F5F5',
     messageBorderColor: 'transparent',
-    chatInputOutlineColor: 'rgba(0, 0, 0, 0.38)',
-    chatInputPlaceholderColor: 'rgba(0, 0, 0, 0.6)',
+    chatInputOutlineColor: '#9E9E9E',
+    chatInputPlaceholderColor: '#666666',
   },
 }
 
@@ -106,7 +106,7 @@ export const commonDarkColors: CommonColorPalette = {
     answerMessageBackground: '#181818',
     userMessageBackground: '#20293A',
     messageBorderColor: '#C9C9C9',
-    chatInputOutlineColor: 'rgba(255, 255, 255, 0.38)',
-    chatInputPlaceholderColor: 'rgba(255, 255, 255, 0.6)',
+    chatInputOutlineColor: '#B6B6B6',
+    chatInputPlaceholderColor: '#8B8B8B',
   },
 }
