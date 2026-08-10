@@ -5,6 +5,7 @@ import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { useTheme } from 'styled-components/native'
 
+import buildConfig from '../constants/buildConfig'
 import { isRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import { elevatedStyle } from '../utils/styles'
@@ -85,7 +86,9 @@ const TtsPlayer = ({
   const { t } = useTranslation()
 
   return (
-    <StyledTtsPlayer insetBottom={dimensions.bottomNavigationHeight + bottom} accessibilityLabel={t('readAloudPlayer')}>
+    <StyledTtsPlayer
+      insetBottom={bottom + (buildConfig().featureFlags.fixedRegion ? 0 : dimensions.bottomNavigationHeight)}
+      accessibilityLabel={t('readAloudPlayer')}>
       <TouchableRipple
         borderless
         role='button'

@@ -33,6 +33,7 @@ import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
 import useRegionAppContext from './hooks/useRegionAppContext'
 import useSetRouteTitle from './hooks/useSetRouteTitle'
+import useTtsPlayer from './hooks/useTtsPlayer'
 import CategoriesContainer from './routes/CategoriesContainer'
 import EventsContainer from './routes/EventsContainer'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
@@ -115,6 +116,7 @@ type BottomTabNavigatorProps = {
 const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation()
   const { regionCode, languageCode } = useRegionAppContext()
+  const { visible } = useTtsPlayer()
   const { navigateTo } = useNavigate()
   const insets = useSafeAreaInsets()
   const { data, loading, error, refresh } = useLoadRegionContent({ regionCode, languageCode })
@@ -138,7 +140,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
   }
 
   const { eventsEnabled, placesEnabled, newsEnabled, chatEnabled } = cachedData.region
-  const chatVisible = buildConfig().featureFlags.chat && chatEnabled && activeTab !== PLACES_TAB_ROUTE
+  const chatVisible = buildConfig().featureFlags.chat && chatEnabled && activeTab !== PLACES_TAB_ROUTE && !visible
 
   const Tabs = [
     <Tab.Screen
