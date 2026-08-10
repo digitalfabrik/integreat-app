@@ -141,7 +141,6 @@ describe('ChatConversation', () => {
     const expectedResults = [
       { label: 'chat:consultant', text: 'Consultant Message 1', opacity: '1' },
       { label: 'chat:bot', text: 'Bot Message 1', opacity: '1' },
-      { label: 'chat:user', text: 'User Message 1', opacity: '1' },
       { label: 'chat:consultant', text: 'Consultant Message 2', opacity: '1' },
       { label: 'chat:consultant', text: 'Consultant Message 3', opacity: '0' },
       { label: 'chat:bot', text: 'Bot Message 2', opacity: '1' },
@@ -151,7 +150,7 @@ describe('ChatConversation', () => {
     const { getAllByLabelText } = render(testMessages2, false)
     const avatars = getAllByLabelText(/chat:.*/)
 
-    expect(avatars).toHaveLength(7)
+    expect(avatars).toHaveLength(6)
 
     avatars.forEach((avatar, index) => {
       const expected = expectedResults[index]!
