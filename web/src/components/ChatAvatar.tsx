@@ -44,20 +44,15 @@ export const ChatLogoAvatar = ({ size = DEFAULT_AVATAR_SIZE, visible }: ChatLogo
 }
 
 type MessageAvatarProps = {
-  userIsAuthor: boolean
   isAutomaticAnswer: boolean
   visible: boolean
 }
 
-export const MessageAvatar = ({ userIsAuthor, isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
+export const MessageAvatar = ({ isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
   const { t } = useTranslation('chat')
   const theme = useTheme()
   const label = t(isAutomaticAnswer ? 'bot' : 'consultant')
   const appLogo = buildConfig().icons.appLogoInverted
-
-  if (userIsAuthor) {
-    return <ChatAvatar visible={visible} aria-label={t('user')} />
-  }
 
   return (
     <Tooltip title={label} disableHoverListener={!visible}>

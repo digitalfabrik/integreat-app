@@ -58,8 +58,8 @@ export const commonLightColors: CommonColorPalette = {
   chat: {
     background: '#FFFFFF',
     headerBackground: '#EAEEF9',
-    answerMessageBackground: '#EAEEF9',
-    userMessageBackground: '#F5F5F5',
+    answerMessageBackground: '#F5F5F5',
+    userMessageBackground: '#EAEEF9',
     messageBorderColor: 'transparent',
     chatInputOutlineColor: '#9E9E9E',
     chatInputPlaceholderColor: '#666666',
@@ -103,8 +103,8 @@ export const commonDarkColors: CommonColorPalette = {
   chat: {
     background: '#1E1E1E',
     headerBackground: '#1E1E1E',
-    answerMessageBackground: '#181818',
-    userMessageBackground: '#20293A',
+    answerMessageBackground: '#2B2B2B',
+    userMessageBackground: '#242D3B',
     messageBorderColor: '#C9C9C9',
     chatInputOutlineColor: '#B6B6B6',
     chatInputPlaceholderColor: '#8B8B8B',
