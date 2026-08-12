@@ -79,12 +79,13 @@ const ButtonStack = styled(Stack, { shouldForwardProp })<{ expanded: boolean }>(
   flexDirection: expanded ? 'row-reverse' : 'row',
   justifyContent: expanded ? 'space-between' : 'flex-end',
   alignSelf: expanded ? 'stretch' : 'flex-end',
+  marginTop: expanded ? theme.spacing(1) : 0,
+  paddingInlineStart: theme.spacing(1),
 
   [theme.breakpoints.up('md')]: {
     flexDirection: expanded ? 'column' : 'row',
     justifyContent: 'flex-end',
     alignSelf: 'flex-end',
-    paddingLeft: 8,
   },
 }))
 

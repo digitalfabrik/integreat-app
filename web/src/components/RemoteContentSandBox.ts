@@ -68,7 +68,8 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
 
   a {
     overflow-wrap: break-word;
-    color: ${props => props.theme.palette.primary.main};
+    color: ${props =>
+      props.theme.isContrastTheme ? props.theme.palette.primary.light : props.theme.palette.primary.main};
   }
 
   details > * {
@@ -92,12 +93,12 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
     display: inline-block;
 
     /* prettier-ignore */
-    background-image: url("${ExternalLinkIcon}"); /* use double quotes otherwise it won't be rendered, see https://vite.dev/guide/assets about inlining SVGs through url()  */
+    mask-image: url("${ExternalLinkIcon}"); /* use double quotes otherwise it won't be rendered, see https://vite.dev/guide/assets about inlining SVGs through url()  */
     width: 16px;
     height: 16px;
-    color: ${props => props.theme.palette.primary.main};
-    background-size: contain;
-    background-repeat: no-repeat;
+    background-color: currentcolor;
+    mask-size: contain;
+    mask-repeat: no-repeat;
     vertical-align: middle;
     margin: 0 4px;
   }
