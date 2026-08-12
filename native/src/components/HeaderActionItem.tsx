@@ -35,6 +35,7 @@ const HeaderActionItem = ({
   const theme = useTheme()
   const { t } = useTranslation('layout')
   const icon = iconName === 'search' ? 'magnify' : 'translate'
+  const color = theme.dark ? theme.colors.primaryContainer : theme.colors.primary
 
   if (innerText) {
     return (
@@ -44,8 +45,8 @@ const HeaderActionItem = ({
         icon={icon}
         onPress={onPress}
         accessibilityLabel={t(title)}
-        textColor={theme.colors.primary}
-        style={[styles.button, { borderColor: theme.colors.primary }]}>
+        textColor={color}
+        style={[styles.button, { borderColor: color }]}>
         {innerText}
       </Button>
     )
@@ -56,9 +57,9 @@ const HeaderActionItem = ({
       disabled={!visible}
       icon={icon}
       onPress={visible ? onPress : () => undefined}
-      color={theme.colors.primary}
+      color={color}
       accessibilityLabel={t(title)}
-      style={[styles.appbarAction, { borderColor: theme.colors.primary, display: visible ? 'flex' : 'none' }]}
+      style={[styles.appbarAction, { borderColor: color, display: visible ? 'flex' : 'none' }]}
     />
   )
 }

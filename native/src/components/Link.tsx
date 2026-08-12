@@ -22,7 +22,7 @@ const Link = ({ url, onPress, children, style }: LinkProps): ReactElement => {
       paddingVertical: 28,
       alignSelf: 'center',
       textDecorationLine: 'underline',
-      color: theme.colors.primary,
+      color: theme.dark ? theme.colors.primaryContainer : theme.colors.primary,
     },
   })
 
