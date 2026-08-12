@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { Divider } from 'react-native-paper'
+import { Divider, TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import Switch from './base/Switch'
@@ -26,13 +26,25 @@ const ConsentSection = ({ title, description, allowed, onPress }: ConsentSection
   const theme = useTheme()
   return (
     <>
-      <Container>
-        <TextContainer>
-          <Text>{title}</Text>
-          <Text style={{ color: theme.colors.onSurfaceVariant }}>{description}</Text>
-        </TextContainer>
-        <Switch onValueChange={onPress} value={allowed} />
-      </Container>
+      <TouchableRipple
+        borderless
+        accessible
+        accessibilityRole='switch'
+        accessibilityState={{ checked: allowed }}
+        onPress={() => onPress(!allowed)}>
+        <Container>
+          <TextContainer>
+            <Text>{title}</Text>
+            <Text style={{ color: theme.colors.onSurfaceVariant }}>{description}</Text>
+          </TextContainer>
+          <Switch
+            value={allowed}
+            onValueChange={onPress}
+            accessible={false}
+            importantForAccessibility='no-hide-descendants'
+          />
+        </Container>
+      </TouchableRipple>
       <Divider />
     </>
   )
