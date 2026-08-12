@@ -18,6 +18,7 @@ type EventsDateFilterProps = {
   startDateError: string | null
   endDate: DateTime | null
   setEndDate: (endDate: DateTime | null) => void
+  resetDates: () => void
 }
 
 const EventsDateFilter = ({
@@ -26,6 +27,7 @@ const EventsDateFilter = ({
   startDateError,
   endDate,
   setEndDate,
+  resetDates,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
   const { t } = useTranslation('events')
@@ -63,13 +65,7 @@ const EventsDateFilter = ({
         </AccordionDetails>
       </Accordion>
       {(startDate || endDate) && (
-        <Button
-          onClick={() => {
-            setStartDate(null)
-            setEndDate(null)
-          }}
-          color='inherit'
-          startIcon={<CloseOutlinedIcon />}>
+        <Button onClick={resetDates} color='inherit' startIcon={<CloseOutlinedIcon />}>
           {`${t('resetFilter')} ${formattedStartDate} - ${formattedEndDate}`}
         </Button>
       )}

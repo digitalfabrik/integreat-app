@@ -2,11 +2,12 @@ import Stack from '@mui/material/Stack'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useDateFilter, groupEventsByDate, eventGroupTitle } from 'shared'
+import { groupEventsByDate, eventGroupTitle } from 'shared'
 import { EventModel } from 'shared/api'
 
 import EventListItem from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
+import useDateFilter from '../hooks/useDateFilter'
 import useDimensions from '../hooks/useDimensions'
 import { withDividers } from '../utils'
 import List, { StickyListSubheader } from './base/List'
@@ -36,7 +37,8 @@ type EventListProps = {
 
 const EventList = ({ events, languageCode }: EventListProps): ReactElement | null => {
   const { t } = useTranslation('events')
-  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
+  const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError, resetDates } =
+    useDateFilter(events)
 
   const dateFilter = (
     <EventsDateFilter
@@ -45,6 +47,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
       endDate={endDate}
       setEndDate={setEndDate}
       startDateError={startDateError}
+      resetDates={resetDates}
     />
   )
 
