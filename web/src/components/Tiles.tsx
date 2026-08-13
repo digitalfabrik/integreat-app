@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react'
 
 import { TileModel } from 'shared'
 
+import { TILES_ELEMENT_ID } from '../constants/layout'
 import Tile from './Tile'
 import H1 from './base/H1'
 
@@ -28,7 +29,7 @@ type TilesProps = {
 const Tiles = ({ title, tiles }: TilesProps): ReactElement => (
   <Stack paddingTop={2} alignContent='center'>
     <H1 textAlign='center'>{title}</H1>
-    <Grid>
+    <Grid id={TILES_ELEMENT_ID}>
       {tiles.map(tile => (
         <Tile key={tile.path} tile={tile} />
       ))}

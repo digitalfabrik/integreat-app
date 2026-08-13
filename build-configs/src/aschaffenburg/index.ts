@@ -99,6 +99,7 @@ export const webAschaffenburgBuildConfig: WebBuildConfigType = {
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',
+    tourMenuPreview: '/tour-menu-preview.png',
   },
   apps: {
     android: {
