@@ -95,6 +95,7 @@ export type WebBuildConfigType = CommonBuildConfigType & {
     appleTouchIcon: string
     socialMediaPreview: string
     favicons: string
+    tourMenuPreview: string
   }
   splashScreen?: {
     // Splash screen showed before the web app has been loaded.
