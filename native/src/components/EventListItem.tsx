@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { parseHTML, getDisplayDate } from 'shared'
+import { parseHTML, getDisplayDate, RouteInformationType, EVENTS_ROUTE } from 'shared'
 import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
@@ -35,7 +35,8 @@ const placeholderThumbnails = [EventThumbnailPlaceholder1, EventThumbnailPlaceho
 type EventListItemProps = {
   event: EventModel
   language: string
-  navigateToEvent: () => void
+  navigateTo: (route: RouteInformationType) => void
+  regionCode: string
   filterStartDate?: DateTime | null
   filterEndDate?: DateTime | null
 }
@@ -43,7 +44,8 @@ type EventListItemProps = {
 const EventListItem = ({
   language,
   event,
-  navigateToEvent,
+  regionCode,
+  navigateTo,
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
@@ -66,6 +68,15 @@ const EventListItem = ({
   )
 
   const renderThumbnail = useCallback(() => <SimpleImage style={styles.thumbnail} source={thumbnail} />, [thumbnail])
+
+  const handlePress = useCallback(() => {
+    navigateTo({
+      route: EVENTS_ROUTE,
+      regionCode,
+      languageCode: language,
+      slug: event.slug,
+    })
+  }, [navigateTo, regionCode, language, event.slug])
 
   return (
     <PaperList.Item
@@ -101,7 +112,7 @@ const EventListItem = ({
       }
       left={isRtl ? DateIcon : renderThumbnail}
       right={isRtl ? renderThumbnail : DateIcon}
-      onPress={navigateToEvent}
+      onPress={handlePress}
     />
   )
 }

@@ -12,12 +12,15 @@ jest.mock('react-i18next')
 jest.useFakeTimers({ now: new Date('2023-10-02T05:23:57.443+02:00') })
 describe('EventListItem', () => {
   const language = 'de'
+  const regionCode = 'augsburg'
 
   const event = new EventModelBuilder('seed', 1, 'augsburg', language).build()[0]!
   const navigateToEvent = jest.fn()
 
   it('should show event list item with specific thumbnail', () => {
-    const { getByText } = render(<EventListItem event={event} language={language} navigateToEvent={navigateToEvent} />)
+    const { getByText } = render(
+      <EventListItem event={event} language={language} regionCode={regionCode} navigateTo={navigateToEvent} />,
+    )
 
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.formatEventDateInOneLine(language, jest.fn()))).toBeTruthy()
@@ -39,7 +42,7 @@ describe('EventListItem', () => {
       const event = createEvent()
 
       const { queryByLabelText } = render(
-        <EventListItem event={event} language={language} navigateToEvent={navigateToEvent} />,
+        <EventListItem event={event} language={language} regionCode={regionCode} navigateTo={navigateToEvent} />,
       )
 
       expect(queryByLabelText('recurring')).toBeFalsy()
@@ -49,7 +52,7 @@ describe('EventListItem', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231029T050000')
 
       const { queryByLabelText } = render(
-        <EventListItem event={event} language={language} navigateToEvent={navigateToEvent} />,
+        <EventListItem event={event} language={language} regionCode={regionCode} navigateTo={navigateToEvent} />,
       )
 
       expect(queryByLabelText('recurring')).toBeTruthy()

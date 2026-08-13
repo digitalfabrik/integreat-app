@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SectionList } from 'react-native'
 import { Divider, List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { eventGroupTitle, EVENTS_ROUTE, groupEventsByDate, RouteInformationType, useDateFilter } from 'shared'
+import { eventGroupTitle, groupEventsByDate, RouteInformationType, useDateFilter } from 'shared'
 import { RegionModel, EventModel } from 'shared/api'
 
 import Caption from '../components/Caption'
@@ -36,32 +36,27 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
   const { t } = useTranslation('events', { lng: language })
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
 
-  let sections: EventSection[]
-  if (startDate || endDate) {
-    sections = filteredEvents.length > 0 ? [{ title: null, data: filteredEvents }] : []
-  } else {
-    sections = groupEventsByDate(events).map(([key, events]) => ({ title: t(...eventGroupTitle(key)), data: events }))
-  }
+  const sections = useMemo<EventSection[]>(() => {
+    if (startDate || endDate) {
+      return filteredEvents.length ? [{ title: null, data: filteredEvents }] : []
+    }
 
-  const renderEventListItem = ({ item }: { item: EventModel }) => {
-    const navigateToEvent = () =>
-      navigateTo({
-        route: EVENTS_ROUTE,
-        regionCode: regionModel.code,
-        languageCode: language,
-        slug: item.slug,
-      })
+    return groupEventsByDate(events).map(([key, data]) => ({
+      title: t(...eventGroupTitle(key)),
+      data,
+    }))
+  }, [events, filteredEvents, startDate, endDate, t])
 
-    return (
-      <EventListItem
-        event={item}
-        language={language}
-        navigateToEvent={navigateToEvent}
-        filterStartDate={startDate}
-        filterEndDate={endDate}
-      />
-    )
-  }
+  const renderEventListItem = ({ item }: { item: EventModel }) => (
+    <EventListItem
+      event={item}
+      language={language}
+      navigateTo={navigateTo}
+      regionCode={regionModel.code}
+      filterStartDate={startDate}
+      filterEndDate={endDate}
+    />
+  )
 
   const renderSectionHeader = ({ section }: { section: EventSection }) =>
     section.title ? (
@@ -74,6 +69,7 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
     <ListContainer>
       <SectionList
         sections={sections}
+        keyExtractor={item => item.slug}
         renderItem={renderEventListItem}
         renderSectionHeader={renderSectionHeader}
         stickySectionHeadersEnabled
