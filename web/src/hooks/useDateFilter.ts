@@ -5,9 +5,12 @@ import { useSearchParams } from 'react-router'
 import { filterEvents } from 'shared'
 import { EventModel } from 'shared/api'
 
+const START_DATE_QUERY_KEY = 'startDate'
+const END_DATE_QUERY_KEY = 'endDate'
+
 const parseDate = (value: string | null) => (value ? DateTime.fromISO(value) : null)
 
-type UseSharedDateFilterReturn = {
+type UseDateFilterReturn = {
   startDate: DateTime | null
   setStartDate: (startDate: DateTime | null) => void
   endDate: DateTime | null
@@ -17,11 +20,11 @@ type UseSharedDateFilterReturn = {
   resetDates: () => void
 }
 
-const useDateFilter = (events: EventModel[]): UseSharedDateFilterReturn => {
+const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const startDate = parseDate(searchParams.get('startDate'))
-  const endDate = parseDate(searchParams.get('endDate'))
+  const startDate = parseDate(searchParams.get(START_DATE_QUERY_KEY))
+  const endDate = parseDate(searchParams.get(END_DATE_QUERY_KEY))
 
   const setDate = useCallback(
     (key: string, date: DateTime | null) => {
@@ -49,8 +52,8 @@ const useDateFilter = (events: EventModel[]): UseSharedDateFilterReturn => {
     setSearchParams(
       prevParams => {
         const params = new URLSearchParams(prevParams)
-        params.delete('startDate')
-        params.delete('endDate')
+        params.delete(START_DATE_QUERY_KEY)
+        params.delete(END_DATE_QUERY_KEY)
         return params
       },
       { replace: true },
