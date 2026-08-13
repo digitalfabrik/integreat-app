@@ -415,5 +415,30 @@
     "findOutMail": "E-Mail Adresse Deiner Region herausfinden",
     "sendText": "Diesen Text kopieren, die [ ]-Inhalte mit Deinen Angaben füllen und abschicken",
     "copyText": "Text kopieren"
+  },
+  "tour": {
+    "welcomeTitle": "Willkommen bei {{appName}}!",
+    "welcomeDescription": "Diese kurze Tour zeigt dir die wichtigsten Funktionen der App.",
+    "startTour": "Tour starten",
+    "skipTour": "Tour überspringen",
+    "progress": "Schritt {{current}} von {{total}}",
+    "finish": "Abschließen",
+    "finishTitle": "Fertig!",
+    "finishDescription": "Jetzt kennst du die wichtigsten Funktionen. Viel Erfolg mit {{appName}}!",
+    "finishAction": "Los geht's",
+    "changeLocationTitle": "Standort wechseln",
+    "changeLocationDescription": "Wähle hier deinen <strong>Ort</strong> aus, um lokale Informationen zu finden.",
+    "navigationTitle": "Navigation",
+    "navigationDescription": "Wechsle hier zwischen <strong>Informationen</strong>, <strong>Karte</strong>, <strong>Nachrichten</strong> und <strong>Veranstaltungen</strong>.",
+    "categoriesTitle": "Themen entdecken",
+    "categoriesDescription": "Entdecke Informationen zu Themen wie <strong>Wohnen</strong>, <strong>Bildung</strong>, <strong>Arbeit</strong> und mehr.",
+    "searchAndLanguageTitle": "Sprache und Suche",
+    "searchAndLanguageDescription": "Suche nach Themen oder ändere die Sprache.",
+    "additionalFeaturesTitle": "Zusatzfunktionen",
+    "additionalFeaturesDescription": "Nutze hier weitere Funktionen wie <strong>PDF erstellen</strong>, <strong>Vorlesen</strong>, <strong>Teilen</strong> und <strong>hohen Kontrast</strong>.",
+    "additionalFeaturesWithFeedbackDescription": "Nutze hier weitere Funktionen wie <strong>PDF erstellen</strong>, <strong>Vorlesen</strong>, <strong>Feedback geben</strong>, <strong>Teilen</strong> und mehr.",
+    "chatDescription": "Stelle hier deine Fragen und bekomme schnell passende Antworten.",
+    "feedbackTitle": "Feedback geben",
+    "feedbackDescription": "Wir freuen uns über dein Feedback. Sag uns, was dir gefällt und was wir besser machen können."
   }
 }

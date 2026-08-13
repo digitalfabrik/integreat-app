@@ -13,6 +13,7 @@ import Footer from './Footer'
 import { LanguageChangePath } from './LanguageSelection'
 import Layout from './Layout'
 import RegionContentHeader from './RegionContentHeader'
+import TourContainer from './TourContainer'
 
 export type RegionContentLayoutProps = {
   toolbar?: ReactElement | null
@@ -45,6 +46,7 @@ const RegionContentLayout = ({
   const isChatEnabled = buildConfig().featureFlags.chat && route !== PLACES_ROUTE && region.chatEnabled
   const footerVisible = !isLoading && desktop && !fitScreen
   const chatVisible = isChatEnabled && layoutReady
+  const tourVisible = layoutReady && category?.isRoot()
 
   // Avoid flickering due to content (chat) being pushed up by the footer
   useEffect(() => setLayoutReady(!isLoading), [isLoading])
@@ -68,6 +70,7 @@ const RegionContentLayout = ({
           {chatVisible && (
             <ChatContainer region={region} languageCode={languageCode} languageChangePaths={languageChangePaths} />
           )}
+          {tourVisible && <TourContainer region={region} languageCode={languageCode} />}
           <FeedbackContainer slug={slug} />
           {mobile && <BottomNavigation regionModel={region} languageCode={languageCode} />}
         </>

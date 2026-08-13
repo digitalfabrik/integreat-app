@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next'
 import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, PLACES_ROUTE } from 'shared'
 import { RegionModel } from 'shared/api'
 
+import { NAVIGATION_TABS_ELEMENT_ID } from '../constants/layout'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import getNavigationItems from '../utils/navigationItems'
 import Link from './base/Link'
@@ -31,7 +32,12 @@ const NavigationTabs = ({ regionModel, languageCode }: NavigationTabsProps): Rea
   }
 
   return (
-    <Tabs value={currentTabValue} component='nav' textColor={color} indicatorColor={color}>
+    <Tabs
+      id={NAVIGATION_TABS_ELEMENT_ID}
+      value={currentTabValue}
+      component='nav'
+      textColor={color}
+      indicatorColor={color}>
       {navigationItems.map(item => (
         <Tab key={item.value} component={Link} to={item.to} value={item.value} label={t($ => $.layout[item.label])} />
       ))}

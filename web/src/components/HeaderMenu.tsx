@@ -14,6 +14,7 @@ import React, { ReactElement, RefObject, useImperativeHandle } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
+import { HEADER_MENU_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
 import { useRouteParams } from '../hooks/useRegionContentParams'
 import { withDividers } from '../utils'
@@ -113,7 +114,11 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
 
   return (
     <>
-      <IconButton onClick={openMenu} aria-label={t($ => $.layout.sideBarOpenAriaLabel)} aria-expanded={open}>
+      <IconButton
+        id={HEADER_MENU_ELEMENT_ID}
+        onClick={openMenu}
+        aria-label={t($ => $.layout.sideBarOpenAriaLabel)}
+        aria-expanded={open}>
         <MoreVertIcon />
       </IconButton>
       <StyledMenu anchorEl={menuAnchorElement} open={open} onClose={closeMenu}>
