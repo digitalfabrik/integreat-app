@@ -15,7 +15,7 @@ import { LAYOUT_ELEMENT_ID } from '../constants/layout'
 import useLocalStorage, { TOUR_DIALOG_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import Svg from './base/Svg'
 
-const LOGO_SIZE = 40
+const LOGO_SIZE = 48
 const DIALOG_WIDTH = 320
 
 const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
@@ -29,7 +29,7 @@ const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
 
 const StyledSvg = styled(Svg)`
   position: absolute;
-  top: -16px;
+  top: -24px;
   left: calc(50% - ${LOGO_SIZE / 2}px);
   border-radius: 50%;
   overflow: hidden;

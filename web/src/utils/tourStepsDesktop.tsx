@@ -35,7 +35,7 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
     featureFlags.fixedRegion
       ? null
       : {
-          offset: { horizontal: 16 },
+          offset: { horizontal: -8, vertical: 24 },
           selector: `#${HEADER_TITLE_ELEMENT_ID}`,
           position: positionBelowElement(atStart),
           arrowAlignment: atStart,
@@ -43,7 +43,7 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
         },
     getNavigationItems({ regionModel: region, languageCode })
       ? {
-          offset: { horizontal: 32 },
+          offset: { horizontal: 8, vertical: 24 },
           selector: `#${NAVIGATION_TABS_ELEMENT_ID}`,
           position: positionBelowElement(atStart),
           arrowAlignment: atStart,
@@ -51,20 +51,20 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
         }
       : null,
     {
-      offset: { vertical: 32 },
+      offset: { horizontal: 24, vertical: 32 },
       selector: `#${TILES_ELEMENT_ID} > :first-child`,
       position: besideElement,
       content: <TourStepContent title={t('categoriesTitle')} descriptionKey='categoriesDescription' />,
     },
     {
-      offset: { horizontal: -16, vertical: 16 },
+      offset: { horizontal: -16, vertical: 24 },
       selector: `#${HEADER_ACTIONS_ELEMENT_ID}`,
       position: positionBelowElement(atEnd),
       arrowAlignment: atEnd,
       content: <TourStepContent title={t('searchAndLanguageTitle')} descriptionKey='searchAndLanguageDescription' />,
     },
     {
-      offset: { vertical: 16 },
+      offset: { horizontal: 4, vertical: 24 },
       selector: `#${HEADER_MENU_ELEMENT_ID}`,
       position: positionBelowElement(atEnd),
       arrowAlignment: atEnd,
@@ -78,6 +78,7 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
     },
     featureFlags.chat && region.chatEnabled
       ? {
+          offset: { horizontal: -16, vertical: -24 },
           selector: `#${CHAT_FAB_ELEMENT_ID}`,
           position: 'top',
           arrowAlignment: atEnd,
@@ -85,6 +86,7 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
         }
       : null,
     {
+      offset: { horizontal: 16 },
       selector: `#${TOOLBAR_ELEMENT_ID}`,
       position: besideElement,
       content: <TourStepContent title={t('feedbackTitle')} descriptionKey='feedbackDescription' />,
