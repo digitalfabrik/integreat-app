@@ -13,11 +13,6 @@ import {
 import { TOUR_MASK_PADDING, TOUR_POPOVER_PADDING } from '../constants/tour'
 import getNavigationItems from './navigationItems'
 
-const HEADER_PADDING: TourStepType['padding'] = {
-  mask: [TOUR_MASK_PADDING, 0],
-  popover: [0, TOUR_POPOVER_PADDING],
-}
-
 const HEADER_POPOVER_POSITIONS = { changeLocation: 0.4, searchAndLanguage: 0.6, additionalFeatures: 1 }
 
 const tourStepsMobile = ({ t, rtl, region, languageCode }: TourStepsProps): TourStepType[] => {
@@ -27,10 +22,9 @@ const tourStepsMobile = ({ t, rtl, region, languageCode }: TourStepsProps): Tour
   const headerStep = (
     arrowAlignment: ArrowAlignment,
     popoverPosition: number,
-  ): Pick<TourStepType, 'selector' | 'position' | 'arrowAlignment' | 'padding'> => ({
+  ): Pick<TourStepType, 'selector' | 'position' | 'arrowAlignment'> => ({
     selector: `#${HEADER_ELEMENT_ID}`,
     arrowAlignment,
-    padding: HEADER_PADDING,
     position: ({ width, windowWidth, bottom }) => {
       const position = rtl ? 1 - popoverPosition : popoverPosition
       return [(windowWidth - width) * position, bottom]
@@ -74,6 +68,9 @@ const tourStepsMobile = ({ t, rtl, region, languageCode }: TourStepsProps): Tour
           selector: `#${CHAT_FAB_ELEMENT_ID}`,
           position: 'top',
           arrowAlignment: atEnd,
+          // Rounded mask for chat button
+          padding: { mask: TOUR_MASK_PADDING, popover: [0, TOUR_POPOVER_PADDING] },
+          styles: { maskArea: base => ({ ...base, rx: base.width / 2 }) },
           content: <TourStepContent title={getChatName(appName)} descriptionKey='chatDescription' />,
         }
       : null,

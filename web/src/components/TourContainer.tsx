@@ -11,6 +11,9 @@ import TourDialog from './TourDialog'
 import TourPopover from './TourPopover'
 
 const HIGHLIGHT_BORDER_RADIUS = 12
+const DESKTOP_PADDING = 6
+// The highlighted elements are as high as the whole bar and the popover is only placed above or below them
+const MOBILE_PADDING = { mask: [TOUR_MASK_PADDING, 0], popover: [0, TOUR_POPOVER_PADDING] }
 
 type TourContainerProps = {
   region: RegionModel
@@ -30,9 +33,8 @@ const TourContainer = ({ region, languageCode }: TourContainerProps): ReactEleme
       ContentComponent={TourPopover}
       // Only swaps the keyboard arrow keys
       rtl={contentDirection === 'rtl'}
-      padding={{
-        popover: desktop ? TOUR_POPOVER_PADDING : [0, TOUR_POPOVER_PADDING],
-      }}
+      // Spacing between the highlighted element and the popover
+      padding={desktop ? DESKTOP_PADDING : MOBILE_PADDING}
       disableInteraction
       scrollSmooth
       styles={{
