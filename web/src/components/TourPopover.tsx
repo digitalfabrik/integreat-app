@@ -58,8 +58,9 @@ const StyledPaper = styled(Paper, {
   maxWidth: TOUR_POPOVER_MAX_WIDTH,
   borderRadius: BORDER_RADIUS,
   filter: `drop-shadow(1px 0 0 ${theme.palette.common.white}) drop-shadow(-1px 0 0 ${theme.palette.common.white}) drop-shadow(0 1px 0 ${theme.palette.common.white}) drop-shadow(0 -1px 0 ${theme.palette.common.white})`,
-  marginInlineStart: offset?.horizontal,
-  marginBlockStart: offset?.vertical,
+  position: 'relative',
+  insetInlineStart: offset?.horizontal,
+  insetBlockStart: offset?.vertical,
 
   '&::before': {
     content: '""',
