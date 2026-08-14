@@ -1,12 +1,14 @@
 import { useTheme } from '@mui/material/styles'
 import { TourProvider } from '@reactour/tour'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { RegionModel } from 'shared/api'
 
 import { TOUR_MASK_PADDING, TOUR_POPOVER_PADDING } from '../constants/tour'
 import useDimensions from '../hooks/useDimensions'
-import useTourSteps from '../hooks/useTourSteps'
+import tourStepsDesktop from '../utils/tourStepsDesktop'
+import tourStepsMobile from '../utils/tourStepsMobile'
 import TourDialog from './TourDialog'
 import TourPopover from './TourPopover'
 
@@ -21,9 +23,13 @@ type TourContainerProps = {
 }
 
 const TourContainer = ({ region, languageCode }: TourContainerProps): ReactElement => {
+  const { t } = useTranslation('tour')
   const { desktop } = useDimensions()
   const { contentDirection } = useTheme()
-  const steps = useTourSteps({ region, languageCode, desktop })
+
+  const rtl = contentDirection === 'rtl'
+  const stepsProps = { t, rtl, region, languageCode }
+  const steps = desktop ? tourStepsDesktop(stepsProps) : tourStepsMobile(stepsProps)
 
   return (
     <TourProvider
