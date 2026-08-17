@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'
+
 import { Rating, RATING_NEGATIVE, RATING_POSITIVE, THEME_CONTRAST, THEME_LIGHT, ThemeType } from '../constants/index.ts'
 import { safeParseInt } from '../utils/index.ts'
 import { NonNullableRouteInformationType } from './RouteInformationTypes.ts'
@@ -11,6 +13,8 @@ export const THEME_QUERY_KEY = 'theme'
 export const FEEDBACK_QUERY_KEY = 'feedback'
 export const PLACE_CATEGORY_QUERY_KEY = 'category'
 export const ZOOM_QUERY_KEY = 'zoom'
+export const START_DATE_QUERY_KEY = 'startDate'
+export const END_DATE_QUERY_KEY = 'endDate'
 
 export const queryStringFromRouteInformation = (
   routeInformation: NonNullableRouteInformationType,
@@ -60,8 +64,12 @@ type QueryParams = VisibilityQueryParams & {
   zoom?: number
 }
 
+export type DateQueryKey = typeof START_DATE_QUERY_KEY | typeof END_DATE_QUERY_KEY
+
 const parseTheme = (theme: string | null): ThemeType | undefined =>
   theme === THEME_LIGHT || theme === THEME_CONTRAST ? theme : undefined
+
+export const parseDate = (value: string | null): DateTime | null => (value ? DateTime.fromISO(value) : null)
 
 export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const searchText = queryParams.get(SEARCH_QUERY_KEY) ?? undefined

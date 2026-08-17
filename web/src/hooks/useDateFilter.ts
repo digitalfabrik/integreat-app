@@ -2,13 +2,8 @@ import { DateTime } from 'luxon'
 import { useCallback, useMemo } from 'react'
 import { useSearchParams } from 'react-router'
 
-import { filterEvents } from 'shared'
+import { DateQueryKey, END_DATE_QUERY_KEY, filterEvents, parseDate, START_DATE_QUERY_KEY } from 'shared'
 import { EventModel } from 'shared/api'
-
-const START_DATE_QUERY_KEY = 'startDate'
-const END_DATE_QUERY_KEY = 'endDate'
-
-const parseDate = (value: string | null) => (value ? DateTime.fromISO(value) : null)
 
 type UseDateFilterReturn = {
   startDate: DateTime | null
@@ -27,11 +22,11 @@ const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
   const endDate = parseDate(searchParams.get(END_DATE_QUERY_KEY))
 
   const setDate = useCallback(
-    (key: string, date: DateTime | null) => {
+    (key: DateQueryKey, date: DateTime | null) => {
       setSearchParams(
         prevParams => {
           const params = new URLSearchParams(prevParams)
-          const isoDate = date?.isValid ? date.toISODate() : null
+          const isoDate = date?.toISODate()
           if (isoDate) {
             params.set(key, isoDate)
           } else {
@@ -45,10 +40,10 @@ const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
     [setSearchParams],
   )
 
-  const setStartDate = (date: DateTime | null) => setDate('startDate', date)
-  const setEndDate = (date: DateTime | null) => setDate('endDate', date)
+  const setStartDate = (date: DateTime | null) => setDate(START_DATE_QUERY_KEY, date)
+  const setEndDate = (date: DateTime | null) => setDate(END_DATE_QUERY_KEY, date)
 
-  const resetDates = () => {
+  const resetDates = () =>
     setSearchParams(
       prevParams => {
         const params = new URLSearchParams(prevParams)
@@ -58,7 +53,6 @@ const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
       },
       { replace: true },
     )
-  }
 
   const startDateError = startDate && endDate && startDate > endDate ? 'shouldBeEarlier' : null
   const filteredEvents = useMemo(() => filterEvents(events, startDate, endDate), [startDate, endDate, events])
