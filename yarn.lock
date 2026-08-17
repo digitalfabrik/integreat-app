@@ -10691,10 +10691,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deepmerge-ts@npm:^7.0.3, deepmerge-ts@npm:^7.1.5":
+"deepmerge-ts@npm:^7.0.3":
   version: 7.1.5
   resolution: "deepmerge-ts@npm:7.1.5"
   checksum: 10c0/3a265a2086f334e3ecf43a7d4138c950cb99e0b39e816fa7fd7f5326161364e51b13010906908212667619066f5b48de738ed42543212323fbbb5d4ed7ebdc84
+  languageName: node
+  linkType: hard
+
+"deepmerge-ts@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "deepmerge-ts@npm:8.0.0"
+  checksum: 10c0/a39d524df84ff877780eb253587ceb8b9053a60d15ec2dedade2085c2e4a3322b5fa1e45647d52e14bb8c5c42255e47a6b02ce88ad2f5ae6655529c32d3482c1
   languageName: node
   linkType: hard
 
@@ -20158,7 +20165,7 @@ __metadata:
     "@types/sanitize-html": "npm:^2.16.1"
     "@types/seedrandom": "npm:^3.0.8"
     "@types/uuid": "npm:^10.0.0"
-    deepmerge-ts: "npm:^7.1.5"
+    deepmerge-ts: "npm:^8.0.0"
     entities: "npm:^7.0.1"
     highlight-words-core: "npm:^1.2.3"
     htmlparser2: "npm:^10.1.0"
@@ -21540,7 +21547,7 @@ __metadata:
     "@types/lodash-es": "npm:^4.17.12"
     csv-parse: "npm:^6.2.1"
     csv-stringify: "npm:^6.7.0"
-    deepmerge-ts: "npm:^7.1.5"
+    deepmerge-ts: "npm:^8.0.0"
     flat: "npm:^5.0.2"
     lodash-es: "npm:^4.17.23"
     tsx: "npm:^4.21.0"

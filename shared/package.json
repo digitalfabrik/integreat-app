@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@turf/distance": "^7.3.4",
-    "deepmerge-ts": "^7.1.5",
+    "deepmerge-ts": "^8.0.0",
     "entities": "^7.0.1",
     "highlight-words-core": "^1.2.3",
     "htmlparser2": "^10.1.0",

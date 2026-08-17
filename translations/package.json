@@ -27,7 +27,7 @@
     "./override-translations/*.json": "./override-translations/*.json"
   },
   "dependencies": {
-    "deepmerge-ts": "^7.1.5"
+    "deepmerge-ts": "^8.0.0"
   },
   "devDependencies": {
     "@types/flat": "^5.0.5",
