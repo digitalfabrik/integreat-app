@@ -1,7 +1,6 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import IconButton from '@mui/material/IconButton'
-import Stack from '@mui/material/Stack'
+import ButtonBase from '@mui/material/ButtonBase'
 import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, ReactNode, RefObject, useImperativeHandle, useRef, useState } from 'react'
@@ -18,6 +17,10 @@ const StyledBottomSheet = styled(BottomSheet)`
   /* Position bottom sheet above content */
   z-index: 2;
 
+  [data-rsbs-header] {
+    padding: 0;
+  }
+
   [data-rsbs-scroll] {
     margin-bottom: ${props => props.theme.dimensions.bottomNavigationHeight ?? 0}px;
   }
@@ -30,10 +33,13 @@ const StyledLayout = styled(RichLayout)`
   padding-bottom: ${props => props.theme.dimensions.ttsPlayerHeight}px;
 `
 
-const StyledIconButton = styled(IconButton)`
-  align-self: stretch;
-  padding: 0;
-  border-radius: 0;
+const HeaderButton = styled(ButtonBase)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: ${props => props.theme.spacing(1, 2)};
+  color: ${props => props.theme.palette.text.primary};
 `
 
 export type ScrollableBottomSheetRef = {
@@ -75,25 +81,30 @@ const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetP
 
   const updateFullscreen = () => setIsFullscreen((bottomSheetRef.current?.height ?? 0) >= max)
 
+  const toggleFullscreen = () => {
+    const isFullscreen = (bottomSheetRef.current?.height ?? 0) >= max
+    setIsFullscreen(!isFullscreen)
+    bottomSheetRef.current?.snapTo(isFullscreen ? medium : max)
+  }
+
   return (
     <StyledBottomSheet
       ref={bottomSheetRef}
       open
       header={
-        <Stack alignItems='flex-start' color='text.primary'>
-          <StyledIconButton
-            onClick={() => bottomSheetRef.current?.snapTo(isFullscreen ? medium : max)}
-            aria-label={t('handle')}
-            aria-describedby='title'
-            aria-expanded={isFullscreen}>
-            <HandleIcon sx={{ transform: 'scaleX(1.5)' }} />
-          </StyledIconButton>
+        <HeaderButton
+          dir={contentDirection}
+          onClick={toggleFullscreen}
+          aria-label={t('handle')}
+          aria-describedby='title'
+          aria-expanded={isFullscreen}>
+          <HandleIcon sx={{ alignSelf: 'center', transform: 'scaleX(1.5)' }} />
           {!!title && (
-            <Typography id='title' component='h1' variant='h5'>
+            <Typography id='title' component='h1' variant='h5' alignSelf='start'>
               {title}
             </Typography>
           )}
-        </Stack>
+        </HeaderButton>
       }
       sibling={sibling}
       scrollLocking={false}

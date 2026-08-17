@@ -116,10 +116,10 @@ const PlacesBottomSheet = ({
         nextFocusForward={zoomInFocusTarget}
         isFullscreen={isFullscreen}
         title={slug ? undefined : t('common:nearby')}
-        onPress={() => bottomSheetRef.current?.snapToIndex(isFullscreen ? 1 : snapPoints.length - 1)}
+        onPress={() => setSnapPointIndex(isFullscreen ? 1 : snapPoints.length - 1)}
       />
     ),
-    [zoomInFocusTarget, isFullscreen, slug, snapPoints.length, t],
+    [zoomInFocusTarget, isFullscreen, slug, t, setSnapPointIndex, snapPoints.length],
   )
 
   const PlaceDetail = place ? (
