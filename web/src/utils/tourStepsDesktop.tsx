@@ -39,7 +39,7 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
           selector: `#${HEADER_TITLE_ELEMENT_ID}`,
           position: positionBelowElement(atStart),
           arrowAlignment: atStart,
-          content: <TourStepContent title={t('changeLocationTitle')} descriptionKey='changeLocationDescription' />,
+          content: <TourStepContent title={t('layout:changeLocation')} descriptionKey='changeLocationDescription' />,
         },
     getNavigationItems({ regionModel: region, languageCode })
       ? {
@@ -89,7 +89,7 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
       offset: { horizontal: 16 },
       selector: `#${TOOLBAR_ELEMENT_ID}`,
       position: besideElement,
-      content: <TourStepContent title={t('feedbackTitle')} descriptionKey='feedbackDescription' />,
+      content: <TourStepContent title={t('feedback:giveFeedback')} descriptionKey='feedbackDescription' />,
     },
   ]
 
