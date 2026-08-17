@@ -66,7 +66,7 @@ describe('EventFurtherDates', () => {
     expect(getByText('…')).toBeVisible()
   })
 
-  it('should reveal fewer dates and hide the time on mobile', async () => {
+  it('should reveal fewer dates and hide the repeated time on mobile', async () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
     const { getByRole, getByText, queryByText } = renderWithTheme(
       <EventFurtherDates date={date('DTSTART:20230414T050000\nRRULE:FREQ=MONTHLY;BYDAY=+2MO')} languageCode='de' />,
@@ -78,5 +78,22 @@ describe('EventFurtherDates', () => {
     expect(queryByText('12. Feb. 2024')).toBeFalsy()
     expect(queryByText('7:00 - 9:00')).toBeFalsy()
     expect(getByText('…')).toBeVisible()
+  })
+
+  it('should show the time on mobile if it differs between the dates', async () => {
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
+    const { getByRole, getByText } = renderWithTheme(
+      <EventFurtherDates
+        date={date('DTSTART:20231016T050000\nRDATE:20231016T050000\nRDATE:20231018T090000\nRDATE:20231020T130000')}
+        languageCode='de'
+      />,
+    )
+
+    fireEvent.click(getByRole('button'))
+
+    await waitFor(() => expect(getByText('18. Okt. 2023')).toBeVisible())
+    expect(getByText('9:00 - 11:00')).toBeVisible()
+    expect(getByText('20. Okt. 2023')).toBeVisible()
+    expect(getByText('13:00 - 15:00')).toBeVisible()
   })
 })

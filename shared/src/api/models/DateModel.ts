@@ -147,6 +147,11 @@ class DateModel {
     return this.hasMoreRecurrencesThan(count)
   }
 
+  hasVaryingTimes(locale: string, t: TranslateFunction, count = MAX_FURTHER_DATES): boolean {
+    const times = this.recurrences(count).map(recurrence => formatTime(locale, recurrence, t))
+    return times.some(time => time !== times[0])
+  }
+
   formatEventDate(locale: string, t: TranslateFunction): FormattedEventDate {
     const time = formatTime(locale, this, t)
     const mondayTranslation = getWeekdayFromIndex(0, locale)

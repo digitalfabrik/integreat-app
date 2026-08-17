@@ -75,6 +75,7 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
     key: recurrence.startDate.toISO(),
     ...recurrence.formatMonthlyOrYearlyRecurrence(languageCode, t, true),
   }))
+  const showTime = desktop || date.hasVaryingTimes(languageCode, t, maxFurtherDates)
 
   const stopLinkNavigation = (event: MouseEvent): void => {
     event.preventDefault()
@@ -100,7 +101,7 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
             <StyledText component='span' variant='body1'>
               {recurrence.date}
             </StyledText>
-            {desktop && (
+            {showTime && (
               <StyledText component='span' variant='body1'>
                 {recurrence.time}
               </StyledText>
