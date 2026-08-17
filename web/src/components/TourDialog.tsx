@@ -17,6 +17,8 @@ import Svg from './base/Svg'
 
 const LOGO_SIZE = 48
 const DIALOG_WIDTH = 320
+const TITLE_ELEMENT_ID = 'tour-dialog-title'
+const DESCRIPTION_ELEMENT_ID = 'tour-dialog-description'
 
 const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   [`.${dialogClasses.paper}`]: {
@@ -59,6 +61,7 @@ const TourDialog = (): ReactElement | null => {
     setCurrentStep(0)
   }
   const startTour = () => {
+    window.scrollTo({ top: 0 })
     setStarted(true)
     setIsOpen(true)
   }
@@ -74,7 +77,7 @@ const TourDialog = (): ReactElement | null => {
         showSkipButton: false,
       }
     : {
-        title: t('welcomeTitle', { appName }),
+        title: t('intro:welcome', { appName }),
         description: t('welcomeDescription'),
         actionText: t('startTour'),
         action: startTour,
@@ -87,7 +90,12 @@ const TourDialog = (): ReactElement | null => {
   }
 
   return (
-    <StyledMuiDialog onClose={content.close} container={dialogContainer} open>
+    <StyledMuiDialog
+      onClose={content.close}
+      container={dialogContainer}
+      aria-labelledby={TITLE_ELEMENT_ID}
+      aria-describedby={DESCRIPTION_ELEMENT_ID}
+      open>
       <StyledSvg src={icons.appLogoMobile} width={LOGO_SIZE} height={LOGO_SIZE} />
       <Stack alignItems='flex-end' marginInline={1} marginBlockStart={1}>
         <IconButton onClick={content.close} size='small' aria-label={t('common:close')}>
@@ -96,10 +104,12 @@ const TourDialog = (): ReactElement | null => {
       </Stack>
       <DialogContent sx={{ paddingBlockStart: 0 }}>
         <Stack alignItems='center' textAlign='center' gap={2}>
-          <Typography component='h2' variant='h3'>
+          <Typography id={TITLE_ELEMENT_ID} component='h2' variant='h3'>
             {content.title}
           </Typography>
-          <Typography variant='body2'>{content.description}</Typography>
+          <Typography id={DESCRIPTION_ELEMENT_ID} variant='body2'>
+            {content.description}
+          </Typography>
           <Button onClick={content.action} variant='contained' fullWidth>
             {content.actionText}
           </Button>

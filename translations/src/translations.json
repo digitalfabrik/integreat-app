@@ -15858,7 +15858,6 @@
   },
   "tour": {
     "de": {
-      "welcomeTitle": "Willkommen bei {{appName}}!",
       "welcomeDescription": "Diese kurze Tour zeigt dir die wichtigsten Funktionen der App.",
       "startTour": "Tour starten",
       "skipTour": "Tour überspringen",
@@ -15867,7 +15866,6 @@
       "finishTitle": "Fertig!",
       "finishDescription": "Jetzt kennst du die wichtigsten Funktionen. Viel Erfolg mit {{appName}}!",
       "finishAction": "Los geht's",
-      "changeLocationTitle": "Standort wechseln",
       "changeLocationDescription": "Wähle hier deinen <strong>Ort</strong> aus, um lokale Informationen zu finden.",
       "navigationTitle": "Navigation",
       "navigationDescription": "Wechsle hier zwischen <strong>Informationen</strong>, <strong>Karte</strong>, <strong>Nachrichten</strong> und <strong>Veranstaltungen</strong>.",
@@ -15879,11 +15877,9 @@
       "additionalFeaturesDescription": "Nutze hier weitere Funktionen wie <strong>PDF erstellen</strong>, <strong>Vorlesen</strong>, <strong>Teilen</strong> und <strong>hohen Kontrast</strong>.",
       "additionalFeaturesWithFeedbackDescription": "Nutze hier weitere Funktionen wie <strong>PDF erstellen</strong>, <strong>Vorlesen</strong>, <strong>Feedback geben</strong>, <strong>Teilen</strong> und mehr.",
       "chatDescription": "Stelle hier deine Fragen und bekomme schnell passende Antworten.",
-      "feedbackTitle": "Feedback geben",
       "feedbackDescription": "Wir freuen uns über dein Feedback. Sag uns, was dir gefällt und was wir besser machen können."
     },
     "en": {
-      "welcomeTitle": "Welcome to {{appName}}!",
       "welcomeDescription": "This short tour shows you the most important features of the app.",
       "startTour": "Start tour",
       "skipTour": "Skip tour",
@@ -15892,7 +15888,6 @@
       "finishTitle": "Done!",
       "finishDescription": "Now you know the most important features. Good luck with {{appName}}!",
       "finishAction": "Let's go",
-      "changeLocationTitle": "Change location",
       "changeLocationDescription": "Select your <strong>city</strong> here to find local information.",
       "navigationTitle": "Navigation",
       "navigationDescription": "Switch between <strong>Information</strong>, <strong>Map</strong>, <strong>News</strong> and <strong>Events</strong> here.",
@@ -15904,7 +15899,6 @@
       "additionalFeaturesDescription": "Use further features here such as <strong>creating a PDF</strong>, <strong>reading aloud</strong>, <strong>sharing</strong> and <strong>high contrast</strong>.",
       "additionalFeaturesWithFeedbackDescription": "Use further features here such as <strong>creating a PDF</strong>, <strong>reading aloud</strong>, <strong>giving feedback</strong>, <strong>sharing</strong> and more.",
       "chatDescription": "Ask your questions here and quickly get suitable answers.",
-      "feedbackTitle": "Give feedback",
       "feedbackDescription": "We are happy to receive your feedback. Tell us what you like and what we can do better."
     }
   }
