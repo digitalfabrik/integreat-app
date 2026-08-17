@@ -36,7 +36,7 @@ const tourStepsMobile = ({ t, rtl, region, languageCode }: TourStepsProps): Tour
       ? null
       : {
           ...headerStep(rtl ? 'right' : 'left', HEADER_POPOVER_POSITIONS.changeLocation),
-          content: <TourStepContent title={t('changeLocationTitle')} descriptionKey='changeLocationDescription' />,
+          content: <TourStepContent title={t('layout:changeLocation')} descriptionKey='changeLocationDescription' />,
         },
     {
       ...headerStep(atEnd, HEADER_POPOVER_POSITIONS.searchAndLanguage),
