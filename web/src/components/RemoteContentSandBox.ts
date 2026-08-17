@@ -5,7 +5,7 @@ import { ExternalLinkIcon, PersonIcon, PersonLightIcon } from '../assets'
 const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boolean }>`
   font-family: ${props => props.theme.typography.fontFamily};
   font-size: ${props => props.theme.typography[props.smallText ? 'body2' : 'body1'].fontSize}px;
-  line-height: ${props => props.theme.typography.body1.lineHeight};
+  line-height: ${props => props.theme.typography[props.smallText ? 'body2' : 'body1'].lineHeight};
   display: flow-root; /* clearfix for the img floats */
 
   ${props => (props.centered ? 'text-align: center;' : '')}
@@ -90,7 +90,9 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
   .link-external::after {
     content: '';
     display: inline-block;
-    background-image: url('${ExternalLinkIcon}');
+
+    /* prettier-ignore */
+    background-image: url("${ExternalLinkIcon}"); /* use double quotes otherwise it won't be rendered, see https://vite.dev/guide/assets about inlining SVGs through url()  */
     width: 16px;
     height: 16px;
     color: ${props => props.theme.palette.primary.main};

@@ -19,16 +19,19 @@ export const filterEvents = (
   return events.filter(event => isEventWithinRange(event, startDate, endDate))
 }
 
-export type DateGroupKey = 'today' | 'tomorrow' | 'thisWeek' | 'thisMonth' | 'further'
+export type DateGroupKey = 'today' | 'tomorrow' | 'nextSevenDays' | 'nextThirtyDays' | 'further'
 
-export const EVENT_DATE_GROUPS: DateGroupKey[] = ['today', 'tomorrow', 'thisWeek', 'thisMonth', 'further']
+export const EVENT_DATE_GROUPS: DateGroupKey[] = ['today', 'tomorrow', 'nextSevenDays', 'nextThirtyDays', 'further']
 
 const eventGroups: Record<Exclude<DateGroupKey, 'further'>, number> = {
   today: 0,
   tomorrow: 1,
-  thisWeek: 7,
-  thisMonth: 30,
+  nextSevenDays: 7,
+  nextThirtyDays: 30,
 }
+
+export const eventGroupTitle = (key: DateGroupKey): [string, { days?: number }?] =>
+  key === 'nextSevenDays' || key === 'nextThirtyDays' ? ['nextDays', { days: eventGroups[key] }] : [key]
 
 export const getGroupKey = (event: EventModel): DateGroupKey => {
   const now = DateTime.now()

@@ -4,10 +4,13 @@ import { normalizeString } from './normalizeString.ts'
 export const MATCH_WHITESPACE_AND_DASHES = /[\s-]+/
 
 // Matches with all three string start cases, for ex. Landkreis Breisgau-Hochschwarzwald
-const matchesWordStart = (text: string, normalizedFilter: string): boolean =>
-  normalizeString(text)
-    .split(MATCH_WHITESPACE_AND_DASHES)
-    .some(word => word.startsWith(normalizedFilter))
+const matchesWordStart = (text: string, normalizedFilter: string): boolean => {
+  const normalizedSearchWords = normalizedFilter.split(MATCH_WHITESPACE_AND_DASHES)
+  const normalizedTextWords = normalizeString(text).split(MATCH_WHITESPACE_AND_DASHES)
+  return normalizedSearchWords.every(searchWord =>
+    normalizedTextWords.some(textWord => textWord.startsWith(searchWord)),
+  )
+}
 
 const regionFilter =
   (filterText: string, developerFriendly: boolean) =>

@@ -23,7 +23,7 @@ describe('ChatHighlightPopup', () => {
 
   it('should not render popup when previously dismissed', () => {
     const { queryByText } = render(
-      <TestingAppContext settings={{ chatHighlightPopupVisible: true }}>
+      <TestingAppContext settings={{ chatHighlightPopupDismissed: true }}>
         <ChatHighlightPopup chatName={chatName} />
       </TestingAppContext>,
     )
@@ -42,6 +42,6 @@ describe('ChatHighlightPopup', () => {
 
     fireEvent.press(getByLabelText('common:close'))
 
-    expect(updateSettings).toHaveBeenCalledWith({ chatHighlightPopupVisible: true })
+    expect(updateSettings).toHaveBeenCalledWith({ chatHighlightPopupDismissed: true })
   })
 })

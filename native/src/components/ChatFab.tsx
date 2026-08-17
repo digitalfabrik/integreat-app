@@ -23,8 +23,8 @@ const Container = styled.View`
 
 const StyledBadge = styled(Badge)`
   position: absolute;
-  top: -8px;
   right: -8px;
+  bottom: 44px;
 `
 
 type ChatFabProps = {

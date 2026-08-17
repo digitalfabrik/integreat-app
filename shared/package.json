@@ -6,7 +6,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test": "yarn run -T jest",
     "test:changed": "yarn run test -o",
     "test:watch": "yarn run test --watchAll",
     "check-circular-dependencies": "yarn run -T check-circular-dependencies",

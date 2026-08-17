@@ -63,7 +63,7 @@ const ChatHighlightPopup = ({ chatName }: ChatHighlightPopupProps): ReactElement
   const { t } = useTranslation('chat')
   const { settings, updateSettings } = useRegionAppContext()
 
-  if (settings.chatHighlightPopupVisible) {
+  if (settings.chatHighlightPopupDismissed) {
     return null
   }
 
@@ -77,7 +77,7 @@ const ChatHighlightPopup = ({ chatName }: ChatHighlightPopupProps): ReactElement
         <IconButton
           icon='close'
           size={16}
-          onPress={() => updateSettings({ chatHighlightPopupVisible: true })}
+          onPress={() => updateSettings({ chatHighlightPopupDismissed: true })}
           accessibilityLabel={t('common:close')}
         />
       </Header>
