@@ -28,7 +28,7 @@ describe('TourDialog', () => {
   it('should offer the tour on the first visit', () => {
     const { getByText } = renderDialog()
 
-    expect(getByText('tour:welcomeTitle')).toBeTruthy()
+    expect(getByText('tour:intro:welcome')).toBeTruthy()
     expect(getByText('tour:welcomeDescription')).toBeTruthy()
     expect(getByText('tour:startTour')).toBeTruthy()
     expect(getByText('tour:skipTour')).toBeTruthy()
@@ -38,7 +38,7 @@ describe('TourDialog', () => {
     localStorage.setItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY, 'false')
     const { queryByText } = renderDialog()
 
-    expect(queryByText('tour:welcomeTitle')).toBeNull()
+    expect(queryByText('tour:intro:welcome')).toBeNull()
   })
 
   it('should offer the tour again if it was interrupted after starting it', () => {
@@ -46,7 +46,7 @@ describe('TourDialog', () => {
 
     fireEvent.click(getByText('tour:startTour'))
 
-    expect(queryByText('tour:welcomeTitle')).toBeNull()
+    expect(queryByText('tour:intro:welcome')).toBeNull()
     expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 
@@ -55,7 +55,7 @@ describe('TourDialog', () => {
 
     fireEvent.click(getByText('tour:skipTour'))
 
-    expect(queryByText('tour:welcomeTitle')).toBeNull()
+    expect(queryByText('tour:intro:welcome')).toBeNull()
     expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('false')
   })
 
