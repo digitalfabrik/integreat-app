@@ -46,7 +46,7 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
     key: recurrence.startDate.toISO(),
     ...recurrence.formatMonthlyOrYearlyRecurrence(language, t, true),
   }))
-  const hasVaryingTimes = date.hasVaryingTimes(language, t, MAX_FURTHER_DATES_MOBILE)
+  const hasVaryingTimes = date.hasVaryingTimes(MAX_FURTHER_DATES_MOBILE)
 
   return (
     <>

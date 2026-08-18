@@ -49,13 +49,11 @@ const StyledTypography = styled(Typography)<TypographyProps>`
     margin: 0;
   }
 
-  p:first-of-type {
-    margin-top: 8px;
-  }
+  margin-top: 8px;
+`
 
-  p:nth-of-type(2) {
-    margin-bottom: 4px;
-  }
+const Excerpt = styled('p')`
+  padding-top: 4px;
 `
 
 type EventListItemProps = {
@@ -114,7 +112,7 @@ const EventListItem = ({
                   <span>{event.location.name}</span>
                 </Stack>
               )}
-              <p>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</p>
+              <Excerpt>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Excerpt>
             </StyledTypography>
           }
         />

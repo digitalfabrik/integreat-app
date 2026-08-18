@@ -140,15 +140,15 @@ class DateModel {
   }
 
   furtherDates(count = MAX_FURTHER_DATES): DateModel[] {
-    return this.recurrences(count).slice(1)
+    return this.recurrences(count + 1).slice(1)
   }
 
   hasMoreFurtherDates(count = MAX_FURTHER_DATES): boolean {
-    return this.hasMoreRecurrencesThan(count)
+    return this.hasMoreRecurrencesThan(count + 1)
   }
 
-  hasVaryingTimes(locale: string, t: TranslateFunction, count = MAX_FURTHER_DATES): boolean {
-    const times = this.recurrences(count).map(recurrence => formatTime(locale, recurrence, t))
+  hasVaryingTimes(count = MAX_FURTHER_DATES): boolean {
+    const times = this.recurrences(count + 1).map(recurrence => recurrence.startDate.toFormat('HH:mm'))
     return times.some(time => time !== times[0])
   }
 
@@ -170,7 +170,7 @@ class DateModel {
       }
     }
 
-    // long-term event
+    // Multi-day event
     return {
       date: this.formatDateInterval(locale, this.endDate),
       weekday,

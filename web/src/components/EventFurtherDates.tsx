@@ -1,4 +1,7 @@
 import RepeatIcon from '@mui/icons-material/Repeat'
+import { accordionClasses } from '@mui/material/Accordion'
+import { accordionDetailsClasses } from '@mui/material/AccordionDetails'
+import { accordionSummaryClasses } from '@mui/material/AccordionSummary'
 import Stack from '@mui/material/Stack'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
@@ -15,19 +18,19 @@ const AccordionWrapper = styled('div')(({ theme }) => ({
   width: 'fit-content',
   backgroundColor: 'transparent',
 
-  '& .MuiAccordion-root': {
+  [`& .${accordionClasses.root}`]: {
     backgroundColor: 'transparent',
   },
-  '& .MuiAccordionSummary-root': {
+  [`& .${accordionSummaryClasses.root}`]: {
     minHeight: 40,
   },
-  '& .MuiAccordionSummary-content': {
+  [`& .${accordionSummaryClasses.content}`]: {
     margin: 0,
   },
-  '& .MuiAccordionSummary-expandIconWrapper': {
+  [`& .${accordionSummaryClasses.expandIconWrapper}`]: {
     color: theme.palette.primary.main,
   },
-  '& .MuiAccordionDetails-root': {
+  [`& .${accordionDetailsClasses.root}`]: {
     padding: theme.spacing(0, 0, 0, 4),
     display: 'flex',
     flexDirection: 'column',
@@ -75,11 +78,10 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
     key: recurrence.startDate.toISO(),
     ...recurrence.formatMonthlyOrYearlyRecurrence(languageCode, t, true),
   }))
-  const showTime = desktop || date.hasVaryingTimes(languageCode, t, maxFurtherDates)
+  const showTime = desktop || date.hasVaryingTimes(maxFurtherDates)
 
   const stopLinkNavigation = (event: MouseEvent): void => {
     event.preventDefault()
-    event.stopPropagation()
   }
 
   return (
@@ -102,9 +104,14 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
               {recurrence.date}
             </StyledText>
             {showTime && (
-              <StyledText component='span' variant='body1'>
-                {recurrence.time}
-              </StyledText>
+              <>
+                <StyledText component='span' variant='body1' aria-hidden>
+                  ·
+                </StyledText>
+                <StyledText component='span' variant='body1'>
+                  {recurrence.time}
+                </StyledText>
+              </>
             )}
           </DateEntry>
         ))}
