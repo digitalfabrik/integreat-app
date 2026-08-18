@@ -15857,5 +15857,51 @@
     "zh-CN": {
       "noOffersAvailable": "目前没有提供项目"
     }
+  },
+  "tour": {
+    "de": {
+      "welcomeDescription": "Diese kurze Tour zeigt dir die wichtigsten Funktionen der App.",
+      "startTour": "Tour starten",
+      "skipTour": "Tour überspringen",
+      "progress": "Schritt {{current}} von {{total}}",
+      "finish": "Abschließen",
+      "finishTitle": "Fertig!",
+      "finishDescription": "Jetzt kennst du die wichtigsten Funktionen. Viel Erfolg mit {{appName}}!",
+      "finishAction": "Los geht's",
+      "changeLocationDescription": "Wähle hier deinen <strong>Ort</strong> aus, um lokale Informationen zu finden.",
+      "navigationTitle": "Navigation",
+      "navigationDescription": "Wechsle hier zwischen <strong>Informationen</strong>, <strong>Karte</strong>, <strong>Nachrichten</strong> und <strong>Veranstaltungen</strong>.",
+      "categoriesTitle": "Themen entdecken",
+      "categoriesDescription": "Entdecke Informationen zu Themen wie <strong>Wohnen</strong>, <strong>Bildung</strong>, <strong>Arbeit</strong> und mehr.",
+      "searchAndLanguageTitle": "Sprache und Suche",
+      "searchAndLanguageDescription": "Suche nach Themen oder ändere die Sprache.",
+      "additionalFeaturesTitle": "Zusatzfunktionen",
+      "additionalFeaturesDescription": "Nutze hier weitere Funktionen wie <strong>PDF erstellen</strong>, <strong>Vorlesen</strong>, <strong>Teilen</strong> und <strong>hohen Kontrast</strong>.",
+      "additionalFeaturesWithFeedbackDescription": "Nutze hier weitere Funktionen wie <strong>PDF erstellen</strong>, <strong>Vorlesen</strong>, <strong>Feedback geben</strong>, <strong>Teilen</strong> und mehr.",
+      "chatDescription": "Stelle hier deine Fragen und bekomme schnell passende Antworten.",
+      "feedbackDescription": "Wir freuen uns über dein Feedback. Sag uns, was dir gefällt und was wir besser machen können."
+    },
+    "en": {
+      "welcomeDescription": "This short tour shows you the most important features of the app.",
+      "startTour": "Start tour",
+      "skipTour": "Skip tour",
+      "progress": "Step {{current}} of {{total}}",
+      "finish": "Finish",
+      "finishTitle": "Done!",
+      "finishDescription": "Now you know the most important features. Good luck with {{appName}}!",
+      "finishAction": "Let's go",
+      "changeLocationDescription": "Select your <strong>city</strong> here to find local information.",
+      "navigationTitle": "Navigation",
+      "navigationDescription": "Switch between <strong>Information</strong>, <strong>Map</strong>, <strong>News</strong> and <strong>Events</strong> here.",
+      "categoriesTitle": "Discover topics",
+      "categoriesDescription": "Discover information on topics such as <strong>Housing</strong>, <strong>Education</strong>, <strong>Work</strong> and more.",
+      "searchAndLanguageTitle": "Language and search",
+      "searchAndLanguageDescription": "Search for topics or change the language.",
+      "additionalFeaturesTitle": "Additional features",
+      "additionalFeaturesDescription": "Use further features here such as <strong>creating a PDF</strong>, <strong>reading aloud</strong>, <strong>sharing</strong> and <strong>high contrast</strong>.",
+      "additionalFeaturesWithFeedbackDescription": "Use further features here such as <strong>creating a PDF</strong>, <strong>reading aloud</strong>, <strong>giving feedback</strong>, <strong>sharing</strong> and more.",
+      "chatDescription": "Ask your questions here and quickly get suitable answers.",
+      "feedbackDescription": "We are happy to receive your feedback. Tell us what you like and what we can do better."
+    }
   }
 }

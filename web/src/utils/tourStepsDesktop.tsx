@@ -1,0 +1,99 @@
+import { Position } from '@reactour/tour'
+import React from 'react'
+
+import { getChatName } from 'shared'
+
+import TourStepContent, { ArrowAlignment, TourStepsProps, TourStepType } from '../components/TourStepContent'
+import buildConfig from '../constants/buildConfig'
+import {
+  CHAT_FAB_ELEMENT_ID,
+  HEADER_ACTIONS_ELEMENT_ID,
+  HEADER_MENU_ELEMENT_ID,
+  HEADER_TITLE_ELEMENT_ID,
+  NAVIGATION_TABS_ELEMENT_ID,
+  TILES_ELEMENT_ID,
+  TOOLBAR_ELEMENT_ID,
+} from '../constants/layout'
+import getNavigationItems from './navigationItems'
+
+const positionBelowElement =
+  (arrowAlignment: ArrowAlignment): NonNullable<TourStepType['position']> =>
+  ({ left, right, bottom, width, windowWidth }) => {
+    const horizontalPosition = arrowAlignment === 'left' ? left : right - width
+    // Keeps the popover within the screen for elements close to its edges
+    const clampedHorizontalPosition = Math.min(Math.max(horizontalPosition, 0), windowWidth - width)
+    return [clampedHorizontalPosition, bottom]
+  }
+
+const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): TourStepType[] => {
+  const { appName, featureFlags, icons } = buildConfig()
+  const besideElement: Position = rtl ? 'left' : 'right'
+  const atStart: ArrowAlignment = rtl ? 'right' : 'left'
+  const atEnd: ArrowAlignment = rtl ? 'left' : 'right'
+
+  const steps: (TourStepType | null)[] = [
+    featureFlags.fixedRegion
+      ? null
+      : {
+          offset: { horizontal: -8, vertical: 24 },
+          selector: `#${HEADER_TITLE_ELEMENT_ID}`,
+          position: positionBelowElement(atStart),
+          arrowAlignment: atStart,
+          content: <TourStepContent title={t('layout:changeLocation')} descriptionKey='changeLocationDescription' />,
+        },
+    getNavigationItems({ regionModel: region, languageCode })
+      ? {
+          offset: { horizontal: 8, vertical: 24 },
+          selector: `#${NAVIGATION_TABS_ELEMENT_ID}`,
+          position: positionBelowElement(atStart),
+          arrowAlignment: atStart,
+          content: <TourStepContent title={t('navigationTitle')} descriptionKey='navigationDescription' />,
+        }
+      : null,
+    {
+      offset: { horizontal: 24, vertical: 32 },
+      selector: `#${TILES_ELEMENT_ID} > :first-child`,
+      position: besideElement,
+      content: <TourStepContent title={t('categoriesTitle')} descriptionKey='categoriesDescription' />,
+    },
+    {
+      offset: { horizontal: -16, vertical: 24 },
+      selector: `#${HEADER_ACTIONS_ELEMENT_ID}`,
+      position: positionBelowElement(atEnd),
+      arrowAlignment: atEnd,
+      content: <TourStepContent title={t('searchAndLanguageTitle')} descriptionKey='searchAndLanguageDescription' />,
+    },
+    {
+      offset: { horizontal: 4, vertical: 24 },
+      selector: `#${HEADER_MENU_ELEMENT_ID}`,
+      position: positionBelowElement(atEnd),
+      arrowAlignment: atEnd,
+      content: (
+        <TourStepContent
+          title={t('additionalFeaturesTitle')}
+          descriptionKey='additionalFeaturesDescription'
+          previewSrc={icons.tourMenuPreview}
+        />
+      ),
+    },
+    featureFlags.chat && region.chatEnabled
+      ? {
+          offset: { horizontal: -16, vertical: -24 },
+          selector: `#${CHAT_FAB_ELEMENT_ID}`,
+          position: 'top',
+          arrowAlignment: atEnd,
+          content: <TourStepContent title={getChatName(appName)} descriptionKey='chatDescription' />,
+        }
+      : null,
+    {
+      offset: { horizontal: 16 },
+      selector: `#${TOOLBAR_ELEMENT_ID}`,
+      position: besideElement,
+      content: <TourStepContent title={t('feedback:giveFeedback')} descriptionKey='feedbackDescription' />,
+    },
+  ]
+
+  return steps.filter((step): step is TourStepType => step !== null)
+}
+
+export default tourStepsDesktop

@@ -6,6 +6,7 @@ import React, { ReactElement, ReactNode } from 'react'
 
 import { REGIONS_ROUTE, pathnameFromRouteInformation } from 'shared'
 
+import { HEADER_ELEMENT_ID } from '../constants/layout'
 import useElementRect from '../hooks/useElementRect'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
 import HeaderLogo from './HeaderLogo'
@@ -74,7 +75,7 @@ export const Header = ({ actionItems = [], logoHref, regionName, language, tabBa
   return (
     <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2}>
       <StyledPaper>
-        <HeaderContainer ref={ref}>
+        <HeaderContainer id={HEADER_ELEMENT_ID} ref={ref}>
           <Row>
             <Stack direction='row-reverse' alignItems='center' gap={1}>
               <HeaderLogo link={logoHref} />
