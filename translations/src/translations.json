@@ -14195,7 +14195,6 @@
     },
     "am": {
       "nothingFound": "ይቅርታ፣ ምንም የማዛመድ ውጤቶች አልተገኙም።",
-      "searchPlaceholder": "ፍለጋ",
       "itemHint": "የፍለጋ ውጤቱን ክፈት",
       "searchResultsCount_zero": "0 የፍለጋ ውጤቶች",
       "searchResultsCount_one": "1 የፍለጋ ውጤት",
@@ -14208,7 +14207,6 @@
     },
     "ar": {
       "nothingFound": "للأسف لم يتم العثور على نتائج مطابقة.",
-      "searchPlaceholder": "بحث",
       "itemHint": "فتح نتيجة البحث",
       "searchResultsCount_zero": "0 نتائج بحث",
       "searchResultsCount_one": "عدد 1 نتيجة بحث",
@@ -14221,7 +14219,6 @@
     },
     "bg": {
       "nothingFound": "За съжаление не бяха намерени съответстващи резултати.",
-      "searchPlaceholder": "Търсене",
       "itemHint": "Отваряне на резултата от търсенето",
       "searchResultsCount_zero": "0 резултата от търсенето",
       "searchResultsCount_one": "1 резултат от търсенето",
@@ -14234,7 +14231,6 @@
     },
     "ckb": {
       "nothingFound": "بەداخەوە هیچ ئەنجامێکی بەکەڵک نەدۆزراوە.",
-      "searchPlaceholder": "گەڕان",
       "itemHint": "کردنەوەی دەرئەنجامی گەڕان",
       "searchResultsCount_zero": "0 دەرئەنجامی گەڕان",
       "searchResultsCount_one": "1 دەرئەنجامی گەڕان",
@@ -14247,7 +14243,6 @@
     },
     "cs": {
       "nothingFound": "Je nám líto, ale nebyly nalezeny žádné odpovídající výsledky",
-      "searchPlaceholder": "Vyhledávání",
       "itemHint": "Otevřít výsledek vyhledávání",
       "searchResultsCount_zero": "0 výsledků hledání",
       "searchResultsCount_one": "1 výsledek hledání",
@@ -14260,7 +14255,6 @@
     },
     "da": {
       "nothingFound": "Beklager, der blev ikke fundet nogen matchende resultater.",
-      "searchPlaceholder": "Søg efter",
       "itemHint": "Åbn søgeresultat",
       "searchResultsCount_zero": "0 søgeresultater",
       "searchResultsCount_one": "1 søgeresultat",
@@ -14273,7 +14267,6 @@
     },
     "el": {
       "nothingFound": "Δυστυχώς δεν βρέθηκαν ταιριαστά αποτελέσματα.",
-      "searchPlaceholder": "Αναζήτηση",
       "itemHint": "Άνοιγμα αποτελέσματος αναζήτησης",
       "searchResultsCount_zero": "0 αποτελέσματα αναζήτησης",
       "searchResultsCount_one": "1 αποτέλεσμα αναζήτησης",
@@ -14299,7 +14292,6 @@
     },
     "es": {
       "nothingFound": "No se ha encontrado ningún resultado.",
-      "searchPlaceholder": "Búsqueda",
       "itemHint": "Abrir resultados de búsqueda",
       "searchResultsCount_zero": "0 resultados de búsqueda",
       "searchResultsCount_one": "1 resultado de búsqueda",
@@ -14312,7 +14304,6 @@
     },
     "fi": {
       "nothingFound": "Sopivia hakutuloksia ei löydetty.",
-      "searchPlaceholder": "Haku",
       "itemHint": "Avaa hakutulos",
       "searchResultsCount_zero": "0 hakutulosta",
       "searchResultsCount_one": "1 hakutulos",
@@ -14325,7 +14316,6 @@
     },
     "fr": {
       "nothingFound": "Malheureusement, nous n'avons trouvé aucun résultat.",
-      "searchPlaceholder": "Recherche",
       "itemHint": "Ouvrir le résultat de la recherche",
       "searchResultsCount_zero": "0 résultat de recherche",
       "searchResultsCount_one": "1 résultat de recherche",
@@ -14338,7 +14328,6 @@
     },
     "hi": {
       "nothingFound": "क्षमा करें, हमें कोई मैचिंग परिणाम नहीं मिल सका।",
-      "searchPlaceholder": "खोजें",
       "itemHint": "खोज परिणाम देखें",
       "searchResultsCount_zero": "0 खोज परिणाम",
       "searchResultsCount_one": "1 खोज परिणाम",
@@ -14351,7 +14340,6 @@
     },
     "hr": {
       "nothingFound": "Nažalost, nisu pronađeni prikladni rezultati.",
-      "searchPlaceholder": "Pretraživanje",
       "itemHint": "Otvoriti rezultat pretrage",
       "searchResultsCount_zero": "0 rezultata pretrage",
       "searchResultsCount_one": "1 rezultat pretrage",
@@ -14364,7 +14352,6 @@
     },
     "hu": {
       "nothingFound": "Sajnos nem találtunk megfelelő eredményt.",
-      "searchPlaceholder": "Keresés",
       "itemHint": "Találatok megnyitása",
       "searchResultsCount_zero": "0 találat",
       "searchResultsCount_one": "1 találat",
@@ -14377,7 +14364,6 @@
     },
     "id": {
       "nothingFound": "Maaf, kami tidak dapat menemukan hasil yang cocok.",
-      "searchPlaceholder": "Cari",
       "itemHint": "Lihat hasil pencarian",
       "searchResultsCount_zero": "0 hasil pencarian",
       "searchResultsCount_one": "1 hasil pencarian",
@@ -14390,7 +14376,6 @@
     },
     "it": {
       "nothingFound": "Purtroppo non sono stati trovati risultati corrispondenti.",
-      "searchPlaceholder": "Ricerca",
       "itemHint": "Apri i risultati di ricerca",
       "searchResultsCount_zero": "0 risultati di ricerca",
       "searchResultsCount_one": "1 risultato di ricerca",
@@ -14403,7 +14388,6 @@
     },
     "ka": {
       "nothingFound": "სამწუხაროდ შესაბამისი შედეგები ვერ მოიძებნა.",
-      "searchPlaceholder": "ძიება",
       "itemHint": "საძიებო შედეგის გახსნა",
       "searchResultsCount_zero": "0 საძიებო შედეგის გახსნა",
       "searchResultsCount_one": "1 საძიებო შედეგის გახსნა",
@@ -14416,7 +14400,6 @@
     },
     "kmr": {
       "nothingFound": "Mixabin tu encameka guncan peyde nebû.",
-      "searchPlaceholder": "Lêgerîn",
       "itemHint": "Vekirina encama lêgerînê",
       "searchResultsCount_zero": "0 encama lêgerînê",
       "searchResultsCount_one": "1 encama lêgerînê",
@@ -14429,7 +14412,6 @@
     },
     "mk": {
       "nothingFound": "За жал не се пронајдени соодветни резултати.",
-      "searchPlaceholder": "Пребарај",
       "itemHint": "Отвори го резултатот од пребарувањето",
       "searchResultsCount_zero": "0 резултати од пребарувањето",
       "searchResultsCount_one": "1 резултат од пребарувањето",
@@ -14442,7 +14424,6 @@
     },
     "nl": {
       "nothingFound": "Sorry, we hebben geen passend resultaat kunnen vinden.",
-      "searchPlaceholder": "Zoek",
       "itemHint": "Zoekresultaat openen",
       "searchResultsCount_zero": "0 zoekresultaten",
       "searchResultsCount_one": "1 zoekresultaat",
@@ -14455,7 +14436,6 @@
     },
     "orm": {
       "nothingFound": "Dhiifama, bu'aa walsimsiisu argachuu hin dandeenye.",
-      "searchPlaceholder": "Barbaadi",
       "itemHint": "Bu'aa barbaadame ilaali",
       "searchResultsCount_zero": "Bu’aan barbaadame 0",
       "searchResultsCount_one": "Bu’aan barbaadame 1",
@@ -14468,7 +14448,6 @@
     },
     "pes": {
       "nothingFound": "متأسفانه هیچ نتیجه منطبقی یافت نشد.",
-      "searchPlaceholder": "جستجو",
       "itemHint": "باز کردن نتیجه جستجو",
       "searchResultsCount_zero": "0 نتیجه جستجو",
       "searchResultsCount_one": "1 نتیجه جستجو",
@@ -14481,7 +14460,6 @@
     },
     "pl": {
       "nothingFound": "Niestety nie znaleziono odpowiednich wyników.",
-      "searchPlaceholder": "Wyszukaj",
       "itemHint": "Otwórz wynik wyszukiwania",
       "searchResultsCount_zero": "0 wyników wyszukiwania",
       "searchResultsCount_one": "1 wynik wyszukiwania",
@@ -14494,7 +14472,6 @@
     },
     "prs": {
       "nothingFound": "متأسفانه هیچ نتیجه منطبقی یافت نشد.",
-      "searchPlaceholder": "جستجو",
       "itemHint": "باز کردن نتیجه جستجو",
       "searchResultsCount_zero": "0 نتیجه جستجو",
       "searchResultsCount_one": "1 نتیجه جستجو",
@@ -14507,7 +14484,6 @@
     },
     "ps": {
       "nothingFound": "له بده مرغه مناسبې نتیجې پیدا نشوې.",
-      "searchPlaceholder": "لټون",
       "itemHint": "د لټون پايلې خلاصې کړئ",
       "searchResultsCount_zero": "د لټون 0 پايله",
       "searchResultsCount_one": "د لټون 1 پايله",
@@ -14520,7 +14496,6 @@
     },
     "pt": {
       "nothingFound": "Lamentamos, mas não foi encontrado nenhum resultado correspondente.",
-      "searchPlaceholder": "Procura",
       "itemHint": "Abrir resultado da pesquisa",
       "searchResultsCount_zero": "0 resultados da pesquisa",
       "searchResultsCount_one": "1 resultado da pesquisa",
@@ -14533,7 +14508,6 @@
     },
     "ro": {
       "nothingFound": "Din păcate, nu au fost găsite nici un fel de rezultate utile.",
-      "searchPlaceholder": "Căutare",
       "itemHint": "Deschide rezultatul căutării",
       "searchResultsCount_zero": "0 rezultate ale căutării",
       "searchResultsCount_one": "1 rezultat al căutării",
@@ -14546,7 +14520,6 @@
     },
     "rom": {
       "nothingFound": "Afi ker, našti arakhljam nisave prava rezultatoja.",
-      "searchPlaceholder": "Rode",
       "itemHint": "Dik e rodibaskoro rezultato",
       "searchResultsCount_zero": "0 rodibaskere rezultatoja",
       "searchResultsCount_one": "1 rodibaskoro rezultato",
@@ -14572,7 +14545,6 @@
     },
     "sk": {
       "nothingFound": "Neboli žiaľ nájdené žiadne vhodné výsledky.",
-      "searchPlaceholder": "Vyhľadávanie",
       "itemHint": "Otvoriť výsledok vyhľadávania",
       "searchResultsCount_zero": "0 výsledkov vyhľadávania",
       "searchResultsCount_one": "1 výsledok vyhľadávania",
@@ -14585,7 +14557,6 @@
     },
     "so": {
       "nothingFound": "Nasiib darro natiijooyin ku habboon lama helin.",
-      "searchPlaceholder": "Raadin",
       "itemHint": "Fur natiijada raadinta",
       "searchResultsCount_zero": "0 natiijoyinka raadinta",
       "searchResultsCount_one": "1 natiijoyinka raadinta",
@@ -14598,7 +14569,6 @@
     },
     "sq": {
       "nothingFound": "Fatkeqësisht nuk u gjetën rezultate që përputhen.",
-      "searchPlaceholder": "Kërkim",
       "itemHint": "Hapni rezultatin e kërkimit",
       "searchResultsCount_zero": "0 rezultat kërkimi",
       "searchResultsCount_one": "1 rezultat kërkimi",
@@ -14611,7 +14581,6 @@
     },
     "sr-Cyrl": {
       "nothingFound": "Нажалост, нису пронађени одговарајући резултати.",
-      "searchPlaceholder": "Претраживање",
       "itemHint": "Отвори резултате претраге",
       "searchResultsCount_zero": "0 резултата претраге",
       "searchResultsCount_one": "1 резултат претраге",
@@ -14624,7 +14593,6 @@
     },
     "sr-Latn": {
       "nothingFound": "Nažalost nisu pronađeni odgovarajući razultati.",
-      "searchPlaceholder": "Pretraživanje",
       "itemHint": "Otvori rezultate pretrage",
       "searchResultsCount_zero": "0 rezultata pretrage",
       "searchResultsCount_one": "1 rezultat pretrage",
@@ -14637,7 +14605,6 @@
     },
     "sw": {
       "nothingFound": "Samahani, hatujapata matokeo yoyote yanayolingana.",
-      "searchPlaceholder": "Tafuta",
       "itemHint": "Angalia matokeo ya utafutaji",
       "searchResultsCount_zero": "Matokeo 0 ya utafutaji",
       "searchResultsCount_one": "Tokeo 1 la utafutaji",
@@ -14650,7 +14617,6 @@
     },
     "th": {
       "nothingFound": "ขออภัย ไม่พบผลลัพธ์ที่ตรงกัน",
-      "searchPlaceholder": "ค้นหา",
       "itemHint": "เปิดผลการค้นหา",
       "searchResultsCount_zero": "0 ผลการค้นหา",
       "searchResultsCount_one": "ผลการค้นหา 1 รายการ",
@@ -14663,7 +14629,6 @@
     },
     "ti": {
       "nothingFound": "ሕማቕ ኣጋጣሚ ኾይኑ ዝኾኑ ዝሰማምዑ ውጺኢታት ኣይተረኽቡን።",
-      "searchPlaceholder": "ፈትሽ",
       "itemHint": "ውጽኢት ምድላይ ክፈቱ",
       "searchResultsCount_zero": "0 ውጽኢት ምድላይ",
       "searchResultsCount_one": "1 ውጽኢት ምድላይ",
@@ -14676,7 +14641,6 @@
     },
     "tr": {
       "nothingFound": "Maalesef uygun sonuç bulunamadı.",
-      "searchPlaceholder": "Arama",
       "itemHint": "Arama sonucunu aç",
       "searchResultsCount_zero": "0 arama sonucu",
       "searchResultsCount_one": "1 arama sonucu",
@@ -14689,7 +14653,6 @@
     },
     "uk": {
       "nothingFound": "На жаль, не знайдено жодного відповідного результату.",
-      "searchPlaceholder": "Пошук",
       "itemHint": "Відкрити результат пошуку",
       "searchResultsCount_zero": "0 результатів пошуку",
       "searchResultsCount_one": "1 результат пошуку",
@@ -14702,7 +14665,6 @@
     },
     "ur": {
       "nothingFound": "معذرت، اس سے ملتے جلتے کوئی نتائج نہیں ملے۔",
-      "searchPlaceholder": "تلاش کریں",
       "itemHint": "تلاش کا نتیجہ کھولیں۔",
       "searchResultsCount_zero": "0 تلاش کے نتائج",
       "searchResultsCount_one": "1 تلاش کا نتیجہ",
@@ -14715,7 +14677,6 @@
     },
     "vi": {
       "nothingFound": "Rất tiếc, chúng tôi không tìm thấy kết quả nào phù hợp.",
-      "searchPlaceholder": "Tìm kiếm",
       "itemHint": "Xem kết quả tìm kiếm",
       "searchResultsCount_zero": "0 kết quả tìm kiếm",
       "searchResultsCount_one": "1 kết quả tìm kiếm",
@@ -14728,7 +14689,6 @@
     },
     "zh-CN": {
       "nothingFound": "很抱歉，找不到匹配的结果。",
-      "searchPlaceholder": "搜索",
       "itemHint": "打开搜索结果",
       "searchResultsCount_zero": "0 个搜索结果",
       "searchResultsCount_one": "1 个搜索结果",
