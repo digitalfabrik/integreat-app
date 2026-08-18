@@ -1,4 +1,4 @@
-import aschaffenburgOverrideTranslations from 'translations/override-translations/aschaffenburg.json' with { type: 'json' }
+import aschaffenburgOverrideTranslations from 'translations/override-translations/aschaffenburg'
 
 import { ASCHAFFENBURG_ASSETS } from '../AssetsType.ts'
 import type {

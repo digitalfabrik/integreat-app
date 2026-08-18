@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "{{appName}} es su asistente digital de los malteses. Aquí encontrará información local, fechas y consejos de su institución. ¡Siempre al día y en su idioma!"
+  },
+  "dashboard": {
+    "events": "Fechas"
+  },
+  "error": {
+    "notFound": {
+      "event": "Desgraciadamente no se ha encontrado esta fecha."
+    },
+    "goTo": {
+      "events": "Ir a fechas"
+    }
+  },
+  "events": {
+    "events": "Fechas",
+    "currentlyNoEvents": "Actualmente no hay fechas.",
+    "pageTitle": "Fechas"
+  },
+  "feedback": {
+    "contentOfEvent": "Contenido de la fecha \"{{event}}\""
+  },
+  "intro": {
+    "appDescription": "{{appName}} es su asistente digital de los malteses.",
+    "events": "Fechas",
+    "eventsDescription": "Eventos actuales y fechas"
+  },
+  "layout": {
+    "events": "Fechas",
+    "noEvents": "No hay fechas"
+  },
+  "regions": {
+    "metaDescription": "{{appName}} es su asistente digital de los malteses. Aquí encontrará información local, fechas y consejos de su institución. ¡Siempre al día y en su idioma!"
+  }
+}

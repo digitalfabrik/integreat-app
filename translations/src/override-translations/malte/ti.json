@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "{{appName}} ዲጂታላዊ ሓጋዚኹም ካብቲ Maltese እዩ። ኣብዚ ከባብያዊ ሓበሬታ፡ ዕለታትን ምኽርን ካብ ትካልኩም ክትረኽቡ ኢኹም። ንሱ ኩሉግዜ ዝተሓደሰን ብቛንቋኹምን’ዩ!"
+  },
+  "dashboard": {
+    "events": "ኣጋጣሚታት"
+  },
+  "error": {
+    "notFound": {
+      "event": "ሕማቕ ኣጋጣሚ ኾይኑ፡ እዚ ዕለት’ዚ ኣይተረኽበን።"
+    },
+    "goTo": {
+      "events": "ናብቶም ኣጋጣሚታት"
+    }
+  },
+  "events": {
+    "events": "ኣጋጣሚታት",
+    "currentlyNoEvents": "ኣብዚ እዋን’ዚ ዕለታት የለዉን።",
+    "pageTitle": "ኣጋጣሚታት"
+  },
+  "feedback": {
+    "contentOfEvent": "ትሕዝቶ ናይቲ ናይ \"{{event}}\" ኣጋጣሚ"
+  },
+  "intro": {
+    "appDescription": "{{appName}} ዲጂታላዊ ሓጋዚኹም ካብቲ Maltese እዩ",
+    "events": "ኣጋጣሚታት",
+    "eventsDescription": "ህሉው ዕለታትን ኣጋጣሚታትን"
+  },
+  "layout": {
+    "events": "ኣጋጣሚታት",
+    "noEvents": "ኣጋጣሚታት የለዉን"
+  },
+  "regions": {
+    "metaDescription": "{{appName}} ዲጂታላዊ ሓጋዚኹም ካብቲ Maltese እዩ። ኣብዚ ከባብያዊ ሓበሬታ፡ ዕለታትን ምኽርን ካብ ትካልኩም ክትረኽቡ ኢኹም። ንሱ ኩሉግዜ ዝተሓደሰን ብቛንቋኹምን’ዩ!"
+  }
+}

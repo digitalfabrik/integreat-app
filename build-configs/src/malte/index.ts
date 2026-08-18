@@ -1,4 +1,4 @@
-import malteOverrideTranslations from 'translations/override-translations/malte.json' with { type: 'json' }
+import malteOverrideTranslations from 'translations/override-translations/malte'
 
 import { MALTE_ASSETS } from '../AssetsType.ts'
 import type {
