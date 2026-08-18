@@ -147,7 +147,7 @@
       "organizationMoreInformation": "Je kunt meer informatie vinden over <1>{{organization}}</1> op <3>{{domain}}</3>.",
       "disabledPdf": "PDF-export is momenteel in deze taal niet mogelijk."
     },
-    "orm": {
+    "om": {
       "createPdf": "PDF bani",
       "metaDescription": "{{appName}} kun qajeelfama dijitaalaa jireenya keessan Jarman keessaadha. Odeeffannoo naannoo, sagantaalee fi gorsa argadhu. Yeroo hunda yeroo ammaa fi afaan keessaniin kan argamu.",
       "organizationContent": "Yaadni waraqaa kana irraa kan dhufe {{organization}}.",
@@ -527,7 +527,7 @@
       "sendButton": "Verzenden",
       "user": "Jij"
     },
-    "orm": {
+    "om": {
       "bot": "Chaatbootii",
       "conversationTitle": "Bakka barrreefa kanaatti gaaffii keessan barreessaa.",
       "conversationText": "Odeeffannoo naannoo irraa kaasee hanga gaaffii dhimma dhuunfaa keetti waan kamiyyuu gaafachuu dandeessa.",
@@ -895,7 +895,7 @@
       "sendText": "Kopieer deze tekst, vul de […] content aan met jouw details en verstuur",
       "copyText": "Kopieer tekst"
     },
-    "orm": {
+    "om": {
       "callToAction": "Naannoo keessan akka fudhatu gaafadhaa!",
       "explanation": "Yaad-rimeen tola ooltummaa Integreat-App kun si amansiiseera akkasumasdabalataan naannoo kee yaadi,\nDameen keessan ykn hawaasni keessan furmaata dijitaalaa kana irraa fayyadamuu danda'aa? Haala kana keessatti salphaatti amma asitti sochii gochuu dandeessu.",
       "whatToDo": "Kun wanta ati gochuu dandeessudha:",
@@ -1384,7 +1384,7 @@
       "privacyPolicy": "Ik heb het <1>privacybeleid</1> gelezen en ga akkoord met de verwerking en opslag van mijn gegevens.",
       "nearby": "Vlakbij jou"
     },
-    "orm": {
+    "om": {
       "copied": "Koppii taeera",
       "moreOptions": "Filannoo dabalataa",
       "lastUpdate": "Yeroo dhumaaf kan fooyyae:",
@@ -1905,7 +1905,7 @@
       "knownResourceBlocked": "Externe inhoud van deze bron is geblokkeerd. U kunt deze bron toestaan in de instellingen.",
       "noSources": "Geen externe bronnen beschikbaar."
     },
-    "orm": {
+    "om": {
       "title": "Maddoota alaa",
       "description": "Agarsiisa qabiyyee dabalataa dhiyeessitoota qaama sadaffaa irraa dhaabbataadhaan walii galuu dandeessa. Filannoon sun booda dhaabbataadhaan biroowserii interneetii keessan keessatti ni kuufama. Yeroo barbaaddetti hayyama kee asitti haquu dandeessa.",
       "descriptionNative": "Agarsiisa qabiyyee dabalataa dhiyeessitoota qaama sadaffaa irraa dhaabbataadhaan walii galuu dandeessa. Filannoon sun booda dhaabbataadhaan gara biroowserii interneetii keessan keessatti ni kuufama. Yeroo barbaaddetti hayyama kee asitti haquu dandeessa.",
@@ -2190,7 +2190,7 @@
     "nl": {
       "pageTitle": "Impressum"
     },
-    "orm": {
+    "om": {
       "pageTitle": "Ashaaraa"
     },
     "pes": {
@@ -2999,7 +2999,7 @@
       "noCalendarFound": "Er is geen geschikte kalender gevonden.",
       "settingsError": "Fout bij het toepassen van de instellingen"
     },
-    "orm": {
+    "om": {
       "notFound": {
         "region": "Dhiifama naannoon kun as keessa him jiru.",
         "category": "Dhiifama, garuu bakki isin gaafattan hin jiru.",
@@ -4330,7 +4330,7 @@
       "selectRange": "Periode selecteren",
       "outOfRangeError": "Datum buiten bereik"
     },
-    "orm": {
+    "om": {
       "address": "Bakka",
       "events": "Sagantaalee",
       "export": "ekispoort godhi",
@@ -5473,7 +5473,7 @@
       "noResultsInUserLanguage": "Sorry, er zijn geen overeenkomende resultaten gevonden in jouw taal.",
       "noResultsInUserAndSourceLanguage": "Sorry, er zijn geen overeenkomende resultaten gevonden in jouw taal of in het Duits."
     },
-    "orm": {
+    "om": {
       "send": "Erguu",
       "failedSendingFeedback": "Yeroo duub deebii erguu dogongorri uumamee jira.",
       "feedback": "Duub deebii",
@@ -6447,7 +6447,7 @@
       "skip": "Sla over",
       "next": "Ga door"
     },
-    "orm": {
+    "om": {
       "welcome": "Gara {{appName}} baga nagaan dhuftan",
       "welcomeDescription": "{{appName}} keessatti, deebifi odeeffannoo afaan keetin argachuu dandeessa. Fakkeenyaf: Gargaarsa eessaan argadha? Akkan hojjadhuuf yoom naaf hayyamama?",
       "search": "Barbaacha Salphaa",
@@ -7211,7 +7211,7 @@
       "regionNotFound": "Jouw regio niet gevonden? Word nu actief!",
       "suggestToRegion": "{{appName}} in jouw regio voorstellen"
     },
-    "orm": {
+    "om": {
       "searchRegion": "Barbaadi",
       "noRegionsFound": "Bu'aan hin argamne",
       "nearbyRegions": "Naannoo sanatti",
@@ -8414,7 +8414,7 @@
       "voiceUnavailable": "Geen stem geïnstalleerd",
       "voiceUnavailableMessage": "Er werd geen stem gevonden. Er moet een stem geïnstalleerd zijn om de voorleesfunctie te kunnen gebruiken. Neem de volgende instructies voor jouw besturingssysteem in acht."
     },
-    "orm": {
+    "om": {
       "imprint": "Ashaaraa",
       "privacy": "Eegumsa daataa",
       "localInformation": "Odeeffannoo naannoo",
@@ -9359,7 +9359,7 @@
       "license": "Licentie:",
       "noLicensesMessage": "Geen licentie-informatie beschikbaar"
     },
-    "orm": {
+    "om": {
       "version": "Gosa:",
       "license": "Eeyyama:",
       "noLicensesMessage": "Odeeffannoon hayyamaa hin jiru"
@@ -9534,7 +9534,7 @@
     "nl": {
       "pageTitle": "Impressum - {{appName}}"
     },
-    "orm": {
+    "om": {
       "pageTitle": "Ashaaraa - {{appName}}"
     },
     "pes": {
@@ -10085,7 +10085,7 @@
       "submitFailedReasoning": "Zorg voor een stabiele internetverbinding en probeer het opnieuw.",
       "invalidEmailAddress": "Het opgegeven e-mailadres is ongeldig."
     },
-    "orm": {
+    "om": {
       "supportNote": "Yeroo rakkoon ykn gaaffii qabaattan hundatti nageenyi fi deeggarsa akka isinitti dhagahamu barbaanna. Unki quunnamtii armaan gadii kun nama quunnamtii tokko waliin wal qunnamuuf carraa siif kenna. Maalummaa gaaffii keetii ibsuu fi filannoowwan quunnamtii adda addaa keessaa filachuu dandeessa.",
       "securityNote": "Nageenyi keessan aantummaa keenya isa olaanaadha. Daataan keessan iccitiidhaan kan ilaalamu yoo ta’u, yeroo hunda iccitiin keessan akka eegamudha.",
       "name": "Maqaa abbaa, maqaa jalqabaa",
@@ -10740,7 +10740,7 @@
       "NSCalendarsUsageDescription": "{{appName}} wil toegang tot de kalender om een evenement toe te voegen.",
       "NSCalendarsFullAccessUsageDescription": "{{appName}} wil toegang tot de kalender om een evenement toe te voegen."
     },
-    "orm": {
+    "om": {
       "NSPhotoLibraryAddUsageDescription": "{{appName}} suuraawwan gara kuusaa keessanitti saaguu barbaaddaa.",
       "NSLocationWhenInUseUsageDescription": "{{appName}} bakka dhiyoo jiran barbaaduuf bakka kee fayyadamuu barbaaddaa.",
       "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} bakka dhiyoo jiran barbaaduuf bakka kee fayyadamuu barbaaddaa.",
@@ -11030,7 +11030,7 @@
       "local": "Lokaal",
       "currentlyNoNews": "Op dit moment is er geen nieuws."
     },
-    "orm": {
+    "om": {
       "news": "Oduu",
       "localNews": "Oduu naannoo",
       "local": "Naannoo",
@@ -12638,7 +12638,7 @@
       "placesCount_other": "{{count}} locaties",
       "contacts": "Contacten"
     },
-    "orm": {
+    "om": {
       "pageTitle": "Kaartaa",
       "place": "Bakka",
       "places": "Bakkeewwan",
@@ -14434,7 +14434,7 @@
       "pageTitle": "Zoek",
       "delete": "Invoer verwijderen"
     },
-    "orm": {
+    "om": {
       "nothingFound": "Dhiifama, bu'aa walsimsiisu argachuu hin dandeenye.",
       "itemHint": "Bu'aa barbaadame ilaali",
       "searchResultsCount_zero": "Bu’aan barbaadame 0",
@@ -14998,7 +14998,7 @@
       "externalResourcesTitle": "Externe bronnen",
       "externalResourcesDescription": "Geef aan welke externe bronnen zijn toegestaan."
     },
-    "orm": {
+    "om": {
       "sentryTitle": "Ga’umsa App",
       "sentryDescription": "Gabaasa kufaatii hatattamaan ofii isaa erguu appii {{appName}} fooyyessi",
       "pushNewsTitle": "Yaadachiisa dhiibbaa",
@@ -15434,7 +15434,7 @@
       "whatsappTooltip": "in WhatsApp delen",
       "closeTooltip": "Sluiten"
     },
-    "orm": {
+    "om": {
       "facebookTooltip": "Feesbuuki irratti qoodi",
       "mailTooltip": "karaa email gorsuu",
       "whatsappTooltip": "Karaa WhatsApp qoodi",
@@ -15631,7 +15631,7 @@
     "nl": {
       "noOffersAvailable": "Geen aanbod beschikbaar"
     },
-    "orm": {
+    "om": {
       "noOffersAvailable": "Dhiyeessiin hin jiru"
     },
     "pes": {
