@@ -1,6 +1,8 @@
 import { css, SerializedStyles } from '@emotion/react'
 import { Theme } from '@mui/material/styles'
 
+import { bottomSheetHandleHeight } from '../../hooks/useDimensions'
+
 const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
   body {
     margin: 0;
@@ -9,22 +11,19 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
     /* stylelint-disable selector-class-pattern */
 
     /* react-spring-bottom-sheet */
+    --rsbs-bg: ${theme.palette.background.default};
 
     [data-rsbs-header] {
-      background-color: ${theme.palette.background.default};
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      min-height: ${bottomSheetHandleHeight}px;
       box-shadow: none;
-      padding-top: calc(24px + env(safe-area-inset-top));
     }
 
     [data-rsbs-header]::before {
-      background-color: ${theme.palette.text.primary};
-      width: 28px;
-      height: 4px;
-      top: calc(18px + env(safe-area-inset-top));
-    }
-
-    [data-rsbs-has-header='false'] [data-rsbs-header] {
-      padding-top: calc(32px + env(safe-area-inset-top));
+      content: none;
     }
 
     [data-rsbs-content] {
@@ -33,11 +32,7 @@ const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
     }
 
     [data-rsbs-overlay] {
-      min-height: 40px;
-    }
-
-    [data-rsbs-scroll='true'] {
-      background-color: ${theme.palette.background.default};
+      min-height: ${bottomSheetHandleHeight}px;
     }
   }
 `
