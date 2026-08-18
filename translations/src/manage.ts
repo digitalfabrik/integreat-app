@@ -3,223 +3,134 @@ import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify'
 import flat from 'flat'
 import fs from 'fs'
-import { fromPairs, isEmpty, isEqual, isString, mapValues, merge, sortBy, toPairs, without, zip } from 'lodash-es'
+import { fromPairs, isEqual, sortBy, toPairs } from 'lodash-es'
 import path from 'path'
 
 import config from '../src/config.js'
-import { TranslationsType } from './index.ts'
-import { KeyValueType } from './types.ts'
 
 const { unflatten } = flat
 
-const XCODE_LANGUAGES_MAP: Record<string, string> = {
-  'sr-Cyrl': 'sr',
-  pes: 'fa',
-  prs: 'fa-AF',
-  kmr: 'ku',
-  'zh-CN': 'zh-HANS',
-} as const
+const CSV_KEY_COLUMN = 'key'
+const CSV_SOURCE_LANGUAGE_COLUMN = 'source_language'
+const CSV_TARGET_LANGUAGE_COLUMN = 'target_language'
 
-type TransformationFunctionType = (val: string | KeyValueType, key?: string, obj?: KeyValueType) => string
-const mapStringValuesDeep = (obj: KeyValueType, fn: TransformationFunctionType): KeyValueType =>
-  mapValues(obj, (val, key) => (!isString(val) ? mapStringValuesDeep(val, fn) : fn(val, key, obj)))
+type TranslationMap = { [key: string]: string | TranslationMap }
+type LanguageTranslations = { [namespace: string]: TranslationMap }
 
-const flattenModules = (modules: KeyValueType): Record<string, string> => flat(modules)
+const languageFilePath = (dir: string, language: string, extension = '.json'): string =>
+  path.join(dir, `${language}${extension}`)
 
-type LanguagePair = [string, string]
-
-const writePairs = (toPath: string, sourceLanguagePairs: LanguagePair[], pairs: LanguagePair[], name: string): void => {
-  const output = fs.createWriteStream(`${toPath}/${name}.csv`)
-  output.on('close', () => {
-    console.log(`Successfully written ${name}.csv.`)
-  })
-  output.on('error', e => {
-    console.log(`Failed to write ${name}.csv ${e}`)
-  })
-  const zippedLanguagePairs = zip(sourceLanguagePairs, pairs) as [LanguagePair, LanguagePair][]
-  const withSourceLanguagePairs = zippedLanguagePairs.map(
-    ([[_unusedSourceKey, sourceTranslation], [key, translation]]) => {
-      if (!translation) {
-        console.log('Missing translation:', key, '[', name, ']')
-      }
-      return [key, sourceTranslation, translation]
-    },
-  )
-  stringify([['key', 'source_language', 'target_language'], ...withSourceLanguagePairs]).pipe(output)
+const readLanguageFile = (dir: string, language: string): LanguageTranslations | null => {
+  const filePath = languageFilePath(dir, language)
+  if (!fs.existsSync(filePath)) {
+    return null
+  }
+  return JSON.parse(fs.readFileSync(filePath, 'utf-8')) satisfies LanguageTranslations
 }
 
-const EMPTY_MODULE = {}
-
-type KeyModuleType = [string, Record<string, KeyValueType>]
-type ModuleType = [string, KeyValueType]
-
-const getModulesByLanguage = (keyModuleArray: KeyModuleType[], language: string): ModuleType[] =>
-  keyModuleArray.map(([moduleKey, module]) => [moduleKey, module[language] || EMPTY_MODULE])
-
-/**
- * Create a translation skeleton which has all keys set to an empty string
- *
- * @param language The language which serves as the skeleton
- * @param moduleArray The array of modules (containing all languages) with its keys
- * @returns {*}
- */
-const createSkeleton = (language: string, moduleArray: KeyModuleType[]): ModuleType[] =>
-  getModulesByLanguage(moduleArray, language).map(([moduleKey, module]) => {
-    if (module === EMPTY_MODULE) {
-      throw new Error(`Module ${moduleKey} is missing in source language!`)
-    }
-
-    return [moduleKey, mapStringValuesDeep(module, _unusedTranslation => '')]
-  })
-
-const mergeByLanguageModule = (
-  byLanguageModule: ModuleType[],
-  skeleton: ModuleType[],
-  sourceLanguage: string,
-): ModuleType[] => {
-  const zippedModuleArray = zip(skeleton, byLanguageModule) as [ModuleType, ModuleType][]
-  return zippedModuleArray.map(([[_unusedSkModuleKey, skModule], [moduleKey, module]]) => {
-    const diff = without(Object.keys(flat(module)), ...Object.keys(flat(skModule)))
-
-    if (!isEmpty(diff)) {
-      throw new Error(`The keys [${diff}] are missing in module ${moduleKey} 
-                        (with the  source language ${sourceLanguage})!`)
-    }
-
-    return [moduleKey, merge({}, skModule, module)]
-  })
-}
-
-const writeCsvFromJson = (
-  json: TranslationsType,
-  toPath: string,
+const exportTranslationsToCsv = (
+  fromDir: string,
+  toDir: string,
   sourceLanguage: string,
   supportedLanguages: string[],
 ) => {
-  const moduleArray = sortBy(toPairs(json), ([moduleKey, _unusedModule]) => moduleKey) // Sort by module key
+  const sourceTranslations = readLanguageFile(fromDir, sourceLanguage)
+  if (!sourceTranslations) {
+    throw new Error(`Missing source language (${sourceLanguage}) translations file`)
+  }
+  const flatSource = flat(sourceTranslations) satisfies Record<string, string>
+  const sourceEntries = sortBy(toPairs(flatSource), ([key]) => key)
 
-  const byLanguageModuleArray = fromPairs<ModuleType[]>(
-    supportedLanguages
-      .filter(language => language !== sourceLanguage) // source language is not a target language
-      .map(targetLanguage => [targetLanguage, getModulesByLanguage(moduleArray, targetLanguage)]),
-  )
-  const skeleton = createSkeleton(sourceLanguage, moduleArray)
-  const filledByLanguageModuleArray = mapValues(byLanguageModuleArray, byLanguageModule =>
-    mergeByLanguageModule(byLanguageModule, skeleton, sourceLanguage),
-  )
-  const flattenByLanguage = mapValues(filledByLanguageModuleArray, modules => flattenModules(fromPairs(modules)))
-  const flattenSourceLanguage = flattenModules(fromPairs(getModulesByLanguage(moduleArray, sourceLanguage)))
-  Object.entries(flattenByLanguage).forEach(([languageKey, modules]) =>
-    writePairs(toPath, toPairs(flattenSourceLanguage), toPairs(modules), languageKey),
-  )
-  console.log(`Keys in source language ${sourceLanguage}: ${Object.keys(flattenSourceLanguage).length}`)
-}
+  supportedLanguages
+    .filter(language => language !== sourceLanguage)
+    .forEach(language => {
+      const flatTarget = flat(readLanguageFile(fromDir, language) ?? {}) satisfies Record<string, string>
+      const rows = sourceEntries.map(([key, sourceValue]) => [key, sourceValue, flatTarget[key] ?? ''])
 
-const loadModules = (csvFile: string, csvColumn: string): Record<string, KeyValueType> => {
-  // .trim() is needed to strip the BOM
-  const inputString = fs
-    .readFileSync(csvFile, {
-      encoding: 'utf8',
-    })
-    .trim()
-  const records: Record<string, string>[] = parse(inputString, {
-    columns: true,
-    skip_empty_lines: true,
-  })
-  const flattened = fromPairs(
-    records.map(record => [record.key, record[csvColumn]]).filter(([_unusedKey, translation]) => !!translation),
-  )
-  return unflatten(flattened)
-}
-
-const writeJsonFromCsv = (translations: string, toPath: string, sourceLanguage: string) => {
-  fs.readdir(translations, (err, files) => {
-    if (err) {
-      throw err
-    }
-
-    const csvs = files.map(file => `${translations}/${file}`).filter(file => path.extname(file) === '.csv')
-
-    if (isEmpty(csvs)) {
-      throw new Error('A minimum of one CSV is required in order to build a JSON!')
-    }
-
-    const byLanguageModules = fromPairs(
-      csvs.map(csvFile => [path.basename(csvFile, '.csv'), loadModules(csvFile, 'target_language')]),
-    )
-    const sourceLanguageCsv = csvs[0]
-    if (!sourceLanguageCsv) {
-      throw new Error('Need at least one csv!')
-    }
-    const sourceModules = loadModules(sourceLanguageCsv, 'source_language')
-    const flatSourceModules: Record<string, string> = flat(sourceModules)
-    // Show which source languages differ
-    csvs.forEach(csv => {
-      const csvModule = loadModules(csv, 'source_language')
-      const flatCsv: Record<string, string> = flat(csvModule)
-      const differingKey = Object.keys(flatCsv).find(key => flatSourceModules[key] !== flatCsv[key])
-
-      if (differingKey) {
-        console.log('differing key: ', differingKey)
-        console.log(csvs[0], ': ', flatSourceModules[differingKey])
-        console.log(csv, ': ', flatCsv[differingKey])
-        console.log()
-      }
+      const csvPath = languageFilePath(toDir, language, '.csv')
+      const output = fs.createWriteStream(csvPath)
+      output.on('close', () => console.log(`Successfully written ${csvPath}`))
+      output.on('error', error => console.log(`Failed to write ${csvPath}.csv: ${error}`))
+      stringify([[CSV_KEY_COLUMN, CSV_SOURCE_LANGUAGE_COLUMN, CSV_TARGET_LANGUAGE_COLUMN], ...rows]).pipe(output)
     })
 
-    if (!csvs.every(csv => isEqual(loadModules(csv, 'source_language'), sourceModules))) {
-      throw new Error("The 'source_language' column must be the same in every CSV!")
+  console.log(`Keys in source language ${sourceLanguage}: ${sourceEntries.length}`)
+}
+
+program.command('export <fromPath> <toPath>').action((fromPath: string, toPath: string) => {
+  const { supportedLanguages, sourceLanguage } = config
+  if (!fs.existsSync(toPath)) {
+    fs.mkdirSync(toPath, { recursive: true })
+  }
+  exportTranslationsToCsv(fromPath, toPath, sourceLanguage, Object.keys(supportedLanguages))
+})
+
+const loadColumn = (csvFile: string, columnName: string): LanguageTranslations => {
+  const fileContent = fs.readFileSync(csvFile, { encoding: 'utf8' }).trim()
+  const rows = parse(fileContent, { columns: true, skip_empty_lines: true }) satisfies Record<string, string>[]
+  const column = fromPairs(rows.map(row => [row.key, row[columnName]]).filter(([, value]) => !!value))
+  return unflatten(column)
+}
+
+const importTranslationsFromCsv = (fromDir: string, toDir: string, sourceLanguage: string) => {
+  const csvs = fs
+    .readdirSync(fromDir)
+    .map(file => path.join(fromDir, file))
+    .filter(file => path.extname(file) === '.csv')
+
+  const firstCsv = csvs[0]
+  if (!firstCsv) {
+    throw new Error(`No CSVs in directory ${fromDir} found`)
+  }
+
+  const sourceTranslations = loadColumn(firstCsv, CSV_SOURCE_LANGUAGE_COLUMN)
+  if (!csvs.every(csv => isEqual(loadColumn(csv, CSV_SOURCE_LANGUAGE_COLUMN), sourceTranslations))) {
+    throw new Error(`The column '${CSV_SOURCE_LANGUAGE_COLUMN}' must be the same in every CSV`)
+  }
+
+  const translations = {
+    [sourceLanguage]: sourceTranslations,
+    ...fromPairs(csvs.map(csv => [path.basename(csv, '.csv'), loadColumn(csv, CSV_TARGET_LANGUAGE_COLUMN)])),
+  } satisfies Record<string, LanguageTranslations>
+
+  const importedLanguages = Object.keys(translations)
+  const supportedLanguages = Object.keys(config.supportedLanguages)
+  const unsupportedLanguages = importedLanguages.filter(language => !supportedLanguages.includes(language))
+  const missingLanguages = supportedLanguages.filter(language => !importedLanguages.includes(language))
+  if (unsupportedLanguages.length > 0) {
+    throw new Error(`The languages ${unsupportedLanguages} are not supported. Please add them first in the config.`)
+  }
+  console.warn(`Importing languages ${importedLanguages}`)
+  if (missingLanguages.length > 0) {
+    console.log(`WARNING: The following languages are missing: ${missingLanguages}`)
+  }
+
+  if (!fs.existsSync(toDir)) {
+    fs.mkdirSync(toDir, { recursive: true })
+  }
+
+  Object.entries(translations).forEach(([language, languageTranslations]) => {
+    const namespaces = Object.keys(languageTranslations)
+    const sourceLanguageNamespaces = Object.keys(translations[sourceLanguage] ?? {})
+    if (namespaces.length === 0) {
+      console.log(`WARNING: Empty translations file for language ${language}. Skipping.`)
+      return
+    }
+    if (namespaces.length !== sourceLanguageNamespaces.length) {
+      console.log(
+        `WARNING: Only ${namespaces.length} namespaces in ${language} (${sourceLanguage}: ${sourceLanguageNamespaces.length})`,
+      )
     }
 
-    const byLanguageModulesWithSourceLanguage = { ...byLanguageModules, [sourceLanguage]: sourceModules }
-    // Sort by language key, but sourceLanguage should be first
-    const languageKeys = [sourceLanguage, ...Object.keys(byLanguageModules).sort()]
-    // Sort by module key
-    const moduleKeys = Object.keys(sourceModules).sort()
-    const json = fromPairs(
-      moduleKeys.map(moduleKey => [
-        moduleKey,
-        fromPairs(
-          languageKeys.map(languageKey => [languageKey, byLanguageModulesWithSourceLanguage[languageKey]?.[moduleKey]]),
-        ),
-      ]),
-    )
-    fs.writeFileSync(toPath, `${JSON.stringify(json, null, 2)}\n`, 'utf-8')
-    const logMessages = Object.entries(json).map(
-      ([moduleKey, module]) =>
-        `Languages in module ${moduleKey}: ${Object.keys(module).length} (${Object.keys(module)})`,
-    )
-    logMessages.forEach(message => console.log(message))
+    const sortedNamespaces = fromPairs(sortBy(toPairs(languageTranslations), ([namespace]) => namespace))
+    const json = JSON.stringify(sortedNamespaces, null, 2)
+    fs.writeFileSync(languageFilePath(toDir, language), `${json}\n`, 'utf-8')
   })
 }
 
 program
-  .command('convert <translations_file> <toPath> <format>')
-  .action((fromPath: string, toPath: string, targetFormat: string) => {
-    const { supportedLanguages, sourceLanguage } = config
-    const sourceFormat = path.extname(fromPath).replace('.', '') || 'csv'
-    const converter: Record<string, () => void> = {
-      'json-csv': () => {
-        if (!fs.existsSync(toPath)) {
-          fs.mkdirSync(toPath)
-        }
-
-        const json = JSON.parse(fs.readFileSync(fromPath, 'utf8'))
-        writeCsvFromJson(json, toPath, sourceLanguage, Object.keys(supportedLanguages))
-      },
-      'csv-json': () => {
-        writeJsonFromCsv(fromPath, toPath, sourceLanguage)
-      },
-    }
-    const convert = converter[`${sourceFormat.toLowerCase()}-${targetFormat.toLowerCase()}`]
-
-    if (convert) {
-      convert()
-    } else {
-      console.error(`Unable to convert from ${sourceFormat} to ${targetFormat}`)
-      process.exit(1)
-    }
-  })
+  .command('import <fromPath> <toPath>')
+  .action((fromPath: string, toPath: string) => importTranslationsFromCsv(fromPath, toPath, config.sourceLanguage))
 
 type WritePlistTranslationsOptions = {
   translations: string
@@ -227,29 +138,34 @@ type WritePlistTranslationsOptions = {
 }
 
 const writePlistTranslations = (appName: string, { translations, destination }: WritePlistTranslationsOptions) => {
-  const { native: nativeTranslations } = JSON.parse(fs.readFileSync(translations, 'utf-8'))
-  const languageCodes = Object.keys(nativeTranslations)
-  console.warn('Creating InfoPlist.strings for the languages ', languageCodes)
-  languageCodes.forEach(language => {
-    const translations = nativeTranslations[language]
-    const keys = Object.keys(translations)
-
-    const content = keys
-      .map(key => {
-        const regex = /{{appName}}/gi
-        const value = translations[key].replace(regex, appName)
-        return `${key} = "${value}";`
-      })
+  const languages = Object.keys(config.supportedLanguages).filter(language =>
+    fs.existsSync(languageFilePath(translations, language)),
+  )
+  console.warn(`Creating InfoPlist.strings for the languages ${languages}`)
+  languages.forEach(language => {
+    const nativeTranslations = readLanguageFile(translations, language)?.native
+    if (!nativeTranslations) {
+      console.warn(`No native translations found for language ${language}. Skipping.`)
+      return
+    }
+    const content = Object.entries(nativeTranslations)
+      .filter((entry): entry is [string, string] => typeof entry[1] === 'string')
+      .map(([key, value]) => `${key} = "${value.replace(/{{appName}}/gi, appName)}";`)
       .join('\n')
 
     // XCode uses different tags for some languages
-    const languageKey = XCODE_LANGUAGES_MAP[language] ?? language
-    const path = `${destination}/${languageKey}.lproj/`
+    const xcodeLanguagesMap: Record<string, string> = {
+      'sr-Cyrl': 'sr',
+      pes: 'fa',
+      prs: 'fa-AF',
+      kmr: 'ku',
+      'zh-CN': 'zh-HANS',
+    } as const
+    const languageKey = xcodeLanguagesMap[language] ?? language
 
-    fs.mkdirSync(path, {
-      recursive: true,
-    })
-    fs.writeFileSync(`${path}InfoPlist.strings`, content)
+    const outPath = `${destination}/${languageKey}.lproj/`
+    fs.mkdirSync(outPath, { recursive: true })
+    fs.writeFileSync(`${outPath}InfoPlist.strings`, content)
   })
   console.warn('InfoPlist.strings successfully created.')
 }
@@ -257,7 +173,10 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
 program
   .command('write-plist <appName>')
   .description('setup native translations for ios')
-  .requiredOption('--translations <translations>', 'the path to the translations.json file')
+  .requiredOption(
+    '--translations <translations>',
+    'the path to the translations directory containing per-language JSON files',
+  )
   .requiredOption('--destination <destination>', 'the path to put the string resources to')
   .action((appName: string, options: WritePlistTranslationsOptions) => {
     try {
@@ -267,4 +186,5 @@ program
       process.exit(1)
     }
   })
+
 program.parse(process.argv)
