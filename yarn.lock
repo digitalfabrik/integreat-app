@@ -13719,12 +13719,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-parse-stringify@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "html-parse-stringify@npm:3.0.1"
-  dependencies:
-    void-elements: "npm:3.1.0"
-  checksum: 10c0/159292753d48b84d216d61121054ae5a33466b3db5b446e2ffc093ac077a411a99ce6cbe0d18e55b87cf25fa3c5a86c4d8b130b9719ec9b66623259000c72c15
+"html-parse-stringify@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "html-parse-stringify@npm:4.0.1"
+  checksum: 10c0/8d7267acbc8b70a50096176e28ba491af89fb31613b6a062bce4b8201b2703fd652bedfbe0db6efe90145379c89524a3319b1b58b8c96a72779b0f49e4c2c180
   languageName: node
   linkType: hard
 
@@ -13848,17 +13846,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^26.0.1":
-  version: 26.0.3
-  resolution: "i18next@npm:26.0.3"
-  dependencies:
-    "@babel/runtime": "npm:^7.29.2"
+"i18next@npm:^26.3.6":
+  version: 26.3.6
+  resolution: "i18next@npm:26.3.6"
   peerDependencies:
-    typescript: ^5 || ^6
+    typescript: ^5 || ^6 || ^7
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 10c0/ba0b8ba8b1294abccd892ac897902f121f5f127d77e6fd605c0c368ec505a505ccaa24ee7ddbe04928783cfbd7abbc162d4c043027aef06858b427e4e4737eb5
+  checksum: 10c0/5920ac8fb6b647a2bdd439d121de04e5297246e52c4d95d13f5faae0824fd45b2faeb66038bcd61fc62362daa815f9c32fb992d6faa3787607d1dfe768e9a8b1
   languageName: node
   linkType: hard
 
@@ -16994,14 +16990,14 @@ __metadata:
     commander: "npm:^14.0.3"
     cross-env: "npm:^10.1.0"
     htmlparser2: "npm:^10.1.0"
-    i18next: "npm:^26.0.1"
+    i18next: "npm:^26.3.6"
     intl-pluralrules: "npm:^2.0.1"
     js-sha256: "npm:^0.11.1"
     lodash: "npm:^4.17.23"
     luxon: "npm:^3.7.2"
     react: "npm:19.2.3"
     react-hook-form: "npm:^7.72.0"
-    react-i18next: "npm:^17.0.1"
+    react-i18next: "npm:^17.0.11"
     react-native: "patch:react-native@npm%3A0.84.1#~/.yarn/patches/react-native-npm-0.84.1-edb3124e38.patch"
     react-native-blob-util: "npm:^0.24.7"
     react-native-calendar-events: "npm:^2.2.0"
@@ -18576,17 +18572,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^17.0.1":
-  version: 17.0.2
-  resolution: "react-i18next@npm:17.0.2"
+"react-i18next@npm:^17.0.11":
+  version: 17.0.11
+  resolution: "react-i18next@npm:17.0.11"
   dependencies:
     "@babel/runtime": "npm:^7.29.2"
-    html-parse-stringify: "npm:^3.0.1"
+    html-parse-stringify: "npm:^4.0.1"
     use-sync-external-store: "npm:^1.6.0"
   peerDependencies:
-    i18next: ">= 26.0.1"
+    i18next: ">= 26.2.0"
     react: ">= 16.8.0"
-    typescript: ^5 || ^6
+    typescript: ^5 || ^6 || ^7
   peerDependenciesMeta:
     react-dom:
       optional: true
@@ -18594,7 +18590,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 10c0/6bbaeccb919726a7f4fda1e547fa58936f1004e122b99234ac1a65d35077563864af7062c51ab9b8b0190be4cb384cd2ed7aeaa895d2785c1783c39cdae64ecd
+  checksum: 10c0/f49e83e377f56d8f6a198a00539925edbc77370b68a51ad8b1829b581abcd22dd57843118a8e541c2284f58899d8035d255c41e246cfc64e9c0ca42df071ed81
   languageName: node
   linkType: hard
 
@@ -22432,13 +22428,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"void-elements@npm:3.1.0":
-  version: 3.1.0
-  resolution: "void-elements@npm:3.1.0"
-  checksum: 10c0/0b8686f9f9aa44012e9bd5eabf287ae0cde409b9a2854c5a2335cb83920c957668ac5876e3f0d158dd424744ac411a7270e64128556b451ed3bec875ef18534d
-  languageName: node
-  linkType: hard
-
 "w3c-xmlserializer@npm:^5.0.0":
   version: 5.0.0
   resolution: "w3c-xmlserializer@npm:5.0.0"
@@ -22566,7 +22555,7 @@ __metadata:
     easy-speech: "npm:^2.4.0"
     ejs: "npm:^6.0.1"
     es-check: "npm:^9.6.3"
-    i18next: "npm:^26.0.1"
+    i18next: "npm:^26.3.6"
     jest-environment-jsdom: "npm:^30.3.0"
     jest-fetch-mock: "npm:^3.0.3"
     luxon: "npm:^3.7.2"
@@ -22576,7 +22565,7 @@ __metadata:
     react: "npm:19.2.3"
     react-dom: "npm:19.2.3"
     react-highlight-words: "npm:^0.21.0"
-    react-i18next: "npm:^17.0.1"
+    react-i18next: "npm:^17.0.11"
     react-infinite-scroller: "npm:^1.2.6"
     react-map-gl: "npm:^8.1.0"
     react-refresh: "npm:^0.18.0"
