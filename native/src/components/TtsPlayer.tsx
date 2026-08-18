@@ -3,20 +3,15 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import styled, { css, useTheme } from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
+import buildConfig from '../constants/buildConfig'
 import { isRTLText } from '../constants/contentDirection'
+import dimensions from '../constants/dimensions'
+import { elevatedStyle } from '../utils/styles'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
 import Text from './base/Text'
-
-const elevatedStyle = css`
-  shadow-color: ${props => props.theme.colors.onSurface};
-  shadow-offset: 0 2px;
-  shadow-opacity: 0.2;
-  shadow-radius: 3px;
-  elevation: 5;
-`
 
 const StyledTtsPlayer = styled.View<{ insetBottom: number }>`
   background-color: ${props => props.theme.colors.ttsPlayer.background};
@@ -91,7 +86,10 @@ const TtsPlayer = ({
   const { t } = useTranslation('layout')
 
   return (
-    <StyledTtsPlayer insetBottom={bottom}>
+    <StyledTtsPlayer
+      // There shouldn't be an additional bottom navigation height for a fixed region, for ex. aschaffenburg, as it does not have bottom tab navigation
+      insetBottom={bottom + (buildConfig().featureFlags.fixedRegion ? 0 : dimensions.bottomNavigationHeight)}
+      accessibilityLabel={t('readAloudPlayer')}>
       <TouchableRipple
         borderless
         role='button'
