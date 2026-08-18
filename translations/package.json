@@ -25,8 +25,11 @@
       "types": "./src/index.d.ts",
       "default": "./src/index.ts"
     },
-    "./*.json": "./src/*.json",
-    "./override-translations/*.json": "./override-translations/*.json"
+    "./override-translations/*": {
+      "import": "./src/override-translations/*/index.ts",
+      "types": "./src/override-translations/*/index.d.ts",
+      "default": "./src/override-translations/*/index.ts"
+    }
   },
   "dependencies": {
     "deepmerge-ts": "^7.1.5"

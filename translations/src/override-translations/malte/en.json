@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "{{appName}} is your digital assistant from the Maltesers. Here you will find local information, events and advice from your institution. Always up-to-date and in your language!"
+  },
+  "dashboard": {
+    "events": "Events"
+  },
+  "error": {
+    "notFound": {
+      "event": "Unfortunately this event was not found."
+    },
+    "goTo": {
+      "events": "To the events"
+    }
+  },
+  "events": {
+    "events": "Events",
+    "currentlyNoEvents": "There are currently no events.",
+    "pageTitle": "Events"
+  },
+  "feedback": {
+    "contentOfEvent": "Topic of the \"{{event}}\""
+  },
+  "intro": {
+    "appDescription": "{{appName}} is your digital assistant from the Maltesers",
+    "events": "Events",
+    "eventsDescription": "Current dates and events"
+  },
+  "layout": {
+    "events": "Events",
+    "noEvents": "No events"
+  },
+  "regions": {
+    "metaDescription": "{{appName}} is your digital assistant from the Maltesers. Here you will find local information, events and advice from your institution. Always up-to-date and in your language!"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "{{appName}}, Malta'daki dijital yardımcınız. Burada, kurumunuzdan yerel bilgiler, etkinlikler ve tavsiyeler bulacaksınız. Her zaman güncel ve kendi dilinizde!"
+  },
+  "dashboard": {
+    "events": "Etkinlikler"
+  },
+  "error": {
+    "notFound": {
+      "event": "Bu etkinlik bulunamamaktadır."
+    },
+    "goTo": {
+      "events": "Etkinliklere bak"
+    }
+  },
+  "events": {
+    "events": "Etkinlikler",
+    "currentlyNoEvents": "Güncel etkinlik bulunmamaktadır.",
+    "pageTitle": "Etkinlikler"
+  },
+  "feedback": {
+    "contentOfEvent": "\"{{event}}\" etkinliğinin içeriği"
+  },
+  "intro": {
+    "appDescription": "{{appName}} uygulaması Maltalılar için dijital bir yardımcıdır.",
+    "events": "Etkinlikler",
+    "eventsDescription": "Güncel etkinlik ve organizasyonlar"
+  },
+  "layout": {
+    "events": "Etkinlikler",
+    "noEvents": "Etkinlik yok"
+  },
+  "regions": {
+    "metaDescription": "{{appName}}, Malta'daki dijital yardımcınız. Burada, kurumunuzdan yerel bilgiler, etkinlikler ve tavsiyeler bulacaksınız. Her zaman güncel ve kendi dilinizde!"
+  }
+}

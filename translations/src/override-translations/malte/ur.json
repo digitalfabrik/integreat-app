@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "‎{{appName}}‏، Malteser کی جانب سے آپ کی ڈیجیٹل معاون ہے۔ یہاں آپ کو مقامی معلومات، ایونٹس اور اپنے ادارے کی جانب سے مشورے ملیں گے۔ ہمیشہ تازہ ترین اور آپ کی زبان میں!"
+  },
+  "dashboard": {
+    "events": "ایونٹ"
+  },
+  "error": {
+    "notFound": {
+      "event": "معذرت، یہ ایونٹس نہیں ملے۔"
+    },
+    "goTo": {
+      "events": "اپائنٹمنٹس میں"
+    }
+  },
+  "events": {
+    "events": "ایونٹ",
+    "currentlyNoEvents": "فی الحال کوئی ایونٹس نہیں ہیں۔",
+    "pageTitle": "ایونٹ"
+  },
+  "feedback": {
+    "contentOfEvent": "‎\"{{event}}\"‎ ایونٹ کا مواد"
+  },
+  "intro": {
+    "appDescription": "‎{{appName}}‏، Malteser کی جانب سے آپ کی ڈیجیٹل معاون ہے۔",
+    "events": "ایونٹ",
+    "eventsDescription": "حالیہ تاریخیں اور ایونٹس"
+  },
+  "layout": {
+    "events": "ایونٹ",
+    "noEvents": "کوئی ایونٹس نہیں"
+  },
+  "regions": {
+    "metaDescription": "‎{{appName}}‏، Malteser کی جانب سے آپ کی ڈیجیٹل معاون ہے۔ یہاں آپ کو مقامی معلومات، ایونٹس اور اپنے ادارے کی جانب سے مشورے ملیں گے۔ ہمیشہ تازہ ترین اور آپ کی زبان میں!"
+  }
+}

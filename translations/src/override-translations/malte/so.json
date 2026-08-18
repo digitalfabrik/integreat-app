@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "{{appName}} waa caawiyahaaga dhijitaal ee Maltese. Halkan waxaad ka heli doontaa macluumaadka deegaanka, taariikho iyo talobixinta hay'addaada. Had iyo jeer waa ay cusbooneysiisan tahay waxayna ku qoran tahay luqaddaada!"
+  },
+  "dashboard": {
+    "events": "Dhacdooyin"
+  },
+  "error": {
+    "notFound": {
+      "event": "Nasiib darrose, taariikhdan lama helin."
+    },
+    "goTo": {
+      "events": "Aad qeybta dhacdooyinka"
+    }
+  },
+  "events": {
+    "events": "Dhacdooyin",
+    "currentlyNoEvents": "Waqti xaadirkan ma jiraan taariikho.",
+    "pageTitle": "Dhacdooyin"
+  },
+  "feedback": {
+    "contentOfEvent": "Tusmooyinka dhacdada \"{{event}}\""
+  },
+  "intro": {
+    "appDescription": "{{appName}} waa caawiyahaaga dhijitaal ee Maltese",
+    "events": "Dhacdooyin",
+    "eventsDescription": "Taariikhaha iyo dhacdooyinka hadda ah"
+  },
+  "layout": {
+    "events": "Dhacdooyin",
+    "noEvents": "Dhacdooyin majiraan"
+  },
+  "regions": {
+    "metaDescription": "{{appName}} waa caawiyahaaga dhijitaal ee Maltese. Halkan waxaad ka heli doontaa macluumaadka deegaanka, taariikho iyo talobixinta hay'addaada. Had iyo jeer waa ay cusbooneysiisan tahay waxayna ku qoran tahay luqaddaada!"
+  }
+}
