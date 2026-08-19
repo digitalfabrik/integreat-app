@@ -11,12 +11,12 @@ jest.mock('react-i18next')
 
 const buildNews = (source: NewsSource = LOCAL_NEWS_SOURCE) =>
   new NewsModel({
-    id: 217,
+    id: 'local-217',
     title: 'Tick bite - What to do?',
     lastUpdate: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
     content:
       'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.',
-    availableLanguages: { de: 123, it: 234 },
+    availableLanguages: { de: 'local-123', it: 'local-234' },
     externalUrl: 'https://example.com',
     source,
   })

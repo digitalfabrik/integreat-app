@@ -187,9 +187,9 @@ describe('useNavigate', () => {
   })
 
   it('should navigate to news route', () => {
-    renderMockComponent({ route: NEWS_ROUTE, ...params, id: 1234 })
+    renderMockComponent({ route: NEWS_ROUTE, ...params, id: 'local-1234' })
     expect(navigation.push).not.toHaveBeenCalled()
-    expect(navigateNested).toHaveBeenCalledWith(navigation, NEWS_ROUTE, { id: 1234 }, false)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, NEWS_ROUTE, { id: 'local-1234' }, false)
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 

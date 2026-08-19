@@ -6,13 +6,13 @@ import mapNewsJson from '../mapNewsJson.ts'
 
 describe('mapNewsJson', () => {
   const buildJson = (overrides: Partial<JsonNewsType> = {}): JsonNewsType => ({
-    id: 1,
+    id: 'local-1',
     title: 'News title',
     content: '<p>News body</p>',
     display_date: '2020-03-20T17:50:00+02:00',
     source: 'local',
     externalUrl: 'https://example.com',
-    available_languages: { de: { id: 1 }, en: { id: 42 } },
+    available_languages: { de: { id: 'local-1' }, en: { id: 'local-42' } },
     ...overrides,
   })
 
@@ -20,12 +20,12 @@ describe('mapNewsJson', () => {
     const news = mapNewsJson(buildJson())
     expect(news).toEqual(
       new NewsModel({
-        id: 1,
+        id: 'local-1',
         title: 'News title',
         content: '<p>News body</p>',
         source: 'local',
         lastUpdate: DateTime.fromISO('2020-03-20T17:50:00+02:00'),
-        availableLanguages: { de: 1, en: 42 },
+        availableLanguages: { de: 'local-1', en: 'local-42' },
         externalUrl: 'https://example.com',
       }),
     )

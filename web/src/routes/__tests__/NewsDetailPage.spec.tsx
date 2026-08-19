@@ -31,7 +31,7 @@ describe('NewsDetailPage', () => {
 
   const region = new RegionModelBuilder(1).build()[0]!
   const languageCode = 'de'
-  const newsId = 217
+  const newsId = 'local-217'
 
   const buildNews = (source: NewsSource) =>
     new NewsModel({
@@ -40,7 +40,7 @@ describe('NewsDetailPage', () => {
       content: '<p>News body</p>',
       source,
       lastUpdate: DateTime.fromISO('2023-03-20T17:50:00.000Z'),
-      availableLanguages: { de: newsId, en: 42 },
+      availableLanguages: { de: newsId, en: 'local-42' },
       externalUrl: 'https://external.example.com',
     })
 

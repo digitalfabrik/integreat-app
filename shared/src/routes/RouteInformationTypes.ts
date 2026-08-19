@@ -50,7 +50,7 @@ export type CategoriesRouteInformationType = ParamsType & {
 
 export type NewsRouteInformationType = ParamsType & {
   route: NewsRouteType
-  id?: number
+  id?: string
 }
 
 export type SimpleRegionContentFeatureType = ParamsType & {

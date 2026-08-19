@@ -47,7 +47,7 @@ const ListHeaderContainer = styled(View)`
 
 type NewsProps = {
   news: NewsModel[]
-  id: number | null
+  id: string | null
   region: RegionModel
   languageCode: string
   refresh: () => void

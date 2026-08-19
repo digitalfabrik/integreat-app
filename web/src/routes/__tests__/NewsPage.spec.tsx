@@ -21,11 +21,11 @@ jest.mock('../../hooks/useQueryFromEndpoint')
 
 const news = [
   new NewsModel({
-    id: 42,
+    id: 'local-42',
     title: 'sample news title',
     content: 'sample news content',
     lastUpdate: DateTime.fromISO('2023-01-01T00:00:00.000Z'),
-    availableLanguages: { de: 43 },
+    availableLanguages: { de: 'local-43' },
     externalUrl: 'https://example.com',
     source: 'local',
   }),

@@ -98,7 +98,7 @@ export type NestedRoutesParamsType = {
     slug?: string
   }
   [NEWS_ROUTE]: RouteTitle & {
-    id: number | null
+    id: string | null
   }
 }
 

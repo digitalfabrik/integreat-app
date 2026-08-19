@@ -154,7 +154,7 @@ class InternalPathnameParser {
       route: NEWS_ROUTE,
       regionCode: this._parts[0]!,
       languageCode: this._parts[1]!,
-      id: id ? parseInt(id, 10) : undefined,
+      id,
     }
   }
 

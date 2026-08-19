@@ -4,19 +4,19 @@ import { DateTime } from 'luxon'
 import { NewsSource } from '../constants/index.ts'
 
 class NewsModel {
-  _id: number
   _title: string
   _content: string
   _source: NewsSource
   _lastUpdate: DateTime
-  _availableLanguages: Record<string, number> | null
+  _externalUrl: string
+
   constructor(params: {
-    id: number
+    id: string
     title: string
     content: string
     lastUpdate: DateTime
     source: NewsSource
-    availableLanguages: Record<string, number> | null
+    availableLanguages: Record<string, string> | null
     externalUrl: string
   }) {
     this._id = params.id
@@ -28,11 +28,13 @@ class NewsModel {
     this._externalUrl = params.externalUrl
   }
 
-  _externalUrl: string
+  _id: string
 
-  get id(): number {
+  get id(): string {
     return this._id
   }
+
+  _availableLanguages: Record<string, string> | null
 
   get title(): string {
     return this._title
@@ -50,7 +52,7 @@ class NewsModel {
     return this._lastUpdate
   }
 
-  get availableLanguages(): Record<string, number> | null {
+  get availableLanguages(): Record<string, string> | null {
     return this._availableLanguages
   }
 

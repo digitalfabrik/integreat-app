@@ -150,13 +150,13 @@ export type JsonEventType = {
 }
 
 export type JsonNewsType = {
-  id: number
+  id: string
   title: string
   content: string
   display_date: string
   source: NewsSource
   externalUrl: string
-  available_languages: Record<string, { id: number }> | null
+  available_languages: Record<string, { id: string }> | null
 }
 
 export type JsonOfferPostType = {
