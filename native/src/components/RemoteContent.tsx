@@ -28,7 +28,7 @@ const RemoteContent = ({ onLoad, content, language, loading }: RemoteContentProp
   const staticServerUrl = useContext(StaticServerContext)
   const { settings } = useAppContext()
   const { width: deviceWidth } = useWindowDimensions()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['consent', 'layout'])
   const theme = useTheme()
 
   const { externalSourcePermissions } = settings

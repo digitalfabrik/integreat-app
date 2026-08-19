@@ -58,7 +58,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
   const { loading } = useLoadAsync(useCallback(() => loadPolyfillIfNeeded(languageCode), [languageCode]))
   const [query, setQuery] = useState('')
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
 
   const currentLanguage = languages.find(lang => lang.code === languageCode)
   const filteredLanguages = loading ? languages : filterLanguages(languages, query, languageCode, config.sourceLanguage)
@@ -79,7 +79,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
             }
             navigation.goBack()
           }
-        : () => setAlertDialogTitle(t('noTranslation')),
+        : () => setAlertDialogTitle(t($ => $.noTranslation)),
     })
   })
 
@@ -89,7 +89,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
     <>
       <Wrapper contentContainerStyle={styles.contentContainer}>
         <SearchInput
-          ariaLabel={t('searchLanguage')}
+          ariaLabel={t($ => $.searchLanguage)}
           setValue={setQuery}
           value={query}
           placeholderText={currentLanguage?.name}
@@ -98,9 +98,9 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
         <Selector selectedItemCode={languageCode} items={selectorItems} />
         <Button
           mode='outlined'
-          onPress={() => setAlertDialogTitle(t('languageNotFoundQuestion'))}
+          onPress={() => setAlertDialogTitle(t($ => $.languageNotFoundQuestion))}
           style={styles.horizontalMargin}>
-          {t('languageNotFoundQuestion')}
+          {t($ => $.languageNotFoundQuestion)}
         </Button>
       </Wrapper>
       <SimpleAlertDialog

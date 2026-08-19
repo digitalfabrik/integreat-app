@@ -16,7 +16,7 @@ type MenuAccordionProps = {
 }
 
 const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccordionProps): ReactElement => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation(['common'])
 
   return (
     <>
@@ -25,7 +25,7 @@ const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccord
         text={title}
         icon={icon}
         iconEnd={expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-        aria-label={t(expanded ? 'showLess' : 'showMore')}
+        aria-label={t($ => (expanded ? $.showLess : $.showMore))}
       />
       {expanded && (
         <>

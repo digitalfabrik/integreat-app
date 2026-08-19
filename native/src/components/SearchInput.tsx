@@ -31,7 +31,7 @@ const SearchInput = ({
   style,
   ariaLabel,
 }: SearchInputProps): ReactElement => {
-  const { t } = useTranslation('search')
+  const { t } = useTranslation(['search'])
   const theme = useTheme()
 
   return (
@@ -56,7 +56,7 @@ const SearchInput = ({
               <TextInput.Icon
                 icon='close'
                 onPress={() => setValue('')}
-                accessibilityLabel={t('delete')}
+                accessibilityLabel={t($ => $.delete)}
                 color={theme.colors.onSurfaceVariant}
               />
             ) : (

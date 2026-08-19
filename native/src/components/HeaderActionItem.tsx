@@ -33,7 +33,7 @@ const HeaderActionItem = ({
   innerText,
 }: HeaderActionItemProps): ReactElement => {
   const theme = useTheme()
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
   const icon = iconName === 'search' ? 'magnify' : 'translate'
 
   if (innerText) {
@@ -43,7 +43,7 @@ const HeaderActionItem = ({
         compact
         icon={icon}
         onPress={onPress}
-        accessibilityLabel={t(title)}
+        accessibilityLabel={t($ => title)}
         textColor={theme.colors.primary}
         style={[styles.button, { borderColor: theme.colors.primary }]}>
         {innerText}
@@ -57,7 +57,7 @@ const HeaderActionItem = ({
       icon={icon}
       onPress={visible ? onPress : () => undefined}
       color={theme.colors.primary}
-      accessibilityLabel={t(title)}
+      accessibilityLabel={t($ => title)}
       style={[styles.appbarAction, { borderColor: theme.colors.primary, display: visible ? 'flex' : 'none' }]}
     />
   )

@@ -27,7 +27,7 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
   const { route, regionCode, languageCode } = useRegionContentParams()
   const { showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme, dimensions } = useTheme()
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
   const ref = useRef<MenuRef>(null)
 
   const showFeedback = fitScreen || (dimensions.mobile && route !== NEWS_ROUTE)
@@ -46,19 +46,24 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
     showFeedback ? (
       <MenuItem
         key='feedback'
-        text={t('feedback')}
+        text={t($ => $.feedback)}
         icon={<CommentIcon fontSize='small' />}
         onClick={() => setFeedbackQueryParam(true)}
         closeMenu={closeMenu}
       />
     ) : null,
-    <MenuItem key='theme' text={t('contrastTheme')} icon={<ContrastIcon fontSize='small' />} onClick={toggleTheme} />,
+    <MenuItem
+      key='theme'
+      text={t($ => $.contrastTheme)}
+      icon={<ContrastIcon fontSize='small' />}
+      onClick={toggleTheme}
+    />,
     <MenuItem
       key='tts'
       icon={<Svg src={ReadAloudIcon} width={20} height={20} />}
       disabled={!canRead}
-      text={t('readAloud')}
-      tooltip={canRead ? null : t('nothingToReadFullMessage')}
+      text={t($ => $.readAloud)}
+      tooltip={canRead ? null : t($ => $.nothingToReadFullMessage)}
       onClick={showTtsPlayer}
       closeMenu={closeMenu}
     />,

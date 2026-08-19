@@ -55,11 +55,11 @@ type TtsHelpProps = {
 }
 
 const TtsHelp = ({ close }: TtsHelpProps): ReactElement => {
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
 
   return (
-    <Dialog title={t('voiceUnavailable')} close={close}>
-      <Alert severity='warning'>{t('voiceUnavailableMessage')}</Alert>
+    <Dialog title={t($ => $.voiceUnavailable)} close={close}>
+      <Alert severity='warning'>{t($ => $.voiceUnavailableMessage)}</Alert>
       <MuiList>
         {helpItemsData.map(item => (
           <TtsHelpItem key={item.title} title={item.title} path={item.path} />

@@ -34,7 +34,7 @@ type PlaceListItemProps = {
 }
 
 const PlaceListItem = ({ place, distance, onClick }: PlaceListItemProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   const [queryParams] = useSearchParams()
   const { title, category, slug } = place
   const slugWithQuery = `${slug}?${queryParams}`
@@ -48,7 +48,7 @@ const PlaceListItem = ({ place, distance, onClick }: PlaceListItemProps): ReactE
           secondary={
             <>
               {distance !== null && (
-                <StyledText>{t('distanceKilometre', { distance: distance.toFixed(1) })}</StyledText>
+                <StyledText>{t($ => $.distanceKilometre, { distance: distance.toFixed(1) })}</StyledText>
               )}
               <StyledText>{category.name}</StyledText>
             </>

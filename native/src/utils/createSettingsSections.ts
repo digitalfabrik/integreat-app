@@ -35,7 +35,7 @@ type CreateSettingsSectionsProps = {
   appContext: AppContextType
   navigation: NavigationProps<SettingsRouteType>
   showSnackbar: (snackbar: SnackbarType) => void
-  t: TFunction<'error'>
+  t: TFunction<['settings', 'layout', 'error']>
   clearResourcesAndCache: () => void
 }
 
@@ -47,8 +47,8 @@ const createSettingsSections = ({
   clearResourcesAndCache,
 }: CreateSettingsSectionsProps): (SettingsSectionType | null)[] => [
   {
-    title: t('pushNewsTitle'),
-    description: t('pushNewsDescription'),
+    title: t($ => $.pushNewsTitle),
+    description: t($ => $.pushNewsDescription),
     getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
     onPress: async () => {
       const newAllowPushNotifications = !settings.allowPushNotifications
@@ -76,7 +76,7 @@ const createSettingsSections = ({
         showSnackbar({
           text: 'permissionRequired',
           action: {
-            label: t('layout:settings'),
+            label: t($ => $.layout.settings),
             onPress: openSettings,
           },
         })
@@ -84,8 +84,8 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t('layout:contrastTheme'),
-    description: t('layout:contrastThemeDescription'),
+    title: t($ => $.layout.contrastTheme),
+    description: t($ => $.layout.contrastThemeDescription),
     getSettingValue: (settings: SettingsType) => settings.selectedTheme === 'contrast',
     onPress: () => {
       const newTheme: ThemeType = settings.selectedTheme === 'light' ? 'contrast' : 'light'
@@ -93,8 +93,8 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t('sentryTitle'),
-    description: t('sentryDescription', { appName: buildConfig().appName }),
+    title: t($ => $.sentryTitle),
+    description: t($ => $.sentryDescription, { appName: buildConfig().appName }),
     getSettingValue: (settings: SettingsType) => settings.errorTracking,
     onPress: async () => {
       const newErrorTracking = !settings.errorTracking
@@ -109,18 +109,18 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t('externalResourcesTitle'),
-    description: t('externalResourcesDescription'),
+    title: t($ => $.externalResourcesTitle),
+    description: t($ => $.externalResourcesDescription),
     onPress: () => navigation.navigate(CONSENT_ROUTE),
   },
   {
     role: 'link',
-    title: t('layout:imprint'),
+    title: t($ => $.layout.imprint),
     onPress: () => navigation.navigate(settings.selectedCity ? IMPRINT_ROUTE : MAIN_IMPRINT_ROUTE),
   },
   {
     role: 'link',
-    title: t('aboutUs'),
+    title: t($ => $.aboutUs),
     onPress: async () => {
       const { aboutUrls } = buildConfig()
       const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
@@ -129,7 +129,7 @@ const createSettingsSections = ({
   },
   {
     role: 'link',
-    title: t('privacyPolicy'),
+    title: t($ => $.privacyPolicy),
     onPress: async () => {
       const { privacyUrls } = buildConfig()
       const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
@@ -138,7 +138,7 @@ const createSettingsSections = ({
   },
   {
     role: 'link',
-    title: t('layout:accessibility'),
+    title: t($ => $.layout.accessibility),
     onPress: async () => {
       const { accessibilityUrls } = buildConfig()
       const accessibilityUrl = accessibilityUrls[languageCode] ?? accessibilityUrls.default
@@ -146,19 +146,19 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t('openSourceLicenses'),
+    title: t($ => $.openSourceLicenses),
     onPress: () => navigation.navigate(LICENSES_ROUTE),
   },
   {
     role: 'link',
-    title: t('SBoM'),
+    title: 'SBoM',
     onPress: async () => {
       const linkToSBoM = `https://github.com/digitalfabrik/integreat-app/releases/tag/${NativeConstants.appVersion}`
       await openExternalUrl(linkToSBoM, showSnackbar)
     },
   },
   {
-    title: t('version', { version: NativeConstants.appVersion }),
+    title: t($ => $.version, { version: NativeConstants.appVersion }),
     onPress: () => {
       volatileValues.versionTaps += 1
 

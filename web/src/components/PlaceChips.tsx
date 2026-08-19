@@ -11,7 +11,7 @@ import Link from './base/Link'
 import Svg from './base/Svg'
 
 const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common'])
   const { category } = place
 
   return (
@@ -26,11 +26,9 @@ const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
           clickable
         />
       )}
-      {place.barrierFree === true && (
-        <Chip icon={<AccessibleIcon />} label={t('common:accessible')} variant='outlined' />
-      )}
+      {place.barrierFree === true && <Chip icon={<AccessibleIcon />} label={t($ => $.accessible)} variant='outlined' />}
       {place.barrierFree === false && (
-        <Chip icon={<NotAccessibleIcon />} label={t('common:notAccessible')} variant='outlined' />
+        <Chip icon={<NotAccessibleIcon />} label={t($ => $.notAccessible)} variant='outlined' />
       )}
     </Stack>
   )

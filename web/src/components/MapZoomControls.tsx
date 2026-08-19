@@ -31,14 +31,14 @@ type MapZoomControlsProps = {
 }
 
 const MapZoomControls = ({ mapViewRef }: MapZoomControlsProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
 
   return (
     <Stack gap={1}>
-      <StyledIconButton onClick={mapViewRef.zoomIn} aria-label={t('zoomIn')}>
+      <StyledIconButton onClick={mapViewRef.zoomIn} aria-label={t($ => $.zoomIn)}>
         <AddIcon />
       </StyledIconButton>
-      <StyledIconButton onClick={mapViewRef.zoomOut} aria-label={t('zoomOut')}>
+      <StyledIconButton onClick={mapViewRef.zoomOut} aria-label={t($ => $.zoomOut)}>
         <RemoveIcon />
       </StyledIconButton>
     </Stack>

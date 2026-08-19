@@ -16,7 +16,7 @@ type PdfMenuItemProps = {
 }
 
 const PdfMenuItem = ({ category, regionCode, languageCode, closeMenu, ...other }: PdfMenuItemProps): ReactElement => {
-  const { t } = useTranslation('categories')
+  const { t } = useTranslation(['categories'])
   const pdfDisabled = config.hasRTLScript(languageCode)
 
   const pdfUrl =
@@ -27,10 +27,10 @@ const PdfMenuItem = ({ category, regionCode, languageCode, closeMenu, ...other }
   return (
     <MenuItem
       icon={<DescriptionOutlinedIcon fontSize='small' />}
-      text={t('createPdf')}
+      text={t($ => $.createPdf)}
       to={pdfUrl}
       disabled={pdfDisabled}
-      tooltip={pdfDisabled ? t('disabledPdf') : null}
+      tooltip={pdfDisabled ? t($ => $.disabledPdf) : null}
       closeMenu={closeMenu}
       {...other}
     />

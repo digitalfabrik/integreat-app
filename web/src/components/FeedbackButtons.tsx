@@ -23,16 +23,16 @@ type FeedbackButtonsProps = {
 }
 
 const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElement => {
-  const { t } = useTranslation('feedback')
+  const { t } = useTranslation(['feedback'])
 
   const handleChange = (_: React.MouseEvent<HTMLElement>, newValue: Rating | null) => setRating(newValue)
 
   return (
     <Stack gap={2}>
-      <Typography variant='body2'>{t('description')}</Typography>
-      <StyledToggleButtonGroup exclusive value={rating} onChange={handleChange} aria-label={t('feedback')}>
-        <ToggleButton value={RATING_POSITIVE} icon={SentimentSatisfiedOutlinedIcon} text={t('useful')} />
-        <ToggleButton value={RATING_NEGATIVE} icon={SentimentDissatisfiedOutlinedIcon} text={t('notUseful')} />
+      <Typography variant='body2'>{t($ => $.description)}</Typography>
+      <StyledToggleButtonGroup exclusive value={rating} onChange={handleChange} aria-label={t($ => $.feedback)}>
+        <ToggleButton value={RATING_POSITIVE} icon={SentimentSatisfiedOutlinedIcon} text={t($ => $.useful)} />
+        <ToggleButton value={RATING_NEGATIVE} icon={SentimentDissatisfiedOutlinedIcon} text={t($ => $.notUseful)} />
       </StyledToggleButtonGroup>
     </Stack>
   )

@@ -35,7 +35,7 @@ const NewsSourceFilterButtonGroup = styled(ToggleTextButtonGroup)({
 const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): ReactElement | null => {
   const [sourceFilter, setSourceFilter] = useQueryParam(NEWS_SOURCE_FILTER_QUERY_KEY, { replace: true })
   const { desktop } = useDimensions()
-  const { t } = useTranslation('news')
+  const { t } = useTranslation(['news'])
 
   const { data, ...response } = useQueryFromEndpoint(createNewsEndpoint, cmsApiBaseUrl, {
     region: regionCode,
@@ -52,7 +52,7 @@ const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): React
     code,
   }))
 
-  const pageTitle = `${t('news')} - ${region.name}`
+  const pageTitle = `${t($ => $.news)} - ${region.name}`
   const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
     region,
     languageChangePaths,
@@ -74,13 +74,13 @@ const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): React
   const newsListItems =
     news?.map(item => <NewsListItem key={item.id} news={item} regionCode={regionCode} languageCode={languageCode} />) ??
     []
-  const getLabel = (value: NewsSourceFilter): string => t(desktop ? `${value}News` : value)
+  const getLabel = (value: NewsSourceFilter): string => t($ => (desktop ? $[`${value}News`] : $[value]))
   const showNewsSourceFilter = region.localNewsEnabled && region.externalNewsEnabled
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
-      <H1>{t('news')}</H1>
+      <H1>{t($ => $.news)}</H1>
       <Stack gap={1}>
         {showNewsSourceFilter && (
           <NewsSourceFilterButtonGroup

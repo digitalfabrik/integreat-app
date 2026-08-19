@@ -18,14 +18,14 @@ type OpeningHoursTitleProps = {
 }
 
 const OpeningHoursTitle = ({ isCurrentlyOpen, label }: OpeningHoursTitleProps) => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   return (
     <Stack direction='row' justifyContent='space-between' alignItems='center' width='100%' gap={1} paddingInlineEnd={1}>
       <Typography component='h2' variant='subtitle1'>
-        {t('openingHours')}
+        {t($ => $.openingHours)}
       </Typography>
       <Typography variant='subtitle1' color={isCurrentlyOpen ? 'success' : 'error'}>
-        {t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}
+        {t($ => label ?? (isCurrentlyOpen ? $.opened : $.closed))}
       </Typography>
     </Stack>
   )
@@ -44,12 +44,12 @@ const OpeningHours = ({
   isTemporarilyClosed,
   appointmentUrl,
 }: OpeningHoursProps): ReactElement | null => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   const appointmentOnly = !openingHours && !!appointmentUrl
 
   const AppointmentLink = appointmentUrl ? (
     <Button component={Link} to={appointmentUrl} endIcon={<OpenInNewIcon />}>
-      {t('makeAppointment')}
+      {t($ => $.makeAppointment)}
     </Button>
   ) : null
 

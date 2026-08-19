@@ -121,9 +121,9 @@ const showOptIn = (
   container.appendChild(checkbox)
 }
 
-const showSettingsLink = (element: HTMLDivElement, t: TFunction): void => {
+const showSettingsLink = (element: HTMLDivElement, t: TFunction<['consent', 'layout']>): void => {
   const link = document.createElement('a')
-  link.innerHTML = t('layout:settings')
+  link.innerHTML = t($ => $.layout.settings)
   link.id = 'opt-in-settings-link'
   link.href = `/${CONSENT_ROUTE}`
   element.appendChild(link)
@@ -132,7 +132,7 @@ const showSettingsLink = (element: HTMLDivElement, t: TFunction): void => {
 const showMessageWithSettings = (
   text: string,
   iframeContainer: HTMLDivElement,
-  t: TFunction,
+  t: TFunction<['consent', 'layout']>,
   source: string,
   iframeIndex: number,
   removeOptIn: boolean,
@@ -154,7 +154,7 @@ export const handleAllowedIframeSources = (
   iframe: HTMLIFrameElement,
   externalSourcePermissions: ExternalSourcePermissions,
   storedIframeSource: string,
-  t: TFunction,
+  t: TFunction<['consent', 'layout']>,
   addExternalSource: (source: string) => void,
   iframeIndex: number,
   supportedSource: string,
@@ -166,7 +166,7 @@ export const handleAllowedIframeSources = (
   const iframeContainer = getIframeContainer(iframeContainerId, mobile, iframe, deviceWidth)
 
   if (permission === undefined) {
-    const message = t('consent:knownResourceOptIn')
+    const message = t($ => $.knownResourceOptIn)
     showOptIn(message, iframeContainer, supportedSource, addExternalSource, iframeIndex)
   } else if (permission) {
     restoreIframe(iframe, storedIframeSource)
@@ -174,10 +174,10 @@ export const handleAllowedIframeSources = (
     if (supportedSource === 'vimeo.com') {
       addDoNotTrackParameter(iframe)
     }
-    const message = t('consent:knownResourceContentMessage')
+    const message = t($ => $.knownResourceContentMessage)
     showMessageWithSettings(message, iframeContainer, t, supportedSource, iframeIndex, true)
   } else {
-    const message = t('consent:knownResourceBlocked')
+    const message = t($ => $.knownResourceBlocked)
     showMessageWithSettings(message, iframeContainer, t, supportedSource, iframeIndex, false)
   }
 }

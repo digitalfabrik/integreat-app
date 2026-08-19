@@ -47,7 +47,7 @@ const Feedback = ({
   searchTerm,
   setSearchTerm,
 }: FeedbackProps): ReactElement => {
-  const { t } = useTranslation('feedback')
+  const { t } = useTranslation(['feedback', 'common'])
   const navigation = useNavigate().navigation
 
   const isSearchFeedback = searchTerm !== undefined
@@ -62,10 +62,10 @@ const Feedback = ({
   if (sendingStatus === 'successful') {
     return (
       <Wrapper>
-        <Caption title={t('thanksHeadline')} />
-        <Text>{t('thanksMessage')}</Text>
+        <Caption title={t($ => $.thanksHeadline)} />
+        <Text>{t($ => $.thanksMessage)}</Text>
         <Button onPress={navigation.goBack} mode='contained' style={{ marginTop: 16 }}>
-          {t('common:close')}
+          {t($ => $.common.close)}
         </Button>
       </Wrapper>
     )
@@ -76,20 +76,20 @@ const Feedback = ({
       <Wrapper>
         {isSearchFeedback ? (
           <InputSection
-            title={t('searchTermDescription')}
+            title={t($ => $.searchTermDescription)}
             value={searchTerm}
             onChange={setSearchTerm}
             accessibilityRole='search'
           />
         ) : (
           <>
-            <Caption title={t('headline')} />
+            <Caption title={t($ => $.headline)} />
             <FeedbackButtons rating={rating} setRating={setRating} />
           </>
         )}
         <InputSection
-          title={t('commentHeadline')}
-          description={t('commentDescription', { appName: buildConfig().appName })}
+          title={t($ => $.commentHeadline)}
+          description={t($ => $.commentDescription, { appName: buildConfig().appName })}
           value={comment}
           onChange={onCommentChanged}
           multiline
@@ -98,7 +98,7 @@ const Feedback = ({
           accessibilityRole='text'
         />
         <InputSection
-          title={t('contactMailAddress')}
+          title={t($ => $.contactMailAddress)}
           value={contactMail}
           onChange={onFeedbackContactMailChanged}
           keyboardType='email-address'
@@ -107,13 +107,15 @@ const Feedback = ({
         />
         {sendingStatus === 'failed' && (
           <Text variant='body2' style={{ textAlign: 'left' }}>
-            {t('failedSendingFeedback')}
+            {t($ => $.failedSendingFeedback)}
           </Text>
         )}
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
-        {submitFeedbackDisabled && <Note text={t(feedbackFilled ? 'noteFillFeedback' : 'common:notePrivacyPolicy')} />}
+        {submitFeedbackDisabled && (
+          <Note text={t($ => (feedbackFilled ? $.noteFillFeedback : $.common.notePrivacyPolicy))} />
+        )}
         <Button disabled={submitFeedbackDisabled} onPress={onSubmit} mode='contained' style={{ marginTop: 16 }}>
-          {t('send')}
+          {t($ => $.send)}
         </Button>
       </Wrapper>
     </KeyboardAwareScrollView>

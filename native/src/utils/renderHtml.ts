@@ -20,7 +20,7 @@ const renderJS = (
   resourceMap: { [url: string]: string },
   supportedIframeSources: string[],
   externalSourcePermissions: ExternalSourcePermissions,
-  t: TFunction,
+  t: TFunction<['consent', 'layout']>,
   theme: DefaultTheme,
   deviceWidth: number,
   pageContainerPadding: number,
@@ -148,7 +148,7 @@ const renderJS = (
         window.ReactNativeWebView.postMessage(JSON.stringify({ type: '${OPEN_SETTINGS_MESSAGE_TYPE}' }))
       }
 
-      const buttonLabel = '${t('layout:settings')}'
+      const buttonLabel = '${t($ => $.layout.settings)}'
       const button = document.createElement('button')
       button.name = 'opt-in-settings-button'
       button.innerHTML = buttonLabel
@@ -196,7 +196,7 @@ const renderJS = (
       const scaledHeight = (deviceWidth / Number(iframe.width)) * Number(iframe.height) - pageContainerPadding
       iframe.setAttribute('height', scaledHeight)
       if (externalSourcePermissions[iframeSource] === undefined) {
-        const message = '${t('consent:knownResourceOptIn')}'
+        const message = '${t($ => $.consent.knownResourceOptIn)}'
         showOptIn(message, iframeContainer, iframeSource)
         iframe.remove()
       } else if (externalSourcePermissions[iframeSource]) {
@@ -206,10 +206,10 @@ const renderJS = (
           url.searchParams.append('dnt', '1')
           iframe.setAttribute('src', url.href)
         }
-        const message = '${t('consent:knownResourceContentMessage')}'
+        const message = '${t($ => $.consent.knownResourceContentMessage)}'
         showMessageWithSettings(message, iframeContainer, iframeSource)
       } else {
-        const message = '${t('consent:knownResourceBlocked')}'
+        const message = '${t($ => $.consent.knownResourceBlocked)}'
         showMessageWithSettings(message, iframeContainer, iframeSource)
         iframe.remove()
       }
@@ -239,7 +239,7 @@ const renderHtml = (
   theme: DefaultTheme,
   language: string,
   externalSourcePermissions: ExternalSourcePermissions,
-  t: TFunction,
+  t: TFunction<['consent', 'layout']>,
   deviceWidth: number,
   pageContainerPadding: number,
 ): string => `

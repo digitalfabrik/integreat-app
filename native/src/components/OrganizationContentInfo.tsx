@@ -29,13 +29,13 @@ type OrganizationContentInfoProps = {
 }
 
 const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps): ReactElement => {
-  const { t } = useTranslation('categories')
+  const { t } = useTranslation(['categories'])
   return (
     <Box>
       <Thumbnail source={organization.logo} specifyAspectRatio />
       <View>
         <Text variant='h6' style={{ paddingTop: 16, paddingBottom: 8 }}>
-          {t('organizationContent', { organization: organization.name })}
+          {t($ => $.organizationContent, { organization: organization.name })}
         </Text>
         <Text variant='body2' style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
           <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>

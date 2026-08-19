@@ -61,7 +61,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
   const [bottomSheetSnapPointIndex, setBottomSheetSnapPointIndex] = useState(1)
   const [zoomInFocusTarget, setZoomInFocusTarget] = useState<number | undefined>(undefined)
   const { userLocation, refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially: false })
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   const { height } = useWindowDimensions()
   const bottomSheetSnapPoints = [dimensions.bottomSheetHandle.height, SNAP_PLACENT_MID_PERCENTAGE * height, height]
   const bottomSheetMidHeight = SNAP_PLACENT_MID_PERCENTAGE * height
@@ -119,7 +119,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
         elevated
         avatar={<Icon icon={EditLocationIcon} />}
         onPress={() => updateShowFilterSelection(true)}>
-        <Text variant='body3'>{t('adjustFilters')}</Text>
+        <Text variant='body3'>{t($ => $.adjustFilters)}</Text>
       </StyledChip>
 
       {currentlyOpen && (
@@ -130,7 +130,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
           onPress={() => updatePlaceCurrentlyOpenFilter(false)}
           onClose={() => updatePlaceCurrentlyOpenFilter(false)}
           closeIcon='close'>
-          <Text variant='body3'>{t('opened')}</Text>
+          <Text variant='body3'>{t($ => $.opened)}</Text>
         </StyledChip>
       )}
       {!!placeCategory && (

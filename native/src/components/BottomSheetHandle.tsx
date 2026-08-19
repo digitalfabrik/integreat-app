@@ -35,14 +35,14 @@ const BottomSheetHandle = ({
   title,
   onPress,
 }: BottomSheetHandleProps): ReactElement => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation(['common'])
   return (
     <Handle
       focusable
       // @ts-expect-error Pressable doesn't have a type for nextFocusForward but it is a valid prop
       nextFocusForward={nextFocusForward}
       onPress={onPress}
-      accessibilityLabel={t('handle')}
+      accessibilityLabel={t($ => $.handle)}
       accessibilityState={{ expanded: isFullscreen }}
       accessibilityHint={title}>
       <StyledIcon source={isFullscreen ? 'chevron-down' : 'chevron-up'} />

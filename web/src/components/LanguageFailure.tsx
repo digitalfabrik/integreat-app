@@ -22,14 +22,14 @@ type LanguageFailureProps = {
 
 const LanguageFailure = ({ regionModel, languageCode, languageChangePaths }: LanguageFailureProps): ReactElement => {
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
-  const { t } = useTranslation('error')
+  const { t } = useTranslation(['error'])
 
   const closeAlertDialog = () => setAlertDialogTitle(null)
 
   return (
     <>
       <H1>{regionModel.name}</H1>
-      <ChooseLanguage>{t('notFound.language')}</ChooseLanguage>
+      <ChooseLanguage>{t($ => $.notFound.language)}</ChooseLanguage>
       <LanguageSelection
         openAlertDialog={setAlertDialogTitle}
         languageCode={languageCode}

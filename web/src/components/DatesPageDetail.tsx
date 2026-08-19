@@ -19,7 +19,7 @@ type DatesPageDetailProps = {
 const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement | null => {
   const [clicksOnShowMore, setClicksOnShowMore] = useState(0)
   const visibleRecurrences = MAX_DATE_RECURRENCES * (clicksOnShowMore + 1)
-  const { t } = useTranslation('events')
+  const { t } = useTranslation(['events', 'common'])
 
   const recurrences = date
     .recurrences(visibleRecurrences)
@@ -37,7 +37,7 @@ const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement
         {recurrences}
         {date.hasMoreRecurrencesThan(visibleRecurrences) && (
           <Button onClick={() => setClicksOnShowMore(clicksOnShowMore + 1)} startIcon={<ExpandMoreIcon />}>
-            {t('common:showMore')}
+            {t($ => $.common.showMore)}
           </Button>
         )}
       </Stack>

@@ -11,16 +11,16 @@ type PlacePanelHeaderProps = {
 }
 
 const PlacePanelHeader = ({ goBack }: PlacePanelHeaderProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places', 'common'])
   return (
     <Stack direction='row' justifyContent='space-between'>
       {goBack ? (
-        <IconButton onClick={goBack} tabIndex={0} aria-label={t('backToOverview')}>
+        <IconButton onClick={goBack} tabIndex={0} aria-label={t($ => $.backToOverview)}>
           <DirectionDependentBackIcon />
         </IconButton>
       ) : (
         <Typography component='h1' variant='h3' alignContent='center'>
-          {t('common:nearby')}
+          {t($ => $.common.nearby)}
         </Typography>
       )}
     </Stack>

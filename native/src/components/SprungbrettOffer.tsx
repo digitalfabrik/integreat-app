@@ -16,7 +16,7 @@ type SprungbrettOfferProps = {
 
 const SprungbrettOffer = ({ sprungbrettOffer, languageCode }: SprungbrettOfferProps): ReactElement => {
   const { data, ...response } = useLoadFromEndpoint(createSprungbrettJobsEndpoint, sprungbrettOffer.path, undefined)
-  const { t } = useTranslation('sprungbrett')
+  const { t } = useTranslation(['sprungbrett'])
   const showSnackbar = useSnackbar()
 
   const renderListItem = ({ item }: { item: SprungbrettJobModel }): ReactElement => {
@@ -27,7 +27,12 @@ const SprungbrettOffer = ({ sprungbrettOffer, languageCode }: SprungbrettOfferPr
   return (
     <LoadingErrorHandler error={response.error} loading={response.loading} refresh={response.refresh}>
       {data && (
-        <List items={data} renderItem={renderListItem} noItemsMessage={t('noOffersAvailable')} scrollEnabled={false} />
+        <List
+          items={data}
+          renderItem={renderListItem}
+          noItemsMessage={t($ => $.noOffersAvailable)}
+          scrollEnabled={false}
+        />
       )}
     </LoadingErrorHandler>
   )

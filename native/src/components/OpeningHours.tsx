@@ -31,11 +31,11 @@ type OpeningHoursTitleProps = {
 }
 
 const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTitleProps) => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   const theme = useTheme()
   return (
     <TitleContainer language={language}>
-      <Text variant='h5'>{t('openingHours')}</Text>
+      <Text variant='h5'>{t($ => $.openingHours)}</Text>
       <Text
         variant='h6'
         style={{
@@ -43,7 +43,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTit
           alignSelf: 'center',
           ...(contentDirection(language) === 'row-reverse' ? { paddingLeft: 12 } : { paddingRight: 12 }),
         }}>
-        {t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}
+        {t($ => label ?? (isCurrentlyOpen ? $.opened : $.closed))}
       </Text>
     </TitleContainer>
   )
@@ -64,7 +64,7 @@ const OpeningHours = ({
   isTemporarilyClosed,
   appointmentUrl,
 }: OpeningHoursProps): ReactElement | null => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   const showSnackbar = useSnackbar()
   const theme = useTheme()
   const appointmentOnly = !openingHours && !!appointmentUrl
@@ -81,7 +81,7 @@ const OpeningHours = ({
       }}>
       <>
         <Text variant='body1' style={{ color: theme.colors.primary, textDecorationLine: 'underline' }}>
-          {t('makeAppointment')}
+          {t($ => $.makeAppointment)}
         </Text>
         <Icon color={theme.colors.primary} size={16} source='open-in-new' />
       </>

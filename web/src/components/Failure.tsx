@@ -13,14 +13,14 @@ type FailureProps = {
 }
 
 const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start', className }: FailureProps): ReactElement => {
-  const { t } = useTranslation('error')
+  const { t } = useTranslation(['error'])
   return (
     <Stack alignItems='center' textAlign='center' paddingTop={8} paddingInline={2} gap={3} className={className}>
       <SentimentVeryDissatisfiedIcon fontSize='large' />
-      <div role='alert'>{t(errorMessage)} </div>
+      <div role='alert'>{t($ => errorMessage)} </div>
       {!!goToPath && (
         <Link to={goToPath} highlighted>
-          {goToMessage ? t(goToMessage) : goToPath}
+          {goToMessage ? t($ => goToMessage) : goToPath}
         </Link>
       )}
     </Stack>

@@ -33,7 +33,7 @@ type DialogProps = {
 }
 
 const AlertDialog = ({ title, close, children, className, actions }: DialogProps): ReactElement => {
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout', 'common'])
   const { desktop } = useDimensions()
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
@@ -46,7 +46,7 @@ const AlertDialog = ({ title, close, children, className, actions }: DialogProps
           {title}
         </DialogTitle>
         {desktop && (
-          <IconButton aria-label={t('common:close')} onClick={close}>
+          <IconButton aria-label={t($ => $.common.close)} onClick={close}>
             <CloseIcon />
           </IconButton>
         )}
@@ -64,7 +64,7 @@ export type SimpleAlertDialogProps = {
 }
 
 export const SimpleAlertDialog = ({ title, body, close }: SimpleAlertDialogProps): ReactElement => {
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout', 'common'])
   return (
     <AlertDialog
       title={title}
@@ -72,7 +72,7 @@ export const SimpleAlertDialog = ({ title, body, close }: SimpleAlertDialogProps
       actions={
         <DialogActions>
           <Button onClick={close} variant='outlined'>
-            {t('common:close')}
+            {t($ => $.common.close)}
           </Button>
         </DialogActions>
       }>

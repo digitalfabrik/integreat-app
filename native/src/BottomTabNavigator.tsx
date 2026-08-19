@@ -94,7 +94,7 @@ type BottomTabNavigatorProps = {
 }
 
 const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): ReactElement | null => {
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
   const { regionCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
   const insets = useSafeAreaInsets()
@@ -134,9 +134,12 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
       name={CATEGORIES_TAB_ROUTE}
       component={CategoriesStackScreen}
       options={{
-        tabBarLabel: createTabLabel(theme, t('localInformationLabel')),
+        tabBarLabel: createTabLabel(
+          theme,
+          t($ => $.localInformationLabel),
+        ),
         tabBarIcon: CategoriesIcon,
-        tabBarAccessibilityLabel: t('localInformationLabel'),
+        tabBarAccessibilityLabel: t($ => $.localInformationLabel),
       }}
     />,
     placesEnabled && (
@@ -144,9 +147,12 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         name={PLACES_TAB_ROUTE}
         component={PlacesStackScreen}
         options={{
-          tabBarLabel: createTabLabel(theme, t('locations')),
+          tabBarLabel: createTabLabel(
+            theme,
+            t($ => $.locations),
+          ),
           tabBarIcon: createTabIcon('map-outline'),
-          tabBarAccessibilityLabel: t('locations'),
+          tabBarAccessibilityLabel: t($ => $.locations),
         }}
       />
     ),
@@ -155,9 +161,12 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}
         options={{
-          tabBarLabel: createTabLabel(theme, t('news')),
+          tabBarLabel: createTabLabel(
+            theme,
+            t($ => $.news),
+          ),
           tabBarIcon: createTabIcon('newspaper'),
-          tabBarAccessibilityLabel: t('news'),
+          tabBarAccessibilityLabel: t($ => $.news),
         }}
       />
     ),
@@ -166,9 +175,12 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         name={EVENTS_TAB_ROUTE}
         component={EventsStackScreen}
         options={{
-          tabBarLabel: createTabLabel(theme, t('events')),
+          tabBarLabel: createTabLabel(
+            theme,
+            t($ => $.events),
+          ),
           tabBarIcon: createTabIcon('calendar-blank-outline'),
-          tabBarAccessibilityLabel: t('events'),
+          tabBarAccessibilityLabel: t($ => $.events),
         }}
       />
     ),

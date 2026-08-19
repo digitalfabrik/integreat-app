@@ -36,7 +36,7 @@ const ChatConversation = ({
 }: ChatConversationProps): ReactElement => {
   const [messagesCount, setMessagesCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const { t } = useTranslation('chat')
+  const { t } = useTranslation(['chat'])
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -61,7 +61,7 @@ const ChatConversation = ({
   if (messages.length === 0 && !loading) {
     return (
       <Stack paddingInline={3} gap={1} paddingTop={2}>
-        <Typography variant='subtitle1'>{t('conversationText')}</Typography>
+        <Typography variant='subtitle1'>{t($ => $.conversationText)}</Typography>
       </Stack>
     )
   }

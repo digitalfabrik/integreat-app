@@ -30,7 +30,7 @@ const EventsDateFilter = ({
   resetDates,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
-  const { t } = useTranslation('events')
+  const { t } = useTranslation(['events'])
 
   const formattedStartDate = startDate?.toFormat('dd.MM.yyyy') ?? '∞'
   const formattedEndDate = endDate?.toFormat('dd.MM.yyyy') ?? '∞'
@@ -43,30 +43,30 @@ const EventsDateFilter = ({
             tabIndex={-1}
             component='div'
             startIcon={showDateFilter ? <CloseFullscreenIcon /> : <FilterListIcon />}>
-            {t(showDateFilter ? 'hideFilters' : 'showFilters')}
+            {t($ => (showDateFilter ? $.hideFilters : $.showFilters))}
           </Button>
         </AccordionSummary>
         <AccordionDetails>
           <Stack direction='row' justifyContent='space-evenly' alignItems='start' flexWrap='wrap' gap={2}>
             <DatePicker
-              title={t('from')}
+              title={t($ => $.from)}
               date={startDate}
               setDate={setStartDate}
-              error={startDateError ? t(startDateError) : undefined}
-              calendarLabel={t('selectStartDateCalendar')}
+              error={startDateError ? t($ => startDateError) : undefined}
+              calendarLabel={t($ => $.selectStartDateCalendar)}
             />
             <DatePicker
-              title={t('to')}
+              title={t($ => $.to)}
               date={endDate}
               setDate={setEndDate}
-              calendarLabel={t('selectEndDateCalendar')}
+              calendarLabel={t($ => $.selectEndDateCalendar)}
             />
           </Stack>
         </AccordionDetails>
       </Accordion>
       {(startDate || endDate) && (
         <Button onClick={resetDates} color='inherit' startIcon={<CloseOutlinedIcon />}>
-          {`${t('resetFilter')} ${formattedStartDate} - ${formattedEndDate}`}
+          {`${t($ => $.resetFilter)} ${formattedStartDate} - ${formattedEndDate}`}
         </Button>
       )}
     </>

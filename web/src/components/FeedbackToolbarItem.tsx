@@ -10,12 +10,12 @@ import ToolbarItem from './ToolbarItem'
 
 const FeedbackToolbarItem = ({ rating }: { rating: Rating }): ReactElement => {
   const [_, setFeedbackQueryParam] = useQueryParam(FEEDBACK_QUERY_KEY)
-  const { t } = useTranslation('feedback')
+  const { t } = useTranslation(['feedback'])
 
   return (
     <ToolbarItem
       icon={rating === RATING_POSITIVE ? <SentimentSatisfiedOutlinedIcon /> : <SentimentDissatisfiedOutlinedIcon />}
-      text={t(rating === RATING_POSITIVE ? 'useful' : 'notUseful')}
+      text={t($ => (rating === RATING_POSITIVE ? $.useful : $.notUseful))}
       onClick={() => setFeedbackQueryParam(rating)}
     />
   )

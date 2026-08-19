@@ -22,16 +22,16 @@ const Contact = ({
   contact: { headline, website, phoneNumber, email, mobileNumber, officeHours },
   isLastContact,
 }: ContactProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
 
   return (
     <>
-      <Text style={{ marginBottom: 8 }}>{headline ?? t('contactInformation')}</Text>
+      <Text style={{ marginBottom: 8 }}>{headline ?? t($ => $.contactInformation)}</Text>
       {!!website && (
         <PlaceDetailRow
           externalUrl={website}
-          accessibilityLabel={t('website')}
-          text={t('website')}
+          accessibilityLabel={t($ => $.website)}
+          text={t($ => $.website)}
           icon='earth'
           iconEnd='open-in-new'
         />
@@ -39,7 +39,7 @@ const Contact = ({
       {!!phoneNumber && (
         <PlaceDetailRow
           externalUrl={`tel:${phoneNumber}`}
-          accessibilityLabel={t('phone')}
+          accessibilityLabel={t($ => $.phone)}
           text={phoneNumber}
           icon='phone-outline'
         />
@@ -47,7 +47,7 @@ const Contact = ({
       {!!mobileNumber && (
         <PlaceDetailRow
           externalUrl={`tel:${mobileNumber}`}
-          accessibilityLabel={t('mobilePhone')}
+          accessibilityLabel={t($ => $.mobilePhone)}
           text={mobileNumber}
           icon='cellphone'
         />
@@ -55,7 +55,7 @@ const Contact = ({
       {!!email && (
         <PlaceDetailRow
           externalUrl={`mailto:${email}`}
-          accessibilityLabel={t('eMail')}
+          accessibilityLabel={t($ => $.eMail)}
           text={email}
           icon='email-outline'
         />

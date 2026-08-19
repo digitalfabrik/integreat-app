@@ -13,7 +13,7 @@ type HoursListProps = {
 }
 
 const HoursList = ({ hours, appointmentUrl }: HoursListProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
 
   return (
     <>
@@ -21,7 +21,7 @@ const HoursList = ({ hours, appointmentUrl }: HoursListProps): ReactElement => {
         <OpeningHoursListItem
           key={weekdays[index]}
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          weekday={t(weekdays[index]!)}
+          weekday={t($ => weekdays[index]!)}
           isCurrentDay={index === DateTime.now().weekday - 1}
           appointmentUrl={appointmentUrl}
           openingHours={openingHours}

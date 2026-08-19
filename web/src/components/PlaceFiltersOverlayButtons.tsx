@@ -23,11 +23,11 @@ const PlaceFiltersOverlayButtons = ({
   setPlaceCategoryFilter,
   setShowFilterSelection,
 }: PlaceFiltersOverlayButtonsProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   return (
     <>
       <Chip
-        label={t('adjustFilters')}
+        label={t($ => $.adjustFilters)}
         icon={<EditLocationOutlinedIcon />}
         onClick={() => setShowFilterSelection(true)}
         variant='outlined'
@@ -35,7 +35,7 @@ const PlaceFiltersOverlayButtons = ({
       />
       {currentlyOpenFilter && (
         <Chip
-          label={t('opened')}
+          label={t($ => $.opened)}
           icon={<AccessTimeIcon />}
           onDelete={() => setCurrentlyOpenFilter(false)}
           onClick={() => setCurrentlyOpenFilter(false)}

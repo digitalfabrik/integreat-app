@@ -21,7 +21,7 @@ export const formatFrequency = (frequency: Frequency): RecurrenceFrequency =>
   Frequency[frequency].toLowerCase() as RecurrenceFrequency
 
 const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
-  const { t } = useTranslation('events')
+  const { t } = useTranslation(['events', 'layout'])
   const showSnackbar = useSnackbar()
 
   const [showCalendarChoiceModal, setShowCalendarChoiceModal] = useState<boolean>(false)
@@ -66,7 +66,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     try {
       await RNCalendarEvents.saveEvent(event.title, eventOptions)
       showSnackbar({
-        text: t('added'),
+        text: t($ => $.added),
       })
     } catch (e) {
       showSnackbar({ text: 'generalError' })
@@ -95,7 +95,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
       showSnackbar({
         text: 'noCalendarPermission',
         action: {
-          label: t('layout:settings'),
+          label: t($ => $.layout.settings),
           onPress: openSettings,
         },
       })
@@ -127,7 +127,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
         />
       )}
       <Button icon='calendar-import' mode='text' style={{ marginVertical: 16 }} onPress={checkCalendarsAndExportEvent}>
-        {t('addToCalendar')}
+        {t($ => $.addToCalendar)}
       </Button>
     </>
   )

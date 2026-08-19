@@ -55,7 +55,7 @@ const Dialog = ({
 }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { contentDirection } = useTheme()
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout', 'common'])
   const closeIcon = minimize ? <RemoveIcon /> : <CloseIcon />
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
@@ -75,7 +75,7 @@ const Dialog = ({
           alignItems='center'
           justifyContent={desktop ? 'space-between' : undefined}
           marginInline={1}>
-          <IconButton aria-label={t(minimize ? 'common:minimize' : 'common:close')} onClick={close}>
+          <IconButton aria-label={t($ => (minimize ? $.common.minimize : $.common.close))} onClick={close}>
             {desktop ? closeIcon : <DirectionDependentBackIcon />}
           </IconButton>
           {desktop && Actions}

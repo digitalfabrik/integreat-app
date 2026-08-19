@@ -29,7 +29,7 @@ type RegionsProps = {
 const Regions = ({ navigation }: RegionsProps): ReactElement => {
   const { data: regions, refresh, ...response } = useLoadRegions()
   const { changeRegionCode } = useContext(AppContext)
-  const { t } = useTranslation('regions')
+  const { t } = useTranslation(['regions'])
 
   // The regions are otherwise only updated by pull to refresh
   useEffect(refresh, [refresh])
@@ -44,8 +44,8 @@ const Regions = ({ navigation }: RegionsProps): ReactElement => {
       {regions && (
         <>
           <Wrapper>
-            <Text variant='h3'>{t('welcome', { appName: buildConfig().appName })}</Text>
-            <Text variant='body2'>{t('welcomeInformation')}</Text>
+            <Text variant='h3'>{t($ => $.welcome, { appName: buildConfig().appName })}</Text>
+            <Text variant='body2'>{t($ => $.welcomeInformation)}</Text>
             <RegionSelector regions={regions} navigateToDashboard={navigateToDashboard} />
           </Wrapper>
           <SuggestToRegionFooter navigateToSuggestToRegion={() => navigation.navigate(SUGGEST_TO_REGION_ROUTE)} />

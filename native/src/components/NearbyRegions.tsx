@@ -31,21 +31,21 @@ const NearbyRegions = ({ regions, navigateToDashboard, filterText }: NearbyRegio
   const { status, userLocation, message, refreshPermissionAndLocation } = useUserLocation({
     requestPermissionInitially: false,
   })
-  const { t } = useTranslation('regions')
+  const { t } = useTranslation(['regions'])
   const theme = useTheme()
 
   if (!userLocation) {
     return (
       <NearbyMessageContainer>
         <Text variant='body2' style={{ paddingTop: 16 }}>
-          {t(message)}
+          {t($ => message)}
         </Text>
         <RetryButtonContainer>
           {status !== 'loading' && (
             <IconButton
               icon={<Icon color={theme.colors.onSurfaceVariant} source='refresh' />}
               onPress={refreshPermissionAndLocation}
-              accessibilityLabel={t('refresh')}
+              accessibilityLabel={t($ => $.refresh)}
             />
           )}
         </RetryButtonContainer>
@@ -62,7 +62,7 @@ const NearbyRegions = ({ regions, navigateToDashboard, filterText }: NearbyRegio
     return (
       <NearbyMessageContainer>
         <Text variant='body2' style={{ paddingTop: 16 }}>
-          {t('noNearbyRegions')}
+          {t($ => $.noNearbyRegions)}
         </Text>
       </NearbyMessageContainer>
     )

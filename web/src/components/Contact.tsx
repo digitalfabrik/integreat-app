@@ -20,16 +20,16 @@ type ContactProps = {
 
 const Contact = ({ contact }: ContactProps): ReactElement => {
   const { headline, website, phoneNumber, email, mobileNumber, officeHours } = contact
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
 
   return (
     <ListItem disablePadding>
       <Stack gap={1} width='100%'>
         <Typography component='h3' variant='subtitle2'>
-          {headline ?? t('contactInformation')}
+          {headline ?? t($ => $.contactInformation)}
         </Typography>
         {!!website && (
-          <ContactDetail icon={PublicOutlinedIcon} link={website} content={t('website')} iconEnd={OpenInNewIcon} />
+          <ContactDetail icon={PublicOutlinedIcon} link={website} content={t($ => $.website)} iconEnd={OpenInNewIcon} />
         )}
         {!!phoneNumber && <ContactDetail icon={PhoneOutlinedIcon} link={`tel:${phoneNumber}`} content={phoneNumber} />}
         {!!mobileNumber && (

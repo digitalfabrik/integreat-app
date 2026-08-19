@@ -58,7 +58,7 @@ const Chat = ({
 }: ChatProps): ReactElement => {
   const [sendingError, setSendingError] = useState<Error | null>(null)
   const [textInput, setTextInput] = useState<string>('')
-  const { t } = useTranslation(['chat', 'error'])
+  const { t } = useTranslation(['chat', 'error', 'settings'])
 
   const unsyncedMessages = serializedUnsyncedMessages.map(ChatMessageModel.deserialize)
 
@@ -131,8 +131,8 @@ const Chat = ({
     return (
       <Container>
         <Stack paddingInline={3} gap={1}>
-          <H1>{t('settings:privacyPolicy')}</H1>
-          {t('privacyPolicyInformation')}
+          <H1>{t($ => $.settings.privacyPolicy)}</H1>
+          {t($ => $.privacyPolicyInformation)}
           <PrivacyCheckbox
             language={languageCode}
             checked={false}
@@ -158,13 +158,13 @@ const Chat = ({
           <Alert
             severity='error'
             action={
-              <Tooltip title={t('error:tryAgain')}>
-                <IconButton onClick={retry} aria-label={t('error:tryAgain')} size='small'>
+              <Tooltip title={t($ => $.error.tryAgain)}>
+                <IconButton onClick={retry} aria-label={t($ => $.error.tryAgain)} size='small'>
                   <RefreshIcon />
                 </IconButton>
               </Tooltip>
             }>
-            {t(fromError(error ?? sendingError), { ns: 'error' })}
+            {t($ => fromError(error ?? sendingError))}
           </Alert>
         )}
         <ChatInput value={textInput} setValue={setTextInput} onSubmit={onSubmit} region={region} />

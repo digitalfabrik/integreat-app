@@ -47,7 +47,7 @@ const Feedback = ({
   searchTerm,
   setSearchTerm,
 }: FeedbackProps): ReactElement => {
-  const { t } = useTranslation('feedback')
+  const { t } = useTranslation(['feedback', 'common'])
 
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
@@ -70,43 +70,43 @@ const Feedback = ({
           id='searchTerm'
           value={searchTerm}
           onChange={event => setSearchTerm(event.target.value)}
-          label={t('searchTermDescription')}
+          label={t($ => $.searchTermDescription)}
           required
           fullWidth
           error={showErrors && !searchTerm}
-          helperText={showErrors && !searchTerm ? t('noteFillFeedback') : undefined}
+          helperText={showErrors && !searchTerm ? t($ => $.noteFillFeedback) : undefined}
         />
       ) : (
         <FormControl error={showErrors && rating === null}>
           <FeedbackButtons rating={rating} setRating={setRating} />
-          {showErrors && rating === null && <FormHelperText>{t('noteFillFeedback')}</FormHelperText>}
+          {showErrors && rating === null && <FormHelperText>{t($ => $.noteFillFeedback)}</FormHelperText>}
         </FormControl>
       )}
-      <OptionalHint>({t('common:optional')})</OptionalHint>
+      <OptionalHint>({t($ => $.common.optional)})</OptionalHint>
       <TextField
         id='comment'
         value={comment}
         onChange={event => onCommentChanged(event.target.value)}
-        label={t(commentTitle)}
+        label={t($ => commentTitle)}
         variant='outlined'
         multiline
         rows={DEFAULT_ROWS_NUMBER}
-        helperText={t('commentDescription', { appName: buildConfig().appName })}
+        helperText={t($ => $.commentDescription, { appName: buildConfig().appName })}
       />
-      <OptionalHint>({t('common:optional')})</OptionalHint>
+      <OptionalHint>({t($ => $.common.optional)})</OptionalHint>
       <TextField
         id='email'
         value={contactMail}
         onChange={event => onContactMailChanged(event.target.value)}
-        label={t('contactMailAddress')}
+        label={t($ => $.contactMailAddress)}
         variant='outlined'
       />
       <PrivacyFormControl error={showErrors && !privacyPolicyAccepted} required>
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
-        {showErrors && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
+        {showErrors && !privacyPolicyAccepted && <FormHelperText>{t($ => $.common.notePrivacyPolicy)}</FormHelperText>}
       </PrivacyFormControl>
       <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
-        {t('send')}
+        {t($ => $.send)}
       </Button>
     </Stack>
   )

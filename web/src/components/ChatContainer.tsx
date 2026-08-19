@@ -61,7 +61,7 @@ type ChatContainerProps = {
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const [open, setOpen] = useQueryParam(CHAT_QUERY_KEY)
-  const { t } = useTranslation('chat')
+  const { t } = useTranslation(['chat'])
   const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
@@ -140,7 +140,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     return (
       <StyledDialog
         title={chatName}
-        subtitle={t('subtitle')}
+        subtitle={t($ => $.subtitle)}
         icon={<ChatLogoAvatar />}
         close={() => setOpen(undefined)}
         showHeader={!externalChatId}

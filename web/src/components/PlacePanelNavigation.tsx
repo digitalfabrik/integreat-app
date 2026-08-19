@@ -20,7 +20,7 @@ type PlacePanelNavigationProps = {
 }
 
 const PlacePanelNavigation = ({ switchPlace }: PlacePanelNavigationProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   return (
     <Stack direction='row' justifyContent='space-between' padding={1}>
       <StyledButton
@@ -28,16 +28,16 @@ const PlacePanelNavigation = ({ switchPlace }: PlacePanelNavigationProps): React
         startIcon={<DirectionDependentBackIcon />}
         tabIndex={0}
         color='inherit'
-        aria-label={t('previousPlace')}>
-        {t('detailsPreviousPlace')}
+        aria-label={t($ => $.previousPlace)}>
+        {t($ => $.detailsPreviousPlace)}
       </StyledButton>
       <StyledButton
         onClick={() => switchPlace(1)}
         endIcon={<DirectionDependentNextIcon />}
         tabIndex={0}
         color='inherit'
-        aria-label={t('nextPlace')}>
-        {t('detailsNextPlace')}
+        aria-label={t($ => $.nextPlace)}>
+        {t($ => $.detailsNextPlace)}
       </StyledButton>
     </Stack>
   )

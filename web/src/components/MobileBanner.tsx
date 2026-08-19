@@ -35,7 +35,7 @@ const MobileBanner = (): ReactElement | null => {
   const appStoreUrl = `https://play.google.com/store/apps/details?id=${apps?.android.applicationId}`
   const userAgent = navigator.userAgent
   const isAndroid = Boolean(/android/i.test(userAgent))
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout', 'common'])
   // We don't want to show the banner for the Obdach because it doesn't have a mobile version
   const appNameWithoutObdach = appName !== webObdachBuildConfig.appName
 
@@ -70,18 +70,18 @@ const MobileBanner = (): ReactElement | null => {
     return (
       <StyledBanner>
         <Stack direction='row' alignItems='center' gap={1}>
-          <IconButton onClick={closeBanner} aria-label={t('common:close')} color='inherit'>
+          <IconButton onClick={closeBanner} aria-label={t($ => $.common.close)} color='inherit'>
             <CloseIcon />
           </IconButton>
           <Svg src={icons.appLogoMobile} width={48} height={48} />
           <Stack>
             <Typography variant='subtitle1'>{appName}</Typography>
             <Typography variant='body3'>Tür an Tür - Digitalfabrik gGmbH</Typography>
-            <Typography variant='body3'>{t('getOnPlayStore')}</Typography>
+            <Typography variant='body3'>{t($ => $.getOnPlayStore)}</Typography>
           </Stack>
         </Stack>
         <Button onClick={checkIfAppIsInstalled} color='inherit'>
-          {t('view')}
+          {t($ => $.view)}
         </Button>
       </StyledBanner>
     )

@@ -39,7 +39,7 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
   const visibleRecurrences = MAX_DATE_RECURRENCES * (tapsOnShowMore + 1)
 
   // Use the content language to match the surrounding translations
-  const { t: translateIntoContentLanguage } = useTranslation('events', { lng: languageCode })
+  const { t: translateIntoContentLanguage } = useTranslation(['events', 'common'], { lng: languageCode })
 
   const recurrences = date
     .recurrences(visibleRecurrences)
@@ -63,7 +63,7 @@ const DatesPageDetail = ({ date, languageCode }: DatesPageDetailProps): ReactEle
             onPress={() => setTapsOnShowMore(tapsOnShowMore + 1)}>
             <>
               <Icon size={16} source='filter-variant' />
-              <Text>{translateIntoContentLanguage('common:showMore')}</Text>
+              <Text>{translateIntoContentLanguage($ => $.common.showMore)}</Text>
             </>
           </TouchableRipple>
         )}

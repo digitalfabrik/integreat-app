@@ -31,7 +31,7 @@ const HeaderMenu = ({
   setVisible,
 }: HeaderMenuProps): ReactElement | null => {
   const theme = useTheme()
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout', 'common'])
   const showSnackbar = useSnackbar()
   const [qrModalVisible, setQrModalVisible] = useState(false)
 
@@ -43,7 +43,7 @@ const HeaderMenu = ({
     }
 
     const title = pageTitle ?? buildConfig().appName
-    const message = t('shareMessage', {
+    const message = t($ => $.shareMessage, {
       message: `${title}\n${shareUrl}`,
       interpolation: {
         escapeValue: false,
@@ -62,10 +62,16 @@ const HeaderMenu = ({
     ...menuItems,
     ...(shareUrl
       ? [
-          <HeaderMenuItem key='share' title={t('share')} onPress={share} closeMenu={closeMenu} icon='share-variant' />,
+          <HeaderMenuItem
+            key='share'
+            title={t($ => $.share)}
+            onPress={share}
+            closeMenu={closeMenu}
+            icon='share-variant'
+          />,
           <HeaderMenuItem
             key='qr'
-            title={t('qrCode')}
+            title={t($ => $.qrCode)}
             onPress={() => setQrModalVisible(true)}
             closeMenu={closeMenu}
             icon='qrcode'
@@ -74,7 +80,7 @@ const HeaderMenu = ({
       : []),
     <HeaderMenuItem
       key='settings'
-      title={t('settings')}
+      title={t($ => $.settings)}
       onPress={() => navigation.navigate(SETTINGS_ROUTE)}
       closeMenu={closeMenu}
       icon='cog-outline'
@@ -89,7 +95,7 @@ const HeaderMenu = ({
         key={Number(visible)}
         visible={visible}
         onDismiss={() => setVisible(false)}
-        overlayAccessibilityLabel={t('common:close')}
+        overlayAccessibilityLabel={t($ => $.common.close)}
         style={{ width: 256 }}
         contentStyle={{
           borderRadius: 16,
@@ -102,7 +108,7 @@ const HeaderMenu = ({
             icon='dots-vertical'
             iconColor={theme.colors.onSurface}
             onPress={() => setVisible(!visible)}
-            accessibilityLabel={t('settings')}
+            accessibilityLabel={t($ => $.settings)}
             testID='header-overflow-menu-button'
           />
         }>
@@ -112,8 +118,8 @@ const HeaderMenu = ({
         <QrCodeModal
           modalVisible={qrModalVisible}
           closeModal={() => setQrModalVisible(false)}
-          title={t('shareQrCodeTitle')}
-          description={t('shareQrCodeDescription')}
+          title={t($ => $.shareQrCodeTitle)}
+          description={t($ => $.shareQrCodeDescription)}
           content={shareUrl}
         />
       )}

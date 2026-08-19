@@ -23,7 +23,7 @@ type SettingsProps = {
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const appContext = useAppContext()
   const showSnackbar = useSnackbar()
-  const { t } = useTranslation('settings')
+  const { t } = useTranslation(['settings', 'layout', 'error'])
   const { settings } = appContext
 
   const clearResourcesAndCache = () => {
@@ -40,7 +40,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
       log('Failed to persist settings.', { level: 'error' })
       captureError(e)
       appContext.updateSettings(oldSettings)
-      showSnackbar({ text: t('error:settingsError') })
+      showSnackbar({ text: t($ => $.error.settingsError) })
     }
   }
 
@@ -60,7 +60,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
 
   return (
     <LayoutedScrollView>
-      <Caption title={t('layout:settings')} />
+      <Caption title={t($ => $.layout.settings)} />
       <SwitchCmsUrlButton clearResourcesAndCache={clearResourcesAndCache} />
       <Divider />
       <FlatList

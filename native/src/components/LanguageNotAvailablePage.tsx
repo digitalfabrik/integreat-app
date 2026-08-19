@@ -25,7 +25,7 @@ const LanguageNotAvailablePage = ({ availableLanguages }: LanguageNotAvailablePa
   const { regionCode, changeLanguageCode } = useRegionAppContext()
   const { data: regions, error, refresh, loading } = useLoadRegions()
   const languages = regions?.find(it => it.code === regionCode)?.languages
-  const { t } = useTranslation('error')
+  const { t } = useTranslation(['error'])
 
   const items = (availableLanguages ?? languages)?.map(
     ({ code, name }: LanguageModel) =>
@@ -41,7 +41,7 @@ const LanguageNotAvailablePage = ({ availableLanguages }: LanguageNotAvailablePa
     <LayoutedScrollView refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh} />}>
       {items ? (
         <Wrapper contentContainerStyle={{ alignItems: 'center' }}>
-          <Caption title={t('notFound.language')} />
+          <Caption title={t($ => $.notFound.language)} />
           <Selector items={items} selectedItemCode={null} />
         </Wrapper>
       ) : (

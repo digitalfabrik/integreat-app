@@ -24,7 +24,7 @@ type QrCodeDialogProps = {
 }
 
 const QrCodeDialog = ({ open, close, title, description, content }: QrCodeDialogProps): ReactElement | null => {
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout', 'common'])
   const svgSrc = `data:image/svg+xml,${encodeQR(content, 'svg')}`
 
   if (!open) {
@@ -38,14 +38,14 @@ const QrCodeDialog = ({ open, close, title, description, content }: QrCodeDialog
       actions={
         <DialogActions>
           <Button onClick={close} variant='outlined'>
-            {t('common:close')}
+            {t($ => $.common.close)}
           </Button>
         </DialogActions>
       }>
       <Stack alignItems='center' gap={2}>
         <Typography variant='body2'>{description}</Typography>
 
-        <StyledSvg src={svgSrc} width={QR_CODE_SIZE} height={QR_CODE_SIZE} ariaLabel={t('qrCode')} />
+        <StyledSvg src={svgSrc} width={QR_CODE_SIZE} height={QR_CODE_SIZE} ariaLabel={t($ => $.qrCode)} />
 
         <Typography variant='body2' textAlign='center'>
           {content}

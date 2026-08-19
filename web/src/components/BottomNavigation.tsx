@@ -59,7 +59,7 @@ type BottomNavigationProps = {
 
 const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps): ReactElement | null => {
   const { route } = useRegionContentParams()
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
   const { xsmall } = useDimensions()
   useUpdateDimensions()
 
@@ -88,10 +88,10 @@ const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps):
                   fontWeight={value === item.value ? 'bold' : 'normal'}
                   overflow='hidden'
                   textOverflow='ellipsis'>
-                  {t(item.label)}
+                  {t($ => item.label)}
                 </Typography>
               ) : (
-                t(item.label)
+                t($ => item.label)
               )
             }
             icon={<item.Icon />}

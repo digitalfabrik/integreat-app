@@ -39,7 +39,7 @@ type OpeningEntryProps = {
 }
 
 const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: OpeningEntryProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
 
   const [overlayOpen, setOverlayOpen] = useState<boolean>(false)
 
@@ -47,8 +47,12 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
     <EntryContainer weekday={weekday} accessible>
       <Text variant={isCurrentDay ? 'h6' : 'body2'}>{weekday}</Text>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        {(openingHours.openAllDay as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('allDay')}</Text>}
-        {(openingHours.closedAllDay as boolean) && <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t('closed')}</Text>}
+        {(openingHours.openAllDay as boolean) && (
+          <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t($ => $.allDay)}</Text>
+        )}
+        {(openingHours.closedAllDay as boolean) && (
+          <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t($ => $.closed)}</Text>
+        )}
         {!(openingHours.openAllDay as boolean) &&
           !(openingHours.closedAllDay as boolean) &&
           openingHours.timeSlots.length > 0 && (
@@ -70,7 +74,7 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
                 style={{ height: 24, width: 24 }}
                 size={18}
                 source='alert-circle-outline'
-                label={t('appointmentNecessary')}
+                label={t($ => $.appointmentNecessary)}
               />
             </TouchableRipple>
 

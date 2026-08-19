@@ -27,7 +27,7 @@ const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     id: useParams().id!,
   })
-  const { t } = useTranslation('news')
+  const { t } = useTranslation(['news'])
 
   useTtsPlayer(news, languageCode)
 
@@ -35,7 +35,7 @@ const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     return null
   }
 
-  const pageTitle = `${news?.title ?? t('news')} - ${region.name}`
+  const pageTitle = `${news?.title ?? t($ => $.news)} - ${region.name}`
 
   const languageChangePaths = region.languages.map(({ code, name }) => {
     const id = news?.availableLanguages?.[code]

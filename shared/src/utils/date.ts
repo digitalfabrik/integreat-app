@@ -17,7 +17,7 @@ type DateType = {
   allDay: boolean
 }
 
-export const formatTime = (locale: string, date: DateType, t: TranslateFunction): string => {
+export const formatTime = (locale: string, date: DateType, allDayLabel: string): string => {
   const startTime = date.startDate.toLocaleString(timeFormat, { locale })
 
   const startIsSameAsEnd =
@@ -32,7 +32,7 @@ export const formatTime = (locale: string, date: DateType, t: TranslateFunction)
   const endTime = date.startDate
     .set({ hour: date.endDate.hour, minute: date.endDate.minute })
     .toLocaleString(timeFormat, { locale })
-  return date.allDay ? t('places:allDay') : `${startTime} - ${endTime}`
+  return date.allDay ? allDayLabel : `${startTime} - ${endTime}`
 }
 
 export const formatDateICal = (date: DateTime): string =>

@@ -29,7 +29,7 @@ type TransparentHeaderProps = {
 }
 
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
   const showSnackbar = useSnackbar()
   const [menuVisible, setMenuVisible] = useState(false)
   const theme = useTheme()
@@ -47,7 +47,7 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
   const renderMenuItem = (title: string, onPress: () => void) => (
     <Menu.Item
       key={title}
-      title={t(title)}
+      title={t($ => title)}
       onPress={onPress}
       style={{ backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface }}
     />

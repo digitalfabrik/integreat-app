@@ -15,7 +15,7 @@ const Container = styled.View`
 `
 
 const ProgressSpinner = (): ReactElement => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation(['common'])
   const theme = useTheme()
   return (
     <Container>
@@ -23,13 +23,13 @@ const ProgressSpinner = (): ReactElement => {
       <Text
         accessibilityLiveRegion='assertive'
         accessibilityState={{ busy: true }}
-        accessibilityLabel={t('loading')}
+        accessibilityLabel={t($ => $.loading)}
         variant='h4'
         style={{
           paddingTop: 24,
           color: theme.colors.onSurface,
         }}>
-        {t('loading')}
+        {t($ => $.loading)}
       </Text>
     </Container>
   )

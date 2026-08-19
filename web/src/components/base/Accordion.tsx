@@ -39,7 +39,7 @@ const Accordion = ({
   headingComponent = 'h2',
 }: AccordionProps): ReactElement => {
   const [expanded, setExpanded] = useState(!defaultCollapsed)
-  const { t } = useTranslation('common')
+  const { t } = useTranslation(['common'])
 
   return (
     <StyledAccordion
@@ -51,7 +51,7 @@ const Accordion = ({
       <StyledAccordionSummary
         id={`${id}-header`}
         aria-controls={`${id}-content`}
-        aria-label={t(expanded ? 'showLess' : 'showMore')}
+        aria-label={t($ => (expanded ? $.showLess : $.showMore))}
         expandIcon={<ExpandMoreIcon />}
         tabIndex={0}>
         {typeof title === 'string' ? <Typography variant='subtitle1'>{title}</Typography> : title}

@@ -48,7 +48,7 @@ const SearchInput = ({
   description,
   autoFocus,
 }: SearchInputProps): ReactElement => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation(['common'])
   return (
     <StyledTextField
       id={id}
@@ -68,7 +68,11 @@ const SearchInput = ({
         input: {
           endAdornment: filterText ? (
             <InputAdornment position='start'>
-              <IconButton onClick={() => onFilterTextChange('')} edge='end' size='small' aria-label={t('clearInput')}>
+              <IconButton
+                onClick={() => onFilterTextChange('')}
+                edge='end'
+                size='small'
+                aria-label={t($ => $.clearInput)}>
                 <ClearIcon />
               </IconButton>
             </InputAdornment>
