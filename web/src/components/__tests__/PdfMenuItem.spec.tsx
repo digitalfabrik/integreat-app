@@ -1,11 +1,15 @@
+import MenuList from '@mui/material/MenuList'
 import { DateTime } from 'luxon'
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 import { CategoryModel } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../../constants/urls'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PdfMenuItem from '../PdfMenuItem'
+
+// MenuItem requires a MenuList/Menu ancestor, as it has in the app via HeaderMenu
+const renderInMenu = (ui: ReactElement) => renderWithRouterAndTheme(<MenuList>{ui}</MenuList>)
 
 jest.mock('react-i18next')
 
@@ -41,7 +45,7 @@ describe('PdfMenuItem', () => {
   it('should use the correct PDF URL for a root category', () => {
     const regionCode = 'augsburg'
     const languageCode = 'de'
-    const { getByText } = renderWithRouterAndTheme(
+    const { getByText } = renderInMenu(
       <PdfMenuItem category={rootCategory} regionCode={regionCode} languageCode={languageCode} />,
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
@@ -52,7 +56,7 @@ describe('PdfMenuItem', () => {
   it('should use the correct PDF URL for a non-root category', () => {
     const regionCode = 'augsburg'
     const languageCode = 'de'
-    const { getByText } = renderWithRouterAndTheme(
+    const { getByText } = renderInMenu(
       <PdfMenuItem category={childCategory} regionCode={regionCode} languageCode={languageCode} />,
     )
     const pdfUrlLink = getByText('categories:createPdf').closest('a')
@@ -67,7 +71,7 @@ describe('PdfMenuItem', () => {
   it('should prevent PDF URL for RTL Languages', () => {
     const regionCode = 'augsburg'
     const languageCode = 'ar'
-    const { getByText } = renderWithRouterAndTheme(
+    const { getByText } = renderInMenu(
       <PdfMenuItem category={rootCategory} regionCode={regionCode} languageCode={languageCode} />,
     )
     expect(getByText('categories:createPdf').closest('li')).toHaveClass('Mui-disabled')

@@ -79,7 +79,10 @@ const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): React
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
       <H1>{t('news')}</H1>
-      <Stack gap={1}>
+      <Stack
+        sx={{
+          gap: 1,
+        }}>
         {showNewsSourceFilter && (
           <NewsSourceFilterButtonGroup
             setValue={setNewsSourceFilter}

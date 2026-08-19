@@ -34,7 +34,10 @@ const MapZoomControls = ({ mapViewRef }: MapZoomControlsProps): ReactElement => 
   const { t } = useTranslation('places')
 
   return (
-    <Stack gap={1}>
+    <Stack
+      sx={{
+        gap: 1,
+      }}>
       <StyledIconButton onClick={mapViewRef.zoomIn} aria-label={t('zoomIn')}>
         <AddIcon />
       </StyledIconButton>

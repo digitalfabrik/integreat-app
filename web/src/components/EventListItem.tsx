@@ -93,7 +93,7 @@ const EventListItem = ({
             </Typography>
           }
           secondary={
-            <StyledTypography variant='body1' flexDirection='column' component='div'>
+            <StyledTypography variant='body1' component='div' sx={{ flexDirection: 'column' }}>
               <p>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</p>
               {event.location && <p>{event.location.name}</p>}
               <p>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</p>

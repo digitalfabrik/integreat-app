@@ -32,8 +32,17 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
 
   return (
     <StyledCard elevation={2}>
-      <Stack direction={mobile ? 'column' : 'row'} padding={2} gap={2}>
-        <Stack height={80} alignItems='flex-start'>
+      <Stack
+        direction={mobile ? 'column' : 'row'}
+        sx={{
+          padding: 2,
+          gap: 2,
+        }}>
+        <Stack
+          sx={{
+            height: 80,
+            alignItems: 'flex-start',
+          }}>
           <StyledImage alt='' src={organization.logo} />
         </Stack>
         <Stack>

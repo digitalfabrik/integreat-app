@@ -112,7 +112,7 @@ const Layout = ({ footer, header, toolbar, children, fitScreen = false }: Layout
         {toolbar && <Aside>{toolbar}</Aside>}
         <Main id={MAIN_ELEMENT_ID} fitScreen={fitScreen}>
           {children}
-          {!fitScreen && <Spacer height={extraBottomSpace} />}
+          {!fitScreen && <Spacer sx={{ height: extraBottomSpace }} />}
         </Main>
       </Body>
       {footer}

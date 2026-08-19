@@ -44,7 +44,7 @@ const MenuItem = ({
 
   const Content = (
     <Tooltip title={tooltip}>
-      <TooltipContent direction='row' width='100%'>
+      <TooltipContent direction='row' sx={{ width: '100%' }}>
         {icon && <ListItemIcon>{icon}</ListItemIcon>}
         <ListItemText>{text}</ListItemText>
         {iconEnd}

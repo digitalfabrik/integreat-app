@@ -123,7 +123,17 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
             key='copy'
             text={t(urlCopied ? 'common:copied' : 'layout:copyUrl')}
             onClick={copyToClipboard}
-            icon={urlCopied ? <CheckIcon fontSize='small' /> : <LinkIcon fontSize='small' />}
+            icon={
+              urlCopied ? (
+                <CheckIcon fontSize='small' />
+              ) : (
+                <LinkIcon
+                  sx={{
+                    fontSize: 'small',
+                  }}
+                />
+              )
+            }
           />,
           <MenuAccordion
             key='share'

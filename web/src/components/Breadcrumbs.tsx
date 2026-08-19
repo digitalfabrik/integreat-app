@@ -72,7 +72,11 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
     )
 
   return (
-    <Stack paddingBlock={1} overflow='hidden'>
+    <Stack
+      sx={{
+        paddingBlock: 1,
+        overflow: 'hidden',
+      }}>
       <StyledMuiBreadcrumbs aria-label='Breadcrumb' separator='>'>
         {collapseHomeButton ? null : homeButton}
         {hiddenBreadcrumbs.length > 0 && (

@@ -44,7 +44,12 @@ const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): Re
   ]
 
   return (
-    <Stack maxWidth={640} paddingTop={4} gap={2}>
+    <Stack
+      sx={{
+        maxWidth: 640,
+        paddingTop: 4,
+        gap: 2,
+      }}>
       <H1>{t('welcome', { appName: buildConfig().appName })}</H1>
       <Typography variant='body1'>{t('welcomeInformation')}</Typography>
       <SearchInput
