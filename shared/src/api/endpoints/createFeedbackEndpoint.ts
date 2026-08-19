@@ -35,11 +35,7 @@ export type FeedbackType = (typeof FeedbackTypes)[keyof typeof FeedbackTypes]
 export const CONTENT_FEEDBACK_CATEGORY = 'Inhalte'
 
 export type FeedbackRouteType =
-  | CategoriesRouteType
-  | EventsRouteType
-  | PlacesRouteType
-  | ImprintRouteType
-  | SearchRouteType
+  CategoriesRouteType | EventsRouteType | PlacesRouteType | ImprintRouteType | SearchRouteType
 
 export type ParamsType = {
   routeType: FeedbackRouteType

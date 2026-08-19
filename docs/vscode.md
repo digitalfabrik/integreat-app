@@ -97,7 +97,7 @@ Until now Integreat uses an external repo for the eslint configuration. After Ch
 
 ## Recommended Extensions
 
-When opening the extension menu in VSCode the recommended extensions are marked with a star. They are defined in [../extensions.json]() and [../web/extensions.json]()
+When opening the extension menu in VSCode the recommended extensions are marked with a star. They are defined in [../extensions.json](<>) and [../web/extensions.json](<>)
 
 ### Git Lens
 
