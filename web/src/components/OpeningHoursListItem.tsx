@@ -29,7 +29,7 @@ const OpeningHoursListItem = ({
   appointmentUrl,
   variant,
 }: OpeningHoursListItemProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   const fontWeight = isCurrentDay ? 'bold' : 'normal'
 
   return (
@@ -40,12 +40,12 @@ const OpeningHoursListItem = ({
       <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'flex-end', gap: 1 }}>
         {openingHours.openAllDay && (
           <Typography variant={variant} sx={{ fontWeight, alignSelf: 'flex-end' }}>
-            {t('allDay')}
+            {t($ => $.allDay)}
           </Typography>
         )}
         {openingHours.closedAllDay && (
           <Typography variant={variant} sx={{ fontWeight, alignSelf: 'flex-end' }}>
-            {t('closed')}
+            {t($ => $.closed)}
           </Typography>
         )}
         {!openingHours.openAllDay && !openingHours.closedAllDay && openingHours.timeSlots.length > 0 && (

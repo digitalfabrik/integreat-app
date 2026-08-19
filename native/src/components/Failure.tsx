@@ -40,21 +40,21 @@ export type FailureProps = {
 const Failure = ({ code, retry, goTo, goToLabel }: FailureProps): ReactElement => {
   const { navigateTo, navigation } = useNavigate()
   const { languageCode } = useContext(AppContext)
-  const { t } = useTranslation('error')
+  const { t } = useTranslation(['error', 'common'])
 
   const goToAction = goTo ?? (navigation.canGoBack() ? navigation.goBack : { route: REGIONS_ROUTE, languageCode })
 
   return (
     <Container>
       <Icon size={160} source={getErrorIcon(code)} />
-      <Text role='alert'>{t(code === ErrorCodes.RegionUnavailable ? 'notFound.region' : code)}</Text>
+      <Text role='alert'>{t($ => (code === ErrorCodes.RegionUnavailable ? $.notFound.region : code))}</Text>
       {retry && (
         <Button mode='contained' onPress={retry}>
-          {t('tryAgain')}
+          {t($ => $.tryAgain)}
         </Button>
       )}
       <Button onPress={typeof goToAction === 'function' ? goToAction : () => navigateTo(goToAction)} mode='outlined'>
-        {t(goToLabel ?? 'common:back')}
+        {t($ => goToLabel ?? $.common.back)}
       </Button>
     </Container>
   )

@@ -19,7 +19,7 @@ type ChatMenuProps = {
 const ChatMenu = ({ chatId, resetChat }: ChatMenuProps): ReactElement => {
   const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLElement | null>(null)
   const [newChatConfirmationDialogOpen, setNewChatConfirmationDialogOpen] = useState(false)
-  const { t } = useTranslation('chat')
+  const { t } = useTranslation(['chat', 'layout'])
 
   const cancelNewChat = () => {
     setNewChatConfirmationDialogOpen(false)
@@ -36,7 +36,7 @@ const ChatMenu = ({ chatId, resetChat }: ChatMenuProps): ReactElement => {
   return (
     <>
       <IconButton
-        aria-label={t('chatOptions')}
+        aria-label={t($ => $.chatOptions)}
         onClick={event => setMenuAnchorElement(event.currentTarget)}
         aria-expanded={menuAnchorElement !== null}>
         <MoreVertIcon />
@@ -46,7 +46,7 @@ const ChatMenu = ({ chatId, resetChat }: ChatMenuProps): ReactElement => {
         open={menuAnchorElement !== null}
         onClose={() => setMenuAnchorElement(null)}>
         <MenuItem
-          text={t('newChat')}
+          text={t($ => $.newChat)}
           icon={<AddCommentOutlinedIcon fontSize='small' />}
           disabled={chatId === null}
           onClick={confirmNewChat}
@@ -55,19 +55,19 @@ const ChatMenu = ({ chatId, resetChat }: ChatMenuProps): ReactElement => {
 
       {newChatConfirmationDialogOpen && (
         <AlertDialog
-          title={t('newChat')}
+          title={t($ => $.newChat)}
           close={() => setNewChatConfirmationDialogOpen(false)}
           actions={
             <DialogActions>
               <Button onClick={cancelNewChat} variant='outlined' sx={{ flex: '1 1' }}>
-                {t('layout:cancel')}
+                {t($ => $.layout.cancel)}
               </Button>
               <Button onClick={createNewChat} variant='contained' sx={{ flex: '3 3' }}>
-                {t('newChat')}
+                {t($ => $.newChat)}
               </Button>
             </DialogActions>
           }>
-          <Typography variant='body2'>{t('newChatConfirmation')}</Typography>
+          <Typography variant='body2'>{t($ => $.newChatConfirmation)}</Typography>
         </AlertDialog>
       )}
     </>

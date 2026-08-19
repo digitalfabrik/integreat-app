@@ -23,7 +23,7 @@ type HoursListProps = {
 }
 
 const HoursList = ({ hours, appointmentUrl = null, variant }: HoursListProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
 
   return (
     <StyledList disablePadding>
@@ -32,7 +32,7 @@ const HoursList = ({ hours, appointmentUrl = null, variant }: HoursListProps): R
           variant={variant}
           key={weekdays[index]}
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          weekday={t(weekdays[index]!.toLowerCase())}
+          weekday={t($ => weekdays[index]!.toLowerCase())}
           openingHours={openingHours}
           isCurrentDay={index === DateTime.now().weekday - 1}
           appointmentUrl={appointmentUrl}

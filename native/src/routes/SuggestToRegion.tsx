@@ -28,7 +28,7 @@ const StyledIcon = styled(Icon)`
 
 const SuggestToRegion = (): ReactElement | null => {
   const [isCopied, setIsCopied] = useState<boolean>(false)
-  const { t } = useTranslation('suggestToRegion')
+  const { t } = useTranslation(['suggestToRegion', 'common'])
   const theme = useTheme()
 
   const suggestToRegion = buildConfig().featureFlags.suggestToRegion
@@ -92,22 +92,22 @@ const SuggestToRegion = (): ReactElement | null => {
   return (
     <Container>
       <Text variant='h4' style={styles.heading}>
-        {t('callToAction')}
+        {t($ => $.callToAction)}
       </Text>
 
       <Text variant='body1' style={{ color: theme.colors.onSurface }}>
-        {t('explanation')}
+        {t($ => $.explanation)}
       </Text>
       {SuggestToRegionIcon && <StyledIcon icon={SuggestToRegionIcon} />}
       <Text variant='h5' style={styles.listHeading}>
-        {t('whatToDo')}
+        {t($ => $.whatToDo)}
       </Text>
       <ListItem>
         <Text variant='body2' style={styles.stepNumber}>
           1
         </Text>
         <Text variant='body1' style={styles.stepExplanation}>
-          {t('findOutMail')}
+          {t($ => $.findOutMail)}
         </Text>
       </ListItem>
       <ListItem>
@@ -115,13 +115,13 @@ const SuggestToRegion = (): ReactElement | null => {
           2
         </Text>
         <Text variant='body1' style={styles.stepExplanation}>
-          {t('sendText')}
+          {t($ => $.sendText)}
         </Text>
       </ListItem>
 
       <View style={{ zIndex: 1 }}>
         <Button icon={CopyIcon} style={styles.copyButton} mode='contained' onPress={copyToClipboard}>
-          {isCopied ? t('common:copied') : t('copyText')}
+          {isCopied ? t($ => $.common.copied) : t($ => $.copyText)}
         </Button>
       </View>
       <Text variant='body2' style={styles.templateText}>

@@ -49,12 +49,12 @@ type SettingItemValueProps = {
 }
 
 const SettingsItemValue = ({ value, hasBadge, onPress }: SettingItemValueProps): ReactElement => {
-  const { t } = useTranslation('settings')
+  const { t } = useTranslation(['settings'])
   if (hasBadge) {
     return (
       <BadgeContainer>
         <Badge enabled={value} />
-        <Text> {value ? t('enabled') : t('disabled')}</Text>
+        <Text> {value ? t($ => $.enabled) : t($ => $.disabled)}</Text>
       </BadgeContainer>
     )
   }

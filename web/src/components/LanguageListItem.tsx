@@ -34,7 +34,7 @@ const LanguageListItem = ({
   selectedLanguageCode,
   onUnavailableLanguageClick,
 }: SelectorProps): ReactElement => {
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
   const { contentDirection } = useTheme()
 
   return path ? (
@@ -51,7 +51,7 @@ const LanguageListItem = ({
       </SelectorItemButton>
     </ListItem>
   ) : (
-    <Tooltip key={code} title={t('noTranslation')} placement={contentDirection === 'ltr' ? 'right' : 'left'}>
+    <Tooltip key={code} title={t($ => $.noTranslation)} placement={contentDirection === 'ltr' ? 'right' : 'left'}>
       <ListItem disablePadding>
         <SelectorItemButton onClick={onUnavailableLanguageClick}>
           <Typography variant='body1' color='textDisabled'>

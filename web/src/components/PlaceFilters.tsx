@@ -39,7 +39,7 @@ const PlaceFilters = ({
   setCurrentlyOpenFilter,
   placesCount,
 }: PlaceFiltersProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
 
   const handleFilterChange = (_: React.MouseEvent<HTMLElement>, newValue: number | null) => {
     const category = placeCategories.find(category => category.id === newValue)
@@ -47,40 +47,40 @@ const PlaceFilters = ({
   }
 
   return (
-    <Dialog title={t('adjustFilters')} close={close}>
+    <Dialog title={t($ => $.adjustFilters)} close={close}>
       <Stack sx={{ gap: 3 }}>
         <Stack sx={{ width: '100%', gap: 1 }}>
           <Typography component='h3' variant='subtitle1'>
-            {t('openingHours')}
+            {t($ => $.openingHours)}
           </Typography>
           <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
             <AccessTimeIcon />
             <Checkbox
               checked={currentlyOpenFilter}
               setChecked={setCurrentlyOpenFilter}
-              label={t('onlyCurrentlyOpen')}
+              label={t($ => $.onlyCurrentlyOpen)}
             />
           </Stack>
         </Stack>
         <Stack sx={{ width: '100%', gap: 2 }}>
           <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
             <Typography component='h3' variant='subtitle1'>
-              {t('placeCategories')}
+              {t($ => $.placeCategories)}
             </Typography>
-            <Typography variant='subtitle2'>{t('alphabetLetters')}</Typography>
+            <Typography variant='subtitle2'>{t($ => $.alphabetLetters)}</Typography>
           </Stack>
           <TileRow
             exclusive
             value={selectedPlaceCategory?.id}
             onChange={handleFilterChange}
-            aria-label={t('placeCategories')}>
+            aria-label={t($ => $.placeCategories)}>
             {placeCategories.map(it => (
               <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}
           </TileRow>
         </Stack>
         <Button onClick={close} variant='contained' disabled={placesCount === 0} fullWidth>
-          {t('showPlaces', { count: placesCount })}
+          {t($ => $.showPlaces, { count: placesCount })}
         </Button>
       </Stack>
     </Dialog>

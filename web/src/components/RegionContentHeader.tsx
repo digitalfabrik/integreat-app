@@ -30,7 +30,7 @@ const RegionContentHeader = ({
   pageTitle,
   fitScreen,
 }: RegionContentHeaderProps): ReactElement => {
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
 
   const params = { regionCode: regionModel.code, languageCode }
   const categoriesPath = regionContentPath(params)
@@ -38,7 +38,7 @@ const RegionContentHeader = ({
   const { desktop } = useDimensions()
 
   const actionItems = [
-    <HeaderActionItem key='search' to={searchPath} text={t('search')} icon={<SearchOutlinedIcon />} />,
+    <HeaderActionItem key='search' to={searchPath} text={t($ => $.search)} icon={<SearchOutlinedIcon />} />,
     languageChangePaths ? (
       <HeaderLanguageSelectorItem
         key='languageChange'

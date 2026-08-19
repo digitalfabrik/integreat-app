@@ -75,10 +75,10 @@ const EventListItem = ({
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
-  const { t } = useTranslation('events')
+  const { t } = useTranslation(['events'])
   const { contentDirection } = useTheme()
   const recurringDateIcon = event.isRecurring ? (
-    <Tooltip title={t('recurring')}>
+    <Tooltip title={t($ => $.recurring)}>
       <EventRepeatOutlinedIcon />
     </Tooltip>
   ) : undefined

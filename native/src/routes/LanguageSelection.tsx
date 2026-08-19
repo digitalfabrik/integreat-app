@@ -60,7 +60,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
   const { loading } = useLoadAsync(useCallback(() => loadPolyfillIfNeeded(languageCode), [languageCode]))
   const [query, setQuery] = useState('')
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
   const insets = useSafeAreaInsets()
 
   const currentLanguage = languages.find(lang => lang.code === languageCode)
@@ -82,7 +82,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
             }
             navigation.goBack()
           }
-        : () => setAlertDialogTitle(t('noTranslation')),
+        : () => setAlertDialogTitle(t($ => $.noTranslation)),
     })
   })
 
@@ -93,7 +93,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
       <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={insets.top + insets.bottom} style={{ flex: 1 }}>
         <Wrapper contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}>
           <SearchInput
-            ariaLabel={t('searchLanguage')}
+            ariaLabel={t($ => $.searchLanguage)}
             setValue={setQuery}
             value={query}
             placeholderText={currentLanguage?.name}
@@ -102,9 +102,9 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
           <Selector selectedItemCode={languageCode} items={selectorItems} />
           <Button
             mode='outlined'
-            onPress={() => setAlertDialogTitle(t('languageNotFoundQuestion'))}
+            onPress={() => setAlertDialogTitle(t($ => $.languageNotFoundQuestion))}
             style={styles.horizontalMargin}>
-            {t('languageNotFoundQuestion')}
+            {t($ => $.languageNotFoundQuestion)}
           </Button>
         </Wrapper>
       </KeyboardAvoidingView>

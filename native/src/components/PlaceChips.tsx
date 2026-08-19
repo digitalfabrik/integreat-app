@@ -30,7 +30,7 @@ const StyledIcon = styled(Icon)`
 
 const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
   const theme = useTheme()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common'])
 
   const styles = StyleSheet.create({
     chip: {
@@ -42,11 +42,11 @@ const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
   const barrierFreeChip =
     place.barrierFree === true ? (
       <Chip avatar={<StyledIcon source='wheelchair-accessibility' />} style={styles.chip} mode='outlined'>
-        <Text variant='body2'>{t('common:accessible')}</Text>
+        <Text variant='body2'>{t($ => $.accessible)}</Text>
       </Chip>
     ) : (
       <Chip avatar={<StyledIcon icon={NotAccessibleIcon} />} style={styles.chip} mode='outlined'>
-        <Text variant='body2'>{t('common:notAccessible')}</Text>
+        <Text variant='body2'>{t($ => $.notAccessible)}</Text>
       </Chip>
     )
 

@@ -77,7 +77,7 @@ const Header = ({
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
   const { languageCode, regionCode } = useContext(AppContext)
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout'])
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRouteKey] = useState(() => {
@@ -101,7 +101,7 @@ const Header = ({
   const canGoBack =
     previousRoute !== undefined || hasRootHistory || hasTabHistory || (route.name === PLACES_ROUTE && hasPlacesParams)
 
-  const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t(route.name)
+  const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t($ => route.name)
   const pageTitle = regionName !== routeTitle ? `${routeTitle} - ${regionName}` : routeTitle
 
   const getCategorySlug = (path?: string): string | undefined => (path ? getSlugFromPath(path) : undefined)
@@ -152,14 +152,14 @@ const Header = ({
   const items = [
     <HeaderActionItem
       key='search'
-      title={t('search')}
+      title={t($ => $.search)}
       iconName='search'
       visible={showItems}
       onPress={() => navigation.navigate(SEARCH_ROUTE, { searchText: null })}
     />,
     <HeaderActionItem
       key='language'
-      title={t('changeLanguage')}
+      title={t($ => $.changeLanguage)}
       iconName='language'
       visible={showItems || isRegions}
       onPress={goToLanguageChange}
@@ -172,7 +172,7 @@ const Header = ({
       ? [
           <HeaderMenuItem
             key='feedback'
-            title={t('feedback')}
+            title={t($ => $.feedback)}
             onPress={navigateToFeedback}
             closeMenu={() => setMenuVisible(false)}
             icon='comment-text-outline'
@@ -181,7 +181,7 @@ const Header = ({
       : []),
     <HeaderMenuItem
       key='tts'
-      title={t('readAloud')}
+      title={t($ => $.readAloud)}
       onPress={showTtsPlayer}
       closeMenu={() => setMenuVisible(false)}
       icon='volume-high'
@@ -213,14 +213,14 @@ const Header = ({
     }
 
     if (isSinglePlaceFromPlacesRoute()) {
-      return { title: t('locations'), language: undefined } // system language
+      return { title: t($ => $.locations), language: undefined } // system language
     }
 
     const eventsRouteParams = route.params as RoutesParamsType[EventsRouteType] | undefined
     const isSingleEvent = !!eventsRouteParams?.slug
     const notFromEventsDeepLink = previousRoute.name === EVENTS_ROUTE
     if (isSingleEvent && notFromEventsDeepLink) {
-      return { title: t('events'), language: undefined } // system language
+      return { title: t($ => $.events), language: undefined } // system language
     }
 
     const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
@@ -234,14 +234,14 @@ const Header = ({
     }
 
     if (previousRoute.name === REGIONS_ROUTE) {
-      return { title: t('changeLocation'), language: undefined } // system language
+      return { title: t($ => $.changeLocation), language: undefined } // system language
     }
 
     if (previousRoute.name === CHAT_ROUTE) {
       return { title: getChatName(buildConfig().appName), language: undefined } // system language
     }
 
-    return { title: t(previousRoute.name), language: undefined } // system language
+    return { title: t($ => previousRoute.name), language: undefined } // system language
   }
 
   const { title, language } = getHeaderTitle()

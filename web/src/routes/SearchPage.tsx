@@ -36,7 +36,7 @@ type SearchProps = {
 }
 
 const SearchResults = ({ query, loading, results }: SearchProps): ReactElement | null => {
-  const { t } = useTranslation('search')
+  const { t } = useTranslation(['search'])
 
   if (query.length === 0) {
     return null
@@ -53,7 +53,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
   return (
     <>
       <Typography variant='subtitle2' aria-live={results.length === 0 ? 'assertive' : 'polite'}>
-        {t('searchResultsCount', { count: results.length })}
+        {t($ => $.searchResultsCount, { count: results.length })}
       </Typography>
       <List items={items} />
       <SearchFeedback noResults={results.length === 0} />
@@ -64,7 +64,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
 const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
   const [query, setQuery] = useState(queryParams.get(SEARCH_QUERY_KEY) ?? '')
-  const { t } = useTranslation('search')
+  const { t } = useTranslation(['search'])
   const sourceLanguage = config.sourceLanguage
   const debouncedQuery = useDebounce(query)
 
@@ -138,16 +138,16 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
   return (
     <RegionContentLayout isLoading={false} {...layoutParams}>
       <Helmet
-        pageTitle={`${t('pageTitle')} - ${region.name}`}
+        pageTitle={`${t($ => $.pageTitle)} - ${region.name}`}
         languageChangePaths={languageChangePaths}
         regionModel={region}
       />
       <Stack sx={{ paddingTop: 4, gap: 2 }}>
         <SearchInput
           id='search-content'
-          ariaLabel={t('searchContent')}
+          ariaLabel={t($ => $.searchContent)}
           filterText={query}
-          placeholderText={t('searchContent')}
+          placeholderText={t($ => $.searchContent)}
           onFilterTextChange={setQuery}
           autoFocus
         />

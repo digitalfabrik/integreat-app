@@ -19,7 +19,7 @@ const Description = styled('div')`
 
 type ConsentPageProps = { languageCode: string }
 const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
-  const { t } = useTranslation('consent')
+  const { t } = useTranslation(['consent'])
   const [externalSources, setExternalSources] = useLocalStorage<ExternalSourcePermissions>({
     key: EXTERNAL_SOURCES_STORAGE_KEY,
     initialValue: {},
@@ -31,7 +31,7 @@ const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
   const items = buildConfig().supportedIframeSources.map(item => (
     <ConsentListItem
       key={item}
-      description={t('consentDescription', { source: item })}
+      description={t($ => $.consentDescription, { source: item })}
       allowed={externalSources[item] ?? false}
       onPress={permission => updateExternalSource(item, permission)}
     />
@@ -39,8 +39,8 @@ const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-      <H1>{t('title')}</H1>&<Description>{t('description')}</Description>
-      <List items={items} noItemsMessage={t('noSources')} />
+      <H1>{t($ => $.title)}</H1>&<Description>{t($ => $.description)}</Description>
+      <List items={items} noItemsMessage={t($ => $.noSources)} />
     </Layout>
   )
 }

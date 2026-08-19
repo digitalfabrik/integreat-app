@@ -79,7 +79,7 @@ const initialState: LocationStateType = { status: 'loading', message: 'loading',
 const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): UseUserLocationReturn => {
   const [locationState, setLocationState] = useState<LocationStateType>(initialState)
   const showSnackbar = useSnackbar()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['regions', 'layout'])
 
   const refreshPermissionAndLocation = useCallback(
     async ({
@@ -104,8 +104,8 @@ const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): 
 
       if (requestPermission && showSnackbarIfBlocked && locationPermissionStatus === RESULTS.BLOCKED) {
         showSnackbar({
-          text: t('regions:noPermission'),
-          action: { label: t('layout:settings'), onPress: openSettings },
+          text: t($ => $.regions.noPermission),
+          action: { label: t($ => $.layout.settings), onPress: openSettings },
         })
       }
       return null

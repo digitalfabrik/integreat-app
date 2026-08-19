@@ -18,7 +18,7 @@ import { RegionRouteProps } from './index'
 const PlacesPage = ({ regionCode, languageCode, region, pathname }: RegionRouteProps): ReactElement | null => {
   const params = useParams()
   const slug = params.slug ? normalizePath(params.slug) : undefined
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   const { data: userLocation } = useUserLocation()
 
   const { data, isPending, error } = useQueryFromEndpoint(createPlacesEndpoint, cmsApiBaseUrl, {
@@ -65,7 +65,7 @@ const PlacesPage = ({ regionCode, languageCode, region, pathname }: RegionRouteP
     )
   }
 
-  const pageTitle = `${place?.title ?? t('pageTitle')} - ${region.name}`
+  const pageTitle = `${place?.title ?? t($ => $.pageTitle)} - ${region.name}`
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams} pageTitle={pageTitle}>

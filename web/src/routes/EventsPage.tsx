@@ -40,7 +40,7 @@ const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
 
 const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteProps): ReactElement | null => {
   const { eventId } = useParams()
-  const { t } = useTranslation('events')
+  const { t } = useTranslation(['events'])
 
   const { data: events, error } = useQueryFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, {
     region: regionCode,
@@ -73,7 +73,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     }
   })
 
-  const pageTitle = `${event?.title ?? t('pageTitle')} - ${region.name}`
+  const pageTitle = `${event?.title ?? t($ => $.pageTitle)} - ${region.name}`
 
   const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
     region,
@@ -124,14 +124,19 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
               <EventDates event={event} languageCode={languageCode} />
               {location && (
                 <PageDetail
-                  tooltip={t('address')}
+                  tooltip={t($ => $.address)}
                   icon={<LocationIcon />}
                   information={location.fullAddress}
                   path={event.placePath}
                 />
               )}
               {!!meetingUrl && (
-                <PageDetail tooltip={t('meetingUrl')} icon={<LinkIcon />} information={meetingUrl} path={meetingUrl} />
+                <PageDetail
+                  tooltip={t($ => $.meetingUrl)}
+                  icon={<LinkIcon />}
+                  information={meetingUrl}
+                  path={meetingUrl}
+                />
               )}
             </Spacing>
           }
@@ -144,7 +149,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
-      <H1>{t('events')}</H1>
+      <H1>{t($ => $.events)}</H1>
       {events ? (
         <EventList events={events} languageCode={languageCode} />
       ) : (

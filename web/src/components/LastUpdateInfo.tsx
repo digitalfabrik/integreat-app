@@ -16,10 +16,10 @@ export const LastUpdateInfo = ({
   className,
   format = 'DDD',
 }: LastUpdateInfoProps): ReactElement => {
-  const { i18n, t } = useTranslation('common')
+  const { i18n, t } = useTranslation(['common'])
   return (
     <Typography variant='caption' className={className}>
-      {withText && t('lastUpdate')} {lastUpdate.setLocale(i18n.language).toFormat(format)}
+      {withText && t($ => $.lastUpdate)} {lastUpdate.setLocale(i18n.language).toFormat(format)}
     </Typography>
   )
 }

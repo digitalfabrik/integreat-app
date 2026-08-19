@@ -29,7 +29,7 @@ type EventsProps = {
 }
 
 const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
-  const { t } = useTranslation('events')
+  const { t } = useTranslation(['events'])
   const event = events.find(it => it.slug === slug)
   useTtsPlayer(event)
 
@@ -65,7 +65,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
                     information={event.location.fullAddress}
                     language={language}
                     path={event.placePath}
-                    accessibilityLabel={t('address')}
+                    accessibilityLabel={t($ => $.address)}
                   />
                 )}
                 {event.meetingUrl !== null && (
@@ -75,7 +75,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
                     information={event.meetingUrl}
                     language={language}
                     path={event.meetingUrl}
-                    accessibilityLabel={t('meetingUrl')}
+                    accessibilityLabel={t($ => $.meetingUrl)}
                   />
                 )}
               </PageDetailsContainer>

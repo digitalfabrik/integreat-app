@@ -22,7 +22,7 @@ type SnackbarContainerProps = {
 const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement | null => {
   const [enqueuedSnackbars, setEnqueuedSnackbars] = useState<SnackbarType[]>([])
   const displayedSnackbar = enqueuedSnackbars[0]
-  const { t } = useTranslation('error')
+  const { t } = useTranslation(['error'])
 
   const enqueueSnackbar = useCallback((snackbar: SnackbarType) => {
     // Don't show same snackbar multiple times
@@ -50,7 +50,7 @@ const SnackbarContainer = ({ children }: SnackbarContainerProps): ReactElement |
               }
             : undefined
         }>
-        {displayedSnackbar ? t(displayedSnackbar.text) : ''}
+        {displayedSnackbar ? t($ => displayedSnackbar.text) : ''}
       </Snackbar>
     </SnackbarContext.Provider>
   )

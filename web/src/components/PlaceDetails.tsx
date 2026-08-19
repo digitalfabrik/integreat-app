@@ -32,7 +32,7 @@ type PlaceDetailsProps = {
 }
 
 const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation(['places'])
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = place
 
   const isAndroid = /Android/i.test(navigator.userAgent)
@@ -42,7 +42,7 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
   const addressSection = (
     <Stack sx={{ paddingBlock: 1, gap: 1 }}>
       <Typography component='h2' variant='subtitle1'>
-        {t('detailsAddress')}
+        {t($ => $.detailsAddress)}
       </Typography>
       <Button component={Link} to={externalMapsLink} color='inherit' startIcon={<LocationOnOutlinedIcon />} fullWidth>
         <Stack direction='row' sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -61,7 +61,7 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
   const contactsSection = contacts.length > 0 && (
     <>
       <Divider />
-      <Accordion id='contacts' title={t('contacts')} defaultCollapsed>
+      <Accordion id='contacts' title={t($ => $.contacts)} defaultCollapsed>
         <StyledContactsList
           items={contacts.map(contact => (
             <Contact key={contact.headline} contact={contact} />
@@ -91,7 +91,7 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
           {place.title}
         </Typography>
         {distance !== null && (
-          <Typography variant='body2'>{t('distanceKilometre', { distance: distance.toFixed(1) })}</Typography>
+          <Typography variant='body2'>{t($ => $.distanceKilometre, { distance: distance.toFixed(1) })}</Typography>
         )}
         <PlaceChips place={place} />
         {!!place.thumbnail && <CustomThumbnail src={place.thumbnail} />}
@@ -99,7 +99,7 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
       <Divider />
       {content.length > 0 && (
         <>
-          <Accordion id='content' title={t('detailsInformation')}>
+          <Accordion id='content' title={t($ => $.detailsInformation)}>
             <RemoteContent html={content} smallText />
           </Accordion>
           <Divider />

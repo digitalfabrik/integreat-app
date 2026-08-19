@@ -88,14 +88,14 @@ const TtsPlayer = ({
 }: TtsPlayerProps): ReactElement => {
   const theme = useTheme()
   const { bottom } = useSafeAreaInsets()
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation(['layout', 'common'])
 
   return (
     <StyledTtsPlayer insetBottom={bottom}>
       <TouchableRipple
         borderless
         role='button'
-        accessibilityLabel={t('common:close')}
+        accessibilityLabel={t($ => $.common.close)}
         onPress={close}
         style={[styles.closeButton, isRTLText(title) ? { left: 0 } : { right: 0 }]}>
         <Icon source='close' />
@@ -107,21 +107,21 @@ const TtsPlayer = ({
         <TouchableRipple
           borderless
           role='button'
-          accessibilityLabel={t('previous')}
+          accessibilityLabel={t($ => $.previous)}
           onPress={playPrevious}
           style={styles.TouchableRippleStyle}>
           <Icon size={28} source='rewind' />
         </TouchableRipple>
         <StyledPlayIconButton
           disabled={disabled}
-          accessibilityLabel={t(isPlaying ? 'pause' : 'play')}
+          accessibilityLabel={t($ => (isPlaying ? $.pause : $.play))}
           onPress={() => (isPlaying ? pause() : play())}
           icon={<Icon color={theme.colors.ttsPlayer.playIconColor} source={isPlaying ? 'pause' : 'play'} />}
         />
         <TouchableRipple
           borderless
           role='button'
-          accessibilityLabel={t('next')}
+          accessibilityLabel={t($ => $.next)}
           onPress={playNext}
           style={styles.TouchableRippleStyle}>
           <Icon size={28} source='fast-forward' />

@@ -28,7 +28,7 @@ type SearchListItemProps = {
 }
 
 const SearchListItem = ({ language, title, contentWithoutHtml, query, path }: SearchListItemProps): ReactElement => {
-  const { t } = useTranslation('search')
+  const { t } = useTranslation(['search'])
   const { navigateTo } = useNavigate()
   const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
 
@@ -52,7 +52,7 @@ const SearchListItem = ({ language, title, contentWithoutHtml, query, path }: Se
       description={excerpt.length > 0 ? <Highlighter search={query} text={excerpt} /> : undefined}
       onPress={() => navigateTo(routeInformation)}
       role='link'
-      accessibilityHint={t('itemHint')}
+      accessibilityHint={t($ => $.itemHint)}
       accessibilityLanguage={language}
       style={styles.ListItemStyle}
     />

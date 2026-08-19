@@ -97,7 +97,7 @@ type ChatInputProps = {
 }
 
 const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): ReactElement => {
-  const { t } = useTranslation('chat')
+  const { t } = useTranslation(['chat', 'layout', 'settings'])
   const { desktop } = useDimensions()
   const iconFontSize = desktop ? 'large' : 'medium'
   const [expanded, setExpanded] = useState(false)
@@ -139,20 +139,20 @@ const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): React
       multiline
       minRows={1}
       maxRows={5}
-      placeholder={t('chatInputHelperText')}
+      placeholder={t($ => $.chatInputHelperText)}
       slotProps={{
         input: {
           endAdornment: (
             <ButtonStack expanded={expanded}>
-              <SendButton onClick={onSubmit} disabled={submitDisabled} aria-label={t('sendButton')}>
+              <SendButton onClick={onSubmit} disabled={submitDisabled} aria-label={t($ => $.sendButton)}>
                 <SendIcon fontSize={iconFontSize} />
               </SendButton>
               <Stack direction='row'>
-                {/* <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t('layout:uploadFiles')}>
+                {/* <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t($ => $.layout.uploadFiles)}>
                   <AttachFileIcon fontSize={iconFontSize} />
                 </ChatIconButton> */}
-                <Tooltip title={t('settings:privacyPolicy')}>
-                  <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t('layout:privacy')}>
+                <Tooltip title={t($ => $.settings.privacyPolicy)}>
+                  <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t($ => $.layout.privacy)}>
                     <PrivacyTipIcon fontSize={iconFontSize} />
                   </ChatIconButton>
                 </Tooltip>

@@ -14,7 +14,7 @@ type SprungbrettOfferPageProps = {
 }
 
 const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): ReactElement | null => {
-  const { t } = useTranslation('sprungbrett')
+  const { t } = useTranslation(['sprungbrett'])
 
   const { data, error, isPending } = useQueryFromEndpoint(
     createSprungbrettJobsEndpoint,
@@ -32,7 +32,7 @@ const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): Reac
 
   const items = data.map(job => <SprungbrettListItem key={job.url} job={job} />)
 
-  return <List items={items} noItemsMessage={t('noOffersAvailable')} />
+  return <List items={items} noItemsMessage={t($ => $.noOffersAvailable)} />
 }
 
 export default SprungbrettOffer

@@ -22,7 +22,7 @@ type LicenseItemProps = {
 
 const LicenseItem = (props: LicenseItemProps): ReactElement => {
   const { name, version, license, author, onPress } = props
-  const { t } = useTranslation('licenses')
+  const { t } = useTranslation(['licenses'])
   const theme = useTheme()
 
   const styles = StyleSheet.create({
@@ -45,10 +45,10 @@ const LicenseItem = (props: LicenseItemProps): ReactElement => {
           {author}
         </Text>
         <Text variant='body2' style={styles.description}>
-          {t('version')} {version}
+          {t($ => $.version)} {version}
         </Text>
         <Text variant='body2' style={styles.description}>
-          {t('license')} {license}
+          {t($ => $.license)} {license}
         </Text>
       </View>
     </TouchableRipple>
@@ -59,7 +59,7 @@ const loadLicenses = async () => parseLicenses((await import('../assets/licenses
 
 const Licenses = (): ReactElement => {
   const { data: licenses } = useLoadAsync(loadLicenses)
-  const { t } = useTranslation('settings')
+  const { t } = useTranslation(['settings'])
   const showSnackbar = useSnackbar()
 
   const renderItem = ({ item }: { item: License }) => {
@@ -73,7 +73,7 @@ const Licenses = (): ReactElement => {
       <FlatList
         data={licenses}
         renderItem={renderItem}
-        ListHeaderComponent={<Caption title={t('openSourceLicenses')} />}
+        ListHeaderComponent={<Caption title={t($ => $.openSourceLicenses)} />}
       />
     </Layout>
   )

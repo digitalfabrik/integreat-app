@@ -36,7 +36,7 @@ const CalendarChoiceModal = ({
   eventTitle,
   recurring,
 }: CalendarChoiceProps): ReactElement => {
-  const { t } = useTranslation('events')
+  const { t } = useTranslation(['events'])
   const [selectedCalendarId, setSelectedCalendarId] = useState<string | undefined>(calendars[0]?.id ?? undefined)
   const [exportAllEvents, setExportAllEvents] = useState<boolean>(false)
   const calendarCount = calendars.length
@@ -44,7 +44,7 @@ const CalendarChoiceModal = ({
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle} scrollView={false}>
       <Text variant='h5' style={styles.heading}>
-        {t('chooseCalendar')}
+        {t($ => $.chooseCalendar)}
       </Text>
       <RadioButton.Group onValueChange={setSelectedCalendarId} value={selectedCalendarId ?? ''}>
         <StyledList
@@ -61,13 +61,13 @@ const CalendarChoiceModal = ({
       {recurring && (
         <>
           <Text variant='h5' style={styles.heading}>
-            {t('addToCalendar')}
+            {t($ => $.addToCalendar)}
           </Text>
           <RadioButton.Group
             onValueChange={value => setExportAllEvents(value === 'true')}
             value={exportAllEvents.toString()}>
-            <RadioButton.Item mode='android' label={t('onlyThisEvent')} value='false' />
-            <RadioButton.Item mode='android' label={t('thisAndAllFutureEvents')} value='true' />
+            <RadioButton.Item mode='android' label={t($ => $.onlyThisEvent)} value='false' />
+            <RadioButton.Item mode='android' label={t($ => $.thisAndAllFutureEvents)} value='true' />
           </RadioButton.Group>
         </>
       )}
@@ -75,7 +75,7 @@ const CalendarChoiceModal = ({
         icon='calendar-import'
         mode='contained'
         onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)}>
-        {t('addToCalendar')}
+        {t($ => $.addToCalendar)}
       </Button>
     </Modal>
   )

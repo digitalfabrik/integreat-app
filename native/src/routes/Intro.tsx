@@ -50,38 +50,38 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
   const slides = [
     {
       key: 'integreat',
-      title: t('welcome', { appName }),
-      description: t('welcomeDescription', { appName }),
+      title: t($ => $.welcome, { appName }),
+      description: t($ => $.welcomeDescription, { appName }),
       Content: <StyledIcon icon={IntroWelcomeIcon} />,
     },
     {
       key: 'languageChange',
-      title: t('languageChange', { appName }),
-      description: t('languageChangeDescription', { appName }),
+      title: t($ => $.languageChange, { appName }),
+      description: t($ => $.languageChangeDescription, { appName }),
       Content: <StyledIcon icon={IntroLanguageIcon} />,
     },
     {
       key: 'search',
-      title: t('search'),
-      description: t('searchDescription'),
+      title: t($ => $.search),
+      description: t($ => $.searchDescription),
       Content: <StyledIcon icon={IntroSearchIcon} />,
     },
     {
       key: 'places',
-      title: t('places'),
-      description: t('placesDescription'),
+      title: t($ => $.places),
+      description: t($ => $.placesDescription),
       Content: <StyledIcon icon={IntroPlacesIcon} />,
     },
     {
       key: 'news',
-      title: t('news', { appName }),
-      description: t('newsDescription', { appName }),
+      title: t($ => $.news, { appName }),
+      description: t($ => $.newsDescription, { appName }),
       Content: <StyledIcon icon={IntroNewsIcon} />,
     },
     {
       key: 'offline',
-      title: t('offline'),
-      description: t('offlineDescription', {
+      title: t($ => $.offline),
+      description: t($ => $.offlineDescription, {
         appName,
       }),
       Content: <StyledIcon icon={IntroOfflineIcon} />,
