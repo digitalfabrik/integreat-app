@@ -1,7 +1,7 @@
 /** @jest-config-loader ts-node */
 import { type JestConfigWithTsJest, createDefaultEsmPreset } from 'ts-jest'
 
-const transformNodeModules = ['shared', 'build-configs', 'translations', 'qr']
+const transformNodeModules = ['shared', 'build-configs', 'translations', 'qr', 'uuid']
 process.env.TZ = 'Europe/Berlin'
 const config: JestConfigWithTsJest = {
   ...createDefaultEsmPreset(),

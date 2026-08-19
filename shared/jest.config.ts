@@ -9,7 +9,7 @@ export default {
     '^(\\.{1,2}/.*)\\.js$': '$1',
   },
   testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/'],
-  transformIgnorePatterns: ['node_modules/(?!qr)'],
+  transformIgnorePatterns: ['node_modules/(?!(qr|uuid)/)'],
   transform: {
     '^.+\\.(t|j)sx?$': [
       'ts-jest',
