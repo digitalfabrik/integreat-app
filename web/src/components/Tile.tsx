@@ -63,7 +63,7 @@ const Tile = ({ tile }: TileProps): ReactElement => {
       <Outline>
         <StyledImage alt='' src={data?.objectUrl} />
       </Outline>
-      <StyledTitle variant='body1' textAlign='center' textTransform='none'>
+      <StyledTitle variant='body1' sx={{ textAlign: 'center', textTransform: 'none' }}>
         {tile.title}
       </StyledTitle>
     </StyledButton>

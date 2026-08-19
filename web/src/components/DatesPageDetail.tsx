@@ -33,7 +33,10 @@ const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement
 
   if (date.isMonthlyOrYearlyRecurrence()) {
     return (
-      <Stack gap={1}>
+      <Stack
+        sx={{
+          gap: 1,
+        }}>
         {recurrences}
         {date.hasMoreRecurrencesThan(visibleRecurrences) && (
           <Button onClick={() => setClicksOnShowMore(clicksOnShowMore + 1)} startIcon={<ExpandMoreIcon />}>
@@ -47,7 +50,10 @@ const DatesPageDetail = ({ date, language }: DatesPageDetailProps): ReactElement
   const formattedDate = date.formatEventDate(language, t)
 
   return (
-    <Stack gap={1}>
+    <Stack
+      sx={{
+        gap: 1,
+      }}>
       <PageDetail icon={<TodayIcon />} information={formattedDate.date} secondaryInformation={formattedDate.weekday} />
       <PageDetail icon={<AccessTimeIcon />} information={formattedDate.time} />
     </Stack>

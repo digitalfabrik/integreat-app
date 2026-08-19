@@ -45,7 +45,14 @@ const EventsDateFilter = ({
           </Button>
         </AccordionSummary>
         <AccordionDetails>
-          <Stack direction='row' justifyContent='space-evenly' alignItems='start' flexWrap='wrap' gap={2}>
+          <Stack
+            direction='row'
+            sx={{
+              justifyContent: 'space-evenly',
+              alignItems: 'start',
+              flexWrap: 'wrap',
+              gap: 2,
+            }}>
             <DatePicker
               title={t('from')}
               date={startDate}

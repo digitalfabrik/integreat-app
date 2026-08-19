@@ -42,7 +42,7 @@ const DatePicker = ({ title, date, setDate, error, calendarLabel }: CustomDatePi
         localeText={muiLocaleText}
         slotProps={{
           textField: {
-            InputLabelProps: { shrink: true },
+            slotProps: { inputLabel: { shrink: true } },
             helperText: errorMessage ? <StyledError>{errorMessage}</StyledError> : null,
           },
           openPickerButton: {

@@ -71,10 +71,23 @@ const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): Re
       disablePortal
       modifiers={[{ name: 'offset', options: { offset: [POPUP_OFFSET, 4] } }]}>
       <StyledPaper elevation={2}>
-        <Stack padding={2} gap={1}>
-          <Stack direction='row' alignItems='center' gap={1}>
+        <Stack
+          sx={{
+            padding: 2,
+            gap: 1,
+          }}>
+          <Stack
+            direction='row'
+            sx={{
+              alignItems: 'center',
+              gap: 1,
+            }}>
             <ChatLogoAvatar size={AVATAR_SIZE} />
-            <Typography variant='body2' flex={1}>
+            <Typography
+              variant='body2'
+              sx={{
+                flex: 1,
+              }}>
               {t('welcomeGreeting')} 👋
             </Typography>
             <IconButton onClick={() => setVisible(false)} size='small' aria-label={t('common:close')}>

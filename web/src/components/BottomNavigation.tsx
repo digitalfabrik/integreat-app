@@ -85,9 +85,11 @@ const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps):
                 <Typography
                   component='div'
                   variant='body3'
-                  fontWeight={value === item.value ? 'bold' : 'normal'}
-                  overflow='hidden'
-                  textOverflow='ellipsis'>
+                  sx={{
+                    fontWeight: value === item.value ? 'bold' : 'normal',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}>
                   {t(item.label)}
                 </Typography>
               ) : (

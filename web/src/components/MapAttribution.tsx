@@ -24,7 +24,7 @@ type MapAttributionProps = {
 const MapAttribution = ({ className }: MapAttributionProps): ReactElement => {
   const { icon, linkText, url, label } = openStreeMapCopyright
   return (
-    <Attribution fontSize={8} lineHeight={2} className={className} color='black'>
+    <Attribution className={className} sx={{ fontSize: 8, lineHeight: 2, color: 'black' }}>
       {icon}
       <StyledLink to={url}>{linkText}</StyledLink>
       {label}

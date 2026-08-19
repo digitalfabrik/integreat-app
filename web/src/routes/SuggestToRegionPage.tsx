@@ -61,7 +61,11 @@ const SuggestToRegionPage = ({ languageCode }: SuggestToRegionPageProps): ReactE
 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-      <Stack paddingBlock={4} gap={2}>
+      <Stack
+        sx={{
+          paddingBlock: 4,
+          gap: 2,
+        }}>
         <H1>{t('callToAction')}</H1>
         <Typography variant='body1'>{t('explanation')}</Typography>
         <StyledSvg src={icon} width={160} height={160} />
