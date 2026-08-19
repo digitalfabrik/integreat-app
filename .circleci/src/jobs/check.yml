@@ -17,6 +17,9 @@ steps:
       name: Check circular dependencies
       command: yarn check-circular-dependencies
   - run:
+      name: Check translation index files
+      command: yarn workspace translations check-indexes
+  - run:
       name: Lint
       command: yarn lint:ci
   - store_test_results:

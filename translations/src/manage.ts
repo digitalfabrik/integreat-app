@@ -132,6 +132,56 @@ program
   .command('import <fromPath> <toPath>')
   .action((fromPath: string, toPath: string) => importTranslationsFromCsv(fromPath, toPath, config.sourceLanguage))
 
+const identifierForLanguage = (language: string): string =>
+  language.replace(/-([a-zA-Z])/g, (_, char: string) => char.toUpperCase())
+
+const writeIndex = (dir: string, typesRelativePath: string) => {
+  const languages = fs
+    .readdirSync(dir)
+    .filter(file => path.extname(file) === '.json')
+    .map(file => path.basename(file, '.json'))
+    .sort()
+
+  if (languages.length === 0) {
+    console.warn(`No JSON files in ${dir}. Skipping.`)
+    return
+  }
+
+  const imports = languages
+    .map(language => `import ${identifierForLanguage(language)} from './${language}.json' with { type: 'json' }`)
+    .join('\n')
+  const entries = languages
+    .map(language => {
+      const identifier = identifierForLanguage(language)
+      return identifier === language ? `  ${language},` : `  '${language}': ${identifier},`
+    })
+    .join('\n')
+
+  const content = `import type { TranslationsType } from '${typesRelativePath}'
+${imports}
+
+const translations = {
+${entries}
+} satisfies TranslationsType
+
+export default translations
+`
+
+  const filePath = path.join(dir, 'index.ts')
+  fs.writeFileSync(filePath, content, 'utf-8')
+  console.log(`Wrote ${filePath} with ${languages.length} languages`)
+}
+
+program.command('sync-indexes').action(() => {
+  const translationsDir = 'src/translations'
+  const overridesRoot = 'src/override-translations'
+
+  writeIndex(translationsDir, '../types.ts')
+  fs.readdirSync(overridesRoot, { withFileTypes: true })
+    .filter(entry => entry.isDirectory())
+    .forEach(entry => writeIndex(path.join(overridesRoot, entry.name), '../../types.ts'))
+})
+
 type WritePlistTranslationsOptions = {
   translations: string
   destination: string
