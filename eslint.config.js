@@ -313,6 +313,14 @@ export default defineConfig([
   },
 
   {
+    files: ['**/@types/**'],
+
+    rules: {
+      '@typescript-eslint/consistent-type-definitions': 'off',
+    },
+  },
+
+  {
     files: ['native/**'],
 
     rules: {

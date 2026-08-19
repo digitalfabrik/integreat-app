@@ -65,6 +65,5 @@ type MD3Theme = {
 }
 
 declare module 'styled-components/native' {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   export interface DefaultTheme extends MD3Theme {}
 }
