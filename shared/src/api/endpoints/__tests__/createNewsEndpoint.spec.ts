@@ -42,7 +42,6 @@ describe('createNewsEndpoint', () => {
   const params = {
     region: 'testumgebung',
     language: 'en',
-    page: 1,
   }
 
   it('should map params to url', () => {
