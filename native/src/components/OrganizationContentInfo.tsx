@@ -38,12 +38,14 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
           {t($ => $.organizationContent, { organization: organization.name })}
         </Text>
         <Text variant='body2' style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-          <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
-            This gets{{ organization: organization.name }}replaced
-            {/* @ts-expect-error gets replaced by Trans component */}
-            <StyledLink url={organization.url}>{{ domain: new URL(organization.url).hostname }}</StyledLink>
-            by i18n
-          </Trans>
+          <Trans
+            ns='categories'
+            i18nKey={$ => $.organizationMoreInformation}
+            components={{
+              1: <Text>{organization.name}</Text>,
+              3: <StyledLink url={organization.url}>{new URL(organization.url).hostname}</StyledLink>,
+            }}
+          />
         </Text>
       </View>
     </Box>

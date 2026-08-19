@@ -27,7 +27,7 @@ const mockSubscribeNews = mocked(subscribeNews)
 describe('createSettingsSections', () => {
   beforeEach(jest.clearAllMocks)
 
-  const t = ((key: string) => key) as TFunction
+  const t = ((key: string) => key) as TFunction<['settings', 'layout', 'error']>
   const clearResourcesAndCache = jest.fn()
 
   const updateSettings = jest.fn()

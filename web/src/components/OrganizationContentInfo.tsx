@@ -44,14 +44,15 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
             <Trans
               ns='categories'
               i18nKey={$ => $.organizationMoreInformation}
-              domain={new URL(organization.url).hostname}>
-              This gets{{ organization: organization.name }}replaced
-              <Link to={organization.url} highlighted>
-                {/* @ts-expect-error gets replaced by Trans component */}
-                {{ domain: new URL(organization.url).hostname }}
-              </Link>
-              by i18n
-            </Trans>
+              components={{
+                1: <span>{organization.name}</span>,
+                3: (
+                  <Link to={organization.url} highlighted>
+                    {new URL(organization.url).hostname}
+                  </Link>
+                ),
+              }}
+            />
           </Typography>
         </Stack>
       </Stack>

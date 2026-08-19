@@ -3,13 +3,6 @@ import { DateTime } from 'luxon'
 import { DateModel } from '../../api/index.ts'
 import { formatTime, getWeekdayFromIndex } from '../date.ts'
 
-const t = (key: string, options?: Record<string, unknown>) =>
-  options
-    ? `${key}, ${Object.entries(options)
-        .map(([key, value]) => `${key}: ${value}`)
-        .join(', ')}`
-    : key
-
 describe('getWeekdayFromIndex', () => {
   it('should return the correct weekday', () => {
     expect(getWeekdayFromIndex(0, 'de')).toBe('Montag')
@@ -31,7 +24,7 @@ describe('formatTime', () => {
       recurrenceRule: null,
       onlyWeekdays: false,
     })
-    expect(formatTime(locale, date, t)).toBe('11:00 - 13:00')
+    expect(formatTime(locale, date, 'allDay')).toBe('11:00 - 13:00')
   })
 
   it('should format an all-day event correctly', () => {
@@ -43,6 +36,6 @@ describe('formatTime', () => {
       recurrenceRule: null,
       onlyWeekdays: false,
     })
-    expect(formatTime(locale, date, t)).toBe('places:allDay')
+    expect(formatTime(locale, date, 'allDay')).toBe('places:allDay')
   })
 })

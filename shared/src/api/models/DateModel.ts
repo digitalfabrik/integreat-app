@@ -135,7 +135,7 @@ class DateModel {
     return {
       date: this.startDate.toLocaleString(shortFormat ? dateFormatShort : dateFormatWithWeekday, { locale }),
       weekday: undefined,
-      time: formatTime(locale, this, t),
+      time: formatTime(locale, this, allDayLabel),
     }
   }
 
@@ -154,8 +154,8 @@ class DateModel {
     return times.some(time => time !== times[0])
   }
 
-  formatEventDate(locale: string, t: TranslateFunction): FormattedEventDate {
-    const time = formatTime(locale, this, t)
+  formatEventDate(locale: string, allDayLabel: string): FormattedEventDate {
+    const time = formatTime(locale, this, allDayLabel)
     const mondayTranslation = getWeekdayFromIndex(0, locale)
     const fridayTranslation = getWeekdayFromIndex(4, locale)
     const weekday = this.onlyWeekdays ? `${mondayTranslation} - ${fridayTranslation}` : undefined

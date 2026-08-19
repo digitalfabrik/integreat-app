@@ -62,7 +62,7 @@ const EventListItem = ({
   const DateIcon = useCallback(
     () =>
       event.isRecurring ? (
-        <Icon source='calendar-refresh-outline' label={translateIntoContentLanguage('recurring')} />
+        <Icon source='calendar-refresh-outline' label={translateIntoContentLanguage($ => $.recurring)} />
       ) : null,
     [event.isRecurring, translateIntoContentLanguage],
   )
