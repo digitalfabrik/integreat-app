@@ -144,7 +144,7 @@ const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     const isCurrentLanguage = code === languageCode
     const path = category?.isRoot()
       ? regionContentPath({ regionCode, languageCode: code })
-      : category?.availableLanguages[code] || null
+      : (category?.availableLanguages[code] ?? null)
 
     return {
       path: isCurrentLanguage ? pathname : path,

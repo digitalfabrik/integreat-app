@@ -34,13 +34,13 @@ const PlacesPage = ({ regionCode, languageCode, region, pathname }: RegionRouteP
 
   const languageChangePaths = region.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
-    const path =
-      place?.availableLanguages[code] ??
-      pathnameFromRouteInformation({
-        route: PLACES_ROUTE,
-        regionCode,
-        languageCode: code,
-      })
+    const path = place
+      ? (place.availableLanguages[code] ?? null)
+      : pathnameFromRouteInformation({
+          route: PLACES_ROUTE,
+          regionCode,
+          languageCode: code,
+        })
     return {
       path: isCurrentLanguage ? pathname : path,
       name,

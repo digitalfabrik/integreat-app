@@ -37,19 +37,15 @@ const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRo
 
   const pageTitle = `${news?.title ?? t('news')} - ${region.name}`
 
-  const languageChangePaths = region.languages.map(({ code, name }) => ({
-    path:
-      code === languageCode
-        ? pathname
-        : pathnameFromRouteInformation({
-            route: NEWS_ROUTE,
-            regionCode,
-            languageCode: code,
-            id: news?.availableLanguages?.[code],
-          }),
-    name,
-    code,
-  }))
+  const languageChangePaths = region.languages.map(({ code, name }) => {
+    const id = news?.availableLanguages?.[code]
+    const path = id ? pathnameFromRouteInformation({ route: NEWS_ROUTE, regionCode, languageCode: code, id }) : null
+    return {
+      path: code === languageCode ? pathname : path,
+      name,
+      code,
+    }
+  })
 
   const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
     region,
