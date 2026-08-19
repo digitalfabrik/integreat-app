@@ -23,7 +23,7 @@ export default {
   rootDir: '.',
   roots: ['src'],
   displayName: 'native',
-  preset: 'react-native',
+  preset: '@react-native/jest-preset',
   automock: false,
   moduleNameMapper: {
     '\\.svg': '<rootDir>/src/__mocks__/svgrMock.ts',

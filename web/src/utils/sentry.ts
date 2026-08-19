@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { SeverityLevel } from '@sentry/types'
+import { SeverityLevel } from '@sentry/react'
 
 import { FetchError, NotFoundError } from 'shared/api'
 

@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import * as Sentry from '@sentry/react-native'
-import { SeverityLevel } from '@sentry/types'
 
 import { FetchError, NotFoundError } from 'shared/api'
 
@@ -28,7 +27,7 @@ export const log = (
     level = 'debug',
     data,
   }: {
-    level?: SeverityLevel
+    level?: Sentry.SeverityLevel
     data?: unknown
   } = { level: 'debug' },
 ): void => {

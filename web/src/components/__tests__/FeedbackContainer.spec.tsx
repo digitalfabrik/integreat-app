@@ -111,7 +111,7 @@ describe('FeedbackContainer', () => {
   })
 
   it('should clear comment and contact mail after submitting', async () => {
-    const { getByLabelText, getByText, findByText } = renderFeedbackContainer(
+    const { getByLabelText, getByText, findByText, findByLabelText } = renderFeedbackContainer(
       '/augsburg/de?feedback=positive',
       <FeedbackOpener rating='positive' />,
     )
@@ -124,8 +124,9 @@ describe('FeedbackContainer', () => {
     expect(await findByText('feedback:thanksMessage')).toBeTruthy()
 
     fireEvent.click(getByText('reopen'))
-    expect(getByLabelText('feedback:commentHeadline')).toHaveValue('')
-    expect(getByLabelText('feedback:contactMailAddress')).toHaveValue('')
+    // The form re-renders behind the success snackbar's transition, so wait for it instead of asserting immediately
+    expect(await findByLabelText('feedback:commentHeadline')).toHaveValue('')
+    expect(await findByLabelText('feedback:contactMailAddress')).toHaveValue('')
   })
 
   it('should send original search term if updated', () => {
