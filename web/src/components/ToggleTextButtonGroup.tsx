@@ -60,11 +60,13 @@ const ToggleTextButtonGroup = <T extends string>({
       return (
         <StyledToggleButton key={option} value={option}>
           <Stack
-            paddingInlineStart={selected ? 1 : 3}
-            paddingInlineEnd={selected ? selectedInlineEndPadding : 3}
             direction='row'
-            alignItems='center'
-            gap={1}>
+            sx={{
+              paddingInlineStart: selected ? 1 : 3,
+              paddingInlineEnd: selected ? selectedInlineEndPadding : 3,
+              alignItems: 'center',
+              gap: 1,
+            }}>
             {selected && <CheckIcon fontSize='small' />}
             <Typography variant='body2'>{getLabel(option)}</Typography>
           </Stack>

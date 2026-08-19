@@ -36,7 +36,7 @@ const HeaderTitle = ({ title, regionsPath }: HeaderTitleProps): ReactElement => 
 
   if (featureFlags.fixedRegion) {
     return (
-      <StyledTitle variant={variant} alignContent='center'>
+      <StyledTitle variant={variant} sx={{ alignContent: 'center' }}>
         {title}
       </StyledTitle>
     )

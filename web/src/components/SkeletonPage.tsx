@@ -9,7 +9,11 @@ const MIN_WIDTH = 60
 const MAX_WIDTH = 90
 
 const SkeletonPage = (): ReactElement => (
-  <Stack direction='column' width='100%'>
+  <Stack
+    direction='column'
+    sx={{
+      width: '100%',
+    }}>
     <SkeletonHeader />
     {[...Array(NUM_SKELETONS).keys()].map(index => {
       const width = `${MIN_WIDTH + Math.random() * (MAX_WIDTH - MIN_WIDTH)}%`

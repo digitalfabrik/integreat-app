@@ -17,7 +17,10 @@ type RegionListGroupProps = {
 const RegionListGroup = ({ title, regions, filterText, languageCode }: RegionListGroupProps): ReactElement => {
   const { stickyTop } = useDimensions()
   return (
-    <Stack paddingBlock={1}>
+    <Stack
+      sx={{
+        paddingBlock: 1,
+      }}>
       <StickyListSubheader stickyTop={stickyTop}>{title}</StickyListSubheader>
       {regions.map(region => (
         <RegionListItem key={region.code} region={region} language={languageCode} filterText={filterText} />
