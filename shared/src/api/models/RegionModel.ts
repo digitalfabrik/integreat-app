@@ -14,12 +14,6 @@ class RegionModel {
   _eventsEnabled: boolean
   _placesEnabled: boolean
   _localNewsEnabled: boolean
-  _tuNewsEnabled: boolean
-  _sortingName: string
-  _prefix: string | null
-  _latitude: number
-  _longitude: number
-
   constructor(params: {
     name: string
     code: string
@@ -28,8 +22,8 @@ class RegionModel {
     placesEnabled: boolean
     eventsEnabled: boolean
     localNewsEnabled: boolean
+    externalNewsEnabled: boolean
     chatEnabled: boolean
-    tuNewsEnabled: boolean
     sortingName: string
     prefix: string | null
     latitude: number
@@ -46,7 +40,7 @@ class RegionModel {
     this._eventsEnabled = params.eventsEnabled
     this._placesEnabled = params.placesEnabled
     this._localNewsEnabled = params.localNewsEnabled
-    this._tuNewsEnabled = params.tuNewsEnabled
+    this._externalNewsEnabled = params.externalNewsEnabled
     this._sortingName = params.sortingName
     this._prefix = params.prefix
     this._latitude = params.latitude
@@ -55,6 +49,12 @@ class RegionModel {
     this._boundingBox = params.boundingBox
     this._chatPrivacyPolicyUrl = params.chatPrivacyPolicyUrl
   }
+  _sortingName: string
+  _prefix: string | null
+  _latitude: number
+  _longitude: number
+
+  _externalNewsEnabled: boolean
 
   _boundingBox: BBox
 
@@ -98,8 +98,12 @@ class RegionModel {
     return this._localNewsEnabled
   }
 
-  get tuNewsEnabled(): boolean {
-    return this._tuNewsEnabled
+  get externalNewsEnabled(): boolean {
+    return this._externalNewsEnabled
+  }
+
+  get newsEnabled(): boolean {
+    return this._localNewsEnabled || this._externalNewsEnabled
   }
 
   get sortCategory(): string {

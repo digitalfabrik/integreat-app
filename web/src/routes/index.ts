@@ -6,19 +6,15 @@ import {
   EVENTS_ROUTE,
   REGIONS_ROUTE,
   LICENSES_ROUTE,
-  LOCAL_NEWS_TYPE,
   MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
   NOT_FOUND_ROUTE,
   PLACES_ROUTE,
   SEARCH_ROUTE,
-  TU_NEWS_TYPE,
 } from 'shared'
 import { RegionModel } from 'shared/api'
 
-export const LOCAL_NEWS_ROUTE = LOCAL_NEWS_TYPE
-export const TU_NEWS_ROUTE = TU_NEWS_TYPE
-export const TU_NEWS_DETAIL_ROUTE = `${TU_NEWS_ROUTE}-detail` as const
+export const NEWS_DETAIL_ROUTE = `${NEWS_ROUTE}-detail` as const
 
 const languageCodePattern = ':languageCode'
 export const regionContentPattern = `/:regionCode/${languageCodePattern}/*`
@@ -33,9 +29,8 @@ export const RoutePatterns = {
   // Region content routes, relative to /:regionCode/:languageCode
   [EVENTS_ROUTE]: EVENTS_ROUTE,
   [PLACES_ROUTE]: PLACES_ROUTE,
-  [LOCAL_NEWS_ROUTE]: `${NEWS_ROUTE}/${LOCAL_NEWS_ROUTE}`,
-  [TU_NEWS_ROUTE]: `${NEWS_ROUTE}/${TU_NEWS_ROUTE}`,
-  [TU_NEWS_DETAIL_ROUTE]: `${NEWS_ROUTE}/${TU_NEWS_ROUTE}/:newsId`,
+  [NEWS_ROUTE]: NEWS_ROUTE,
+  [NEWS_DETAIL_ROUTE]: `${NEWS_ROUTE}/:id`,
   [SEARCH_ROUTE]: SEARCH_ROUTE,
   [IMPRINT_ROUTE]: IMPRINT_ROUTE,
   [CATEGORIES_ROUTE]: '*',

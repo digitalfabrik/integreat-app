@@ -14,8 +14,6 @@ import {
 } from 'shared'
 import { RegionModel } from 'shared/api'
 
-import { LOCAL_NEWS_ROUTE, TU_NEWS_ROUTE } from '../routes'
-
 type NavigationItem = {
   to: string
   value: string
@@ -29,19 +27,18 @@ type GetNavigationItemsProps = {
 }
 
 const getNavigationItems = ({ regionModel, languageCode }: GetNavigationItemsProps): NavigationItem[] | null => {
-  const { eventsEnabled, placesEnabled, tuNewsEnabled, localNewsEnabled } = regionModel
+  const { eventsEnabled, placesEnabled, newsEnabled } = regionModel
 
   const params = { regionCode: regionModel.code, languageCode }
   const categoriesPath = regionContentPath(params)
   const eventsPath = pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params })
   const placesPath = pathnameFromRouteInformation({ route: PLACES_ROUTE, ...params })
-  const newsType = localNewsEnabled ? LOCAL_NEWS_ROUTE : TU_NEWS_ROUTE
-  const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, newsType, ...params })
+  const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, ...params })
 
   const items: (NavigationItem | null)[] = [
     { value: CATEGORIES_ROUTE, to: categoriesPath, label: 'localInformationLabel', Icon: SignpostIcon },
     placesEnabled ? { value: PLACES_ROUTE, to: placesPath, label: 'locations', Icon: MapIcon } : null,
-    localNewsEnabled || tuNewsEnabled ? { value: NEWS_ROUTE, to: newsPath, label: 'news', Icon: NewspaperIcon } : null,
+    newsEnabled ? { value: NEWS_ROUTE, to: newsPath, label: 'news', Icon: NewspaperIcon } : null,
     eventsEnabled ? { value: EVENTS_ROUTE, to: eventsPath, label: 'events', Icon: CalendarTodayIcon } : null,
   ]
   const validItems = items.filter((tab): tab is NavigationItem => tab !== null)

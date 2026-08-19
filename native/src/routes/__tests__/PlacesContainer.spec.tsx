@@ -45,7 +45,7 @@ const data = {
   language: languages[0]!,
   categories: {},
   events: [],
-  localNews: [],
+  news: [],
 }
 
 describe('PlacesContainer', () => {

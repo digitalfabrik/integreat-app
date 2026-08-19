@@ -12,7 +12,7 @@ exports[`loadTranslations should correctly merge and transform translations 1`] 
     "app": {
       "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
       "pageTitles": {
-        "localNews": "Lokale Nachrichten",
+        "news": "Nachrichten",
         "notFound": "Seite nicht gefunden",
         "tuNews": "tünews",
       },
@@ -59,7 +59,7 @@ exports[`loadTranslations should correctly transform translations 1`] = `
     "app": {
       "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
       "pageTitles": {
-        "localNews": "Lokale Nachrichten",
+        "news": "Nachrichten",
         "notFound": "Seite nicht gefunden",
         "tuNews": "tünews",
       },

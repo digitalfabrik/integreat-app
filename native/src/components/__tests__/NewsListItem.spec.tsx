@@ -2,51 +2,40 @@ import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { LocalNewsModel, TuNewsModel } from 'shared/api'
+import { NewsModel } from 'shared/api'
 
 import render from '../../testing/render'
 import NewsListItem from '../NewsListItem'
 
 jest.mock('react-i18next')
 
-const tuNews = new TuNewsModel({
-  id: 9902,
-  title: 'Was ist ein Verein?',
-  lastUpdate: DateTime.fromISO('2020-02-20T00:00:00.000Z'),
-  tags: [],
-  content: 'Ein Verein ist eine Gruppe von Menschen. Sie haben ein gemeinsames Interesse und organisieren.',
-  eNewsNo: 'tun0000009902',
+const news = new NewsModel({
+  id: 217,
+  title: 'Tick bite - What to do?',
+  lastUpdate: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
+  content:
+    'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.',
+  availableLanguages: { de: 123, it: 234 },
+  externalUrl: 'https://example.com',
+  source: 'local',
 })
-const localNews = new LocalNewsModel({
-  id: 9902,
-  timestamp: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
-  title: 'Test Push Notification',
-  content: 'Some &quot;test text with lots of &quot;html entities&quot; which won&#39;t be displayed.',
-  availableLanguages: {},
-})
+
 describe('NewsListItem', () => {
   const navigateToNews = jest.fn()
 
-  const renderNewsListItem = (newsItem: LocalNewsModel | TuNewsModel): RenderAPI =>
+  const renderNewsListItem = (newsItem: NewsModel): RenderAPI =>
     render(<NewsListItem newsItem={newsItem} navigateToNews={navigateToNews} />)
 
   beforeEach(() => {
     jest.clearAllMocks()
   })
-  it('should correctly render a local news item', () => {
-    const { getByText, queryByText } = renderNewsListItem(localNews)
-    expect(getByText(localNews.title)).toBeTruthy()
+
+  it('should correctly render', () => {
+    const { getByText } = renderNewsListItem(news)
+    expect(getByText(news.title)).toBeTruthy()
+    expect(getByText(news.content)).toBeTruthy()
     expect(getByText('January 20, 2020')).toBeTruthy()
-    expect(queryByText('Last Update')).toBeNull()
-    fireEvent.press(getByText(localNews.title))
-    expect(navigateToNews).toHaveBeenCalled()
-  })
-  it('should correctly render a tu news item', () => {
-    const { getByText } = renderNewsListItem(tuNews)
-    expect(getByText(tuNews.title)).toBeTruthy()
-    expect(getByText(tuNews.content)).toBeTruthy()
-    expect(getByText('February 20, 2020')).toBeTruthy()
-    fireEvent.press(getByText(tuNews.title))
+    fireEvent.press(getByText(news.title))
     expect(navigateToNews).toHaveBeenCalled()
   })
 })

@@ -13,7 +13,6 @@ import {
   CATEGORIES_TAB_ROUTE,
   EVENTS_ROUTE,
   EVENTS_TAB_ROUTE,
-  LOCAL_NEWS_TYPE,
   NEWS_ROUTE,
   NEWS_TAB_ROUTE,
   PLACES_ROUTE,
@@ -67,11 +66,7 @@ const EventsStackScreen = () => (
 
 const NewsStackScreen = () => (
   <NewsStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
-    <NewsStack.Screen
-      name={NEWS_ROUTE}
-      initialParams={{ newsId: null, newsType: LOCAL_NEWS_TYPE }}
-      component={NewsContainer}
-    />
+    <NewsStack.Screen name={NEWS_ROUTE} initialParams={{ id: null }} component={NewsContainer} />
   </NewsStack.Navigator>
 )
 
@@ -131,7 +126,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
     return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
 
-  const { eventsEnabled, placesEnabled, localNewsEnabled, tuNewsEnabled, chatEnabled } = cachedData.region
+  const { eventsEnabled, placesEnabled, newsEnabled, chatEnabled } = cachedData.region
   const chatVisible = buildConfig().featureFlags.chat && chatEnabled && activeTab !== PLACES_TAB_ROUTE
 
   const Tabs = [
@@ -155,7 +150,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         }}
       />
     ),
-    (localNewsEnabled || tuNewsEnabled) && (
+    newsEnabled && (
       <Tab.Screen
         name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}

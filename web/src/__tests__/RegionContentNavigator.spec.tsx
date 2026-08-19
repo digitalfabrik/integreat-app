@@ -63,15 +63,4 @@ describe('RegionContentNavigator', () => {
     const { queryByText } = renderRegionContentNavigator(PLACES_ROUTE)
     expect(queryByText(PLACES_ROUTE)).not.toBeTruthy()
   })
-
-  describe('redirects', () => {
-    it.each`
-      from          | to
-      ${NEWS_ROUTE} | ${'/augsburg/de/news/local'}
-    `('should redirect from $from to $to', ({ from, to }) => {
-      mockUseQueryFromEndpointWithData(region)
-      const { getByText } = renderRegionContentNavigator(from)
-      expect(getByText(to)).toBeTruthy()
-    })
-  })
 })

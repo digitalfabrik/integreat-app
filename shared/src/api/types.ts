@@ -1,3 +1,5 @@
+import { NewsSource } from './constants/index.ts'
+
 export type JsonAvailableLanguagesType = Record<
   string,
   {
@@ -147,21 +149,14 @@ export type JsonEventType = {
   meeting_url: string | null
 }
 
-export type JsonTuNewsType = {
+export type JsonNewsType = {
   id: number
   title: string
-  tags: string[]
-  display_date: string
   content: string
-  enewsno: string
-}
-
-export type JsonLocalNewsType = {
-  id: number
   display_date: string
-  title: string
-  message: string
-  available_languages: Record<string, { id: number }>
+  source: NewsSource
+  externalUrl: string
+  available_languages: Record<string, { id: number }> | null
 }
 
 export type JsonOfferPostType = {
@@ -191,11 +186,6 @@ export type JsonLanguageType = {
   native_name: string
 }
 
-export type JsonTuNewsLanguageType = {
-  code: string
-  name: string
-}
-
 export type JsonRegionType = {
   name: string
   path: string
@@ -203,8 +193,8 @@ export type JsonRegionType = {
   languages: JsonLanguageType[]
   events: boolean
   pois: boolean
-  tunews: boolean
   push_notifications: boolean
+  external_news: boolean
   name_without_prefix: string
   prefix: string | null
   latitude: number

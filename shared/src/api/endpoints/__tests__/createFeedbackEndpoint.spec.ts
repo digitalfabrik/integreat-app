@@ -4,7 +4,7 @@ import {
   EVENTS_ROUTE,
   PLACES_ROUTE,
   SEARCH_ROUTE,
-  TU_NEWS_TYPE,
+  NEWS_ROUTE,
 } from '../../../routes/index.ts'
 import { API_VERSION } from '../../constants/index.ts'
 import createFeedbackEndpoint, { FeedbackTypes } from '../createFeedbackEndpoint.ts'
@@ -77,7 +77,7 @@ describe('feedback', () => {
     ${PLACES_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackTypes.Place}
     ${PLACES_ROUTE}     | ${{}}                     | ${FeedbackTypes.Map}
     ${SEARCH_ROUTE}     | ${{ query: 'query ' }}    | ${FeedbackTypes.Search}
-    ${TU_NEWS_TYPE}     | ${{}}                     | ${FeedbackTypes.Categories}
+    ${NEWS_ROUTE}       | ${{}}                     | ${FeedbackTypes.Categories}
   `(
     'should successfully request feedback for $feedbackType if rating was set',
     async ({ route, props, feedbackType }) => {

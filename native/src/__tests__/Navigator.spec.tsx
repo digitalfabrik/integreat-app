@@ -145,7 +145,7 @@ describe('Navigator', () => {
         categories: null as never,
         events: [],
         places: [],
-        localNews: [],
+        news: [],
       },
       loading: false,
       error: null,

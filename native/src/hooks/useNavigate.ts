@@ -88,15 +88,7 @@ const navigate = <T extends RoutesType>(
       return
 
     case NEWS_ROUTE:
-      navigateNested(
-        navigation,
-        NEWS_ROUTE,
-        {
-          newsType: routeInformation.newsType,
-          newsId: routeInformation.newsId ?? null,
-        },
-        redirect,
-      )
+      navigateNested(navigation, NEWS_ROUTE, { id: routeInformation.id ?? null }, redirect)
       return
 
     case PLACES_ROUTE:
