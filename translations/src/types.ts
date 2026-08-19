@@ -1,4 +1,3 @@
 export type KeyValueType = { [key: string]: string | KeyValueType }
-type NamespaceType = Record<string, KeyValueType>
-export type TranslationsType = Record<string, NamespaceType>
-export type TransformedTranslationsType = Record<string, Record<string, Record<string, string>>>
+type NamespaceType = { [namespace: string]: KeyValueType }
+export type TranslationsType = { [language: string]: string | NamespaceType }

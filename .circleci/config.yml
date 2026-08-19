@@ -490,6 +490,9 @@ jobs:
                 command: yarn check-circular-dependencies
                 name: Check circular dependencies
             - run:
+                command: yarn workspace translations check-indexes
+                name: Check translation index files
+            - run:
                 command: yarn lint:ci
                 name: Lint
             - store_test_results:
