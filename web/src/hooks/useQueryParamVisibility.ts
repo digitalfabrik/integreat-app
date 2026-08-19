@@ -18,7 +18,6 @@ const useQueryParamVisibility = <T extends keyof VisibilityQueryParams>(key: T):
   const visible = queryParams.has(key) && queryParams.get(key) !== 'false'
 
   const open = (value?: VisibilityQueryParams[T]) => {
-    // The query params of the current location must not be mutated with new URLSearchParams, as they are memoized by react-router
     const newQueryParams = new URLSearchParams(queryParams)
     newQueryParams.set(key, toParamValue(value))
     setQueryParams(newQueryParams)

@@ -148,7 +148,9 @@ class DateModel {
   }
 
   hasVaryingTimes(count = MAX_FURTHER_DATES): boolean {
-    const times = this.recurrences(count + 1).map(recurrence => recurrence.startDate.toFormat('HH:mm'))
+    const times = this.recurrences(count + 1).map(
+      recurrence => `${recurrence.startDate.toFormat('HH:mm')}-${recurrence.endDate?.toFormat('HH:mm')}`,
+    )
     return times.some(time => time !== times[0])
   }
 
