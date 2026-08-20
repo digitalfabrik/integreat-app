@@ -1,9 +1,11 @@
 import { DateTime } from 'luxon'
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useSearchParams } from 'react-router'
 
-import { DateQueryKey, END_DATE_QUERY_KEY, filterEvents, parseDate, START_DATE_QUERY_KEY } from 'shared'
+import { END_DATE_QUERY_KEY, filterEvents, START_DATE_QUERY_KEY } from 'shared'
 import { EventModel } from 'shared/api'
+
+import useQueryParam from './useQueryParam'
 
 type UseDateFilterReturn = {
   startDate: DateTime | null
@@ -16,43 +18,21 @@ type UseDateFilterReturn = {
 }
 
 const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [start, setStart] = useQueryParam(START_DATE_QUERY_KEY, { replace: true })
+  const [end, setEnd] = useQueryParam(END_DATE_QUERY_KEY, { replace: true })
+  const [queryParams, setQueryParams] = useSearchParams()
 
-  const startDate = parseDate(searchParams.get(START_DATE_QUERY_KEY))
-  const endDate = parseDate(searchParams.get(END_DATE_QUERY_KEY))
+  const startDate = start ?? null
+  const endDate = end ?? null
+  const setStartDate = (startDate: DateTime | null) => setStart(startDate ?? undefined)
+  const setEndDate = (endDate: DateTime | null) => setEnd(endDate ?? undefined)
 
-  const setDate = useCallback(
-    (key: DateQueryKey, date: DateTime | null) => {
-      setSearchParams(
-        prevParams => {
-          const params = new URLSearchParams(prevParams)
-          const isoDate = date?.toISODate()
-          if (isoDate) {
-            params.set(key, isoDate)
-          } else {
-            params.delete(key)
-          }
-          return params
-        },
-        { replace: true },
-      )
-    },
-    [setSearchParams],
-  )
-
-  const setStartDate = (date: DateTime | null) => setDate(START_DATE_QUERY_KEY, date)
-  const setEndDate = (date: DateTime | null) => setDate(END_DATE_QUERY_KEY, date)
-
-  const resetDates = () =>
-    setSearchParams(
-      prevParams => {
-        const params = new URLSearchParams(prevParams)
-        params.delete(START_DATE_QUERY_KEY)
-        params.delete(END_DATE_QUERY_KEY)
-        return params
-      },
-      { replace: true },
-    )
+  const resetDates = () => {
+    const newQueryParams = new URLSearchParams(queryParams)
+    newQueryParams.delete(START_DATE_QUERY_KEY)
+    newQueryParams.delete(END_DATE_QUERY_KEY)
+    setQueryParams(newQueryParams, { replace: true })
+  }
 
   const startDateError = startDate && endDate && startDate > endDate ? 'shouldBeEarlier' : null
   const filteredEvents = useMemo(() => filterEvents(events, startDate, endDate), [startDate, endDate, events])
