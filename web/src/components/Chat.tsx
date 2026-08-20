@@ -25,6 +25,7 @@ import { UseQueryFromEndpointReturn } from '../hooks/useQueryFromEndpoint'
 import { captureError } from '../utils/sentry'
 import ChatConversation from './ChatConversation'
 import ChatInput from './ChatInput'
+import { getErrorMessage } from './FailureSwitcher'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
 
@@ -58,7 +59,7 @@ const Chat = ({
 }: ChatProps): ReactElement => {
   const [sendingError, setSendingError] = useState<Error | null>(null)
   const [textInput, setTextInput] = useState<string>('')
-  const { t } = useTranslation(['chat', 'error', 'settings'])
+  const { t } = useTranslation(['error', 'chat', 'settings'])
 
   const unsyncedMessages = serializedUnsyncedMessages.map(ChatMessageModel.deserialize)
 
@@ -132,7 +133,7 @@ const Chat = ({
       <Container>
         <Stack paddingInline={3} gap={1}>
           <H1>{t($ => $.settings.privacyPolicy)}</H1>
-          {t($ => $.privacyPolicyInformation)}
+          {t($ => $.chat.privacyPolicyInformation)}
           <PrivacyCheckbox
             language={languageCode}
             checked={false}
@@ -164,7 +165,7 @@ const Chat = ({
                 </IconButton>
               </Tooltip>
             }>
-            {t($ => fromError(error ?? sendingError))}
+            {getErrorMessage(fromError(error ?? sendingError), t)}
           </Alert>
         )}
         <ChatInput value={textInput} setValue={setTextInput} onSubmit={onSubmit} region={region} />

@@ -94,7 +94,7 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
           <Stack direction='row' alignItems='center' gap={1}>
             <RepeatIcon color='primary' fontSize='small' />
             <StyledText color='primary' variant='body1'>
-              {t('furtherDates')}
+              {t($ => $.furtherDates)}
             </StyledText>
           </Stack>
         }>

@@ -59,7 +59,7 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
         <ToggleContent language={language}>
           <Icon source='repeat' size={16} color={theme.colors.primary} />
           <Text variant='body3' style={{ color: theme.colors.primary }}>
-            {t('furtherDates')}
+            {t($ => $.furtherDates)}
           </Text>
           <Icon source={expanded ? 'chevron-up' : 'chevron-down'} color={theme.colors.primary} />
         </ToggleContent>

@@ -101,7 +101,8 @@ const Header = ({
   const canGoBack =
     previousRoute !== undefined || hasRootHistory || hasTabHistory || (route.name === PLACES_ROUTE && hasPlacesParams)
 
-  const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t($ => route.name)
+  // @ts-expect-error will be fixed in #4032
+  const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t($ => $[route.name])
   const pageTitle = regionName !== routeTitle ? `${routeTitle} - ${regionName}` : routeTitle
 
   const getCategorySlug = (path?: string): string | undefined => (path ? getSlugFromPath(path) : undefined)
@@ -241,7 +242,8 @@ const Header = ({
       return { title: getChatName(buildConfig().appName), language: undefined } // system language
     }
 
-    return { title: t($ => previousRoute.name), language: undefined } // system language
+    // @ts-expect-error will be fixed in #4032
+    return { title: t($ => $[previousRoute.name]), language: undefined } // system language
   }
 
   const { title, language } = getHeaderTitle()

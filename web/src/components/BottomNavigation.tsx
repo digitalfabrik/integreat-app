@@ -88,10 +88,10 @@ const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps):
                   fontWeight={value === item.value ? 'bold' : 'normal'}
                   overflow='hidden'
                   textOverflow='ellipsis'>
-                  {t($ => item.label)}
+                  {t($ => $[item.label])}
                 </Typography>
               ) : (
-                t($ => item.label)
+                t($ => $[item.label])
               )
             }
             icon={<item.Icon />}

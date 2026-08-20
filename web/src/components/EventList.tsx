@@ -65,7 +65,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
               filterEndDate={endDate}
             />
           ))}
-          noItemsMessage='events:currentlyNoEvents'
+          noItemsMessage={t($ => $.currentlyNoEvents)}
         />
       </>
     )
@@ -79,7 +79,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
   return (
     <>
       {dateFilter}
-      <List items={dateGroups} noItemsMessage='events:currentlyNoEvents' showDividers={false} />
+      <List items={dateGroups} noItemsMessage={t($ => $.currentlyNoEvents)} showDividers={false} />
     </>
   )
 }

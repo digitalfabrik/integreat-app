@@ -33,7 +33,7 @@ const NavigationTabs = ({ regionModel, languageCode }: NavigationTabsProps): Rea
   return (
     <Tabs value={currentTabValue} component='nav' textColor={color} indicatorColor={color}>
       {navigationItems.map(item => (
-        <Tab key={item.value} component={Link} to={item.to} value={item.value} label={t($ => item.label)} />
+        <Tab key={item.value} component={Link} to={item.to} value={item.value} label={t($ => $[item.label])} />
       ))}
     </Tabs>
   )
