@@ -16,7 +16,7 @@ const events = new EventModelBuilder('seed', 5, 'augsburg', 'de').build()
 describe('useDateFilter', () => {
   it('should read dates from query params', () => {
     const { result } = renderHook(() => useDateFilter(events), {
-      wrapper: createWrapper('/?startDate=2026-08-12&endDate=2026-10-31'),
+      wrapper: createWrapper('/?start=2026-08-12&end=2026-10-31'),
     })
     expect(result.current.startDate?.toISODate()).toBe('2026-08-12')
     expect(result.current.endDate?.toISODate()).toBe('2026-10-31')
@@ -32,7 +32,7 @@ describe('useDateFilter', () => {
 
   it('should set only the startDate param', () => {
     const { result } = renderHook(() => useDateFilter(events), {
-      wrapper: createWrapper('/?endDate=2026-10-31'),
+      wrapper: createWrapper('/?end=2026-10-31'),
     })
     act(() => result.current.setStartDate(DateTime.fromISO('2026-08-12')))
     expect(result.current.startDate?.toISODate()).toBe('2026-08-12')
@@ -41,7 +41,7 @@ describe('useDateFilter', () => {
 
   it('should set only the endDate param', () => {
     const { result } = renderHook(() => useDateFilter(events), {
-      wrapper: createWrapper('/?startDate=2026-08-12'),
+      wrapper: createWrapper('/?start=2026-08-12'),
     })
     act(() => result.current.setEndDate(DateTime.fromISO('2026-10-31')))
     expect(result.current.endDate?.toISODate()).toBe('2026-10-31')
@@ -50,7 +50,7 @@ describe('useDateFilter', () => {
 
   it('should clear only the startDate param and leave endDate', () => {
     const { result } = renderHook(() => useDateFilter(events), {
-      wrapper: createWrapper('/?startDate=2026-08-12&endDate=2026-10-31'),
+      wrapper: createWrapper('/?start=2026-08-12&end=2026-10-31'),
     })
     act(() => result.current.setStartDate(null))
     expect(result.current.startDate).toBeNull()
@@ -59,7 +59,7 @@ describe('useDateFilter', () => {
 
   it('should clear only the endDate param and leave startDate', () => {
     const { result } = renderHook(() => useDateFilter(events), {
-      wrapper: createWrapper('/?startDate=2026-08-12&endDate=2026-10-31'),
+      wrapper: createWrapper('/?start=2026-08-12&end=2026-10-31'),
     })
     act(() => result.current.setEndDate(null))
     expect(result.current.endDate).toBeNull()
@@ -68,7 +68,7 @@ describe('useDateFilter', () => {
 
   it('should reset both params', () => {
     const { result } = renderHook(() => useDateFilter(events), {
-      wrapper: createWrapper('/?startDate=2026-08-12&endDate=2026-10-31'),
+      wrapper: createWrapper('/?start=2026-08-12&end=2026-10-31'),
     })
     act(() => result.current.resetDates())
     expect(result.current.startDate).toBeNull()
@@ -77,14 +77,14 @@ describe('useDateFilter', () => {
 
   it('should set startDateError when start is after end', () => {
     const { result } = renderHook(() => useDateFilter(events), {
-      wrapper: createWrapper('/?startDate=2026-10-31&endDate=2026-08-12'),
+      wrapper: createWrapper('/?start=2026-10-31&end=2026-08-12'),
     })
     expect(result.current.startDateError).toBe('shouldBeEarlier')
   })
 
   it('should not set an error when start is before end', () => {
     const { result } = renderHook(() => useDateFilter(events), {
-      wrapper: createWrapper('/?startDate=2026-08-12&endDate=2026-10-31'),
+      wrapper: createWrapper('/?start=2026-08-12&end=2026-10-31'),
     })
     expect(result.current.startDateError).toBeNull()
   })
@@ -98,7 +98,7 @@ describe('useDateFilter', () => {
 
   it('should return no events when start is after end', () => {
     const { result } = renderHook(() => useDateFilter(events), {
-      wrapper: createWrapper('/?startDate=2026-10-31&endDate=2026-08-12'),
+      wrapper: createWrapper('/?start=2026-10-31&end=2026-08-12'),
     })
     expect(result.current.filteredEvents).toEqual([])
   })

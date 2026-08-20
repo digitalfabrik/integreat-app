@@ -13,8 +13,8 @@ export const THEME_QUERY_KEY = 'theme'
 export const FEEDBACK_QUERY_KEY = 'feedback'
 export const PLACE_CATEGORY_QUERY_KEY = 'category'
 export const ZOOM_QUERY_KEY = 'zoom'
-export const START_DATE_QUERY_KEY = 'startDate'
-export const END_DATE_QUERY_KEY = 'endDate'
+export const START_DATE_QUERY_KEY = 'start'
+export const END_DATE_QUERY_KEY = 'end'
 
 export const queryStringFromRouteInformation = (
   routeInformation: NonNullableRouteInformationType,
