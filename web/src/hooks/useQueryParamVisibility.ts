@@ -18,13 +18,13 @@ const useQueryParamVisibility = <T extends keyof VisibilityQueryParams>(key: T):
   const visible = queryParams.has(key) && queryParams.get(key) !== 'false'
 
   const open = (value?: VisibilityQueryParams[T]) => {
-    const newQueryParams = queryParams
+    const newQueryParams = new URLSearchParams(queryParams)
     newQueryParams.set(key, toParamValue(value))
     setQueryParams(newQueryParams)
   }
 
   const close = () => {
-    const newQueryParams = queryParams
+    const newQueryParams = new URLSearchParams(queryParams)
     newQueryParams.delete(key)
     setQueryParams(newQueryParams)
   }

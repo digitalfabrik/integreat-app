@@ -1,6 +1,6 @@
-import { act, renderHook } from '@testing-library/react'
+import { act, fireEvent, render, renderHook } from '@testing-library/react'
 import React from 'react'
-import { MemoryRouter } from 'react-router'
+import { MemoryRouter, useSearchParams } from 'react-router'
 
 import useQueryParamVisibility from '../useQueryParamVisibility'
 
@@ -9,6 +9,24 @@ const createWrapper =
   ({ children }: { children: React.ReactNode }) => (
     <MemoryRouter initialEntries={[initialPath]}>{children}</MemoryRouter>
   )
+
+const MockComponent = () => {
+  const { visible, close } = useQueryParamVisibility('chat')
+  const [, setSearchParams] = useSearchParams()
+  return (
+    <>
+      <span>{visible ? 'visible' : 'hidden'}</span>
+      <button
+        type='button'
+        onClick={() => {
+          close()
+          setSearchParams({ chat: 'true' })
+        }}>
+        closeAndReopen
+      </button>
+    </>
+  )
+}
 
 describe('useQueryParamVisibility', () => {
   it('should return visible as false when query param is absent', () => {
@@ -43,6 +61,14 @@ describe('useQueryParamVisibility', () => {
     act(() => result.current.close())
 
     expect(result.current.visible).toBe(false)
+  })
+
+  it('should stay visible when the same query param is set again after closing', () => {
+    const { getByText } = render(<MockComponent />, { wrapper: createWrapper('/?chat=true') })
+
+    fireEvent.click(getByText('closeAndReopen'))
+
+    expect(getByText('visible')).toBeTruthy()
   })
 
   it('should return url with query param appended', () => {

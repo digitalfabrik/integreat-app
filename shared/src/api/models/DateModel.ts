@@ -1,6 +1,7 @@
 import { DateTime, DateTimeFormatOptions, Duration } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
+import { MAX_FURTHER_DATES } from '../../constants/index.ts'
 import { formatDateICal, formatTime, getWeekdayFromIndex, TranslateFunction } from '../../utils/date.ts'
 
 const MAX_RECURRENCE_YEARS = 6
@@ -13,6 +14,7 @@ type FormattedEventDate = {
 
 const dateFormatWithoutWeekday: DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' }
 const dateFormatWithWeekday: DateTimeFormatOptions = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
+const dateFormatShort: DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' }
 
 class DateModel {
   _startDate: DateTime
@@ -129,12 +131,27 @@ class DateModel {
     return frequency === RRuleType.MONTHLY || frequency === RRuleType.YEARLY
   }
 
-  formatMonthlyOrYearlyRecurrence(locale: string, t: TranslateFunction): FormattedEventDate {
+  formatMonthlyOrYearlyRecurrence(locale: string, t: TranslateFunction, shortFormat = false): FormattedEventDate {
     return {
-      date: this.startDate.toLocaleString(dateFormatWithWeekday, { locale }),
+      date: this.startDate.toLocaleString(shortFormat ? dateFormatShort : dateFormatWithWeekday, { locale }),
       weekday: undefined,
       time: formatTime(locale, this, t),
     }
+  }
+
+  furtherDates(count = MAX_FURTHER_DATES): DateModel[] {
+    return this.recurrences(count + 1).slice(1)
+  }
+
+  hasMoreFurtherDates(count = MAX_FURTHER_DATES): boolean {
+    return this.hasMoreRecurrencesThan(count + 1)
+  }
+
+  hasVaryingTimes(count = MAX_FURTHER_DATES): boolean {
+    const times = this.recurrences(count + 1).map(
+      recurrence => `${recurrence.startDate.toFormat('HH:mm')}-${recurrence.endDate?.toFormat('HH:mm')}`,
+    )
+    return times.some(time => time !== times[0])
   }
 
   formatEventDate(locale: string, t: TranslateFunction): FormattedEventDate {
@@ -155,7 +172,7 @@ class DateModel {
       }
     }
 
-    // long-term event
+    // Multi-day event
     return {
       date: this.formatDateInterval(locale, this.endDate),
       weekday,
@@ -173,19 +190,12 @@ class DateModel {
       month: 'long',
       year: showYear ? 'numeric' : undefined,
     }
-    if (this.isSingleOneDayEvent()) {
-      return `${this.startDate.toLocaleString(format, { locale })}, ${formatTime(locale, this, t)}`
+    if (this.recurrenceRule || this.isSingleOneDayEvent()) {
+      return `${this.startDate.toLocaleString(format, { locale })} · ${formatTime(locale, this, t)}`
     }
-    if (!this.recurrenceRule) {
-      return this.formatDateInterval(locale, this.endDate, { showYear })
-    }
-    const finalDate = this.getFinalDate(this)
-    if (finalDate) {
-      return this.formatDateInterval(locale, finalDate, { showYear })
-    }
-    return t('startingFrom', {
-      date: this.startDate.toLocaleString(format, { locale }),
-    })
+
+    // long-term event
+    return this.formatDateInterval(locale, this.endDate, { showYear })
   }
 
   private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType {

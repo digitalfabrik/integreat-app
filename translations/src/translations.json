@@ -3800,7 +3800,8 @@
       "showFilters": "Filter anzeigen",
       "selectRange": "Zeitraum auswählen",
       "outOfRangeError": "Datum außerhalb des Bereichs",
-      "startingFrom": "ab {{date}}"
+      "startingFrom": "ab {{date}}",
+      "furtherDates": "Weitere Termine"
     },
     "am": {
       "address": "ኣድራሻ",
@@ -3852,7 +3853,8 @@
       "hideFilters": "إخفاء الفلاتر",
       "showFilters": "إظهار الفلاتر",
       "selectRange": "اختر النطاق",
-      "outOfRangeError": "التاريخ خارج النطاق"
+      "outOfRangeError": "التاريخ خارج النطاق",
+      "furtherDates": "المزيد من المواعيد"
     },
     "bg": {
       "address": "Адрес",
@@ -4013,7 +4015,8 @@
       "showFilters": "Show filters",
       "selectRange": "Select Range",
       "outOfRangeError": "Date out of range",
-      "startingFrom": "from {{date}}"
+      "startingFrom": "from {{date}}",
+      "furtherDates": "More dates"
     },
     "es": {
       "address": "Dirección",

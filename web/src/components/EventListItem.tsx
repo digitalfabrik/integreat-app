@@ -1,11 +1,14 @@
+import EventNoteIcon from '@mui/icons-material/EventNote'
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
+import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
 import Typography, { TypographyProps } from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -15,6 +18,7 @@ import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
+import EventFurtherDates from './EventFurtherDates'
 import Link from './base/Link'
 
 const StyledListItem = styled(ListItem)`
@@ -45,9 +49,11 @@ const StyledTypography = styled(Typography)<TypographyProps>`
     margin: 0;
   }
 
-  p:nth-of-type(2) {
-    margin-bottom: 4px;
-  }
+  margin-top: 8px;
+`
+
+const Excerpt = styled('p')`
+  padding-top: 4px;
 `
 
 type EventListItemProps = {
@@ -71,6 +77,7 @@ const EventListItem = ({
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
   const { t } = useTranslation('events')
+  const { contentDirection } = useTheme()
   const recurringDateIcon = event.isRecurring ? (
     <Tooltip title={t('recurring')}>
       <EventRepeatOutlinedIcon />
@@ -93,10 +100,19 @@ const EventListItem = ({
             </Typography>
           }
           secondary={
-            <StyledTypography variant='body1' flexDirection='column' component='div'>
-              <p>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</p>
-              {event.location && <p>{event.location.name}</p>}
-              <p>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</p>
+            <StyledTypography variant='body1' flexDirection='column' component='div' dir={contentDirection}>
+              <Stack direction='row' alignItems='center' gap={1} component='p'>
+                <EventNoteIcon fontSize='small' />
+                <span>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</span>
+              </Stack>
+              {event.isRecurring && <EventFurtherDates date={event.date} languageCode={languageCode} />}
+              {event.location && (
+                <Stack direction='row' alignItems='center' gap={1} component='p'>
+                  <LocationOnOutlinedIcon fontSize='small' />
+                  <span>{event.location.name}</span>
+                </Stack>
+              )}
+              <Excerpt>{getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })}</Excerpt>
             </StyledTypography>
           }
         />
