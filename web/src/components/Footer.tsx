@@ -1,6 +1,7 @@
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
@@ -27,9 +28,12 @@ const StyledList = styled(List)({
 })
 
 const Footer = (): ReactElement | null => {
-  const linkItems = getFooterLinks(useRouteParams())
+  const { t } = useTranslation(['layout', 'settings'])
+  const { regionCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
   useUpdateDimensions()
+
+  const linkItems = getFooterLinks({ regionCode, languageCode, t })
 
   if (mobile) {
     return null
@@ -39,7 +43,7 @@ const Footer = (): ReactElement | null => {
     <FooterContainer>
       <StyledList
         items={linkItems.map(item => (
-          <FooterListItem key={item.to} to={item.to} text={item.text} doNotTranslate={item.doNotTranslate} />
+          <FooterListItem key={item.to} to={item.to} text={item.text} />
         ))}
         disablePadding
       />

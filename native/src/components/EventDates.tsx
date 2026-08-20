@@ -54,11 +54,12 @@ const EventDates = ({
   compact = false,
 }: EventDatesProps): ReactElement => {
   const [expansionCount, setExpansionCount] = useState(compact ? 0 : 1)
-  const { t } = useTranslation('events', { lng: language })
+  const { t } = useTranslation(['events', 'common', 'places'], { lng: language })
   const theme = useTheme()
 
+  const allDayLabel = t($ => $.places.allDay)
   const date = event.date.firstRecurrenceInRange(filterStartDate, filterEndDate)
-  const timeInterval = date.formatTimeInterval(language, { allDayLabel: t('places:allDay') })
+  const timeInterval = date.formatTimeInterval(language, { allDayLabel })
 
   const maxFurtherDates = compact ? MAX_FURTHER_DATES_MOBILE : MAX_FURTHER_DATES
   const maxVisibleRecurrences = expansionCount * maxFurtherDates
@@ -67,7 +68,6 @@ const EventDates = ({
   const hasMoreRecurrences = date.hasMoreRecurrencesThan(maxVisibleRecurrences + 1)
   const expanded = expansionCount > 0
 
-  const allDayLabel = t('places:allDay')
   const textVariant = compact ? 'body3' : 'body2'
   const iconSize = compact ? SMALL_ICON_SIZE : DEFAULT_ICON_SIZE
 
@@ -80,7 +80,7 @@ const EventDates = ({
           <Text variant={textVariant} aria-hidden>
             {HORIZONTAL_TEXT_DIVIDER}
           </Text>
-          <Text variant={textVariant}>{date.formatTimeInterval(language, { allDayLabel })}</Text>
+          <Text variant={textVariant}>{timeInterval}</Text>
         </InlineWrap>
       </DateRow>
       {hasRecurrences && (
@@ -94,7 +94,7 @@ const EventDates = ({
             <InlineWrap language={language}>
               <Icon source='repeat' size={iconSize} color={theme.colors.primary} />
               <Text variant={textVariant} style={{ color: theme.colors.primary }}>
-                {t('furtherDates')}
+                {t($ => $.furtherDates)}
               </Text>
               <Icon source={expanded ? 'chevron-up' : 'chevron-down'} color={theme.colors.primary} />
             </InlineWrap>
@@ -102,9 +102,7 @@ const EventDates = ({
           {expanded && (
             <Dates language={language}>
               {recurrences.map((recurrence, index) => {
-                const recurrenceTimeInterval = recurrence.formatTimeInterval(language, {
-                  allDayLabel: t('places:allDay'),
-                })
+                const recurrenceTimeInterval = recurrence.formatTimeInterval(language, { allDayLabel })
                 return (
                   <InlineWrap key={recurrence.startDate.toISO()} language={language}>
                     <Text variant={textVariant}>{recurrence.formatDateInterval(language)}</Text>
@@ -128,7 +126,7 @@ const EventDates = ({
                   onPress={() => setExpansionCount(expansionCount + 1)}
                   language={language}
                   compact>
-                  {t('common:showMore')}
+                  {t($ => $.common.showMore)}
                 </ShowMoreButton>
               )}
             </Dates>

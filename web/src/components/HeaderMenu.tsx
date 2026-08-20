@@ -51,7 +51,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const [qrShareOpen, setQrShareOpen] = React.useState<boolean>(false)
   const { regionCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
-  const { t } = useTranslation(['layout', 'common'])
+  const { t } = useTranslation(['layout', 'common', 'settings'])
 
   useImperativeHandle(ref, () => ({ closeMenu: () => setMenuAnchorElement(null) }))
 
@@ -107,8 +107,8 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
     />,
   ]
 
-  const legalItems = getFooterLinks({ languageCode, regionCode }).map(({ text, to, doNotTranslate }) => (
-    <MenuItem key={text} text={doNotTranslate ? text : t($ => text)} to={to} closeMenu={closeMenu} />
+  const legalItems = getFooterLinks({ languageCode, regionCode, t }).map(({ text, to }) => (
+    <MenuItem key={text} text={text} to={to} closeMenu={closeMenu} />
   ))
 
   return (

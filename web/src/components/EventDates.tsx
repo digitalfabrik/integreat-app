@@ -75,12 +75,13 @@ const EventDates = ({
   compact = false,
 }: EventDatesProps): ReactElement => {
   const [expansionCount, setExpansionCount] = useState(1)
-  const { t } = useTranslation('events')
+  const { t } = useTranslation(['events', 'common', 'places'])
   const { contentDirection } = useTheme()
   const { mobile } = useDimensions()
 
+  const allDayLabel = t($ => $.places.allDay)
   const date = event.date.firstRecurrenceInRange(filterStartDate, filterEndDate)
-  const timeInterval = date.formatTimeInterval(languageCode, { allDayLabel: t('places:allDay') })
+  const timeInterval = date.formatTimeInterval(languageCode, { allDayLabel })
 
   const maxFurtherDates = compact && mobile ? MAX_FURTHER_DATES_MOBILE : MAX_FURTHER_DATES
   const maxVisibleRecurrences = expansionCount * maxFurtherDates
@@ -110,14 +111,12 @@ const EventDates = ({
               <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
                 <RepeatIcon color='primary' fontSize='small' />
                 <Typography color='primary' variant='body2'>
-                  {t('furtherDates')}
+                  {t($ => $.furtherDates)}
                 </Typography>
               </Stack>
             }>
             {recurrences.map((recurrence, index) => {
-              const recurrenceTimeInterval = recurrence.formatTimeInterval(languageCode, {
-                allDayLabel: t('places:allDay'),
-              })
+              const recurrenceTimeInterval = recurrence.formatTimeInterval(languageCode, { allDayLabel })
               return (
                 <TextRow key={recurrence.startDate.toISO()}>
                   {recurrence.formatDateInterval(languageCode)}
@@ -134,7 +133,7 @@ const EventDates = ({
             {hasMoreRecurrences && !compact && (
               <Button onClick={() => setExpansionCount(expansionCount + 1)} startIcon={<ExpandMoreIcon />} size='small'>
                 <Typography variant='body2' sx={{ textTransform: 'none' }}>
-                  {t('common:showMore')}
+                  {t($ => $.common.showMore)}
                 </Typography>
               </Button>
             )}

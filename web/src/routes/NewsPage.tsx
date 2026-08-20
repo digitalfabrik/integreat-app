@@ -90,7 +90,11 @@ const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): React
             getLabel={getLabel}
           />
         )}
-        {response.isPending ? <SkeletonList /> : <List items={newsListItems} noItemsMessage='news:currentlyNoNews' />}
+        {response.isPending ? (
+          <SkeletonList />
+        ) : (
+          <List items={newsListItems} noItemsMessage={t($ => $.currentlyNoNews)} />
+        )}
       </Stack>
     </RegionContentLayout>
   )

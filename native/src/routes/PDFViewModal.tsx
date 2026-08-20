@@ -33,8 +33,7 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
   useEffect(() => {
     if (!loading && !filePath) {
       openExternalUrl(url)
-        .catch(() => setError(true))
-        .finally(navigation.goBack)
+      navigation.goBack()
     }
   }, [loading, filePath, url, navigation, openExternalUrl])
 

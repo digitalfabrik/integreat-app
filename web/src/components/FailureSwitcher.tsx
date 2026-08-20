@@ -1,4 +1,6 @@
+import { TFunction } from 'i18next'
 import React, { ReactElement, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import {
   regionContentPath,
@@ -8,16 +10,29 @@ import {
   PLACES_ROUTE,
   REGIONS_ROUTE,
 } from 'shared'
-import { fromError, NotFoundError } from 'shared/api'
+import { ErrorCode, ErrorCodes, fromError, NotFoundError } from 'shared/api'
 
 import { captureError } from '../utils/sentry'
 import Failure from './Failure'
+
+export const getErrorMessage = (errorCode: ErrorCode, t: TFunction<['error']>): string => {
+  switch (errorCode) {
+    case ErrorCodes.RegionUnavailable:
+      return t($ => $.notFound.region)
+    case ErrorCodes.LanguageUnavailable:
+      return t($ => $.notFound.language)
+    default:
+      return t($ => $[errorCode])
+  }
+}
 
 type FailureSwitcherProps = {
   error: Error
 }
 
 const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
+  const { t } = useTranslation(['error'])
+
   useEffect(() => {
     captureError(error)
   }, [error])
@@ -33,37 +48,37 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
         case 'route':
           return {
             goToPath: regionContentPath(params),
-            goToMessage: 'goTo.categories',
-            errorMessage: 'notFound.category',
+            goToMessage: t($ => $.goTo.categories),
+            errorMessage: t($ => $.notFound.category),
           }
         case 'event':
           return {
             goToPath: pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params }),
-            goToMessage: 'goTo.events',
-            errorMessage: 'notFound.event',
+            goToMessage: t($ => $.goTo.events),
+            errorMessage: t($ => $.notFound.event),
           }
         case 'news':
           return {
             goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, ...params }),
-            goToMessage: 'goTo.news',
-            errorMessage: 'notFound.news',
+            goToMessage: t($ => $.goTo.news),
+            errorMessage: t($ => $.notFound.news),
           }
         case 'place':
           return {
             goToPath: pathnameFromRouteInformation({ route: PLACES_ROUTE, ...params }),
-            goToMessage: 'goTo.places',
-            errorMessage: 'notFound.place',
+            goToMessage: t($ => $.goTo.places),
+            errorMessage: t($ => $.notFound.place),
           }
         case 'region':
           return {
             goToPath: pathnameFromRouteInformation({ route: REGIONS_ROUTE, ...params }),
-            errorMessage: 'notFound.region',
+            errorMessage: t($ => $.notFound.region),
           }
       }
     }
     return {
       goToPath: '/',
-      errorMessage: fromError(error),
+      errorMessage: getErrorMessage(fromError(error), t),
     }
   }
 

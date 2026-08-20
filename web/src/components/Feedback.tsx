@@ -87,7 +87,7 @@ const Feedback = ({
         id='comment'
         value={comment}
         onChange={event => onCommentChanged(event.target.value)}
-        label={t($ => commentTitle)}
+        label={t($ => $[commentTitle])}
         variant='outlined'
         multiline
         rows={DEFAULT_ROWS_NUMBER}

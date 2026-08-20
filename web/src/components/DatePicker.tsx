@@ -20,7 +20,7 @@ export type CustomDatePickerProps = {
   title: string
   date?: DateTime | null
   setDate: (date: DateTime | null) => void
-  error?: string
+  error?: string | null
   calendarLabel: string
 }
 

@@ -122,7 +122,7 @@ const EventsDateFilter = ({
           <>
             {!!startDateError && (
               <Text variant='body3' style={{ color: theme.colors.error }}>
-                {t($ => startDateError)}
+                {startDateError}
               </Text>
             )}
           </>

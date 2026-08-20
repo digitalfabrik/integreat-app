@@ -52,7 +52,7 @@ const EventsDateFilter = ({
               title={t($ => $.from)}
               date={startDate}
               setDate={setStartDate}
-              error={startDateError ? t($ => startDateError) : undefined}
+              error={startDateError}
               calendarLabel={t($ => $.selectStartDateCalendar)}
             />
             <DatePicker
