@@ -1,6 +1,6 @@
 # Run checks and tests.
 docker:
-  - image: cimg/node:22.21.1
+  - image: cimg/node:24.18.1
 resource_class: medium
 environment:
   TOTAL_CPUS: 2 # For resource_class medium
