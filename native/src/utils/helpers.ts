@@ -96,9 +96,6 @@ export const getExtension = (urlString: string): string => {
   return lastPath.substring(index + 1)
 }
 
-export const getErrorMessage = (error: unknown): string =>
-  error instanceof Error ? error.message : 'No error message available'
-
 export const getStaticServerFileUrl = (filePath: string, staticServerUrl: string): string =>
   filePath.replace(RESOURCE_CACHE_DIR_PATH, staticServerUrl)
 

@@ -7,8 +7,7 @@ import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
-import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import Accordion from './Accordion'
 import HoursList from './HoursList'
 import Icon from './base/Icon'
@@ -65,13 +64,13 @@ const OpeningHours = ({
   appointmentUrl,
 }: OpeningHoursProps): ReactElement | null => {
   const { t } = useTranslation(['places'])
-  const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
   const theme = useTheme()
   const appointmentOnly = !openingHours && !!appointmentUrl
 
   const AppointmentLink = appointmentUrl ? (
     <TouchableRipple
-      onPress={() => openExternalUrl(appointmentUrl, showSnackbar)}
+      onPress={() => openExternalUrl(appointmentUrl)}
       role='link'
       style={{
         flexDirection: 'row',

@@ -31,7 +31,7 @@ const HeaderMenu = ({
   setVisible,
 }: HeaderMenuProps): ReactElement | null => {
   const theme = useTheme()
-  const { t } = useTranslation(['layout', 'common'])
+  const { t } = useTranslation(['layout', 'common', 'error'])
   const showSnackbar = useSnackbar()
   const [qrModalVisible, setQrModalVisible] = useState(false)
 
@@ -53,7 +53,7 @@ const HeaderMenu = ({
     try {
       await Share.share({ message, title })
     } catch (e) {
-      showSnackbar({ text: 'generalError' })
+      showSnackbar({ text: t($ => $.error.generalError) })
       captureError(e)
     }
   }

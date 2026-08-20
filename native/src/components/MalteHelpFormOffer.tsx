@@ -158,7 +158,7 @@ const MalteHelpFormOffer = ({
         <FormInput
           name='comment'
           title={t($ => $.contactReason)}
-          hint={`($t($ => $.maxCharacters, { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })})`}
+          hint={t($ => $.maxCharacters, { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
           control={control}
           rules={{ maxLength: MALTE_HELP_FORM_MAX_COMMENT_LENGTH }}
           maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}

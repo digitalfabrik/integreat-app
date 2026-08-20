@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react'
 import { StyleProp, TextStyle, StyleSheet } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
-import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import Text from './base/Text'
 
 type LinkTargetProps = { url: string; onPress?: never } | { url?: never; onPress: () => void }
@@ -14,7 +13,7 @@ type LinkProps = LinkTargetProps & {
 }
 
 const Link = ({ url, onPress, children, style }: LinkProps): ReactElement => {
-  const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
   const theme = useTheme()
 
   const styles = StyleSheet.create({
@@ -30,7 +29,7 @@ const Link = ({ url, onPress, children, style }: LinkProps): ReactElement => {
     <Text
       variant='body2'
       style={[styles.linkText, style]}
-      onPress={onPress ?? (() => openExternalUrl(url, showSnackbar))}
+      onPress={onPress ?? (() => openExternalUrl(url))}
       role='link'>
       {children}
     </Text>

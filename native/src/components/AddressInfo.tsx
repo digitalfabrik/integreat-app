@@ -10,8 +10,7 @@ import { LocationModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
-import { captureError } from '../utils/sentry'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
@@ -28,6 +27,7 @@ type AddressInfoProps = {
 const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => {
   const { address, postcode, town } = location
   const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
   const theme = useTheme()
   const { t } = useTranslation(['places'])
 
@@ -38,7 +38,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
 
   const openExternalMaps = () => {
     const externalMapsUrl = getExternalMapsLink(location, Platform.OS)
-    openExternalUrl(externalMapsUrl, showSnackbar).catch(captureError)
+    openExternalUrl(externalMapsUrl)
   }
 
   return (

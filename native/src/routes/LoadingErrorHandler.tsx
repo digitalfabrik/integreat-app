@@ -62,9 +62,10 @@ const LoadingErrorHandler = ({
 
   if (error !== null) {
     const errorCode = error instanceof Error ? fromError(error) : error
-    const goTo = [ErrorCodes.RegionUnavailable, ErrorCodes.ForbiddenError].includes(errorCode)
-      ? { route: REGIONS_ROUTE, languageCode }
-      : undefined
+    const goTo =
+      errorCode === ErrorCodes.RegionUnavailable || errorCode === ErrorCodes.ForbiddenError
+        ? { route: REGIONS_ROUTE, languageCode }
+        : undefined
 
     return (
       <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>

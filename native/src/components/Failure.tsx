@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-paper'
@@ -30,6 +31,17 @@ const getErrorIcon = (errorCode: ErrorCode) => {
   }
 }
 
+export const getErrorMessage = (errorCode: ErrorCode, t: TFunction<['error']>): string => {
+  switch (errorCode) {
+    case ErrorCodes.RegionUnavailable:
+      return t($ => $.notFound.region)
+    case ErrorCodes.LanguageUnavailable:
+      return t($ => $.notFound.language)
+    default:
+      return t($ => $[errorCode])
+  }
+}
+
 export type FailureProps = {
   code: ErrorCode
   retry: (() => void) | null
@@ -47,7 +59,7 @@ const Failure = ({ code, retry, goTo, goToLabel }: FailureProps): ReactElement =
   return (
     <Container>
       <Icon size={160} source={getErrorIcon(code)} />
-      <Text role='alert'>{t($ => (code === ErrorCodes.RegionUnavailable ? $.notFound.region : code))}</Text>
+      <Text role='alert'>{getErrorMessage(code, t)}</Text>
       {retry && (
         <Button mode='contained' onPress={retry}>
           {t($ => $.tryAgain)}

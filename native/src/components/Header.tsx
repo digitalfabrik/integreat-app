@@ -127,7 +127,7 @@ const Header = ({
 
   const goToLanguageChange = () => {
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
-      showSnackbar({ text: 'layout:noTranslation' })
+      showSnackbar({ text: t($ => $.noTranslation) })
     } else if (languages && availableLanguages) {
       navigation.navigate(LANGUAGES_ROUTE, {
         languages,
@@ -152,14 +152,14 @@ const Header = ({
   const items = [
     <HeaderActionItem
       key='search'
-      title={t($ => $.search)}
+      accessibilityLabel={t($ => $.search)}
       iconName='search'
       visible={showItems}
       onPress={() => navigation.navigate(SEARCH_ROUTE, { searchText: null })}
     />,
     <HeaderActionItem
       key='language'
-      title={t($ => $.changeLanguage)}
+      accessibilityLabel={t($ => $.changeLanguage)}
       iconName='language'
       visible={showItems || isRegions}
       onPress={goToLanguageChange}

@@ -18,29 +18,34 @@ import {
   SEARCH_ROUTE,
 } from 'shared'
 
-import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
-import { AppContext } from '../contexts/AppContext'
+import { AppContext, AppContextType } from '../contexts/AppContext'
 import { navigateNested } from '../utils/navigation'
-import openExternalUrl from '../utils/openExternalUrl'
-import { captureError } from '../utils/sentry'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import { urlFromRouteInformation } from '../utils/url'
-import useSnackbar from './useSnackbar'
 
-const navigate = <T extends RoutesType>(
-  routeInformation: RouteInformationType,
-  navigation: NavigationProps<T>,
-  appRegionCode: string | null,
-  appLanguageCode: string,
-  showSnackbar: (snackbar: SnackbarType) => void,
-  redirect: boolean,
-): void => {
+type NavigateProps<T extends RoutesType> = {
+  routeInformation: RouteInformationType
+  navigation: NavigationProps<T>
+  appContext: AppContextType
+  openExternalUrl: (url: string) => void
+  redirect: boolean
+}
+
+const navigate = <T extends RoutesType>({
+  routeInformation,
+  appContext,
+  navigation,
+  openExternalUrl,
+  redirect,
+}: NavigateProps<T>): void => {
   if (!routeInformation) {
     return
   }
   const navigate = redirect ? navigation.replace : navigation.push
   const url = urlFromRouteInformation(routeInformation)
   const { route } = routeInformation
+  const { regionCode: appRegionCode, languageCode: appLanguageCode } = appContext
 
   if (
     route === LICENSES_ROUTE ||
@@ -53,7 +58,7 @@ const navigate = <T extends RoutesType>(
   }
 
   if (route === MAIN_IMPRINT_ROUTE) {
-    openExternalUrl(url, showSnackbar).catch(captureError)
+    openExternalUrl(url)
     return
   }
 
@@ -74,7 +79,7 @@ const navigate = <T extends RoutesType>(
         },
       })
     }
-    openExternalUrl(url, showSnackbar).catch(captureError)
+    openExternalUrl(url)
     return
   }
 
@@ -121,13 +126,13 @@ type UseNavigateReturn = {
 
 const useNavigate = ({ redirect } = { redirect: false }): UseNavigateReturn => {
   const navigation = useNavigation<NavigationProps<RoutesType>>()
-  const { regionCode, languageCode } = useContext(AppContext)
-  const showSnackbar = useSnackbar()
+  const appContext = useContext(AppContext)
+  const openExternalUrl = useOpenExternalUrl()
 
   const navigateTo = useCallback(
     (routeInformation: RouteInformationType) =>
-      navigate(routeInformation, navigation, regionCode, languageCode, showSnackbar, redirect),
-    [navigation, regionCode, languageCode, showSnackbar, redirect],
+      navigate({ routeInformation, navigation, appContext, openExternalUrl, redirect }),
+    [navigation, appContext, openExternalUrl, redirect],
   )
 
   return { navigateTo, navigation }
