@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
 import React, { Fragment, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router'
 
 import { filterLanguages } from 'shared'
 import { config } from 'translations'
@@ -55,6 +56,7 @@ const LanguageSelection = ({
   openAlertDialog,
 }: LanguageSelectionProps): ReactElement => {
   const [query, setQuery] = useState('')
+  const { search } = useLocation()
   const { t } = useTranslation('layout')
   const { mobile } = useDimensions()
 
@@ -85,7 +87,7 @@ const LanguageSelection = ({
             <LanguageListItem
               key={language.code}
               code={language.code}
-              path={language.path}
+              path={language.path ? `${language.path}${search}` : null}
               name={language.name}
               close={close}
               selectedLanguageCode={currentLanguage?.code}
@@ -115,7 +117,7 @@ const LanguageSelection = ({
         <Fragment key={language.code}>
           <LanguageListItem
             code={language.code}
-            path={language.path}
+            path={language.path ? `${language.path}${search}` : null}
             name={language.name}
             close={close}
             selectedLanguageCode={currentLanguage?.code}

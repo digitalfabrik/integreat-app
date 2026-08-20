@@ -60,7 +60,7 @@ type ChatContainerProps = {
 }
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
-  const { open, close, openUrl, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
+  const { open, close, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
   const { t } = useTranslation('chat')
   const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   const { xsmall } = useDimensions()
@@ -136,8 +136,6 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
 
   if (visible) {
     const chatName = getChatName(buildConfig().appName)
-    const chatLanguageChangePaths =
-      languageChangePaths?.map(({ path, ...rest }) => ({ ...rest, path: openUrl(path) })) ?? []
 
     return (
       <StyledDialog
@@ -152,7 +150,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
             ? [
                 <HeaderLanguageSelectorItem
                   key='languageChange'
-                  languageChangePaths={chatLanguageChangePaths}
+                  languageChangePaths={languageChangePaths}
                   languageCode={languageCode}
                   feedbackAvailable
                 />,

@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useParams } from 'react-router'
+import { useParams } from 'react-router'
 
 import { EVENTS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createEventsEndpoint, NotFoundError } from 'shared/api'
@@ -41,7 +41,6 @@ const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
 const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteProps): ReactElement | null => {
   const { eventId } = useParams()
   const { t } = useTranslation('events')
-  const { search } = useLocation()
 
   const { data: events, error } = useQueryFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, {
     region: regionCode,
@@ -68,7 +67,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
           languageCode: code,
         })
     return {
-      path: isCurrentLanguage ? pathname : `${path}${search}`,
+      path: isCurrentLanguage ? pathname : path,
       name,
       code,
     }
