@@ -20,7 +20,11 @@ export const Message = styled('div', { shouldForwardProp })<{ userIsAuthor: bool
   borderRadius: 8,
   wordBreak: 'break-word',
   backgroundColor: userIsAuthor ? theme.palette.chat.userMessageBackground : theme.palette.chat.answerMessageBackground,
-  border: `1px solid ${theme.palette.chat.messageBorderColor}`,
+  border: `1px solid ${
+    userIsAuthor && theme.isContrastTheme ? theme.palette.primary.light : theme.palette.chat.messageBorderColor
+  }`,
+  '& p:first-of-type': { marginTop: 0 },
+  '& p:last-of-type': { marginBottom: 0 },
 }))
 
 const RetryButton = styled(IconButton)({
@@ -44,7 +48,7 @@ export const InnerChatMessage = ({
   hint,
 }: InnerChatMessageProps): ReactElement => (
   <Stack direction={userIsAuthor ? 'row-reverse' : 'row'} gap={1}>
-    <MessageAvatar userIsAuthor={userIsAuthor} isAutomaticAnswer={isAutomaticAnswer} visible={showAvatar} />
+    {!userIsAuthor && <MessageAvatar isAutomaticAnswer={isAutomaticAnswer} visible={showAvatar} />}
     <Message userIsAuthor={userIsAuthor}>
       <Typography variant='body2' component='div'>
         {children}

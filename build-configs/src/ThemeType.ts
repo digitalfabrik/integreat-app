@@ -55,6 +55,8 @@ export type TypeChat = {
   answerMessageBackground: string
   userMessageBackground: string
   messageBorderColor: string
+  chatInputOutlineColor: string
+  chatInputPlaceholderColor: string
 }
 
 export type CommonColorPalette = CommonColors & {
