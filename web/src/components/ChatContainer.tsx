@@ -25,7 +25,7 @@ import useIsTabActive from '../hooks/useIsTabActive'
 import useLocalStorage, { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
-import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
+import useQueryParam from '../hooks/useQueryParam'
 import { chatIdKey, chatSeenMessagesKey } from '../utils/chat'
 import { openUrlInNewTab } from '../utils/openLink'
 import Chat from './Chat'
@@ -60,13 +60,13 @@ type ChatContainerProps = {
 }
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
-  const { open, close, visible } = useQueryParamVisibility(CHAT_QUERY_KEY)
+  const { set, unset, isSet } = useQueryParam(CHAT_QUERY_KEY)
   const { t } = useTranslation('chat')
   const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const isBrowserTabActive = useIsTabActive()
-  useLockedBody(visible)
+  useLockedBody(isSet)
 
   const [initialChatId] = useState<string>(uuid)
   const [storageChatId, setChatId] = useLocalStorage<string | null>({
@@ -110,10 +110,10 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
   const unreadMessageCount = incomingMessageCount - seenMessages
 
   useEffect(() => {
-    if (visible && incomingMessageCount > seenMessages) {
+    if (isSet && incomingMessageCount > seenMessages) {
       setSeenMessages(incomingMessageCount)
     }
-  }, [incomingMessageCount, seenMessages, setSeenMessages, visible])
+  }, [incomingMessageCount, seenMessages, setSeenMessages, isSet])
 
   useEffect(() => {
     if (!isBrowserTabActive || messageCount === 0) {
@@ -134,7 +134,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     return null
   }
 
-  if (visible) {
+  if (isSet) {
     const chatName = getChatName(buildConfig().appName)
 
     return (
@@ -142,7 +142,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
         title={chatName}
         subtitle={t('subtitle')}
         icon={<ChatLogoAvatar />}
-        close={close}
+        close={unset}
         showHeader={!externalChatId}
         minimize
         actions={[
@@ -171,7 +171,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     )
   }
 
-  return <ChatFab onClick={open} unreadMessageCount={unreadMessageCount} />
+  return <ChatFab onClick={set} unreadMessageCount={unreadMessageCount} />
 }
 
 export default ChatContainer

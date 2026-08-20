@@ -1,6 +1,6 @@
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -10,6 +10,7 @@ import {
   NewsSourceFilter,
   pathnameFromRouteInformation,
   newsFilterToSources,
+  NEWS_SOURCE_FILTER_QUERY_KEY,
 } from 'shared'
 import { createNewsEndpoint } from 'shared/api'
 
@@ -24,6 +25,7 @@ import List from '../components/base/List'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useDimensions from '../hooks/useDimensions'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
+import useQueryParam from '../hooks/useQueryParam'
 import { RegionRouteProps } from './index'
 
 const NewsSourceFilterButtonGroup = styled(ToggleTextButtonGroup)({
@@ -31,9 +33,10 @@ const NewsSourceFilterButtonGroup = styled(ToggleTextButtonGroup)({
 }) as typeof ToggleTextButtonGroup
 
 const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): ReactElement | null => {
-  const [newsSourceFilter, setNewsSourceFilter] = useState<NewsSourceFilter>(NEWS_ALL_SOURCES_FILTER)
+  const { value: sourceFilter, set: setSourceFilter } = useQueryParam(NEWS_SOURCE_FILTER_QUERY_KEY)
   const { desktop } = useDimensions()
   const { t } = useTranslation('news')
+  console.log(sourceFilter)
 
   const { data, ...response } = useQueryFromEndpoint(createNewsEndpoint, cmsApiBaseUrl, {
     region: regionCode,
@@ -67,7 +70,7 @@ const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): React
     )
   }
 
-  const newsSources = newsFilterToSources(newsSourceFilter)
+  const newsSources = newsFilterToSources(sourceFilter)
   const news = data?.filter(news => !newsSources || newsSources.includes(news.source))
   const newsListItems =
     news?.map(item => <NewsListItem key={item.id} news={item} regionCode={regionCode} languageCode={languageCode} />) ??
@@ -82,9 +85,9 @@ const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): React
       <Stack gap={1}>
         {showNewsSourceFilter && (
           <NewsSourceFilterButtonGroup
-            setValue={setNewsSourceFilter}
+            setValue={setSourceFilter}
             options={NEWS_SOURCE_FILTERS}
-            value={newsSourceFilter}
+            value={sourceFilter ?? NEWS_ALL_SOURCES_FILTER}
             getLabel={getLabel}
           />
         )}

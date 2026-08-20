@@ -8,7 +8,7 @@ import { FEEDBACK_QUERY_KEY, parseQueryParams, Rating, RATING_POSITIVE, SEARCH_R
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
-import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
+import useQueryParam from '../hooks/useQueryParam'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import { captureError } from '../utils/sentry'
 import Feedback from './Feedback'
@@ -20,7 +20,7 @@ type FeedbackContainerProps = {
 }
 
 const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | null => {
-  const { visible, open, close, value: rating } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
+  const { isSet, set, unset, value: rating } = useQueryParam(FEEDBACK_QUERY_KEY)
   const [queryParams] = useSearchParams()
   const { t } = useTranslation('feedback')
   const { route, regionCode, languageCode } = useRegionContentParams()
@@ -33,14 +33,14 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
 
-  const setRating = (newRating: Rating | null) => open(newRating ?? undefined)
+  const setRating = (newRating: Rating | null) => set(newRating ?? undefined)
 
   useEffect(() => {
     setSearchTerm(query)
   }, [query])
 
   const closeAndReset = () => {
-    close()
+    unset()
     setComment('')
     setContactMail('')
     setSearchTerm(query)
@@ -77,7 +77,7 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
 
   return (
     <>
-      {visible && (
+      {isSet && (
         <Dialog title={t('headline')} close={closeAndReset}>
           <Feedback
             language={languageCode}

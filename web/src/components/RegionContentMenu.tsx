@@ -9,7 +9,7 @@ import { CategoryModel } from 'shared/api'
 
 import { ReadAloudIcon } from '../assets'
 import { TtsContext } from '../contexts/TtsContext'
-import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
+import useQueryParam from '../hooks/useQueryParam'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import HeaderMenu, { MenuRef } from './HeaderMenu'
 import MenuItem from './MenuItem'
@@ -28,7 +28,7 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
   const { toggleTheme, dimensions } = useTheme()
   const { t } = useTranslation('layout')
   const ref = useRef<MenuRef>(null)
-  const { open } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
+  const { set } = useQueryParam(FEEDBACK_QUERY_KEY)
 
   const showFeedback = fitScreen || (dimensions.mobile && route !== NEWS_ROUTE)
   const closeMenu = ref.current?.closeMenu
@@ -48,7 +48,7 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
         key='feedback'
         text={t('feedback')}
         icon={<CommentIcon fontSize='small' />}
-        onClick={open}
+        onClick={set}
         closeMenu={closeMenu}
       />
     ) : null,

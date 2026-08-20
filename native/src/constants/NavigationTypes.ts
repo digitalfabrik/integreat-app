@@ -1,5 +1,6 @@
 import { RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { DateTime } from 'luxon'
 
 import {
   CategoriesRouteType,
@@ -51,6 +52,7 @@ import {
   CHAT_ROUTE,
   ChatRouteType,
   Rating,
+  NewsSourceFilter,
 } from 'shared'
 import { LanguageModel, FeedbackRouteType } from 'shared/api'
 
@@ -96,9 +98,12 @@ export type NestedRoutesParamsType = {
   }
   [EVENTS_ROUTE]: RouteTitle & {
     slug?: string
+    startDate?: DateTime
+    endDate?: DateTime
   }
   [NEWS_ROUTE]: RouteTitle & {
     id: string | null
+    sourceFilter?: NewsSourceFilter
   }
 }
 

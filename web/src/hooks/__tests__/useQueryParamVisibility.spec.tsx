@@ -2,7 +2,7 @@ import { act, fireEvent, render, renderHook } from '@testing-library/react'
 import React from 'react'
 import { MemoryRouter, useSearchParams } from 'react-router'
 
-import useQueryParamVisibility from '../useQueryParamVisibility'
+import useQueryParam from '../useQueryParam'
 
 const createWrapper =
   (initialPath = '/') =>
@@ -11,15 +11,15 @@ const createWrapper =
   )
 
 const MockComponent = () => {
-  const { visible, close } = useQueryParamVisibility('chat')
+  const { isSet, unset } = useQueryParam('chat')
   const [, setSearchParams] = useSearchParams()
   return (
     <>
-      <span>{visible ? 'visible' : 'hidden'}</span>
+      <span>{isSet ? 'visible' : 'hidden'}</span>
       <button
         type='button'
         onClick={() => {
-          close()
+          unset()
           setSearchParams({ chat: 'true' })
         }}>
         closeAndReopen
@@ -30,37 +30,37 @@ const MockComponent = () => {
 
 describe('useQueryParamVisibility', () => {
   it('should return visible as false when query param is absent', () => {
-    const { result } = renderHook(() => useQueryParamVisibility('chat'), { wrapper: createWrapper() })
+    const { result } = renderHook(() => useQueryParam('chat'), { wrapper: createWrapper() })
 
-    expect(result.current.visible).toBe(false)
+    expect(result.current.isSet).toBe(false)
   })
 
   it('should return visible as true when query param is set to true', () => {
-    const { result } = renderHook(() => useQueryParamVisibility('chat'), { wrapper: createWrapper('/?chat=true') })
+    const { result } = renderHook(() => useQueryParam('chat'), { wrapper: createWrapper('/?chat=true') })
 
-    expect(result.current.visible).toBe(true)
+    expect(result.current.isSet).toBe(true)
   })
 
   it('should return visible as false when query param is set to false', () => {
-    const { result } = renderHook(() => useQueryParamVisibility('chat'), { wrapper: createWrapper('/?chat=false') })
+    const { result } = renderHook(() => useQueryParam('chat'), { wrapper: createWrapper('/?chat=false') })
 
-    expect(result.current.visible).toBe(false)
+    expect(result.current.isSet).toBe(false)
   })
 
   it('should set visible to true when open is called', () => {
-    const { result } = renderHook(() => useQueryParamVisibility('chat'), { wrapper: createWrapper() })
+    const { result } = renderHook(() => useQueryParam('chat'), { wrapper: createWrapper() })
 
-    act(() => result.current.open())
+    act(() => result.current.set())
 
-    expect(result.current.visible).toBe(true)
+    expect(result.current.isSet).toBe(true)
   })
 
   it('should set visible to false when close is called', () => {
-    const { result } = renderHook(() => useQueryParamVisibility('chat'), { wrapper: createWrapper('/?chat=true') })
+    const { result } = renderHook(() => useQueryParam('chat'), { wrapper: createWrapper('/?chat=true') })
 
-    act(() => result.current.close())
+    act(() => result.current.unset())
 
-    expect(result.current.visible).toBe(false)
+    expect(result.current.isSet).toBe(false)
   })
 
   it('should stay visible when the same query param is set again after closing', () => {
@@ -72,14 +72,14 @@ describe('useQueryParamVisibility', () => {
   })
 
   it('should return url with query param appended', () => {
-    const { result } = renderHook(() => useQueryParamVisibility('chat'), { wrapper: createWrapper() })
+    const { result } = renderHook(() => useQueryParam('chat'), { wrapper: createWrapper() })
 
-    expect(result.current.openUrl('/augsburg/de')).toBe('/augsburg/de?chat=true')
+    expect(result.current.url('/augsburg/de')).toBe('/augsburg/de?chat=true')
   })
 
   it('should return null from openUrl when given null', () => {
-    const { result } = renderHook(() => useQueryParamVisibility('chat'), { wrapper: createWrapper() })
+    const { result } = renderHook(() => useQueryParam('chat'), { wrapper: createWrapper() })
 
-    expect(result.current.openUrl(null)).toBeNull()
+    expect(result.current.url(null)).toBeNull()
   })
 })

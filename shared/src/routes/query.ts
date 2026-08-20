@@ -1,6 +1,15 @@
 import { DateTime } from 'luxon'
 
-import { Rating, RATING_NEGATIVE, RATING_POSITIVE, THEME_CONTRAST, THEME_LIGHT, ThemeType } from '../constants/index.ts'
+import {
+  NEWS_SOURCE_FILTERS,
+  NewsSourceFilter,
+  Rating,
+  RATING_NEGATIVE,
+  RATING_POSITIVE,
+  THEME_CONTRAST,
+  THEME_LIGHT,
+  ThemeType,
+} from '../constants/index.ts'
 import { safeParseInt } from '../utils/index.ts'
 import { NonNullableRouteInformationType } from './RouteInformationTypes.ts'
 import { PLACES_ROUTE, SEARCH_ROUTE } from './index.ts'
@@ -15,6 +24,7 @@ export const PLACE_CATEGORY_QUERY_KEY = 'category'
 export const ZOOM_QUERY_KEY = 'zoom'
 export const START_DATE_QUERY_KEY = 'start'
 export const END_DATE_QUERY_KEY = 'end'
+export const NEWS_SOURCE_FILTER_QUERY_KEY = 'source'
 
 export const queryStringFromRouteInformation = (
   routeInformation: NonNullableRouteInformationType,
@@ -50,18 +60,16 @@ export const queryStringFromRouteInformation = (
   return queryParams.length > 0 ? `?${new URLSearchParams(queryParams).toString()}` : undefined
 }
 
-export type VisibilityQueryParams = {
-  chat?: true
-  feedback?: Rating
-}
-
-type QueryParams = VisibilityQueryParams & {
-  chatId?: string
-  theme?: ThemeType
-  searchText?: string
-  multiPlace?: number
-  placeCategoryId?: number
-  zoom?: number
+export type QueryParams = {
+  chat: true | undefined
+  feedback: Rating | undefined
+  chatId: string | undefined
+  theme: ThemeType | undefined
+  searchText: string | undefined
+  multiPlace: number | undefined
+  placeCategoryId: number | undefined
+  zoom: number | undefined
+  source: NewsSourceFilter | undefined
 }
 
 export type DateQueryKey = typeof START_DATE_QUERY_KEY | typeof END_DATE_QUERY_KEY
@@ -81,7 +89,8 @@ export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const multiPlace = safeParseInt(queryParams.get(MULTI_PLACE_QUERY_KEY))
   const placeCategoryId = safeParseInt(queryParams.get(PLACE_CATEGORY_QUERY_KEY))
   const zoom = safeParseInt(queryParams.get(ZOOM_QUERY_KEY))
-  return { searchText, multiPlace, placeCategoryId, zoom, chat, chatId, theme, feedback }
+  const source = NEWS_SOURCE_FILTERS.find(filter => filter === queryParams.get(NEWS_SOURCE_FILTER_QUERY_KEY))
+  return { searchText, multiPlace, placeCategoryId, zoom, chat, chatId, theme, feedback, source }
 }
 
 export const toQueryParams = ({
@@ -93,7 +102,7 @@ export const toQueryParams = ({
   chatId,
   theme,
   feedback,
-}: QueryParams): URLSearchParams => {
+}: Partial<QueryParams>): URLSearchParams => {
   const queryParams: [string, string | undefined][] = [
     [SEARCH_QUERY_KEY, searchText],
     [CHAT_QUERY_KEY, chat?.toString()],

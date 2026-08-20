@@ -1,8 +1,11 @@
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { DateTime } from 'luxon'
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 
-import { filterEvents } from 'shared'
+import { EventsRouteType, filterEvents } from 'shared'
 import { EventModel } from 'shared/api'
+
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 
 type UseDateFilterReturn = {
   startDate: DateTime | null
@@ -14,8 +17,10 @@ type UseDateFilterReturn = {
 }
 
 const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
-  const [startDate, setStartDate] = useState<DateTime | null>(null)
-  const [endDate, setEndDate] = useState<DateTime | null>(null)
+  const navigation = useNavigation<NavigationProps<EventsRouteType>>()
+  const { params } = useRoute<RouteProps<EventsRouteType>>()
+  const startDate = params.startDate ?? null
+  const endDate = params.endDate ?? null
   const isStartAfterEnd = startDate && endDate && startDate > endDate
   const startDateError = isStartAfterEnd ? 'shouldBeEarlier' : null
 
@@ -23,9 +28,9 @@ const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
 
   return {
     startDate,
-    setStartDate,
+    setStartDate: startDate => navigation.setParams({ startDate: startDate ?? undefined }),
     endDate,
-    setEndDate,
+    setEndDate: endDate => navigation.setParams({ endDate: endDate ?? undefined }),
     filteredEvents,
     startDateError,
   }
