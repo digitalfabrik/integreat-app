@@ -62,7 +62,7 @@ export const queryStringFromRouteInformation = (
 
 export type QueryParams = {
   chat: true | undefined
-  feedback: Rating | undefined
+  feedback: Rating | true | undefined
   chatId: string | undefined
   theme: ThemeType | undefined
   searchText: string | undefined
@@ -70,27 +70,38 @@ export type QueryParams = {
   placeCategoryId: number | undefined
   zoom: number | undefined
   source: NewsSourceFilter | undefined
+  start: DateTime | undefined
+  end: DateTime | undefined
 }
 
-export type DateQueryKey = typeof START_DATE_QUERY_KEY | typeof END_DATE_QUERY_KEY
+const parseDate = (value: string | null): DateTime | undefined => (value ? DateTime.fromISO(value) : undefined)
 
 const parseTheme = (theme: string | null): ThemeType | undefined =>
   theme === THEME_LIGHT || theme === THEME_CONTRAST ? theme : undefined
 
-export const parseDate = (value: string | null): DateTime | null => (value ? DateTime.fromISO(value) : null)
+const parseFeedback = (value: string | null): Rating | true | undefined => {
+  if (value === RATING_POSITIVE || value === RATING_NEGATIVE) {
+    return value
+  }
+  if (value === 'true') {
+    return true
+  }
+  return undefined
+}
 
 export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const searchText = queryParams.get(SEARCH_QUERY_KEY) ?? undefined
   const chat = queryParams.get(CHAT_QUERY_KEY) === 'true' || undefined
   const chatId = queryParams.get(CHAT_ID_QUERY_KEY) ?? undefined
   const theme = parseTheme(queryParams.get(THEME_QUERY_KEY))
-  const feedbackQuery = queryParams.get(FEEDBACK_QUERY_KEY) ?? undefined
-  const feedback = feedbackQuery === RATING_POSITIVE || feedbackQuery === RATING_NEGATIVE ? feedbackQuery : undefined
+  const feedback = parseFeedback(queryParams.get(FEEDBACK_QUERY_KEY))
   const multiPlace = safeParseInt(queryParams.get(MULTI_PLACE_QUERY_KEY))
   const placeCategoryId = safeParseInt(queryParams.get(PLACE_CATEGORY_QUERY_KEY))
   const zoom = safeParseInt(queryParams.get(ZOOM_QUERY_KEY))
   const source = NEWS_SOURCE_FILTERS.find(filter => filter === queryParams.get(NEWS_SOURCE_FILTER_QUERY_KEY))
-  return { searchText, multiPlace, placeCategoryId, zoom, chat, chatId, theme, feedback, source }
+  const start = parseDate(queryParams.get(START_DATE_QUERY_KEY))
+  const end = parseDate(queryParams.get(END_DATE_QUERY_KEY))
+  return { searchText, multiPlace, placeCategoryId, zoom, chat, chatId, theme, feedback, source, start, end }
 }
 
 export const toQueryParams = ({
@@ -102,16 +113,22 @@ export const toQueryParams = ({
   chatId,
   theme,
   feedback,
+  source,
+  start,
+  end,
 }: Partial<QueryParams>): URLSearchParams => {
   const queryParams: [string, string | undefined][] = [
     [SEARCH_QUERY_KEY, searchText],
     [CHAT_QUERY_KEY, chat?.toString()],
     [CHAT_ID_QUERY_KEY, chatId],
     [THEME_QUERY_KEY, theme],
-    [FEEDBACK_QUERY_KEY, feedback],
+    [FEEDBACK_QUERY_KEY, feedback?.toString()],
     [MULTI_PLACE_QUERY_KEY, multiPlace?.toString()],
     [PLACE_CATEGORY_QUERY_KEY, placeCategoryId?.toString()],
     [ZOOM_QUERY_KEY, zoom?.toString()],
+    [NEWS_SOURCE_FILTER_QUERY_KEY, source],
+    [START_DATE_QUERY_KEY, start?.toISODate()],
+    [END_DATE_QUERY_KEY, end?.toISODate()],
   ]
   return new URLSearchParams(
     queryParams.filter((it): it is [string, string] => it[1] !== undefined && it[1].length !== 0),

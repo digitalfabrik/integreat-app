@@ -20,12 +20,13 @@ type FeedbackContainerProps = {
 }
 
 const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | null => {
-  const { isSet, set, unset, value: rating } = useQueryParam(FEEDBACK_QUERY_KEY)
+  const [feedbackQueryParam, setFeedbackQueryParam] = useQueryParam(FEEDBACK_QUERY_KEY)
   const [queryParams] = useSearchParams()
   const { t } = useTranslation('feedback')
   const { route, regionCode, languageCode } = useRegionContentParams()
   const { searchText } = parseQueryParams(queryParams)
   const query = route === SEARCH_ROUTE ? searchText : undefined
+  const rating = typeof feedbackQueryParam === 'string' ? feedbackQueryParam : null
 
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
@@ -33,14 +34,14 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
 
-  const setRating = (newRating: Rating | null) => set(newRating ?? undefined)
+  const setRating = (newRating: Rating | null) => setFeedbackQueryParam(newRating ?? undefined)
 
   useEffect(() => {
     setSearchTerm(query)
   }, [query])
 
   const closeAndReset = () => {
-    unset()
+    setFeedbackQueryParam(undefined)
     setComment('')
     setContactMail('')
     setSearchTerm(query)
@@ -77,14 +78,14 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
 
   return (
     <>
-      {isSet && (
+      {feedbackQueryParam !== undefined && (
         <Dialog title={t('headline')} close={closeAndReset}>
           <Feedback
             language={languageCode}
             onCommentChanged={setComment}
             onContactMailChanged={setContactMail}
             onSubmit={handleSubmit}
-            rating={rating ?? null}
+            rating={rating}
             comment={comment}
             setRating={setRating}
             contactMail={contactMail}
