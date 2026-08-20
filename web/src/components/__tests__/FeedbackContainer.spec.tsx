@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react'
 import React from 'react'
 import { useSearchParams } from 'react-router'
 
-import { SEARCH_ROUTE } from 'shared'
+import { RATING_NEGATIVE, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
 
 import { renderAllRoutes } from '../../testing/render'
 import FeedbackContainer from '../FeedbackContainer'
@@ -86,7 +86,7 @@ describe('FeedbackContainer', () => {
       language: 'de',
       comment: '',
       contactMail: '',
-      isPositiveRating: true,
+      rating: RATING_POSITIVE,
       query,
       searchTerm: query,
       slug: undefined,
@@ -146,7 +146,7 @@ describe('FeedbackContainer', () => {
       language: 'de',
       comment: '',
       contactMail: '',
-      isPositiveRating: false,
+      rating: RATING_NEGATIVE,
       query,
       searchTerm: fullSearchTerm,
       slug: undefined,

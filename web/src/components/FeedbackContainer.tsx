@@ -4,7 +4,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
-import { FEEDBACK_QUERY_KEY, parseQueryParams, Rating, RATING_POSITIVE, SEARCH_ROUTE, SendingStatusType } from 'shared'
+import { FEEDBACK_QUERY_KEY, parseQueryParams, Rating, SEARCH_ROUTE, SendingStatusType } from 'shared'
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -61,7 +61,7 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
         query,
         slug: slug ?? undefined,
         searchTerm,
-        isPositiveRating: rating === RATING_POSITIVE,
+        rating,
       })
 
       setSendingStatus('successful')

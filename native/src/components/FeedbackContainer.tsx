@@ -35,11 +35,11 @@ const FeedbackContainer = ({
   routeType,
   regionCode,
   slug,
-  rating,
+  rating: initialRating,
 }: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
-  const [feedbackRating, setFeedbackRating] = useState<boolean | null>(rating ? rating === RATING_POSITIVE : null)
+  const [rating, setRating] = useState<Rating | null>(initialRating ?? null)
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
   const [showFeedback, setShowFeedback] = useState<boolean>(query === undefined)
@@ -63,7 +63,7 @@ const FeedbackContainer = ({
         query,
         slug,
         searchTerm,
-        isPositiveRating: feedbackRating,
+        rating,
       })
       setSendingStatus('successful')
     }
@@ -84,8 +84,8 @@ const FeedbackContainer = ({
           sendingStatus={sendingStatus}
           onCommentChanged={setComment}
           onFeedbackContactMailChanged={setContactMail}
-          feedbackRating={feedbackRating}
-          setFeedbackRating={setFeedbackRating}
+          rating={rating}
+          setRating={setRating}
           onSubmit={handleSubmit}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}

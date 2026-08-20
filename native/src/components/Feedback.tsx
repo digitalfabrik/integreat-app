@@ -4,7 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { DEFAULT_ROWS_NUMBER, SendingStatusType } from 'shared'
+import { DEFAULT_ROWS_NUMBER, Rating, SendingStatusType } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
@@ -27,8 +27,8 @@ export type FeedbackProps = {
   sendingStatus: SendingStatusType
   onCommentChanged: (comment: string) => void
   onFeedbackContactMailChanged: (contactMail: string) => void
-  feedbackRating: boolean | null
-  setFeedbackRating: (isPositive: boolean | null) => void
+  rating: Rating | null
+  setRating: (rating: Rating | null) => void
   onSubmit: () => void
   searchTerm?: string
   setSearchTerm: (newTerm: string) => void
@@ -36,11 +36,11 @@ export type FeedbackProps = {
 
 const Feedback = ({
   language,
-  feedbackRating,
+  rating,
   comment,
   contactMail,
   sendingStatus,
-  setFeedbackRating,
+  setRating,
   onFeedbackContactMailChanged,
   onCommentChanged,
   onSubmit,
@@ -52,7 +52,7 @@ const Feedback = ({
 
   const isSearchFeedback = searchTerm !== undefined
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
-  const feedbackFilled = feedbackRating === null && comment.trim().length === 0 && !searchTerm
+  const feedbackFilled = rating === null && comment.trim().length === 0 && !searchTerm
   const submitFeedbackDisabled = feedbackFilled || !privacyPolicyAccepted
 
   if (sendingStatus === 'sending') {
@@ -84,7 +84,7 @@ const Feedback = ({
         ) : (
           <>
             <Caption title={t('headline')} />
-            <FeedbackButtons feedbackRating={feedbackRating} setFeedbackRating={setFeedbackRating} />
+            <FeedbackButtons rating={rating} setRating={setRating} />
           </>
         )}
         <InputSection

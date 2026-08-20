@@ -62,8 +62,6 @@ export {
   InvalidEmailError,
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from './endpoints/submitMalteHelpForm.ts'
-export { POSITIVE_RATING } from './endpoints/createFeedbackEndpoint.ts'
-export { NEGATIVE_RATING } from './endpoints/createFeedbackEndpoint.ts'
 export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint.ts'
 export { default as createPlacesEndpoint, PLACES_ENDPOINT_NAME } from './endpoints/createPlacesEndpoint.ts'
 export {

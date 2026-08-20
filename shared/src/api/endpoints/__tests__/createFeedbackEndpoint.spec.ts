@@ -1,3 +1,4 @@
+import { RATING_NEGATIVE, RATING_POSITIVE } from '../../../constants/index.ts'
 import {
   CATEGORIES_ROUTE,
   IMPRINT_ROUTE,
@@ -21,7 +22,7 @@ describe('feedback', () => {
         comment: '',
         contactMail: '',
         routeType: CATEGORIES_ROUTE,
-        isPositiveRating: true,
+        rating: RATING_POSITIVE,
       }),
     ).toBe(`https://integreat-api-url.de/api/${API_VERSION}/augsburg/de/feedback/categories/`)
   })
@@ -34,7 +35,7 @@ describe('feedback', () => {
         comment: '',
         contactMail: '',
         routeType: CATEGORIES_ROUTE,
-        isPositiveRating: true,
+        rating: RATING_POSITIVE,
         slug: `willkommen`,
       }),
     ).toBe(`https://integreat-api-url.de/api/${API_VERSION}/augsburg/de/feedback/page/`)
@@ -49,20 +50,59 @@ describe('feedback', () => {
     expect(feedback.mapParamsToBody).not.toBeNull()
     expect(feedback.mapParamsToBody).toBeDefined()
 
-    if (!feedback.mapParamsToBody) {
-      throw new Error('Feedback Check for Typescript failed - Check your test')
-    }
-
     expect(
-      feedback.mapParamsToBody({
+      feedback.mapParamsToBody!({
         region: 'augsburg',
         language: 'de',
-        isPositiveRating: true,
+        rating: RATING_POSITIVE,
         routeType: CATEGORIES_ROUTE,
         comment: 'comment',
         contactMail: '',
         query: 'query',
         searchTerm: 'query full',
+      }),
+    ).toEqual(formData)
+  })
+
+  it('should map negative rating', () => {
+    const formData = new FormData()
+    formData.append('rating', 'down')
+    formData.append('comment', '    Kontaktadresse: Keine Angabe')
+    formData.append('category', 'Inhalte')
+    expect(feedback.mapParamsToBody).not.toBeNull()
+    expect(feedback.mapParamsToBody).toBeDefined()
+
+    expect(
+      feedback.mapParamsToBody!({
+        region: 'augsburg',
+        language: 'de',
+        rating: RATING_NEGATIVE,
+        routeType: CATEGORIES_ROUTE,
+        comment: '',
+        contactMail: '',
+        query: '',
+        searchTerm: '',
+      }),
+    ).toEqual(formData)
+  })
+
+  it('should map no rating', () => {
+    const formData = new FormData()
+    formData.append('comment', '    Kontaktadresse: Keine Angabe')
+    formData.append('category', 'Inhalte')
+    expect(feedback.mapParamsToBody).not.toBeNull()
+    expect(feedback.mapParamsToBody).toBeDefined()
+
+    expect(
+      feedback.mapParamsToBody!({
+        region: 'augsburg',
+        language: 'de',
+        rating: null,
+        routeType: CATEGORIES_ROUTE,
+        comment: '',
+        contactMail: '',
+        query: '',
+        searchTerm: '',
       }),
     ).toEqual(formData)
   })
@@ -84,7 +124,7 @@ describe('feedback', () => {
       const url = feedback.mapParamsToUrl({
         region: 'augsburg',
         language: 'de',
-        isPositiveRating: true,
+        rating: RATING_POSITIVE,
         routeType: route,
         comment: 'comment',
         contactMail: '',

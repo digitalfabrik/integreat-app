@@ -2,6 +2,8 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled, { useTheme } from 'styled-components/native'
 
+import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
+
 import Icon from './base/Icon'
 import ToggleButton from './base/ToggleButton'
 
@@ -17,30 +19,30 @@ const Spacing = styled.View`
 `
 
 type FeedbackButtonsProps = {
-  feedbackRating: boolean | null
-  setFeedbackRating: (isPositive: boolean | null) => void
+  rating: Rating | null
+  setRating: (rating: Rating | null) => void
 }
 
-const FeedbackButtons = ({ feedbackRating, setFeedbackRating }: FeedbackButtonsProps): ReactElement => {
+const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElement => {
   const { t } = useTranslation('feedback')
   const theme = useTheme()
-  const iconColor = (value: boolean) =>
-    feedbackRating === value && theme.dark ? theme.colors.background : theme.colors.onSurfaceVariant
+  const iconColor = (value: Rating) =>
+    value === rating && theme.dark ? theme.colors.background : theme.colors.onSurfaceVariant
 
   return (
     <Container>
       <ToggleButton
         text={t('useful')}
-        onPress={() => setFeedbackRating(feedbackRating !== true ? true : null)}
-        icon={<Icon size={32} color={iconColor(true)} source='emoticon-happy-outline' />}
-        active={feedbackRating === true}
+        onPress={() => setRating(rating !== RATING_POSITIVE ? RATING_POSITIVE : null)}
+        icon={<Icon size={32} color={iconColor(RATING_POSITIVE)} source='emoticon-happy-outline' />}
+        active={rating === RATING_POSITIVE}
       />
       <Spacing />
       <ToggleButton
         text={t('notUseful')}
-        onPress={() => setFeedbackRating(feedbackRating !== false ? false : null)}
-        icon={<Icon size={32} color={iconColor(false)} source='emoticon-sad-outline' />}
-        active={feedbackRating === false}
+        onPress={() => setRating(rating !== RATING_NEGATIVE ? RATING_NEGATIVE : null)}
+        icon={<Icon size={32} color={iconColor(RATING_NEGATIVE)} source='emoticon-sad-outline' />}
+        active={rating === RATING_NEGATIVE}
       />
     </Container>
   )
