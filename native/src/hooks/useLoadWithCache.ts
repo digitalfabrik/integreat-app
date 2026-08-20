@@ -1,8 +1,11 @@
+import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Endpoint, fromError, ReturnType, useLoadAsync } from 'shared/api'
 
+import { getErrorMessage } from '../components/Failure'
 import { SnackbarType } from '../components/SnackbarContainer'
 import dataContainer from '../utils/DefaultDataContainer'
 import { determineApiUrl } from '../utils/helpers'
@@ -16,6 +19,7 @@ type Load<T extends object> = {
   setToDataContainer: (regionCode: string, languageCode: string, data: T) => Promise<void>
   forceUpdate?: boolean
   showSnackbar: (snackbar: SnackbarType) => void
+  t: TFunction<['error']>
 }
 
 /**
@@ -32,6 +36,7 @@ const loadWithCache = async <T extends object>({
   createEndpoint,
   showSnackbar,
   forceUpdate = false,
+  t,
 }: Load<T>): Promise<T | null> => {
   const cachedData = (await isAvailable(regionCode, languageCode))
     ? await getFromDataContainer(regionCode, languageCode)
@@ -58,20 +63,23 @@ const loadWithCache = async <T extends object>({
       throw e
     }
     if (forceUpdate) {
-      showSnackbar({ text: fromError(e) })
+      showSnackbar({ text: getErrorMessage(fromError(e), t) })
     }
   }
   return cachedData
 }
 
-const useLoadWithCache = <T extends object>(params: Load<T>): ReturnType<T> =>
-  useLoadAsync<T>(
+const useLoadWithCache = <T extends object>(params: Omit<Load<T>, 't'>): ReturnType<T> => {
+  const { t } = useTranslation(['error'])
+
+  return useLoadAsync<T>(
     useCallback(
-      forceUpdate => loadWithCache<T>({ ...params, forceUpdate: params.forceUpdate || forceUpdate }),
+      forceUpdate => loadWithCache<T>({ ...params, forceUpdate: params.forceUpdate || forceUpdate, t }),
       // Normally using params as dependency triggers infinite re-renders
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [JSON.stringify(params)],
+      [JSON.stringify(params), t],
     ),
   )
+}
 
 export default useLoadWithCache

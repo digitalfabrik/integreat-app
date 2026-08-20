@@ -17,9 +17,8 @@ import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
-import useSnackbar from '../hooks/useSnackbar'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-import openExternalUrl from '../utils/openExternalUrl'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import Caption from './Caption'
 import Failure from './Failure'
 import List from './List'
@@ -59,7 +58,7 @@ const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSource
   const selectedNewsItem = news.find(item => item.id === id)
   const { navigateTo } = useNavigate()
   const { t } = useTranslation(['news'])
-  const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
   useTtsPlayer(selectedNewsItem)
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
@@ -90,7 +89,7 @@ const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSource
                 <TimeStamp lastUpdate={selectedNewsItem.lastUpdate} showText={false} />
               </Text>
               {selectedNewsItem.source !== LOCAL_NEWS_SOURCE && (
-                <NewsSourceLink onPress={() => openExternalUrl(selectedNewsItem.externalUrl, showSnackbar)} role='link'>
+                <NewsSourceLink onPress={() => openExternalUrl(selectedNewsItem.externalUrl)} role='link'>
                   <NewsSourceLogo icon={selectedNewsItem.source === AMAL_NEWS_SOURCE ? AmalNewsLogo : TuNewsIcon} />
                 </NewsSourceLink>
               )}

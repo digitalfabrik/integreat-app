@@ -10,9 +10,8 @@ import Layout from '../components/Layout'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useNavigate from '../hooks/useNavigate'
 import useResourceCache from '../hooks/useResourceCache'
-import useSnackbar from '../hooks/useSnackbar'
 import { getLocalFilePath } from '../utils/helpers'
-import openExternalUrl from '../utils/openExternalUrl'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 
 const StyledPdfRendererView = styled(PdfRendererView)`
   background-color: ${props => props.theme.colors.background};
@@ -27,17 +26,17 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
   const [error, setError] = useState(false)
   const { url } = route.params
   const { data: resourceCache, refresh, loading } = useResourceCache()
-  const showSnackbar = useSnackbar()
   const navigation = useNavigate().navigation
+  const openExternalUrl = useOpenExternalUrl()
   const filePath = resourceCache[url]
 
   useEffect(() => {
     if (!loading && !filePath) {
-      openExternalUrl(url, showSnackbar)
+      openExternalUrl(url)
         .catch(() => setError(true))
         .finally(navigation.goBack)
     }
-  }, [loading, filePath, url, navigation, showSnackbar])
+  }, [loading, filePath, url, navigation, openExternalUrl])
 
   if (loading || !filePath) {
     return <Layout />

@@ -1,13 +1,23 @@
+import { TFunction } from 'i18next'
+import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 import URL from 'url-parse'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import buildConfig from '../constants/buildConfig'
+import useSnackbar from '../hooks/useSnackbar'
 import { captureError } from './sentry'
 
 const WAIT_UNTIL_IN_APP_BROWSER_CLOSED = 100
-const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: SnackbarType) => void): Promise<void> => {
+
+type OpenExternalUrlProps = {
+  showSnackbar: (snackbar: SnackbarType) => void
+  t: TFunction<['error']>
+}
+
+export const openExternalUrl = async (rawUrl: string, { showSnackbar, t }: OpenExternalUrlProps): Promise<void> => {
   const encodedUrl = encodeURI(decodeURIComponent(rawUrl))
   const { protocol } = new URL(encodedUrl)
   const internalLinkRegexp = new RegExp(buildConfig().internalUrlPattern)
@@ -36,16 +46,26 @@ const openExternalUrl = async (rawUrl: string, showSnackbar: (snackbar: Snackbar
       })
     } else if (isInternalLink) {
       // Opening internal links via Linking opens it in integreat again leading to an endless loop, see #2440
-      showSnackbar({ text: 'noSuitableAppInstalled' })
+      showSnackbar({ text: t($ => $.noSuitableAppInstalled) })
     } else if (canBeOpenedWithOtherApp) {
       await Linking.openURL(encodedUrl)
     } else {
-      showSnackbar({ text: 'noSuitableAppInstalled' })
+      showSnackbar({ text: t($ => $.noSuitableAppInstalled) })
     }
   } catch (error) {
     captureError(error)
-    showSnackbar({ text: 'unknownError' })
+    showSnackbar({ text: t($ => $.unknownError) })
   }
 }
 
-export default openExternalUrl
+const useOpenExternalUrl = (): ((rawUrl: string) => void) => {
+  const { t } = useTranslation(['error'])
+  const showSnackbar = useSnackbar()
+
+  return useCallback(
+    (rawUrl: string) => openExternalUrl(rawUrl, { showSnackbar, t }).catch(captureError),
+    [showSnackbar, t],
+  )
+}
+
+export default useOpenExternalUrl

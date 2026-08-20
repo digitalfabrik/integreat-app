@@ -1,19 +1,26 @@
+import { TFunction } from 'i18next'
 import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { RegionModel, createRegionsEndpoint, ReturnType, useLoadAsync, fromError } from 'shared/api'
 
+import { getErrorMessage } from '../components/Failure'
 import { SnackbarType } from '../components/SnackbarContainer'
 import dataContainer from '../utils/DefaultDataContainer'
 import { determineApiUrl } from '../utils/helpers'
 import useSnackbar from './useSnackbar'
 
+type LoadWithCacheProps = {
+  forceUpdate?: boolean
+  showSnackbar: (snackbar: SnackbarType) => void
+  t: TFunction<['error']>
+}
+
 const loadWithCache = async ({
   showSnackbar,
   forceUpdate = false,
-}: {
-  forceUpdate?: boolean
-  showSnackbar: (snackbar: SnackbarType) => void
-}): Promise<RegionModel[] | null> => {
+  t,
+}: LoadWithCacheProps): Promise<RegionModel[] | null> => {
   const cachedData = (await dataContainer.regionsAvailable()) ? await dataContainer.getRegions() : null
 
   if (!forceUpdate && cachedData) {
@@ -31,15 +38,17 @@ const loadWithCache = async ({
       throw e
     }
     if (forceUpdate) {
-      showSnackbar({ text: fromError(e) })
+      showSnackbar({ text: getErrorMessage(fromError(e), t) })
     }
   }
   return cachedData
 }
 
 const useLoadRegions = (): ReturnType<RegionModel[]> => {
+  const { t } = useTranslation(['error'])
   const showSnackbar = useSnackbar()
-  return useLoadAsync(useCallback(forceUpdate => loadWithCache({ showSnackbar, forceUpdate }), [showSnackbar]))
+
+  return useLoadAsync(useCallback(forceUpdate => loadWithCache({ showSnackbar, forceUpdate, t }), [showSnackbar, t]))
 }
 
 export default useLoadRegions

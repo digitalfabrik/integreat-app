@@ -38,7 +38,7 @@ const NearbyRegions = ({ regions, navigateToDashboard, filterText }: NearbyRegio
     return (
       <NearbyMessageContainer>
         <Text variant='body2' style={{ paddingTop: 16 }}>
-          {t($ => message)}
+          {t($ => $[message])}
         </Text>
         <RetryButtonContainer>
           {status !== 'loading' && (

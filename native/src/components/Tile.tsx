@@ -5,9 +5,7 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { TileModel } from 'shared'
 
-import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
-import { captureError } from '../utils/sentry'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import ContrastImage from './ContrastImage'
 import SimpleImage from './SimpleImage'
 import Text from './base/Text'
@@ -34,17 +32,15 @@ const styles = StyleSheet.create({
 })
 
 const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
-  const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
   const theme = useTheme()
-  const openTile = () =>
-    tile.isExternalUrl ? openExternalUrl(tile.path, showSnackbar).catch(captureError) : onTilePress(tile)
 
   const thumbnail = <Thumbnail source={tile.thumbnail} />
 
   return (
     <TouchableRipple
       borderless
-      onPress={openTile}
+      onPress={() => (tile.isExternalUrl ? openExternalUrl(tile.path) : onTilePress(tile))}
       role='link'
       accessibilityLanguage={language}
       style={styles.tileContainer}>

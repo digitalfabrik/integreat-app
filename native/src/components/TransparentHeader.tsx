@@ -1,12 +1,11 @@
-import React, { ReactElement, useCallback, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Menu } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
-import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import HeaderBox from './HeaderBox'
 import HeaderMenu from './HeaderMenu'
 
@@ -30,30 +29,23 @@ type TransparentHeaderProps = {
 
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {
   const { t } = useTranslation(['layout'])
-  const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
   const [menuVisible, setMenuVisible] = useState(false)
   const theme = useTheme()
 
   const shareUrl = (route.params as { shareUrl: string } | undefined)?.shareUrl
   const isPdfUrl = shareUrl?.toLowerCase().includes('.pdf')
 
-  const onOpenPdf = useCallback(async (): Promise<void> => {
-    if (!shareUrl) {
-      return
-    }
-    await openExternalUrl(shareUrl, showSnackbar)
-  }, [showSnackbar, shareUrl])
-
-  const renderMenuItem = (title: string, onPress: () => void) => (
-    <Menu.Item
-      key={title}
-      title={t($ => title)}
-      onPress={onPress}
-      style={{ backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface }}
-    />
-  )
-
-  const menuItems = isPdfUrl ? [renderMenuItem('openExternal', onOpenPdf)] : []
+  const menuItems = isPdfUrl
+    ? [
+        <Menu.Item
+          key={t($ => $.openExternal)}
+          title={t($ => $.openExternal)}
+          onPress={shareUrl ? () => openExternalUrl(shareUrl) : undefined}
+          style={{ backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface }}
+        />,
+      ]
+    : []
 
   if (!navigation.canGoBack()) {
     return null
