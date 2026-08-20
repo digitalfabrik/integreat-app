@@ -60,13 +60,13 @@ type ChatContainerProps = {
 }
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
-  const { set, unset, isSet } = useQueryParam(CHAT_QUERY_KEY)
+  const [open, setOpen] = useQueryParam(CHAT_QUERY_KEY)
   const { t } = useTranslation('chat')
   const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const isBrowserTabActive = useIsTabActive()
-  useLockedBody(isSet)
+  useLockedBody(open)
 
   const [initialChatId] = useState<string>(uuid)
   const [storageChatId, setChatId] = useLocalStorage<string | null>({
@@ -110,10 +110,10 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
   const unreadMessageCount = incomingMessageCount - seenMessages
 
   useEffect(() => {
-    if (isSet && incomingMessageCount > seenMessages) {
+    if (open && incomingMessageCount > seenMessages) {
       setSeenMessages(incomingMessageCount)
     }
-  }, [incomingMessageCount, seenMessages, setSeenMessages, isSet])
+  }, [incomingMessageCount, seenMessages, setSeenMessages, open])
 
   useEffect(() => {
     if (!isBrowserTabActive || messageCount === 0) {
@@ -134,7 +134,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     return null
   }
 
-  if (isSet) {
+  if (open) {
     const chatName = getChatName(buildConfig().appName)
 
     return (
@@ -142,7 +142,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
         title={chatName}
         subtitle={t('subtitle')}
         icon={<ChatLogoAvatar />}
-        close={unset}
+        close={() => setOpen(undefined)}
         showHeader={!externalChatId}
         minimize
         actions={[
@@ -171,7 +171,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     )
   }
 
-  return <ChatFab onClick={set} unreadMessageCount={unreadMessageCount} />
+  return <ChatFab onClick={() => setOpen(true)} unreadMessageCount={unreadMessageCount} />
 }
 
 export default ChatContainer

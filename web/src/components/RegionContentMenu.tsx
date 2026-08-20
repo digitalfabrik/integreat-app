@@ -23,12 +23,12 @@ type RegionContentMenuProps = {
 }
 
 const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenuProps): ReactElement => {
+  const [_, setFeedbackQueryParam] = useQueryParam(FEEDBACK_QUERY_KEY)
   const { route, regionCode, languageCode } = useRegionContentParams()
   const { showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme, dimensions } = useTheme()
   const { t } = useTranslation('layout')
   const ref = useRef<MenuRef>(null)
-  const { set } = useQueryParam(FEEDBACK_QUERY_KEY)
 
   const showFeedback = fitScreen || (dimensions.mobile && route !== NEWS_ROUTE)
   const closeMenu = ref.current?.closeMenu
@@ -48,7 +48,7 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
         key='feedback'
         text={t('feedback')}
         icon={<CommentIcon fontSize='small' />}
-        onClick={set}
+        onClick={() => setFeedbackQueryParam(true)}
         closeMenu={closeMenu}
       />
     ) : null,
