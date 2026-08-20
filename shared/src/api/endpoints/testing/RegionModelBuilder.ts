@@ -1,7 +1,7 @@
 import RegionModel from '../../models/RegionModel.ts'
 import LanguageModelBuilder from './LanguageModelBuilder.ts'
 
-const languages = new LanguageModelBuilder(3).build()
+const languages = new LanguageModelBuilder(4).build()
 
 const regions = [
   new RegionModel({

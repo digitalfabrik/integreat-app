@@ -157,7 +157,7 @@ describe('PushNotificationsManager', () => {
       expect(navigate).toHaveBeenCalledWith({
         regionCode: 'augsburg',
         languageCode: 'de',
-        id: 123,
+        id: 'local-123',
         route: 'news',
       })
     })
@@ -169,7 +169,7 @@ describe('PushNotificationsManager', () => {
       expect(navigate).toHaveBeenCalledWith({
         regionCode: 'augsburg',
         languageCode: 'de',
-        id: 123,
+        id: 'local-123',
         route: 'news',
       })
     })

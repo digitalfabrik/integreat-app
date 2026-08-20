@@ -178,12 +178,12 @@ type ContentPlaceJsonType = {
 }
 
 type ContentNewsJsonType = {
-  id: number
+  id: string
   lastUpdate: string
   title: string
   content: string
   source: NewsSource
-  availableLanguages: Record<string, number> | null
+  availableLanguages: Record<string, string> | null
   externalUrl: string
 }
 

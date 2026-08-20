@@ -1,3 +1,4 @@
+import { fireEvent } from '@testing-library/react'
 import { DateTime } from 'luxon'
 import React from 'react'
 
@@ -22,7 +23,6 @@ import { NEWS_DETAIL_ROUTE, RoutePatterns } from '../index'
 jest.mock('react-i18next')
 jest.mock('../../hooks/useQueryFromEndpoint')
 jest.mock('../../hooks/useTtsPlayer', () => jest.fn())
-jest.mock('../../components/RegionContentHeader', () => () => null)
 
 describe('NewsDetailPage', () => {
   beforeEach(() => {
@@ -31,7 +31,8 @@ describe('NewsDetailPage', () => {
 
   const region = new RegionModelBuilder(1).build()[0]!
   const languageCode = 'de'
-  const newsId = 217
+  const newsId = 'local-217'
+  const arabicName = 'اَللُّغَةُ اَلْعَرَبِيَّة'
 
   const buildNews = (source: NewsSource) =>
     new NewsModel({
@@ -40,7 +41,7 @@ describe('NewsDetailPage', () => {
       content: '<p>News body</p>',
       source,
       lastUpdate: DateTime.fromISO('2023-03-20T17:50:00.000Z'),
-      availableLanguages: { de: newsId, en: 42 },
+      availableLanguages: { de: newsId, en: 'local-42' },
       externalUrl: 'https://external.example.com',
     })
 
@@ -103,5 +104,26 @@ describe('NewsDetailPage', () => {
       { pathname, routePattern },
     )
     expect(container).toBeEmptyDOMElement()
+  })
+
+  it('should link only to languages with available translations', () => {
+    mockUseQueryFromEndpointWithData(buildNews(LOCAL_NEWS_SOURCE))
+    const { getAllByText, getByRole } = renderDetail()
+    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+
+    expect(getAllByText('English')[0]?.closest('a')).toHaveAttribute(
+      'href',
+      `/${region.code}/en/${NEWS_ROUTE}/local-42`,
+    )
+    expect(getAllByText(arabicName)[0]?.closest('a')).toBeNull()
+  })
+
+  it('should not link to other languages while news is loading', () => {
+    mockUseQueryFromEndpointWithData(undefined)
+    const { getAllByText, getByRole } = renderDetail()
+    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+
+    expect(getAllByText('English')[0]?.closest('a')).toBeNull()
+    expect(getAllByText(arabicName)[0]?.closest('a')).toBeNull()
   })
 })

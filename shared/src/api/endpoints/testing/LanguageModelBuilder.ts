@@ -4,6 +4,7 @@ const languages = [
   new LanguageModel('en', 'English'),
   new LanguageModel('de', 'Deutsch'),
   new LanguageModel('ar', 'اَللُّغَةُ اَلْعَرَبِيَّة'),
+  new LanguageModel('es', 'Español'),
 ]
 
 class LanguageModelBuilder {

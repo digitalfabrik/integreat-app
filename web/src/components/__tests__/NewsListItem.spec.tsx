@@ -22,12 +22,12 @@ describe('NewsListItem', () => {
   const lastUpdate = DateTime.fromISO('2020-03-20T17:50:00.000Z')
   const buildNews = (source: NewsSource) =>
     new NewsModel({
-      id: 217,
+      id: 'local-217',
       title: 'Tick bite - What to do?',
       lastUpdate,
       content:
         'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor.',
-      availableLanguages: { de: 123, it: 234 },
+      availableLanguages: { de: 'local-123', it: 'local-234' },
       externalUrl: 'https://example.com',
       source,
     })
@@ -55,7 +55,7 @@ describe('NewsListItem', () => {
 
   it('should link to the news detail page', () => {
     const { getByRole } = renderWithRouterAndTheme(<NewsListItem news={news} languageCode='de' regionCode='augsburg' />)
-    expect(getByRole('link')).toHaveProperty('href', 'http://localhost/augsburg/de/news/217')
+    expect(getByRole('link')).toHaveProperty('href', 'http://localhost/augsburg/de/news/local-217')
   })
 
   it.each([

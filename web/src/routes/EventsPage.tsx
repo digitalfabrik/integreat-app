@@ -59,13 +59,13 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
 
   const languageChangePaths = region.languages.map(({ code, name }) => {
     const isCurrentLanguage = code === languageCode
-    const path =
-      event?.availableLanguages[code] ??
-      pathnameFromRouteInformation({
-        route: EVENTS_ROUTE,
-        regionCode,
-        languageCode: code,
-      })
+    const path = event
+      ? (event.availableLanguages[code] ?? null)
+      : pathnameFromRouteInformation({
+          route: EVENTS_ROUTE,
+          regionCode,
+          languageCode: code,
+        })
     return {
       path: isCurrentLanguage ? pathname : path,
       name,

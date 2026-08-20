@@ -210,11 +210,11 @@ describe('InternalPathnameParser', () => {
   })
 
   it('should match local news detail route', () => {
-    const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}/1234`
+    const pathname = `/${regionCode}/${languageCode}/${NEWS_ROUTE}/local-1234`
     const parser = new InternalPathnameParser(pathname, languageCode, null)
     expect(parser.route()).toEqual({
       route: NEWS_ROUTE,
-      id: 1234,
+      id: 'local-1234',
       languageCode,
       regionCode,
     })
@@ -395,11 +395,11 @@ describe('InternalPathnameParser', () => {
     })
 
     it('should match local news detail route', () => {
-      const pathname = `/${fixedRegion}/${languageCode}/${NEWS_ROUTE}/1234`
+      const pathname = `/${fixedRegion}/${languageCode}/${NEWS_ROUTE}/local-1234`
       const parser = new InternalPathnameParser(pathname, languageCode, fixedRegion)
       expect(parser.route()).toEqual({
         route: NEWS_ROUTE,
-        id: 1234,
+        id: 'local-1234',
         languageCode,
         regionCode: fixedRegion,
       })

@@ -20,21 +20,21 @@ jest.mock('../../utils/openExternalUrl')
 
 const defaultNews: [NewsModel, NewsModel] = [
   new NewsModel({
-    id: 1,
+    id: 'local-1',
     title: 'Tick bite - What to do?',
     lastUpdate: DateTime.fromISO('2020-01-20T00:00:00.000Z'),
     content:
       'In summer there are often ticks in forest and meadows with high grass. These are very small animals. They feed on the blood of people or animals they sting, like mosquitoes. But they stay in the skin longer and can transmit dangerous diseases. If you have been in high grass, you should search your body very thoroughly for ticks. They like to sit in the knees, armpits or in the groin area. If you discover a tick in your skin, you should carefully pull it out with tweezers without crushing it. If the sting inflames, you must see a doctor. https://example.com',
-    availableLanguages: { de: 1234 },
+    availableLanguages: { de: 'local-1234' },
     externalUrl: 'https://example.com',
     source: 'tunews',
   }),
   new NewsModel({
-    id: 2,
+    id: 'local-2',
     title: 'Test Local',
     lastUpdate: DateTime.fromISO('2020-01-21T00:00:00.000Z'),
     content: 'Test local news content. https://example.com',
-    availableLanguages: { de: 123 },
+    availableLanguages: { de: 'local-123' },
     externalUrl: 'https://example.com',
     source: 'local',
   }),
@@ -57,7 +57,7 @@ describe('News', () => {
     externalNewsEnabled = true,
     localNewsEnabled = true,
   }: {
-    id?: number | null
+    id?: string | null
     news?: NewsModel[]
     externalNewsEnabled?: boolean
     localNewsEnabled?: boolean
@@ -96,7 +96,7 @@ describe('News', () => {
   }
 
   it('should show not found error if news with id not found', () => {
-    const { getByText } = renderNews({ id: 32498732984824 })
+    const { getByText } = renderNews({ id: 'local-32498732984824' })
     expect(getByText('pageNotFound')).toBeTruthy()
   })
 
@@ -117,7 +117,12 @@ describe('News', () => {
     expect(getByText(defaultNews[1].content)).toBeTruthy()
 
     fireEvent.press(getByText(defaultNews[1].title))
-    expect(navigateTo).toHaveBeenCalledWith({ id: 2, languageCode: 'de', regionCode: 'augsburg', route: 'news' })
+    expect(navigateTo).toHaveBeenCalledWith({
+      id: 'local-2',
+      languageCode: 'de',
+      regionCode: 'augsburg',
+      route: 'news',
+    })
   })
 
   it('should show currently no news', () => {

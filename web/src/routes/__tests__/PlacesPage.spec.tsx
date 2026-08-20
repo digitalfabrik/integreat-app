@@ -35,7 +35,7 @@ describe('PlacesPage', () => {
 
   const pathname = regionContentPath({ route: PLACES_ROUTE, regionCode: region.code, languageCode })
 
-  const renderPlaces = (path?: string) =>
+  const renderPlaces = (path?: string, currentLanguageCode: string = languageCode) =>
     renderWithRouterAndTheme(
       <Routes>
         <Route
@@ -44,7 +44,7 @@ describe('PlacesPage', () => {
             <PlacesPage
               region={region}
               pathname={path ?? pathname}
-              languageCode={languageCode}
+              languageCode={currentLanguageCode}
               regionCode={region.code}
             />
           }>
@@ -83,5 +83,26 @@ describe('PlacesPage', () => {
 
     expect(getAllByText('English')[0]?.closest('a')).toHaveAttribute('href', place0.availableLanguages.en)
     expect(getAllByText('Deutsch')[0]?.closest('a')).toHaveAttribute('href', place0.availableLanguages.de)
+  })
+
+  it('should link only to languages with available translations if a place is selected', () => {
+    mockUseQueryFromEndpointWithData(places)
+    const { getAllByText, getByRole } = renderPlaces('/places/test', 'de')
+    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+
+    const arabicLanguageName = 'اَللُّغَةُ اَلْعَرَبِيَّة'
+    expect(getAllByText(arabicLanguageName)[0]?.closest('a')).toBeNull()
+  })
+
+  it('should link to all languages if no place is selected', () => {
+    mockUseQueryFromEndpointWithData(places)
+    const { getAllByText, getByRole } = renderPlaces('/places', 'de')
+    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+
+    const arabicLanguageName = 'اَللُّغَةُ اَلْعَرَبِيَّة'
+    expect(getAllByText(arabicLanguageName)[0]?.closest('a')).toHaveAttribute(
+      'href',
+      `/${region.code}/ar/${PLACES_ROUTE}`,
+    )
   })
 })

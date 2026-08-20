@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions'
 
 import { NEWS_ROUTE, NonNullableRouteInformationType, RouteInformationType } from 'shared'
+import { LOCAL_NEWS_SOURCE } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContext'
@@ -109,7 +110,7 @@ const routeInformationFromMessage = (message: Message): NonNullableRouteInformat
   regionCode: message.data.city_code,
   languageCode: message.data.language_code,
   route: NEWS_ROUTE,
-  id: parseInt(message.data.news_id, 10),
+  id: `${LOCAL_NEWS_SOURCE}-${message.data.news_id}`,
 })
 
 const openMessage = (message: Message, navigate: (routeInformation: RouteInformationType) => void): void => {

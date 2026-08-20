@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import NewsModel from '../models/NewsModel.ts'
 import { JsonNewsType } from '../types.ts'
 
-const mapNewsAvailableLanguages = (json: Record<string, { id: number }> | null): Record<string, number> | null =>
+const mapNewsAvailableLanguages = (json: Record<string, { id: string }> | null): Record<string, string> | null =>
   json
     ? Object.entries(json).reduce(
         (availableLanguages, [code, value]) => ({ ...availableLanguages, [code]: value.id }),

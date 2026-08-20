@@ -152,11 +152,11 @@ describe('pathname', () => {
       expect(
         pathnameFromRouteInformation({
           route: NEWS_ROUTE,
-          id: 1234,
+          id: 'local-1234',
           languageCode,
           regionCode,
         }),
-      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/1234`)
+      ).toBe(`/${regionCode}/${languageCode}/${NEWS_ROUTE}/local-1234`)
     })
 
     it('should match categories route', () => {
