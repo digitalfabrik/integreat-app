@@ -8,7 +8,7 @@ import { FEEDBACK_QUERY_KEY, parseQueryParams, Rating, RATING_POSITIVE, SEARCH_R
 import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
-import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
+import useQueryParam from '../hooks/useQueryParam'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import { captureError } from '../utils/sentry'
 import Feedback from './Feedback'
@@ -20,12 +20,13 @@ type FeedbackContainerProps = {
 }
 
 const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | null => {
-  const { visible, open, close, value: rating } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
+  const [feedbackQueryParam, setFeedbackQueryParam] = useQueryParam(FEEDBACK_QUERY_KEY)
   const [queryParams] = useSearchParams()
   const { t } = useTranslation('feedback')
   const { route, regionCode, languageCode } = useRegionContentParams()
   const { searchText } = parseQueryParams(queryParams)
   const query = route === SEARCH_ROUTE ? searchText : undefined
+  const rating = typeof feedbackQueryParam === 'string' ? feedbackQueryParam : null
 
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
@@ -33,14 +34,14 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
 
-  const setRating = (newRating: Rating | null) => open(newRating ?? undefined)
+  const setRating = (newRating: Rating | null) => setFeedbackQueryParam(newRating ?? true)
 
   useEffect(() => {
     setSearchTerm(query)
   }, [query])
 
   const closeAndReset = () => {
-    close()
+    setFeedbackQueryParam(undefined)
     setComment('')
     setContactMail('')
     setSearchTerm(query)
@@ -77,14 +78,14 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
 
   return (
     <>
-      {visible && (
+      {feedbackQueryParam !== undefined && (
         <Dialog title={t('headline')} close={closeAndReset}>
           <Feedback
             language={languageCode}
             onCommentChanged={setComment}
             onContactMailChanged={setContactMail}
             onSubmit={handleSubmit}
-            rating={rating ?? null}
+            rating={rating}
             comment={comment}
             setRating={setRating}
             contactMail={contactMail}

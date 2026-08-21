@@ -51,11 +51,11 @@ type NewsProps = {
   region: RegionModel
   languageCode: string
   refresh: () => void
-  newsSource: NewsSourceFilterType
-  setNewsSource: (value: NewsSourceFilterType) => void
+  sourceFilter: NewsSourceFilterType
+  setSourceFilter: (value: NewsSourceFilterType) => void
 }
 
-const News = ({ news, id, languageCode, region, refresh, newsSource, setNewsSource }: NewsProps): ReactElement => {
+const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSourceFilter }: NewsProps): ReactElement => {
   const selectedNewsItem = news.find(item => item.id === id)
   const { navigateTo } = useNavigate()
   const { t } = useTranslation('news')
@@ -116,8 +116,8 @@ const News = ({ news, id, languageCode, region, refresh, newsSource, setNewsSour
           <Caption title={t('news')} />
           {showNewsSourceFilter && (
             <ToggleTextButtonGroup
-              setValue={setNewsSource}
-              value={newsSource}
+              setValue={setSourceFilter}
+              value={sourceFilter}
               options={NEWS_SOURCE_FILTERS}
               getLabel={t}
             />

@@ -89,8 +89,8 @@ describe('News', () => {
         languageCode='de'
         region={new RegionModelBuilder(1).build()[0]!}
         refresh={jest.fn}
-        newsSource={NEWS_ALL_SOURCES_FILTER}
-        setNewsSource={setNewsSource}
+        sourceFilter={NEWS_ALL_SOURCES_FILTER}
+        setSourceFilter={setNewsSource}
       />,
     )
   }

@@ -7,7 +7,7 @@ import { FEEDBACK_QUERY_KEY, RATING_NEGATIVE } from 'shared'
 import { config } from 'translations'
 
 import buildConfig from '../constants/buildConfig'
-import useQueryParamVisibility from '../hooks/useQueryParamVisibility'
+import useQueryParam from '../hooks/useQueryParam'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 
 const Container = styled('div')`
@@ -35,9 +35,9 @@ type SearchFeedbackProps = {
 const SearchFeedback = ({ noResults }: SearchFeedbackProps): ReactElement => {
   const { languageCode } = useRegionContentParams()
   const { t } = useTranslation('feedback')
-  const { open } = useQueryParamVisibility(FEEDBACK_QUERY_KEY)
+  const [_, setFeedbackQueryParam] = useQueryParam(FEEDBACK_QUERY_KEY)
 
-  const openFeedback = () => open(RATING_NEGATIVE)
+  const openFeedback = () => setFeedbackQueryParam(RATING_NEGATIVE)
 
   if (noResults) {
     const fallbackLanguage = config.sourceLanguage

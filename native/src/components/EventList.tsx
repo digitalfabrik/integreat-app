@@ -4,7 +4,7 @@ import { SectionList } from 'react-native'
 import { Divider, List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { eventGroupTitle, groupEventsByDate, RouteInformationType, useDateFilter } from 'shared'
+import { eventGroupTitle, groupEventsByDate, RouteInformationType } from 'shared'
 import { RegionModel, EventModel } from 'shared/api'
 
 import Caption from '../components/Caption'
@@ -12,6 +12,7 @@ import EventListItem from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
 import Layout from '../components/Layout'
 import { contentAlignment } from '../constants/contentDirection'
+import useDateFilter from '../hooks/useDateFilter'
 import { ListEmptyComponent } from './List'
 
 const ListContainer = styled(Layout)`
