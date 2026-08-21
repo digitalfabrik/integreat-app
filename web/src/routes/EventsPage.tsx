@@ -1,18 +1,15 @@
-import EventNoteIcon from '@mui/icons-material/EventNote'
 import LinkIcon from '@mui/icons-material/Link'
 import LocationIcon from '@mui/icons-material/LocationOnOutlined'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
-import { EVENTS_ROUTE, HORIZONTAL_TEXT_DIVIDER, pathnameFromRouteInformation } from 'shared'
+import { EVENTS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createEventsEndpoint, NotFoundError } from 'shared/api'
 
-import EventFurtherDates from '../components/EventFurtherDates'
+import EventDates from '../components/EventDates'
 import EventList from '../components/EventList'
 import { Icon } from '../components/EventListItem'
 import ExportEventButton from '../components/ExportEventButton'
@@ -44,7 +41,6 @@ const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
 const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteProps): ReactElement | null => {
   const { eventId } = useParams()
   const { t } = useTranslation('events')
-  const { contentDirection } = useTheme()
 
   const { data: events, error } = useQueryFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, {
     region: regionCode,
@@ -113,7 +109,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
         </RegionContentLayout>
       )
     }
-    const { featuredImage, lastUpdate, content, title, location, meetingUrl, date } = event
+    const { featuredImage, lastUpdate, content, title, location, meetingUrl } = event
 
     return (
       <RegionContentLayout isLoading={false} {...locationLayoutParams}>
@@ -125,15 +121,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
           title={title}
           beforeContent={
             <Spacing content={content} lastUpdate={lastUpdate}>
-              <Typography variant='body1' flexDirection='column' component='div' dir={contentDirection}>
-                <Stack direction='row' alignItems='center' gap={1} component='p'>
-                  <EventNoteIcon />
-                  <span>{date.formatDateInterval(languageCode)}</span>
-                  <span aria-hidden>{HORIZONTAL_TEXT_DIVIDER}</span>
-                  <span>{date.formatTimeInterval(languageCode, { allDayLabel: t('places:allDay') })}</span>
-                </Stack>
-                {event.isRecurring && <EventFurtherDates date={event.date} languageCode={languageCode} />}
-              </Typography>
+              <EventDates event={event} languageCode={languageCode} />
               {location && (
                 <PageDetail
                   tooltip={t('address')}

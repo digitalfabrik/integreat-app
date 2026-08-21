@@ -3,28 +3,20 @@ import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
 import styled from 'styled-components/native'
 
-import { HORIZONTAL_TEXT_DIVIDER, RouteInformationType } from 'shared'
+import { RouteInformationType } from 'shared'
 import { EventModel, fromError, NotFoundError, RegionModel } from 'shared/api'
 
+import EventDates from '../components/EventDates'
 import EventList from '../components/EventList'
 import ExportEventButton from '../components/ExportEventButton'
 import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
 import Page from '../components/Page'
 import PageDetail from '../components/PageDetail'
-import Icon from '../components/base/Icon'
-import Text from '../components/base/Text'
-import { contentAlignment, contentDirection } from '../constants/contentDirection'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 
 const PageDetailsContainer = styled.View`
   gap: 8px;
-`
-
-const StyledView = styled.View<{ language: string }>`
-  flex-direction: ${props => contentDirection(props.language)};
-  align-items: center;
-  gap: 4px;
 `
 
 type EventsProps = {
@@ -66,21 +58,10 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
             language={language}
             beforeContent={
               <PageDetailsContainer>
-                <StyledView language={language}>
-                  <Icon source='calendar-text-outline' size={16} />
-                  <Text variant='body3' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
-                    {event.date.formatDateInterval(language)}
-                  </Text>
-                  <Text variant='body3' aria-hidden>
-                    {HORIZONTAL_TEXT_DIVIDER}
-                  </Text>
-                  <Text variant='body3' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
-                    {event.date.formatTimeInterval(language, { allDayLabel: t('places:allDay') })}
-                  </Text>
-                </StyledView>
+                <EventDates event={event} language={language} />
                 {event.location && (
                   <PageDetail
-                    icon='map-marker'
+                    icon='map-marker-outline'
                     information={event.location.fullAddress}
                     language={language}
                     path={event.placePath}
@@ -89,7 +70,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
                 )}
                 {event.meetingUrl !== null && (
                   <PageDetail
-                    icon='link'
+                    icon='link-outline'
                     isExternalUrl
                     information={event.meetingUrl}
                     language={language}

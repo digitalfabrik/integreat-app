@@ -6,7 +6,8 @@ import { useTheme } from 'styled-components/native'
 
 import { isRTL } from '../../constants/contentDirection'
 
-const DEFAULT_ICON_SIZE = 24
+export const DEFAULT_ICON_SIZE = 24
+export const SMALL_ICON_SIZE = 16
 
 const overrideSvgFillColor = (element: ReactNode, color: ColorValue): ReactNode => {
   if (!isValidElement<{ children?: ReactNode; fill?: string }>(element)) {
