@@ -6,7 +6,7 @@ import styled from 'styled-components/native'
 import { RouteInformationType } from 'shared'
 import { EventModel, fromError, NotFoundError, RegionModel } from 'shared/api'
 
-import DatesPageDetail from '../components/DatesPageDetail'
+import EventDates from '../components/EventDates'
 import EventList from '../components/EventList'
 import ExportEventButton from '../components/ExportEventButton'
 import Failure from '../components/Failure'
@@ -58,10 +58,10 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
             language={language}
             beforeContent={
               <PageDetailsContainer>
-                <DatesPageDetail date={event.date} languageCode={language} />
+                <EventDates event={event} language={language} />
                 {event.location && (
                   <PageDetail
-                    icon='map-marker'
+                    icon='map-marker-outline'
                     information={event.location.fullAddress}
                     language={language}
                     path={event.placePath}
@@ -70,7 +70,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
                 )}
                 {event.meetingUrl !== null && (
                   <PageDetail
-                    icon='link'
+                    icon='link-outline'
                     isExternalUrl
                     information={event.meetingUrl}
                     language={language}
