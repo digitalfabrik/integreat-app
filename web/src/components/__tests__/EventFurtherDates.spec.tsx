@@ -36,37 +36,37 @@ describe('EventFurtherDates', () => {
   })
 
   it('should reveal the upcoming dates when expanding a monthly recurring event', async () => {
-    const { getAllByText, getByRole, getByText, queryByText } = renderWithTheme(
+    const { getByRole, getByText, queryByText } = renderWithTheme(
       <EventFurtherDates date={date('DTSTART:20230414T050000\nRRULE:FREQ=MONTHLY;BYDAY=+2MO')} languageCode='de' />,
     )
 
     expect(getByText('events:furtherDates')).toBeTruthy()
-    expect(getByText('13. Nov. 2023')).not.toBeVisible()
+    expect(getByText('13. November - 14. November')).not.toBeVisible()
 
     fireEvent.click(getByRole('button'))
 
-    await waitFor(() => expect(getByText('13. Nov. 2023')).toBeVisible())
-    expect(queryByText('9. Okt. 2023')).toBeFalsy()
-    expect(getByText('11. Dez. 2023')).toBeVisible()
-    expect(getByText('11. März 2024')).toBeVisible()
-    expect(getAllByText('7:00 - 9:00')).toHaveLength(5)
+    await waitFor(() => expect(getByText('13. November - 14. November')).toBeVisible())
+    expect(queryByText('9. Oktober - 10. Oktober')).toBeFalsy()
+    expect(getByText('11. Dezember - 12. Dezember')).toBeVisible()
+    expect(getByText('8. Januar 2024 - 9. Januar 2024')).toBeVisible()
+    expect(getByText('12. Februar 2024 - 13. Februar 2024')).toBeVisible()
+    expect(getByText('11. März 2024 - 12. März 2024')).toBeVisible()
     expect(getByText('…')).toBeVisible()
   })
 
   it('should reveal the upcoming dates when expanding a weekly recurring event', async () => {
-    const { getAllByText, getByRole, getByText } = renderWithTheme(
+    const { getByRole, getByText } = renderWithTheme(
       <EventFurtherDates date={date('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')} languageCode='de' />,
     )
 
     fireEvent.click(getByRole('button'))
 
-    await waitFor(() => expect(getByText('16. Okt. 2023')).toBeVisible())
-    expect(getByText('13. Nov. 2023')).toBeVisible()
-    expect(getAllByText('7:00 - 9:00')).toHaveLength(5)
+    await waitFor(() => expect(getByText('16. Oktober - 17. Oktober')).toBeVisible())
+    expect(getByText('13. November - 14. November')).toBeVisible()
     expect(getByText('…')).toBeVisible()
   })
 
-  it('should reveal fewer dates and hide the repeated time on mobile', async () => {
+  it('should reveal fewer dates on mobile', async () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
     const { getByRole, getByText, queryByText } = renderWithTheme(
       <EventFurtherDates date={date('DTSTART:20230414T050000\nRRULE:FREQ=MONTHLY;BYDAY=+2MO')} languageCode='de' />,
@@ -74,9 +74,8 @@ describe('EventFurtherDates', () => {
 
     fireEvent.click(getByRole('button'))
 
-    await waitFor(() => expect(getByText('8. Jan. 2024')).toBeVisible())
-    expect(queryByText('12. Feb. 2024')).toBeFalsy()
-    expect(queryByText('7:00 - 9:00')).toBeFalsy()
+    await waitFor(() => expect(getByText('8. Januar 2024 - 9. Januar 2024')).toBeVisible())
+    expect(queryByText('12. Februar 2024 - 13. Februar 2024')).toBeFalsy()
     expect(getByText('…')).toBeVisible()
   })
 
@@ -91,9 +90,9 @@ describe('EventFurtherDates', () => {
 
     fireEvent.click(getByRole('button'))
 
-    await waitFor(() => expect(getByText('18. Okt. 2023')).toBeVisible())
+    await waitFor(() => expect(getByText('18. Oktober - 19. Oktober')).toBeVisible())
     expect(getByText('9:00 - 11:00')).toBeVisible()
-    expect(getByText('20. Okt. 2023')).toBeVisible()
+    expect(getByText('20. Oktober - 21. Oktober')).toBeVisible()
     expect(getByText('13:00 - 15:00')).toBeVisible()
   })
 })

@@ -8,7 +8,7 @@ import { styled, useTheme } from '@mui/material/styles'
 import React, { MouseEvent, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { MAX_FURTHER_DATES, MAX_FURTHER_DATES_MOBILE } from 'shared'
+import { HORIZONTAL_TEXT_DIVIDER, MAX_FURTHER_DATES, MAX_FURTHER_DATES_MOBILE } from 'shared'
 import { DateModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
@@ -70,19 +70,12 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
 
   const maxFurtherDates = desktop ? MAX_FURTHER_DATES : MAX_FURTHER_DATES_MOBILE
   const furtherDates = date.furtherDates(maxFurtherDates)
+
   if (furtherDates.length === 0) {
     return null
   }
 
-  const formattedRecurrences = furtherDates.map(recurrence => ({
-    key: recurrence.startDate.toISO(),
-    ...recurrence.formatMonthlyOrYearlyRecurrence(languageCode, t, true),
-  }))
-  const showTime = desktop || date.hasVaryingTimes(maxFurtherDates)
-
-  const stopLinkNavigation = (event: MouseEvent): void => {
-    event.preventDefault()
-  }
+  const stopLinkNavigation = (event: MouseEvent): void => event.preventDefault()
 
   return (
     <AccordionWrapper dir={contentDirection} onClick={stopLinkNavigation}>
@@ -98,18 +91,18 @@ const EventFurtherDates = ({ date, languageCode }: EventFurtherDatesProps): Reac
             </StyledText>
           </Stack>
         }>
-        {formattedRecurrences.map(recurrence => (
-          <DateEntry key={recurrence.key}>
+        {furtherDates.map(furtherDate => (
+          <DateEntry key={furtherDate.startDate.toISO()}>
             <StyledText component='span' variant='body1'>
-              {recurrence.date}
+              {furtherDate.formatDateInterval(languageCode)}
             </StyledText>
-            {showTime && (
+            {date.hasVaryingTimes() && (
               <>
                 <StyledText component='span' variant='body1' aria-hidden>
-                  ·
+                  {HORIZONTAL_TEXT_DIVIDER}
                 </StyledText>
                 <StyledText component='span' variant='body1'>
-                  {recurrence.time}
+                  {furtherDate.formatTimeInterval(languageCode, { allDayLabel: t('places:allDay') })}
                 </StyledText>
               </>
             )}

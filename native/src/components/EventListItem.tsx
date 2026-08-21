@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { parseHTML, getDisplayDate, RouteInformationType, EVENTS_ROUTE } from 'shared'
+import { parseHTML, getDisplayDate, RouteInformationType, EVENTS_ROUTE, HORIZONTAL_TEXT_DIVIDER } from 'shared'
 import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
@@ -49,6 +49,7 @@ const EventListItem = ({
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
+  const { t } = useTranslation('events')
   const thumbnail =
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
@@ -90,7 +91,13 @@ const EventListItem = ({
           <StyledView language={language}>
             <Icon source='calendar-text-outline' size={16} />
             <Text variant='body3' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
-              {dateToDisplay.formatEventDateInOneLine(language, translateIntoContentLanguage)}
+              {dateToDisplay.formatDateInterval(language)}
+            </Text>
+            <Text variant='body3' aria-hidden>
+              {HORIZONTAL_TEXT_DIVIDER}
+            </Text>
+            <Text variant='body3' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
+              {dateToDisplay.formatTimeInterval(language, { allDayLabel: t('places:allDay') })}
             </Text>
           </StyledView>
           <EventFurtherDates date={event.date} language={language} />

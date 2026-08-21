@@ -25,13 +25,6 @@ afterEach(() => {
   jest.clearAllMocks()
 })
 
-const t = (key: string, options?: Record<string, unknown>) =>
-  options
-    ? `${key}, ${Object.entries(options)
-        .map(option => `${option[0]}: ${option[1]}`)
-        .join(', ')}`
-    : key
-
 describe('DatabaseConnector', () => {
   const region = 'augsburg'
   const language = 'de'
@@ -268,20 +261,19 @@ describe('DatabaseConnector', () => {
         meetingUrl: null,
       })
 
-      const expectedDate = {
-        date: 'startingFrom, date: 7. Mai 2024',
-        time: '10:00 - 12:00',
-        weekday: 'Dienstag',
-      }
+      const expectedDate = '7. Mai - 10:00 - 12:00'
+      const formatDate = (date: DateModel) =>
+        `${date.formatDateInterval('de')} - ${date.formatTimeInterval('de', { allDayLabel: 'allDay' })}`
 
-      expect(event.date.formatEventDate('de', t)).toStrictEqual(expectedDate)
-      expect(event.date.recurrences(1)[0]!.formatEventDate('de', t)).toStrictEqual(expectedDate)
+      // TODO recurrence rule
+      expect(formatDate(event.date)).toStrictEqual(expectedDate)
+      expect(formatDate(event.date.recurrences(1)[0]!)).toStrictEqual(expectedDate)
 
       await databaseConnector.storeEvents([event], context)
       const loadedEvent = (await databaseConnector.loadEvents(context))[0]!
 
-      expect(loadedEvent.date.formatEventDate('de', t)).toStrictEqual(expectedDate)
-      expect(loadedEvent.date.recurrences(1)[0]!.formatEventDate('de', t)).toStrictEqual(expectedDate)
+      expect(formatDate(loadedEvent.date)).toStrictEqual(expectedDate)
+      expect(formatDate(loadedEvent.date.recurrences(1)[0]!)).toStrictEqual(expectedDate)
     })
   })
 
