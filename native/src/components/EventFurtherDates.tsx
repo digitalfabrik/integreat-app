@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { MAX_FURTHER_DATES_MOBILE } from 'shared'
+import { HORIZONTAL_TEXT_DIVIDER, MAX_FURTHER_DATES_MOBILE } from 'shared'
 import { DateModel } from 'shared/api'
 
 import { contentAlignment, contentDirection } from '../constants/contentDirection'
@@ -42,10 +42,6 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
     return null
   }
 
-  const formattedRecurrences = furtherDates.map(recurrence => ({
-    key: recurrence.startDate.toISO(),
-    ...recurrence.formatMonthlyOrYearlyRecurrence(language, t, true),
-  }))
   const hasVaryingTimes = date.hasVaryingTimes(MAX_FURTHER_DATES_MOBILE)
 
   return (
@@ -66,15 +62,20 @@ const EventFurtherDates = ({ date, language }: EventFurtherDatesProps): ReactEle
       </Toggle>
       {expanded && (
         <Dates>
-          {formattedRecurrences.map(recurrence => (
-            <View key={recurrence.key}>
+          {furtherDates.map(furtherDate => (
+            <View key={furtherDate.startDate.toISO()}>
               <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
-                {recurrence.date}
+                {furtherDate.formatDateInterval(language)}
               </Text>
               {hasVaryingTimes && (
-                <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
-                  {recurrence.time}
-                </Text>
+                <>
+                  <Text variant='body3' style={{ textAlign: contentAlignment(language) }} aria-hidden>
+                    {HORIZONTAL_TEXT_DIVIDER}
+                  </Text>
+                  <Text variant='body3' style={{ textAlign: contentAlignment(language) }}>
+                    {furtherDate.formatTimeInterval(language, { allDayLabel: t('places:allDay') })}
+                  </Text>
+                </>
               )}
             </View>
           ))}

@@ -13,7 +13,7 @@ import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getDisplayDate, getExcerpt } from 'shared'
+import { getDisplayDate, getExcerpt, HORIZONTAL_TEXT_DIVIDER } from 'shared'
 import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
@@ -103,7 +103,9 @@ const EventListItem = ({
             <StyledTypography variant='body1' flexDirection='column' component='div' dir={contentDirection}>
               <Stack direction='row' alignItems='center' gap={1} component='p'>
                 <EventNoteIcon fontSize='small' />
-                <span>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</span>
+                <span>{dateToDisplay.formatDateInterval(languageCode)}</span>
+                <span aria-hidden>{HORIZONTAL_TEXT_DIVIDER}</span>
+                <span>{dateToDisplay.formatTimeInterval(languageCode, { allDayLabel: t('places:allDay') })}</span>
               </Stack>
               {event.isRecurring && <EventFurtherDates date={event.date} languageCode={languageCode} />}
               {event.location && (

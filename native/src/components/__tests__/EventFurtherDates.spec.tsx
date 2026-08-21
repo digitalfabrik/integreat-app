@@ -33,15 +33,15 @@ describe('EventFurtherDates', () => {
     )
 
     expect(getByText('furtherDates')).toBeTruthy()
-    expect(queryByText('13. Nov. 2023')).toBeFalsy()
+    expect(queryByText('13. November - 14. November')).toBeFalsy()
 
     fireEvent.press(getByText('furtherDates'))
 
-    expect(getByText('13. Nov. 2023')).toBeTruthy()
-    expect(queryByText('9. Okt. 2023')).toBeFalsy()
-    expect(getByText('11. Dez. 2023')).toBeTruthy()
-    expect(getByText('8. Jan. 2024')).toBeTruthy()
-    expect(queryByText('12. Feb. 2024')).toBeFalsy()
+    expect(getByText('13. November - 14. November')).toBeTruthy()
+    expect(queryByText('9. Oktober - 10. Oktober')).toBeFalsy()
+    expect(getByText('11. Dezember - 12. Dezember')).toBeTruthy()
+    expect(getByText('8. Januar 2024 - 9. Januar 2024')).toBeTruthy()
+    expect(queryByText('12. Februar 2024 - 13. Februar 2024')).toBeFalsy()
     expect(queryByText('7:00 - 9:00')).toBeFalsy()
     expect(getByText('…')).toBeTruthy()
   })
@@ -53,8 +53,8 @@ describe('EventFurtherDates', () => {
 
     fireEvent.press(getByText('furtherDates'))
 
-    expect(getByText('16. Okt. 2023')).toBeTruthy()
-    expect(getByText('23. Okt. 2023')).toBeTruthy()
+    expect(getByText('16. Oktober - 17. Oktober')).toBeTruthy()
+    expect(getByText('23. Oktober - 24. Oktober')).toBeTruthy()
     expect(queryByText('7:00 - 9:00')).toBeFalsy()
     expect(getByText('…')).toBeTruthy()
   })
@@ -69,9 +69,9 @@ describe('EventFurtherDates', () => {
 
     fireEvent.press(getByText('furtherDates'))
 
-    expect(getByText('18. Okt. 2023')).toBeTruthy()
+    expect(getByText('18. Oktober - 19. Oktober')).toBeTruthy()
     expect(getByText('9:00 - 11:00')).toBeTruthy()
-    expect(getByText('20. Okt. 2023')).toBeTruthy()
+    expect(getByText('20. Oktober - 21. Oktober')).toBeTruthy()
     expect(getByText('13:00 - 15:00')).toBeTruthy()
   })
 })
