@@ -1,3 +1,4 @@
+import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from '../../constants/index.ts'
 import {
   CATEGORIES_ROUTE,
   CategoriesRouteType,
@@ -15,8 +16,8 @@ import EndpointBuilder from '../EndpointBuilder.ts'
 import { API_VERSION } from '../constants/index.ts'
 
 export const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
-export const POSITIVE_RATING = 'up'
-export const NEGATIVE_RATING = 'down'
+const API_RATING_POSITIVE = 'up'
+const API_RATING_NEGATIVE = 'down'
 
 export const FeedbackTypes = {
   Page: 'page',
@@ -49,7 +50,7 @@ export type ParamsType = {
   query?: string
   slug?: string
   searchTerm?: string
-  isPositiveRating: boolean | null
+  rating: Rating | null
 }
 
 const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackType => {
@@ -82,11 +83,15 @@ export default (baseUrl: string): Endpoint<ParamsType, Record<string, never>> =>
       return `${baseUrl}/api/${API_VERSION}/${region}/${language}/feedback/${getFeedbackType(routeType, slug)}/`
     })
     .withParamsToBodyMapper((params: ParamsType): FormData => {
-      const { isPositiveRating, comment, contactMail, query, searchTerm, slug } = params
+      const { rating, comment, contactMail, query, searchTerm, slug } = params
       const formData = new FormData()
 
-      if (isPositiveRating !== null) {
-        formData.append('rating', isPositiveRating ? POSITIVE_RATING : NEGATIVE_RATING)
+      if (rating === RATING_POSITIVE) {
+        formData.append('rating', API_RATING_POSITIVE)
+      }
+
+      if (rating === RATING_NEGATIVE) {
+        formData.append('rating', API_RATING_NEGATIVE)
       }
 
       const queryWithSearchTerm = searchTerm || query

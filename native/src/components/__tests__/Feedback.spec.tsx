@@ -1,6 +1,8 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
+import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
+
 import render from '../../testing/render'
 import Feedback from '../Feedback'
 
@@ -15,25 +17,25 @@ describe('Feedback', () => {
   const onCommentChanged = jest.fn()
   const onFeedbackContactMailChanged = jest.fn()
   const onSubmit = jest.fn()
-  const setFeedbackRating = jest.fn()
+  const setRating = jest.fn()
   const setSearchTerm = jest.fn()
 
-  const buildProps = (feedbackRating: boolean | null, comment: string, searchTerm?: string) => ({
+  const buildProps = (rating: Rating | null, comment: string, searchTerm?: string) => ({
     language: 'en',
     comment,
-    feedbackRating,
+    rating,
     searchTerm,
     contactMail: 'test@example.com',
     sendingStatus: 'idle' as const,
     onCommentChanged,
     onFeedbackContactMailChanged,
     onSubmit,
-    setFeedbackRating,
+    setRating,
     setSearchTerm,
   })
 
   it('button should be disabled if privacy policy is not accepted', async () => {
-    const { getByText } = render(<Feedback {...buildProps(true, 'comment', 'query')} />)
+    const { getByText } = render(<Feedback {...buildProps(RATING_POSITIVE, 'comment', 'query')} />)
 
     expect(getByText('send')).toBeDisabled()
   })
@@ -56,7 +58,7 @@ describe('Feedback', () => {
   })
 
   it('button should be enabled for positive feedback and no input', async () => {
-    const { getByText, queryByText } = render(<Feedback {...buildProps(true, '')} />)
+    const { getByText, queryByText } = render(<Feedback {...buildProps(RATING_POSITIVE, '')} />)
     fireEvent.press(getByText('common:privacyPolicy'))
     expect(getByText('send')).not.toBeDisabled()
     expect(queryByText('searchTermDescription')).toBeFalsy()
@@ -71,12 +73,12 @@ describe('Feedback', () => {
   })
 
   it('correct text should be displayed for search feedback and input', async () => {
-    const { getAllByText } = render(<Feedback {...buildProps(false, 'comment', 'query')} />)
+    const { getAllByText } = render(<Feedback {...buildProps(RATING_NEGATIVE, 'comment', 'query')} />)
     expect(getAllByText('searchTermDescription')[0]).toBeDefined()
   })
 
   it('onSubmit should be called with query on button press for search feedback', async () => {
-    const { getByText } = render(<Feedback {...buildProps(false, 'My test comment', 'query')} />)
+    const { getByText } = render(<Feedback {...buildProps(RATING_NEGATIVE, 'My test comment', 'query')} />)
     fireEvent.press(getByText('common:privacyPolicy'))
     const button = getByText('send')
     fireEvent.press(button)
@@ -84,7 +86,9 @@ describe('Feedback', () => {
   })
 
   it('should call callback on comment changed', async () => {
-    const { getByDisplayValue, queryByDisplayValue } = render(<Feedback {...buildProps(false, 'my old comment')} />)
+    const { getByDisplayValue, queryByDisplayValue } = render(
+      <Feedback {...buildProps(RATING_NEGATIVE, 'my old comment')} />,
+    )
     expect(getByDisplayValue('my old comment')).toBeTruthy()
     expect(queryByDisplayValue('my new comment')).toBeFalsy()
     expect(onCommentChanged).not.toHaveBeenCalled()
@@ -94,7 +98,9 @@ describe('Feedback', () => {
   })
 
   it('should call callback on contact mail changed', async () => {
-    const { getByDisplayValue, queryByDisplayValue } = render(<Feedback {...buildProps(false, 'my comment')} />)
+    const { getByDisplayValue, queryByDisplayValue } = render(
+      <Feedback {...buildProps(RATING_NEGATIVE, 'my comment')} />,
+    )
     expect(getByDisplayValue('test@example.com')).toBeTruthy()
     expect(queryByDisplayValue('new@example.com')).toBeFalsy()
     expect(onFeedbackContactMailChanged).not.toHaveBeenCalled()

@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CATEGORIES_ROUTE, SEARCH_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, RATING_NEGATIVE, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
 
 import render from '../../testing/render'
 import FeedbackContainer from '../FeedbackContainer'
@@ -49,7 +49,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: CATEGORIES_ROUTE,
-      isPositiveRating: true,
+      rating: RATING_POSITIVE,
       region,
       language,
       comment: '',
@@ -75,7 +75,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: CATEGORIES_ROUTE,
-      isPositiveRating: null,
+      rating: null,
       region,
       language,
       comment,
@@ -111,7 +111,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
-      isPositiveRating: null,
+      rating: null,
       region,
       language,
       comment: '',
@@ -139,7 +139,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
-      isPositiveRating: null,
+      rating: null,
       region,
       language,
       comment: '',
@@ -185,7 +185,7 @@ describe('FeedbackContainer', () => {
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
-      isPositiveRating: false,
+      rating: RATING_NEGATIVE,
       region,
       language,
       comment: '',
