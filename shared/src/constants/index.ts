@@ -48,3 +48,4 @@ export const NEWS_SOURCE_FILTERS: NewsSourceFilter[] = [
 ]
 
 export const HORIZONTAL_TEXT_DIVIDER = '·'
+export const MORE_INDICATOR = '…'

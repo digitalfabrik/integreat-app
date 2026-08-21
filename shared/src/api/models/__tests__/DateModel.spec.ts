@@ -749,7 +749,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('de')).toBe('20. August 2025')
+      expect(date.formatDateInterval('de')).toBe('20. Aug. 2025')
     })
 
     it('should format a future single-day event with the year in English', () => {
@@ -760,7 +760,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('en')).toBe('August 20, 2025')
+      expect(date.formatDateInterval('en')).toBe('Aug 20, 2025')
     })
 
     it('should format a future multi-day event as an interval with year', () => {
@@ -771,7 +771,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('de')).toBe('18. August 2025 - 19. September 2025')
+      expect(date.formatDateInterval('de')).toBe('18. Aug. 2025 - 19. Sept. 2025')
     })
 
     it('should format a single day when start and end fall on the same day', () => {
@@ -782,7 +782,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('de')).toBe('3. September 2025')
+      expect(date.formatDateInterval('de')).toBe('3. Sept. 2025')
     })
 
     it('should format an event without an end date as a single day', () => {
@@ -793,7 +793,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('de')).toBe('20. August 2025')
+      expect(date.formatDateInterval('de')).toBe('20. Aug. 2025')
     })
 
     it('should omit the year for a current-year single-day event without an end date', () => {
@@ -804,7 +804,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('de')).toBe('15. Oktober')
+      expect(date.formatDateInterval('de')).toBe('15. Okt.')
     })
   })
 

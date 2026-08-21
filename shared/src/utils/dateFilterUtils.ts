@@ -34,7 +34,11 @@ export const isEventWithinRange = (
   return isWithinRange
 }
 
-export const getDisplayDate = (event: EventModel, startDate: DateTime | null, endDate: DateTime | null): DateModel => {
+export const firstDateInRange = (
+  event: EventModel,
+  startDate: DateTime | null,
+  endDate: DateTime | null,
+): DateModel => {
   if (!event.date.recurrenceRule) {
     return event.date
   }

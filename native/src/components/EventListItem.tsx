@@ -5,13 +5,13 @@ import { StyleSheet, View } from 'react-native'
 import { List as PaperList } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { parseHTML, getDisplayDate, RouteInformationType, EVENTS_ROUTE, HORIZONTAL_TEXT_DIVIDER } from 'shared'
+import { parseHTML, RouteInformationType, EVENTS_ROUTE } from 'shared'
 import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentAlignment, contentDirection } from '../constants/contentDirection'
-import EventFurtherDates from './EventFurtherDates'
+import EventDates from './EventDates'
 import SimpleImage from './SimpleImage'
 import Icon from './base/Icon'
 import Text from './base/Text'
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const StyledView = styled.View<{ language: string }>`
+const LocationRow = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   align-items: center;
   gap: 4px;
@@ -49,7 +49,6 @@ const EventListItem = ({
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
-  const { t } = useTranslation('events')
   const thumbnail =
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
@@ -57,7 +56,6 @@ const EventListItem = ({
 
   // Use the content language to match the surrounding translations
   const { t: translateIntoContentLanguage } = useTranslation('events', { lng: language })
-  const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
   const isRtl = contentAlignment(language) === 'right'
 
   const DateIcon = useCallback(
@@ -85,29 +83,27 @@ const EventListItem = ({
       titleNumberOfLines={0}
       descriptionNumberOfLines={0}
       descriptionStyle={{ marginTop: 8 }}
-      title={<Text variant='h5'>{event.title}</Text>}
+      title={
+        <Text variant='h5' style={{ textAlign: contentAlignment(language) }}>
+          {event.title}
+        </Text>
+      }
       description={
-        <View>
-          <StyledView language={language}>
-            <Icon source='calendar-text-outline' size={16} />
-            <Text variant='body3' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
-              {dateToDisplay.formatDateInterval(language)}
-            </Text>
-            <Text variant='body3' aria-hidden>
-              {HORIZONTAL_TEXT_DIVIDER}
-            </Text>
-            <Text variant='body3' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
-              {dateToDisplay.formatTimeInterval(language, { allDayLabel: t('places:allDay') })}
-            </Text>
-          </StyledView>
-          <EventFurtherDates date={event.date} language={language} />
+        <View style={{ gap: 8, width: '100%' }}>
+          <EventDates
+            event={event}
+            language={language}
+            filterStartDate={filterStartDate}
+            filterEndDate={filterEndDate}
+            compact
+          />
           {!!event.location && (
-            <StyledView language={language}>
+            <LocationRow language={language}>
               <Icon source='map-marker-outline' size={16} />
               <Text variant='body3' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
                 {event.location.name}
               </Text>
-            </StyledView>
+            </LocationRow>
           )}
           <Text
             variant='body3'

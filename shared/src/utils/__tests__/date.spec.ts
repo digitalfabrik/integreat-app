@@ -17,21 +17,16 @@ describe('formatTime', () => {
 describe('formatDate', () => {
   it('should format a date with year by default in German', () => {
     const date = DateTime.fromISO('2025-08-29T11:00:00+02:00')
-    expect(formatDate(date, { locale: 'de' })).toBe('29. August 2025')
+    expect(formatDate(date, { locale: 'de' })).toBe('29. Aug. 2025')
   })
 
   it('should format a date with year in English', () => {
     const date = DateTime.fromISO('2025-08-29T11:00:00+02:00')
-    expect(formatDate(date, { locale: 'en' })).toBe('August 29, 2025')
+    expect(formatDate(date, { locale: 'en' })).toBe('Aug 29, 2025')
   })
 
   it('should omit the year when showYear is false', () => {
     const date = DateTime.fromISO('2025-08-29T11:00:00+02:00')
-    expect(formatDate(date, { locale: 'de', showYear: false })).toBe('29. August')
-  })
-
-  it('should format a date in short numeric format', () => {
-    const date = DateTime.fromISO('2025-08-29T11:00:00+02:00')
-    expect(formatDate(date, { locale: 'de', short: true })).toBe('29. Aug. 2025')
+    expect(formatDate(date, { locale: 'de', showYear: false })).toBe('29. Aug.')
   })
 })

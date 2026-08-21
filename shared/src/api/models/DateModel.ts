@@ -125,13 +125,16 @@ class DateModel {
     return times.some(time => time !== times[0])
   }
 
+  isSingleDay(): boolean {
+    return !this.endDate || this.startDate.hasSame(this.endDate, 'day')
+  }
+
   formatDateInterval(locale: string): string {
     const now = DateTime.now()
     const showYear = !this.startDate.hasSame(now, 'year') || (this.endDate ? !this.endDate.hasSame(now, 'year') : false)
-    const isSingleDay = !this.endDate || this.startDate.hasSame(this.endDate, 'day')
 
     const formattedStartDate = formatDate(this.startDate, { locale, showYear })
-    return isSingleDay
+    return !this.endDate || this.isSingleDay()
       ? formattedStartDate
       : `${formattedStartDate} - ${formatDate(this.endDate, { locale, showYear })}`
   }
