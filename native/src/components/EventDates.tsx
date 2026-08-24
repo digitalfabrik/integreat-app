@@ -5,13 +5,7 @@ import { View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import {
-  firstDateInRange,
-  HORIZONTAL_TEXT_DIVIDER,
-  MAX_FURTHER_DATES,
-  MAX_FURTHER_DATES_MOBILE,
-  MORE_INDICATOR,
-} from 'shared'
+import { HORIZONTAL_TEXT_DIVIDER, MAX_FURTHER_DATES, MAX_FURTHER_DATES_MOBILE, MORE_INDICATOR } from 'shared'
 import { EventModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
@@ -58,7 +52,7 @@ const EventDates = ({
   const theme = useTheme()
   const [expanded, setExpanded] = useState(false)
 
-  const date = firstDateInRange(event, filterStartDate, filterEndDate)
+  const date = event.date.firstRecurrenceInRange(filterStartDate, filterEndDate)
 
   const maxFurtherDates = compact ? MAX_FURTHER_DATES_MOBILE : MAX_FURTHER_DATES
   const furtherDates = event.isRecurring ? event.date.furtherDates(maxFurtherDates) : []

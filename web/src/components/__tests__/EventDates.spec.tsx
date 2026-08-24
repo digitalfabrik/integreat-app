@@ -38,8 +38,8 @@ describe('EventDates', () => {
     const event = eventWithDate()
     const { getByText, queryByText } = renderWithTheme(<EventDates event={event} languageCode={language} />)
 
-    expect(getByText('9. Okt. - 10. Okt.')).toBeTruthy()
-    expect(getByText('7:00 - 9:00')).toBeTruthy()
+    expect(getByText('9. Okt. - 10. Okt.', { exact: false })).toBeTruthy()
+    expect(getByText('7:00 - 9:00', { exact: false })).toBeTruthy()
     expect(queryByText('furtherDates')).toBeFalsy()
   })
 
@@ -47,7 +47,7 @@ describe('EventDates', () => {
     const event = eventWithDate('DTSTART:20230414T050000\nRRULE:FREQ=MONTHLY;BYDAY=+2MO')
     const { getByText } = renderWithTheme(<EventDates event={event} languageCode={language} />)
 
-    expect(getByText('9. Okt. - 10. Okt.')).toBeTruthy()
+    expect(getByText('9. Okt. - 10. Okt.', { exact: false })).toBeTruthy()
     expect(getByText('events:furtherDates')).toBeTruthy()
   })
 

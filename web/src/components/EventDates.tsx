@@ -10,13 +10,7 @@ import { DateTime } from 'luxon'
 import React, { MouseEvent, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-  firstDateInRange,
-  HORIZONTAL_TEXT_DIVIDER,
-  MAX_FURTHER_DATES,
-  MAX_FURTHER_DATES_MOBILE,
-  MORE_INDICATOR,
-} from 'shared'
+import { HORIZONTAL_TEXT_DIVIDER, MAX_FURTHER_DATES, MAX_FURTHER_DATES_MOBILE, MORE_INDICATOR } from 'shared'
 import { EventModel } from 'shared/api'
 
 import useDimensions from '../hooks/useDimensions'
@@ -82,7 +76,7 @@ const EventDates = ({
   const { contentDirection } = useTheme()
   const { mobile } = useDimensions()
 
-  const date = firstDateInRange(event, filterStartDate, filterEndDate)
+  const date = event.date.firstRecurrenceInRange(filterStartDate, filterEndDate)
   const timeInterval = date.formatTimeInterval(languageCode, { allDayLabel: t('places:allDay') })
 
   const maxFurtherDates = compact && mobile ? MAX_FURTHER_DATES_MOBILE : MAX_FURTHER_DATES

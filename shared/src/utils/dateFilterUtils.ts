@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { DateModel, EventModel } from '../api/index.ts'
+import { EventModel } from '../api/index.ts'
 import { MAX_DATE_RECURRENCES } from '../constants/index.ts'
 
 const isWithinDateRange = (
@@ -32,28 +32,6 @@ export const isEventWithinRange = (
   }
 
   return isWithinRange
-}
-
-export const firstDateInRange = (
-  event: EventModel,
-  startDate: DateTime | null,
-  endDate: DateTime | null,
-): DateModel => {
-  if (!event.date.recurrenceRule) {
-    return event.date
-  }
-
-  const recurrences = event.date.recurrences(
-    1,
-    startDate?.startOf('day') ?? DateTime.now().startOf('day'),
-    endDate?.endOf('day') ?? null,
-  )
-
-  if (recurrences.length > 0) {
-    return recurrences[0] ?? event.date
-  }
-
-  return event.date
 }
 
 export const zeroPad = (value: string): string => (value.length === 1 ? `0${value}` : value)

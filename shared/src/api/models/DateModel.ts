@@ -105,6 +105,16 @@ class DateModel {
       })
   }
 
+  firstRecurrenceInRange(startDate: DateTime | null, endDate: DateTime | null): DateModel {
+    const recurrences = this.recurrences(
+      1,
+      startDate?.startOf('day') ?? DateTime.now().startOf('day'),
+      endDate?.endOf('day') ?? null,
+    )
+
+    return recurrences[0] ?? this
+  }
+
   hasMoreRecurrencesThan(count: number): boolean {
     return this.recurrences(count + 1).length === count + 1
   }
