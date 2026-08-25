@@ -1,6 +1,5 @@
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
 import { StepType } from '@reactour/tour'
 import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
@@ -23,23 +22,17 @@ export type TourStepsProps = {
   languageCode: string
 }
 
-const StyledPreview = styled('img')({
-  width: '100%',
-})
-
 type TourStepContentProps = {
   title: string
   descriptionKey: string
-  previewSrc?: string
 }
 
-const TourStepContent = ({ title, descriptionKey, previewSrc }: TourStepContentProps): ReactElement => (
+const TourStepContent = ({ title, descriptionKey }: TourStepContentProps): ReactElement => (
   <Stack gap={1}>
     <Typography variant='subtitle1'>{title}</Typography>
     <Typography variant='body2'>
       <Trans i18nKey={`tour:${descriptionKey}`} components={{ strong: <strong /> }} />
     </Typography>
-    {!!previewSrc && <StyledPreview src={previewSrc} />}
   </Stack>
 )
 
