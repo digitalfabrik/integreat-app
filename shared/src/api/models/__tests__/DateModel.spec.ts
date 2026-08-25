@@ -708,6 +708,30 @@ describe('DateModel', () => {
       ])
     })
 
+    it('should not include a late-evening recurrence from the previous day when filtering by the next day', () => {
+      jest.useFakeTimers({ now: new Date('2024-08-25T12:00:00.000+02:00') })
+      const recurrenceRule = rrulestr('DTSTART:20240820T200000\nRRULE:FREQ=DAILY;COUNT=20')
+      const date = new DateModel({
+        startDate: DateTime.fromISO('2024-08-20T22:00:00.000+02:00'),
+        endDate: DateTime.fromISO('2024-08-20T23:00:00.000+02:00'),
+        allDay: false,
+        recurrenceRule,
+        onlyWeekdays: false,
+      })
+      const filterStartDate = DateTime.fromISO('2024-08-28T00:00:00+02:00').startOf('day')
+      const filterEndDate = DateTime.fromISO('2024-08-28T00:00:00+02:00').endOf('day')
+
+      expect(toUTCSpans(date.recurrences(3, filterStartDate, filterEndDate))).toEqual([
+        {
+          allDay: false,
+          startDate: '2024-08-28T22:00:00.000Z',
+          endDate: '2024-08-28T23:00:00.000Z',
+          recurrenceRule,
+          onlyWeekdays: false,
+        },
+      ])
+    })
+
     it('should return recurrences up to filterEndDate', () => {
       jest.useFakeTimers({ now: new Date('2024-01-01T00:00:00.000+01:00') })
       const recurrenceRule = rrulestr('DTSTART:20240101T090000\nRRULE:FREQ=DAILY;COUNT=10')

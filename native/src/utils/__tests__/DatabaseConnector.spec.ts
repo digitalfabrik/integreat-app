@@ -265,7 +265,6 @@ describe('DatabaseConnector', () => {
       const formatDate = (date: DateModel) =>
         `${date.formatDateInterval('de')} - ${date.formatTimeInterval('de', { allDayLabel: 'allDay' })}`
 
-      // TODO recurrence rule
       expect(formatDate(event.date)).toStrictEqual(expectedDate)
       expect(formatDate(event.date.recurrences(1)[0]!)).toStrictEqual(expectedDate)
 
@@ -274,6 +273,7 @@ describe('DatabaseConnector', () => {
 
       expect(formatDate(loadedEvent.date)).toStrictEqual(expectedDate)
       expect(formatDate(loadedEvent.date.recurrences(1)[0]!)).toStrictEqual(expectedDate)
+      expect(loadedEvent.date.recurrenceRule).toEqual(date.recurrenceRule)
     })
   })
 
