@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
-import { TouchableRipple } from 'react-native-paper'
+import { Button, TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { HORIZONTAL_TEXT_DIVIDER, MAX_FURTHER_DATES, MAX_FURTHER_DATES_MOBILE, MORE_INDICATOR } from 'shared'
@@ -48,15 +48,19 @@ const EventDates = ({
   filterEndDate = null,
   compact = false,
 }: EventDatesProps): ReactElement => {
+  const [expansionCount, setExpansionCount] = useState(0)
   const { t } = useTranslation('events', { lng: language })
   const theme = useTheme()
-  const [expanded, setExpanded] = useState(false)
 
   const date = event.date.firstRecurrenceInRange(filterStartDate, filterEndDate)
+  const timeInterval = date.formatTimeInterval(language, { allDayLabel: t('places:allDay') })
 
   const maxFurtherDates = compact ? MAX_FURTHER_DATES_MOBILE : MAX_FURTHER_DATES
-  const furtherDates = event.isRecurring ? event.date.furtherDates(maxFurtherDates) : []
-  const hasVaryingTimes = event.date.hasVaryingTimes(maxFurtherDates)
+  const maxVisibleRecurrences = expansionCount * maxFurtherDates
+  const recurrences = date.recurrences(maxVisibleRecurrences + 1).filter(recurrence => !recurrence.isEqual(date))
+  const hasRecurrences = date.hasMoreRecurrencesThan(1)
+  const hasMoreRecurrences = date.hasMoreRecurrencesThan(maxVisibleRecurrences + 1)
+  const expanded = expansionCount > 0
 
   const allDayLabel = t('places:allDay')
   const textVariant = compact ? 'body3' : 'body2'
@@ -74,14 +78,14 @@ const EventDates = ({
           <Text variant={textVariant}>{date.formatTimeInterval(language, { allDayLabel })}</Text>
         </InlineWrap>
       </DateRow>
-      {furtherDates.length > 0 && (
+      {hasRecurrences && (
         <>
           <Toggle
             language={language}
             borderless
             accessibilityRole='button'
             accessibilityState={{ expanded }}
-            onPress={() => setExpanded(previous => !previous)}>
+            onPress={() => setExpansionCount(previous => (previous > 0 ? 0 : 1))}>
             <InlineWrap language={language}>
               <Icon source='repeat' size={iconSize} color={theme.colors.primary} />
               <Text variant={textVariant} style={{ color: theme.colors.primary }}>
@@ -92,22 +96,36 @@ const EventDates = ({
           </Toggle>
           {expanded && (
             <Dates>
-              {furtherDates.map((furtherDate, index) => (
-                <InlineWrap key={furtherDate.startDate.toISO()} language={language}>
-                  <Text variant={textVariant}>{furtherDate.formatDateInterval(language)}</Text>
-                  {hasVaryingTimes && (
-                    <>
-                      <Text variant={textVariant} aria-hidden>
-                        {HORIZONTAL_TEXT_DIVIDER}
-                      </Text>
-                      <Text variant={textVariant}>{furtherDate.formatTimeInterval(language, { allDayLabel })}</Text>
-                    </>
-                  )}
-                  {index === furtherDates.length - 1 && event.date.hasMoreFurtherDates(maxFurtherDates) && (
-                    <Text variant={textVariant}>{MORE_INDICATOR}</Text>
-                  )}
-                </InlineWrap>
-              ))}
+              {recurrences.map((recurrence, index) => {
+                const recurrenceTimeInterval = recurrence.formatTimeInterval(language, {
+                  allDayLabel: t('places:allDay'),
+                })
+                return (
+                  <InlineWrap key={recurrence.startDate.toISO()} language={language}>
+                    <Text variant={textVariant}>{recurrence.formatDateInterval(language)}</Text>
+                    {recurrenceTimeInterval !== timeInterval && (
+                      <>
+                        <Text variant={textVariant} aria-hidden>
+                          {HORIZONTAL_TEXT_DIVIDER}
+                        </Text>
+                        <Text variant={textVariant}>{recurrenceTimeInterval}</Text>
+                      </>
+                    )}
+                    {index === recurrences.length - 1 && hasMoreRecurrences && (
+                      <Text variant={textVariant}>{MORE_INDICATOR}</Text>
+                    )}
+                  </InlineWrap>
+                )
+              })}
+              {hasMoreRecurrences && !compact && (
+                <Button
+                  icon='chevron-down'
+                  style={{ alignSelf: 'flex-start' }}
+                  onPress={() => setExpansionCount(expansionCount + 1)}
+                  compact>
+                  {t('common:showMore')}
+                </Button>
+              )}
             </Dates>
           )}
         </>

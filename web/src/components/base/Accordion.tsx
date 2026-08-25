@@ -46,7 +46,10 @@ const Accordion = ({
       disableGutters
       elevation={0}
       expanded={expanded}
-      onChange={(_, isExpanded) => setExpanded(isExpanded)}
+      onChange={(event, isExpanded) => {
+        event.preventDefault()
+        setExpanded(isExpanded)
+      }}
       slotProps={{ heading: { component: headingComponent } }}>
       <StyledAccordionSummary
         id={`${id}-header`}

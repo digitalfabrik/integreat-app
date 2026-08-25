@@ -1,13 +1,15 @@
 import EventNoteIcon from '@mui/icons-material/EventNote'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import RepeatIcon from '@mui/icons-material/Repeat'
 import { accordionClasses } from '@mui/material/Accordion'
 import { accordionDetailsClasses } from '@mui/material/AccordionDetails'
 import { accordionSummaryClasses } from '@mui/material/AccordionSummary'
+import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import { DateTime } from 'luxon'
-import React, { MouseEvent, ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { HORIZONTAL_TEXT_DIVIDER, MAX_FURTHER_DATES, MAX_FURTHER_DATES_MOBILE, MORE_INDICATOR } from 'shared'
@@ -72,6 +74,7 @@ const EventDates = ({
   filterEndDate = null,
   compact = false,
 }: EventDatesProps): ReactElement => {
+  const [expansionCount, setExpansionCount] = useState(1)
   const { t } = useTranslation('events')
   const { contentDirection } = useTheme()
   const { mobile } = useDimensions()
@@ -80,9 +83,10 @@ const EventDates = ({
   const timeInterval = date.formatTimeInterval(languageCode, { allDayLabel: t('places:allDay') })
 
   const maxFurtherDates = compact && mobile ? MAX_FURTHER_DATES_MOBILE : MAX_FURTHER_DATES
-  const furtherDates = event.isRecurring ? date.furtherDates(maxFurtherDates) : []
-
-  const stopLinkNavigation = (mouseEvent: MouseEvent): void => mouseEvent.preventDefault()
+  const maxVisibleRecurrences = expansionCount * maxFurtherDates
+  const recurrences = date.recurrences(maxVisibleRecurrences + 1).filter(recurrence => !recurrence.isEqual(date))
+  const hasRecurrences = date.hasMoreRecurrencesThan(1)
+  const hasMoreRecurrences = date.hasMoreRecurrencesThan(maxVisibleRecurrences + 1)
 
   return (
     <>
@@ -96,32 +100,44 @@ const EventDates = ({
           </>
         </TextRow>
       </Stack>
-      {furtherDates.length > 0 && (
-        <AccordionWrapper dir={contentDirection} onClick={stopLinkNavigation}>
+      {hasRecurrences && (
+        <AccordionWrapper dir={contentDirection}>
           <Accordion
-            id='further-dates'
+            id={`further-dates-${event.slug}`}
             defaultCollapsed
             headingComponent='span'
             title={
               <Stack direction='row' alignItems='center' gap={1}>
                 <RepeatIcon color='primary' fontSize='small' />
-                <TextRow color='primary'>{t('furtherDates')}</TextRow>
+                <Typography color='primary' variant='body2'>
+                  {t('furtherDates')}
+                </Typography>
               </Stack>
             }>
-            {furtherDates.map((furtherDate, index) => (
-              <TextRow key={furtherDate.startDate.toISO()}>
-                {furtherDate.formatDateInterval(languageCode)}
-                {date.hasVaryingTimes() && (
-                  <>
-                    <span aria-hidden>{HORIZONTAL_TEXT_DIVIDER}</span>
-                    {furtherDate.formatTimeInterval(languageCode, { allDayLabel: t('places:allDay') })}
-                  </>
-                )}
-                {index === furtherDates.length - 1 && date.hasMoreFurtherDates(maxFurtherDates) && (
-                  <span>{MORE_INDICATOR}</span>
-                )}
-              </TextRow>
-            ))}
+            {recurrences.map((recurrence, index) => {
+              const recurrenceTimeInterval = recurrence.formatTimeInterval(languageCode, {
+                allDayLabel: t('places:allDay'),
+              })
+              return (
+                <TextRow key={recurrence.startDate.toISO()}>
+                  {recurrence.formatDateInterval(languageCode)}
+                  {recurrenceTimeInterval !== timeInterval && (
+                    <>
+                      <span aria-hidden>{HORIZONTAL_TEXT_DIVIDER}</span>
+                      {recurrenceTimeInterval}
+                    </>
+                  )}
+                  {index === recurrences.length - 1 && hasMoreRecurrences && <span>{MORE_INDICATOR}</span>}
+                </TextRow>
+              )
+            })}
+            {hasMoreRecurrences && !compact && (
+              <Button onClick={() => setExpansionCount(expansionCount + 1)} startIcon={<ExpandMoreIcon />} size='small'>
+                <Typography variant='body2' textTransform='none'>
+                  {t('common:showMore')}
+                </Typography>
+              </Button>
+            )}
           </Accordion>
         </AccordionWrapper>
       )}

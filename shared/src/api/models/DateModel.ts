@@ -119,22 +119,6 @@ class DateModel {
     return this.recurrences(count + 1).length === count + 1
   }
 
-  furtherDates(count = MAX_FURTHER_DATES): DateModel[] {
-    return this.recurrences(count + 1).slice(1)
-  }
-
-  hasMoreFurtherDates(count = MAX_FURTHER_DATES): boolean {
-    return this.hasMoreRecurrencesThan(count + 1)
-  }
-
-  hasVaryingTimes(count = MAX_FURTHER_DATES): boolean {
-    const times = this.recurrences(count + 1).map(recurrence =>
-      // If the times vary with locale 'de' and a hardcoded translation, they will also vary with the real locale and translation
-      recurrence.formatTimeInterval('de', { allDayLabel: 'allDay' }),
-    )
-    return times.some(time => time !== times[0])
-  }
-
   isSingleDay(): boolean {
     return !this.endDate || this.startDate.hasSame(this.endDate, 'day')
   }
