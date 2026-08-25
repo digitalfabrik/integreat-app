@@ -100,7 +100,6 @@ export const webIntegreatBuildConfig: WebBuildConfigType = {
     appleTouchIcon: '/apple-touch-icon.png',
     socialMediaPreview: '/social-media-preview.png',
     favicons: '/favicons/',
-    tourMenuPreview: '/tour-menu-preview.png',
   },
   splashScreen: {
     backgroundColor: lightTheme.palette.secondary.main,

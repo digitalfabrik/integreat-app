@@ -51,6 +51,27 @@ describe('RegionContentMenu', () => {
     expect(showTtsPlayer).toHaveBeenCalledTimes(1)
   })
 
+  it('should close the menu when the open button is clicked again', () => {
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
+    const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de', {
+      RegionContentElement: (
+        <TtsContext.Provider value={defaultTtsContext}>
+          <RegionContentMenu category={category} pageTitle='Test Page' />,
+        </TtsContext.Provider>
+      ),
+    })
+    const menuButton = getByLabelText('layout:sideBarOpenAriaLabel')
+
+    fireEvent.click(menuButton)
+
+    expect(getByText('layout:contrastTheme')).toBeTruthy()
+    expect(menuButton).toHaveAttribute('aria-expanded', 'true')
+
+    fireEvent.click(menuButton)
+
+    expect(menuButton).toHaveAttribute('aria-expanded', 'false')
+  })
+
   it('should hide pdf for other routes', () => {
     const { queryByText, getByText, getByLabelText } = renderAllRoutes('/augsburg/de/events', {
       RegionContentElement: (
