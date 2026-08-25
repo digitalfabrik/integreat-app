@@ -53,7 +53,7 @@ describe('EventDates', () => {
 
   it('should reveal the upcoming dates when expanding a monthly recurring event', async () => {
     const event = eventWithDate('DTSTART:20230414T050000\nRRULE:FREQ=MONTHLY;BYDAY=+2MO')
-    const { getByRole, getByText } = renderWithTheme(<EventDates event={event} languageCode={language} />)
+    const { getByRole, getByText } = renderWithTheme(<EventDates event={event} languageCode={language} compact />)
 
     expect(getByText('events:furtherDates')).toBeTruthy()
     expect(getByText('13. Nov. - 14. Nov.')).not.toBeVisible()
@@ -70,7 +70,7 @@ describe('EventDates', () => {
 
   it('should reveal the upcoming dates when expanding a weekly recurring event', async () => {
     const event = eventWithDate('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')
-    const { getByRole, getByText } = renderWithTheme(<EventDates event={event} languageCode={language} />)
+    const { getByRole, getByText } = renderWithTheme(<EventDates event={event} languageCode={language} compact />)
 
     fireEvent.click(getByRole('button'))
 

@@ -48,7 +48,7 @@ const EventDates = ({
   filterEndDate = null,
   compact = false,
 }: EventDatesProps): ReactElement => {
-  const [expansionCount, setExpansionCount] = useState(0)
+  const [expansionCount, setExpansionCount] = useState(compact ? 0 : 1)
   const { t } = useTranslation('events', { lng: language })
   const theme = useTheme()
 

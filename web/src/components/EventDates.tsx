@@ -104,7 +104,7 @@ const EventDates = ({
         <AccordionWrapper dir={contentDirection}>
           <Accordion
             id={`further-dates-${event.slug}`}
-            defaultCollapsed
+            defaultCollapsed={compact}
             headingComponent='span'
             title={
               <Stack direction='row' alignItems='center' gap={1}>
