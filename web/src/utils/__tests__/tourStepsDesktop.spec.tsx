@@ -78,4 +78,21 @@ describe('tourStepsDesktop', () => {
 
     expect(changeLocation?.arrowAlignment).toBe('right')
   })
+
+  it('should open and close the header menu on the additional features step', () => {
+    const menuStep = tourStepsDesktop({ t, rtl: false, region: createRegion(), languageCode: 'de' }).find(
+      step => step.selector === `#${HEADER_MENU_ELEMENT_ID}`,
+    )
+    const button = document.createElement('button')
+    const click = jest.spyOn(button, 'click')
+
+    menuStep?.action?.(button)
+
+    expect(click).toHaveBeenCalledTimes(1)
+
+    button.setAttribute('aria-expanded', 'true')
+    menuStep?.actionAfter?.(button)
+
+    expect(click).toHaveBeenCalledTimes(2)
+  })
 })
