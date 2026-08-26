@@ -40,12 +40,12 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
   const showOpeningHours = (openingHours && openingHours.length > 0) || temporarilyClosed || !!appointmentUrl
 
   const addressSection = (
-    <Stack paddingBlock={1} gap={1}>
+    <Stack sx={{ paddingBlock: 1, gap: 1 }}>
       <Typography component='h2' variant='subtitle1'>
         {t('detailsAddress')}
       </Typography>
       <Button component={Link} to={externalMapsLink} color='inherit' startIcon={<LocationOnOutlinedIcon />} fullWidth>
-        <Stack direction='row' width='100%' justifyContent='space-between' alignItems='center'>
+        <Stack direction='row' sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
           <Stack>
             <Typography variant='body2'>{location.address}</Typography>
             <Typography variant='body2'>
@@ -86,7 +86,7 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
 
   return (
     <Stack>
-      <Stack paddingBlock={1} gap={1}>
+      <Stack sx={{ paddingBlock: 1, gap: 1 }}>
         <Typography component='h1' variant='h3'>
           {place.title}
         </Typography>

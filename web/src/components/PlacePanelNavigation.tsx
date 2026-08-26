@@ -22,7 +22,7 @@ type PlacePanelNavigationProps = {
 const PlacePanelNavigation = ({ switchPlace }: PlacePanelNavigationProps): ReactElement => {
   const { t } = useTranslation('places')
   return (
-    <Stack direction='row' justifyContent='space-between' padding={1}>
+    <Stack direction='row' sx={{ justifyContent: 'space-between', padding: 1 }}>
       <StyledButton
         onClick={() => switchPlace(-1)}
         startIcon={<DirectionDependentBackIcon />}

@@ -65,15 +65,13 @@ const Sidebar = ({ children, open, setOpen, footer, openButton, className }: Sid
         // Restoring focus when closing the drawer to a sticky element (headroom) scrolls the content to the top
         disableRestoreFocus>
         <Header>
-          <Stack minHeight={headerHeight} justifyContent='center' alignItems='flex-end' paddingInline={1}>
+          <Stack sx={{ minHeight: headerHeight, justifyContent: 'center', alignItems: 'flex-end', paddingInline: 1 }}>
             <IconButton onClick={() => setOpen(false)} aria-label={t('sideBarCloseAriaLabel')}>
               <CloseIcon />
             </IconButton>
           </Stack>
         </Header>
-        <Stack marginTop={`${headerHeight}px`} padding={2} height='100%'>
-          {children}
-        </Stack>
+        <Stack sx={{ marginTop: `${headerHeight}px`, padding: 2, height: '100%' }}>{children}</Stack>
         {footer}
       </StyledDrawer>
     </>

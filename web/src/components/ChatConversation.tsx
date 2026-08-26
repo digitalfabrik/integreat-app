@@ -60,14 +60,14 @@ const ChatConversation = ({
 
   if (messages.length === 0 && !loading) {
     return (
-      <Stack paddingInline={3} gap={1} paddingTop={2}>
+      <Stack sx={{ paddingInline: 3, gap: 1, paddingTop: 2 }}>
         <Typography variant='subtitle1'>{t('conversationText')}</Typography>
       </Stack>
     )
   }
 
   return (
-    <Stack padding={2} gap={2} overflow='auto'>
+    <Stack sx={{ padding: 2, gap: 2, overflow: 'auto' }}>
       <LiveAnnouncer message={lastMessageText} />
       {loading ? (
         <SkeletonChatConversation />

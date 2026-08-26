@@ -100,7 +100,7 @@ const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetP
           aria-expanded={isFullscreen}>
           <HandleIcon sx={{ alignSelf: 'center', transform: 'scaleX(1.5)' }} />
           {!!title && (
-            <Typography id='title' component='h1' variant='h5' alignSelf='start'>
+            <Typography id='title' component='h1' variant='h5' sx={{ alignSelf: 'start' }}>
               {title}
             </Typography>
           )}

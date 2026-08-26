@@ -42,7 +42,7 @@ const MapControlsContainer = styled(AttributionContainer)`
 `
 
 const SkeletonPlaceContent = () => (
-  <Stack paddingX={2}>
+  <Stack sx={{ paddingX: 2 }}>
     <SkeletonHeader width='40%' />
     <SkeletonList />
   </Stack>
@@ -57,7 +57,7 @@ type PlaceContentProps = {
 }
 
 const PlaceContent = ({ places, place, scrollToTop, userLocation, slug }: PlaceContentProps): ReactElement => (
-  <Stack padding={2} gap={1}>
+  <Stack sx={{ padding: 2, gap: 1 }}>
     <PlaceSharedChildren
       places={places}
       place={place}

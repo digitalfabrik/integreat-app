@@ -29,9 +29,9 @@ const NearbyRegions = ({ regions, language, filterText }: NearbyRegionsProps): R
 
   if (nearbyRegions.length === 0) {
     return (
-      <Stack paddingBlock={1}>
+      <Stack sx={{ paddingBlock: 1 }}>
         <StickyListSubheader stickyTop={stickyTop}>{t('common:nearby')}</StickyListSubheader>
-        <Stack direction='row' alignItems='center' justifyContent='space-between' paddingInline={2}>
+        <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between', paddingInline: 2 }}>
           <ListItemText primary={t(userLocation ? 'noNearbyRegions' : 'locationError')} />
           <IconButton aria-label={t('refresh')} onClick={refresh}>
             <RefreshIcon />

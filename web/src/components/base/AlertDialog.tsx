@@ -41,8 +41,11 @@ const AlertDialog = ({ title, close, children, className, actions }: DialogProps
 
   return (
     <StyledMuiDialog role='alertdialog' onClose={close} container={dialogContainer} className={className} open>
-      <Stack direction='row' alignItems='center' justifyContent='space-between' marginInline={1}>
-        <DialogTitle component='h2' variant='h4' textOverflow='ellipsis' whiteSpace='nowrap' overflow='hidden'>
+      <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between', marginInline: 1 }}>
+        <DialogTitle
+          component='h2'
+          variant='h4'
+          sx={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap', overflow: 'hidden' }}>
           {title}
         </DialogTitle>
         {desktop && (

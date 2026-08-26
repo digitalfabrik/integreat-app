@@ -14,10 +14,10 @@ type PageDetailProps = {
 }
 
 const PageDetail = ({ information, secondaryInformation, path, icon, tooltip }: PageDetailProps): ReactElement => (
-  <Stack direction='row' gap={1}>
+  <Stack direction='row' sx={{ gap: 1 }}>
     {icon}
     <Tooltip title={tooltip}>
-      <Stack direction='row' flexWrap='wrap' gap={1}>
+      <Stack direction='row' sx={{ flexWrap: 'wrap', gap: 1 }}>
         {path ? (
           <Link to={path} highlighted>
             <Typography>{information}</Typography>

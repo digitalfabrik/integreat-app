@@ -90,7 +90,7 @@ const EventDates = ({
 
   return (
     <>
-      <Stack flexDirection='row' gap={1}>
+      <Stack sx={{ flexDirection: 'row', gap: 1 }}>
         <EventNoteIcon fontSize={compact ? 'small' : 'medium'} />
         <TextRow>
           {date.formatDateInterval(languageCode)}
@@ -107,7 +107,7 @@ const EventDates = ({
             defaultCollapsed={compact}
             headingComponent='span'
             title={
-              <Stack direction='row' alignItems='center' gap={1}>
+              <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
                 <RepeatIcon color='primary' fontSize='small' />
                 <Typography color='primary' variant='body2'>
                   {t('furtherDates')}
@@ -133,7 +133,7 @@ const EventDates = ({
             })}
             {hasMoreRecurrences && !compact && (
               <Button onClick={() => setExpansionCount(expansionCount + 1)} startIcon={<ExpandMoreIcon />} size='small'>
-                <Typography variant='body2' textTransform='none'>
+                <Typography variant='body2' sx={{ textTransform: 'none' }}>
                   {t('common:showMore')}
                 </Typography>
               </Button>

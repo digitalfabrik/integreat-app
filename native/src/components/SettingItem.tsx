@@ -4,6 +4,7 @@ import { View, Role, StyleSheet } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
+import { contentAlignment } from '../constants/contentDirection'
 import Switch from './base/Switch'
 import Text from './base/Text'
 
@@ -23,11 +24,10 @@ const ContentContainer = styled.View`
   align-items: flex-start;
 `
 
-const FlexEndContainer = styled.View`
-  flex: 0.4;
+const FlexEndContainer = styled.View<{ language: string }>`
   justify-content: center;
   align-items: flex-end;
-  padding: 0 5px;
+  padding-${props => contentAlignment(props.language)}: 24px;
 `
 
 const BadgeContainer = styled.View`
@@ -81,6 +81,7 @@ const SettingItem = ({
   hasBadge = false,
 }: SettingItemProps): ReactElement => {
   const theme = useTheme()
+  const { i18n } = useTranslation('settings')
 
   const styles = StyleSheet.create({
     title: {
@@ -109,7 +110,7 @@ const SettingItem = ({
             </View>
           )}
         </ContentContainer>
-        <FlexEndContainer>
+        <FlexEndContainer language={i18n.language}>
           {value !== null && <SettingsItemValue onPress={onPress} hasBadge={hasBadge} value={value} />}
         </FlexEndContainer>
       </PadView>

@@ -35,7 +35,7 @@ const LanguageListItem = ({
   onUnavailableLanguageClick,
 }: SelectorProps): ReactElement => {
   const { t } = useTranslation('layout')
-  const { contentDirection, palette } = useTheme()
+  const { contentDirection } = useTheme()
 
   return path ? (
     <ListItem key={code} disablePadding>
@@ -45,7 +45,7 @@ const LanguageListItem = ({
         aria-selected={code === selectedLanguageCode}
         onClick={close}
         selected={code === selectedLanguageCode}>
-        <Typography variant='body1' fontWeight={code === selectedLanguageCode ? 'bold' : 'normal'}>
+        <Typography variant='body1' sx={{ fontWeight: code === selectedLanguageCode ? 'bold' : 'normal' }}>
           {name}
         </Typography>
       </SelectorItemButton>
@@ -54,7 +54,7 @@ const LanguageListItem = ({
     <Tooltip key={code} title={t('noTranslation')} placement={contentDirection === 'ltr' ? 'right' : 'left'}>
       <ListItem disablePadding>
         <SelectorItemButton onClick={onUnavailableLanguageClick}>
-          <Typography variant='body1' color={palette.text.disabled}>
+          <Typography variant='body1' color='textDisabled'>
             {name}
           </Typography>
         </SelectorItemButton>

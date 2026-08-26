@@ -67,6 +67,15 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
             disableRipple: false,
           },
         },
+        MuiListItemIcon: {
+          // MUI v9 reduced the default to theme.spacing(4.5) (36px), which is narrower than our 40px
+          // list icons and leaves no space between icon and text. Restore the previous 56px.
+          styleOverrides: {
+            root: {
+              minWidth: 56,
+            },
+          },
+        },
         MuiChip: {
           styleOverrides: {
             deleteIcon: {

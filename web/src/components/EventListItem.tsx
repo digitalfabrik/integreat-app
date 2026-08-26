@@ -98,7 +98,7 @@ const EventListItem = ({
             </Typography>
           }
           secondary={
-            <StyledTypography variant='body1' flexDirection='column' component='div' dir={contentDirection}>
+            <StyledTypography variant='body1' component='div' dir={contentDirection} sx={{ flexDirection: 'column' }}>
               <EventDates
                 event={event}
                 languageCode={languageCode}
@@ -107,7 +107,7 @@ const EventListItem = ({
                 compact
               />
               {event.location && (
-                <Stack direction='row' alignItems='center' gap={1} component='p'>
+                <Stack direction='row' component='p' sx={{ alignItems: 'center', gap: 1 }}>
                   <LocationOnOutlinedIcon fontSize='small' />
                   <span>{event.location.name}</span>
                 </Stack>

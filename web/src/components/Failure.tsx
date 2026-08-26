@@ -15,7 +15,9 @@ type FailureProps = {
 const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start', className }: FailureProps): ReactElement => {
   const { t } = useTranslation('error')
   return (
-    <Stack alignItems='center' textAlign='center' paddingTop={8} paddingInline={2} gap={3} className={className}>
+    <Stack
+      className={className}
+      sx={{ alignItems: 'center', textAlign: 'center', paddingTop: 8, paddingInline: 2, gap: 3 }}>
       <SentimentVeryDissatisfiedIcon fontSize='large' />
       <div role='alert'>{t(errorMessage)} </div>
       {!!goToPath && (

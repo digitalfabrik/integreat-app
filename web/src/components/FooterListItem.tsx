@@ -25,7 +25,7 @@ const FooterListItem = ({ to, text, doNotTranslate }: FooterLinkItemProps): Reac
       <ListItemButton component={Link} to={to}>
         <ListItemText
           primary={
-            <Typography variant='body2' textAlign='center'>
+            <Typography variant='body2' sx={{ textAlign: 'center' }}>
               {doNotTranslate ? text : t(text)}
             </Typography>
           }

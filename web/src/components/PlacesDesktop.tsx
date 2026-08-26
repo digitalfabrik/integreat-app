@@ -37,7 +37,7 @@ const StyledMapAttribution = styled(MapAttribution)({
 })
 
 const SkeletonPanelContent = () => (
-  <Stack paddingX={2}>
+  <Stack sx={{ paddingX: 2 }}>
     <SkeletonHeader width='60%' />
     <SkeletonList />
   </Stack>
@@ -66,7 +66,7 @@ const PanelContent = ({
   slug,
   switchPlace,
 }: PanelContentProps): ReactElement => (
-  <Stack justifyContent='space-between' height='100%'>
+  <Stack sx={{ justifyContent: 'space-between', height: '100%' }}>
     <ListViewWrapper ref={listRef}>
       <PlacePanelHeader goBack={canDeselect ? deselect : null} />
       <PlaceSharedChildren

@@ -42,12 +42,12 @@ const QrCodeDialog = ({ open, close, title, description, content }: QrCodeDialog
           </Button>
         </DialogActions>
       }>
-      <Stack alignItems='center' gap={2}>
+      <Stack sx={{ alignItems: 'center', gap: 2 }}>
         <Typography variant='body2'>{description}</Typography>
 
         <StyledSvg src={svgSrc} width={QR_CODE_SIZE} height={QR_CODE_SIZE} ariaLabel={t('qrCode')} />
 
-        <Typography variant='body2' textAlign='center'>
+        <Typography variant='body2' sx={{ textAlign: 'center' }}>
           {content}
         </Typography>
       </Stack>

@@ -34,17 +34,17 @@ const OpeningHoursListItem = ({
 
   return (
     <StyledListItem disablePadding>
-      <Typography variant={variant} fontWeight={fontWeight}>
+      <Typography variant={variant} sx={{ fontWeight }}>
         {weekday}
       </Typography>
-      <Stack direction='row' alignItems='center' justifyContent='flex-end' gap={1}>
+      <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'flex-end', gap: 1 }}>
         {openingHours.openAllDay && (
-          <Typography variant={variant} fontWeight={fontWeight} sx={{ alignSelf: 'flex-end' }}>
+          <Typography variant={variant} sx={{ fontWeight, alignSelf: 'flex-end' }}>
             {t('allDay')}
           </Typography>
         )}
         {openingHours.closedAllDay && (
-          <Typography variant={variant} fontWeight={fontWeight} sx={{ alignSelf: 'flex-end' }}>
+          <Typography variant={variant} sx={{ fontWeight, alignSelf: 'flex-end' }}>
             {t('closed')}
           </Typography>
         )}
@@ -53,9 +53,8 @@ const OpeningHoursListItem = ({
             {openingHours.timeSlots.map(timeSlot => (
               <Typography
                 variant={variant}
-                fontWeight={fontWeight}
                 key={`${weekday}-${timeSlot.start}`}
-                sx={{ alignSelf: 'flex-end' }}>
+                sx={{ fontWeight, alignSelf: 'flex-end' }}>
                 {timeSlot.start}-{timeSlot.end}
               </Typography>
             ))}

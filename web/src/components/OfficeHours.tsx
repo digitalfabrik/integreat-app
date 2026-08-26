@@ -27,7 +27,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
 
   if (allDayOpen) {
     return (
-      <Stack direction='row' alignItems='center' gap={1}>
+      <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
         <AccessTimeIcon fontSize='small' />
         <Typography variant='body2'>{t('allDay')}</Typography>
       </Stack>
@@ -36,7 +36,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
 
   if (allDayClosed) {
     return (
-      <Stack direction='row' alignItems='center' gap={1}>
+      <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
         <AccessTimeIcon fontSize='small' />
         <Typography variant='body2'>{t('temporarilyClosed')}</Typography>
       </Stack>
@@ -47,7 +47,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
     <Accordion
       id='office-hours'
       title={
-        <Stack direction='row' alignItems='center' gap={1}>
+        <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
           <AccessTimeIcon fontSize='small' />
           <Typography variant='body2'>{t(currentlyOpen ? 'opened' : 'closed')}</Typography>
         </Stack>

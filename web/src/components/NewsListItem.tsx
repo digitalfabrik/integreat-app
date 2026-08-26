@@ -52,17 +52,15 @@ const NewsListItem = ({ news, regionCode, languageCode }: NewsListItemProps): Re
       <StyledListItemButton
         component={Link}
         to={pathnameFromRouteInformation({ route: NEWS_ROUTE, regionCode, languageCode, id: news.id })}>
-        <StyledStack maxWidth='100%' width='100%'>
+        <StyledStack sx={{ maxWidth: '100%', width: '100%' }}>
           <StyledListItemText
             slotProps={{ primary: { component: 'h2' } }}
             primary={
               <Stack
                 component='span'
                 direction='row'
-                alignItems='center'
-                justifyContent='space-between'
-                gap={2}
-                dir={contentDirection}>
+                dir={contentDirection}
+                sx={{ alignItems: 'center', justifyContent: 'space-between', gap: 2 }}>
                 {news.title}
                 <NewsSourceChip source={news.source} />
               </Stack>
