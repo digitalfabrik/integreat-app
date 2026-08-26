@@ -90,6 +90,7 @@ const HeaderMenu = ({
         visible={visible}
         onDismiss={() => setVisible(false)}
         overlayAccessibilityLabel={t('common:close')}
+        statusBarHeight={0}
         style={{ width: 256 }}
         contentStyle={{
           borderRadius: 16,

@@ -389,7 +389,7 @@ jobs:
             - notify
     build_web:
         docker:
-            - image: cimg/node:22.21.1
+            - image: cimg/node:24.18.1
         environment:
             TOTAL_CPUS: 2
         parameters:
@@ -432,7 +432,7 @@ jobs:
             - notify
     bump_version:
         docker:
-            - image: cimg/node:22.21.1
+            - image: cimg/node:24.18.1
         parameters:
             prepare_delivery:
                 default: false
@@ -473,7 +473,7 @@ jobs:
             - notify
     check:
         docker:
-            - image: cimg/node:22.21.1
+            - image: cimg/node:24.18.1
         environment:
             TOTAL_CPUS: 2
         resource_class: medium
@@ -607,7 +607,7 @@ jobs:
             - notify
     deliver_web:
         docker:
-            - image: cimg/node:22.21.1
+            - image: cimg/node:24.18.1
         parameters:
             delivery:
                 description: Whether to deliver to production, beta or to webnext.
@@ -749,7 +749,7 @@ jobs:
             - notify
     e2e_web:
         docker:
-            - image: cimg/node:22.21.1-browsers
+            - image: cimg/node:24.18.1-browsers
             - image: selenium/standalone-chrome
         resource_class: medium
         shell: /bin/bash -eo pipefail
@@ -767,7 +767,7 @@ jobs:
             - notify
     notify_promotion:
         docker:
-            - image: cimg/node:22.21.1
+            - image: cimg/node:24.18.1
         parameters:
             platform:
                 default: all
@@ -796,7 +796,7 @@ jobs:
                 success_message: '##### Integreat App release ${RELEASE} has been promoted successfully to production :tada:'
     notify_release:
         docker:
-            - image: cimg/node:22.21.1
+            - image: cimg/node:24.18.1
         parameters:
             platform:
                 default: all
@@ -914,7 +914,7 @@ jobs:
             - notify
     promote_web:
         docker:
-            - image: cimg/node:22.21.1
+            - image: cimg/node:24.18.1
         resource_class: small
         shell: /bin/bash -eo pipefail
         steps:

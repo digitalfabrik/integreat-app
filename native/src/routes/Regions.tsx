@@ -1,6 +1,7 @@
 import React, { ReactElement, useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { KeyboardAvoidingView, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
 import { BOTTOM_TAB_ROUTE, SUGGEST_TO_REGION_ROUTE, RegionsRouteType } from 'shared'
@@ -30,6 +31,7 @@ const Regions = ({ navigation }: RegionsProps): ReactElement => {
   const { data: regions, refresh, ...response } = useLoadRegions()
   const { changeRegionCode } = useContext(AppContext)
   const { t } = useTranslation('regions')
+  const insets = useSafeAreaInsets()
 
   // The regions are otherwise only updated by pull to refresh
   useEffect(refresh, [refresh])
@@ -40,18 +42,20 @@ const Regions = ({ navigation }: RegionsProps): ReactElement => {
   }
 
   return (
-    <LoadingErrorHandler {...response} refresh={refresh} scrollView>
-      {regions && (
-        <>
-          <Wrapper>
-            <Text variant='h3'>{t('welcome', { appName: buildConfig().appName })}</Text>
-            <Text variant='body2'>{t('welcomeInformation')}</Text>
-            <RegionSelector regions={regions} navigateToDashboard={navigateToDashboard} />
-          </Wrapper>
-          <SuggestToRegionFooter navigateToSuggestToRegion={() => navigation.navigate(SUGGEST_TO_REGION_ROUTE)} />
-        </>
-      )}
-    </LoadingErrorHandler>
+    <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={insets.top + insets.bottom} style={{ flex: 1 }}>
+      <LoadingErrorHandler {...response} refresh={refresh} scrollView>
+        {regions && (
+          <>
+            <Wrapper>
+              <Text variant='h3'>{t('welcome', { appName: buildConfig().appName })}</Text>
+              <Text variant='body2'>{t('welcomeInformation')}</Text>
+              <RegionSelector regions={regions} navigateToDashboard={navigateToDashboard} />
+            </Wrapper>
+            <SuggestToRegionFooter navigateToSuggestToRegion={() => navigation.navigate(SUGGEST_TO_REGION_ROUTE)} />
+          </>
+        )}
+      </LoadingErrorHandler>
+    </KeyboardAvoidingView>
   )
 }
 

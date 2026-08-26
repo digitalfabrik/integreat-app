@@ -12,7 +12,7 @@ import generateFile, { type GenerateFile } from 'vite-plugin-generate-file'
 import loadBuildConfig, { WEB } from 'build-configs'
 import type { WebBuildConfigType } from 'build-configs/BuildConfigType'
 
-import versionJson from '../version.json'
+import versionJson from '../version.json' with { type: 'json' }
 
 const execFileAsync = promisify(execFile)
 const dirname = pathDirname(fileURLToPath(import.meta.url))

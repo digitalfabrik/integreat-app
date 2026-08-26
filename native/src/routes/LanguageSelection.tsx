@@ -2,8 +2,9 @@ import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill'
 import '@formatjs/intl-locale/polyfill'
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
 import { filterLanguages, LanguagesRouteType } from 'shared'
@@ -32,6 +33,7 @@ const loadPolyfillIfNeeded = async (locale: string): Promise<void> => {
 }
 
 const Wrapper = styled.ScrollView`
+  flex: 1;
   background-color: ${props => props.theme.colors.background};
 `
 
@@ -59,6 +61,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
   const [query, setQuery] = useState('')
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
   const { t } = useTranslation('layout')
+  const insets = useSafeAreaInsets()
 
   const currentLanguage = languages.find(lang => lang.code === languageCode)
   const filteredLanguages = loading ? languages : filterLanguages(languages, query, languageCode, config.sourceLanguage)
@@ -87,22 +90,24 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
 
   return (
     <>
-      <Wrapper contentContainerStyle={styles.contentContainer}>
-        <SearchInput
-          ariaLabel={t('searchLanguage')}
-          setValue={setQuery}
-          value={query}
-          placeholderText={currentLanguage?.name}
-          style={styles.horizontalMargin}
-        />
-        <Selector selectedItemCode={languageCode} items={selectorItems} />
-        <Button
-          mode='outlined'
-          onPress={() => setAlertDialogTitle(t('languageNotFoundQuestion'))}
-          style={styles.horizontalMargin}>
-          {t('languageNotFoundQuestion')}
-        </Button>
-      </Wrapper>
+      <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={insets.top + insets.bottom} style={{ flex: 1 }}>
+        <Wrapper contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}>
+          <SearchInput
+            ariaLabel={t('searchLanguage')}
+            setValue={setQuery}
+            value={query}
+            placeholderText={currentLanguage?.name}
+            style={styles.horizontalMargin}
+          />
+          <Selector selectedItemCode={languageCode} items={selectorItems} />
+          <Button
+            mode='outlined'
+            onPress={() => setAlertDialogTitle(t('languageNotFoundQuestion'))}
+            style={styles.horizontalMargin}>
+            {t('languageNotFoundQuestion')}
+          </Button>
+        </Wrapper>
+      </KeyboardAvoidingView>
       <SimpleAlertDialog
         visible={!!alertDialogTitle}
         close={closeAlertDialog}
