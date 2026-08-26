@@ -51,7 +51,7 @@ const InputSection = ({
 
   return (
     <Container>
-      {showOptional && <Text style={{ textAlign: 'right' }}>({t($ => $.optional)})</Text>}
+      {showOptional && <Text style={{ textAlign: 'right' }}>({t($ => $.common.optional)})</Text>}
       <TextInput
         mode='outlined'
         outlineColor={theme.colors.outlineVariant}

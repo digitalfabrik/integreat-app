@@ -53,7 +53,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
   return (
     <>
       <Typography variant='subtitle2' aria-live={results.length === 0 ? 'assertive' : 'polite'}>
-        {t($ => $.searchResultsCount, { count: results.length })}
+        {t($ => $.search.searchResultsCount, { count: results.length })}
       </Typography>
       <List items={items} />
       <SearchFeedback noResults={results.length === 0} />
@@ -138,16 +138,16 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
   return (
     <RegionContentLayout isLoading={false} {...layoutParams}>
       <Helmet
-        pageTitle={`${t($ => $.pageTitle)} - ${region.name}`}
+        pageTitle={`${t($ => $.search.pageTitle)} - ${region.name}`}
         languageChangePaths={languageChangePaths}
         regionModel={region}
       />
       <Stack sx={{ paddingTop: 4, gap: 2 }}>
         <SearchInput
           id='search-content'
-          ariaLabel={t($ => $.searchContent)}
+          ariaLabel={t($ => $.search.searchContent)}
           filterText={query}
-          placeholderText={t($ => $.searchContent)}
+          placeholderText={t($ => $.search.searchContent)}
           onFilterTextChange={setQuery}
           autoFocus
         />

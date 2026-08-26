@@ -23,8 +23,8 @@ const RegionsPage = ({ languageCode }: RegionsPageProps): ReactElement => {
   const { data: regions, isPending, error } = useQueryFromEndpoint(createRegionsEndpoint, cmsApiBaseUrl, undefined)
   const { t } = useTranslation(['regions'])
 
-  const pageTitle = t($ => $.pageTitle)
-  const metaDescription = t($ => $.metaDescription, { appName: buildConfig().appName })
+  const pageTitle = t($ => $.regions.pageTitle)
+  const metaDescription = t($ => $.regions.metaDescription, { appName: buildConfig().appName })
 
   if (error) {
     return (

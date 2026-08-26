@@ -29,7 +29,7 @@ const SprungbrettOffer = ({ sprungbrettOffer, languageCode }: SprungbrettOfferPr
         <List
           items={data}
           renderItem={renderListItem}
-          noItemsMessage={t($ => $.noOffersAvailable)}
+          noItemsMessage={t($ => $.sprungbrett.noOffersAvailable)}
           scrollEnabled={false}
         />
       )}

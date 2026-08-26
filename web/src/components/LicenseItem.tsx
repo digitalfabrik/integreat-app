@@ -29,10 +29,10 @@ const LicenseItem = ({ license, name, url, version, author }: LicenseItemProps):
         <>
           <StyledParagraph>{author}</StyledParagraph>
           <StyledParagraph>
-            {t($ => $.version)} {version}
+            {t($ => $.licenses.version)} {version}
           </StyledParagraph>
           <StyledParagraph>
-            {t($ => $.license)} {license}
+            {t($ => $.licenses.license)} {license}
           </StyledParagraph>
         </>
       }

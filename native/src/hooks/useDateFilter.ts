@@ -25,7 +25,7 @@ const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
   const startDate = params.startDate ?? null
   const endDate = params.endDate ?? null
   const isStartAfterEnd = startDate && endDate && startDate > endDate
-  const startDateError = isStartAfterEnd ? t($ => $.shouldBeEarlier) : null
+  const startDateError = isStartAfterEnd ? t($ => $.events.shouldBeEarlier) : null
 
   const filteredEvents = useMemo(() => filterEvents(events, startDate, endDate), [startDate, endDate, events])
 

@@ -46,15 +46,15 @@ export const openExternalUrl = async (rawUrl: string, { showSnackbar, t }: OpenE
       })
     } else if (isInternalLink) {
       // Opening internal links via Linking opens it in integreat again leading to an endless loop, see #2440
-      showSnackbar({ text: t($ => $.noSuitableAppInstalled) })
+      showSnackbar({ text: t($ => $.error.noSuitableAppInstalled) })
     } else if (canBeOpenedWithOtherApp) {
       await Linking.openURL(encodedUrl)
     } else {
-      showSnackbar({ text: t($ => $.noSuitableAppInstalled) })
+      showSnackbar({ text: t($ => $.error.noSuitableAppInstalled) })
     }
   } catch (error) {
     captureError(error)
-    showSnackbar({ text: t($ => $.unknownError) })
+    showSnackbar({ text: t($ => $.error.unknownError) })
   }
 }
 

@@ -34,7 +34,7 @@ const SearchHeader = ({ query, navigation, onSearchChanged }: SearchHeaderProps)
       <Horizontal>
         <Appbar.BackAction
           onPress={navigation.goBack}
-          accessibilityLabel={t($ => $.back)}
+          accessibilityLabel={t($ => $.common.back)}
           style={{ backgroundColor: 'transparent' }}
           iconColor={theme.colors.onSurface}
         />

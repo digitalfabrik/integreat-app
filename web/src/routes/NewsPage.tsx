@@ -52,7 +52,7 @@ const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): React
     code,
   }))
 
-  const pageTitle = `${t($ => $.news)} - ${region.name}`
+  const pageTitle = `${t($ => $.news.news)} - ${region.name}`
   const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
     region,
     languageChangePaths,
@@ -74,13 +74,13 @@ const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): React
   const newsListItems =
     news?.map(item => <NewsListItem key={item.id} news={item} regionCode={regionCode} languageCode={languageCode} />) ??
     []
-  const getLabel = (value: NewsSourceFilter): string => t($ => (desktop ? $[`${value}News`] : $[value]))
+  const getLabel = (value: NewsSourceFilter): string => t($ => (desktop ? $.news[`${value}News`] : $.news[value]))
   const showNewsSourceFilter = region.localNewsEnabled && region.externalNewsEnabled
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
-      <H1>{t($ => $.news)}</H1>
+      <H1>{t($ => $.news.news)}</H1>
       <Stack sx={{ gap: 1 }}>
         {showNewsSourceFilter && (
           <NewsSourceFilterButtonGroup
@@ -93,7 +93,7 @@ const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): React
         {response.isPending ? (
           <SkeletonList />
         ) : (
-          <List items={newsListItems} noItemsMessage={t($ => $.currentlyNoNews)} />
+          <List items={newsListItems} noItemsMessage={t($ => $.news.currentlyNoNews)} />
         )}
       </Stack>
     </RegionContentLayout>

@@ -19,7 +19,7 @@ export const LastUpdateInfo = ({
   const { i18n, t } = useTranslation(['common'])
   return (
     <Typography variant='caption' className={className}>
-      {withText && t($ => $.lastUpdate)} {lastUpdate.setLocale(i18n.language).toFormat(format)}
+      {withText && t($ => $.common.lastUpdate)} {lastUpdate.setLocale(i18n.language).toFormat(format)}
     </Typography>
   )
 }

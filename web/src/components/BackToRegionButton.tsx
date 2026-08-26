@@ -30,7 +30,7 @@ const BackToRegionButton = (): ReactElement | null => {
       onClick={() => navigate(initialHistoryIndex - currentHistoryIndex - 1)}
       startIcon={<DirectionDependentBackIcon />}
       color='inherit'>
-      {t($ => $.back)}
+      {t($ => $.common.back)}
     </StyledButton>
   )
 }

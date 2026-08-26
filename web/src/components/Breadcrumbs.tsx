@@ -76,7 +76,7 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
       <StyledMuiBreadcrumbs aria-label='Breadcrumb' separator='>'>
         {collapseHomeButton ? null : homeButton}
         {hiddenBreadcrumbs.length > 0 && (
-          <IconButton key='menu' onClick={openMenu} aria-label={t($ => $.showMore)} color='inherit'>
+          <IconButton key='menu' onClick={openMenu} aria-label={t($ => $.common.showMore)} color='inherit'>
             <MoreHorizIcon />
           </IconButton>
         )}

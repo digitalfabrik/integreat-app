@@ -38,12 +38,12 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
         </Stack>
         <Stack>
           <Typography variant='subtitle1'>
-            {t($ => $.organizationContent, { organization: organization.name })}
+            {t($ => $.categories.organizationContent, { organization: organization.name })}
           </Typography>
           <Typography variant='body2'>
             <Trans
               ns='categories'
-              i18nKey={$ => $.organizationMoreInformation}
+              i18nKey={$ => $.categories.organizationMoreInformation}
               components={{
                 1: <span>{organization.name}</span>,
                 3: (

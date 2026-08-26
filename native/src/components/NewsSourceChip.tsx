@@ -23,7 +23,7 @@ const NewsSourceChip = ({ source }: NewsSourceChipProps): ReactElement => {
   const { t } = useTranslation(['news'])
   const theme = useTheme()
 
-  const label = getNewsSourceLabel({ source, localNewsLabel: t($ => $.local) })
+  const label = getNewsSourceLabel({ source, localNewsLabel: t($ => $.news.local) })
   const borderColor = getNewsColor({
     palette: { ...theme.colors, secondary: { main: theme.colors.secondary } },
     source,

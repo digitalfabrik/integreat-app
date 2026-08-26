@@ -119,7 +119,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
         elevated
         avatar={<Icon icon={EditLocationIcon} />}
         onPress={() => updateShowFilterSelection(true)}>
-        <Text variant='body3'>{t($ => $.adjustFilters)}</Text>
+        <Text variant='body3'>{t($ => $.places.adjustFilters)}</Text>
       </StyledChip>
 
       {currentlyOpen && (
@@ -130,7 +130,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
           onPress={() => updatePlaceCurrentlyOpenFilter(false)}
           onClose={() => updatePlaceCurrentlyOpenFilter(false)}
           closeIcon='close'>
-          <Text variant='body3'>{t($ => $.opened)}</Text>
+          <Text variant='body3'>{t($ => $.places.opened)}</Text>
         </StyledChip>
       )}
       {!!placeCategory && (

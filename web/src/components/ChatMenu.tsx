@@ -36,7 +36,7 @@ const ChatMenu = ({ chatId, resetChat }: ChatMenuProps): ReactElement => {
   return (
     <>
       <IconButton
-        aria-label={t($ => $.chatOptions)}
+        aria-label={t($ => $.chat.chatOptions)}
         onClick={event => setMenuAnchorElement(event.currentTarget)}
         aria-expanded={menuAnchorElement !== null}>
         <MoreVertIcon />
@@ -46,7 +46,7 @@ const ChatMenu = ({ chatId, resetChat }: ChatMenuProps): ReactElement => {
         open={menuAnchorElement !== null}
         onClose={() => setMenuAnchorElement(null)}>
         <MenuItem
-          text={t($ => $.newChat)}
+          text={t($ => $.chat.newChat)}
           icon={<AddCommentOutlinedIcon fontSize='small' />}
           disabled={chatId === null}
           onClick={confirmNewChat}
@@ -55,7 +55,7 @@ const ChatMenu = ({ chatId, resetChat }: ChatMenuProps): ReactElement => {
 
       {newChatConfirmationDialogOpen && (
         <AlertDialog
-          title={t($ => $.newChat)}
+          title={t($ => $.chat.newChat)}
           close={() => setNewChatConfirmationDialogOpen(false)}
           actions={
             <DialogActions>
@@ -63,11 +63,11 @@ const ChatMenu = ({ chatId, resetChat }: ChatMenuProps): ReactElement => {
                 {t($ => $.layout.cancel)}
               </Button>
               <Button onClick={createNewChat} variant='contained' sx={{ flex: '3 3' }}>
-                {t($ => $.newChat)}
+                {t($ => $.chat.newChat)}
               </Button>
             </DialogActions>
           }>
-          <Typography variant='body2'>{t($ => $.newChatConfirmation)}</Typography>
+          <Typography variant='body2'>{t($ => $.chat.newChatConfirmation)}</Typography>
         </AlertDialog>
       )}
     </>

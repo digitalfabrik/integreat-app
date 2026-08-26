@@ -33,7 +33,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
 
   const copyLocationToClipboard = (): void => {
     Clipboard.setString(`${address}, ${postcode} ${town}`)
-    showSnackbar({ text: t($ => $.addressCopied) })
+    showSnackbar({ text: t($ => $.places.addressCopied) })
   }
 
   const openExternalMaps = () => {
@@ -45,7 +45,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
     <Container nativeID='accessibility-order-address' language={language}>
       <TouchableRipple
         borderless
-        accessibilityLabel={t($ => $.copyAddress)}
+        accessibilityLabel={t($ => $.places.copyAddress)}
         role='button'
         onPress={copyLocationToClipboard}>
         <>
@@ -60,7 +60,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
         style={{ alignSelf: 'center', paddingVertical: 0, paddingHorizontal: 8 }}
         role='link'
         onPress={openExternalMaps}
-        accessibilityLabel={t($ => $.openExternalMaps)}>
+        accessibilityLabel={t($ => $.places.openExternalMaps)}>
         <Icon color={theme.colors.primary} source='open-in-new' />
       </TouchableRipple>
     </Container>

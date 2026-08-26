@@ -5,7 +5,7 @@ import Helmet from '../components/Helmet'
 
 const NotFoundPage = (): ReactElement => {
   const { t } = useTranslation(['error'])
-  const pageTitle = t($ => $.notFound.pageTitle)
+  const pageTitle = t($ => $.error.notFound.pageTitle)
 
   return (
     <div>

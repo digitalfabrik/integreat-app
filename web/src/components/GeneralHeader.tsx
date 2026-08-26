@@ -42,7 +42,7 @@ const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): R
     <HeaderMenu key='menu' pageTitle={null}>
       <MenuItem
         key='theme'
-        text={t($ => $.contrastTheme)}
+        text={t($ => $.layout.contrastTheme)}
         icon={<ContrastIcon fontSize='small' />}
         onClick={toggleTheme}
       />

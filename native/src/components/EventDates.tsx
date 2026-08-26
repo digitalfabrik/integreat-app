@@ -94,7 +94,7 @@ const EventDates = ({
             <InlineWrap language={language}>
               <Icon source='repeat' size={iconSize} color={theme.colors.primary} />
               <Text variant={textVariant} style={{ color: theme.colors.primary }}>
-                {t($ => $.furtherDates)}
+                {t($ => $.events.furtherDates)}
               </Text>
               <Icon source={expanded ? 'chevron-up' : 'chevron-down'} color={theme.colors.primary} />
             </InlineWrap>

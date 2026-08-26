@@ -15,7 +15,7 @@ const FeedbackToolbarItem = ({ rating }: { rating: Rating }): ReactElement => {
   return (
     <ToolbarItem
       icon={rating === RATING_POSITIVE ? <SentimentSatisfiedOutlinedIcon /> : <SentimentDissatisfiedOutlinedIcon />}
-      text={t($ => (rating === RATING_POSITIVE ? $.useful : $.notUseful))}
+      text={t($ => (rating === RATING_POSITIVE ? $.feedback.useful : $.feedback.notUseful))}
       onClick={() => setFeedbackQueryParam(rating)}
     />
   )

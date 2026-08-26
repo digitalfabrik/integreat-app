@@ -18,7 +18,7 @@ type NewsSourceChipProps = {
 
 const NewsSourceChip = ({ source }: NewsSourceChipProps): ReactElement => {
   const { t } = useTranslation(['news'])
-  const label = getNewsSourceLabel({ source, localNewsLabel: t($ => $.local) })
+  const label = getNewsSourceLabel({ source, localNewsLabel: t($ => $.news.local) })
   return <SourceChip label={label} source={source} variant='outlined' size='small' />
 }
 

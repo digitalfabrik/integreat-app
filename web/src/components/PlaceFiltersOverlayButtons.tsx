@@ -27,7 +27,7 @@ const PlaceFiltersOverlayButtons = ({
   return (
     <>
       <Chip
-        label={t($ => $.adjustFilters)}
+        label={t($ => $.places.adjustFilters)}
         icon={<EditLocationOutlinedIcon />}
         onClick={() => setShowFilterSelection(true)}
         variant='outlined'
@@ -35,7 +35,7 @@ const PlaceFiltersOverlayButtons = ({
       />
       {currentlyOpenFilter && (
         <Chip
-          label={t($ => $.opened)}
+          label={t($ => $.places.opened)}
           icon={<AccessTimeIcon />}
           onDelete={() => setCurrentlyOpenFilter(false)}
           onClick={() => setCurrentlyOpenFilter(false)}

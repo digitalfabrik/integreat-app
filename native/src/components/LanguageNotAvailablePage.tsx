@@ -41,7 +41,7 @@ const LanguageNotAvailablePage = ({ availableLanguages }: LanguageNotAvailablePa
     <LayoutedScrollView refreshControl={<RefreshControl refreshing={loading} onRefresh={refresh} />}>
       {items ? (
         <Wrapper contentContainerStyle={{ alignItems: 'center' }}>
-          <Caption title={t($ => $.notFound.language)} />
+          <Caption title={t($ => $.error.notFound.language)} />
           <Selector items={items} selectedItemCode={null} />
         </Wrapper>
       ) : (

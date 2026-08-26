@@ -32,7 +32,7 @@ const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): Reac
 
   const items = data.map(job => <SprungbrettListItem key={job.url} job={job} />)
 
-  return <List items={items} noItemsMessage={t($ => $.noOffersAvailable)} />
+  return <List items={items} noItemsMessage={t($ => $.sprungbrett.noOffersAvailable)} />
 }
 
 export default SprungbrettOffer

@@ -52,7 +52,7 @@ const HeaderLanguageSelectorItem = ({
     <HeaderActionItem
       key='languages'
       onClick={open}
-      text={isOpen ? '' : t($ => $.changeLanguage) /* to not cover the dropdown with the tooltip */}
+      text={isOpen ? '' : t($ => $.layout.changeLanguage) /* to not cover the dropdown with the tooltip */}
       icon={<TranslateOutlinedIcon />}
       innerText={forceText || desktop ? currentLanguageName : undefined}
     />

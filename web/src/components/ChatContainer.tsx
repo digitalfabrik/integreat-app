@@ -140,7 +140,7 @@ const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContai
     return (
       <StyledDialog
         title={chatName}
-        subtitle={t($ => $.subtitle)}
+        subtitle={t($ => $.chat.subtitle)}
         icon={<ChatLogoAvatar />}
         close={() => setOpen(undefined)}
         showHeader={!externalChatId}

@@ -29,10 +29,18 @@ const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElem
 
   return (
     <Stack sx={{ gap: 2 }}>
-      <Typography variant='body2'>{t($ => $.description)}</Typography>
-      <StyledToggleButtonGroup exclusive value={rating} onChange={handleChange} aria-label={t($ => $.feedback)}>
-        <ToggleButton value={RATING_POSITIVE} icon={SentimentSatisfiedOutlinedIcon} text={t($ => $.useful)} />
-        <ToggleButton value={RATING_NEGATIVE} icon={SentimentDissatisfiedOutlinedIcon} text={t($ => $.notUseful)} />
+      <Typography variant='body2'>{t($ => $.feedback.description)}</Typography>
+      <StyledToggleButtonGroup
+        exclusive
+        value={rating}
+        onChange={handleChange}
+        aria-label={t($ => $.feedback.feedback)}>
+        <ToggleButton value={RATING_POSITIVE} icon={SentimentSatisfiedOutlinedIcon} text={t($ => $.feedback.useful)} />
+        <ToggleButton
+          value={RATING_NEGATIVE}
+          icon={SentimentDissatisfiedOutlinedIcon}
+          text={t($ => $.feedback.notUseful)}
+        />
       </StyledToggleButtonGroup>
     </Stack>
   )

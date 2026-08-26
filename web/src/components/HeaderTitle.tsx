@@ -43,7 +43,7 @@ const HeaderTitle = ({ title, regionsPath }: HeaderTitleProps): ReactElement => 
   }
   return (
     <Tooltip
-      title={t($ => $.changeLocation)}
+      title={t($ => $.layout.changeLocation)}
       open={tooltipOpen}
       onOpen={() => setTooltipOpen(true)}
       onClose={() => setTooltipOpen(false)}>

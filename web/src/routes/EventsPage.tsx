@@ -73,7 +73,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     }
   })
 
-  const pageTitle = `${event?.title ?? t($ => $.pageTitle)} - ${region.name}`
+  const pageTitle = `${event?.title ?? t($ => $.events.pageTitle)} - ${region.name}`
 
   const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
     region,
@@ -124,7 +124,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
               <EventDates event={event} languageCode={languageCode} />
               {location && (
                 <PageDetail
-                  tooltip={t($ => $.address)}
+                  tooltip={t($ => $.events.address)}
                   icon={<LocationIcon />}
                   information={location.fullAddress}
                   path={event.placePath}
@@ -132,7 +132,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
               )}
               {!!meetingUrl && (
                 <PageDetail
-                  tooltip={t($ => $.meetingUrl)}
+                  tooltip={t($ => $.events.meetingUrl)}
                   icon={<LinkIcon />}
                   information={meetingUrl}
                   path={meetingUrl}
@@ -149,7 +149,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
-      <H1>{t($ => $.events)}</H1>
+      <H1>{t($ => $.events.events)}</H1>
       {events ? (
         <EventList events={events} languageCode={languageCode} />
       ) : (

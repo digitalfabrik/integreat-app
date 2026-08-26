@@ -139,12 +139,12 @@ const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): React
       multiline
       minRows={1}
       maxRows={5}
-      placeholder={t($ => $.chatInputHelperText)}
+      placeholder={t($ => $.chat.chatInputHelperText)}
       slotProps={{
         input: {
           endAdornment: (
             <ButtonStack expanded={expanded}>
-              <SendButton onClick={onSubmit} disabled={submitDisabled} aria-label={t($ => $.sendButton)}>
+              <SendButton onClick={onSubmit} disabled={submitDisabled} aria-label={t($ => $.chat.sendButton)}>
                 <SendIcon fontSize={iconFontSize} />
               </SendButton>
               <Stack direction='row'>

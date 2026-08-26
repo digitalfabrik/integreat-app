@@ -40,12 +40,12 @@ const OpeningHoursListItem = ({
       <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'flex-end', gap: 1 }}>
         {openingHours.openAllDay && (
           <Typography variant={variant} sx={{ fontWeight, alignSelf: 'flex-end' }}>
-            {t($ => $.allDay)}
+            {t($ => $.places.allDay)}
           </Typography>
         )}
         {openingHours.closedAllDay && (
           <Typography variant={variant} sx={{ fontWeight, alignSelf: 'flex-end' }}>
-            {t($ => $.closed)}
+            {t($ => $.places.closed)}
           </Typography>
         )}
         {!openingHours.openAllDay && !openingHours.closedAllDay && openingHours.timeSlots.length > 0 && (

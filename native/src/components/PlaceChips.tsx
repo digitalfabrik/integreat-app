@@ -42,11 +42,11 @@ const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
   const barrierFreeChip =
     place.barrierFree === true ? (
       <Chip avatar={<StyledIcon source='wheelchair-accessibility' />} style={styles.chip} mode='outlined'>
-        <Text variant='body2'>{t($ => $.accessible)}</Text>
+        <Text variant='body2'>{t($ => $.common.accessible)}</Text>
       </Chip>
     ) : (
       <Chip avatar={<StyledIcon icon={NotAccessibleIcon} />} style={styles.chip} mode='outlined'>
-        <Text variant='body2'>{t($ => $.notAccessible)}</Text>
+        <Text variant='body2'>{t($ => $.common.notAccessible)}</Text>
       </Chip>
     )
 

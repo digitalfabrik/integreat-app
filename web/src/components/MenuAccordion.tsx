@@ -25,7 +25,7 @@ const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccord
         text={title}
         icon={icon}
         iconEnd={expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-        aria-label={t($ => (expanded ? $.showLess : $.showMore))}
+        aria-label={t($ => (expanded ? $.common.showLess : $.common.showMore))}
       />
       {expanded && (
         <>

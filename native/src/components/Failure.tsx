@@ -34,11 +34,11 @@ const getErrorIcon = (errorCode: ErrorCode) => {
 export const getErrorMessage = (errorCode: ErrorCode, t: TFunction<['error']>): string => {
   switch (errorCode) {
     case ErrorCodes.RegionUnavailable:
-      return t($ => $.notFound.region)
+      return t($ => $.error.notFound.region)
     case ErrorCodes.LanguageUnavailable:
-      return t($ => $.notFound.language)
+      return t($ => $.error.notFound.language)
     default:
-      return t($ => $[errorCode])
+      return t($ => $.error[errorCode])
   }
 }
 
@@ -62,7 +62,7 @@ const Failure = ({ code, retry, goTo, goToLabel }: FailureProps): ReactElement =
       <Text role='alert'>{getErrorMessage(code, t)}</Text>
       {retry && (
         <Button mode='contained' onPress={retry}>
-          {t($ => $.tryAgain)}
+          {t($ => $.error.tryAgain)}
         </Button>
       )}
       <Button onPress={typeof goToAction === 'function' ? goToAction : () => navigateTo(goToAction)} mode='outlined'>

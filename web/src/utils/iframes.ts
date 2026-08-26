@@ -166,7 +166,7 @@ export const handleAllowedIframeSources = (
   const iframeContainer = getIframeContainer(iframeContainerId, mobile, iframe, deviceWidth)
 
   if (permission === undefined) {
-    const message = t($ => $.knownResourceOptIn)
+    const message = t($ => $.consent.knownResourceOptIn)
     showOptIn(message, iframeContainer, supportedSource, addExternalSource, iframeIndex)
   } else if (permission) {
     restoreIframe(iframe, storedIframeSource)
@@ -174,10 +174,10 @@ export const handleAllowedIframeSources = (
     if (supportedSource === 'vimeo.com') {
       addDoNotTrackParameter(iframe)
     }
-    const message = t($ => $.knownResourceContentMessage)
+    const message = t($ => $.consent.knownResourceContentMessage)
     showMessageWithSettings(message, iframeContainer, t, supportedSource, iframeIndex, true)
   } else {
-    const message = t($ => $.knownResourceBlocked)
+    const message = t($ => $.consent.knownResourceBlocked)
     showMessageWithSettings(message, iframeContainer, t, supportedSource, iframeIndex, false)
   }
 }

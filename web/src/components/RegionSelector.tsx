@@ -45,15 +45,17 @@ const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): Re
 
   return (
     <Stack sx={{ maxWidth: 640, paddingTop: 4, gap: 2 }}>
-      <H1>{t($ => $.welcome, { appName: buildConfig().appName })}</H1>
-      <Typography variant='body1'>{t($ => $.welcomeInformation)}</Typography>
+      <H1>{t($ => $.regions.welcome, { appName: buildConfig().appName })}</H1>
+      <Typography variant='body1'>{t($ => $.regions.welcomeInformation)}</Typography>
       <SearchInput
         id='search-region'
-        ariaLabel={t($ => $.searchRegion)}
+        ariaLabel={t($ => $.regions.searchRegion)}
         filterText={filterText}
         placeholderText={exampleRegion?.sortingName ?? REGION_SEARCH_EXAMPLE}
         onFilterTextChange={setFilterText}
-        description={t($ => $.searchRegionDescription, { exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE })}
+        description={t($ => $.regions.searchRegionDescription, {
+          exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE,
+        })}
         autoFocus
       />
       {loading ? (

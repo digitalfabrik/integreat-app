@@ -78,7 +78,7 @@ const EventListItem = ({
   const { t } = useTranslation(['events'])
   const { contentDirection } = useTheme()
   const recurringDateIcon = event.isRecurring ? (
-    <Tooltip title={t($ => $.recurring)}>
+    <Tooltip title={t($ => $.events.recurring)}>
       <EventRepeatOutlinedIcon />
     </Tooltip>
   ) : undefined

@@ -142,7 +142,7 @@ const PlacesMobile = ({
         overlay={
           <>
             {canDeselect && (
-              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t($ => $.backToOverview)}>
+              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t($ => $.places.backToOverview)}>
                 <DirectionDependentBackIcon />
               </StyledIconButton>
             )}

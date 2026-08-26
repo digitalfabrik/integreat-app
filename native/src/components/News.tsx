@@ -62,7 +62,7 @@ const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSource
   useTtsPlayer(selectedNewsItem)
 
   const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
-  useSetRouteTitle({ navigation, title: selectedNewsItem?.title ?? t($ => $.news) })
+  useSetRouteTitle({ navigation, title: selectedNewsItem?.title ?? t($ => $.news.news) })
 
   const rendersNewsListItem = ({ item }: { item: NewsModel }) => (
     <NewsListItem
@@ -109,16 +109,16 @@ const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSource
   return (
     <List
       items={news}
-      noItemsMessage={t($ => $.currentlyNoNews)}
+      noItemsMessage={t($ => $.news.currentlyNoNews)}
       header={
         <ListHeaderContainer>
-          <Caption title={t($ => $.news)} />
+          <Caption title={t($ => $.news.news)} />
           {showNewsSourceFilter && (
             <ToggleTextButtonGroup
               setValue={setSourceFilter}
               value={sourceFilter}
               options={NEWS_SOURCE_FILTERS}
-              getLabel={value => t($ => $[value])}
+              getLabel={value => t($ => $.news[value])}
             />
           )}
         </ListHeaderContainer>

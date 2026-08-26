@@ -30,7 +30,7 @@ const ImprintPage = ({ regionCode, languageCode, region }: RegionRouteProps): Re
     return null
   }
 
-  const pageTitle = `${t($ => $.pageTitle)} - ${region.name}`
+  const pageTitle = `${t($ => $.imprint.pageTitle)} - ${region.name}`
   const languageChangePaths = region.languages.map(({ code, name }) => {
     const imprintPath = pathnameFromRouteInformation({ route: IMPRINT_ROUTE, regionCode, languageCode: code })
     return { path: imprintPath, name, code }

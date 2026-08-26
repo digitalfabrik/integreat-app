@@ -128,7 +128,7 @@ const Header = ({
 
   const goToLanguageChange = () => {
     if (availableLanguages?.length === 1 && availableLanguages[0] === languageCode) {
-      showSnackbar({ text: t($ => $.noTranslation) })
+      showSnackbar({ text: t($ => $.layout.noTranslation) })
     } else if (languages && availableLanguages) {
       navigation.navigate(LANGUAGES_ROUTE, {
         languages,
@@ -153,14 +153,14 @@ const Header = ({
   const items = [
     <HeaderActionItem
       key='search'
-      accessibilityLabel={t($ => $.search)}
+      accessibilityLabel={t($ => $.layout.search)}
       iconName='search'
       visible={showItems}
       onPress={() => navigation.navigate(SEARCH_ROUTE, { searchText: null })}
     />,
     <HeaderActionItem
       key='language'
-      accessibilityLabel={t($ => $.changeLanguage)}
+      accessibilityLabel={t($ => $.layout.changeLanguage)}
       iconName='language'
       visible={showItems || isRegions}
       onPress={goToLanguageChange}
@@ -173,7 +173,7 @@ const Header = ({
       ? [
           <HeaderMenuItem
             key='feedback'
-            title={t($ => $.feedback)}
+            title={t($ => $.layout.feedback)}
             onPress={navigateToFeedback}
             closeMenu={() => setMenuVisible(false)}
             icon='comment-text-outline'
@@ -182,7 +182,7 @@ const Header = ({
       : []),
     <HeaderMenuItem
       key='tts'
-      title={t($ => $.readAloud)}
+      title={t($ => $.layout.readAloud)}
       onPress={showTtsPlayer}
       closeMenu={() => setMenuVisible(false)}
       icon='volume-high'
@@ -214,14 +214,14 @@ const Header = ({
     }
 
     if (isSinglePlaceFromPlacesRoute()) {
-      return { title: t($ => $.locations), language: undefined } // system language
+      return { title: t($ => $.layout.locations), language: undefined } // system language
     }
 
     const eventsRouteParams = route.params as RoutesParamsType[EventsRouteType] | undefined
     const isSingleEvent = !!eventsRouteParams?.slug
     const notFromEventsDeepLink = previousRoute.name === EVENTS_ROUTE
     if (isSingleEvent && notFromEventsDeepLink) {
-      return { title: t($ => $.events), language: undefined } // system language
+      return { title: t($ => $.layout.events), language: undefined } // system language
     }
 
     const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
@@ -235,7 +235,7 @@ const Header = ({
     }
 
     if (previousRoute.name === REGIONS_ROUTE) {
-      return { title: t($ => $.changeLocation), language: undefined } // system language
+      return { title: t($ => $.layout.changeLocation), language: undefined } // system language
     }
 
     if (previousRoute.name === CHAT_ROUTE) {

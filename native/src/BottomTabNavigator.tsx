@@ -136,10 +136,10 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
       options={{
         tabBarLabel: createTabLabel(
           theme,
-          t($ => $.localInformationLabel),
+          t($ => $.layout.localInformationLabel),
         ),
         tabBarIcon: CategoriesIcon,
-        tabBarAccessibilityLabel: t($ => $.localInformationLabel),
+        tabBarAccessibilityLabel: t($ => $.layout.localInformationLabel),
       }}
     />,
     placesEnabled && (
@@ -149,10 +149,10 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         options={{
           tabBarLabel: createTabLabel(
             theme,
-            t($ => $.locations),
+            t($ => $.layout.locations),
           ),
           tabBarIcon: createTabIcon('map-outline'),
-          tabBarAccessibilityLabel: t($ => $.locations),
+          tabBarAccessibilityLabel: t($ => $.layout.locations),
         }}
       />
     ),
@@ -163,10 +163,10 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         options={{
           tabBarLabel: createTabLabel(
             theme,
-            t($ => $.news),
+            t($ => $.layout.news),
           ),
           tabBarIcon: createTabIcon('newspaper'),
-          tabBarAccessibilityLabel: t($ => $.news),
+          tabBarAccessibilityLabel: t($ => $.layout.news),
         }}
       />
     ),
@@ -177,10 +177,10 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         options={{
           tabBarLabel: createTabLabel(
             theme,
-            t($ => $.events),
+            t($ => $.layout.events),
           ),
           tabBarIcon: createTabIcon('calendar-blank-outline'),
-          tabBarAccessibilityLabel: t($ => $.events),
+          tabBarAccessibilityLabel: t($ => $.layout.events),
         }}
       />
     ),

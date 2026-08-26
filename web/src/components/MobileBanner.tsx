@@ -77,11 +77,11 @@ const MobileBanner = (): ReactElement | null => {
           <Stack>
             <Typography variant='subtitle1'>{appName}</Typography>
             <Typography variant='body3'>Tür an Tür - Digitalfabrik gGmbH</Typography>
-            <Typography variant='body3'>{t($ => $.getOnPlayStore)}</Typography>
+            <Typography variant='body3'>{t($ => $.layout.getOnPlayStore)}</Typography>
           </Stack>
         </Stack>
         <Button onClick={checkIfAppIsInstalled} color='inherit'>
-          {t($ => $.view)}
+          {t($ => $.layout.view)}
         </Button>
       </StyledBanner>
     )

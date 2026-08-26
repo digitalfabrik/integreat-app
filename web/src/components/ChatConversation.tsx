@@ -61,7 +61,7 @@ const ChatConversation = ({
   if (messages.length === 0 && !loading) {
     return (
       <Stack sx={{ paddingInline: 3, gap: 1, paddingTop: 2 }}>
-        <Typography variant='subtitle1'>{t($ => $.conversationText)}</Typography>
+        <Typography variant='subtitle1'>{t($ => $.chat.conversationText)}</Typography>
       </Stack>
     )
   }

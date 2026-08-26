@@ -27,10 +27,10 @@ const PdfMenuItem = ({ category, regionCode, languageCode, closeMenu, ...other }
   return (
     <MenuItem
       icon={<DescriptionOutlinedIcon fontSize='small' />}
-      text={t($ => $.createPdf)}
+      text={t($ => $.categories.createPdf)}
       to={pdfUrl}
       disabled={pdfDisabled}
-      tooltip={pdfDisabled ? t($ => $.disabledPdf) : null}
+      tooltip={pdfDisabled ? t($ => $.categories.disabledPdf) : null}
       closeMenu={closeMenu}
       {...other}
     />

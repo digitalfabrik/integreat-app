@@ -35,7 +35,7 @@ const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     return null
   }
 
-  const pageTitle = `${news?.title ?? t($ => $.news)} - ${region.name}`
+  const pageTitle = `${news?.title ?? t($ => $.news.news)} - ${region.name}`
 
   const languageChangePaths = region.languages.map(({ code, name }) => {
     const id = news?.availableLanguages?.[code]

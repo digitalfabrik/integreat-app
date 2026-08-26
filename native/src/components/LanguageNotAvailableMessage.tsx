@@ -40,7 +40,7 @@ const LanguageNotAvailableMessage = ({
 
   return (
     <Text>
-      <Trans ns='layout' i18nKey={$ => $.languageNotAvailableMessage}>
+      <Trans ns='layout' i18nKey={$ => $.layout.languageNotAvailableMessage}>
         This gets replaced
         {canGiveFeedback ? <Link onPress={navigateToFeedback}>by react-i18next</Link> : <Text>by react-i18next</Text>}
       </Trans>

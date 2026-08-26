@@ -54,7 +54,7 @@ const Accordion = ({
       <StyledAccordionSummary
         id={`${id}-header`}
         aria-controls={`${id}-content`}
-        aria-label={t($ => (expanded ? $.showLess : $.showMore))}
+        aria-label={t($ => (expanded ? $.common.showLess : $.common.showMore))}
         expandIcon={<ExpandMoreIcon />}
         tabIndex={0}>
         {typeof title === 'string' ? <Typography variant='subtitle1'>{title}</Typography> : title}

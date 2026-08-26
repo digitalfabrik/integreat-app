@@ -65,7 +65,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
 
     try {
       await RNCalendarEvents.saveEvent(event.title, eventOptions)
-      showSnackbar({ text: t($ => $.added) })
+      showSnackbar({ text: t($ => $.events.added) })
     } catch (e) {
       showSnackbar({ text: t($ => $.error.generalError) })
       captureError(e)
@@ -125,7 +125,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
         />
       )}
       <Button icon='calendar-import' mode='text' style={{ marginVertical: 16 }} onPress={checkCalendarsAndExportEvent}>
-        {t($ => $.addToCalendar)}
+        {t($ => $.events.addToCalendar)}
       </Button>
     </>
   )

@@ -37,7 +37,7 @@ const SuggestToRegionFooter = ({ navigateToSuggestToRegion }: SuggestToRegionFoo
     <FooterContainer>
       <StyledIcon icon={SuggestToRegionIcon} />
       <Text variant='h5' style={{ marginTop: '5%' }}>
-        {t($ => $.regionNotFound)}
+        {t($ => $.regions.regionNotFound)}
       </Text>
       <Button
         mode='outlined'
@@ -50,7 +50,7 @@ const SuggestToRegionFooter = ({ navigateToSuggestToRegion }: SuggestToRegionFoo
           borderColor: theme.colors.primary,
         }}
         onPress={navigateToSuggestToRegion}>
-        {t($ => $.suggestToRegion, { appName: buildConfig().appName })}
+        {t($ => $.regions.suggestToRegion, { appName: buildConfig().appName })}
       </Button>
     </FooterContainer>
   )

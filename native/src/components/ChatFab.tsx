@@ -70,7 +70,7 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
         aria-label={getChatName(buildConfig().appName)}
       />
       {unreadMessageCount > 0 && (
-        <StyledBadge aria-label={t($ => $.unreadMessages, { count: unreadMessageCount })}>
+        <StyledBadge aria-label={t($ => $.chat.unreadMessages, { count: unreadMessageCount })}>
           {unreadMessageCount}
         </StyledBadge>
       )}

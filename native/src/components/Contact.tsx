@@ -26,12 +26,12 @@ const Contact = ({
 
   return (
     <>
-      <Text style={{ marginBottom: 8 }}>{headline ?? t($ => $.contactInformation)}</Text>
+      <Text style={{ marginBottom: 8 }}>{headline ?? t($ => $.places.contactInformation)}</Text>
       {!!website && (
         <PlaceDetailRow
           externalUrl={website}
-          accessibilityLabel={t($ => $.website)}
-          text={t($ => $.website)}
+          accessibilityLabel={t($ => $.places.website)}
+          text={t($ => $.places.website)}
           icon='earth'
           iconEnd='open-in-new'
         />
@@ -39,7 +39,7 @@ const Contact = ({
       {!!phoneNumber && (
         <PlaceDetailRow
           externalUrl={`tel:${phoneNumber}`}
-          accessibilityLabel={t($ => $.phone)}
+          accessibilityLabel={t($ => $.places.phone)}
           text={phoneNumber}
           icon='phone-outline'
         />
@@ -47,7 +47,7 @@ const Contact = ({
       {!!mobileNumber && (
         <PlaceDetailRow
           externalUrl={`tel:${mobileNumber}`}
-          accessibilityLabel={t($ => $.mobilePhone)}
+          accessibilityLabel={t($ => $.places.mobilePhone)}
           text={mobileNumber}
           icon='cellphone'
         />
@@ -55,7 +55,7 @@ const Contact = ({
       {!!email && (
         <PlaceDetailRow
           externalUrl={`mailto:${email}`}
-          accessibilityLabel={t($ => $.eMail)}
+          accessibilityLabel={t($ => $.places.eMail)}
           text={email}
           icon='email-outline'
         />

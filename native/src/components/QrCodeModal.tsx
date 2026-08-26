@@ -46,7 +46,7 @@ const QrCodeModal = ({ modalVisible, closeModal, title, description, content }: 
           width={QR_CODE_SIZE}
           height={QR_CODE_SIZE}
           fill={theme.colors.onSurface}
-          aria-label={t($ => $.qrCode)}
+          aria-label={t($ => $.layout.qrCode)}
         />
         <Text selectable style={styles.text}>
           {content}

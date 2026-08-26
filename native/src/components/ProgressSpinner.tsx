@@ -23,13 +23,13 @@ const ProgressSpinner = (): ReactElement => {
       <Text
         accessibilityLiveRegion='assertive'
         accessibilityState={{ busy: true }}
-        accessibilityLabel={t($ => $.loading)}
+        accessibilityLabel={t($ => $.common.loading)}
         variant='h4'
         style={{
           paddingTop: 24,
           color: theme.colors.onSurface,
         }}>
-        {t($ => $.loading)}
+        {t($ => $.common.loading)}
       </Text>
     </Container>
   )

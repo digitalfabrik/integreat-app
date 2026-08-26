@@ -107,21 +107,21 @@ const TtsPlayer = ({
         <TouchableRipple
           borderless
           role='button'
-          accessibilityLabel={t($ => $.previous)}
+          accessibilityLabel={t($ => $.layout.previous)}
           onPress={playPrevious}
           style={styles.TouchableRippleStyle}>
           <Icon size={28} source='rewind' />
         </TouchableRipple>
         <StyledPlayIconButton
           disabled={disabled}
-          accessibilityLabel={t($ => (isPlaying ? $.pause : $.play))}
+          accessibilityLabel={t($ => (isPlaying ? $.layout.pause : $.layout.play))}
           onPress={() => (isPlaying ? pause() : play())}
           icon={<Icon color={theme.colors.ttsPlayer.playIconColor} source={isPlaying ? 'pause' : 'play'} />}
         />
         <TouchableRipple
           borderless
           role='button'
-          accessibilityLabel={t($ => $.next)}
+          accessibilityLabel={t($ => $.layout.next)}
           onPress={playNext}
           style={styles.TouchableRippleStyle}>
           <Icon size={28} source='fast-forward' />

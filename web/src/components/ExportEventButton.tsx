@@ -45,15 +45,15 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
   return isExporting && isRecurring ? (
     <>
       <RadioGroup
-        caption={t($ => $.addToCalendar)}
+        caption={t($ => $.events.addToCalendar)}
         groupId='recurring'
         selectedValue={exportRecurring ? 'recurring' : 'one'}
         onChange={value => {
           setExportRecurring(value === 'recurring')
         }}
         values={[
-          { key: 'one', label: t($ => $.onlyThisEvent) },
-          { key: 'recurring', label: t($ => $.thisAndAllFutureEvents) },
+          { key: 'one', label: t($ => $.events.onlyThisEvent) },
+          { key: 'recurring', label: t($ => $.events.thisAndAllFutureEvents) },
         ]}
       />
       <ButtonContainer>
@@ -66,7 +66,7 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
           }}
           variant='outlined'
           startIcon={<DownloadIcon />}>
-          {t($ => $.export)}
+          {t($ => $.events.export)}
         </Button>
       </ButtonContainer>
     </>
@@ -74,7 +74,7 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
     <StyledButton
       onClick={() => (isRecurring ? setIsExporting(true) : downloadEventAsIcsFile(event, false))}
       startIcon={<DownloadIcon />}>
-      {t($ => $.export)}
+      {t($ => $.events.export)}
     </StyledButton>
   )
 }

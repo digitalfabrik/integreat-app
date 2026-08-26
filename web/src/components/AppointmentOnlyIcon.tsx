@@ -23,9 +23,9 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
     <Tooltip
       title={
         <Stack>
-          <Typography variant='subtitle1'>{t($ => $.appointmentNecessary)}</Typography>
+          <Typography variant='subtitle1'>{t($ => $.places.appointmentNecessary)}</Typography>
           <Typography variant='body2'>
-            <Trans ns='places' i18nKey={$ => $.makeAppointmentTooltipWithLink}>
+            <Trans ns='places' i18nKey={$ => $.places.makeAppointmentTooltipWithLink}>
               This gets replaced
               {appointmentUrl ? (
                 <StyledLink to={appointmentUrl} highlighted>

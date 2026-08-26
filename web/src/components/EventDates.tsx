@@ -111,7 +111,7 @@ const EventDates = ({
               <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
                 <RepeatIcon color='primary' fontSize='small' />
                 <Typography color='primary' variant='body2'>
-                  {t($ => $.furtherDates)}
+                  {t($ => $.events.furtherDates)}
                 </Typography>
               </Stack>
             }>

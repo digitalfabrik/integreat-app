@@ -32,8 +32,8 @@ const NearbyRegions = ({ regions, language, filterText }: NearbyRegionsProps): R
       <Stack sx={{ paddingBlock: 1 }}>
         <StickyListSubheader stickyTop={stickyTop}>{t($ => $.common.nearby)}</StickyListSubheader>
         <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between', paddingInline: 2 }}>
-          <ListItemText primary={t($ => (userLocation ? $.noNearbyRegions : $.locationError))} />
-          <IconButton aria-label={t($ => $.refresh)} onClick={refresh}>
+          <ListItemText primary={t($ => (userLocation ? $.regions.noNearbyRegions : $.regions.locationError))} />
+          <IconButton aria-label={t($ => $.regions.refresh)} onClick={refresh}>
             <RefreshIcon />
           </IconButton>
         </Stack>

@@ -15,7 +15,7 @@ const PlacePanelHeader = ({ goBack }: PlacePanelHeaderProps): ReactElement => {
   return (
     <Stack direction='row' sx={{ justifyContent: 'space-between' }}>
       {goBack ? (
-        <IconButton onClick={goBack} tabIndex={0} aria-label={t($ => $.backToOverview)}>
+        <IconButton onClick={goBack} tabIndex={0} aria-label={t($ => $.places.backToOverview)}>
           <DirectionDependentBackIcon />
         </IconButton>
       ) : (

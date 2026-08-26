@@ -65,7 +65,7 @@ const PlacesPage = ({ regionCode, languageCode, region, pathname }: RegionRouteP
     )
   }
 
-  const pageTitle = `${place?.title ?? t($ => $.pageTitle)} - ${region.name}`
+  const pageTitle = `${place?.title ?? t($ => $.places.pageTitle)} - ${region.name}`
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams} pageTitle={pageTitle}>

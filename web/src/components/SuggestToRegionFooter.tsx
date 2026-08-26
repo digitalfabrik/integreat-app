@@ -26,13 +26,13 @@ const SuggestToRegionFooter = ({ languageCode }: SuggestToRegionFooterProps): Re
   return (
     <Stack sx={{ alignItems: 'center', padding: 2, gap: 2 }}>
       <Svg src={featureFlag.icon} width={160} height={160} />
-      <Typography variant='body1'>{t($ => $.regionNotFound)}</Typography>
+      <Typography variant='body1'>{t($ => $.regions.regionNotFound)}</Typography>
       <Button
         component={Link}
         to={pathnameFromRouteInformation({ route: SUGGEST_TO_REGION_ROUTE, ...{ languageCode } })}
         variant='outlined'
         sx={{ textAlign: 'center' }}>
-        {t($ => $.suggestToRegion, { appName: buildConfig().appName })}
+        {t($ => $.regions.suggestToRegion, { appName: buildConfig().appName })}
       </Button>
     </Stack>
   )

@@ -65,7 +65,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
                     information={event.location.fullAddress}
                     language={language}
                     path={event.placePath}
-                    accessibilityLabel={t($ => $.address)}
+                    accessibilityLabel={t($ => $.events.address)}
                   />
                 )}
                 {event.meetingUrl !== null && (
@@ -75,7 +75,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
                     information={event.meetingUrl}
                     language={language}
                     path={event.meetingUrl}
-                    accessibilityLabel={t($ => $.meetingUrl)}
+                    accessibilityLabel={t($ => $.events.meetingUrl)}
                   />
                 )}
               </PageDetailsContainer>

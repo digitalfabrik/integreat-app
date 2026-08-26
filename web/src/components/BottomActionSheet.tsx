@@ -95,7 +95,7 @@ const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetP
         <HeaderButton
           dir={contentDirection}
           onClick={toggleFullscreen}
-          aria-label={t($ => $.handle)}
+          aria-label={t($ => $.common.handle)}
           aria-describedby='title'
           aria-expanded={isFullscreen}>
           <HandleIcon sx={{ alignSelf: 'center', transform: 'scaleX(1.5)' }} />

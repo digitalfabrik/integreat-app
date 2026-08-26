@@ -14,7 +14,7 @@ const LanguageNotAvailableMessage = ({
   feedbackAvailable = false,
   close,
 }: LanguageNotAvailableMessageProps): ReactElement => (
-  <Trans ns='layout' i18nKey={$ => $.languageNotAvailableMessage}>
+  <Trans ns='layout' i18nKey={$ => $.layout.languageNotAvailableMessage}>
     This gets replaced
     {feedbackAvailable ? (
       <Link to={`?${toQueryParams({ feedback: RATING_NEGATIVE })}`} onClick={close} highlighted>

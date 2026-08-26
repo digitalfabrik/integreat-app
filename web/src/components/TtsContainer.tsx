@@ -32,7 +32,7 @@ const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactEleme
   const [sentenceIndex, setSentenceIndex] = useState(0)
   const [showHelp, setShowHelp] = useState(false)
   const [isInitializing, setIsInitializing] = useState(false)
-  const title = sentences[0] || t($ => $.nothingToRead)
+  const title = sentences[0] || t($ => $.layout.nothingToRead)
   const canRead = sentences.length > 1
 
   const initializeTts = useCallback(() => {

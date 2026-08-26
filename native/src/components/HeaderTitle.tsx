@@ -46,7 +46,7 @@ const HeaderTitle = ({ title, language, regionsPath }: HeaderTitleProps): ReactE
         borderless
         onPress={regionsPath}
         accessibilityRole='button'
-        accessibilityLabel={`${title} ${t($ => $.changeLocation)}`}>
+        accessibilityLabel={`${title} ${t($ => $.layout.changeLocation)}`}>
         <View style={styles.titleTextContainer}>
           <Text variant='subtitle1' numberOfLines={2} accessibilityLanguage={language} style={{ flexShrink: 1 }}>
             {title}

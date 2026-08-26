@@ -90,10 +90,10 @@ const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps):
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                   }}>
-                  {t($ => $[item.label])}
+                  {t($ => $.layout[item.label])}
                 </Typography>
               ) : (
-                t($ => $[item.label])
+                t($ => $.layout[item.label])
               )
             }
             icon={<item.Icon />}

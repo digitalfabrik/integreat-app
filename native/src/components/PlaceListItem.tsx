@@ -44,7 +44,7 @@ const PlaceListItem = ({ place, language, navigateToPlace, distance, onFocus, vi
         <View>
           {distance !== null && (
             <Text variant='caption' style={{ marginTop: 4 }}>
-              {t($ => $.distanceKilometre, { distance: distance.toFixed(1) })}
+              {t($ => $.places.distanceKilometre, { distance: distance.toFixed(1) })}
             </Text>
           )}
           <Text

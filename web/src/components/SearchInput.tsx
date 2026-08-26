@@ -72,7 +72,7 @@ const SearchInput = ({
                 onClick={() => onFilterTextChange('')}
                 edge='end'
                 size='small'
-                aria-label={t($ => $.clearInput)}>
+                aria-label={t($ => $.common.clearInput)}>
                 <ClearIcon />
               </IconButton>
             </InputAdornment>

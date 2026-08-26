@@ -31,13 +31,13 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
       borderless
       onPress={() => setChecked(!checked)}
       role='checkbox'
-      accessibilityLabel={Platform.OS === 'ios' ? t($ => $.privacyPolicy) : undefined}
+      accessibilityLabel={Platform.OS === 'ios' ? t($ => $.common.privacyPolicy) : undefined}
       accessibilityState={{ checked }}
       style={styles.TouchableRippleStyle}>
       <>
         <Checkbox.Android status={checked ? 'checked' : 'unchecked'} onPress={() => setChecked(!checked)} />
         <Text variant='body2' style={{ flex: 1 }}>
-          <Trans ns='common' i18nKey={$ => $.privacyPolicy}>
+          <Trans ns='common' i18nKey={$ => $.common.privacyPolicy}>
             This gets replaced
             <Link url={privacyUrl}>by react-i18next</Link>
           </Trans>

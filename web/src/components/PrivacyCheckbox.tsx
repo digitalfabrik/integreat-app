@@ -22,7 +22,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked, url }: PrivacyCheckbox
       setChecked={setChecked}
       label={
         <Typography variant='body2'>
-          <Trans ns='common' i18nKey={$ => $.privacyPolicy}>
+          <Trans ns='common' i18nKey={$ => $.common.privacyPolicy}>
             This gets replaced
             <Link to={privacyUrl} highlighted>
               by react-i18next

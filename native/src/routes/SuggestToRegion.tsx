@@ -92,22 +92,22 @@ const SuggestToRegion = (): ReactElement | null => {
   return (
     <Container>
       <Text variant='h4' style={styles.heading}>
-        {t($ => $.callToAction)}
+        {t($ => $.suggestToRegion.callToAction)}
       </Text>
 
       <Text variant='body1' style={{ color: theme.colors.onSurface }}>
-        {t($ => $.explanation)}
+        {t($ => $.suggestToRegion.explanation)}
       </Text>
       {SuggestToRegionIcon && <StyledIcon icon={SuggestToRegionIcon} />}
       <Text variant='h5' style={styles.listHeading}>
-        {t($ => $.whatToDo)}
+        {t($ => $.suggestToRegion.whatToDo)}
       </Text>
       <ListItem>
         <Text variant='body2' style={styles.stepNumber}>
           1
         </Text>
         <Text variant='body1' style={styles.stepExplanation}>
-          {t($ => $.findOutMail)}
+          {t($ => $.suggestToRegion.findOutMail)}
         </Text>
       </ListItem>
       <ListItem>
@@ -115,13 +115,13 @@ const SuggestToRegion = (): ReactElement | null => {
           2
         </Text>
         <Text variant='body1' style={styles.stepExplanation}>
-          {t($ => $.sendText)}
+          {t($ => $.suggestToRegion.sendText)}
         </Text>
       </ListItem>
 
       <View style={{ zIndex: 1 }}>
         <Button icon={CopyIcon} style={styles.copyButton} mode='contained' onPress={copyToClipboard}>
-          {isCopied ? t($ => $.common.copied) : t($ => $.copyText)}
+          {isCopied ? t($ => $.common.copied) : t($ => $.suggestToRegion.copyText)}
         </Button>
       </View>
       <Text variant='body2' style={styles.templateText}>

@@ -153,7 +153,7 @@ const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     }
   })
 
-  const pageTitle = `${category && !category.isRoot() ? category.title : t($ => $.localInformation)} - ${region.name}`
+  const pageTitle = `${category && !category.isRoot() ? category.title : t($ => $.layout.localInformation)} - ${region.name}`
   const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
     region,
     languageChangePaths,

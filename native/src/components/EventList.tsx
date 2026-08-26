@@ -44,7 +44,7 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
 
     return groupEventsByDate(events).map(([key, events]) => {
       const [titleKey, params] = eventGroupTitle(key)
-      return { title: t($ => $[titleKey], params), data: events }
+      return { title: t($ => $.events[titleKey], params), data: events }
     })
   }, [events, filteredEvents, startDate, endDate, t])
 
@@ -76,7 +76,7 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
         stickySectionHeadersEnabled
         ListHeaderComponent={
           <>
-            <Caption title={t($ => $.events)} />
+            <Caption title={t($ => $.events.events)} />
             <EventsDateFilter
               startDate={startDate}
               setStartDate={setStartDate}
@@ -87,7 +87,7 @@ const EventList = ({ events, regionModel, language, navigateTo, refresh }: Event
             />
           </>
         }
-        ListEmptyComponent={<ListEmptyComponent noItemsMessage={t($ => $.currentlyNoEvents)} />}
+        ListEmptyComponent={<ListEmptyComponent noItemsMessage={t($ => $.events.currentlyNoEvents)} />}
         refreshing={false}
         onRefresh={refresh}
         showsVerticalScrollIndicator={false}

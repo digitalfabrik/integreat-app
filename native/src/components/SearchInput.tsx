@@ -56,7 +56,7 @@ const SearchInput = ({
               <TextInput.Icon
                 icon='close'
                 onPress={() => setValue('')}
-                accessibilityLabel={t($ => $.delete)}
+                accessibilityLabel={t($ => $.search.delete)}
                 color={theme.colors.onSurfaceVariant}
               />
             ) : (

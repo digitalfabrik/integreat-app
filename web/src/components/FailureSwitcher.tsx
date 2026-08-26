@@ -18,11 +18,11 @@ import Failure from './Failure'
 export const getErrorMessage = (errorCode: ErrorCode, t: TFunction<['error']>): string => {
   switch (errorCode) {
     case ErrorCodes.RegionUnavailable:
-      return t($ => $.notFound.region)
+      return t($ => $.error.notFound.region)
     case ErrorCodes.LanguageUnavailable:
-      return t($ => $.notFound.language)
+      return t($ => $.error.notFound.language)
     default:
-      return t($ => $[errorCode])
+      return t($ => $.error[errorCode])
   }
 }
 
@@ -48,31 +48,31 @@ const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
         case 'route':
           return {
             goToPath: regionContentPath(params),
-            goToMessage: t($ => $.goTo.categories),
-            errorMessage: t($ => $.notFound.category),
+            goToMessage: t($ => $.error.goTo.categories),
+            errorMessage: t($ => $.error.notFound.category),
           }
         case 'event':
           return {
             goToPath: pathnameFromRouteInformation({ route: EVENTS_ROUTE, ...params }),
-            goToMessage: t($ => $.goTo.events),
-            errorMessage: t($ => $.notFound.event),
+            goToMessage: t($ => $.error.goTo.events),
+            errorMessage: t($ => $.error.notFound.event),
           }
         case 'news':
           return {
             goToPath: pathnameFromRouteInformation({ route: NEWS_ROUTE, ...params }),
-            goToMessage: t($ => $.goTo.news),
-            errorMessage: t($ => $.notFound.news),
+            goToMessage: t($ => $.error.goTo.news),
+            errorMessage: t($ => $.error.notFound.news),
           }
         case 'place':
           return {
             goToPath: pathnameFromRouteInformation({ route: PLACES_ROUTE, ...params }),
-            goToMessage: t($ => $.goTo.places),
-            errorMessage: t($ => $.notFound.place),
+            goToMessage: t($ => $.error.goTo.places),
+            errorMessage: t($ => $.error.notFound.place),
           }
         case 'region':
           return {
             goToPath: pathnameFromRouteInformation({ route: REGIONS_ROUTE, ...params }),
-            errorMessage: t($ => $.notFound.region),
+            errorMessage: t($ => $.error.notFound.region),
           }
       }
     }

@@ -235,7 +235,7 @@ const MapView = ({
             />
           }
           onPress={onRequestLocation}
-          accessibilityLabel={t($ => $.showOwnLocation)}
+          accessibilityLabel={t($ => $.places.showOwnLocation)}
         />
       </ControlsContainer>
     </OuterWrapper>

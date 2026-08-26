@@ -48,7 +48,7 @@ const PlaceListItem = ({ place, distance, onClick }: PlaceListItemProps): ReactE
           secondary={
             <>
               {distance !== null && (
-                <StyledText>{t($ => $.distanceKilometre, { distance: distance.toFixed(1) })}</StyledText>
+                <StyledText>{t($ => $.places.distanceKilometre, { distance: distance.toFixed(1) })}</StyledText>
               )}
               <StyledText>{category.name}</StyledText>
             </>

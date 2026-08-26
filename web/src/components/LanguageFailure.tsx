@@ -29,7 +29,7 @@ const LanguageFailure = ({ regionModel, languageCode, languageChangePaths }: Lan
   return (
     <>
       <H1>{regionModel.name}</H1>
-      <ChooseLanguage>{t($ => $.notFound.language)}</ChooseLanguage>
+      <ChooseLanguage>{t($ => $.error.notFound.language)}</ChooseLanguage>
       <LanguageSelection
         openAlertDialog={setAlertDialogTitle}
         languageCode={languageCode}
