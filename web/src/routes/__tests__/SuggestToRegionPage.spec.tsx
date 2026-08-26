@@ -11,8 +11,6 @@ Object.assign(navigator, {
   },
 })
 
-jest.mock('react-i18next')
-
 describe('SuggestToRegionPage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -30,10 +28,10 @@ describe('SuggestToRegionPage', () => {
 
   it('should handle button click correctly', async () => {
     const { getByText, queryByText } = renderPage()
-    expect(queryByText('suggestToRegion:common:copied')).toBeNull()
+    expect(queryByText('common:copied')).toBeNull()
     const button = getByText('suggestToRegion:copyText')
     fireEvent.click(button)
-    await waitFor(() => expect(getByText('suggestToRegion:common:copied')).toBeDefined())
+    await waitFor(() => expect(getByText('common:copied')).toBeDefined())
     expect(navigator.clipboard.writeText).toHaveBeenCalled()
   })
 })

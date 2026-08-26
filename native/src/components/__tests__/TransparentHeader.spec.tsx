@@ -20,11 +20,6 @@ jest.mock(
       </View>
     ),
 )
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-  }),
-}))
 
 describe('TransparentHeader', () => {
   beforeEach(() => {
@@ -50,7 +45,7 @@ describe('TransparentHeader', () => {
   it('should show back button and navigate back on click if stack exists', () => {
     const props = buildProps(1)
     const { getByLabelText } = render(<TransparentHeader {...props} />)
-    fireEvent.press(getByLabelText('back'))
+    fireEvent.press(getByLabelText('common:back'))
     expect(props.navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
@@ -73,8 +68,8 @@ describe('TransparentHeader', () => {
     const { getByTestId, getByText } = render(<TransparentHeader {...props} />)
 
     fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText('share'))
+    fireEvent.press(getByText('layout:share'))
 
-    expect(showSnackbar).toHaveBeenCalledWith({ text: 'generalError' })
+    expect(showSnackbar).toHaveBeenCalledWith({ text: 'error:generalError' })
   })
 })

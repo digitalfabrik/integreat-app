@@ -7,8 +7,6 @@ import { AMAL_NEWS_SOURCE, LOCAL_NEWS_SOURCE, NewsModel, NewsSource, TU_NEWS_SOU
 import render from '../../testing/render'
 import NewsListItem from '../NewsListItem'
 
-jest.mock('react-i18next')
-
 const buildNews = (source: NewsSource = LOCAL_NEWS_SOURCE) =>
   new NewsModel({
     id: 'local-217',
@@ -42,7 +40,7 @@ describe('NewsListItem', () => {
   })
 
   it.each([
-    [LOCAL_NEWS_SOURCE, 'local'],
+    [LOCAL_NEWS_SOURCE, 'news:local'],
     [TU_NEWS_SOURCE, 'tuenews'],
     [AMAL_NEWS_SOURCE, 'Amal News'],
   ] as const)('should render the source chip for %s', (source, label) => {

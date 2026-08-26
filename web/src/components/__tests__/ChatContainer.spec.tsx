@@ -11,13 +11,6 @@ import { renderRoute } from '../../testing/render'
 import { chatIdKey, chatSeenMessagesKey } from '../../utils/chat'
 import ChatContainer from '../ChatContainer'
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: (namespace?: string) => ({
-    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
-  }),
-  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
-}))
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
   uuid: jest.fn(() => '11111111-2222-3333-4444-555555555555'),
@@ -62,7 +55,7 @@ describe('ChatContainer', () => {
 
     expect(getByText('chat:conversationText')).toBeTruthy()
 
-    fireEvent.click(getByLabelText('layout:common:minimize'))
+    fireEvent.click(getByLabelText('common:minimize'))
 
     expect(router.state.location.search).toBe('?test=asdf')
 
@@ -82,7 +75,7 @@ describe('ChatContainer', () => {
 
     fireEvent.click(chatButtonContainer!)
 
-    const minimizeButton = getByLabelText('layout:common:minimize')
+    const minimizeButton = getByLabelText('common:minimize')
 
     fireEvent.click(minimizeButton)
 
@@ -211,7 +204,7 @@ describe('ChatContainer', () => {
       },
     )
 
-    expect(queryByLabelText('layout:common:minimize')).toBeNull()
+    expect(queryByLabelText('common:minimize')).toBeNull()
     expect(queryByText(getChatName('IntegreatTestCms'))).toBeNull()
     expect(queryByText('chat:subtitle')).toBeNull()
   })
@@ -226,7 +219,7 @@ describe('ChatContainer', () => {
       },
     )
 
-    expect(getByLabelText('layout:common:minimize')).toBeTruthy()
+    expect(getByLabelText('common:minimize')).toBeTruthy()
     expect(getByText(getChatName('IntegreatTestCms'))).toBeTruthy()
     expect(getByText('chat:subtitle')).toBeTruthy()
   })

@@ -7,7 +7,6 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import BackToRegionButton from '../BackToRegionButton'
 
 const mockNavigate = jest.fn()
-jest.mock('react-i18next')
 jest.mock('../../hooks/useDimensions')
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),

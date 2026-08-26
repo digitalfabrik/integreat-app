@@ -10,8 +10,6 @@ import { renderRoute } from '../../testing/render'
 import CustomAdapterLuxon from '../../utils/CustomAdapterLuxon'
 import DatePicker, { CustomDatePickerProps } from '../DatePicker'
 
-jest.mock('react-i18next')
-
 describe('DatePicker', () => {
   const setDate = jest.fn()
   const routePattern = `/:regionCode/:languageCode/${RoutePatterns[EVENTS_ROUTE]}`

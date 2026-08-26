@@ -5,8 +5,6 @@ import TestingAppContext from '../../testing/TestingAppContext'
 import render from '../../testing/render'
 import ChatHighlightPopup from '../ChatHighlightPopup'
 
-jest.mock('react-i18next')
-
 describe('ChatHighlightPopup', () => {
   const chatName = 'Frag Integreat'
 
@@ -17,7 +15,7 @@ describe('ChatHighlightPopup', () => {
       </TestingAppContext>,
     )
 
-    expect(getByText('welcomeGreeting 👋')).toBeTruthy()
+    expect(getByText('chat:welcomeGreeting 👋')).toBeTruthy()
     expect(getByText('chat:welcomeText')).toBeTruthy()
   })
 
@@ -28,7 +26,7 @@ describe('ChatHighlightPopup', () => {
       </TestingAppContext>,
     )
 
-    expect(queryByText('welcomeGreeting 👋')).toBeFalsy()
+    expect(queryByText('chat:welcomeGreeting 👋')).toBeFalsy()
     expect(queryByText('chat:welcomeText')).toBeFalsy()
   })
 

@@ -3,8 +3,6 @@ import React from 'react'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import MainImprintPage from '../MainImprintPage'
 
-jest.mock('react-i18next')
-
 describe('MainImprintPage', () => {
   const languageCode = 'de'
 

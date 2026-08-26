@@ -5,12 +5,15 @@ import { IMAGE_VIEW_MODAL_ROUTE, REGIONS_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'sha
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import openExternalUrl from '../../utils/openExternalUrl'
 import useNavigate from '../useNavigate'
 import useNavigateToLink from '../useNavigateToLink'
 import useSnackbar from '../useSnackbar'
 
-jest.mock('../../utils/openExternalUrl')
+const openExternalUrl = jest.fn()
+jest.mock('../../utils/openExternalUrl', () => ({
+  __esModule: true,
+  default: () => openExternalUrl,
+}))
 jest.mock('../useNavigate')
 jest.mock('../useSnackbar')
 
@@ -104,7 +107,7 @@ describe('useNavigateToLink', () => {
     const url = 'https://example.com'
     renderMockComponent(url)
     expect(openExternalUrl).toHaveBeenCalledTimes(1)
-    expect(openExternalUrl).toHaveBeenCalledWith(url, expect.any(Function))
+    expect(openExternalUrl).toHaveBeenCalledWith(url)
     expect(navigation.navigate).not.toHaveBeenCalled()
     expect(navigateTo).not.toHaveBeenCalled()
   })

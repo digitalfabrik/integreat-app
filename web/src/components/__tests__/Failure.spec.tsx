@@ -3,8 +3,6 @@ import React from 'react'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import Failure from '../Failure'
 
-jest.mock('react-i18next')
-
 describe('Failure', () => {
   it('should render a simple failure and match snapshot', () => {
     const errorMessage = 'error message'
@@ -12,7 +10,7 @@ describe('Failure', () => {
 
     const link = getByText('error:goTo.start')
     expect(link.closest('a')).toHaveAttribute('href', '/')
-    expect(getByText(`error:${errorMessage}`)).toBeTruthy()
+    expect(getByText(errorMessage)).toBeTruthy()
   })
 
   it('should render a failure with goToPath and goToMessage and match snapshot', () => {
@@ -23,8 +21,8 @@ describe('Failure', () => {
     }
     const { getByText } = renderWithRouterAndTheme(<Failure {...error} />)
 
-    const link = getByText(`error:${error.goToMessage}`)
+    const link = getByText(error.goToMessage)
     expect(link.closest('a')).toHaveAttribute('href', error.goToPath)
-    expect(getByText(`error:${error.errorMessage}`)).toBeTruthy()
+    expect(getByText(error.errorMessage)).toBeTruthy()
   })
 })

@@ -6,6 +6,7 @@ import { Translation } from 'react-i18next'
 import BrowserLanguageDetector from '../../utils/BrowserLanguageDetector'
 import I18nProvider from '../I18nProvider'
 
+jest.mock('react-i18next', () => jest.requireActual('react-i18next'))
 jest.mock('../../utils/BrowserLanguageDetector')
 jest.mock('translations', () => ({
   ...jest.requireActual('translations'),

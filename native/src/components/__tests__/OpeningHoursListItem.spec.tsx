@@ -6,7 +6,6 @@ import { OpeningHoursModel } from 'shared/api'
 import renderWithTheme from '../../testing/render'
 import OpeningHoursListItem from '../OpeningHoursListItem'
 
-jest.mock('react-i18next')
 jest.mock('../AppointmentOnlyOverlay', () => {
   const React = require('react')
   const { Text, TouchableOpacity } = require('react-native')
@@ -56,7 +55,7 @@ describe('OpeningEntry', () => {
 
   it('should display all day opened for the weekday if allDay flag is true', () => {
     const { getByText, queryByText } = renderOpeningEntries(true, false, false, false)
-    expect(getByText('allDay')).toBeTruthy()
+    expect(getByText('places:allDay')).toBeTruthy()
     expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
     expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
     expect(queryByText('places:closed')).toBeFalsy()
@@ -64,7 +63,7 @@ describe('OpeningEntry', () => {
 
   it('should display closed for the weekday if closed flag is true', () => {
     const { getByText, queryByText } = renderOpeningEntries(false, true, false, false)
-    expect(getByText('closed')).toBeTruthy()
+    expect(getByText('places:closed')).toBeTruthy()
     expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
     expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
     expect(queryByText('places:allDay')).toBeFalsy()
@@ -84,7 +83,7 @@ describe('OpeningEntry', () => {
   it('should show that the location is only open with an appointment and toggle the overlay', async () => {
     const user = userEvent.setup()
     const { getByLabelText, getByText, queryByText } = renderOpeningEntries(false, false, false, true)
-    const appointmentOnlyIcon = getByLabelText('appointmentNecessary')
+    const appointmentOnlyIcon = getByLabelText('places:appointmentNecessary')
     expect(appointmentOnlyIcon).toBeDefined()
     expect(queryByText('places:makeAppointmentTooltipWithLink')).toBeNull()
 

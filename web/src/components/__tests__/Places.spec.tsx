@@ -10,7 +10,6 @@ import Places from '../Places'
 
 jest.mock('../MapView')
 jest.mock('../Page')
-jest.mock('react-i18next')
 
 describe('Places', () => {
   const places = new PlaceModelBuilder(3).build()
@@ -56,7 +55,7 @@ describe('Places', () => {
     expect(queryByText(place1.title)).toBeFalsy()
     expect(queryByText(place2.title)).toBeFalsy()
 
-    fireEvent.click(getByText('error:places:backToOverview'))
+    fireEvent.click(getByText('places:backToOverview'))
 
     expect(getByText(place0.title)).toBeTruthy()
 

@@ -6,8 +6,6 @@ import { ChatMessageModel } from 'shared/api'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import ChatConversation from '../ChatConversation'
 
-jest.mock('react-i18next')
-
 window.HTMLElement.prototype.scrollIntoView = jest.fn()
 jest.useFakeTimers()
 

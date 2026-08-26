@@ -33,11 +33,6 @@ jest.mock(
       </View>
     ),
 )
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string, params: { message: string } | undefined) => (params ? `${key}: ${params.message}` : key),
-  }),
-}))
 jest.mock('styled-components')
 jest.mock('@react-native-community/netinfo')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
@@ -115,11 +110,11 @@ describe('Header', () => {
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
     })
-    fireEvent.press(getByLabelText(t('search')))
+    fireEvent.press(getByLabelText(t('layout:search')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(1))
     expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: null })
 
-    fireEvent.press(getByLabelText(t('changeLanguage')))
+    fireEvent.press(getByLabelText(t('layout:changeLanguage')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(2))
     expect(navigation.navigate).toHaveBeenCalledWith(LANGUAGES_ROUTE, {
       availableLanguages: defaultAvailableLanguages,
@@ -135,21 +130,21 @@ describe('Header', () => {
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
     })
-    expect(queryByLabelText(t('search'))).toBeNull()
-    expect(queryByLabelText(t('changeLanguage'))).toBeNull()
+    expect(queryByLabelText(t('layout:search'))).toBeNull()
+    expect(queryByLabelText(t('layout:changeLanguage'))).toBeNull()
   })
 
   it('should show back button and navigate back on click', () => {
     mockPreviousRoute(true)
     const { getByLabelText } = renderHeader({})
-    fireEvent.press(getByLabelText('back'))
+    fireEvent.press(getByLabelText('common:back'))
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
   it('should not show back button if it is the home', () => {
     mockPreviousRoute(false)
     const { queryByLabelText } = renderHeader({})
-    expect(queryByLabelText('back')).toBeFalsy()
+    expect(queryByLabelText('common:back')).toBeFalsy()
   })
 
   it('should show location change button even when tab history exists', () => {
@@ -170,7 +165,7 @@ describe('Header', () => {
       languages: languageModels,
       availableLanguages: [languageModel.code],
     })
-    fireEvent.press(getByLabelText(t('changeLanguage')))
+    fireEvent.press(getByLabelText(t('layout:changeLanguage')))
     expect(navigation.navigate).not.toHaveBeenCalled()
     await waitFor(() => expect(showSnackbar).toHaveBeenCalledWith({ text: 'layout:noTranslation' }))
     expect(showSnackbar).toHaveBeenCalledTimes(1)
@@ -189,11 +184,11 @@ describe('Header', () => {
     const { getByTestId, getByText } = renderHeader({})
 
     fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share')))
+    fireEvent.press(getByText(t('layout:share')))
 
     expect(Share.share).toHaveBeenCalled()
 
-    expect(showSnackbar).toHaveBeenCalledWith({ text: 'generalError' })
+    expect(showSnackbar).toHaveBeenCalledWith({ text: 'error:generalError' })
   })
 
   it('should create proper share message including page title', () => {
@@ -201,10 +196,10 @@ describe('Header', () => {
       route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: defaultPageTitle } },
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share')))
+    fireEvent.press(getByText(t('layout:share')))
 
     expect(Share.share).toHaveBeenCalledWith({
-      message: 'shareMessage: Test Category - Stadt Augsburg\nhttps://example.com/share',
+      message: 'layout:shareMessage',
       title: 'Test Category - Stadt Augsburg',
     })
   })
@@ -217,11 +212,11 @@ describe('Header', () => {
       route: { key: 'key-0', name: IMPRINT_ROUTE },
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share')))
+    fireEvent.press(getByText(t('layout:share')))
 
     expect(Share.share).toHaveBeenCalledWith({
-      message: 'shareMessage: imprint - Stadt Augsburg\nhttps://example.com/share',
-      title: 'imprint - Stadt Augsburg',
+      message: 'layout:shareMessage',
+      title: 'categories:imprint - Stadt Augsburg',
     })
   })
 
@@ -233,10 +228,10 @@ describe('Header', () => {
       route: { key: 'key-0', name: PLACES_ROUTE, params: { title: 'Stadt Augsburg' } },
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share')))
+    fireEvent.press(getByText(t('layout:share')))
 
     expect(Share.share).toHaveBeenCalledWith({
-      message: 'shareMessage: Stadt Augsburg\nhttps://example.com/share',
+      message: 'layout:shareMessage',
       title: 'Stadt Augsburg',
     })
   })

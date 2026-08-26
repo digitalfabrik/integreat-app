@@ -12,7 +12,6 @@ import { renderRoute } from '../../testing/render'
 import EventsPage from '../EventsPage'
 import { RoutePatterns } from '../index'
 
-jest.mock('react-i18next')
 jest.mock('../../hooks/useQueryFromEndpoint')
 jest.mock('../../hooks/useTtsPlayer', () => jest.fn())
 jest.mock('../../hooks/useJsonLd', () => jest.fn())

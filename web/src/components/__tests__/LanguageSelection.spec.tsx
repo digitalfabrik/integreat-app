@@ -3,10 +3,6 @@ import React from 'react'
 import { renderRoute } from '../../testing/render'
 import LanguageSelection, { LanguageChangePath } from '../LanguageSelection'
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({ t: (key: string) => key }),
-}))
-
 describe('LanguageSelection', () => {
   const routePattern = '/:regionCode/:languageCode/events'
   const pathname = '/augsburg/de/events'

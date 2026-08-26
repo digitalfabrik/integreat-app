@@ -4,8 +4,6 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import { BreadcrumbProps } from '../Breadcrumb'
 import Breadcrumbs from '../Breadcrumbs'
 
-jest.mock('react-i18next')
-
 const breadcrumb0: BreadcrumbProps = {
   title: 'Landkreis München',
   to: '/lkmuenchen/de',

@@ -10,7 +10,6 @@ import Places, { PlaceHistory } from '../Places'
 
 jest.mock('../../components/MapView')
 jest.mock('../../components/Page')
-jest.mock('react-i18next')
 jest.mock('styled-components')
 jest.mock('@react-native-community/geolocation')
 jest.mock('@gorhom/bottom-sheet', () => ({
@@ -69,7 +68,7 @@ describe('Places', () => {
   it('should show pageNotFound for invalid slug and hide place list', () => {
     const { getByText, queryByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
 
-    expect(getByText('pageNotFound')).toBeTruthy()
+    expect(getByText('error:pageNotFound')).toBeTruthy()
     expect(queryByText(place0.title)).toBeFalsy()
     expect(queryByText(place1.title)).toBeFalsy()
     expect(queryByText(place2.title)).toBeFalsy()
@@ -144,7 +143,7 @@ describe('Places', () => {
   it('should call push when backToOverview is pressed for an invalid slug', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
 
-    fireEvent.press(getByText('backToOverview'))
+    fireEvent.press(getByText('places:backToOverview'))
 
     expect(localHistory.push).toHaveBeenCalledWith({})
   })
@@ -152,7 +151,7 @@ describe('Places', () => {
   it('should call push with multiPlace when backToOverview is pressed with both multiPlace and invalid slug', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, multiPlace: 0, slug: 'invalid' })
 
-    fireEvent.press(getByText('backToOverview'))
+    fireEvent.press(getByText('places:backToOverview'))
 
     expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: 0 })
   })
@@ -160,7 +159,7 @@ describe('Places', () => {
   it('should call push with showFilterSelection when adjustFilters is pressed', () => {
     const { localHistory, getByText } = renderPlaces()
 
-    fireEvent.press(getByText('adjustFilters'))
+    fireEvent.press(getByText('places:adjustFilters'))
 
     expect(localHistory.push).toHaveBeenCalledWith({ showFilterSelection: true })
   })
@@ -177,7 +176,7 @@ describe('Places', () => {
   it('should pop the filter modal entry before pushReset when showPlaces is pressed', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByText('showPlaces'))
+    fireEvent.press(getByText('places:showPlaces'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
     expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
@@ -194,7 +193,7 @@ describe('Places', () => {
     const { localHistory, getByRole, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
     fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
-    fireEvent.press(getByText('showPlaces'))
+    fireEvent.press(getByText('places:showPlaces'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
     expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
@@ -218,7 +217,7 @@ describe('Places', () => {
   it('should call pushReset to clear currentlyOpen when currentlyOpen chip is pressed', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, currentlyOpen: true })
 
-    fireEvent.press(getByText('opened'))
+    fireEvent.press(getByText('places:opened'))
 
     expect(localHistory.pushReset).toHaveBeenCalledWith({
       placeCategoryId: undefined,
@@ -249,7 +248,7 @@ describe('Places', () => {
     const { getByRole, getByText, getAllByText, rerender } = renderWithTheme(initial.element)
 
     fireEvent.press(getByRole('switch', { name: 'Gastronomie' }))
-    fireEvent.press(getByText('showPlaces'))
+    fireEvent.press(getByText('places:showPlaces'))
     expect(initial.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: place0.category.id,
       currentlyOpen: false,
@@ -267,7 +266,7 @@ describe('Places', () => {
     const reopened = renderAt({ ...resetHistory, showFilterSelection: true })
     rerender(reopened.element)
 
-    fireEvent.press(getByText('showPlaces'))
+    fireEvent.press(getByText('places:showPlaces'))
     expect(reopened.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: undefined,
       currentlyOpen: false,
