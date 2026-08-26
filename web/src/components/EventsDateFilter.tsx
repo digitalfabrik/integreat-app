@@ -30,7 +30,7 @@ const EventsDateFilter = ({
   resetDates,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
-  const { t } = useTranslation(['events'])
+  const { t } = useTranslation()
 
   const formattedStartDate = startDate?.toFormat('dd.MM.yyyy') ?? '∞'
   const formattedEndDate = endDate?.toFormat('dd.MM.yyyy') ?? '∞'

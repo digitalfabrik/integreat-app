@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { AccessibilityInfo, Platform } from 'react-native'
 
 const useAnnounceSearchResultsIOS = <T>(searchResults: T[] | null | undefined): void => {
-  const { t } = useTranslation(['search'])
+  const { t } = useTranslation()
 
   useEffect(() => {
     // iOS doesn't have live regions to inform a user with a screenreader that there are no more search results

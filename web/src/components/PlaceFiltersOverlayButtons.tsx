@@ -23,7 +23,7 @@ const PlaceFiltersOverlayButtons = ({
   setPlaceCategoryFilter,
   setShowFilterSelection,
 }: PlaceFiltersOverlayButtonsProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   return (
     <>
       <Chip

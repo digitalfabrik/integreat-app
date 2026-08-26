@@ -35,7 +35,7 @@ const MobileBanner = (): ReactElement | null => {
   const appStoreUrl = `https://play.google.com/store/apps/details?id=${apps?.android.applicationId}`
   const userAgent = navigator.userAgent
   const isAndroid = Boolean(/android/i.test(userAgent))
-  const { t } = useTranslation(['layout', 'common'])
+  const { t } = useTranslation()
   // We don't want to show the banner for the Obdach because it doesn't have a mobile version
   const appNameWithoutObdach = appName !== webObdachBuildConfig.appName
 

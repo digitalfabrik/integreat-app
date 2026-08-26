@@ -31,7 +31,7 @@ const HeaderMenu = ({
   setVisible,
 }: HeaderMenuProps): ReactElement | null => {
   const theme = useTheme()
-  const { t } = useTranslation(['layout', 'common', 'error'])
+  const { t } = useTranslation()
   const showSnackbar = useSnackbar()
   const [qrModalVisible, setQrModalVisible] = useState(false)
 

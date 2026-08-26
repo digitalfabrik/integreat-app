@@ -16,7 +16,7 @@ type PdfMenuItemProps = {
 }
 
 const PdfMenuItem = ({ category, regionCode, languageCode, closeMenu, ...other }: PdfMenuItemProps): ReactElement => {
-  const { t } = useTranslation(['categories'])
+  const { t } = useTranslation()
   const pdfDisabled = config.hasRTLScript(languageCode)
 
   const pdfUrl =

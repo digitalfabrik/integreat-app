@@ -34,7 +34,7 @@ const LanguageListItem = ({
   selectedLanguageCode,
   onUnavailableLanguageClick,
 }: SelectorProps): ReactElement => {
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const { contentDirection } = useTheme()
 
   return path ? (

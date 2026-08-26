@@ -44,7 +44,7 @@ type BreadcrumbsProps = {
 const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => {
   const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLButtonElement | null>(null)
   const { xsmall } = useDimensions()
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
 
   const openMenu = (event: React.MouseEvent<HTMLButtonElement>) => setMenuAnchorElement(event.currentTarget)
   const closeMenu = () => setMenuAnchorElement(null)

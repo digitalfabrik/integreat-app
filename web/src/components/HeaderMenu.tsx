@@ -51,7 +51,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const [qrShareOpen, setQrShareOpen] = React.useState<boolean>(false)
   const { regionCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
-  const { t } = useTranslation(['layout', 'common', 'settings'])
+  const { t } = useTranslation()
 
   useImperativeHandle(ref, () => ({ closeMenu: () => setMenuAnchorElement(null) }))
 

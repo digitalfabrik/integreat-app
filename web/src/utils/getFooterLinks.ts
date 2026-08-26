@@ -8,7 +8,7 @@ import buildConfig from '../constants/buildConfig'
 type GetFooterLinksProps = {
   languageCode: string
   regionCode?: string
-  t: TFunction<['layout', 'settings']>
+  t: TFunction
 }
 
 const getFooterLinks = ({ languageCode, regionCode, t }: GetFooterLinksProps): FooterLinkItemProps[] => {

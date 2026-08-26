@@ -75,7 +75,7 @@ const EventDates = ({
   compact = false,
 }: EventDatesProps): ReactElement => {
   const [expansionCount, setExpansionCount] = useState(1)
-  const { t } = useTranslation(['events', 'common', 'places'])
+  const { t } = useTranslation()
   const { contentDirection } = useTheme()
   const { mobile } = useDimensions()
 

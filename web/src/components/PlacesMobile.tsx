@@ -98,7 +98,7 @@ const PlacesMobile = ({
   const { places, place, mapFeatures, mapFeature } = data
   const dimensions = useDimensions()
   const canDeselect = !!mapFeature || !!slug
-  const { t } = useTranslation(['places', 'common'])
+  const { t } = useTranslation()
 
   const scrollToTop = () => {
     if (sheetRef.current?.scrollElement) {

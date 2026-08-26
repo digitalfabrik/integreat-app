@@ -21,7 +21,7 @@ type SlideFooterProps = {
   currentSlide: number
   goToSlide: (index: number) => void
   onDone: () => void
-  t: TFunction<['intro']>
+  t: TFunction
 }
 
 const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFooterProps): ReactElement => {

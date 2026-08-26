@@ -39,7 +39,7 @@ const Accordion = ({
   headingComponent = 'h2',
 }: AccordionProps): ReactElement => {
   const [expanded, setExpanded] = useState(!defaultCollapsed)
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
 
   return (
     <StyledAccordion

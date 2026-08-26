@@ -14,7 +14,7 @@ const WAIT_UNTIL_IN_APP_BROWSER_CLOSED = 100
 
 type OpenExternalUrlProps = {
   showSnackbar: (snackbar: SnackbarType) => void
-  t: TFunction<['error']>
+  t: TFunction
 }
 
 export const openExternalUrl = async (rawUrl: string, { showSnackbar, t }: OpenExternalUrlProps): Promise<void> => {
@@ -59,7 +59,7 @@ export const openExternalUrl = async (rawUrl: string, { showSnackbar, t }: OpenE
 }
 
 const useOpenExternalUrl = (): ((rawUrl: string) => void) => {
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
   const showSnackbar = useSnackbar()
 
   return useCallback(

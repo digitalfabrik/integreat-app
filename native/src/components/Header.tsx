@@ -77,7 +77,7 @@ const Header = ({
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
   const { languageCode, regionCode } = useContext(AppContext)
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const showSnackbar = useSnackbar()
   // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
   const [previousRouteKey] = useState(() => {

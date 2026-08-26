@@ -97,7 +97,7 @@ type ChatInputProps = {
 }
 
 const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): ReactElement => {
-  const { t } = useTranslation(['chat', 'layout', 'settings'])
+  const { t } = useTranslation()
   const { desktop } = useDimensions()
   const iconFontSize = desktop ? 'large' : 'medium'
   const [expanded, setExpanded] = useState(false)

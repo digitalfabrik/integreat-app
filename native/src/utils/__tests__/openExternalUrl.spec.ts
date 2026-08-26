@@ -25,7 +25,7 @@ describe('openExternalUrl', () => {
     jest.clearAllMocks()
   })
 
-  const t = ((key: string) => key) as TFunction<['error']>
+  const t = ((key: string) => key) as TFunction
 
   const showSnackbar = jest.fn()
 

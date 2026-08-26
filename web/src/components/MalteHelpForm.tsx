@@ -51,7 +51,7 @@ const MalteHelpForm = ({
   regionCode,
   malteHelpFormOffer,
 }: MalteHelpFormProps): ReactElement => {
-  const { t } = useTranslation(['malteHelpForm', 'common', 'error'])
+  const { t } = useTranslation()
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const [submitted, setSubmitted] = useState(false)

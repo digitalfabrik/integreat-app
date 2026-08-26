@@ -12,7 +12,7 @@ import { useAppContext } from '../hooks/useRegionAppContext'
 
 const Consent = (): ReactElement | null => {
   const { settings, updateSettings } = useAppContext()
-  const { t } = useTranslation(['consent'])
+  const { t } = useTranslation()
   const { externalSourcePermissions } = settings
 
   const onPress = (source: string) => {

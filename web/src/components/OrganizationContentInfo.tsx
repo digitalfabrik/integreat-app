@@ -28,7 +28,7 @@ type OrganizationContentInfoProps = {
 
 const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps): ReactElement => {
   const { mobile } = useDimensions()
-  const { t } = useTranslation(['categories'])
+  const { t } = useTranslation()
 
   return (
     <StyledCard elevation={2}>

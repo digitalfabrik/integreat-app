@@ -25,7 +25,7 @@ type PrivacyCheckboxProps = {
 const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps): ReactElement => {
   const { privacyUrls } = buildConfig()
   const privacyUrl = privacyUrls[language] || privacyUrls.default
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
   return (
     <TouchableRipple
       borderless

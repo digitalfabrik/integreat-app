@@ -55,7 +55,7 @@ type TtsHelpProps = {
 }
 
 const TtsHelp = ({ close }: TtsHelpProps): ReactElement => {
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
 
   return (
     <Dialog title={t($ => $.layout.voiceUnavailable)} close={close}>

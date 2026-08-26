@@ -22,7 +22,7 @@ type FeedbackContainerProps = {
 const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | null => {
   const [feedbackQueryParam, setFeedbackQueryParam] = useQueryParam(FEEDBACK_QUERY_KEY)
   const [queryParams] = useSearchParams()
-  const { t } = useTranslation(['feedback', 'common'])
+  const { t } = useTranslation()
   const { route, regionCode, languageCode } = useRegionContentParams()
   const { searchText } = parseQueryParams(queryParams)
   const query = route === SEARCH_ROUTE ? searchText : undefined

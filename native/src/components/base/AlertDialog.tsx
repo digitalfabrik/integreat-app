@@ -32,7 +32,7 @@ type SimpleAlertDialogProps = {
 }
 
 export const SimpleAlertDialog = ({ visible, close, title, children }: SimpleAlertDialogProps): ReactElement => {
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
 
   return (
     <AlertDialog

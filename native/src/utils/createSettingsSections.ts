@@ -35,7 +35,7 @@ type CreateSettingsSectionsProps = {
   appContext: AppContextType
   navigation: NavigationProps<SettingsRouteType>
   showSnackbar: (snackbar: SnackbarType) => void
-  t: TFunction<['error', 'settings', 'layout']>
+  t: TFunction
   clearResourcesAndCache: () => void
 }
 

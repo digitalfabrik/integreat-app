@@ -11,7 +11,7 @@ type PlacePanelHeaderProps = {
 }
 
 const PlacePanelHeader = ({ goBack }: PlacePanelHeaderProps): ReactElement => {
-  const { t } = useTranslation(['places', 'common'])
+  const { t } = useTranslation()
   return (
     <Stack direction='row' sx={{ justifyContent: 'space-between' }}>
       {goBack ? (

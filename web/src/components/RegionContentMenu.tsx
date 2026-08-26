@@ -27,7 +27,7 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
   const { route, regionCode, languageCode } = useRegionContentParams()
   const { showTtsPlayer, canRead } = useContext(TtsContext)
   const { toggleTheme, dimensions } = useTheme()
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const ref = useRef<MenuRef>(null)
 
   const showFeedback = fitScreen || (dimensions.mobile && route !== NEWS_ROUTE)

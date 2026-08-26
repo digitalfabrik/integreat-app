@@ -43,7 +43,7 @@ const FeedbackContainer = ({
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
   const [showFeedback, setShowFeedback] = useState<boolean>(query === undefined)
-  const { t } = useTranslation(['feedback'])
+  const { t } = useTranslation()
 
   useEffect(() => {
     setSearchTerm(query)

@@ -15,7 +15,7 @@ const Container = styled.View`
 `
 
 const ProgressSpinner = (): ReactElement => {
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
   const theme = useTheme()
   return (
     <Container>

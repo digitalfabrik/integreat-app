@@ -15,7 +15,7 @@ type SprungbrettOfferProps = {
 
 const SprungbrettOffer = ({ sprungbrettOffer, languageCode }: SprungbrettOfferProps): ReactElement => {
   const { data, ...response } = useLoadFromEndpoint(createSprungbrettJobsEndpoint, sprungbrettOffer.path, undefined)
-  const { t } = useTranslation(['sprungbrett'])
+  const { t } = useTranslation()
   const openExternalUrl = useOpenExternalUrl()
 
   const renderListItem = ({ item }: { item: SprungbrettJobModel }): ReactElement => {

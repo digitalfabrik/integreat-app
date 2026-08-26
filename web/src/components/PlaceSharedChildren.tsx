@@ -29,7 +29,7 @@ const PlaceSharedChildren = ({
   scrollToTop,
   userLocation,
 }: PlaceSharedChildrenProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
 
   if (place) {
     return <PlaceDetails place={place} distance={userLocation && place.distance(userLocation)} />

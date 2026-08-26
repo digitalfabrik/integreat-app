@@ -11,7 +11,7 @@ import buildConfig from '../constants/buildConfig'
 type MainImprintPageProps = { languageCode: string }
 
 const MainImprintPage = ({ languageCode }: MainImprintPageProps): ReactElement => {
-  const { t } = useTranslation(['mainImprint'])
+  const { t } = useTranslation()
 
   const pageTitle = t($ => $.mainImprint.pageTitle, { appName: buildConfig().appName })
 

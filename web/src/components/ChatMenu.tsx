@@ -19,7 +19,7 @@ type ChatMenuProps = {
 const ChatMenu = ({ chatId, resetChat }: ChatMenuProps): ReactElement => {
   const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLElement | null>(null)
   const [newChatConfirmationDialogOpen, setNewChatConfirmationDialogOpen] = useState(false)
-  const { t } = useTranslation(['chat', 'layout'])
+  const { t } = useTranslation()
 
   const cancelNewChat = () => {
     setNewChatConfirmationDialogOpen(false)

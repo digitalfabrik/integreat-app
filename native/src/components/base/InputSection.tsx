@@ -45,7 +45,7 @@ const InputSection = ({
   accessibilityRole,
 }: InputSectionProps): ReactElement => {
   const theme = useTheme()
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
 
   const lines = multiline ? numberOfLines : 1
 

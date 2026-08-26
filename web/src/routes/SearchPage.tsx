@@ -36,7 +36,7 @@ type SearchProps = {
 }
 
 const SearchResults = ({ query, loading, results }: SearchProps): ReactElement | null => {
-  const { t } = useTranslation(['search'])
+  const { t } = useTranslation()
 
   if (query.length === 0) {
     return null
@@ -64,7 +64,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
 const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
   const [queryParams, setQueryParams] = useSearchParams()
   const [query, setQuery] = useState(queryParams.get(SEARCH_QUERY_KEY) ?? '')
-  const { t } = useTranslation(['search'])
+  const { t } = useTranslation()
   const sourceLanguage = config.sourceLanguage
   const debouncedQuery = useDebounce(query)
 

@@ -34,7 +34,7 @@ type EventListProps = {
 
 const EventList = ({ events, regionModel, language, navigateTo, refresh }: EventListProps): ReactElement => {
   const theme = useTheme()
-  const { t } = useTranslation(['events'], { lng: language })
+  const { t } = useTranslation()
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError } = useDateFilter(events)
 
   const sections = useMemo<EventSection[]>(() => {

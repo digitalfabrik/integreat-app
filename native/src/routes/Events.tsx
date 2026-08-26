@@ -29,7 +29,7 @@ type EventsProps = {
 }
 
 const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
-  const { t } = useTranslation(['events'])
+  const { t } = useTranslation()
   const event = events.find(it => it.slug === slug)
   useTtsPlayer(event)
 

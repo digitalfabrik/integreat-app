@@ -33,7 +33,7 @@ type DialogProps = {
 }
 
 const AlertDialog = ({ title, close, children, className, actions }: DialogProps): ReactElement => {
-  const { t } = useTranslation(['layout', 'common'])
+  const { t } = useTranslation()
   const { desktop } = useDimensions()
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
@@ -67,7 +67,7 @@ export type SimpleAlertDialogProps = {
 }
 
 export const SimpleAlertDialog = ({ title, body, close }: SimpleAlertDialogProps): ReactElement => {
-  const { t } = useTranslation(['layout', 'common'])
+  const { t } = useTranslation()
   return (
     <AlertDialog
       title={title}

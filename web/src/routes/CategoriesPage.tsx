@@ -121,7 +121,7 @@ const getBreadcrumb = (category: CategoryModel, regionName: string): BreadcrumbP
 const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
   const categoryId = useParams()['*']
-  const { t } = useTranslation(['layout', 'categories'])
+  const { t } = useTranslation()
 
   const { categories, categoriesLoading, categoriesError, parents, parentsLoading, parentsError } = useCategoryData(
     regionCode,

@@ -13,7 +13,7 @@ import useSnackbar from './useSnackbar'
 type LoadWithCacheProps = {
   forceUpdate?: boolean
   showSnackbar: (snackbar: SnackbarType) => void
-  t: TFunction<['error']>
+  t: TFunction
 }
 
 const loadWithCache = async ({
@@ -45,7 +45,7 @@ const loadWithCache = async ({
 }
 
 const useLoadRegions = (): ReturnType<RegionModel[]> => {
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
   const showSnackbar = useSnackbar()
 
   return useLoadAsync(useCallback(forceUpdate => loadWithCache({ showSnackbar, forceUpdate, t }), [showSnackbar, t]))

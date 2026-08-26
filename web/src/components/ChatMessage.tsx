@@ -66,7 +66,7 @@ type ChatMessageProps = {
 }
 
 const ChatMessage = ({ retrySend, message, previousMessage, openUrl }: ChatMessageProps): ReactElement => {
-  const { t } = useTranslation(['chat', 'error'])
+  const { t } = useTranslation()
 
   const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
   const hasAutomaticAnswerChanged = message.isAutomaticAnswer !== previousMessage?.isAutomaticAnswer

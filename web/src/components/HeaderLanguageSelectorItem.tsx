@@ -35,7 +35,7 @@ const HeaderLanguageSelectorItem = ({
   const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(null)
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
   const { mobile, desktop } = useDimensions()
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
 
   const open = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorElement(event.currentTarget)
   const close = () => setAnchorElement(null)

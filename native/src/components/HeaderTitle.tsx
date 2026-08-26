@@ -29,7 +29,7 @@ type HeaderTitleProps = {
 }
 
 const HeaderTitle = ({ title, language, regionsPath }: HeaderTitleProps): ReactElement | null => {
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
 
   if (buildConfig().featureFlags.fixedRegion || !regionsPath) {
     return (

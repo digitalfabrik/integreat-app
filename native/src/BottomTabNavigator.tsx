@@ -94,7 +94,7 @@ type BottomTabNavigatorProps = {
 }
 
 const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): ReactElement | null => {
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const { regionCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
   const insets = useSafeAreaInsets()

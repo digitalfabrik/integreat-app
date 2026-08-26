@@ -34,7 +34,7 @@ type PlaceListItemProps = {
 }
 
 const PlaceListItem = ({ place, distance, onClick }: PlaceListItemProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   const [queryParams] = useSearchParams()
   const { title, category, slug } = place
   const slugWithQuery = `${slug}?${queryParams}`

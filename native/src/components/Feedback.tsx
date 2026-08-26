@@ -47,7 +47,7 @@ const Feedback = ({
   searchTerm,
   setSearchTerm,
 }: FeedbackProps): ReactElement => {
-  const { t } = useTranslation(['feedback', 'common'])
+  const { t } = useTranslation()
   const navigation = useNavigate().navigation
 
   const isSearchFeedback = searchTerm !== undefined

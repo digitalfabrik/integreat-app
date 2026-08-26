@@ -121,7 +121,7 @@ const showOptIn = (
   container.appendChild(checkbox)
 }
 
-const showSettingsLink = (element: HTMLDivElement, t: TFunction<['consent', 'layout']>): void => {
+const showSettingsLink = (element: HTMLDivElement, t: TFunction): void => {
   const link = document.createElement('a')
   link.innerHTML = t($ => $.layout.settings)
   link.id = 'opt-in-settings-link'
@@ -132,7 +132,7 @@ const showSettingsLink = (element: HTMLDivElement, t: TFunction<['consent', 'lay
 const showMessageWithSettings = (
   text: string,
   iframeContainer: HTMLDivElement,
-  t: TFunction<['consent', 'layout']>,
+  t: TFunction,
   source: string,
   iframeIndex: number,
   removeOptIn: boolean,
@@ -154,7 +154,7 @@ export const handleAllowedIframeSources = (
   iframe: HTMLIFrameElement,
   externalSourcePermissions: ExternalSourcePermissions,
   storedIframeSource: string,
-  t: TFunction<['consent', 'layout']>,
+  t: TFunction,
   addExternalSource: (source: string) => void,
   iframeIndex: number,
   supportedSource: string,

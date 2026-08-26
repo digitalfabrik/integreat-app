@@ -18,7 +18,7 @@ type NavigationTabsProps = {
 
 const NavigationTabs = ({ regionModel, languageCode }: NavigationTabsProps): ReactElement | null => {
   const { route } = useRegionContentParams()
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const theme = useTheme()
   const color = theme.isContrastTheme ? 'secondary' : 'primary'
 

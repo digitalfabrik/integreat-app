@@ -57,7 +57,7 @@ type ChatHighlightPopupProps = {
 }
 
 const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): ReactElement => {
-  const { t } = useTranslation(['chat', 'common'])
+  const { t } = useTranslation()
   const [visible, setVisible] = useLocalStorage<boolean>({
     key: CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY,
     initialValue: true,

@@ -15,7 +15,7 @@ import { ErrorCode, ErrorCodes, fromError, NotFoundError } from 'shared/api'
 import { captureError } from '../utils/sentry'
 import Failure from './Failure'
 
-export const getErrorMessage = (errorCode: ErrorCode, t: TFunction<['error']>): string => {
+export const getErrorMessage = (errorCode: ErrorCode, t: TFunction): string => {
   switch (errorCode) {
     case ErrorCodes.RegionUnavailable:
       return t($ => $.error.notFound.region)
@@ -31,7 +31,7 @@ type FailureSwitcherProps = {
 }
 
 const FailureSwitcher = ({ error }: FailureSwitcherProps): ReactElement => {
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
 
   useEffect(() => {
     captureError(error)

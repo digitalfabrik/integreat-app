@@ -39,7 +39,7 @@ const PlaceFilters = ({
   setCurrentlyOpenFilter,
   placesCount,
 }: PlaceFiltersProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
 
   const handleFilterChange = (_: React.MouseEvent<HTMLElement>, newValue: number | null) => {
     const category = placeCategories.find(category => category.id === newValue)

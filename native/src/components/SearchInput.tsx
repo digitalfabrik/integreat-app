@@ -31,7 +31,7 @@ const SearchInput = ({
   style,
   ariaLabel,
 }: SearchInputProps): ReactElement => {
-  const { t } = useTranslation(['search'])
+  const { t } = useTranslation()
   const theme = useTheme()
 
   return (

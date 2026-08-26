@@ -55,7 +55,7 @@ const Dialog = ({
 }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
   const { contentDirection } = useTheme()
-  const { t } = useTranslation(['layout', 'common'])
+  const { t } = useTranslation()
   const closeIcon = minimize ? <RemoveIcon /> : <CloseIcon />
 
   // This is necessary to ensure the theme is correctly applied to the drawer content

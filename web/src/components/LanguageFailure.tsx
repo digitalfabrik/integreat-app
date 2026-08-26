@@ -22,7 +22,7 @@ type LanguageFailureProps = {
 
 const LanguageFailure = ({ regionModel, languageCode, languageChangePaths }: LanguageFailureProps): ReactElement => {
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
 
   const closeAlertDialog = () => setAlertDialogTitle(null)
 

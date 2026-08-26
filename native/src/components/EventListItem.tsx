@@ -55,7 +55,7 @@ const EventListItem = ({
   const content = parseHTML(event.content).trim()
 
   // Use the content language to match the surrounding translations
-  const { t: translateIntoContentLanguage } = useTranslation('events', { lng: language })
+  const { t: translateIntoContentLanguage } = useTranslation()
   const isRtl = contentAlignment(language) === 'right'
 
   const DateIcon = useCallback(

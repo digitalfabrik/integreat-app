@@ -30,7 +30,7 @@ type RegionsProps = {
 const Regions = ({ navigation }: RegionsProps): ReactElement => {
   const { data: regions, refresh, ...response } = useLoadRegions()
   const { changeRegionCode } = useContext(AppContext)
-  const { t } = useTranslation(['regions'])
+  const { t } = useTranslation()
   const insets = useSafeAreaInsets()
 
   // The regions are otherwise only updated by pull to refresh

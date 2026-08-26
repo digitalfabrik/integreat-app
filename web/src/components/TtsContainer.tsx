@@ -24,7 +24,7 @@ type TtsContainerProps = {
 }
 
 const TtsContainer = ({ languageCode, children }: TtsContainerProps): ReactElement | null => {
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const afterStopRef = useRef<(() => void) | null>(null)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [visible, setVisible] = useState(false)

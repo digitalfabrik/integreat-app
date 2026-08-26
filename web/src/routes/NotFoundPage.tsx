@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Helmet from '../components/Helmet'
 
 const NotFoundPage = (): ReactElement => {
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
   const pageTitle = t($ => $.error.notFound.pageTitle)
 
   return (

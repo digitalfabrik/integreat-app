@@ -29,7 +29,7 @@ const OpeningHoursListItem = ({
   appointmentUrl,
   variant,
 }: OpeningHoursListItemProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   const fontWeight = isCurrentDay ? 'bold' : 'normal'
 
   return (

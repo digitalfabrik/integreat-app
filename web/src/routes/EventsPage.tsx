@@ -40,7 +40,7 @@ const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
 
 const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteProps): ReactElement | null => {
   const { eventId } = useParams()
-  const { t } = useTranslation(['events'])
+  const { t } = useTranslation()
 
   const { data: events, error } = useQueryFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, {
     region: regionCode,

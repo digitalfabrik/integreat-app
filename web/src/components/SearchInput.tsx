@@ -48,7 +48,7 @@ const SearchInput = ({
   description,
   autoFocus,
 }: SearchInputProps): ReactElement => {
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
   return (
     <StyledTextField
       id={id}

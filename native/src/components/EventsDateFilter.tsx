@@ -33,7 +33,7 @@ type ResetFilterTextProps = {
 }
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
-  const { t } = useTranslation(['events'])
+  const { t } = useTranslation()
   const text = `${t($ => $.events.resetFilter)} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
   return (
     <Text variant='h6' style={{ padding: 6 }}>
@@ -60,7 +60,7 @@ const EventsDateFilter = ({
   languageCode,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
-  const { t } = useTranslation(['events'])
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const filterIcon = useCallback(

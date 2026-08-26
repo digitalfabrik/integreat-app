@@ -22,7 +22,7 @@ const Contact = ({
   contact: { headline, website, phoneNumber, email, mobileNumber, officeHours },
   isLastContact,
 }: ContactProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
 
   return (
     <>

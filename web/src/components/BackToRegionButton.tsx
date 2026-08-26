@@ -15,7 +15,7 @@ const StyledButton = styled(Button)({
 const BackToRegionButton = (): ReactElement | null => {
   const navigate = useNavigate()
   const { mobile } = useDimensions()
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
   const currentHistoryIndex = window.history.state?.idx ?? 0
 
   // Initial history index to account for language changes or other user interactions on this page.

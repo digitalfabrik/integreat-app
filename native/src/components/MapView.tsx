@@ -114,7 +114,7 @@ const MapView = ({
   const mapRef = useRef<MapRef>(null)
   const cameraRef = useRef<CameraRef>(null)
   const [trackUserLocation, setTrackUserLocation] = useState<TrackUserLocation | null>(null)
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const bounds: LngLatBounds = [boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3]]

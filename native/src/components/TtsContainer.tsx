@@ -58,7 +58,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const [sentences, setSentences] = useState<string[]>([])
   const [voices, setVoices] = useState<{ language: string }[]>([])
   const { languageCode } = useContext(AppContext)
-  const { t } = useTranslation(['layout', 'error'])
+  const { t } = useTranslation()
   const showSnackbar = useSnackbar()
   const title = sentences[0] || t($ => $.layout.nothingToRead)
   const subscriptionsRef = useRef<EventSubscription[]>([])

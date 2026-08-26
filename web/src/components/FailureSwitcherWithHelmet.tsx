@@ -11,7 +11,7 @@ type FailureSwitcherProps = {
 }
 
 const FailureSwitcherWithHelmet = ({ error }: FailureSwitcherProps): ReactElement => {
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
   return (
     <>
       <Helmet

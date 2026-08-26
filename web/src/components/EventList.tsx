@@ -36,7 +36,7 @@ type EventListProps = {
 }
 
 const EventList = ({ events, languageCode }: EventListProps): ReactElement | null => {
-  const { t } = useTranslation(['events'])
+  const { t } = useTranslation()
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError, resetDates } =
     useDateFilter(events)
 

@@ -20,9 +20,11 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
   useEffect(() => {
     const initI18Next = async () => {
       const resources = loadTranslations(buildConfig().translationsOverride)
+      const namespaces = Object.keys(resources[config.defaultFallback] ?? {})
       const i18nextInstance = i18next.createInstance().use(NativeLanguageDetector)
       await i18nextInstance.init({
         resources,
+        defaultNS: namespaces,
         fallbackLng: { ...config.getTranslationFallbacks(), default: [config.defaultFallback] },
 
         /* Only allow supported languages (languages which can appear  in content of cms */

@@ -43,7 +43,7 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
   const { updateSettings, regionCode } = useContext(AppContext)
   const [currentSlide, setCurrentSlide] = useState(0)
   const { width } = useWindowDimensions()
-  const { t } = useTranslation<['intro', 'settings']>(['intro', 'settings'])
+  const { t } = useTranslation()
   const flatListRef = useRef<FlatList>(null)
   const { appName } = buildConfig()
 

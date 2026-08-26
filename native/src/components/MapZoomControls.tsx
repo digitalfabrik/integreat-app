@@ -64,7 +64,7 @@ type MapZoomControlsProps = {
 }
 
 const MapZoomControls = ({ mapRef, cameraRef, ref }: MapZoomControlsProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   const theme = useTheme()
   const [zoomOutFocusTarget, setZoomOutFocusTarget] = useState<number | undefined>(undefined)
 

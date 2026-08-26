@@ -83,7 +83,7 @@ const Navigator = (): ReactElement | null => {
   const appContext = useAppContext()
   const { settings, regionCode, changeRegionCode, updateSettings } = appContext
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
 
   // Preload regions
   const { data: regions, error: regionsError, refresh: refreshRegions } = useLoadRegions()

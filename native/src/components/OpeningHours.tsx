@@ -30,7 +30,7 @@ type OpeningHoursTitleProps = {
 }
 
 const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTitleProps) => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   const theme = useTheme()
   return (
     <TitleContainer language={language}>
@@ -42,7 +42,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTit
           alignSelf: 'center',
           ...(contentDirection(language) === 'row-reverse' ? { paddingLeft: 12 } : { paddingRight: 12 }),
         }}>
-        {t($ => label ?? (isCurrentlyOpen ? $.places.opened : $.places.closed))}
+        {label ?? t($ => (isCurrentlyOpen ? $.places.opened : $.places.closed))}
       </Text>
     </TitleContainer>
   )
@@ -63,7 +63,7 @@ const OpeningHours = ({
   isTemporarilyClosed,
   appointmentUrl,
 }: OpeningHoursProps): ReactElement | null => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   const openExternalUrl = useOpenExternalUrl()
   const theme = useTheme()
   const appointmentOnly = !openingHours && !!appointmentUrl
@@ -92,7 +92,7 @@ const OpeningHours = ({
       <>
         <OpeningHoursTitle
           isCurrentlyOpen={isCurrentlyOpen}
-          label={isTemporarilyClosed ? 'temporarilyClosed' : 'onlyWithAppointment'}
+          label={t($ => (isTemporarilyClosed ? $.places.temporarilyClosed : $.places.onlyWithAppointment))}
           language={language}
         />
         {AppointmentLink}

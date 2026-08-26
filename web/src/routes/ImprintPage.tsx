@@ -15,7 +15,7 @@ import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import { RegionRouteProps } from './index'
 
 const ImprintPage = ({ regionCode, languageCode, region }: RegionRouteProps): ReactElement | null => {
-  const { t } = useTranslation(['imprint'])
+  const { t } = useTranslation()
 
   const {
     data: imprint,

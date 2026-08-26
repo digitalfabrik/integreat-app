@@ -88,7 +88,7 @@ const TtsPlayer = ({
 }: TtsPlayerProps): ReactElement => {
   const theme = useTheme()
   const { bottom } = useSafeAreaInsets()
-  const { t } = useTranslation(['layout', 'common'])
+  const { t } = useTranslation()
 
   return (
     <StyledTtsPlayer insetBottom={bottom}>

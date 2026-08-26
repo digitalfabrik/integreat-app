@@ -28,7 +28,7 @@ const StyledIcon = styled(Icon)`
 
 const SuggestToRegion = (): ReactElement | null => {
   const [isCopied, setIsCopied] = useState<boolean>(false)
-  const { t } = useTranslation(['suggestToRegion', 'common'])
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const suggestToRegion = buildConfig().featureFlags.suggestToRegion

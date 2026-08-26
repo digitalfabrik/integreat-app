@@ -33,7 +33,7 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
   const { isConnected } = useNetInfo()
   const { regionCode, languageCode, settings, updateChatSettings } = useRegionAppContext()
   const { data } = useLoadRegionContent({ regionCode, languageCode })
-  const { t } = useTranslation(['chat', 'layout'])
+  const { t } = useTranslation()
 
   const chatSettings = settings.chat[regionCode]
   const chatId = chatSettings?.id ?? ''

@@ -76,7 +76,7 @@ const PlaceFiltersModal = ({
 }: PlaceFiltersModalProps): ReactElement => {
   const [tempPlaceCategory, setTempPlaceCategory] = useState(placeCategoryFilter)
   const [tempCurrentlyOpen, setTempCurrentlyOpen] = useState(currentlyOpenFilter)
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
 
   const filters = { placeCategoryFilter: tempPlaceCategory, currentlyOpenFilter: tempCurrentlyOpen }
   const close = () => closeModal(filters)

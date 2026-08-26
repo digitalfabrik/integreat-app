@@ -32,7 +32,7 @@ type PlaceDetailsProps = {
 }
 
 const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   const { content, location, contacts, isCurrentlyOpen, openingHours, temporarilyClosed, appointmentUrl } = place
 
   const isAndroid = /Android/i.test(navigator.userAgent)

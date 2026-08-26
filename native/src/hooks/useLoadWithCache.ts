@@ -19,7 +19,7 @@ type Load<T extends object> = {
   setToDataContainer: (regionCode: string, languageCode: string, data: T) => Promise<void>
   forceUpdate?: boolean
   showSnackbar: (snackbar: SnackbarType) => void
-  t: TFunction<['error']>
+  t: TFunction
 }
 
 /**
@@ -70,7 +70,7 @@ const loadWithCache = async <T extends object>({
 }
 
 const useLoadWithCache = <T extends object>(params: Omit<Load<T>, 't'>): ReturnType<T> => {
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
 
   return useLoadAsync<T>(
     useCallback(

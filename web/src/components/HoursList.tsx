@@ -23,7 +23,7 @@ type HoursListProps = {
 }
 
 const HoursList = ({ hours, appointmentUrl = null, variant }: HoursListProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
 
   return (
     <StyledList disablePadding>

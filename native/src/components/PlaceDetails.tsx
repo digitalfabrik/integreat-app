@@ -36,7 +36,7 @@ type PlaceDetailsProps = {
 }
 
 const PlaceDetails = ({ place, language, distance, onFocus }: PlaceDetailsProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   const { title, content, contacts, openingHours, temporarilyClosed, isCurrentlyOpen, category, appointmentUrl } = place
 
   return (

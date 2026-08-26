@@ -79,7 +79,7 @@ const initialState: LocationStateType = { status: 'loading', message: 'loading',
 const useUserLocation = ({ requestPermissionInitially }: UseUserLocationProps): UseUserLocationReturn => {
   const [locationState, setLocationState] = useState<LocationStateType>(initialState)
   const showSnackbar = useSnackbar()
-  const { t } = useTranslation(['regions', 'layout'])
+  const { t } = useTranslation()
 
   const refreshPermissionAndLocation = useCallback(
     async ({

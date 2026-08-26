@@ -33,7 +33,7 @@ type QrCodeModalProps = {
 }
 
 const QrCodeModal = ({ modalVisible, closeModal, title, description, content }: QrCodeModalProps): ReactElement => {
-  const { t } = useTranslation(['layout', 'common'])
+  const { t } = useTranslation()
   const theme = useTheme()
   const svgXml = encodeQR(content, 'svg')
 

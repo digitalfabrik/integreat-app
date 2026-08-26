@@ -15,7 +15,7 @@ type SuggestToRegionFooterProps = {
 }
 
 const SuggestToRegionFooter = ({ languageCode }: SuggestToRegionFooterProps): ReactElement | null => {
-  const { t } = useTranslation(['regions'])
+  const { t } = useTranslation()
 
   const featureFlag = buildConfig().featureFlags.suggestToRegion
 

@@ -84,7 +84,7 @@ const PlacesBottomSheet = ({
   const { languageCode } = useRegionAppContext()
   const bottomSheetRef = useRef<BottomSheet>(null)
   const flatListRef = useRef<BottomSheetFlatListMethods>(null)
-  const { t } = useTranslation(['places', 'common'])
+  const { t } = useTranslation()
   const theme = useTheme()
 
   // Workaround for bottomSheet gets hidden after permissions dialog on Android so we force remounting after app comes back to foreground.

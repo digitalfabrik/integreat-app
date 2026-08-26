@@ -35,7 +35,7 @@ const BottomSheetHandle = ({
   title,
   onPress,
 }: BottomSheetHandleProps): ReactElement => {
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
   return (
     <Handle
       focusable

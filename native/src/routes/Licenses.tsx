@@ -21,7 +21,7 @@ type LicenseItemProps = {
 
 const LicenseItem = (props: LicenseItemProps): ReactElement => {
   const { name, version, license, author, onPress } = props
-  const { t } = useTranslation(['licenses'])
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const styles = StyleSheet.create({
@@ -58,7 +58,7 @@ const loadLicenses = async () => parseLicenses((await import('../assets/licenses
 
 const Licenses = (): ReactElement => {
   const { data: licenses } = useLoadAsync(loadLicenses)
-  const { t } = useTranslation(['settings'])
+  const { t } = useTranslation()
   const openExternalUrl = useOpenExternalUrl()
 
   const renderItem = ({ item }: { item: License }) => {

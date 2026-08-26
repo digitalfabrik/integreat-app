@@ -24,7 +24,7 @@ type FeedbackButtonsProps = {
 }
 
 const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElement => {
-  const { t } = useTranslation(['feedback'])
+  const { t } = useTranslation()
   const theme = useTheme()
   const iconColor = (value: Rating) =>
     value === rating && theme.dark ? theme.colors.background : theme.colors.onSurfaceVariant

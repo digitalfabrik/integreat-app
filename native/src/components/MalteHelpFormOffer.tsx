@@ -76,7 +76,7 @@ const MalteHelpFormOffer = ({
     progressive: true,
     defaultValues,
   })
-  const { t } = useTranslation(['malteHelpForm', 'error'])
+  const { t } = useTranslation()
   const { languageCode } = useRegionAppContext()
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const showSnackbar = useSnackbar()

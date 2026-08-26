@@ -17,7 +17,7 @@ type AppointmentOnlyIconProps = {
 }
 
 const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
 
   return (
     <Tooltip

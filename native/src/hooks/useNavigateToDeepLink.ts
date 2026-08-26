@@ -19,7 +19,7 @@ type NavigateToDeepLinkParams<T extends RoutesType> = {
   navigateTo: (route: RouteInformationType) => void
   showSnackbar: (snackbar: SnackbarType) => void
   appContext: AppContextType
-  t: TFunction<['error']>
+  t: TFunction
 }
 
 const navigateToDeepLink = <T extends RoutesType>({
@@ -64,7 +64,7 @@ const useNavigateToDeepLink = ({ redirect } = { redirect: false }): ((url: strin
   const showSnackbar = useSnackbar()
   const appContext = useAppContext()
   const { navigation, navigateTo } = useNavigate({ redirect })
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
 
   return useCallback(
     (url: string) => navigateToDeepLink({ url, navigation, navigateTo, appContext, showSnackbar, t }),

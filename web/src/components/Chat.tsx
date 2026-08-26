@@ -59,7 +59,7 @@ const Chat = ({
 }: ChatProps): ReactElement => {
   const [sendingError, setSendingError] = useState<Error | null>(null)
   const [textInput, setTextInput] = useState<string>('')
-  const { t } = useTranslation(['error', 'chat', 'settings'])
+  const { t } = useTranslation()
 
   const unsyncedMessages = serializedUnsyncedMessages.map(ChatMessageModel.deserialize)
 

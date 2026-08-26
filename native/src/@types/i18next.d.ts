@@ -6,5 +6,6 @@ declare module 'i18next' {
   interface CustomTypeOptions {
     resources: TranslationsResources
     enableSelector: 'strict'
+    defaultNS: (keyof TranslationsResources)[]
   }
 }

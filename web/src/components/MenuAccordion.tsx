@@ -16,7 +16,7 @@ type MenuAccordionProps = {
 }
 
 const MenuAccordion = ({ title, items, setExpanded, expanded, icon }: MenuAccordionProps): ReactElement => {
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
 
   return (
     <>

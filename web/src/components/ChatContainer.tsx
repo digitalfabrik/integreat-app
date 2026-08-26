@@ -61,7 +61,7 @@ type ChatContainerProps = {
 
 const ChatContainer = ({ region, languageCode, languageChangePaths }: ChatContainerProps): ReactElement | null => {
   const [open, setOpen] = useQueryParam(CHAT_QUERY_KEY)
-  const { t } = useTranslation(['chat'])
+  const { t } = useTranslation()
   const externalChatId = parseQueryParams(useSearchParams()[0]).chatId
   const { xsmall } = useDimensions()
   const { visible: ttsPlayerVisible } = useContext(TtsContext)

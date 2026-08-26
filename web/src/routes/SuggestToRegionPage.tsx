@@ -42,7 +42,7 @@ type SuggestToRegionPageProps = {
 }
 
 const SuggestToRegionPage = ({ languageCode }: SuggestToRegionPageProps): ReactElement | null => {
-  const { t } = useTranslation(['suggestToRegion', 'common'])
+  const { t } = useTranslation()
   const [isCopied, setIsCopied] = useState(false)
   useScrollToTopOnMount()
 

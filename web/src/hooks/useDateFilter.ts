@@ -22,7 +22,7 @@ const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
   const [start, setStart] = useQueryParam(START_DATE_QUERY_KEY, { replace: true })
   const [end, setEnd] = useQueryParam(END_DATE_QUERY_KEY, { replace: true })
   const [queryParams, setQueryParams] = useSearchParams()
-  const { t } = useTranslation(['events'])
+  const { t } = useTranslation()
 
   const startDate = start ?? null
   const endDate = end ?? null

@@ -32,7 +32,7 @@ type TypingIndicatorProps = {
 }
 
 const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | null => {
-  const { t } = useTranslation(['chat'])
+  const { t } = useTranslation()
   return isVisible ? (
     <InnerChatMessage userIsAuthor={false} showAvatar isAutomaticAnswer>
       <DotsWrapper aria-label={t($ => $.chat.generateAnswer)}>

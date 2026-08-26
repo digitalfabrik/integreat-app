@@ -44,7 +44,7 @@ const Search = ({
 }: SearchProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const debouncedQuery = useDebounce(query)
-  const { t } = useTranslation(['search'])
+  const { t } = useTranslation()
   const theme = useTheme()
   const insets = useSafeAreaInsets()
 

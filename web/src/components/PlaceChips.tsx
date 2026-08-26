@@ -11,7 +11,7 @@ import Link from './base/Link'
 import Svg from './base/Svg'
 
 const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
   const { category } = place
 
   return (

@@ -23,7 +23,7 @@ type SettingsProps = {
 const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const appContext = useAppContext()
   const showSnackbar = useSnackbar()
-  const { t } = useTranslation(['error', 'settings', 'layout'])
+  const { t } = useTranslation()
   const { settings } = appContext
 
   const clearResourcesAndCache = () => {

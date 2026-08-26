@@ -26,7 +26,7 @@ type ExportEventButtonProps = {
 const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
   const [isExporting, setIsExporting] = useState<boolean>(false)
   const [exportRecurring, setExportRecurring] = useState<boolean>(false)
-  const { t } = useTranslation(['events', 'layout'])
+  const { t } = useTranslation()
 
   const isRecurring = event.date.hasMoreRecurrencesThan(1)
 

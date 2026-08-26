@@ -16,7 +16,7 @@ const AppointmentOnlyOverlay = ({
   isVisible,
   closeOverlay,
 }: AppointmentOnlyOverlayProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
 
   return (
     <SimpleAlertDialog

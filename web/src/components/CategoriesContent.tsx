@@ -26,7 +26,7 @@ const CategoriesContent = ({
   languageCode,
 }: CategoriesContentProps): ReactElement => {
   const children = categories.getChildren(categoryModel)
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
 
   if (categories.isLeaf(categoryModel)) {
     return (

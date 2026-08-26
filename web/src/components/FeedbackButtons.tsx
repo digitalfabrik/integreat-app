@@ -23,7 +23,7 @@ type FeedbackButtonsProps = {
 }
 
 const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElement => {
-  const { t } = useTranslation(['feedback'])
+  const { t } = useTranslation()
 
   const handleChange = (_: React.MouseEvent<HTMLElement>, newValue: Rating | null) => setRating(newValue)
 

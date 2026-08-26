@@ -25,7 +25,7 @@ const StyledButton = styled(Button)`
 `
 
 const SkipToContent = (): ReactElement => {
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const [backdropOpen, setBackdropOpen] = useState(false)
 
   return (

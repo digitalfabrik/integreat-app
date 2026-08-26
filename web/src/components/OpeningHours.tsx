@@ -18,7 +18,7 @@ type OpeningHoursTitleProps = {
 }
 
 const OpeningHoursTitle = ({ isCurrentlyOpen, label }: OpeningHoursTitleProps) => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   return (
     <Stack
       direction='row'
@@ -46,7 +46,7 @@ const OpeningHours = ({
   isTemporarilyClosed,
   appointmentUrl,
 }: OpeningHoursProps): ReactElement | null => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   const appointmentOnly = !openingHours && !!appointmentUrl
 
   const AppointmentLink = appointmentUrl ? (

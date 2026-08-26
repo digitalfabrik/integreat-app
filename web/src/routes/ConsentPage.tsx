@@ -19,7 +19,7 @@ const Description = styled('div')`
 
 type ConsentPageProps = { languageCode: string }
 const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
-  const { t } = useTranslation(['consent'])
+  const { t } = useTranslation()
   const [externalSources, setExternalSources] = useLocalStorage<ExternalSourcePermissions>({
     key: EXTERNAL_SOURCES_STORAGE_KEY,
     initialValue: {},

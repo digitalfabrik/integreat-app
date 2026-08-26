@@ -30,7 +30,7 @@ const RegionContentHeader = ({
   pageTitle,
   fitScreen,
 }: RegionContentHeaderProps): ReactElement => {
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
 
   const params = { regionCode: regionModel.code, languageCode }
   const categoriesPath = regionContentPath(params)

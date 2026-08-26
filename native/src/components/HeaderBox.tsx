@@ -28,7 +28,7 @@ type HeaderBoxProps = {
 
 const HeaderBox = ({ goBack, canGoBack = true, title, language, regionsPath }: HeaderBoxProps): ReactElement => {
   const theme = useTheme()
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
 
   const AppIcon = buildConfigAssets().AppIcon
   const HeaderIcon = canGoBack ? (

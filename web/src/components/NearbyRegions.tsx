@@ -22,7 +22,7 @@ type NearbyRegionsProps = {
 const NearbyRegions = ({ regions, language, filterText }: NearbyRegionsProps): ReactElement => {
   const { data: userLocation, refresh } = useUserLocation()
   const { stickyTop } = useDimensions()
-  const { t } = useTranslation(['regions', 'common'])
+  const { t } = useTranslation()
 
   const liveRegions = regions.filter(region => region.live)
   const nearbyRegions = userLocation ? getNearbyRegions(userLocation, liveRegions) : []

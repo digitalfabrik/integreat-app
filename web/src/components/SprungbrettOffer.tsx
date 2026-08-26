@@ -14,7 +14,7 @@ type SprungbrettOfferPageProps = {
 }
 
 const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): ReactElement | null => {
-  const { t } = useTranslation(['sprungbrett'])
+  const { t } = useTranslation()
 
   const { data, error, isPending } = useQueryFromEndpoint(
     createSprungbrettJobsEndpoint,

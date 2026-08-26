@@ -24,7 +24,7 @@ type QrCodeDialogProps = {
 }
 
 const QrCodeDialog = ({ open, close, title, description, content }: QrCodeDialogProps): ReactElement | null => {
-  const { t } = useTranslation(['layout', 'common'])
+  const { t } = useTranslation()
   const svgSrc = `data:image/svg+xml,${encodeQR(content, 'svg')}`
 
   if (!open) {

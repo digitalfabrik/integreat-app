@@ -28,7 +28,7 @@ type SearchListItemProps = {
 }
 
 const SearchListItem = ({ language, title, contentWithoutHtml, query, path }: SearchListItemProps): ReactElement => {
-  const { t } = useTranslation(['search'])
+  const { t } = useTranslation()
   const { navigateTo } = useNavigate()
   const excerpt = getExcerpt(contentWithoutHtml, { query, maxChars: SEARCH_PREVIEW_MAX_CHARS })
 

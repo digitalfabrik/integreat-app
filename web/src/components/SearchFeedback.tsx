@@ -34,7 +34,7 @@ type SearchFeedbackProps = {
 
 const SearchFeedback = ({ noResults }: SearchFeedbackProps): ReactElement => {
   const { languageCode } = useRegionContentParams()
-  const { t } = useTranslation(['feedback'])
+  const { t } = useTranslation()
   const [_, setFeedbackQueryParam] = useQueryParam(FEEDBACK_QUERY_KEY)
 
   const openFeedback = () => setFeedbackQueryParam(RATING_NEGATIVE)

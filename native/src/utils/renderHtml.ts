@@ -20,7 +20,7 @@ const renderJS = (
   resourceMap: { [url: string]: string },
   supportedIframeSources: string[],
   externalSourcePermissions: ExternalSourcePermissions,
-  t: TFunction<['consent', 'layout']>,
+  t: TFunction,
   theme: DefaultTheme,
   deviceWidth: number,
   pageContainerPadding: number,
@@ -239,7 +239,7 @@ const renderHtml = (
   theme: DefaultTheme,
   language: string,
   externalSourcePermissions: ExternalSourcePermissions,
-  t: TFunction<['consent', 'layout']>,
+  t: TFunction,
   deviceWidth: number,
   pageContainerPadding: number,
 ): string => `

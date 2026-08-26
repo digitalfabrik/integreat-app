@@ -25,7 +25,7 @@ const LanguageNotAvailablePage = ({ availableLanguages }: LanguageNotAvailablePa
   const { regionCode, changeLanguageCode } = useRegionAppContext()
   const { data: regions, error, refresh, loading } = useLoadRegions()
   const languages = regions?.find(it => it.code === regionCode)?.languages
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
 
   const items = (availableLanguages ?? languages)?.map(
     ({ code, name }: LanguageModel) =>

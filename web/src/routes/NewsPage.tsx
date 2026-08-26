@@ -35,7 +35,7 @@ const NewsSourceFilterButtonGroup = styled(ToggleTextButtonGroup)({
 const NewsPage = ({ languageCode, regionCode, region }: RegionRouteProps): ReactElement | null => {
   const [sourceFilter, setSourceFilter] = useQueryParam(NEWS_SOURCE_FILTER_QUERY_KEY, { replace: true })
   const { desktop } = useDimensions()
-  const { t } = useTranslation(['news'])
+  const { t } = useTranslation()
 
   const { data, ...response } = useQueryFromEndpoint(createNewsEndpoint, cmsApiBaseUrl, {
     region: regionCode,

@@ -36,7 +36,7 @@ const CalendarChoiceModal = ({
   eventTitle,
   recurring,
 }: CalendarChoiceProps): ReactElement => {
-  const { t } = useTranslation(['events'])
+  const { t } = useTranslation()
   const [selectedCalendarId, setSelectedCalendarId] = useState<string | undefined>(calendars[0]?.id ?? undefined)
   const [exportAllEvents, setExportAllEvents] = useState<boolean>(false)
   const calendarCount = calendars.length

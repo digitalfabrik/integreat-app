@@ -49,7 +49,7 @@ type MessageAvatarProps = {
 }
 
 export const MessageAvatar = ({ isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
-  const { t } = useTranslation(['chat'])
+  const { t } = useTranslation()
   const theme = useTheme()
   const label = t($ => (isAutomaticAnswer ? $.chat.bot : $.chat.consultant))
   const appLogo = buildConfig().icons.appLogoInverted

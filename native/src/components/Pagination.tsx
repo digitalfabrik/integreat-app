@@ -39,7 +39,7 @@ type PaginationProps = {
 
 const Pagination = ({ slideCount, currentSlide, goToSlide }: PaginationProps): ReactElement => {
   const goToSlideIndex = (index: number) => () => goToSlide(index)
-  const { t } = useTranslation(['error'])
+  const { t } = useTranslation()
 
   return (
     <DotsContainer>

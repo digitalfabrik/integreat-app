@@ -60,7 +60,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
   const { loading } = useLoadAsync(useCallback(() => loadPolyfillIfNeeded(languageCode), [languageCode]))
   const [query, setQuery] = useState('')
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const insets = useSafeAreaInsets()
 
   const currentLanguage = languages.find(lang => lang.code === languageCode)

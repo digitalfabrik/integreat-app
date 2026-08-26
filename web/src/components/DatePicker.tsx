@@ -25,7 +25,7 @@ export type CustomDatePickerProps = {
 }
 
 const DatePicker = ({ title, date, setDate, error, calendarLabel }: CustomDatePickerProps): ReactElement => {
-  const { t } = useTranslation(['events'])
+  const { t } = useTranslation()
   const [validationError, setValidationError] = useState<DateValidationError | null>(null)
   const { languageCode } = useRegionContentParams()
   const errorMessage = error ?? (validationError ? t($ => $.events.invalidDate) : null)

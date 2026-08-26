@@ -19,7 +19,7 @@ type PlaceListItemProps = {
 }
 
 const PlaceListItem = ({ place, language, navigateToPlace, distance, onFocus, visible }: PlaceListItemProps) => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const styles = StyleSheet.create({

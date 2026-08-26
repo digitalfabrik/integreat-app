@@ -59,7 +59,7 @@ const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetP
   const [isFullscreen, setIsFullscreen] = useState(false)
   const bottomSheetRef = useRef<BottomSheetRef>(null)
   const { dimensions, contentDirection } = useTheme()
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
   const { max, medium } = dimensions.bottomSheet.snapPoints
   const HandleIcon = isFullscreen ? KeyboardArrowDownIcon : KeyboardArrowUpIcon
 

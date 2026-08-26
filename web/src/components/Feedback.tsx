@@ -47,7 +47,7 @@ const Feedback = ({
   searchTerm,
   setSearchTerm,
 }: FeedbackProps): ReactElement => {
-  const { t } = useTranslation(['feedback', 'common'])
+  const { t } = useTranslation()
 
   const isSearchFeedback = searchTerm !== undefined
   const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'

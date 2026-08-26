@@ -28,7 +28,7 @@ const StyledList = styled(List)({
 })
 
 const Footer = (): ReactElement | null => {
-  const { t } = useTranslation(['layout', 'settings'])
+  const { t } = useTranslation()
   const { regionCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
   useUpdateDimensions()

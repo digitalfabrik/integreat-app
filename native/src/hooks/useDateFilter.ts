@@ -20,7 +20,7 @@ type UseDateFilterReturn = {
 const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
   const navigation = useNavigation<NavigationProps<EventsRouteType>>()
   const { params } = useRoute<RouteProps<EventsRouteType>>()
-  const { t } = useTranslation(['events'])
+  const { t } = useTranslation()
 
   const startDate = params.startDate ?? null
   const endDate = params.endDate ?? null

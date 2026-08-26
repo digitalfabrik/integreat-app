@@ -21,7 +21,7 @@ type OfficeHoursProps = {
 }
 
 const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
 
   if (!officeHours || officeHours.length !== weekdays.length) {
     return null

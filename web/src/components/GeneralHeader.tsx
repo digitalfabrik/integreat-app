@@ -21,7 +21,7 @@ type GeneralHeaderProps = {
 const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): ReactElement => {
   const slug = useLocation().pathname.split('/')[1]
   const { toggleTheme } = useTheme()
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
 
   const regionsPath = pathnameFromRouteInformation({ route: REGIONS_ROUTE, languageCode })
   const languageChangePaths = (regionLanguages ?? supportedLanguages).map(language => ({

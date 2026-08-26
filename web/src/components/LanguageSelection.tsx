@@ -57,7 +57,7 @@ const LanguageSelection = ({
 }: LanguageSelectionProps): ReactElement => {
   const [query, setQuery] = useState('')
   const { search } = useLocation()
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const { mobile } = useDimensions()
 
   const currentLanguage = languageChangePaths.find(item => item.code === languageCode)

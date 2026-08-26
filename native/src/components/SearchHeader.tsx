@@ -27,7 +27,7 @@ type SearchHeaderProps = {
 }
 
 const SearchHeader = ({ query, navigation, onSearchChanged }: SearchHeaderProps): ReactElement => {
-  const { t } = useTranslation(['common', 'search'])
+  const { t } = useTranslation()
   const theme = useTheme()
   return (
     <BoxShadow>

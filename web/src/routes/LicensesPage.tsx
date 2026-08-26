@@ -17,7 +17,7 @@ type LicensesPageProps = { languageCode: string }
 
 const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
   const { data: licenses, loading } = useLoadAsync(loadLicenses)
-  const { t } = useTranslation(['settings', 'licenses'])
+  const { t } = useTranslation()
 
   const items = (licenses ?? []).map(license => (
     <LicenseItem

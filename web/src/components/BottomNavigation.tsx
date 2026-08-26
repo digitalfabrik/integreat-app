@@ -59,7 +59,7 @@ type BottomNavigationProps = {
 
 const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps): ReactElement | null => {
   const { route } = useRegionContentParams()
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const { xsmall } = useDimensions()
   useUpdateDimensions()
 

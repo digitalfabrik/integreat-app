@@ -41,7 +41,7 @@ type SidebarProps = {
 
 const Sidebar = ({ children, open, setOpen, footer, openButton, className }: SidebarProps): ReactElement | null => {
   const { headerHeight } = useDimensions()
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   useLockedBody(open)
 
   // This is necessary to ensure the theme is correctly applied to the drawer content

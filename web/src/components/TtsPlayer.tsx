@@ -95,7 +95,7 @@ const TtsPlayer = ({
   disabled,
 }: TtsPlayerProps): ReactElement => {
   const { visibleFooterHeight, bottomNavigationHeight } = useDimensions()
-  const { t } = useTranslation(['layout', 'common'])
+  const { t } = useTranslation()
   useUpdateDimensions()
 
   return (

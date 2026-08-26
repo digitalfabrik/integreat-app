@@ -29,7 +29,7 @@ type OrganizationContentInfoProps = {
 }
 
 const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps): ReactElement => {
-  const { t } = useTranslation(['categories'])
+  const { t } = useTranslation()
   return (
     <Box>
       <Thumbnail source={organization.logo} specifyAspectRatio />

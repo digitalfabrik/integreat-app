@@ -28,7 +28,7 @@ type TransparentHeaderProps = {
 }
 
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {
-  const { t } = useTranslation(['layout'])
+  const { t } = useTranslation()
   const openExternalUrl = useOpenExternalUrl()
   const [menuVisible, setMenuVisible] = useState(false)
   const theme = useTheme()

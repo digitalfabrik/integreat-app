@@ -60,7 +60,7 @@ type ChatHighlightPopupProps = {
 }
 
 const ChatHighlightPopup = ({ chatName }: ChatHighlightPopupProps): ReactElement | null => {
-  const { t } = useTranslation(['chat', 'common'])
+  const { t } = useTranslation()
   const { settings, updateSettings } = useRegionAppContext()
 
   if (settings.chatHighlightPopupDismissed) {

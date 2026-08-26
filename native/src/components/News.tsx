@@ -57,7 +57,7 @@ type NewsProps = {
 const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSourceFilter }: NewsProps): ReactElement => {
   const selectedNewsItem = news.find(item => item.id === id)
   const { navigateTo } = useNavigate()
-  const { t } = useTranslation(['news'])
+  const { t } = useTranslation()
   const openExternalUrl = useOpenExternalUrl()
   useTtsPlayer(selectedNewsItem)
 

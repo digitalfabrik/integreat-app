@@ -30,7 +30,7 @@ const StyledIcon = styled(Icon)`
 
 const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
   const theme = useTheme()
-  const { t } = useTranslation(['common'])
+  const { t } = useTranslation()
 
   const styles = StyleSheet.create({
     chip: {

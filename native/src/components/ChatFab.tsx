@@ -35,7 +35,7 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
   const { regionCode, languageCode, settings } = useRegionAppContext()
   const chatSettings = settings.chat[regionCode]
   const { navigation } = useNavigate()
-  const { t } = useTranslation(['chat'])
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const { data, refresh } = useLoadFromEndpoint(createChatMessagesEndpoint, determineApiUrl, {

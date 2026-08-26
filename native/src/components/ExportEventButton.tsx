@@ -21,7 +21,7 @@ export const formatFrequency = (frequency: Frequency): RecurrenceFrequency =>
   Frequency[frequency].toLowerCase() as RecurrenceFrequency
 
 const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
-  const { t } = useTranslation(['events', 'layout', 'error'])
+  const { t } = useTranslation()
   const showSnackbar = useSnackbar()
 
   const [showCalendarChoiceModal, setShowCalendarChoiceModal] = useState<boolean>(false)

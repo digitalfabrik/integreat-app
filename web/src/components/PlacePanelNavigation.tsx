@@ -20,7 +20,7 @@ type PlacePanelNavigationProps = {
 }
 
 const PlacePanelNavigation = ({ switchPlace }: PlacePanelNavigationProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
   return (
     <Stack direction='row' sx={{ justifyContent: 'space-between', padding: 1 }}>
       <StyledButton

@@ -40,7 +40,7 @@ const RemoteContent = ({
 
   const [contentIframeSources, setContentIframeSources] = useState<IframeSources>({})
   const { mobile, window } = useDimensions()
-  const { t } = useTranslation(['consent', 'layout'])
+  const { t } = useTranslation()
   const { isContrastTheme } = useTheme()
 
   const handleAnchorClick = useCallback(

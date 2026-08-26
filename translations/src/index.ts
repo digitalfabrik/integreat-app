@@ -1,4 +1,4 @@
-import sourceTranslations from './translations/de.json' with { type: 'json' }
+import sourceTranslations from './translations/en.json' with { type: 'json' }
 
 export type { TranslationsType } from './types.ts'
 export type TranslationsResources = typeof sourceTranslations

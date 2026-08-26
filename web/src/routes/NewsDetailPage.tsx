@@ -27,7 +27,7 @@ const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     id: useParams().id!,
   })
-  const { t } = useTranslation(['news'])
+  const { t } = useTranslation()
 
   useTtsPlayer(news, languageCode)
 

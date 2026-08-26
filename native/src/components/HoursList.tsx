@@ -13,7 +13,7 @@ type HoursListProps = {
 }
 
 const HoursList = ({ hours, appointmentUrl }: HoursListProps): ReactElement => {
-  const { t } = useTranslation(['places'])
+  const { t } = useTranslation()
 
   return (
     <>
