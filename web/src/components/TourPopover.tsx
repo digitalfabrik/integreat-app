@@ -108,27 +108,27 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
       arrowPosition={step.position}
       arrowAlignment={step.arrowAlignment ?? 'left'}
       offset={step.offset}>
-      <Stack padding={2} gap={2}>
-        <Stack direction='row' alignItems='flex-start' gap={1}>
-          <Stack flex={1}>{step.content}</Stack>
+      <Stack sx={{ padding: 2, gap: 2 }}>
+        <Stack direction='row' sx={{ alignItems: 'flex-start', gap: 1 }}>
+          <Stack sx={{ flex: 1 }}>{step.content}</Stack>
           <IconButton onClick={closeTour} size='small' aria-label={t('common:close')}>
             <CloseIcon fontSize='small' />
           </IconButton>
         </Stack>
-        <Stack direction='row' alignItems='center' gap={1}>
+        <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
           <Typography variant='body3' aria-label={t('progress', { current: currentStep + 1, total: steps.length })}>
             <Typography component='span' variant='body3' color='primary'>
               {currentStep + 1}
             </Typography>
             {`/${steps.length}`}
           </Typography>
-          <Stack direction='row' gap={1} aria-hidden>
+          <Stack direction='row' sx={{ gap: 1 }} aria-hidden>
             {steps.map((step, index) => (
               <Dot key={String(step.selector.toString() + index)} current={index === currentStep} />
             ))}
           </Stack>
         </Stack>
-        <Stack direction='row' alignItems='center' justifyContent='space-between'>
+        <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
           <Button
             size='small'
             disabled={isFirstStep}

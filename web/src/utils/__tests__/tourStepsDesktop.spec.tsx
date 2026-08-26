@@ -27,7 +27,7 @@ describe('tourStepsDesktop', () => {
       eventsEnabled: navigation,
       placesEnabled: navigation,
       localNewsEnabled: navigation,
-      tuNewsEnabled: navigation,
+      externalNewsEnabled: navigation,
       sortingName: 'Augsburg',
       prefix: 'Stadt',
       latitude: 48.369696,
