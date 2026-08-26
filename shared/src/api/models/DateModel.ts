@@ -1,7 +1,6 @@
 import { DateTime, Duration } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
-import { MAX_FURTHER_DATES } from '../../constants/index.ts'
 import { formatDate, formatDateICal, formatTime } from '../../utils/date.ts'
 
 const MAX_RECURRENCE_YEARS = 6

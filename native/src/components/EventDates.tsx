@@ -8,7 +8,7 @@ import styled, { useTheme } from 'styled-components/native'
 import { HORIZONTAL_TEXT_DIVIDER, MAX_FURTHER_DATES, MAX_FURTHER_DATES_MOBILE, MORE_INDICATOR } from 'shared'
 import { EventModel } from 'shared/api'
 
-import { contentDirection } from '../constants/contentDirection'
+import { contentAlignment, contentDirection } from '../constants/contentDirection'
 import Icon, { DEFAULT_ICON_SIZE, SMALL_ICON_SIZE } from './base/Icon'
 import Text from './base/Text'
 
@@ -19,7 +19,8 @@ const DateRow = styled.View<{ language: string }>`
 `
 
 const InlineWrap = styled.View<{ language: string }>`
-  flex-flow: ${props => contentDirection(props.language)} wrap;
+  flex-direction: ${props => contentDirection(props.language)};
+  flex-wrap: wrap;
   align-items: center;
   gap: 4px;
 `
@@ -28,9 +29,13 @@ const Toggle = styled(TouchableRipple)<{ language: string }>`
   padding-block: 8px;
 `
 
-const Dates = styled.View`
-  padding-inline-start: 24px;
+const Dates = styled.View<{ language: string }>`
+  padding-${props => contentAlignment(props.language)}: 24px;
   gap: 8px;
+`
+
+const ShowMoreButton = styled(Button)<{ language: string }>`
+  flex-direction: ${props => contentDirection(props.language)};
 `
 
 type EventDatesProps = {
@@ -95,7 +100,7 @@ const EventDates = ({
             </InlineWrap>
           </Toggle>
           {expanded && (
-            <Dates>
+            <Dates language={language}>
               {recurrences.map((recurrence, index) => {
                 const recurrenceTimeInterval = recurrence.formatTimeInterval(language, {
                   allDayLabel: t('places:allDay'),
@@ -118,13 +123,13 @@ const EventDates = ({
                 )
               })}
               {hasMoreRecurrences && !compact && (
-                <Button
+                <ShowMoreButton
                   icon='chevron-down'
-                  style={{ alignSelf: 'flex-start' }}
                   onPress={() => setExpansionCount(expansionCount + 1)}
+                  language={language}
                   compact>
                   {t('common:showMore')}
-                </Button>
+                </ShowMoreButton>
               )}
             </Dates>
           )}
