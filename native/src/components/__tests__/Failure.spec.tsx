@@ -12,7 +12,6 @@ import Failure from '../Failure'
 import mocked = jest.mocked
 import clearAllMocks = jest.clearAllMocks
 
-jest.mock('react-i18next')
 jest.mock('../../hooks/useNavigate')
 
 describe('Failure', () => {
@@ -33,28 +32,28 @@ describe('Failure', () => {
 
   it('should render a retry button if retry is passed', () => {
     const { getByText } = renderFailure(() => undefined)
-    expect(getByText('tryAgain')).toBeTruthy()
+    expect(getByText('error:tryAgain')).toBeTruthy()
   })
 
   it('should not render a retry button if retry is not passed', () => {
     const { queryByText } = renderFailure()
-    expect(queryByText('tryAgain')).toBeNull()
+    expect(queryByText('error:tryAgain')).toBeNull()
   })
 
   it('should show the error code as message', () => {
     const { getByText } = renderFailure()
-    expect(getByText(ErrorCodes.UnknownError)).toBeTruthy()
+    expect(getByText(`error:${ErrorCodes.UnknownError}`)).toBeTruthy()
   })
 
   it('should show notFound.region for RegionUnavailable', () => {
     const { getByText } = renderFailure(null, ErrorCodes.RegionUnavailable)
-    expect(getByText('notFound.region')).toBeTruthy()
+    expect(getByText('error:notFound.region')).toBeTruthy()
   })
 
   it('should call retry when retry button is pressed', () => {
     const retry = jest.fn()
     const { getByText } = renderFailure(retry)
-    fireEvent.press(getByText('tryAgain'))
+    fireEvent.press(getByText('error:tryAgain'))
     expect(retry).toHaveBeenCalled()
   })
 

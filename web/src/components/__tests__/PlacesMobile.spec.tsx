@@ -6,7 +6,6 @@ import { PlaceModel, PlaceModelBuilder } from 'shared/api'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PlacesMobile from '../PlacesMobile'
 
-jest.mock('react-i18next')
 jest.mock('../MapView', () => () => <div>MapView</div>)
 
 describe('PlacesMobile', () => {
@@ -39,7 +38,7 @@ describe('PlacesMobile', () => {
     places.forEach(place => {
       expect(queryByText(place.title)).toBeFalsy()
     })
-    expect(queryByText('places:common:nearby')).toBeFalsy()
+    expect(queryByText('common:nearby')).toBeFalsy()
   })
 
   it('should list detail information about the current feature and the place if feature and place provided', async () => {
@@ -57,7 +56,7 @@ describe('PlacesMobile', () => {
   it('should render placeList & toolbar components no place is provided', () => {
     const { queryByText } = renderPlacesMobile()
 
-    expect(queryByText('places:common:nearby')).toBeTruthy()
+    expect(queryByText('common:nearby')).toBeTruthy()
     places.forEach(place => {
       expect(queryByText(place.title)).toBeTruthy()
     })

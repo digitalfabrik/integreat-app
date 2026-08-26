@@ -8,7 +8,6 @@ import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
 import MalteHelpFormOffer from '../MalteHelpFormOffer'
 
-jest.mock('react-i18next')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   submitMalteHelpForm: jest.fn(),
@@ -20,19 +19,20 @@ jest.mock('../../hooks/useSnackbar.ts', () => ({
   default: () => mockShowSnackbar,
 }))
 
-const submitButtonLabel = 'submit'
-const nameInputLabel = 'name'
+const submitButtonLabel = 'malteHelpForm:submit'
+const nameInputLabel = 'malteHelpForm:name'
 const name = 'Doe, Jane'
-const roomNumberInputLabel = 'roomNumber'
+const roomNumberInputLabel = 'malteHelpForm:roomNumber'
 const roomNumber = '42'
 const emailInputLabel = 'email'
 const email = 'testEmail@tuerantuer.org'
 const phoneInputLabel = 'telephone'
+const phoneRadioLabel = 'malteHelpForm:telephone'
 const phoneNumber = '0049 160 12345678'
-const personalContactLabel = 'personally'
-const femaleContactLabel = 'contactPersonGenderFemale'
-const maleContactLabel = 'contactPersonGenderMale'
-const messageInputLabel = 'contactReason'
+const personalContactLabel = 'malteHelpForm:personally'
+const femaleContactLabel = 'malteHelpForm:contactPersonGenderFemale'
+const maleContactLabel = 'malteHelpForm:contactPersonGenderMale'
+const messageInputLabel = 'malteHelpForm:contactReason'
 const message =
   "Hello, I can't figure out how to open my window for my contractually agreed daily Lüften, can you help me?"
 
@@ -108,7 +108,7 @@ describe('MalteHelpFormOffer', () => {
       }),
     )
 
-    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'submitSuccessful' })
+    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'malteHelpForm:submitSuccessful' })
   })
 
   it('should submit the form successfully with a phone number', async () => {
@@ -127,7 +127,7 @@ describe('MalteHelpFormOffer', () => {
     expect(roomNumberInput.props.value).toBe(roomNumber)
     expect(submitButton).toBeDisabled()
 
-    const phoneButton = getByText(phoneInputLabel)
+    const phoneButton = getByText(phoneRadioLabel)
     await user.press(phoneButton)
     expect(submitButton).toBeDisabled()
 
@@ -157,7 +157,7 @@ describe('MalteHelpFormOffer', () => {
       }),
     )
 
-    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'submitSuccessful' })
+    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'malteHelpForm:submitSuccessful' })
   })
 
   it('should submit the form successfully with a request for contact in person', async () => {
@@ -199,7 +199,7 @@ describe('MalteHelpFormOffer', () => {
       }),
     )
 
-    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'submitSuccessful' })
+    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'malteHelpForm:submitSuccessful' })
   })
 
   it('should submit the form successfully with a request to be contacted by a woman', async () => {
@@ -245,7 +245,7 @@ describe('MalteHelpFormOffer', () => {
       }),
     )
 
-    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'submitSuccessful' })
+    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'malteHelpForm:submitSuccessful' })
   })
 
   it('should submit the form successfully with a request to be contacted by a man', async () => {
@@ -291,7 +291,7 @@ describe('MalteHelpFormOffer', () => {
       }),
     )
 
-    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'submitSuccessful' })
+    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'malteHelpForm:submitSuccessful' })
   })
 
   it('should not submit if the name is empty', async () => {
@@ -365,7 +365,7 @@ describe('MalteHelpFormOffer', () => {
       }),
     )
 
-    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'invalidEmailAddress' })
+    expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'malteHelpForm:invalidEmailAddress' })
   })
 
   it('should show an error if there is another error while sending to Zammad', async () => {

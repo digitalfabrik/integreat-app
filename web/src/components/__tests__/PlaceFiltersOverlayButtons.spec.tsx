@@ -6,8 +6,6 @@ import { PlaceCategoryModel, PlaceModelBuilder } from 'shared/api'
 import { renderWithTheme } from '../../testing/render'
 import PlaceFiltersOverlayButtons from '../PlaceFiltersOverlayButtons'
 
-jest.mock('react-i18next')
-
 describe('PlaceFiltersOverlayButtons', () => {
   const placeCategory = new PlaceModelBuilder(1).build()[0]!.category
   const setShowFilterSelection = jest.fn()

@@ -9,13 +9,6 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import render from '../../testing/render'
 import LanguageSelection from '../LanguageSelection'
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-  }),
-  Trans: ({ children }: { children: React.ReactNode }) => children,
-}))
-
 describe('LanguageSelection', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -69,12 +62,12 @@ describe('LanguageSelection', () => {
   it('should open unavailable dialog if language is neither available nor selected', () => {
     const { getByText, queryByText } = renderLanguageSelection()
 
-    expect(queryByText('noTranslation')).toBeNull()
+    expect(queryByText('layout:noTranslation')).toBeNull()
 
     fireEvent.press(getByText(unavailableLanguage.name))
 
     expect(navigation.goBack).not.toHaveBeenCalled()
     expect(changeLanguageCode).not.toHaveBeenCalled()
-    expect(getByText('noTranslation')).toBeTruthy()
+    expect(getByText('layout:noTranslation')).toBeTruthy()
   })
 })

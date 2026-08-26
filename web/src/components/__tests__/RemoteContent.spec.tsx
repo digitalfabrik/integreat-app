@@ -11,7 +11,6 @@ jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useNavigate: () => navigate,
 }))
-jest.mock('react-i18next')
 jest.mock('../../hooks/useDimensions', () => jest.fn(() => mockDimensions))
 
 describe('RemoteContent', () => {

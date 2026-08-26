@@ -4,10 +4,10 @@ import React from 'react'
 import { TileModel } from 'shared'
 
 import render from '../../testing/render'
-import openExternalUrl from '../../utils/openExternalUrl'
 import Tile from '../Tile'
 
-jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
+const mockOpenExternalUrl = jest.fn()
+jest.mock('../../utils/openExternalUrl', () => ({ __esModule: true, default: () => mockOpenExternalUrl }))
 
 describe('Tile', () => {
   const onTilePress = jest.fn()
@@ -28,7 +28,7 @@ describe('Tile', () => {
 
     expect(onTilePress).toHaveBeenCalledTimes(1)
     expect(onTilePress).toHaveBeenCalledWith(tile)
-    expect(openExternalUrl).not.toHaveBeenCalled()
+    expect(mockOpenExternalUrl).not.toHaveBeenCalled()
   })
 
   it('should open external url', () => {
@@ -41,8 +41,8 @@ describe('Tile', () => {
     const { getByText } = render(<Tile tile={tile} onTilePress={onTilePress} language='' />)
     fireEvent.press(getByText(tile.title))
 
-    expect(openExternalUrl).toHaveBeenCalledTimes(1)
-    expect(openExternalUrl).toHaveBeenCalledWith(tile.path, expect.anything())
+    expect(mockOpenExternalUrl).toHaveBeenCalledTimes(1)
+    expect(mockOpenExternalUrl).toHaveBeenCalledWith(tile.path)
     expect(onTilePress).not.toHaveBeenCalled()
   })
 })

@@ -14,7 +14,6 @@ import PlacesPage from '../PlacesPage'
 import { RoutePatterns } from '../index'
 
 jest.mock('maplibre-gl')
-jest.mock('react-i18next')
 jest.mock('../../hooks/useQueryFromEndpoint')
 
 jest.mock('shared/api', () => ({

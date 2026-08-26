@@ -8,7 +8,6 @@ import createNavigationScreenPropMock from '../../testing/createNavigationPropMo
 import render, { ReactTestInstance } from '../../testing/render'
 import SearchListItem from '../SearchListItem'
 
-jest.mock('react-i18next')
 jest.mock('styled-components')
 
 jest.mock('../CategoryListItem', () => ({

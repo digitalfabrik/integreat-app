@@ -3,8 +3,6 @@ import React from 'react'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import SuggestToRegionFooter from '../SuggestToRegionFooter'
 
-jest.mock('react-i18next')
-
 describe('SuggestToRegionFooter', () => {
   beforeEach(jest.clearAllMocks)
 

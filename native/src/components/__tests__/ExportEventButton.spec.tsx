@@ -13,7 +13,6 @@ const mockSaveEvent = jest.fn()
 const mockFindCalendars = jest.fn()
 const mockShowSnackbar = jest.fn()
 
-jest.mock('react-i18next')
 jest.mock('react-native-calendar-events', () => ({
   __esModule: true,
   default: {
@@ -62,28 +61,28 @@ describe('ExportEventButton', () => {
 
   it('should auto-add to calendar if only one calendar and event is non-recurring', async () => {
     mockFindCalendars.mockResolvedValueOnce([
-      { id: 'cal-1', title: 'My Calendar', allowsModifications: true, source: 'local' },
+      { id: 'cal-1', title: 'My Calendar', allowsModifications: true, source: 'news:local' },
     ])
 
     const { getByText, queryByText } = render(<ExportEventButton event={createEvent()} />)
 
-    fireEvent.press(getByText('addToCalendar'))
+    fireEvent.press(getByText('events:addToCalendar'))
 
     expect(queryByText('CalendarChoiceModal')).toBeFalsy()
 
     await waitFor(() => expect(mockSaveEvent).toHaveBeenCalled())
-    await waitFor(() => expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'added' }))
+    await waitFor(() => expect(mockShowSnackbar).toHaveBeenCalledWith({ text: 'events:added' }))
   })
 
   it('should show calendar selection if multiple calendars and event is non-recurring', async () => {
     mockFindCalendars.mockResolvedValueOnce([
-      { id: 'cal-1', title: 'My Calendar', allowsModifications: true, source: 'local' },
-      { id: 'cal-2', title: 'Work', allowsModifications: true, source: 'local' },
+      { id: 'cal-1', title: 'My Calendar', allowsModifications: true, source: 'news:local' },
+      { id: 'cal-2', title: 'Work', allowsModifications: true, source: 'news:local' },
     ])
 
     const { getByText, findByText } = render(<ExportEventButton event={createEvent()} />)
 
-    fireEvent.press(getByText('addToCalendar'))
+    fireEvent.press(getByText('events:addToCalendar'))
 
     expect(await findByText('CalendarChoiceModal')).toBeTruthy()
     // No export yet user must choose calendar
@@ -92,14 +91,14 @@ describe('ExportEventButton', () => {
 
   it('should show recurrence choice if only one calendar and event is recurring', async () => {
     mockFindCalendars.mockResolvedValueOnce([
-      { id: 'cal-1', title: 'My Calendar', allowsModifications: true, source: 'local' },
+      { id: 'cal-1', title: 'My Calendar', allowsModifications: true, source: 'news:local' },
     ])
 
     const { getByText, findByText } = render(
       <ExportEventButton event={createEvent('DTSTART:20260114T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')} />,
     )
 
-    fireEvent.press(getByText('addToCalendar'))
+    fireEvent.press(getByText('events:addToCalendar'))
 
     expect(await findByText('CalendarChoiceModal')).toBeTruthy()
     // No export yet user must choose one event or all future events

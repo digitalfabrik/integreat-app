@@ -1,4 +1,5 @@
 import { waitFor } from '@testing-library/react'
+import i18next from 'i18next'
 import React from 'react'
 import { useLocation } from 'react-router'
 
@@ -14,11 +15,6 @@ import {
 import { renderWithRouterAndTheme } from '../testing/render'
 
 jest.mock('../hooks/useQueryFromEndpoint')
-jest.mock('i18next', () => ({
-  ...jest.requireActual('i18next'),
-  createInstance: () => ({ language: 'de' }),
-}))
-jest.mock('react-i18next')
 jest.mock('stylis')
 
 jest.mock('shared/api', () => ({
@@ -46,6 +42,14 @@ describe('RootNavigator', () => {
       </>,
       { pathname },
     )
+
+  beforeAll(async () => {
+    await i18next.changeLanguage('de')
+  })
+
+  afterAll(async () => {
+    await i18next.changeLanguage('en')
+  })
 
   beforeEach(() => {
     jest.clearAllMocks()

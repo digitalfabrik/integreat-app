@@ -6,21 +6,16 @@ import { PlaceModelBuilder } from 'shared/api'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import renderWithTheme from '../../testing/render'
-import openExternalUrl from '../../utils/openExternalUrl'
 import PlaceDetails from '../PlaceDetails'
 
-jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
+const mockOpenExternalUrl = jest.fn()
+jest.mock('../../utils/openExternalUrl', () => ({ __esModule: true, default: () => mockOpenExternalUrl }))
 jest.mock('@react-native-clipboard/clipboard', () => ({
   setString: jest.fn(),
 }))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('styled-components')
 jest.mock('../Page')
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string, params: { distance: string } | undefined) => (params ? `${key}: ${params.distance}` : key),
-  }),
-}))
 
 describe('PlaceDetails', () => {
   beforeEach(() => {
@@ -43,16 +38,16 @@ describe('PlaceDetails', () => {
 
     expect(getByText(place.title)).toBeTruthy()
     expect(getByText(place.category!.name!)).toBeTruthy()
-    expect(getByText(`distanceKilometre: ${distance}`)).toBeTruthy()
+    expect(getByText('places:distanceKilometre')).toBeTruthy()
     expect(getByText(place.location.address)).toBeTruthy()
     expect(getByText(`${place.location.postcode} ${place.location.town}`)).toBeTruthy()
-    expect(getByText('description')).toBeTruthy()
+    expect(getByText('places:description')).toBeTruthy()
     expect(getByText(place.content)).toBeTruthy()
 
-    fireEvent.press(getByText('contacts'))
+    fireEvent.press(getByText('places:contacts'))
     const contact = place.contacts[0]!
     expect(getByText(contact.headline!)).toBeTruthy()
-    expect(getByText('website')).toBeTruthy()
+    expect(getByText('places:website')).toBeTruthy()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
     expect(getByText(contact.email!)).toBeTruthy()
   })
@@ -63,7 +58,7 @@ describe('PlaceDetails', () => {
       <PlaceDetails place={place} language={language} distance={null} onFocus={jest.fn()} />,
     )
 
-    expect(queryByText('distanceKilometre', { exact: false })).toBeFalsy()
+    expect(queryByText('places:distanceKilometre', { exact: false })).toBeFalsy()
   })
 
   it('should not render contact information if there is none', () => {
@@ -78,7 +73,7 @@ describe('PlaceDetails', () => {
       />,
     )
 
-    expect(queryByText('contactInformation')).toBeFalsy()
+    expect(queryByText('places:contactInformation')).toBeFalsy()
   })
 
   it('should open external maps app on icon click', async () => {
@@ -87,9 +82,9 @@ describe('PlaceDetails', () => {
       <PlaceDetails onFocus={jest.fn()} place={place} language={language} distance={distance} />,
     )
 
-    fireEvent.press(getByLabelText('openExternalMaps'))
+    fireEvent.press(getByLabelText('places:openExternalMaps'))
     const externalMapsUrl = 'maps:30,30?q=Test Title, Test Address 1, 12345 Test Town'
-    await waitFor(() => expect(openExternalUrl).toHaveBeenCalledWith(externalMapsUrl, expect.any(Function)))
+    await waitFor(() => expect(mockOpenExternalUrl).toHaveBeenCalledWith(externalMapsUrl))
   })
 
   it('should copy address to clipboard', () => {
@@ -100,7 +95,7 @@ describe('PlaceDetails', () => {
 
     fireEvent.press(getByText(place.location.address))
     expect(Clipboard.setString).toHaveBeenCalledWith('Test Address 1, 12345 Test Town')
-    expect(showSnackbar).toHaveBeenCalledWith({ text: 'addressCopied' })
+    expect(showSnackbar).toHaveBeenCalledWith({ text: 'places:addressCopied' })
   })
 
   it('should show accessibility information for accessible PLACE', () => {

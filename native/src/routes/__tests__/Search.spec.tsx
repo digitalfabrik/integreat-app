@@ -8,7 +8,6 @@ import render from '../../testing/render'
 import Search, { SearchProps } from '../Search'
 
 jest.mock('../../utils/openExternalUrl', () => async () => undefined)
-jest.mock('react-i18next')
 jest.mock('react-native-inappbrowser-reborn', () => ({
   isAvailable: () => false,
 }))
@@ -57,7 +56,7 @@ describe('Search', () => {
 
     fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'no results, please')
 
-    expect(getByText('noResultsInUserLanguage')).toBeTruthy()
+    expect(getByText('feedback:noResultsInUserLanguage')).toBeTruthy()
   })
 
   it('should open with an initial search text if one is supplied', () => {

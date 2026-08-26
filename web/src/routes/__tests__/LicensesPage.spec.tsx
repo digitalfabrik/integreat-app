@@ -10,11 +10,6 @@ jest.mock('shared/api', () => ({
   useLoadAsync: jest.fn(),
 }))
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: () => ({ t: (key: string) => key }),
-}))
-
 const { mocked } = jest
 
 const mockUseLoadAsync = (data: unknown) =>

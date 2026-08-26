@@ -11,7 +11,6 @@ import { renderWithTheme } from '../../testing/render'
 import EventDates from '../EventDates'
 
 jest.mock('../../hooks/useDimensions')
-jest.mock('react-i18next')
 
 jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
 describe('EventDates', () => {

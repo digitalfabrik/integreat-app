@@ -6,8 +6,6 @@ import { EventModelBuilder } from 'shared/api'
 import { renderWithTheme } from '../../testing/render'
 import ExportEventButton from '../ExportEventButton'
 
-jest.mock('react-i18next')
-
 describe('ExportEventButton', () => {
   it('renders correctly for a single event', () => {
     const event = new EventModelBuilder('seed', 1, 'augsburg', 'de').build()[0]!
@@ -25,11 +23,11 @@ describe('ExportEventButton', () => {
     fireEvent.click(exportButton)
     expect(queryAllByRole('button')).toHaveLength(2)
     expect(queryAllByRole('radio')).toHaveLength(2)
-    const cancelButton = getByText('events:layout:cancel')
+    const cancelButton = getByText('layout:cancel')
     expect(cancelButton).toBeDefined()
 
     fireEvent.click(cancelButton)
     expect(queryAllByRole('radio')).toHaveLength(0)
-    expect(queryByText('events:layout:cancel')).toBeNull()
+    expect(queryByText('layout:cancel')).toBeNull()
   })
 })

@@ -6,8 +6,6 @@ import { PlaceModelBuilder } from 'shared/api'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PlaceListItem from '../PlaceListItem'
 
-jest.mock('react-i18next')
-
 describe('PlaceListItem', () => {
   const onClick = jest.fn()
   const place = new PlaceModelBuilder(1).build()[0]!

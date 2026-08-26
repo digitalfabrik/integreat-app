@@ -2,8 +2,6 @@ import { act, renderHook, waitFor } from '@testing-library/react'
 
 import useDimensions from '../useDimensions'
 
-jest.mock('react-i18next')
-
 describe('useDimensions', () => {
   const { innerWidth, innerHeight } = window
 

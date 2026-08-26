@@ -11,7 +11,6 @@ import RegionContentLayout from '../RegionContentLayout'
 jest.mock('../../hooks/useDimensions')
 jest.mock('../Footer', () => () => <div>Footer</div>)
 jest.mock('../RegionContentHeader', () => () => <div>RegionContentHeader</div>)
-jest.mock('react-i18next')
 jest.mock('../FeedbackContainer', () => () => <div>FeedbackContainer</div>)
 
 describe('RegionContentLayout', () => {

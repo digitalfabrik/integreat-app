@@ -8,15 +8,14 @@ import { LanguageModelBuilder, NewsModel, RegionModel, RegionModelBuilder } from
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
-import openExternalUrl from '../../utils/openExternalUrl'
 import News from '../News'
 
 import mocked = jest.mocked
 
-jest.mock('react-i18next')
 jest.mock('../../components/Page')
 jest.mock('../../hooks/useNavigate')
-jest.mock('../../utils/openExternalUrl')
+const mockOpenExternalUrl = jest.fn()
+jest.mock('../../utils/openExternalUrl', () => ({ __esModule: true, default: () => mockOpenExternalUrl }))
 
 const defaultNews: [NewsModel, NewsModel] = [
   new NewsModel({
@@ -97,7 +96,7 @@ describe('News', () => {
 
   it('should show not found error if news with id not found', () => {
     const { getByText } = renderNews({ id: 'local-32498732984824' })
-    expect(getByText('pageNotFound')).toBeTruthy()
+    expect(getByText('error:pageNotFound')).toBeTruthy()
   })
 
   it('should show news detail', () => {
@@ -127,7 +126,7 @@ describe('News', () => {
 
   it('should show currently no news', () => {
     const { queryByText } = renderNews({ news: [] })
-    expect(queryByText('currentlyNoNews')).toBeTruthy()
+    expect(queryByText('news:currentlyNoNews')).toBeTruthy()
 
     expect(queryByText(defaultNews[0].title)).toBeFalsy()
     expect(queryByText(defaultNews[1].title)).toBeFalsy()
@@ -156,7 +155,7 @@ describe('News', () => {
   it('should call setNewsSource when a filter option is pressed', () => {
     const { getByText } = renderNews({})
 
-    fireEvent.press(getByText('national'))
+    fireEvent.press(getByText('news:national'))
     expect(setNewsSource).toHaveBeenCalledWith('national')
   })
 
@@ -164,7 +163,7 @@ describe('News', () => {
     const { getByRole } = renderNews({ id: defaultNews[0].id })
     const link = getByRole('link')
     fireEvent.press(link)
-    expect(openExternalUrl).toHaveBeenCalledWith(defaultNews[0].externalUrl, expect.any(Function))
+    expect(mockOpenExternalUrl).toHaveBeenCalledWith(defaultNews[0].externalUrl)
   })
 
   it('should not render an external source link for local news detail', () => {

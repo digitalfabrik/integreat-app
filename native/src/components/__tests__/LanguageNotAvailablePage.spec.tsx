@@ -13,7 +13,6 @@ jest.mock('../../hooks/useLoadRegions', () => () => ({
   error: null,
   refresh: () => null,
 }))
-jest.mock('react-i18next')
 
 describe('LanguageNotAvailablePage', () => {
   beforeEach(() => {
@@ -33,7 +32,7 @@ describe('LanguageNotAvailablePage', () => {
   it('should render', () => {
     const { getByText } = renderLanguageNotAvailablePage()
 
-    expect(getByText('notFound.language')).toBeTruthy()
+    expect(getByText('error:notFound.language')).toBeTruthy()
     languages.forEach(language => {
       expect(getByText(language.name)).toBeTruthy()
     })

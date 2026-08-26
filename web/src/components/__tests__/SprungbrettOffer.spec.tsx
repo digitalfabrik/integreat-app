@@ -8,7 +8,6 @@ import { mockUseQueryFromEndpointWithError } from '../../testing/mockUseQueryFro
 import { renderWithRouterAndTheme } from '../../testing/render'
 import SprungbrettOffer from '../SprungbrettOffer'
 
-jest.mock('react-i18next')
 jest.mock('../../hooks/useQueryFromEndpoint')
 
 describe('SprungbrettOffer', () => {

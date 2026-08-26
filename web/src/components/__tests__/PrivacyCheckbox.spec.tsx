@@ -4,14 +4,6 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import PrivacyCheckbox from '../PrivacyCheckbox'
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: (namespace?: string) => ({
-    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
-  }),
-  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
-}))
-
 describe('PrivacyCheckbox', () => {
   const setChecked = jest.fn()
   it('should select checkbox on click', () => {
