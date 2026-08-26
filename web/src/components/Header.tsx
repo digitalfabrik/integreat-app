@@ -76,12 +76,7 @@ export const Header = ({ actionItems = [], logoHref, regionName, language, tabBa
       <StyledPaper>
         <HeaderContainer ref={ref}>
           <Row>
-            <Stack
-              direction='row-reverse'
-              sx={{
-                alignItems: 'center',
-                gap: 1,
-              }}>
+            <Stack direction='row-reverse' sx={{ alignItems: 'center', gap: 1 }}>
               <HeaderLogo link={logoHref} />
               {!!regionName && <HeaderTitle title={regionName} regionsPath={regionsPath} />}
             </Stack>

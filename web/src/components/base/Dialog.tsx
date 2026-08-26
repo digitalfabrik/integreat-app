@@ -62,12 +62,7 @@ const Dialog = ({
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
 
   const Actions = actions ? (
-    <Stack
-      direction='row'
-      sx={{
-        gap: 1,
-        alignItems: 'center',
-      }}>
+    <Stack direction='row' sx={{ gap: 1, alignItems: 'center' }}>
       {actions}
     </Stack>
   ) : null
@@ -77,27 +72,15 @@ const Dialog = ({
       {showHeader && (
         <Stack
           direction={desktop ? 'row-reverse' : 'row'}
-          sx={{
-            alignItems: 'center',
-            justifyContent: desktop ? 'space-between' : undefined,
-            marginInline: 1,
-          }}>
+          sx={{ alignItems: 'center', justifyContent: desktop ? 'space-between' : undefined, marginInline: 1 }}>
           <IconButton aria-label={t(minimize ? 'common:minimize' : 'common:close')} onClick={close}>
             {desktop ? closeIcon : <DirectionDependentBackIcon />}
           </IconButton>
           {desktop && Actions}
           <StyledDialogTitle component='div' dir={contentDirection}>
-            <Stack
-              direction='row'
-              sx={{
-                alignItems: 'center',
-                gap: 1.5,
-              }}>
+            <Stack direction='row' sx={{ alignItems: 'center', gap: 1.5 }}>
               {icon}
-              <Stack
-                sx={{
-                  minWidth: 0,
-                }}>
+              <Stack sx={{ minWidth: 0 }}>
                 <Typography component='h2' variant='h4' noWrap>
                   {title}
                 </Typography>

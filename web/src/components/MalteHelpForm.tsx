@@ -189,11 +189,7 @@ const MalteHelpForm = ({
           />
           {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
         </FormControl>
-        <Stack
-          sx={{
-            height: 1,
-          }}
-        />
+        <Stack sx={{ height: 1 }} />
         <Button type='submit' startIcon={<SendIcon />} variant='contained'>
           {t('submit')}
         </Button>

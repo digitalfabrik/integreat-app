@@ -28,10 +28,7 @@ const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElem
   const handleChange = (_: React.MouseEvent<HTMLElement>, newValue: Rating | null) => setRating(newValue)
 
   return (
-    <Stack
-      sx={{
-        gap: 2,
-      }}>
+    <Stack sx={{ gap: 2 }}>
       <Typography variant='body2'>{t('description')}</Typography>
       <StyledToggleButtonGroup exclusive value={rating} onChange={handleChange} aria-label={t('feedback')}>
         <ToggleButton value={RATING_POSITIVE} icon={SentimentSatisfiedOutlinedIcon} text={t('useful')} />

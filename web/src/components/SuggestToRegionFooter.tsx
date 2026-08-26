@@ -24,12 +24,7 @@ const SuggestToRegionFooter = ({ languageCode }: SuggestToRegionFooterProps): Re
   }
 
   return (
-    <Stack
-      sx={{
-        alignItems: 'center',
-        padding: 2,
-        gap: 2,
-      }}>
+    <Stack sx={{ alignItems: 'center', padding: 2, gap: 2 }}>
       <Svg src={featureFlag.icon} width={160} height={160} />
       <Typography variant='body1'>{t('regionNotFound')}</Typography>
       <Button

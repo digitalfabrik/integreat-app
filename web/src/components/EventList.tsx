@@ -21,10 +21,7 @@ type EventListGroupProps = {
 const EventListGroup = ({ title, events, languageCode }: EventListGroupProps): ReactElement => {
   const { stickyTop } = useDimensions()
   return (
-    <Stack
-      sx={{
-        paddingBlock: 1,
-      }}>
+    <Stack sx={{ paddingBlock: 1 }}>
       <StickyListSubheader component='h2' stickyTop={stickyTop}>
         {title}
       </StickyListSubheader>

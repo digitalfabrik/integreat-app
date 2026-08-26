@@ -52,11 +52,7 @@ const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement
       </Badge>
       <ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />
       {desktop && (
-        <Typography
-          aria-hidden
-          sx={{
-            textAlign: 'center',
-          }}>
+        <Typography aria-hidden sx={{ textAlign: 'center' }}>
           {chatName}
         </Typography>
       )}

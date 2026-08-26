@@ -45,11 +45,7 @@ const LanguageListItem = ({
         aria-selected={code === selectedLanguageCode}
         onClick={close}
         selected={code === selectedLanguageCode}>
-        <Typography
-          variant='body1'
-          sx={{
-            fontWeight: code === selectedLanguageCode ? 'bold' : 'normal',
-          }}>
+        <Typography variant='body1' sx={{ fontWeight: code === selectedLanguageCode ? 'bold' : 'normal' }}>
           {name}
         </Typography>
       </SelectorItemButton>

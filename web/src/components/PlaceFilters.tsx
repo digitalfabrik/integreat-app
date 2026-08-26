@@ -48,24 +48,12 @@ const PlaceFilters = ({
 
   return (
     <Dialog title={t('adjustFilters')} close={close}>
-      <Stack
-        sx={{
-          gap: 3,
-        }}>
-        <Stack
-          sx={{
-            width: '100%',
-            gap: 1,
-          }}>
+      <Stack sx={{ gap: 3 }}>
+        <Stack sx={{ width: '100%', gap: 1 }}>
           <Typography component='h3' variant='subtitle1'>
             {t('openingHours')}
           </Typography>
-          <Stack
-            direction='row'
-            sx={{
-              alignItems: 'center',
-              gap: 1,
-            }}>
+          <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
             <AccessTimeIcon />
             <Checkbox
               checked={currentlyOpenFilter}
@@ -74,17 +62,8 @@ const PlaceFilters = ({
             />
           </Stack>
         </Stack>
-        <Stack
-          sx={{
-            width: '100%',
-            gap: 2,
-          }}>
-          <Stack
-            direction='row'
-            sx={{
-              alignItems: 'center',
-              gap: 1,
-            }}>
+        <Stack sx={{ width: '100%', gap: 2 }}>
+          <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
             <Typography component='h3' variant='subtitle1'>
               {t('placeCategories')}
             </Typography>

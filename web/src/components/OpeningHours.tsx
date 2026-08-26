@@ -22,13 +22,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label }: OpeningHoursTitleProps) =
   return (
     <Stack
       direction='row'
-      sx={{
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        width: '100%',
-        gap: 1,
-        paddingInlineEnd: 1,
-      }}>
+      sx={{ justifyContent: 'space-between', alignItems: 'center', width: '100%', gap: 1, paddingInlineEnd: 1 }}>
       <Typography component='h2' variant='subtitle1'>
         {t('openingHours')}
       </Typography>
@@ -64,11 +58,7 @@ const OpeningHours = ({
   if (isTemporarilyClosed || appointmentOnly) {
     const label = isTemporarilyClosed ? 'temporarilyClosed' : 'onlyWithAppointment'
     return (
-      <Stack
-        sx={{
-          paddingBlock: 1,
-          gap: 1,
-        }}>
+      <Stack sx={{ paddingBlock: 1, gap: 1 }}>
         <OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} label={label} />
         {AppointmentLink}
       </Stack>

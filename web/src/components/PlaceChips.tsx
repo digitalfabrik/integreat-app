@@ -15,12 +15,7 @@ const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
   const { category } = place
 
   return (
-    <Stack
-      sx={{
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: 1,
-      }}>
+    <Stack sx={{ flexDirection: 'row', flexWrap: 'wrap', gap: 1 }}>
       <Chip icon={<Svg src={category.icon} />} label={category.name} variant='outlined' />
       {place.organization !== null && (
         <Chip

@@ -130,11 +130,7 @@ const Chat = ({
   if (!privacyPolicyAccepted) {
     return (
       <Container>
-        <Stack
-          sx={{
-            paddingInline: 3,
-            gap: 1,
-          }}>
+        <Stack sx={{ paddingInline: 3, gap: 1 }}>
           <H1>{t('settings:privacyPolicy')}</H1>
           {t('privacyPolicyInformation')}
           <PrivacyCheckbox
@@ -157,11 +153,7 @@ const Chat = ({
         loading={isPending}
         openUrl={openUrl}
       />
-      <Stack
-        sx={{
-          paddingInline: 2,
-          gap: 1,
-        }}>
+      <Stack sx={{ paddingInline: 2, gap: 1 }}>
         {(error || sendingError) && (
           <Alert
             severity='error'

@@ -9,15 +9,8 @@ import { Grid } from './Tiles'
 const NUM_TILES_SKELETON = 8
 
 const SkeletonTiles = (): ReactElement => (
-  <Stack
-    sx={{
-      paddingTop: 2,
-      alignContent: 'center',
-    }}>
-    <Stack
-      sx={{
-        alignItems: 'center',
-      }}>
+  <Stack sx={{ paddingTop: 2, alignContent: 'center' }}>
+    <Stack sx={{ alignItems: 'center' }}>
       <SkeletonHeader />
     </Stack>
     <Grid>

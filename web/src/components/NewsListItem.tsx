@@ -60,11 +60,7 @@ const NewsListItem = ({ news, regionCode, languageCode }: NewsListItemProps): Re
                 component='span'
                 direction='row'
                 dir={contentDirection}
-                sx={{
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: 2,
-                }}>
+                sx={{ alignItems: 'center', justifyContent: 'space-between', gap: 2 }}>
                 {news.title}
                 <NewsSourceChip source={news.source} />
               </Stack>

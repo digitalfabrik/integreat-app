@@ -17,13 +17,7 @@ const Failure = ({ errorMessage, goToPath, goToMessage = 'goTo.start', className
   return (
     <Stack
       className={className}
-      sx={{
-        alignItems: 'center',
-        textAlign: 'center',
-        paddingTop: 8,
-        paddingInline: 2,
-        gap: 3,
-      }}>
+      sx={{ alignItems: 'center', textAlign: 'center', paddingTop: 8, paddingInline: 2, gap: 3 }}>
       <SentimentVeryDissatisfiedIcon fontSize='large' />
       <div role='alert'>{t(errorMessage)} </div>
       {!!goToPath && (

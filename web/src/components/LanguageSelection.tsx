@@ -74,10 +74,7 @@ const LanguageSelection = ({
 
   if (mobile || asList) {
     return (
-      <Stack
-        sx={{
-          gap: 2,
-        }}>
+      <Stack sx={{ gap: 2 }}>
         <SearchInput
           id='search-language'
           ariaLabel={t('searchLanguage')}

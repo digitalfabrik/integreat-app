@@ -43,11 +43,7 @@ export const InnerChatMessage = ({
   children,
   hint,
 }: InnerChatMessageProps): ReactElement => (
-  <Stack
-    direction={userIsAuthor ? 'row-reverse' : 'row'}
-    sx={{
-      gap: 1,
-    }}>
+  <Stack direction={userIsAuthor ? 'row-reverse' : 'row'} sx={{ gap: 1 }}>
     <MessageAvatar userIsAuthor={userIsAuthor} isAutomaticAnswer={isAutomaticAnswer} visible={showAvatar} />
     <Message userIsAuthor={userIsAuthor}>
       <Typography variant='body2' component='div'>

@@ -69,12 +69,7 @@ const MobileBanner = (): ReactElement | null => {
   if (isAndroid && isVisible && appNameWithoutObdach) {
     return (
       <StyledBanner>
-        <Stack
-          direction='row'
-          sx={{
-            alignItems: 'center',
-            gap: 1,
-          }}>
+        <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
           <IconButton onClick={closeBanner} aria-label={t('common:close')} color='inherit'>
             <CloseIcon />
           </IconButton>
