@@ -158,7 +158,7 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t($ => $.settings.version, { version: NativeConstants.appVersion }),
+    title: t($ => $.settings.version, { version: NativeConstants.appVersion ?? '1.0.0' }),
     onPress: () => {
       volatileValues.versionTaps += 1
 

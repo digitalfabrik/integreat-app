@@ -172,14 +172,26 @@ export default translations
   console.log(`Wrote ${filePath} with ${languages.length} languages`)
 }
 
-program.command('sync-indexes').action(() => {
-  const translationsDir = 'src/translations'
-  const overridesRoot = 'src/override-translations'
+const RESOURCES_TYPING_LANGUAGE = 'en'
+const RESOURCES_GEN_PATH = 'src/resources.gen.ts'
+const TRANSLATIONS_DIR = 'src/translations'
+const TRANSLATIONS_OVERRIDE_DIR = 'src/override-translations'
 
-  writeIndex(translationsDir, '../types.ts')
-  fs.readdirSync(overridesRoot, { withFileTypes: true })
+const writeTypes = () => {
+  const filePath = languageFilePath('src/translations', RESOURCES_TYPING_LANGUAGE)
+  const parsed = JSON.parse(fs.readFileSync(filePath, 'utf-8')) satisfies LanguageTranslations
+  const banner = `// AUTO-GENERATED from ${RESOURCES_TYPING_LANGUAGE}.json by \`yarn workspace translations sync\`. Do not edit.\n`
+  const body = `const resources = ${JSON.stringify(parsed, null, 2)} as const\n\nexport default resources\n`
+  fs.writeFileSync(RESOURCES_GEN_PATH, `${banner}\n${body}`, 'utf-8')
+  console.log(`Wrote ${RESOURCES_GEN_PATH}`)
+}
+
+program.command('sync').action(() => {
+  writeIndex(TRANSLATIONS_DIR, '../types.ts')
+  fs.readdirSync(TRANSLATIONS_OVERRIDE_DIR, { withFileTypes: true })
     .filter(entry => entry.isDirectory())
-    .forEach(entry => writeIndex(path.join(overridesRoot, entry.name), '../../types.ts'))
+    .forEach(entry => writeIndex(path.join(TRANSLATIONS_OVERRIDE_DIR, entry.name), '../../types.ts'))
+  writeTypes()
 })
 
 type WritePlistTranslationsOptions = {
