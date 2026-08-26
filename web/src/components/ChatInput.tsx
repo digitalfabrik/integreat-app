@@ -33,12 +33,27 @@ const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 
       [theme.breakpoints.up('md')]: {
         flexDirection: 'row',
       },
+      // MUI hovers to text.primary, excluding the focused state
+      [`&:hover:not(.${outlinedInputClasses.focused}) .${outlinedInputClasses.notchedOutline}`]: {
+        borderColor: theme.palette.chat.chatInputPlaceholderColor,
+      },
+    },
+
+    [`& .${outlinedInputClasses.notchedOutline}`]: {
+      borderColor: theme.palette.chat.chatInputOutlineColor,
+      borderWidth: 2,
+    },
+
+    [`& .${outlinedInputClasses.input}::placeholder`]: {
+      color: theme.palette.chat.chatInputPlaceholderColor,
+      // The global placeholder opacity must not dim the color any further
+      opacity: 1,
     },
   }),
 )
 
 const ChatIconButton = styled(IconButton)(({ theme }) => ({
-  color: theme.palette.text.secondary,
+  color: theme.palette.chat.chatInputPlaceholderColor,
   [`&.${buttonBaseClasses.focusVisible}`]: { color: theme.palette.text.primary },
 })) as typeof IconButton
 
@@ -51,7 +66,9 @@ const SendButton = styled(IconButton)(({ theme }) => ({
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
-
+  [`&.${buttonBaseClasses.disabled}`]: {
+    color: theme.palette.chat.chatInputOutlineColor,
+  },
   [theme.breakpoints.up('md')]: {
     borderRadius: 12,
   },
@@ -62,12 +79,13 @@ const ButtonStack = styled(Stack, { shouldForwardProp })<{ expanded: boolean }>(
   flexDirection: expanded ? 'row-reverse' : 'row',
   justifyContent: expanded ? 'space-between' : 'flex-end',
   alignSelf: expanded ? 'stretch' : 'flex-end',
+  marginTop: expanded ? theme.spacing(1) : 0,
+  paddingInlineStart: theme.spacing(1),
 
   [theme.breakpoints.up('md')]: {
     flexDirection: expanded ? 'column' : 'row',
     justifyContent: 'flex-end',
     alignSelf: 'flex-end',
-    paddingLeft: 8,
   },
 }))
 
