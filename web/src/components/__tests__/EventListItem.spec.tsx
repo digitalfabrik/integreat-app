@@ -23,9 +23,8 @@ describe('EventListItem', () => {
     const { getByText, getByRole } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
 
     expect(getByText(event.title)).toBeTruthy()
-    expect(
-      getByText(event.date.formatEventDateInOneLine(language, jest.fn()), { collapseWhitespace: false }),
-    ).toBeTruthy()
+    expect(getByText(event.date.formatDateInterval(language), { exact: false })).toBeTruthy()
+    expect(getByText(event.date.formatTimeInterval(language, { allDayLabel: 'allDay' }), { exact: false })).toBeTruthy()
     expect(getByText(event.location!.name)).toBeTruthy()
     expect(getByRole('presentation')).toHaveProperty('src', event.thumbnail)
     expect(getByText(excerpt)).toBeTruthy()
@@ -39,9 +38,8 @@ describe('EventListItem', () => {
     )
 
     expect(getByText(event.title)).toBeTruthy()
-    expect(
-      getByText(event.date.formatEventDateInOneLine(language, jest.fn()), { collapseWhitespace: false }),
-    ).toBeTruthy()
+    expect(getByText(event.date.formatDateInterval(language), { exact: false })).toBeTruthy()
+    expect(getByText(event.date.formatTimeInterval(language, { allDayLabel: 'allDay' }), { exact: false })).toBeTruthy()
     const src = (getByRole('presentation') as HTMLMediaElement).src
     expect(
       [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3].some(img =>

@@ -9,7 +9,7 @@ import { useParams } from 'react-router'
 import { EVENTS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createEventsEndpoint, NotFoundError } from 'shared/api'
 
-import DatesPageDetail from '../components/DatesPageDetail'
+import EventDates from '../components/EventDates'
 import EventList from '../components/EventList'
 import { Icon } from '../components/EventListItem'
 import ExportEventButton from '../components/ExportEventButton'
@@ -109,7 +109,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
         </RegionContentLayout>
       )
     }
-    const { featuredImage, lastUpdate, content, title, location, meetingUrl, date } = event
+    const { featuredImage, lastUpdate, content, title, location, meetingUrl } = event
 
     return (
       <RegionContentLayout isLoading={false} {...locationLayoutParams}>
@@ -121,7 +121,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
           title={title}
           beforeContent={
             <Spacing content={content} lastUpdate={lastUpdate}>
-              <DatesPageDetail date={date} language={languageCode} />
+              <EventDates event={event} languageCode={languageCode} />
               {location && (
                 <PageDetail
                   tooltip={t('address')}

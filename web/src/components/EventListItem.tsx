@@ -1,4 +1,3 @@
-import EventNoteIcon from '@mui/icons-material/EventNote'
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined'
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
 import ListItem from '@mui/material/ListItem'
@@ -13,12 +12,12 @@ import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getDisplayDate, getExcerpt } from 'shared'
+import { getExcerpt } from 'shared'
 import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
-import EventFurtherDates from './EventFurtherDates'
+import EventDates from './EventDates'
 import Link from './base/Link'
 
 const StyledListItem = styled(ListItem)`
@@ -83,7 +82,6 @@ const EventListItem = ({
       <EventRepeatOutlinedIcon />
     </Tooltip>
   ) : undefined
-  const dateToDisplay = getDisplayDate(event, filterStartDate, filterEndDate)
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
 
   return (
@@ -101,11 +99,13 @@ const EventListItem = ({
           }
           secondary={
             <StyledTypography variant='body1' flexDirection='column' component='div' dir={contentDirection}>
-              <Stack direction='row' alignItems='center' gap={1} component='p'>
-                <EventNoteIcon fontSize='small' />
-                <span>{dateToDisplay.formatEventDateInOneLine(languageCode, t)}</span>
-              </Stack>
-              {event.isRecurring && <EventFurtherDates date={event.date} languageCode={languageCode} />}
+              <EventDates
+                event={event}
+                languageCode={languageCode}
+                filterStartDate={filterStartDate}
+                filterEndDate={filterEndDate}
+                compact
+              />
               {event.location && (
                 <Stack direction='row' alignItems='center' gap={1} component='p'>
                   <LocationOnOutlinedIcon fontSize='small' />

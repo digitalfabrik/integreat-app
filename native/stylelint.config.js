@@ -6,8 +6,8 @@ export default {
     // Also text-align-vertical is valid (but only on android)
     'property-no-unknown': [true, { ignoreProperties: [/shadow-.*/, 'text-align-vertical'] }],
 
-    // inset shorthand doesn't work on react-native
-    'declaration-block-no-redundant-longhand-properties': [true, { ignoreShorthands: ['inset'] }],
+    // inset and flex-flow shorthands don't work on react-native
+    'declaration-block-no-redundant-longhand-properties': [true, { ignoreShorthands: ['inset', 'flex-flow'] }],
 
     'alpha-value-notation': 'number',
 

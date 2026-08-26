@@ -23,7 +23,8 @@ describe('EventListItem', () => {
     )
 
     expect(getByText(event.title)).toBeTruthy()
-    expect(getByText(event.date.formatEventDateInOneLine(language, jest.fn()))).toBeTruthy()
+    expect(getByText(event.date.formatDateInterval(language))).toBeTruthy()
+    expect(getByText(event.date.formatTimeInterval(language, { allDayLabel: 'allDay' }))).toBeTruthy()
   })
 
   describe('date icon', () => {
