@@ -97,13 +97,13 @@ const TourDialog = (): ReactElement | null => {
       aria-describedby={DESCRIPTION_ELEMENT_ID}
       open>
       <StyledSvg src={icons.appLogoMobile} width={LOGO_SIZE} height={LOGO_SIZE} />
-      <Stack alignItems='flex-end' marginInline={1} marginBlockStart={1}>
+      <Stack sx={{ alignItems: 'flex-end', marginInline: 1, marginBlockStart: 1 }}>
         <IconButton onClick={content.close} size='small' aria-label={t('common:close')}>
           <CloseIcon fontSize='small' />
         </IconButton>
       </Stack>
       <DialogContent sx={{ paddingBlockStart: 0 }}>
-        <Stack alignItems='center' textAlign='center' gap={2}>
+        <Stack sx={{ alignItems: 'center', textAlign: 'center', gap: 2 }}>
           <Typography id={TITLE_ELEMENT_ID} component='h2' variant='h3'>
             {content.title}
           </Typography>

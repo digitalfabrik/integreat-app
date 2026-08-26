@@ -28,7 +28,7 @@ type TourStepContentProps = {
 }
 
 const TourStepContent = ({ title, descriptionKey }: TourStepContentProps): ReactElement => (
-  <Stack gap={1}>
+  <Stack sx={{ gap: 1 }}>
     <Typography variant='subtitle1'>{title}</Typography>
     <Typography variant='body2'>
       <Trans i18nKey={`tour:${descriptionKey}`} components={{ strong: <strong /> }} />

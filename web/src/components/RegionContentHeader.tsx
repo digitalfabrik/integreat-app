@@ -40,7 +40,7 @@ const RegionContentHeader = ({
   const { desktop } = useDimensions()
 
   const actionItems = [
-    <Stack key='searchAndLanguage' id={HEADER_ACTIONS_ELEMENT_ID} direction='row' alignItems='center' gap={1}>
+    <Stack key='searchAndLanguage' id={HEADER_ACTIONS_ELEMENT_ID} direction='row' sx={{ alignItems: 'center', gap: 1 }}>
       <HeaderActionItem to={searchPath} text={t($ => $.search.title)} icon={<SearchOutlinedIcon />} />
       {!!languageChangePaths && (
         <HeaderLanguageSelectorItem
