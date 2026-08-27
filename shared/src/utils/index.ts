@@ -1,8 +1,6 @@
 import segment from 'sentencex'
 import { v4 } from 'uuid'
 
-export { formatDateICal } from './date.ts'
-
 export const getSlugFromPath = (path: string): string => path.split('/').pop() ?? ''
 
 export const safeParseInt = (value: string | number | undefined | null): number | undefined => {

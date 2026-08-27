@@ -1,8 +1,8 @@
-import { TFunction } from 'i18next'
+import type { TFunction } from 'i18next'
 import { DateTime, Duration } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
-import { formatDate, formatDateICal, formatTime } from '../../utils/date.ts'
+import { formatDate, formatDateICal, formatTime, getWeekdayFromIndex } from '../../utils/date.ts'
 
 const MAX_RECURRENCE_YEARS = 6
 
@@ -150,6 +150,27 @@ class DateModel {
 
     const endTime = formatTime(this.endDate, { locale })
     return `${startTime} - ${endTime}`
+  }
+
+  formatWeekdays(locale: string): string | null {
+    if (this.onlyWeekdays) {
+      const monday = getWeekdayFromIndex(0, { locale })
+      const friday = getWeekdayFromIndex(4, { locale })
+      return `${monday} - ${friday}`
+    }
+    return null
+  }
+
+  formatRecurrenceEnd(locale: string, { t }: { t: TFunction }): string | null {
+    const until = this.recurrenceRule?.options.until
+    if (!until || !this.hasMoreRecurrencesThan(1)) {
+      return null
+    }
+
+    const lastRecurrenceJsDate = this.recurrenceRule.before(until, true)
+    const lastRecurrence = lastRecurrenceJsDate ? DateTime.fromJSDate(lastRecurrenceJsDate) : null
+
+    return lastRecurrence ? t($ => $.events.untilDate, { date: formatDate(lastRecurrence, { locale }) }) : null
   }
 
   private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType {

@@ -1,14 +1,14 @@
 import { DateTime } from 'luxon'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Button, TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { HORIZONTAL_TEXT_DIVIDER, MAX_FURTHER_DATES, MAX_FURTHER_DATES_MOBILE, MORE_INDICATOR } from 'shared'
 import { EventModel } from 'shared/api'
 
-import { contentAlignment, contentDirection } from '../constants/contentDirection'
+import { contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
 import Icon, { DEFAULT_ICON_SIZE, SMALL_ICON_SIZE } from './base/Icon'
 import Text from './base/Text'
 
@@ -27,11 +27,6 @@ const InlineWrap = styled.View<{ language: string }>`
 
 const Toggle = styled(TouchableRipple)<{ language: string }>`
   padding-block: 8px;
-`
-
-const Dates = styled.View<{ language: string }>`
-  padding-${props => contentAlignment(props.language)}: 24px;
-  gap: 8px;
 `
 
 const ShowMoreButton = styled(Button)<{ language: string }>`
@@ -67,8 +62,13 @@ const EventDates = ({
   const hasMoreRecurrences = date.hasMoreRecurrencesThan(maxVisibleRecurrences + 1)
   const expanded = expansionCount > 0
 
+  const extraDateText = date.formatRecurrenceEnd(language, { t }) ?? date.formatWeekdays(language)
   const textVariant = compact ? 'body3' : 'body2'
   const iconSize = compact ? SMALL_ICON_SIZE : DEFAULT_ICON_SIZE
+
+  const Styles = StyleSheet.create({
+    indentation: { [isContentDirectionReversalRequired(language) ? 'paddingRight' : 'paddingLeft']: iconSize + 4 },
+  })
 
   return (
     <View>
@@ -82,6 +82,11 @@ const EventDates = ({
           <Text variant={textVariant}>{timeInterval}</Text>
         </InlineWrap>
       </DateRow>
+      {extraDateText && (
+        <InlineWrap language={language} style={Styles.indentation}>
+          <Text variant={textVariant}>{extraDateText}</Text>
+        </InlineWrap>
+      )}
       {hasRecurrences && (
         <>
           <Toggle
@@ -99,7 +104,7 @@ const EventDates = ({
             </InlineWrap>
           </Toggle>
           {expanded && (
-            <Dates language={language}>
+            <View style={[Styles.indentation, { gap: 8 }]}>
               {recurrences.map((recurrence, index) => {
                 const recurrenceTimeInterval = recurrence.formatTimeInterval(language, { t })
                 return (
@@ -128,7 +133,7 @@ const EventDates = ({
                   {t($ => $.common.showMore)}
                 </ShowMoreButton>
               )}
-            </Dates>
+            </View>
           )}
         </>
       )}

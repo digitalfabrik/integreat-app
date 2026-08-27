@@ -6,7 +6,6 @@ import { DateModel, EventModel } from 'shared/api'
 import CategoriesMapModelBuilder from 'shared/api/endpoints/testing/CategoriesMapModelBuilder'
 import EventModelBuilder from 'shared/api/endpoints/testing/EventModelBuilder'
 import RegionModelBuilder from 'shared/api/endpoints/testing/RegionModelBuilder'
-import { mockT } from 'shared/testing'
 
 import BlobUtil from '../../__mocks__/react-native-blob-util'
 import {
@@ -262,9 +261,9 @@ describe('DatabaseConnector', () => {
         meetingUrl: null,
       })
 
-      const expectedDate = '7. Mai - 10:00 - 12:00'
+      const expectedDate = '2024-05-07 : 10:00:00.000Z - 2024-05-07 : 12:00:00.000Z'
       const formatDate = (date: DateModel) =>
-        `${date.formatDateInterval('de')} - ${date.formatTimeInterval('de', { t: mockT })}`
+        `${date.startDate.toISODate()} : ${date.startDate.toISOTime()} - ${date.endDate?.toISODate()} : ${date.endDate?.toISOTime()}`
 
       expect(formatDate(event.date)).toStrictEqual(expectedDate)
       expect(formatDate(event.date.recurrences(1)[0]!)).toStrictEqual(expectedDate)
