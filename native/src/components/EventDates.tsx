@@ -54,7 +54,7 @@ const EventDates = ({
   compact = false,
 }: EventDatesProps): ReactElement => {
   const [expansionCount, setExpansionCount] = useState(compact ? 0 : 1)
-  const { t } = useTranslation()
+  const { t } = useTranslation(undefined, { lng: language })
   const theme = useTheme()
 
   const allDayLabel = t($ => $.places.allDay)

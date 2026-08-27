@@ -25,6 +25,7 @@ const I18nProvider = ({ children }: I18nProviderProps): ReactElement | null => {
       await i18nextInstance.init({
         resources,
         defaultNS: namespaces,
+        enableSelector: 'strict',
         fallbackLng: { ...config.getTranslationFallbacks(), default: [config.defaultFallback] },
 
         /* Only allow supported languages (languages which can appear  in content of cms */

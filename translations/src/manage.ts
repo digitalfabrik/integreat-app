@@ -203,6 +203,9 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
   const languages = Object.keys(config.supportedLanguages).filter(language =>
     fs.existsSync(languageFilePath(translations, language)),
   )
+  if (languages.length === 0) {
+    throw new Error(`Empty directory ${destination}`)
+  }
   console.warn(`Creating InfoPlist.strings for the languages ${languages}`)
   languages.forEach(language => {
     const nativeTranslations = readLanguageFile(translations, language)?.native
@@ -235,10 +238,7 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
 program
   .command('write-plist <appName>')
   .description('setup native translations for ios')
-  .requiredOption(
-    '--translations <translations>',
-    'the path to the translations directory containing per-language JSON files',
-  )
+  .requiredOption('--translations <translations>', 'the path to the translations dir')
   .requiredOption('--destination <destination>', 'the path to put the string resources to')
   .action((appName: string, options: WritePlistTranslationsOptions) => {
     try {

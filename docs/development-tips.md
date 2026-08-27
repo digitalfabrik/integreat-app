@@ -23,11 +23,12 @@ For Android: `npx uri-scheme open https://integreat.app/etc/pp/ --android`
 
 For iOS: `npx uri-scheme open integreat://integreat.app/etc/pp/ --ios`
 
-### Moving keys between namespaces in translations.json
+### Moving keys between namespaces in translations
 
-If you e.g. want to move the key "back" from the namespace "events" to "common":
+If you e.g. want to move the key `back` from the namespace `events` to `common`:
 
-1. Export the constants: `yarn manage convert translations.json translations-csv csv`
-2. Search and replace all usages of "namespace_old.key" with "namespace_new.key" in all exported csvs (e.g. events.back with common.back)
-3. Import the constants again: `yarn manage convert translations-csv translations.json json`
+1. Export the constants: `yarn manage export src/translations translations-csv`
+2. Search and replace all usages of `<namespace_old>.key` with `<namespace_new>.key` in all exported csvs (e.g. `events.back` with `common.back`)
+3. Import the constants again: `yarn manage import translations-csv src/translations`
 4. Don't forget to change the usages in native and web
+5. Sync the translations: `yarn workspace translations sync`
