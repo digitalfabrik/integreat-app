@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import { DateTime, Duration } from 'luxon'
 import { RRule as RRuleType, rrulestr } from 'rrule'
 
@@ -136,9 +137,9 @@ class DateModel {
       : `${formattedStartDate} - ${formatDate(this.endDate, { locale, showYear })}`
   }
 
-  formatTimeInterval(locale: string, { allDayLabel }: { allDayLabel: string }): string {
+  formatTimeInterval(locale: string, { t }: { t: TFunction }): string {
     if (this.allDay) {
-      return allDayLabel
+      return t($ => $.places.allDay)
     }
 
     const startTime = formatTime(this.startDate, { locale })

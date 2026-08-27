@@ -1,8 +1,8 @@
 import { SettingsRouteType } from 'shared'
+import { mockT } from 'shared/testing'
 
 import { testingAppContext } from '../../testing/TestingAppContext'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import mockT from '../../testing/mockTranslate'
 import { SettingsType } from '../AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from '../PushNotificationsManager'
 import createSettingsSections from '../createSettingsSections'

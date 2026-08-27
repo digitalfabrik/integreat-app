@@ -110,7 +110,7 @@ export default defineConfig([
 
           patterns: [
             {
-              group: ['shared/*', '!shared/api'],
+              group: ['shared/*', '!shared/api', '!shared/testing'],
               message: 'Use import from "shared" instead (you might need to add it as an export in index.ts).',
             },
             {
@@ -318,6 +318,7 @@ export default defineConfig([
 
     rules: {
       '@typescript-eslint/consistent-type-definitions': 'off',
+      'import-x/no-extraneous-dependencies': 'off',
     },
   },
 
