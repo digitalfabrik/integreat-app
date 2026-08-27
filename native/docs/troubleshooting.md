@@ -141,7 +141,7 @@ To solve this issue delete /android/app/build and android/.gradle folder.
 ## XCode can't find 'your/directory/native/ios/Integreat/de.lproj/InfoPlist.strings'
 
 These translations should usually be generated during the build, if they aren't, generate them manually with
-`yarn workspace translations manage write-plist Integreat --translations "../translations/translations.json" --destination ../native/ios/Integreat`
+`yarn workspace translations manage write-plist Integreat --translations "../translations/src/translations" --destination ../native/ios/Integreat`
 
 Then run `bundle exec pod install` in /ios, clean the Build folder in XCode(Shift + Cmd + K), restart XCode, and try again.
 

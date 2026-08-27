@@ -26,6 +26,7 @@ const I18nProvider = ({ children, contentLanguage }: I18nProviderProps): ReactEl
       await i18nextInstance.init({
         resources,
         defaultNS: namespaces,
+        enableSelector: 'strict',
         fallbackLng: {
           ...config.getTranslationFallbacks(),
           default: [config.defaultFallback],
