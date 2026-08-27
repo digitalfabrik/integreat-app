@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
+import { mockT } from '../../../testing/index.ts'
 import DateModel from '../DateModel.ts'
 
 jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
@@ -158,7 +159,7 @@ describe('DateModel', () => {
 
       expect(recurrence.startDate.toUTC().toISO()).toBe('2024-05-07T10:00:00.000Z')
       expect(recurrence.endDate?.toUTC().toISO()).toBe('2024-05-07T12:00:00.000Z')
-      expect(recurrence.formatTimeInterval('de', { allDayLabel: 'allDay' })).toBe('10:00 - 12:00')
+      expect(recurrence.formatTimeInterval('de', { t: mockT })).toBe('10:00 - 12:00')
     })
 
     it('should correctly handle dates if it is winter time and the event starts during winter time', () => {
@@ -841,7 +842,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('de', { allDayLabel: 'allDay' })).toBe('11:00 - 13:00')
+      expect(date.formatTimeInterval('de', { t: mockT })).toBe('11:00 - 13:00')
     })
 
     it('should format a time interval in English', () => {
@@ -852,7 +853,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('en', { allDayLabel: 'allDay' })).toBe('11:00 AM - 1:00 PM')
+      expect(date.formatTimeInterval('en', { t: mockT })).toBe('11:00 AM - 1:00 PM')
     })
 
     it('should return only the start time when end and start match to the minute', () => {
@@ -863,7 +864,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('de', { allDayLabel: 'allDay' })).toBe('11:00')
+      expect(date.formatTimeInterval('de', { t: mockT })).toBe('11:00')
     })
 
     it('should return only the start time when there is no end date', () => {
@@ -874,7 +875,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('de', { allDayLabel: 'allDay' })).toBe('11:00')
+      expect(date.formatTimeInterval('de', { t: mockT })).toBe('11:00')
     })
 
     it('should return the all-day label for an all-day event', () => {
@@ -885,7 +886,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('de', { allDayLabel: 'places:allDay' })).toBe('places:allDay')
+      expect(date.formatTimeInterval('de', { t: mockT })).toBe('places:allDay')
     })
   })
 })

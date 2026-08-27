@@ -79,9 +79,8 @@ const EventDates = ({
   const { contentDirection } = useTheme()
   const { mobile } = useDimensions()
 
-  const allDayLabel = t($ => $.places.allDay)
   const date = event.date.firstRecurrenceInRange(filterStartDate, filterEndDate)
-  const timeInterval = date.formatTimeInterval(languageCode, { allDayLabel })
+  const timeInterval = date.formatTimeInterval(languageCode, { t })
 
   const maxFurtherDates = compact && mobile ? MAX_FURTHER_DATES_MOBILE : MAX_FURTHER_DATES
   const maxVisibleRecurrences = expansionCount * maxFurtherDates
@@ -116,7 +115,7 @@ const EventDates = ({
               </Stack>
             }>
             {recurrences.map((recurrence, index) => {
-              const recurrenceTimeInterval = recurrence.formatTimeInterval(languageCode, { allDayLabel })
+              const recurrenceTimeInterval = recurrence.formatTimeInterval(languageCode, { t })
               return (
                 <TextRow key={recurrence.startDate.toISO()}>
                   {recurrence.formatDateInterval(languageCode)}

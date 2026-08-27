@@ -57,9 +57,8 @@ const EventDates = ({
   const { t } = useTranslation()
   const theme = useTheme()
 
-  const allDayLabel = t($ => $.places.allDay)
   const date = event.date.firstRecurrenceInRange(filterStartDate, filterEndDate)
-  const timeInterval = date.formatTimeInterval(language, { allDayLabel })
+  const timeInterval = date.formatTimeInterval(language, { t })
 
   const maxFurtherDates = compact ? MAX_FURTHER_DATES_MOBILE : MAX_FURTHER_DATES
   const maxVisibleRecurrences = expansionCount * maxFurtherDates
@@ -102,7 +101,7 @@ const EventDates = ({
           {expanded && (
             <Dates language={language}>
               {recurrences.map((recurrence, index) => {
-                const recurrenceTimeInterval = recurrence.formatTimeInterval(language, { allDayLabel })
+                const recurrenceTimeInterval = recurrence.formatTimeInterval(language, { t })
                 return (
                   <InlineWrap key={recurrence.startDate.toISO()} language={language}>
                     <Text variant={textVariant}>{recurrence.formatDateInterval(language)}</Text>

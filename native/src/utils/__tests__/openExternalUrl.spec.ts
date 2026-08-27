@@ -1,7 +1,8 @@
 import { Linking } from 'react-native'
 import InAppBrowser from 'react-native-inappbrowser-reborn'
 
-import mockT from '../../testing/mockTranslate'
+import { mockT } from 'shared/testing'
+
 import { openExternalUrl } from '../openExternalUrl'
 
 jest.mock('@sentry/react-native', () => ({
