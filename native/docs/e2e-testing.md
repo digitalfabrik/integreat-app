@@ -12,10 +12,10 @@ properties you can set.
 
 Before first starting the test:
 
-- make sure appium is installed by running `appium --version`
-- install appium android driver by running `appium driver install uiautomator2` **in the project root**.
+- appium is a dependency of the `e2e` workspace, so run it via yarn: `yarn workspace e2e appium --version`
+- install appium android driver by running `yarn workspace e2e appium driver install uiautomator2`
 - set the APPIUM_HOME var to ~/.appium
-- make sure everything is set up correctly: `appium driver list --installed` in the e2e-tests subfolder should list uiautomator2
+- make sure everything is set up correctly: `yarn workspace e2e appium driver list --installed` should list uiautomator2
 
 1. Start an emulator (only the emulator, don't need to manually start the app)
 2. Start the app: `yarn prepare:native:start`
@@ -26,9 +26,9 @@ Before first starting the test:
 
 Before first starting the test:
 
-- Make sure to install the XCUITest driver: `appium driver install xcuitest`.
+- Make sure to install the XCUITest driver: `yarn workspace e2e appium driver install xcuitest`.
 
-- Then verify it is installed: `appium driver list --installed`. If any required tools are missing, run: `appium driver doctor xcuitest`.
+- Then verify it is installed: `yarn workspace e2e appium driver list --installed`. If any required tools are missing, run: `yarn workspace e2e appium driver doctor xcuitest`.
 
 - Choose or create a simulator. Check whether a simulator matching the capabilities in `wdio-ios.conf.ts` is available: `xcrun simctl list devices available`.
   If the simulator specified in the capabilities in `wdio-ios.conf.ts` is not in the list, create it in Xcode via **Window → Devices and Simulators → Simulators → +**, then run the command above again to confirm it now appears.
@@ -48,7 +48,7 @@ When writing tests, it may be helpful to use the (Appium Inspector)[https://gith
 inspect the tree of the app.
 
 1. Download Appium Inspector from the releases
-2. Start an Appium server by running `appium` in command your line. Note the URLs your command line prints for
+2. Start an Appium server by running `yarn workspace e2e appium` in command your line. Note the URLs your command line prints for
    accessing the server.
 3. Fill one of those URLs into the host field. If you want to get to a specific route, fill in the path as well.
 4. Fill in keys and values of desired capabilities: deviceName, platformVersion, automationName, platformName. You
