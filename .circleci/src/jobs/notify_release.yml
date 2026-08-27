@@ -27,7 +27,7 @@ steps:
       working_directory: tools
   - run:
       name: Generate, commit and upload SBoM
-      command: npx --no app-toolbelt v0 generate sbom --version-name ${NEW_VERSION_NAME} --release-id ${RELEASE_ID} --path _manifest/spdx_2.3/manifest.spdx.json --branch ${CIRCLE_BRANCH} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
+      command: npx --no app-toolbelt v0 generate sbom --version-name ${NEW_VERSION_NAME} --release-id ${RELEASE_ID} --path sbom.spdx.json --branch ${CIRCLE_BRANCH} --private-key ${DELIVERINO_PRIVATE_KEY} --owner ${CIRCLE_PROJECT_USERNAME} --repo ${CIRCLE_PROJECT_REPONAME}
       working_directory: tools
   - unless:
       condition:
