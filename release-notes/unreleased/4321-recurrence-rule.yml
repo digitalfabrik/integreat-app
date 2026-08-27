@@ -1,0 +1,7 @@
+issue_key: 4321
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Improved display of recurring, single-day and multi-day event dates
+de: Verbesserte Darstellung von Terminen für wiederkehrende, eintägige und mehrtägige Veranstaltungen

@@ -28,7 +28,7 @@ describe('EventDates', () => {
     const event = eventWithDate()
     const { getByText, queryByText } = render(<EventDates event={event} language={language} compact />)
 
-    expect(getByText('9. Okt. - 10. Okt.')).toBeTruthy()
+    expect(getByText('Mo., 9. Okt. - Di., 10. Okt.')).toBeTruthy()
     expect(getByText('7:00 - 9:00')).toBeTruthy()
     expect(queryByText('events:furtherDates')).toBeFalsy()
   })
@@ -37,7 +37,7 @@ describe('EventDates', () => {
     const event = eventWithDate('DTSTART:20230414T050000\nRRULE:FREQ=MONTHLY;BYDAY=+2MO')
     const { getByText } = render(<EventDates event={event} language={language} compact />)
 
-    expect(getByText('9. Okt. - 10. Okt.')).toBeTruthy()
+    expect(getByText('Mo., 9. Okt. - Di., 10. Okt.')).toBeTruthy()
     expect(getByText('events:furtherDates')).toBeTruthy()
   })
 
@@ -46,14 +46,14 @@ describe('EventDates', () => {
     const { getByText, queryByText } = render(<EventDates event={event} language={language} compact />)
 
     expect(getByText('events:furtherDates')).toBeTruthy()
-    expect(queryByText('13. Nov. - 14. Nov.')).toBeFalsy()
+    expect(queryByText('Mo., 13. Nov. - Di., 14. Nov.')).toBeFalsy()
 
     fireEvent.press(getByText('events:furtherDates'))
 
-    expect(getByText('13. Nov. - 14. Nov.')).toBeTruthy()
-    expect(getByText('11. Dez. - 12. Dez.')).toBeTruthy()
-    expect(getByText('8. Jan. 2024 - 9. Jan. 2024')).toBeTruthy()
-    expect(queryByText('12. Feb. 2024 - 13. Feb. 2024')).toBeFalsy()
+    expect(getByText('Mo., 13. Nov. - Di., 14. Nov.')).toBeTruthy()
+    expect(getByText('Mo., 11. Dez. - Di., 12. Dez.')).toBeTruthy()
+    expect(getByText('Mo., 8. Jan. 2024 - Di., 9. Jan. 2024')).toBeTruthy()
+    expect(queryByText('Mo., 11. März 2024 - Di., 12. März 2024')).toBeFalsy()
     expect(getByText('…')).toBeTruthy()
   })
 
@@ -63,8 +63,8 @@ describe('EventDates', () => {
 
     fireEvent.press(getByText('events:furtherDates'))
 
-    expect(getByText('16. Okt. - 17. Okt.')).toBeTruthy()
-    expect(getByText('23. Okt. - 24. Okt.')).toBeTruthy()
+    expect(getByText('Mo., 16. Okt. - Di., 17. Okt.')).toBeTruthy()
+    expect(getByText('Mo., 23. Okt. - Di., 24. Okt.')).toBeTruthy()
     expect(getByText('…')).toBeTruthy()
   })
 
@@ -76,9 +76,9 @@ describe('EventDates', () => {
 
     fireEvent.press(getByText('events:furtherDates'))
 
-    expect(getByText('18. Okt. - 19. Okt.')).toBeTruthy()
+    expect(getByText('Mi., 18. Okt. - Do., 19. Okt.')).toBeTruthy()
     expect(getByText('9:00 - 11:00')).toBeTruthy()
-    expect(getByText('20. Okt. - 21. Okt.')).toBeTruthy()
+    expect(getByText('Fr., 20. Okt. - Sa., 21. Okt.')).toBeTruthy()
     expect(getByText('13:00 - 15:00')).toBeTruthy()
   })
 })

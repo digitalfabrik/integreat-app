@@ -5,31 +5,13 @@ import CategoryModel from '../../api/models/CategoryModel.ts'
 import OfferModel from '../../api/models/OfferModel.ts'
 import TileModel from '../../models/TileModel.ts'
 import { getCategoryTiles } from '../categories.ts'
-import {
-  addSubdomain,
-  formatDateICal,
-  getGenericLanguageCode,
-  getSlugFromPath,
-  safeParseInt,
-  segmentText,
-} from '../index.ts'
+import { addSubdomain, getGenericLanguageCode, getSlugFromPath, safeParseInt, segmentText } from '../index.ts'
 
 describe('getSlugFromPath', () => {
   it('should return last path segment', () => {
     expect(getSlugFromPath('')).toBe('')
     expect(getSlugFromPath('https://example.com/path/to/whatever/last')).toBe('last')
     expect(getSlugFromPath('/example/path/to/whatever/last')).toBe('last')
-  })
-})
-
-describe('formatDateICal', () => {
-  it('should return date in iCal format', () => {
-    expect(formatDateICal(DateTime.fromISO('2023-10-09T07:00:00.000+02:00'))).toBe('20231009T070000')
-  })
-
-  it('should return date in iCal format when given a date in Arabic', () => {
-    const arabicDate = DateTime.fromISO('2023-10-09T07:00:00.000+02:00', { locale: 'ar', numberingSystem: 'arab' })
-    expect(formatDateICal(arabicDate)).toBe('20231009T070000')
   })
 })
 
