@@ -20,5 +20,10 @@
     "types": ["jest", "node"],
     "typeRoots": ["./src/@types", "node_modules/@types", "../node_modules/@types"]
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "references": [
+    {
+      "path": "../translations"
+    }
+  ]
 }

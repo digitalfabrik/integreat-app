@@ -261,9 +261,9 @@ describe('DatabaseConnector', () => {
         meetingUrl: null,
       })
 
-      const expectedDate = '7. Mai - 10:00 - 12:00'
+      const expectedDate = '2024-05-07 : 10:00:00.000Z - 2024-05-07 : 12:00:00.000Z'
       const formatDate = (date: DateModel) =>
-        `${date.formatDateInterval('de')} - ${date.formatTimeInterval('de', { allDayLabel: 'allDay' })}`
+        `${date.startDate.toISODate()} : ${date.startDate.toISOTime()} - ${date.endDate?.toISODate()} : ${date.endDate?.toISOTime()}`
 
       expect(formatDate(event.date)).toStrictEqual(expectedDate)
       expect(formatDate(event.date.recurrences(1)[0]!)).toStrictEqual(expectedDate)

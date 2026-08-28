@@ -1,6 +1,8 @@
+import { TFunction } from 'i18next'
 import { DateTime } from 'luxon'
 import { rrulestr } from 'rrule'
 
+import { mockT } from '../../../testing/index.ts'
 import DateModel from '../DateModel.ts'
 
 jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
@@ -158,7 +160,7 @@ describe('DateModel', () => {
 
       expect(recurrence.startDate.toUTC().toISO()).toBe('2024-05-07T10:00:00.000Z')
       expect(recurrence.endDate?.toUTC().toISO()).toBe('2024-05-07T12:00:00.000Z')
-      expect(recurrence.formatTimeInterval('de', { allDayLabel: 'allDay' })).toBe('10:00 - 12:00')
+      expect(recurrence.formatTimeInterval('de', { t: mockT })).toBe('10:00 - 12:00')
     })
 
     it('should correctly handle dates if it is winter time and the event starts during winter time', () => {
@@ -765,7 +767,7 @@ describe('DateModel', () => {
   })
 
   describe('formatDateInterval', () => {
-    it('should format a future single-day event with the year', () => {
+    it('should format a future single-day event with weekday and year', () => {
       const date = new DateModel({
         startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00'),
         endDate: DateTime.fromISO('2025-08-20T13:00:00+02:00'),
@@ -773,10 +775,10 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('de')).toBe('20. Aug. 2025')
+      expect(date.formatDateInterval('de')).toBe('Mi., 20. Aug. 2025')
     })
 
-    it('should format a future single-day event with the year in English', () => {
+    it('should format a future single-day event with weekday and year in English', () => {
       const date = new DateModel({
         startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00'),
         endDate: DateTime.fromISO('2025-08-20T13:00:00+02:00'),
@@ -784,10 +786,10 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('en')).toBe('Aug 20, 2025')
+      expect(date.formatDateInterval('en')).toBe('Wed, Aug 20, 2025')
     })
 
-    it('should format a future multi-day event as an interval with year', () => {
+    it('should format a future multi-day event as an interval with weekday and year', () => {
       const date = new DateModel({
         startDate: DateTime.fromISO('2025-08-18T11:00:00+02:00'),
         endDate: DateTime.fromISO('2025-09-19T12:00:00+02:00'),
@@ -795,7 +797,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('de')).toBe('18. Aug. 2025 - 19. Sept. 2025')
+      expect(date.formatDateInterval('de')).toBe('Mo., 18. Aug. 2025 - Fr., 19. Sept. 2025')
     })
 
     it('should format a single day when start and end fall on the same day', () => {
@@ -806,7 +808,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('de')).toBe('3. Sept. 2025')
+      expect(date.formatDateInterval('de')).toBe('Mi., 3. Sept. 2025')
     })
 
     it('should format an event without an end date as a single day', () => {
@@ -817,7 +819,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('de')).toBe('20. Aug. 2025')
+      expect(date.formatDateInterval('de')).toBe('Mi., 20. Aug. 2025')
     })
 
     it('should omit the year for a current-year single-day event without an end date', () => {
@@ -828,7 +830,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatDateInterval('de')).toBe('15. Okt.')
+      expect(date.formatDateInterval('de')).toBe('So., 15. Okt.')
     })
   })
 
@@ -841,7 +843,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('de', { allDayLabel: 'allDay' })).toBe('11:00 - 13:00')
+      expect(date.formatTimeInterval('de', { t: mockT })).toBe('11:00 - 13:00')
     })
 
     it('should format a time interval in English', () => {
@@ -852,7 +854,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('en', { allDayLabel: 'allDay' })).toBe('11:00 AM - 1:00 PM')
+      expect(date.formatTimeInterval('en', { t: mockT })).toBe('11:00 AM - 1:00 PM')
     })
 
     it('should return only the start time when end and start match to the minute', () => {
@@ -863,7 +865,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('de', { allDayLabel: 'allDay' })).toBe('11:00')
+      expect(date.formatTimeInterval('de', { t: mockT })).toBe('11:00')
     })
 
     it('should return only the start time when there is no end date', () => {
@@ -874,7 +876,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('de', { allDayLabel: 'allDay' })).toBe('11:00')
+      expect(date.formatTimeInterval('de', { t: mockT })).toBe('11:00')
     })
 
     it('should return the all-day label for an all-day event', () => {
@@ -885,7 +887,86 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('de', { allDayLabel: 'places:allDay' })).toBe('places:allDay')
+      expect(date.formatTimeInterval('de', { t: mockT })).toBe('allDay')
+    })
+  })
+
+  describe('formatWeekdays', () => {
+    const nonWeekdaysEvent = () =>
+      new DateModel({
+        startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00'),
+        endDate: DateTime.fromISO('2025-08-20T13:00:00+02:00'),
+        allDay: false,
+        recurrenceRule: null,
+        onlyWeekdays: false,
+      })
+
+    const weekdaysEvent = () =>
+      new DateModel({
+        startDate: DateTime.fromISO('2025-08-20T11:00:00+02:00'),
+        endDate: DateTime.fromISO('2025-08-20T13:00:00+02:00'),
+        allDay: false,
+        recurrenceRule: null,
+        onlyWeekdays: true,
+      })
+
+    it('should return null when onlyWeekdays is false', () => {
+      expect(nonWeekdaysEvent().formatWeekdays('de')).toBeNull()
+    })
+
+    it('should return the Monday-to-Friday range in German when onlyWeekdays is true', () => {
+      expect(weekdaysEvent().formatWeekdays('de')).toBe('Montag - Freitag')
+    })
+
+    it('should return the Monday-to-Friday range in English when onlyWeekdays is true', () => {
+      expect(weekdaysEvent().formatWeekdays('en')).toBe('Monday - Friday')
+    })
+  })
+
+  describe('formatRecurrenceEnd', () => {
+    const baseDates = {
+      startDate: DateTime.fromISO('2023-10-16T05:00:00+02:00'),
+      endDate: DateTime.fromISO('2023-10-16T07:00:00+02:00'),
+      allDay: false,
+      onlyWeekdays: false,
+    }
+
+    it('should return null when there is no recurrence rule', () => {
+      const date = new DateModel({ ...baseDates, recurrenceRule: null })
+      expect(date.formatRecurrenceEnd('de', { t: mockT })).toBeNull()
+    })
+
+    it('should return null when the rule has no UNTIL clause', () => {
+      const date = new DateModel({
+        ...baseDates,
+        recurrenceRule: rrulestr('DTSTART:20231016T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO'),
+      })
+      expect(date.formatRecurrenceEnd('de', { t: mockT })).toBeNull()
+    })
+
+    it('should return null when only a single upcoming recurrence remains', () => {
+      const date = new DateModel({
+        ...baseDates,
+        recurrenceRule: rrulestr('DTSTART:20231016T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231017T050000'),
+      })
+      expect(date.formatRecurrenceEnd('de', { t: mockT })).toBeNull()
+    })
+
+    it('should return the "until DATE" string when the rule has an UNTIL and multiple recurrences remain', () => {
+      const date = new DateModel({
+        ...baseDates,
+        recurrenceRule: rrulestr('DTSTART:20231016T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231106T050000'),
+      })
+      expect(date.formatRecurrenceEnd('de', { t: mockT })).toBe('untilDate')
+    })
+
+    it('should interpolate the last recurrence date into the translated message', () => {
+      const interpolatingT = ((_: unknown, options: { date: string }) => `bis ${options.date}`) as unknown as TFunction
+      const date = new DateModel({
+        ...baseDates,
+        recurrenceRule: rrulestr('DTSTART:20231016T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231106T050000'),
+      })
+      expect(date.formatRecurrenceEnd('de', { t: interpolatingT })).toBe('bis Mo., 6. Nov.')
     })
   })
 })
