@@ -2,5 +2,8 @@ source 'https://rubygems.org'
 
 gem 'fastlane', '>= 2.220.0'
 
+# >= 1.5.0 fixes CVE-2026-54171. Exclude 1.7.0, which needs ruby >= 3.3 while the CI images ship ruby 3.2.
+gem 'excon', '>= 1.5.0', '< 1.7.0'
+
 plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
 eval_gemfile(plugins_path) if File.exist?(plugins_path)
