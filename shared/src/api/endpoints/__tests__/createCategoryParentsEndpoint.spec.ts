@@ -34,6 +34,7 @@ describe('createCategoryParentsEndpoint', () => {
     lastUpdate: DateTime.fromMillis(0),
     organization: null,
     embeddedOffers: [],
+    slugHistory: [],
   })
   const endpoint = createCategoryParentsEndpoint(baseUrl)
 

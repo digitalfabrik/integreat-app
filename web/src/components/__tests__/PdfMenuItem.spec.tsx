@@ -25,6 +25,7 @@ const rootCategory = new CategoryModel({
   lastUpdate: DateTime.fromMillis(0),
   organization: null,
   embeddedOffers: [],
+  slugHistory: [],
 })
 
 const childCategory = new CategoryModel({
@@ -39,6 +40,7 @@ const childCategory = new CategoryModel({
   lastUpdate: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
   organization: null,
   embeddedOffers: [],
+  slugHistory: [],
 })
 
 describe('PdfMenuItem', () => {

@@ -15,6 +15,7 @@ describe('CategoryModel', () => {
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
     organization: null,
     embeddedOffers: [],
+    slugHistory: [],
   })
   const category = new CategoryModel({
     root: false,
@@ -28,6 +29,7 @@ describe('CategoryModel', () => {
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
     organization: null,
     embeddedOffers: [],
+    slugHistory: [],
   })
 
   it('should be conscious about being a root', () => {
@@ -48,6 +50,7 @@ describe('CategoryModel', () => {
       lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
       organization: null,
       embeddedOffers: [],
+      slugHistory: [],
     })
     expect(normalizedCategory.path).toBe('/augsburg/fa/erste-schritte/نقشه-شهر')
     expect(normalizedCategory.parentPath).toBe('/augsburg/fa/erste-schritte')
