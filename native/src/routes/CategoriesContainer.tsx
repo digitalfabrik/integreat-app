@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useMemo } from 'react'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, regionContentPath } from 'shared'
+import { CATEGORIES_ROUTE, CategoriesRouteType, getSlugFromPath, regionContentPath } from 'shared'
 import { ErrorCodes } from 'shared/api'
 import { config } from 'translations'
 
@@ -29,7 +29,12 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   useLoadRegionContent({ regionCode, languageCode: config.sourceLanguage })
 
   const path = route.params.path ?? regionContentPath({ regionCode, languageCode })
-  const category = useMemo(() => data?.categories.findCategoryByPath(path), [data?.categories, path])
+  const category = useMemo(
+    () =>
+      data?.categories.findCategoryByPath(path) ??
+      data?.categories.toArray().find(category => category.slugHistory.includes(getSlugFromPath(path))),
+    [data?.categories, path],
+  )
   const availableLanguages =
     category && !category.isRoot() ? Object.keys(category.availableLanguages) : data?.languages.map(it => it.code)
 
@@ -37,7 +42,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     route: CATEGORIES_ROUTE,
     languageCode,
     regionCode,
-    regionContentPath: path,
+    regionContentPath: category?.path ?? path,
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
   useSetRouteTitle({ navigation, title: category?.isRoot() ? data?.region.name : category?.title })
