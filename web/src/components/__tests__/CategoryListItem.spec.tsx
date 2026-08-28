@@ -22,6 +22,7 @@ const categoryParams = {
   lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   organization: null,
   embeddedOffers: [],
+  slugHistory: [],
 }
 
 const category = new CategoryModel(categoryParams)

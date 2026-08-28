@@ -88,6 +88,7 @@ class CategoriesMapModelBuilder {
           logo: 'https://example.com/my-icon',
           url: 'https://example.com',
         }),
+        slugHistory: [`category_${i}`],
         embeddedOffers:
           id === 1
             ? [
@@ -146,6 +147,7 @@ class CategoriesMapModelBuilder {
         lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
         organization: null,
         embeddedOffers: [],
+        slugHistory: [],
       }),
       0,
     )

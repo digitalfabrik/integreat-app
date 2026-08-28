@@ -41,6 +41,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoryModel[]> =>
           lastUpdate: DateTime.fromMillis(0),
           organization: null,
           embeddedOffers: [],
+          slugHistory: [],
         }),
       )
       return parents

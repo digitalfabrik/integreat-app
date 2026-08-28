@@ -84,6 +84,7 @@ describe('getCategoryTiles', () => {
         path: 'https://termine.malteapp.de/',
       }),
     ],
+    slugHistory: [],
   }
 
   it('should get category tiles', () => {
