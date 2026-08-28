@@ -1,11 +1,12 @@
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
 import { NEWS_ROUTE, pathnameFromRouteInformation } from 'shared'
-import { AMAL_NEWS_SOURCE, createNewsElementEndpoint, LOCAL_NEWS_SOURCE } from 'shared/api'
+import { AMAL_NEWS_SOURCE, createNewsElementEndpoint, getNewsSourceLabel, LOCAL_NEWS_SOURCE } from 'shared/api'
 
-import { AmalNewsLogo, TuNewsIcon } from '../assets'
+import { AmalNewsLogo, TuNewsLogo } from '../assets'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
 import Page from '../components/Page'
@@ -18,6 +19,17 @@ import { cmsApiBaseUrl } from '../constants/urls'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import { RegionRouteProps } from './index'
+
+const CenteredLink = styled(Link)({
+  display: 'flex',
+  justifyContent: 'center',
+})
+
+const TuNewsImage = styled('img')({
+  width: 200,
+  height: 64,
+  borderRadius: 8,
+})
 
 const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
   const { data: news, error } = useQueryFromEndpoint(createNewsElementEndpoint, cmsApiBaseUrl, {
@@ -75,9 +87,13 @@ const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRo
           showLastUpdateText={false}
           footer={
             news.source !== LOCAL_NEWS_SOURCE && (
-              <Link to={news.externalUrl}>
-                <Svg src={news.source === AMAL_NEWS_SOURCE ? AmalNewsLogo : TuNewsIcon} height={64} width='100%' />
-              </Link>
+              <CenteredLink to={news.externalUrl} aria-label={getNewsSourceLabel({ source: news.source, t })}>
+                {news.source === AMAL_NEWS_SOURCE ? (
+                  <Svg src={AmalNewsLogo} height={64} width='100%' />
+                ) : (
+                  <TuNewsImage src={TuNewsLogo} alt='' />
+                )}
+              </CenteredLink>
             )
           }
         />
