@@ -14,7 +14,6 @@ import Chat from '../Chat'
 
 const { mocked } = jest
 
-jest.mock('react-i18next')
 jest.mock('@react-native-community/netinfo', () => ({ useNetInfo: jest.fn(() => ({ isConnected: true })) }))
 jest.mock('../../utils/sentry', () => ({ captureError: jest.fn() }))
 jest.mock('../../utils/helpers', () => ({ determineApiUrl: jest.fn(async () => 'https://api') }))
@@ -109,7 +108,7 @@ describe('Chat', () => {
     const { getByLabelText, queryByTestId } = renderChat({}, updateChatSettings)
 
     expect(queryByTestId('webview')).toBeNull()
-    expect(getByLabelText('loading')).toBeTruthy()
+    expect(getByLabelText('common:loading')).toBeTruthy()
     await waitFor(() => expect(updateChatSettings).toHaveBeenCalledWith({ seenMessages: 0, id: expect.any(String) }))
   })
 
@@ -149,13 +148,13 @@ describe('Chat', () => {
   it('shows the new chat confirmation dialog when the new chat menu item is pressed', () => {
     const { getByText, queryByText } = renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } })
 
-    expect(queryByText('newChatConfirmation')).toBeNull()
+    expect(queryByText('chat:newChatConfirmation')).toBeNull()
 
     act(() => {
       lastMenuItems()[0]!.props.onPress()
     })
 
-    expect(getByText('newChatConfirmation')).toBeTruthy()
+    expect(getByText('chat:newChatConfirmation')).toBeTruthy()
   })
 
   it('creates a fresh chat with a new id and zero seen messages when the confirmation is accepted', () => {
@@ -166,7 +165,7 @@ describe('Chat', () => {
       lastMenuItems()[0]!.props.onPress()
     })
 
-    const newChatLabels = getAllByText('newChat')
+    const newChatLabels = getAllByText('chat:newChat')
     fireEvent.press(newChatLabels[newChatLabels.length - 1]!)
 
     expect(updateChatSettings).toHaveBeenCalledWith({ seenMessages: 0, id: expect.any(String) })

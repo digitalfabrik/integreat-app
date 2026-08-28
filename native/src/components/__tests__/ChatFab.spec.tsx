@@ -12,7 +12,6 @@ import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import ChatFab from '../ChatFab'
 
-jest.mock('react-i18next')
 jest.mock('../../hooks/useNavigate')
 
 const buildMessage = (id: number, userIsAuthor: boolean) =>

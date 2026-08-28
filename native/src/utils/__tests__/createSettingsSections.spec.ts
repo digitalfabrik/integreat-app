@@ -1,9 +1,8 @@
-import { TFunction } from 'i18next'
-
 import { SettingsRouteType } from 'shared'
 
 import { testingAppContext } from '../../testing/TestingAppContext'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
+import mockT from '../../testing/mockTranslate'
 import { SettingsType } from '../AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from '../PushNotificationsManager'
 import createSettingsSections from '../createSettingsSections'
@@ -27,21 +26,19 @@ const mockSubscribeNews = mocked(subscribeNews)
 describe('createSettingsSections', () => {
   beforeEach(jest.clearAllMocks)
 
-  const t = ((key: string) => key) as TFunction
-  const clearResourcesAndCache = jest.fn()
-
   const updateSettings = jest.fn()
   const regionCode = 'augsburg'
   const appContext = { ...testingAppContext({}), regionCode, updateSettings }
   const navigation = createNavigationScreenPropMock<SettingsRouteType>()
   const showSnackbar = jest.fn()
+  const clearResourcesAndCache = jest.fn()
 
   const createSettings = (params: Partial<SettingsType> = {}) =>
     createSettingsSections({
       appContext: { ...appContext, settings: { ...appContext.settings, ...params } },
       navigation,
       showSnackbar,
-      t,
+      t: mockT,
       clearResourcesAndCache,
     })
 

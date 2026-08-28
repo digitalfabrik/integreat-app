@@ -1,8 +1,26 @@
+import i18next from 'i18next'
 import fs from 'node:fs'
 import path from 'node:path'
 import { ReactNode } from 'react'
+import { initReactI18next } from 'react-i18next'
+
+import { loadTranslations } from 'translations'
 
 console.error = () => undefined
+
+const namespaces = Object.keys(loadTranslations().en ?? {})
+
+i18next.use(initReactI18next).init({
+  lng: 'en',
+  fallbackLng: 'en',
+  resources: {},
+  ns: namespaces,
+  defaultNS: namespaces,
+  enableSelector: 'strict',
+  interpolation: { escapeValue: false },
+  appendNamespaceToMissingKey: true,
+  parseMissingKeyHandler: (key: string) => key,
+})
 
 jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest'))
 jest.mock('react-native-permissions', () => require('react-native-permissions/mock'))

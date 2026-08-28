@@ -5,12 +5,10 @@ import { AMAL_NEWS_SOURCE, LOCAL_NEWS_SOURCE, TU_NEWS_SOURCE } from 'shared/api'
 import render from '../../testing/render'
 import NewsSourceChip from '../NewsSourceChip'
 
-jest.mock('react-i18next')
-
 describe('NewsSourceChip', () => {
   it('should render the translated label for local news', () => {
     const { getByText } = render(<NewsSourceChip source={LOCAL_NEWS_SOURCE} />)
-    expect(getByText('local')).toBeTruthy()
+    expect(getByText('news:local')).toBeTruthy()
   })
 
   it('should render the Amal News label for amal news', () => {

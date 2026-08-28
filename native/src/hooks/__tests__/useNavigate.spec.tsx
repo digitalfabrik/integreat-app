@@ -19,12 +19,15 @@ import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import { navigateNested } from '../../utils/navigation'
-import openExternalUrl from '../../utils/openExternalUrl'
 import useNavigate from '../useNavigate'
 
 jest.mock('@react-navigation/native')
 jest.mock('../../utils/navigation')
-jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
+const openExternalUrlMock = jest.fn()
+jest.mock('../../utils/openExternalUrl', () => ({
+  __esModule: true,
+  default: () => openExternalUrlMock,
+}))
 jest.mock('../../utils/url', () => ({
   urlFromRouteInformation: jest.fn(() => 'https://example.com'),
 }))
@@ -100,8 +103,8 @@ describe('useNavigate', () => {
     })
     act(() => jest.runAllTimers())
     expect(navigation.push).not.toHaveBeenCalled()
-    expect(openExternalUrl).toHaveBeenCalledTimes(1)
-    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com', expect.any(Function))
+    expect(openExternalUrlMock).toHaveBeenCalledTimes(1)
+    expect(openExternalUrlMock).toHaveBeenCalledWith('https://example.com')
   })
 
   it('should open route externally if language does not match the app settings', () => {
@@ -114,8 +117,8 @@ describe('useNavigate', () => {
     })
     act(() => jest.runAllTimers())
     expect(navigation.push).not.toHaveBeenCalled()
-    expect(openExternalUrl).toHaveBeenCalledTimes(1)
-    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com', expect.any(Function))
+    expect(openExternalUrlMock).toHaveBeenCalledTimes(1)
+    expect(openExternalUrlMock).toHaveBeenCalledWith('https://example.com')
   })
 
   it('should pop redirect route when opening a route externally', () => {
@@ -131,8 +134,8 @@ describe('useNavigate', () => {
     )
     act(() => jest.runAllTimers())
     expect(navigation.push).not.toHaveBeenCalled()
-    expect(openExternalUrl).toHaveBeenCalledTimes(1)
-    expect(openExternalUrl).toHaveBeenCalledWith('https://example.com', expect.any(Function))
+    expect(openExternalUrlMock).toHaveBeenCalledTimes(1)
+    expect(openExternalUrlMock).toHaveBeenCalledWith('https://example.com')
     expect(navigation.pop).toHaveBeenCalledTimes(1)
   })
 
@@ -287,7 +290,7 @@ describe('useNavigate', () => {
       screen: CATEGORIES_TAB_ROUTE,
       params: { screen: CATEGORIES_ROUTE },
     })
-    expect(openExternalUrl).toHaveBeenCalledTimes(1)
+    expect(openExternalUrlMock).toHaveBeenCalledTimes(1)
   })
 
   it('should do nothing when routeInformation is null', () => {
@@ -295,6 +298,6 @@ describe('useNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
     expect(navigation.replace).not.toHaveBeenCalled()
     expect(navigateNested).not.toHaveBeenCalled()
-    expect(openExternalUrl).not.toHaveBeenCalled()
+    expect(openExternalUrlMock).not.toHaveBeenCalled()
   })
 })

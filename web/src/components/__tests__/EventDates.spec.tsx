@@ -11,7 +11,6 @@ import { renderWithTheme } from '../../testing/render'
 import EventDates from '../EventDates'
 
 jest.mock('../../hooks/useDimensions')
-jest.mock('react-i18next')
 
 jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
 describe('EventDates', () => {
@@ -40,7 +39,7 @@ describe('EventDates', () => {
 
     expect(getByText('9. Okt. - 10. Okt.', { exact: false })).toBeTruthy()
     expect(getByText('7:00 - 9:00', { exact: false })).toBeTruthy()
-    expect(queryByText('furtherDates')).toBeFalsy()
+    expect(queryByText('events:furtherDates')).toBeFalsy()
   })
 
   it('should render the next recurrence as the upcoming date for a recurring event', () => {

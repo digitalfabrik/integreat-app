@@ -5,10 +5,6 @@ import { Button, Text } from 'react-native'
 import render from '../../../testing/render'
 import AlertDialog, { SimpleAlertDialog } from '../AlertDialog'
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({ t: (key: string) => key }),
-}))
-
 describe('AlertDialog', () => {
   it('renders the title, children and provided actions when visible', () => {
     const onAction = jest.fn()
@@ -17,7 +13,7 @@ describe('AlertDialog', () => {
         visible
         close={jest.fn()}
         title={<Text>dialog-title</Text>}
-        actions={[<Button key='ok' title='confirm' onPress={onAction} />]}>
+        actions={[<Button key='common:ok' title='confirm' onPress={onAction} />]}>
         <Text>dialog-body</Text>
       </AlertDialog>,
     )
@@ -52,7 +48,7 @@ describe('SimpleAlertDialog', () => {
 
     expect(getByText('simple-title')).toBeTruthy()
     expect(getByText('simple-body')).toBeTruthy()
-    fireEvent.press(getByText('close'))
+    fireEvent.press(getByText('common:close'))
     expect(close).toHaveBeenCalled()
   })
 })

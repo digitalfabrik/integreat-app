@@ -59,7 +59,7 @@ describe('useDateFilter', () => {
     const { result } = setupUseDateFilter()
     act(() => result.current.setStartDate(DateTime.fromISO('2026-10-31')))
     act(() => result.current.setEndDate(DateTime.fromISO('2026-08-12')))
-    expect(result.current.startDateError).toBe('shouldBeEarlier')
+    expect(result.current.startDateError).toBe('events:shouldBeEarlier')
   })
 
   it('should not set an error when start is before end', () => {

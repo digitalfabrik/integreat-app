@@ -6,7 +6,6 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import { Header } from '../Header'
 
 jest.mock('../../hooks/useDimensions')
-jest.mock('react-i18next')
 
 describe('Header', () => {
   const { mocked } = jest

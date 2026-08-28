@@ -79,7 +79,7 @@ describe('useDateFilter', () => {
     const { result } = renderHook(() => useDateFilter(events), {
       wrapper: createWrapper('/?start=2026-10-31&end=2026-08-12'),
     })
-    expect(result.current.startDateError).toBe('shouldBeEarlier')
+    expect(result.current.startDateError).toBe('events:shouldBeEarlier')
   })
 
   it('should not set an error when start is before end', () => {

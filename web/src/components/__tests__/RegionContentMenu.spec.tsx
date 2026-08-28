@@ -9,7 +9,6 @@ import useDimensions from '../../hooks/useDimensions'
 import { renderAllRoutes } from '../../testing/render'
 import RegionContentMenu from '../RegionContentMenu'
 
-jest.mock('react-i18next')
 jest.mock('../../hooks/useDimensions')
 
 describe('RegionContentMenu', () => {

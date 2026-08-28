@@ -6,14 +6,6 @@ import { Rating, SendingStatusType } from 'shared'
 import { renderWithTheme } from '../../testing/render'
 import Feedback from '../Feedback'
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: (namespace?: string) => ({
-    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
-  }),
-  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
-}))
-
 describe('Feedback', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -79,7 +71,7 @@ describe('Feedback', () => {
     const button = getByText('feedback:send')
     expect(button).toBeEnabled()
     fireEvent.click(button)
-    expect(getByText('feedback:common:notePrivacyPolicy')).toBeTruthy()
+    expect(getByText('common:notePrivacyPolicy')).toBeTruthy()
   })
 
   it('should display correct description for search', () => {
@@ -87,7 +79,7 @@ describe('Feedback', () => {
       <Feedback {...buildProps({ rating: 'negative', comment: 'comment', searchTerm: 'query' })} />,
     )
     expect(getByLabelText('feedback:wantedInformation')).toBeInTheDocument()
-    expect(queryByText('error:search:nothingFound')).toBeFalsy()
+    expect(queryByText('search:nothingFound')).toBeFalsy()
   })
 
   it('should show not found error', () => {

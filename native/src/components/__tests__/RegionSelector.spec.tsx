@@ -6,7 +6,6 @@ import { RegionModelBuilder } from 'shared/api'
 import render from '../../testing/render'
 import RegionSelector from '../RegionSelector'
 
-jest.mock('react-i18next')
 jest.mock('../../components/NearbyRegions', () => {
   const { Text } = require('react-native-paper')
   return () => <Text>NearbyRegions</Text>

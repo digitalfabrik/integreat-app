@@ -20,7 +20,6 @@ import { renderRoute } from '../../testing/render'
 import NewsDetailPage from '../NewsDetailPage'
 import { NEWS_DETAIL_ROUTE, RoutePatterns } from '../index'
 
-jest.mock('react-i18next')
 jest.mock('../../hooks/useQueryFromEndpoint')
 jest.mock('../../hooks/useTtsPlayer', () => jest.fn())
 

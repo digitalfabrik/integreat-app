@@ -4,8 +4,6 @@ import React from 'react'
 import { renderWithTheme } from '../../../testing/render'
 import Accordion from '../Accordion'
 
-jest.mock('react-i18next')
-
 describe('Accordion', () => {
   const content = 'Some Content'
   const title = 'TestTitle'

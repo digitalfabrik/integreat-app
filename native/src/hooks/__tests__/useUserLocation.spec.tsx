@@ -27,7 +27,6 @@ jest.mock('@react-native-community/geolocation', () => ({
     setPosition(augsburgCoordinates),
   ),
 }))
-jest.mock('react-i18next')
 jest.mock('../../hooks/useSnackbar')
 
 const { mocked } = jest
@@ -56,7 +55,7 @@ describe('useUserLocation', () => {
           onPress={() => refreshPermissionAndLocation({ showSnackbarIfBlocked: false })}
         />
         <Button
-          title='refresh'
+          title='regions:refresh'
           onPress={() => {
             refreshPermissionAndLocation({ requestPermission: false, showSnackbarIfBlocked: false })
           }}
@@ -125,7 +124,7 @@ describe('useUserLocation', () => {
     mockGetCurrentPosition.mockImplementationOnce((setPosition: (position: GeolocationResponse) => void) =>
       setPosition({ ...augsburgCoordinates, coords: { ...augsburgCoordinates.coords, longitude: 0, latitude: 0 } }),
     )
-    fireEvent.press(getByText('refresh'))
+    fireEvent.press(getByText('regions:refresh'))
 
     await waitFor(() => expect(getByText(`longitude: 0`)).toBeTruthy())
     expect(getByText(`latitude: 0`)).toBeTruthy()
@@ -135,7 +134,7 @@ describe('useUserLocation', () => {
         setError &&
         setError({ code: 2, message: 'timeout', POSITION_UNAVAILABLE: 0, PERMISSION_DENIED: 1, TIMEOUT: 2 }),
     )
-    fireEvent.press(getByText('refresh'))
+    fireEvent.press(getByText('regions:refresh'))
 
     await waitFor(() => expect(getByText('timeout')).toBeTruthy())
   })

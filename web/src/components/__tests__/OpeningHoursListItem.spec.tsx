@@ -5,8 +5,6 @@ import { OpeningHoursModel } from 'shared/api'
 import { renderWithTheme } from '../../testing/render'
 import OpeningHoursListItem from '../OpeningHoursListItem'
 
-jest.mock('react-i18next')
-
 describe('OpeningHoursListItem', () => {
   const timeSlots = [
     { end: '18:00', start: '13:00', timezone: 'Europe/Berlin' },

@@ -4,12 +4,6 @@ import React from 'react'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import LanguageListItem from '../LanguageListItem'
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-  }),
-}))
-
 describe('LanguageListItem', () => {
   beforeEach(() => {
     jest.clearAllMocks()

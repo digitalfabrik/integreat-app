@@ -7,8 +7,6 @@ import { DateModel, EventModelBuilder } from 'shared/api'
 import render from '../../testing/render'
 import EventListItem from '../EventListItem'
 
-jest.mock('react-i18next')
-
 jest.useFakeTimers({ now: new Date('2023-10-02T05:23:57.443+02:00') })
 describe('EventListItem', () => {
   const language = 'de'
@@ -24,7 +22,7 @@ describe('EventListItem', () => {
 
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.formatDateInterval(language))).toBeTruthy()
-    expect(getByText(event.date.formatTimeInterval(language, { allDayLabel: 'allDay' }))).toBeTruthy()
+    expect(getByText(event.date.formatTimeInterval(language, { allDayLabel: 'places:allDay' }))).toBeTruthy()
   })
 
   describe('date icon', () => {
@@ -46,7 +44,7 @@ describe('EventListItem', () => {
         <EventListItem event={event} language={language} regionCode={regionCode} navigateTo={navigateToEvent} />,
       )
 
-      expect(queryByLabelText('recurring')).toBeFalsy()
+      expect(queryByLabelText('events:recurring')).toBeFalsy()
     })
 
     it('should show icon if recurring event', () => {
@@ -56,7 +54,7 @@ describe('EventListItem', () => {
         <EventListItem event={event} language={language} regionCode={regionCode} navigateTo={navigateToEvent} />,
       )
 
-      expect(queryByLabelText('recurring')).toBeTruthy()
+      expect(queryByLabelText('events:recurring')).toBeTruthy()
     })
   })
 })

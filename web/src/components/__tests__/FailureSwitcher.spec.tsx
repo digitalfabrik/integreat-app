@@ -6,7 +6,6 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import { captureError } from '../../utils/sentry'
 import FailureSwitcherWithHelmet from '../FailureSwitcherWithHelmet'
 
-jest.mock('react-i18next')
 jest.mock('../../utils/sentry', () => ({
   captureError: jest.fn(async () => undefined),
 }))
