@@ -123,7 +123,7 @@ const showOptIn = (
 
 const showSettingsLink = (element: HTMLDivElement, t: TFunction): void => {
   const link = document.createElement('a')
-  link.innerHTML = t('layout:settings')
+  link.innerHTML = t($ => $.layout.settings)
   link.id = 'opt-in-settings-link'
   link.href = `/${CONSENT_ROUTE}`
   element.appendChild(link)
@@ -166,7 +166,7 @@ export const handleAllowedIframeSources = (
   const iframeContainer = getIframeContainer(iframeContainerId, mobile, iframe, deviceWidth)
 
   if (permission === undefined) {
-    const message = t('consent:knownResourceOptIn')
+    const message = t($ => $.consent.knownResourceOptIn)
     showOptIn(message, iframeContainer, supportedSource, addExternalSource, iframeIndex)
   } else if (permission) {
     restoreIframe(iframe, storedIframeSource)
@@ -174,10 +174,10 @@ export const handleAllowedIframeSources = (
     if (supportedSource === 'vimeo.com') {
       addDoNotTrackParameter(iframe)
     }
-    const message = t('consent:knownResourceContentMessage')
+    const message = t($ => $.consent.knownResourceContentMessage)
     showMessageWithSettings(message, iframeContainer, t, supportedSource, iframeIndex, true)
   } else {
-    const message = t('consent:knownResourceBlocked')
+    const message = t($ => $.consent.knownResourceBlocked)
     showMessageWithSettings(message, iframeContainer, t, supportedSource, iframeIndex, false)
   }
 }

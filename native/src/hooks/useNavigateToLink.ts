@@ -2,13 +2,11 @@ import { useCallback } from 'react'
 
 import { IMAGE_VIEW_MODAL_ROUTE, InternalPathnameParser, PDF_VIEW_MODAL_ROUTE, RouteInformationType } from 'shared'
 
-import { SnackbarType } from '../components/SnackbarContainer'
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
-import openExternalUrl from '../utils/openExternalUrl'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import useNavigate from './useNavigate'
 import { useAppContext } from './useRegionAppContext'
-import useSnackbar from './useSnackbar'
 
 const SUPPORTED_IMAGE_FILE_TYPES = ['.jpg', '.jpeg', '.png']
 
@@ -18,12 +16,12 @@ type NavigateToLinkParams<T extends RoutesType> = {
   navigation: NavigationProps<T>
   languageCode: string
   navigateTo: (routeInformation: RouteInformationType) => void
-  showSnackbar: (snackbar: SnackbarType) => void
+  openExternalUrl: (url: string) => void
 }
 
 const navigateToLink = <T extends RoutesType>(
   url: string,
-  { navigation, languageCode, navigateTo, showSnackbar }: NavigateToLinkParams<T>,
+  { navigation, languageCode, navigateTo, openExternalUrl }: NavigateToLinkParams<T>,
 ): void => {
   if (url.includes('.pdf')) {
     navigation.navigate(PDF_VIEW_MODAL_ROUTE, { url, shareUrl: url })
@@ -34,14 +32,14 @@ const navigateToLink = <T extends RoutesType>(
     const routeParser = new InternalPathnameParser(pathname, languageCode, buildConfig().featureFlags.fixedRegion)
     navigateTo(routeParser.route())
   } else {
-    openExternalUrl(url, showSnackbar)
+    openExternalUrl(url)
   }
 }
 
 const useNavigateToLink = (): ((url: string) => void) => {
   const { navigateTo, navigation } = useNavigate()
   const { languageCode } = useAppContext()
-  const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
 
   return useCallback(
     (url: string) => {
@@ -49,11 +47,11 @@ const useNavigateToLink = (): ((url: string) => void) => {
         navigation,
         languageCode,
         navigateTo,
-        showSnackbar,
+        openExternalUrl,
       })
     },
 
-    [navigation, navigateTo, languageCode, showSnackbar],
+    [navigation, navigateTo, languageCode, openExternalUrl],
   )
 }
 

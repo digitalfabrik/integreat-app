@@ -10,8 +10,6 @@ import { EXCERPT_MAX_CHARS } from '../../constants'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import EventListItem from '../EventListItem'
 
-jest.mock('react-i18next')
-
 jest.useFakeTimers({ now: new Date('2023-10-02T05:23:57.443+02:00') })
 describe('EventListItem', () => {
   const language = 'de'

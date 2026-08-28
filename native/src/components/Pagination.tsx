@@ -39,7 +39,7 @@ type PaginationProps = {
 
 const Pagination = ({ slideCount, currentSlide, goToSlide }: PaginationProps): ReactElement => {
   const goToSlideIndex = (index: number) => () => goToSlide(index)
-  const { t } = useTranslation('error')
+  const { t } = useTranslation()
 
   return (
     <DotsContainer>
@@ -50,7 +50,7 @@ const Pagination = ({ slideCount, currentSlide, goToSlide }: PaginationProps): R
           style={styles.TouchableRippleStyle}
           onPress={goToSlideIndex(index)}
           role='link'
-          accessibilityLabel={t('goTo.pageNumber', {
+          accessibilityLabel={t($ => $.error.goTo.pageNumber, {
             number: index + 1,
           })}>
           <Dot isActive={index === currentSlide} />

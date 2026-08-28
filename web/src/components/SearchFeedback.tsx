@@ -34,7 +34,7 @@ type SearchFeedbackProps = {
 
 const SearchFeedback = ({ noResults }: SearchFeedbackProps): ReactElement => {
   const { languageCode } = useRegionContentParams()
-  const { t } = useTranslation('feedback')
+  const { t } = useTranslation()
   const [_, setFeedbackQueryParam] = useQueryParam(FEEDBACK_QUERY_KEY)
 
   const openFeedback = () => setFeedbackQueryParam(RATING_NEGATIVE)
@@ -45,12 +45,14 @@ const SearchFeedback = ({ noResults }: SearchFeedbackProps): ReactElement => {
     return (
       <CenteredContainer>
         <SmallTitle>
-          {languageCode === fallbackLanguage ? t('noResultsInUserLanguage') : t('noResultsInUserAndSourceLanguage')}
+          {languageCode === fallbackLanguage
+            ? t($ => $.feedback.noResultsInUserLanguage)
+            : t($ => $.feedback.noResultsInUserAndSourceLanguage)}
         </SmallTitle>
-        <Hint>{t('checkQuery', { appName: buildConfig().appName })}</Hint>
-        <SmallTitle>{t('informationMissing')}</SmallTitle>
+        <Hint>{t($ => $.feedback.checkQuery, { appName: buildConfig().appName })}</Hint>
+        <SmallTitle>{t($ => $.feedback.informationMissing)}</SmallTitle>
         <Button onClick={openFeedback} variant='outlined'>
-          {t('giveFeedback')}
+          {t($ => $.feedback.giveFeedback)}
         </Button>
       </CenteredContainer>
     )
@@ -58,7 +60,7 @@ const SearchFeedback = ({ noResults }: SearchFeedbackProps): ReactElement => {
 
   return (
     <Container>
-      <Button onClick={openFeedback}>{t('informationNotFound')}</Button>
+      <Button onClick={openFeedback}>{t($ => $.feedback.informationNotFound)}</Button>
     </Container>
   )
 }

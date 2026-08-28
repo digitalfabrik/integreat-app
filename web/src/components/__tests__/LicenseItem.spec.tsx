@@ -3,11 +3,6 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import LicenseItem from '../LicenseItem'
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: () => ({ t: (key: string) => key }),
-}))
-
 const defaultProps = {
   name: 'react',
   version: '18.2.0',
@@ -21,8 +16,8 @@ describe('LicenseItem', () => {
     const { getByText } = renderWithTheme(<LicenseItem {...defaultProps} />)
     expect(getByText('react')).toBeTruthy()
     expect(getByText('Meta Platforms, Inc.')).toBeTruthy()
-    expect(getByText('version 18.2.0')).toBeTruthy()
-    expect(getByText('license MIT')).toBeTruthy()
+    expect(getByText('licenses:version 18.2.0')).toBeTruthy()
+    expect(getByText('licenses:license MIT')).toBeTruthy()
   })
 
   it('should render as a link when url is provided', () => {

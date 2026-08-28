@@ -11,7 +11,6 @@ import useTtsPlayer from '../../hooks/useTtsPlayer'
 import { renderWithTheme } from '../../testing/render'
 import TtsContainer from '../TtsContainer'
 
-jest.mock('react-i18next')
 jest.mock('easy-speech')
 
 describe('TtsContainer', () => {
@@ -107,7 +106,7 @@ describe('TtsContainer', () => {
     await waitFor(() => expect(getByLabelText('layout:play')).toBeInTheDocument())
     fireEvent.click(getByLabelText('layout:play'))
 
-    const closeButton = getByLabelText('layout:common:close')
+    const closeButton = getByLabelText('common:close')
     fireEvent.click(closeButton)
 
     expect(EasySpeech.cancel).toHaveBeenCalled()

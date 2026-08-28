@@ -14,7 +14,6 @@ import { RoutePatterns } from '../index'
 
 import mocked = jest.mocked
 
-jest.mock('react-i18next')
 jest.mock('../../components/RegionContentHeader', () => () => null)
 jest.mock('../../hooks/useDimensions')
 jest.mock('../../hooks/useQueryFromEndpoint')

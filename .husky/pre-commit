@@ -1,3 +1,6 @@
+# Ensure Homebrew paths are available
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
 # Check if something changed in .circleci directory such that the config.yml needs to be updated
 if git diff --cached --name-only | xargs | grep .circleci; then
   # Abort if circleci command line tools are not installed

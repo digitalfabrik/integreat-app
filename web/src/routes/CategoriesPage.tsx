@@ -121,7 +121,7 @@ const getBreadcrumb = (category: CategoryModel, regionName: string): BreadcrumbP
 const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
   const previousPathname = usePreviousProp({ prop: pathname })
   const categoryId = useParams()['*']
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation()
 
   const { categories, categoriesLoading, categoriesError, parents, parentsLoading, parentsError } = useCategoryData(
     regionCode,
@@ -153,7 +153,7 @@ const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     }
   })
 
-  const pageTitle = `${category && !category.isRoot() ? category.title : t('localInformation')} - ${region.name}`
+  const pageTitle = `${category && !category.isRoot() ? category.title : t($ => $.layout.localInformation)} - ${region.name}`
   const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
     region,
     languageChangePaths,
@@ -226,7 +226,7 @@ const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, region.name))
   const breadcrumbs = [...ancestorBreadcrumbs, getBreadcrumb(category, region.name)]
 
-  const metaDescription = t('categories:metaDescription', { appName: buildConfig().appName })
+  const metaDescription = t($ => $.categories.metaDescription, { appName: buildConfig().appName })
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>

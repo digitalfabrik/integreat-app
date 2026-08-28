@@ -5,12 +5,6 @@ import { PlaceModelBuilder } from 'shared/api'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PlaceDetails from '../PlaceDetails'
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string, params?: { distance: string }) => (params ? `${key}: ${params.distance}` : key),
-  }),
-}))
-
 describe('PlaceDetails', () => {
   const places = new PlaceModelBuilder(3).build()
   const distance = 3
@@ -21,34 +15,34 @@ describe('PlaceDetails', () => {
 
     expect(getByText(place.title)).toBeTruthy()
     expect(getByText(place.category.name)).toBeTruthy()
-    expect(getByText(`distanceKilometre: 3.0`)).toBeTruthy()
+    expect(getByText(`places:distanceKilometre`, { exact: false })).toBeTruthy()
     expect(getByText(place.location.address)).toBeTruthy()
     expect(getByText(`${place.location.postcode} ${place.location.town}`)).toBeTruthy()
-    expect(getByText('detailsInformation')).toBeTruthy()
+    expect(getByText('places:detailsInformation')).toBeTruthy()
     expect(getByText(place.content)).toBeTruthy()
     const contact = place.contacts[0]!
     expect(getByText(`${contact.name} | ${contact.areaOfResponsibility}`)).toBeTruthy()
     expect(getByText(contact.phoneNumber as string)).toBeTruthy()
     expect(getByText(contact.email as string)).toBeTruthy()
-    expect(getByText('contacts')).toBeTruthy()
+    expect(getByText('places:contacts')).toBeTruthy()
   })
 
   it('should not render the distance if it is null', () => {
     const place = places[0]!
     const { queryByText } = renderWithRouterAndTheme(<PlaceDetails place={place} distance={null} />)
-    expect(queryByText('distanceKilometre', { exact: false })).toBeFalsy()
+    expect(queryByText('places:distanceKilometre', { exact: false })).toBeFalsy()
   })
 
   it('should not render contacts section if there are no contacts', () => {
     const place = places[1]!
     const { queryByText } = renderWithRouterAndTheme(<PlaceDetails place={place} distance={distance} />)
-    expect(queryByText('contacts')).toBeFalsy()
+    expect(queryByText('places:contacts')).toBeFalsy()
   })
 
   it('should render the opening hours', () => {
     const place = places[0]!
     const { getByText } = renderWithRouterAndTheme(<PlaceDetails place={place} distance={distance} />)
-    expect(getByText('detailsInformation')).toBeTruthy()
+    expect(getByText('places:detailsInformation')).toBeTruthy()
   })
 
   it('should render the content section', () => {

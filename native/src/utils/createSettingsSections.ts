@@ -12,7 +12,7 @@ import buildConfig from '../constants/buildConfig'
 import { AppContextType } from '../contexts/AppContext'
 import { SettingsType } from './AppSettings'
 import { requestPushNotificationPermission, subscribeNews, unsubscribeNews } from './PushNotificationsManager'
-import openExternalUrl from './openExternalUrl'
+import { openExternalUrl } from './openExternalUrl'
 import { initSentry, log } from './sentry'
 
 export type SettingsSectionType = {
@@ -35,7 +35,7 @@ type CreateSettingsSectionsProps = {
   appContext: AppContextType
   navigation: NavigationProps<SettingsRouteType>
   showSnackbar: (snackbar: SnackbarType) => void
-  t: TFunction<'error'>
+  t: TFunction
   clearResourcesAndCache: () => void
 }
 
@@ -47,8 +47,8 @@ const createSettingsSections = ({
   clearResourcesAndCache,
 }: CreateSettingsSectionsProps): (SettingsSectionType | null)[] => [
   {
-    title: t('pushNewsTitle'),
-    description: t('pushNewsDescription'),
+    title: t($ => $.settings.pushNewsTitle),
+    description: t($ => $.settings.pushNewsDescription),
     getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
     onPress: async () => {
       const newAllowPushNotifications = !settings.allowPushNotifications
@@ -74,9 +74,9 @@ const createSettingsSections = ({
         updateSettings({ allowPushNotifications: false })
         // If the user has rejected the permission once, it can only be changed in the system settings
         showSnackbar({
-          text: 'permissionRequired',
+          text: t($ => $.error.permissionRequired),
           action: {
-            label: t('layout:settings'),
+            label: t($ => $.layout.settings),
             onPress: openSettings,
           },
         })
@@ -84,8 +84,8 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t('layout:contrastTheme'),
-    description: t('layout:contrastThemeDescription'),
+    title: t($ => $.layout.contrastTheme),
+    description: t($ => $.layout.contrastThemeDescription),
     getSettingValue: (settings: SettingsType) => settings.selectedTheme === 'contrast',
     onPress: () => {
       const newTheme: ThemeType = settings.selectedTheme === 'light' ? 'contrast' : 'light'
@@ -93,8 +93,8 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t('sentryTitle'),
-    description: t('sentryDescription', { appName: buildConfig().appName }),
+    title: t($ => $.settings.sentryTitle),
+    description: t($ => $.settings.sentryDescription, { appName: buildConfig().appName }),
     getSettingValue: (settings: SettingsType) => settings.errorTracking,
     onPress: async () => {
       const newErrorTracking = !settings.errorTracking
@@ -109,56 +109,56 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t('externalResourcesTitle'),
-    description: t('externalResourcesDescription'),
+    title: t($ => $.settings.externalResourcesTitle),
+    description: t($ => $.settings.externalResourcesDescription),
     onPress: () => navigation.navigate(CONSENT_ROUTE),
   },
   {
     role: 'link',
-    title: t('layout:imprint'),
+    title: t($ => $.layout.imprint),
     onPress: () => navigation.navigate(settings.selectedCity ? IMPRINT_ROUTE : MAIN_IMPRINT_ROUTE),
   },
   {
     role: 'link',
-    title: t('aboutUs'),
+    title: t($ => $.settings.aboutUs),
     onPress: async () => {
       const { aboutUrls } = buildConfig()
       const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
-      await openExternalUrl(aboutUrl, showSnackbar)
+      await openExternalUrl(aboutUrl, { showSnackbar, t })
     },
   },
   {
     role: 'link',
-    title: t('privacyPolicy'),
+    title: t($ => $.settings.privacyPolicy),
     onPress: async () => {
       const { privacyUrls } = buildConfig()
       const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
-      await openExternalUrl(privacyUrl, showSnackbar)
+      await openExternalUrl(privacyUrl, { showSnackbar, t })
     },
   },
   {
     role: 'link',
-    title: t('layout:accessibility'),
+    title: t($ => $.layout.accessibility),
     onPress: async () => {
       const { accessibilityUrls } = buildConfig()
       const accessibilityUrl = accessibilityUrls[languageCode] ?? accessibilityUrls.default
-      await openExternalUrl(accessibilityUrl, showSnackbar)
+      await openExternalUrl(accessibilityUrl, { showSnackbar, t })
     },
   },
   {
-    title: t('openSourceLicenses'),
+    title: t($ => $.settings.openSourceLicenses),
     onPress: () => navigation.navigate(LICENSES_ROUTE),
   },
   {
     role: 'link',
-    title: t('SBoM'),
+    title: 'SBoM',
     onPress: async () => {
       const linkToSBoM = `https://github.com/digitalfabrik/integreat-app/releases/tag/${NativeConstants.appVersion}`
-      await openExternalUrl(linkToSBoM, showSnackbar)
+      await openExternalUrl(linkToSBoM, { showSnackbar, t })
     },
   },
   {
-    title: t('version', { version: NativeConstants.appVersion }),
+    title: t($ => $.settings.version, { version: NativeConstants.appVersion ?? '1.0.0' }),
     onPress: () => {
       volatileValues.versionTaps += 1
 
@@ -177,8 +177,8 @@ const createSettingsSections = ({
 
         updateSettings({ apiUrlOverride: switchCmsUrl })
         clearResourcesAndCache()
-        log(`Switching to CMS: ${switchCmsUrl}`)
-        showSnackbar({ text: `Switched to CMS ${switchCmsUrl}` })
+        log(`Switching to API: ${switchCmsUrl}`)
+        showSnackbar({ text: `Switched to API ${switchCmsUrl}` })
       }
     },
   },

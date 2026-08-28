@@ -11,8 +11,6 @@ import PdfMenuItem from '../PdfMenuItem'
 // MenuItem requires a MenuList/Menu ancestor, as it has in the app via HeaderMenu
 const renderInMenu = (ui: ReactElement) => renderWithRouterAndTheme(<MenuList>{ui}</MenuList>)
 
-jest.mock('react-i18next')
-
 const rootCategory = new CategoryModel({
   root: true,
   path: '/augsburg/de',

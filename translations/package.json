@@ -6,12 +6,16 @@
   "type": "module",
   "scripts": {
     "manage": "tsx src/manage.ts",
-    "export:ods:translations": "yarn manage convert src/translations.json translations-csv csv && ./tools/csv-to-ods translations-csv translations-ods && rm -rf translations-csv",
-    "export:ods:override-malte": "yarn manage convert override-translations/malte.json malte-csv csv && ./tools/csv-to-ods malte-csv malte-ods && rm -rf malte-csv",
-    "export:ods:override-aschaffenburg": "yarn manage convert override-translations/aschaffenburg.json aschaffenburg-csv csv && ./tools/csv-to-ods aschaffenburg-csv aschaffenburg-ods && rm -rf aschaffenburg-csv",
-    "import:ods:translations": "./tools/ods-to-csv translations-ods translations-csv && yarn manage convert translations-csv src/translations.json json && rm -rf translations-csv",
-    "import:ods:override-malte": "./tools/ods-to-csv malte-ods malte-csv && yarn manage convert malte-csv override-translations/malte.json json&& rm -rf malte-csv ",
-    "import:ods:override-aschaffenburg": "./tools/ods-to-csv aschaffenburg-ods aschaffenburg-csv && yarn manage convert aschaffenburg-csv override-translations/aschaffenburg.json json && rm -rf aschaffenburg-csv",
+    "export": "yarn manage export src/translations integreat-csv && ./tools/csv-to-ods integreat-csv translations-ods && rm -rf integreat-csv",
+    "export:malte": "yarn manage export src/override-translations/malte malte-csv && ./tools/csv-to-ods malte-csv malte-ods && rm -rf malte-csv",
+    "export:aschaffenburg": "yarn manage export src/override-translations/aschaffenburg aschaffenburg-csv && ./tools/csv-to-ods aschaffenburg-csv aschaffenburg-ods && rm -rf aschaffenburg-csv",
+    "export:obdach": "yarn manage export src/override-translations/obdach obdach-csv && ./tools/csv-to-ods obdach-csv obdach-ods && rm -rf obdach-csv",
+    "import": "./tools/ods-to-csv translations-ods integreat-csv && yarn manage import integreat-csv src/translations && rm -rf integreat-csv",
+    "import:malte": "./tools/ods-to-csv malte-ods malte-csv && yarn manage import malte-csv src/override-translations/malte && rm -rf malte-csv",
+    "import:aschaffenburg": "./tools/ods-to-csv aschaffenburg-ods aschaffenburg-csv && yarn manage import aschaffenburg-csv src/override-translations/aschaffenburg && rm -rf aschaffenburg-csv",
+    "import:obdach": "./tools/ods-to-csv obdach-ods obdach-csv && yarn manage import obdach-csv src/override-translations/obdach && rm -rf obdach-csv",
+    "sync": "yarn manage sync",
+    "check": "yarn sync && git diff --exit-code src",
     "test": "jest --config jest.config.ts",
     "lint": "eslint --cache --cache-location ../.eslintcache .",
     "ts:check": "tsc --build",
@@ -23,8 +27,11 @@
       "types": "./src/index.d.ts",
       "default": "./src/index.ts"
     },
-    "./*.json": "./src/*.json",
-    "./override-translations/*.json": "./override-translations/*.json"
+    "./override-translations/*": {
+      "import": "./src/override-translations/*/index.ts",
+      "types": "./src/override-translations/*/index.d.ts",
+      "default": "./src/override-translations/*/index.ts"
+    }
   },
   "dependencies": {
     "deepmerge-ts": "^8.0.1"

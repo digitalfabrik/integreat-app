@@ -33,8 +33,8 @@ type ResetFilterTextProps = {
 }
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
-  const { t } = useTranslation('events')
-  const text = `${t('resetFilter')} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
+  const { t } = useTranslation()
+  const text = `${t($ => $.events.resetFilter)} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
   return (
     <Text variant='h6' style={{ padding: 6 }}>
       {text}
@@ -60,7 +60,7 @@ const EventsDateFilter = ({
   languageCode,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
-  const { t } = useTranslation('events')
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const filterIcon = useCallback(
@@ -76,7 +76,7 @@ const EventsDateFilter = ({
   return (
     <>
       <List.Accordion
-        title={t(showDateFilter ? 'hideFilters' : 'showFilters')}
+        title={t($ => (showDateFilter ? $.events.hideFilters : $.events.showFilters))}
         left={filterIcon}
         right={chevronIcon}
         expanded={showDateFilter}
@@ -86,7 +86,7 @@ const EventsDateFilter = ({
         <View style={styles.dateSection}>
           <DatePickerInput
             locale={languageCode}
-            label={t('from')}
+            label={t($ => $.events.from)}
             withDateFormatInLabel={false}
             placeholder={getInputFormatFromLocale(languageCode)}
             value={startDate?.toJSDate() ?? undefined}
@@ -105,7 +105,7 @@ const EventsDateFilter = ({
           />
           <DatePickerInput
             locale={languageCode}
-            label={t('to')}
+            label={t($ => $.events.to)}
             withDateFormatInLabel={false}
             placeholder={getInputFormatFromLocale(languageCode)}
             value={endDate?.toJSDate() ?? undefined}
@@ -122,7 +122,7 @@ const EventsDateFilter = ({
           <>
             {!!startDateError && (
               <Text variant='body3' style={{ color: theme.colors.error }}>
-                {t(startDateError)}
+                {startDateError}
               </Text>
             )}
           </>

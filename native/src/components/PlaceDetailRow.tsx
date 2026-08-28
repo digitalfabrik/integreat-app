@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { TouchableRipple, useTheme } from 'react-native-paper'
 
-import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
@@ -36,11 +35,11 @@ const PlaceDetailRow = ({
   icon,
   iconEnd,
 }: PlaceDetailRowProps): ReactElement => {
-  const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
   const theme = useTheme()
   return (
     <TouchableRipple
-      onPress={() => openExternalUrl(externalUrl, showSnackbar)}
+      onPress={() => openExternalUrl(externalUrl)}
       role='link'
       accessibilityLabel={accessibilityLabel}
       style={styles.container}>

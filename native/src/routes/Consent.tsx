@@ -12,7 +12,7 @@ import { useAppContext } from '../hooks/useRegionAppContext'
 
 const Consent = (): ReactElement | null => {
   const { settings, updateSettings } = useAppContext()
-  const { t } = useTranslation('consent')
+  const { t } = useTranslation()
   const { externalSourcePermissions } = settings
 
   const onPress = (source: string) => {
@@ -24,7 +24,7 @@ const Consent = (): ReactElement | null => {
     <ConsentSection
       key={item}
       title={item}
-      description={t('consentDescription', { source: item })}
+      description={t($ => $.consent.consentDescription, { source: item })}
       allowed={externalSourcePermissions[item] ?? false}
       onPress={() => onPress(item)}
     />
@@ -37,12 +37,12 @@ const Consent = (): ReactElement | null => {
         renderItem={renderConsentItem}
         header={
           <>
-            <Caption title={t('title')} />
-            <Text style={{ paddingHorizontal: 16, marginBottom: 24 }}>{t('descriptionNative')}</Text>
+            <Caption title={t($ => $.consent.title)} />
+            <Text style={{ paddingHorizontal: 16, marginBottom: 24 }}>{t($ => $.consent.descriptionNative)}</Text>
             <Divider />
           </>
         }
-        noItemsMessage={t('noSources')}
+        noItemsMessage={t($ => $.consent.noSources)}
       />
     </Layout>
   )

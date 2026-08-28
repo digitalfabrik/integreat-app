@@ -64,7 +64,7 @@ type MapZoomControlsProps = {
 }
 
 const MapZoomControls = ({ mapRef, cameraRef, ref }: MapZoomControlsProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation()
   const theme = useTheme()
   const [zoomOutFocusTarget, setZoomOutFocusTarget] = useState<number | undefined>(undefined)
 
@@ -84,12 +84,12 @@ const MapZoomControls = ({ mapRef, cameraRef, ref }: MapZoomControlsProps): Reac
     <View style={styles.container}>
       <FocusedOnlyButton
         onPress={() => zoom(1)}
-        accessibilityLabel={t('zoomIn')}
+        accessibilityLabel={t($ => $.places.zoomIn)}
         ref={ref}
         nextFocusForward={zoomOutFocusTarget}>
         <Icon source='plus' color={theme.colors.onSurface} />
       </FocusedOnlyButton>
-      <FocusedOnlyButton onPress={() => zoom(-1)} accessibilityLabel={t('zoomOut')} ref={handleZoomOutRef}>
+      <FocusedOnlyButton onPress={() => zoom(-1)} accessibilityLabel={t($ => $.places.zoomOut)} ref={handleZoomOutRef}>
         <Icon source='minus' color={theme.colors.onSurface} />
       </FocusedOnlyButton>
     </View>

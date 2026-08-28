@@ -15,7 +15,6 @@ import { renderRoute } from '../testing/render'
 jest.mock('../hooks/useQueryFromEndpoint')
 jest.mock('../components/RegionContentHeader')
 jest.mock('../components/RegionContentLayout')
-jest.mock('react-i18next')
 
 jest.mock('../routes/SearchPage', () => () => <div>{SEARCH_ROUTE}</div>)
 jest.mock('../routes/ImprintPage', () => () => <div>{IMPRINT_ROUTE}</div>)

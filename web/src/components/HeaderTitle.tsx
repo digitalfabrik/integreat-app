@@ -29,7 +29,7 @@ type HeaderTitleProps = {
 
 const HeaderTitle = ({ title, regionsPath }: HeaderTitleProps): ReactElement => {
   const { xsmall } = useDimensions()
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation()
   const { featureFlags } = buildConfig()
   const variant = title.length >= LONG_TITLE_LENGTH && xsmall ? 'subtitle2' : 'subtitle1'
   const [tooltipOpen, setTooltipOpen] = useState(false)
@@ -43,7 +43,7 @@ const HeaderTitle = ({ title, regionsPath }: HeaderTitleProps): ReactElement => 
   }
   return (
     <Tooltip
-      title={t('changeLocation')}
+      title={t($ => $.layout.changeLocation)}
       open={tooltipOpen}
       onOpen={() => setTooltipOpen(true)}
       onClose={() => setTooltipOpen(false)}>

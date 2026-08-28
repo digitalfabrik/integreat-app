@@ -1,9 +1,8 @@
-import transformTranslations from '../transformTranslations.ts'
-import type { TransformedTranslationsType, TranslationsType } from '../types.ts'
+import type { TranslationsType } from '../types.ts'
 
 export const testTranslations: TranslationsType = {
-  app: {
-    de: {
+  de: {
+    app: {
       pageTitles: {
         notFound: 'Seite nicht gefunden',
         tuNews: 'tünews',
@@ -12,40 +11,46 @@ export const testTranslations: TranslationsType = {
       metaDescription:
         'Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.',
     },
-  },
-  layout: {
-    kmr: {
-      localInformation: 'Zanyariyên xwecihî',
-    },
-    de: {
+    layout: {
       localInformation: 'Lokale Informationen',
       events: 'Veranstaltungen',
       news: 'Nachrichten',
       newsAlternative: 'Neuigkeiten',
     },
-    ar: {
+  },
+  ar: {
+    layout: {
       localInformation: 'معلومات محلية',
       events: 'الفعاليات',
     },
-    'zh-CN': {
+  },
+  kmr: {
+    layout: {
+      localInformation: 'Zanyariyên xwecihî',
+    },
+  },
+  'zh-CN': {
+    layout: {
       localInformation: '本地信息',
     },
   },
 }
 
 export const testOverrideTranslations: TranslationsType = {
-  dashboard: {
-    de: {
+  de: {
+    dashboard: {
       localInformation: 'Malte Informationen',
       news: 'Malte Nachrichten',
     },
-    en: {
+  },
+  en: {
+    dashboard: {
       localInformation: 'Malte information',
       events: 'Malte Events',
     },
   },
 }
 
-const loadTranslations = (): TransformedTranslationsType => transformTranslations(testTranslations)
+const loadTranslations = (): TranslationsType => testTranslations
 
 export default loadTranslations

@@ -276,6 +276,7 @@ export default defineConfig([
       'web/www/',
       'build-configs/integreat-e2e/assets/',
       'build-configs/integreat-test-cms/assets/',
+      'translations/src/resources.gen.ts',
     ],
   },
 
@@ -309,6 +310,14 @@ export default defineConfig([
 
     rules: {
       'no-magic-numbers': 'off',
+    },
+  },
+
+  {
+    files: ['**/@types/**'],
+
+    rules: {
+      '@typescript-eslint/consistent-type-definitions': 'off',
     },
   },
 

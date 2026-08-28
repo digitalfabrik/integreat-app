@@ -20,15 +20,15 @@ export type CustomDatePickerProps = {
   title: string
   date?: DateTime | null
   setDate: (date: DateTime | null) => void
-  error?: string
+  error?: string | null
   calendarLabel: string
 }
 
 const DatePicker = ({ title, date, setDate, error, calendarLabel }: CustomDatePickerProps): ReactElement => {
-  const { t } = useTranslation('events')
+  const { t } = useTranslation()
   const [validationError, setValidationError] = useState<DateValidationError | null>(null)
   const { languageCode } = useRegionContentParams()
-  const errorMessage = error ?? (validationError ? t('invalidDate') : null)
+  const errorMessage = error ?? (validationError ? t($ => $.events.invalidDate) : null)
   const muiLocaleText = getDatePickerLocaleText(languageCode)
   const currentTheme = useTheme()
   const directionAdjustedTheme = muiLocaleText ? currentTheme : { ...currentTheme, direction: 'ltr' }

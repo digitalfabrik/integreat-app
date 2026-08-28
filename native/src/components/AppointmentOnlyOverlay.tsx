@@ -16,15 +16,15 @@ const AppointmentOnlyOverlay = ({
   isVisible,
   closeOverlay,
 }: AppointmentOnlyOverlayProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation()
 
   return (
     <SimpleAlertDialog
       visible={isVisible}
       close={closeOverlay}
-      title={<Text variant='subtitle2'>{t('appointmentNecessary')}</Text>}>
+      title={<Text variant='subtitle2'>{t($ => $.places.appointmentNecessary)}</Text>}>
       <Text>
-        <Trans i18nKey='places:makeAppointmentTooltipWithLink'>
+        <Trans ns='places' i18nKey={$ => $.places.makeAppointmentTooltipWithLink}>
           This gets replaced
           {appointmentUrl ? <Link url={appointmentUrl}>by react-i18next</Link> : <Text>by react-i18next</Text>}
         </Trans>

@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê. Li vir hûn ê agahdariya herêmî, randevû û şîretên saziya xwe bibînin. Herdem nûvekirî û bi zimanê xwe!"
+  },
+  "dashboard": {
+    "events": "Randevû"
+  },
+  "error": {
+    "notFound": {
+      "event": "Mixabin vê randevûyê nehat dîtin."
+    },
+    "goTo": {
+      "events": "Heya randevûyan"
+    }
+  },
+  "events": {
+    "events": "Randevû",
+    "currentlyNoEvents": "Niha randevû tuneye",
+    "pageTitle": "Randevû"
+  },
+  "feedback": {
+    "contentOfEvent": "Naveroka randevûyê \"{{event}}\""
+  },
+  "intro": {
+    "appDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê",
+    "events": "Randevû",
+    "eventsDescription": "Randevû û bûyerên niha"
+  },
+  "layout": {
+    "events": "Randevû",
+    "noEvents": "Randevû tuneye"
+  },
+  "regions": {
+    "metaDescription": "{{appName}} alîkarê dîjîtalê we ye ji aliyê Malteserê. Li vir hûn ê agahdariya herêmî, randevû û şîretên saziya xwe bibînin. Herdem nûvekirî û bi zimanê xwe!"
+  }
+}

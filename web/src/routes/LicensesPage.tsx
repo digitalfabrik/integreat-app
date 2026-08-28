@@ -17,7 +17,7 @@ type LicensesPageProps = { languageCode: string }
 
 const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
   const { data: licenses, loading } = useLoadAsync(loadLicenses)
-  const { t } = useTranslation(['settings', 'licenses'])
+  const { t } = useTranslation()
 
   const items = (licenses ?? []).map(license => (
     <LicenseItem
@@ -32,8 +32,8 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-      <H1>{t('settings:openSourceLicenses')}</H1>
-      {!loading && <List items={items} noItemsMessage='licenses:noLicensesMessage' />}
+      <H1>{t($ => $.settings.openSourceLicenses)}</H1>
+      {!loading && <List items={items} noItemsMessage={t($ => $.licenses.noLicensesMessage)} />}
     </Layout>
   )
 }

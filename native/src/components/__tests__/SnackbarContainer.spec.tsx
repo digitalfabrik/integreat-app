@@ -6,7 +6,6 @@ import renderWithTheme from '../../testing/render'
 import SnackbarContainer, { SnackbarContext } from '../SnackbarContainer'
 
 jest.mock('react-native-safe-area-context', () => mockSafeAreaContext)
-jest.mock('react-i18next')
 
 describe('SnackbarContainer', () => {
   beforeEach(() => {

@@ -20,7 +20,7 @@ type LicenseItemProps = {
 }
 
 const LicenseItem = ({ license, name, url, version, author }: LicenseItemProps): ReactElement => {
-  const { t } = useTranslation('licenses')
+  const { t } = useTranslation()
   const Content = (
     <ListItemText
       slotProps={{ primary: { component: 'h2' }, secondary: { component: 'div' } }}
@@ -29,10 +29,10 @@ const LicenseItem = ({ license, name, url, version, author }: LicenseItemProps):
         <>
           <StyledParagraph>{author}</StyledParagraph>
           <StyledParagraph>
-            {t('version')} {version}
+            {t($ => $.licenses.version)} {version}
           </StyledParagraph>
           <StyledParagraph>
-            {t('license')} {license}
+            {t($ => $.licenses.license)} {license}
           </StyledParagraph>
         </>
       }

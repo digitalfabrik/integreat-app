@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
 import { END_DATE_QUERY_KEY, filterEvents, START_DATE_QUERY_KEY } from 'shared'
@@ -21,6 +22,7 @@ const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
   const [start, setStart] = useQueryParam(START_DATE_QUERY_KEY, { replace: true })
   const [end, setEnd] = useQueryParam(END_DATE_QUERY_KEY, { replace: true })
   const [queryParams, setQueryParams] = useSearchParams()
+  const { t } = useTranslation()
 
   const startDate = start ?? null
   const endDate = end ?? null
@@ -34,7 +36,7 @@ const useDateFilter = (events: EventModel[]): UseDateFilterReturn => {
     setQueryParams(newQueryParams, { replace: true })
   }
 
-  const startDateError = startDate && endDate && startDate > endDate ? 'shouldBeEarlier' : null
+  const startDateError = startDate && endDate && startDate > endDate ? t($ => $.events.shouldBeEarlier) : null
   const filteredEvents = useMemo(() => filterEvents(events, startDate, endDate), [startDate, endDate, events])
 
   return { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError, resetDates }

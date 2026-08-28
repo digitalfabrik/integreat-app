@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "{{appName}} është ndihma juaj dixhitale nga Malteser. Këtu do të gjeni informacione lokale, takime dhe këshilla nga institucioni juaj. Gjithnjë aktuale dhe në gjuhën tuaj!"
+  },
+  "dashboard": {
+    "events": "Terminet"
+  },
+  "error": {
+    "notFound": {
+      "event": "Ky termin për fat të keq nuk u gjet."
+    },
+    "goTo": {
+      "events": "Tek terminet"
+    }
+  },
+  "events": {
+    "events": "Terminet",
+    "currentlyNoEvents": "Aktualisht nuk ka asnjë termin.",
+    "pageTitle": "Terminet"
+  },
+  "feedback": {
+    "contentOfEvent": "Përmbajtja e terminit \"{{event}}\""
+  },
+  "intro": {
+    "appDescription": "{{appName}} është ndihma juaj dixhitale nga Malteser",
+    "events": "Terminet",
+    "eventsDescription": "Terminet aktuale dhe evenimentet"
+  },
+  "layout": {
+    "events": "Terminet",
+    "noEvents": "Nuk ka termine"
+  },
+  "regions": {
+    "metaDescription": "{{appName}} është ndihma juaj dixhitale nga Malteser. Këtu do të gjeni informacione lokale, takime dhe këshilla nga institucioni juaj. Gjithnjë aktuale dhe në gjuhën tuaj!"
+  }
+}

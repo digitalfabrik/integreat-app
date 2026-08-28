@@ -11,10 +11,12 @@ type FailureSwitcherProps = {
 }
 
 const FailureSwitcherWithHelmet = ({ error }: FailureSwitcherProps): ReactElement => {
-  const { t } = useTranslation('error')
+  const { t } = useTranslation()
   return (
     <>
-      <Helmet pageTitle={error instanceof NotFoundError ? t('notFound.pageTitle') : t('pageTitle')} />
+      <Helmet
+        pageTitle={error instanceof NotFoundError ? t($ => $.error.notFound.pageTitle) : t($ => $.error.pageTitle)}
+      />
       <FailureSwitcher error={error} />
     </>
   )

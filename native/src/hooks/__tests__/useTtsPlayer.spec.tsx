@@ -9,7 +9,6 @@ import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
 import useTtsPlayer from '../useTtsPlayer'
 
-jest.mock('react-i18next')
 jest.mock('../../hooks/useSnackbar')
 jest.mock('../../components/TtsContainer')
 

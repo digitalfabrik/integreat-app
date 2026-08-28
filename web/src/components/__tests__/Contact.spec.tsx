@@ -5,8 +5,6 @@ import ContactModelBuilder from 'shared/api/endpoints/testing/ContactModelBuilde
 import { renderWithTheme } from '../../testing/render'
 import Contact from '../Contact'
 
-jest.mock('react-i18next')
-
 describe('Contact', () => {
   const contactBuilder = new ContactModelBuilder()
 

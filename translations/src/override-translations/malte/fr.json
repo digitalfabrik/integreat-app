@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "{{appName}} est votre assistant numérique de Malteser. Vous y trouverez des informations locales, des rendez-vous et des conseils de votre établissement. Toujours actuel et dans votre langue !"
+  },
+  "dashboard": {
+    "events": "Rendez-vous"
+  },
+  "error": {
+    "notFound": {
+      "event": "Malheureusement, ce rendez-vous est introuvable."
+    },
+    "goTo": {
+      "events": "Vers les rendez-vous"
+    }
+  },
+  "events": {
+    "events": "Rendez-vous",
+    "currentlyNoEvents": "Il n'y a actuellement aucun rendez-vous.",
+    "pageTitle": "Rendez-vous"
+  },
+  "feedback": {
+    "contentOfEvent": "Contenu du rendez-vous \"{{event}}\""
+  },
+  "intro": {
+    "appDescription": "{{appName}} est votre assistant numérique de Malteser",
+    "events": "Rendez-vous",
+    "eventsDescription": "Rendez-vous actuels et évènements"
+  },
+  "layout": {
+    "events": "Rendez-vous",
+    "noEvents": "Aucun rendez-vous"
+  },
+  "regions": {
+    "metaDescription": "{{appName}} est votre assistant numérique de Malteser. Vous y trouverez des informations locales, des rendez-vous et des conseils de votre établissement. Toujours actuel et dans votre langue !"
+  }
+}

@@ -14,7 +14,6 @@ jest.mock('../../components/NearbyRegions', () => {
   const { Text } = require('react-native-paper')
   return () => <Text>NearbyRegions</Text>
 })
-jest.mock('react-i18next')
 jest.mock('styled-components')
 jest.mock('../../hooks/useLoadRegions')
 
@@ -66,20 +65,20 @@ describe('Regions', () => {
   it('should show footer if enabled', () => {
     mockBuildConfig(true)
     const { getByText } = renderRegions()
-    expect(getByText('regionNotFound')).toBeTruthy()
-    expect(getByText('suggestToRegion')).toBeTruthy()
+    expect(getByText('regions:regionNotFound')).toBeTruthy()
+    expect(getByText('regions:suggestToRegion')).toBeTruthy()
   })
 
   it('should not show footer if disabled', () => {
     mockBuildConfig(false)
     const { queryByText } = renderRegions()
-    expect(queryByText('regionNotFound')).toBeNull()
+    expect(queryByText('regions:regionNotFound')).toBeNull()
   })
 
   it('should navigate to suggestToRegion page on button click', () => {
     mockBuildConfig(true)
     const { getByText } = renderRegions()
-    const button = getByText('suggestToRegion')
+    const button = getByText('regions:suggestToRegion')
     fireEvent.press(button)
     expect(navigation.navigate).toHaveBeenCalledWith(SUGGEST_TO_REGION_ROUTE)
   })

@@ -1,10 +1,12 @@
 import { render, waitFor } from '@testing-library/react'
+import { TFunction } from 'i18next'
 import React from 'react'
 import { Translation } from 'react-i18next'
 
 import BrowserLanguageDetector from '../../utils/BrowserLanguageDetector'
 import I18nProvider from '../I18nProvider'
 
+jest.mock('react-i18next', () => jest.requireActual('react-i18next'))
 jest.mock('../../utils/BrowserLanguageDetector')
 jest.mock('translations', () => ({
   ...jest.requireActual('translations'),
@@ -45,7 +47,7 @@ describe('I18nProvider', () => {
       const { findByText } = render(
         <I18nProvider contentLanguage={contentLanguage}>
           <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-          <Translation>{t => <p>{t('layout:localInformation')}</p>}</Translation>
+          <Translation>{(t: TFunction) => <p>{t($ => $.layout.localInformation)}</p>}</Translation>
         </I18nProvider>,
       )
       expect(await findByText(expectedLanguage)).toBeTruthy()
@@ -122,7 +124,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['en'])
     const { findByText } = render(
       <I18nProvider contentLanguage={undefined}>
-        <Translation>{t => <p>{t('layout:localInformation')}</p>}</Translation>
+        <Translation>{(t: TFunction) => <p>{t($ => $.layout.localInformation)}</p>}</Translation>
       </I18nProvider>,
     )
     expect(await findByText('Lokale Informationen')).toBeTruthy()
@@ -132,7 +134,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['zh'])
     const { findByText } = render(
       <I18nProvider contentLanguage={undefined}>
-        <Translation>{t => <p>{t('layout:events')}</p>}</Translation>
+        <Translation>{(t: TFunction) => <p>{t($ => $.layout.events)}</p>}</Translation>
       </I18nProvider>,
     )
     expect(await findByText('Veranstaltungen')).toBeTruthy()

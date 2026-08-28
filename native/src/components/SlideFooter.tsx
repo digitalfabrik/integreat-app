@@ -21,7 +21,7 @@ type SlideFooterProps = {
   currentSlide: number
   goToSlide: (index: number) => void
   onDone: () => void
-  t: TFunction<['intro', 'settings']>
+  t: TFunction
 }
 
 const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFooterProps): ReactElement => {
@@ -41,7 +41,7 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
           }}
           onPress={onDone}
           disabled={isLastSlide}>
-          {t('skip')}
+          {t($ => $.intro.skip)}
         </Button>
 
         <Button
@@ -52,7 +52,7 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
             fontSize: 14,
           }}
           onPress={isLastSlide ? onDone : goToNextSlide}>
-          {t('next')}
+          {t($ => $.intro.next)}
         </Button>
       </ButtonContainer>
     </SideFooterContainer>

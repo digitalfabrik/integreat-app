@@ -7,8 +7,7 @@ import { weekdays } from 'shared'
 import { OpeningHoursModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
-import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import Accordion from './Accordion'
 import HoursList from './HoursList'
 import Icon from './base/Icon'
@@ -31,11 +30,11 @@ type OpeningHoursTitleProps = {
 }
 
 const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTitleProps) => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation()
   const theme = useTheme()
   return (
     <TitleContainer language={language}>
-      <Text variant='h5'>{t('openingHours')}</Text>
+      <Text variant='h5'>{t($ => $.places.openingHours)}</Text>
       <Text
         variant='h6'
         style={{
@@ -43,7 +42,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTit
           alignSelf: 'center',
           ...(contentDirection(language) === 'row-reverse' ? { paddingLeft: 12 } : { paddingRight: 12 }),
         }}>
-        {t(label ?? (isCurrentlyOpen ? 'opened' : 'closed'))}
+        {label ?? t($ => (isCurrentlyOpen ? $.places.opened : $.places.closed))}
       </Text>
     </TitleContainer>
   )
@@ -64,14 +63,14 @@ const OpeningHours = ({
   isTemporarilyClosed,
   appointmentUrl,
 }: OpeningHoursProps): ReactElement | null => {
-  const { t } = useTranslation('places')
-  const showSnackbar = useSnackbar()
+  const { t } = useTranslation()
+  const openExternalUrl = useOpenExternalUrl()
   const theme = useTheme()
   const appointmentOnly = !openingHours && !!appointmentUrl
 
   const AppointmentLink = appointmentUrl ? (
     <TouchableRipple
-      onPress={() => openExternalUrl(appointmentUrl, showSnackbar)}
+      onPress={() => openExternalUrl(appointmentUrl)}
       role='link'
       style={{
         flexDirection: 'row',
@@ -81,7 +80,7 @@ const OpeningHours = ({
       }}>
       <>
         <Text variant='body1' style={{ color: theme.colors.primary, textDecorationLine: 'underline' }}>
-          {t('makeAppointment')}
+          {t($ => $.places.makeAppointment)}
         </Text>
         <Icon color={theme.colors.primary} size={16} source='open-in-new' />
       </>
@@ -93,7 +92,7 @@ const OpeningHours = ({
       <>
         <OpeningHoursTitle
           isCurrentlyOpen={isCurrentlyOpen}
-          label={isTemporarilyClosed ? 'temporarilyClosed' : 'onlyWithAppointment'}
+          label={t($ => (isTemporarilyClosed ? $.places.temporarilyClosed : $.places.onlyWithAppointment))}
           language={language}
         />
         {AppointmentLink}

@@ -21,7 +21,7 @@ export const formatFrequency = (frequency: Frequency): RecurrenceFrequency =>
   Frequency[frequency].toLowerCase() as RecurrenceFrequency
 
 const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
-  const { t } = useTranslation('events')
+  const { t } = useTranslation()
   const showSnackbar = useSnackbar()
 
   const [showCalendarChoiceModal, setShowCalendarChoiceModal] = useState<boolean>(false)
@@ -65,11 +65,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
 
     try {
       await RNCalendarEvents.saveEvent(event.title, eventOptions)
-      showSnackbar({
-        text: t('added'),
-      })
+      showSnackbar({ text: t($ => $.events.added) })
     } catch (e) {
-      showSnackbar({ text: 'generalError' })
+      showSnackbar({ text: t($ => $.error.generalError) })
       captureError(e)
     }
   }
@@ -77,13 +75,13 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const chooseCalendar = async (id: string | undefined, exportAll: boolean): Promise<void> => {
     setShowCalendarChoiceModal(false)
     if (!id) {
-      showSnackbar({ text: 'generalError' })
+      showSnackbar({ text: t($ => $.error.generalError) })
       return
     }
     try {
       await exportEventToCalendar(id, exportAll)
     } catch (e) {
-      showSnackbar({ text: 'generalError' })
+      showSnackbar({ text: t($ => $.error.generalError) })
       captureError(e)
     }
   }
@@ -93,9 +91,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
 
     if (authorizationStatus !== 'authorized') {
       showSnackbar({
-        text: 'noCalendarPermission',
+        text: t($ => $.error.noCalendarPermission),
         action: {
-          label: t('layout:settings'),
+          label: t($ => $.layout.settings),
           onPress: openSettings,
         },
       })
@@ -104,7 +102,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)
 
     if (editableCalendars.length === 0) {
-      showSnackbar({ text: 'noCalendarFound' })
+      showSnackbar({ text: t($ => $.error.noCalendarFound) })
     } else if (editableCalendars.length > 1 || event.date.recurrenceRule) {
       setCalendars(editableCalendars)
       setShowCalendarChoiceModal(true)
@@ -127,7 +125,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
         />
       )}
       <Button icon='calendar-import' mode='text' style={{ marginVertical: 16 }} onPress={checkCalendarsAndExportEvent}>
-        {t('addToCalendar')}
+        {t($ => $.events.addToCalendar)}
       </Button>
     </>
   )

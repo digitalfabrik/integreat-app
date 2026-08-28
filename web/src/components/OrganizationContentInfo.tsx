@@ -28,7 +28,7 @@ type OrganizationContentInfoProps = {
 
 const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps): ReactElement => {
   const { mobile } = useDimensions()
-  const { t } = useTranslation('categories')
+  const { t } = useTranslation()
 
   return (
     <StyledCard elevation={2}>
@@ -37,16 +37,22 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
           <StyledImage alt='' src={organization.logo} />
         </Stack>
         <Stack>
-          <Typography variant='subtitle1'>{t('organizationContent', { organization: organization.name })}</Typography>
+          <Typography variant='subtitle1'>
+            {t($ => $.categories.organizationContent, { organization: organization.name })}
+          </Typography>
           <Typography variant='body2'>
-            <Trans i18nKey='categories:organizationMoreInformation' domain={new URL(organization.url).hostname}>
-              This gets{{ organization: organization.name }}replaced
-              <Link to={organization.url} highlighted>
-                {/* @ts-expect-error gets replaced by Trans component */}
-                {{ domain: new URL(organization.url).hostname }}
-              </Link>
-              by i18n
-            </Trans>
+            <Trans
+              ns='categories'
+              i18nKey={$ => $.categories.organizationMoreInformation}
+              components={{
+                1: <span>{organization.name}</span>,
+                3: (
+                  <Link to={organization.url} highlighted>
+                    {new URL(organization.url).hostname}
+                  </Link>
+                ),
+              }}
+            />
           </Typography>
         </Stack>
       </Stack>

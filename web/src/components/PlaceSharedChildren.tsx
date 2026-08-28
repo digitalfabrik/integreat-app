@@ -29,14 +29,16 @@ const PlaceSharedChildren = ({
   scrollToTop,
   userLocation,
 }: PlaceSharedChildrenProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation()
 
   if (place) {
     return <PlaceDetails place={place} distance={userLocation && place.distance(userLocation)} />
   }
 
   if (slug) {
-    return <StyledFailure errorMessage='notFound.place' goToMessage='places:backToOverview' goToPath='.' />
+    return (
+      <StyledFailure errorMessage={t($ => $.error.notFound.place)} goToMessage='places:backToOverview' goToPath='.' />
+    )
   }
 
   const renderPlaceListItem = (place: PlaceModel) => (
@@ -47,7 +49,12 @@ const PlaceSharedChildren = ({
       distance={userLocation ? place.distance(userLocation) : null}
     />
   )
-  return <List noItemsMessage={t('noPlaces')} items={sortPlaces(places, userLocation).map(renderPlaceListItem)} />
+  return (
+    <List
+      noItemsMessage={t($ => $.places.noPlaces)}
+      items={sortPlaces(places, userLocation).map(renderPlaceListItem)}
+    />
+  )
 }
 
 export default PlaceSharedChildren

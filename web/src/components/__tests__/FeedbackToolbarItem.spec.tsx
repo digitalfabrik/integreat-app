@@ -6,14 +6,6 @@ import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 
 import FeedbackToolbarItem from '../FeedbackToolbarItem'
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: (namespace?: string) => ({
-    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
-  }),
-  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
-}))
-
 const renderToolbarItem = (rating: Rating) => {
   const router = createMemoryRouter(
     [

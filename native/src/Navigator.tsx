@@ -1,5 +1,6 @@
 import { createStackNavigator, StackHeaderProps } from '@react-navigation/stack'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import {
@@ -82,6 +83,7 @@ const Navigator = (): ReactElement | null => {
   const appContext = useAppContext()
   const { settings, regionCode, changeRegionCode, updateSettings } = appContext
   const [initialRoute, setInitialRoute] = useState<InitialRouteType>(null)
+  const { t } = useTranslation()
 
   // Preload regions
   const { data: regions, error: regionsError, refresh: refreshRegions } = useLoadRegions()
@@ -123,11 +125,11 @@ const Navigator = (): ReactElement | null => {
     } else if (regions) {
       // Region is not available anymore
       changeRegionCode(null)
-      showSnackbar({ text: 'notFound.region' })
+      showSnackbar({ text: t($ => $.error.notFound.region) })
       dataContainer.deleteRegion(regionCode).catch(captureError)
       updateInitialRoute({ name: REGIONS_ROUTE })
     }
-  }, [regions, changeRegionCode, regionCode, showSnackbar, settings, initialRoute, updateInitialRoute])
+  }, [regions, changeRegionCode, regionCode, showSnackbar, settings, initialRoute, updateInitialRoute, t])
 
   if (!initialRoute) {
     return regionsError ? <LoadingErrorHandler error={regionsError} loading={false} refresh={refreshRegions} /> : null

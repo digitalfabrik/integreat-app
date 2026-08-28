@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/consistent-type-definitions */
 import { PaletteColor, Palette, PaletteOptions, SimplePaletteColorOptions, TypeBackground } from '@mui/material/styles'
 
 import { Dimensions } from '../hooks/useDimensions'

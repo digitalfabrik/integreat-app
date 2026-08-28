@@ -58,9 +58,9 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const [sentences, setSentences] = useState<string[]>([])
   const [voices, setVoices] = useState<{ language: string }[]>([])
   const { languageCode } = useContext(AppContext)
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation()
   const showSnackbar = useSnackbar()
-  const title = sentences[0] || t('nothingToRead')
+  const title = sentences[0] || t($ => $.layout.nothingToRead)
   const subscriptionsRef = useRef<EventSubscription[]>([])
   const playRequestIdRef = useRef(0)
 
@@ -94,11 +94,11 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       return
     }
     if (sentences.length === 0) {
-      showSnackbar({ text: t('nothingToReadFullMessage') })
+      showSnackbar({ text: t($ => $.layout.nothingToReadFullMessage) })
       return
     }
     if (!isLanguageSupported) {
-      showSnackbar({ text: t('languageNotSupported') })
+      showSnackbar({ text: t($ => $.layout.languageNotSupported) })
       captureError(new Error(`Language '${languageCode}' not supported`), { data: voices })
       return
     }
@@ -108,7 +108,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       setVisible(true)
     } catch (error) {
       captureError(error)
-      showSnackbar({ text: t('error:unknownError') })
+      showSnackbar({ text: t($ => $.error.unknownError) })
     }
   }, [initializeTts, sentences.length, visible, showSnackbar, t, isLanguageSupported, voices, languageCode])
 

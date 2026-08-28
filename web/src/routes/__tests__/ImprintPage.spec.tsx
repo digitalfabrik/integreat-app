@@ -10,7 +10,6 @@ import ImprintPage from '../ImprintPage'
 import { RoutePatterns } from '../index'
 
 jest.mock('../../hooks/useQueryFromEndpoint')
-jest.mock('react-i18next')
 
 describe('ImprintPage', () => {
   beforeEach(() => {

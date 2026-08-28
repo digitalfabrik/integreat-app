@@ -6,7 +6,6 @@ import { PlaceModel, PlaceModelBuilder } from 'shared/api'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PlacesDesktop from '../PlacesDesktop'
 
-jest.mock('react-i18next')
 jest.mock('../MapView', () => () => <div>MapView</div>)
 
 describe('PlacesDesktop', () => {
@@ -41,7 +40,7 @@ describe('PlacesDesktop', () => {
     places.forEach(place => {
       expect(queryByText(place.title)).toBeFalsy()
     })
-    expect(queryByText('places:common:nearby')).toBeFalsy()
+    expect(queryByText('common:nearby')).toBeFalsy()
     expect(queryByText('places:distanceKilometre')).toBeFalsy()
   })
 
@@ -55,7 +54,7 @@ describe('PlacesDesktop', () => {
     expect(queryByText(singlePlace.location.address!)).toBeTruthy()
     expect(queryByText(singlePlace.content)).toBeTruthy()
     expect(queryByLabelText('places:backToOverview')).toBeTruthy()
-    expect(queryByText('places:common:nearby')).toBeNull()
+    expect(queryByText('common:nearby')).toBeNull()
     expect(queryByText('places:detailsPreviousPlace')).toBeTruthy()
     expect(queryByText('places:detailsNextPlace')).toBeTruthy()
   })
@@ -64,7 +63,7 @@ describe('PlacesDesktop', () => {
     const { queryByText, queryByLabelText } = renderPlacesDesktop(undefined, prepareMapFeature(places, 0, [0, 0]))
 
     expect(queryByLabelText('places:backToOverview')).toBeTruthy()
-    expect(queryByText('places:common:nearby')).toBeFalsy()
+    expect(queryByText('common:nearby')).toBeFalsy()
 
     places.forEach(place => {
       expect(queryByText(place.title)).toBeTruthy()
@@ -75,7 +74,7 @@ describe('PlacesDesktop', () => {
     const { queryByLabelText, queryByText } = renderPlacesDesktop()
 
     expect(queryByLabelText('places:backToOverview')).toBeFalsy()
-    expect(queryByText('places:common:nearby')).toBeTruthy()
+    expect(queryByText('common:nearby')).toBeTruthy()
     places.forEach(place => {
       expect(queryByText(place.title)).toBeTruthy()
     })

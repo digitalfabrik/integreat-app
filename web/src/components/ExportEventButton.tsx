@@ -26,7 +26,7 @@ type ExportEventButtonProps = {
 const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
   const [isExporting, setIsExporting] = useState<boolean>(false)
   const [exportRecurring, setExportRecurring] = useState<boolean>(false)
-  const { t } = useTranslation('events')
+  const { t } = useTranslation()
 
   const isRecurring = event.date.hasMoreRecurrencesThan(1)
 
@@ -45,19 +45,19 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
   return isExporting && isRecurring ? (
     <>
       <RadioGroup
-        caption={t('addToCalendar')}
+        caption={t($ => $.events.addToCalendar)}
         groupId='recurring'
         selectedValue={exportRecurring ? 'recurring' : 'one'}
         onChange={value => {
           setExportRecurring(value === 'recurring')
         }}
         values={[
-          { key: 'one', label: t('onlyThisEvent') },
-          { key: 'recurring', label: t('thisAndAllFutureEvents') },
+          { key: 'one', label: t($ => $.events.onlyThisEvent) },
+          { key: 'recurring', label: t($ => $.events.thisAndAllFutureEvents) },
         ]}
       />
       <ButtonContainer>
-        <Button onClick={() => setIsExporting(false)}>{t('layout:cancel')}</Button>
+        <Button onClick={() => setIsExporting(false)}>{t($ => $.layout.cancel)}</Button>
         <Button
           onClick={() => {
             downloadEventAsIcsFile(event, exportRecurring)
@@ -66,7 +66,7 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
           }}
           variant='outlined'
           startIcon={<DownloadIcon />}>
-          {t('export')}
+          {t($ => $.events.export)}
         </Button>
       </ButtonContainer>
     </>
@@ -74,7 +74,7 @@ const ExportEventButton = ({ event }: ExportEventButtonProps): ReactElement => {
     <StyledButton
       onClick={() => (isRecurring ? setIsExporting(true) : downloadEventAsIcsFile(event, false))}
       startIcon={<DownloadIcon />}>
-      {t('export')}
+      {t($ => $.events.export)}
     </StyledButton>
   )
 }

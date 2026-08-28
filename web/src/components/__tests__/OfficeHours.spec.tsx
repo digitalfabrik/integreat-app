@@ -6,7 +6,6 @@ import { OpeningHoursModel } from 'shared/api'
 import { renderWithTheme } from '../../testing/render'
 import OfficeHours from '../OfficeHours'
 
-jest.mock('react-i18next')
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
   isCurrentlyOpen: jest.fn(),

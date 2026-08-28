@@ -17,15 +17,15 @@ type AppointmentOnlyIconProps = {
 }
 
 const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): ReactElement => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation()
 
   return (
     <Tooltip
       title={
         <Stack>
-          <Typography variant='subtitle1'>{t('appointmentNecessary')}</Typography>
+          <Typography variant='subtitle1'>{t($ => $.places.appointmentNecessary)}</Typography>
           <Typography variant='body2'>
-            <Trans i18nKey='places:makeAppointmentTooltipWithLink'>
+            <Trans ns='places' i18nKey={$ => $.places.makeAppointmentTooltipWithLink}>
               This gets replaced
               {appointmentUrl ? (
                 <StyledLink to={appointmentUrl} highlighted>

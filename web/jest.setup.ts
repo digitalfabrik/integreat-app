@@ -1,12 +1,29 @@
 import { jest } from '@jest/globals'
 import '@testing-library/jest-dom'
+import i18next from 'i18next'
 import fetchMock from 'jest-fetch-mock'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { TextDecoder, TextEncoder } from 'node:util'
 import 'raf/polyfill'
+import { initReactI18next } from 'react-i18next'
 
 import { webIntegreatTestCmsBuildConfig } from 'build-configs/integreat-test-cms'
+import { loadTranslations } from 'translations'
+
+const namespaces = Object.keys(loadTranslations().en ?? {})
+
+i18next.use(initReactI18next).init({
+  lng: 'en',
+  fallbackLng: 'en',
+  resources: {},
+  ns: namespaces,
+  defaultNS: namespaces,
+  enableSelector: 'strict',
+  interpolation: { escapeValue: false },
+  appendNamespaceToMissingKey: true,
+  parseMissingKeyHandler: (key: string) => key,
+})
 
 Object.assign(globalThis, { __BUILD_CONFIG__: webIntegreatTestCmsBuildConfig })
 

@@ -24,7 +24,7 @@ type FeedbackButtonsProps = {
 }
 
 const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElement => {
-  const { t } = useTranslation('feedback')
+  const { t } = useTranslation()
   const theme = useTheme()
   const iconColor = (value: Rating) =>
     value === rating && theme.dark ? theme.colors.background : theme.colors.onSurfaceVariant
@@ -32,14 +32,14 @@ const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElem
   return (
     <Container>
       <ToggleButton
-        text={t('useful')}
+        text={t($ => $.feedback.useful)}
         onPress={() => setRating(rating !== RATING_POSITIVE ? RATING_POSITIVE : null)}
         icon={<Icon size={32} color={iconColor(RATING_POSITIVE)} source='emoticon-happy-outline' />}
         active={rating === RATING_POSITIVE}
       />
       <Spacing />
       <ToggleButton
-        text={t('notUseful')}
+        text={t($ => $.feedback.notUseful)}
         onPress={() => setRating(rating !== RATING_NEGATIVE ? RATING_NEGATIVE : null)}
         icon={<Icon size={32} color={iconColor(RATING_NEGATIVE)} source='emoticon-sad-outline' />}
         active={rating === RATING_NEGATIVE}

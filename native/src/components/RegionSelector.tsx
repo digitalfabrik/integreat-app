@@ -35,7 +35,7 @@ type RegionSelectorProps = {
 
 const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
-  const { t } = useTranslation('regions')
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const resultRegions = filterSortRegions(regions, filterText, buildConfig().featureFlags.developerFriendly)
@@ -68,9 +68,11 @@ const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): 
         <SearchInput
           setValue={setFilterText}
           value={filterText}
-          ariaLabel={t('searchRegion')}
+          ariaLabel={t($ => $.regions.searchRegion)}
           placeholderText={exampleRegion?.sortingName ?? REGION_SEARCH_EXAMPLE}
-          description={t('searchRegionDescription', { exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE })}
+          description={t($ => $.regions.searchRegionDescription, {
+            exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE,
+          })}
         />
       </SearchBar>
       <View>
@@ -83,10 +85,10 @@ const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): 
             color: theme.colors.onBackground,
           }}
           accessibilityLiveRegion={resultRegions.length === 0 ? 'assertive' : 'polite'}>
-          {t('search:searchResultsCount', { count: resultRegions.length })}
+          {t($ => $.search.searchResultsCount, { count: resultRegions.length })}
         </Text>
         <RegionGroupContainer>
-          <PaperList.Subheader>{t('common:nearby')}</PaperList.Subheader>
+          <PaperList.Subheader>{t($ => $.common.nearby)}</PaperList.Subheader>
           <NearbyRegions regions={regions} navigateToDashboard={navigateToDashboard} filterText={filterText} />
         </RegionGroupContainer>
         {resultRegions.length === 0 ? <NothingFound paddingTop /> : regionEntries}

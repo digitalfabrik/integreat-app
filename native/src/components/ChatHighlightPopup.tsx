@@ -60,7 +60,7 @@ type ChatHighlightPopupProps = {
 }
 
 const ChatHighlightPopup = ({ chatName }: ChatHighlightPopupProps): ReactElement | null => {
-  const { t } = useTranslation('chat')
+  const { t } = useTranslation()
   const { settings, updateSettings } = useRegionAppContext()
 
   if (settings.chatHighlightPopupDismissed) {
@@ -72,18 +72,19 @@ const ChatHighlightPopup = ({ chatName }: ChatHighlightPopupProps): ReactElement
       <Header>
         <Avatar size={AVATAR_SIZE} icon={avatarIcon} />
         <Text style={{ flex: 1 }} variant='body2'>
-          {t('welcomeGreeting')} 👋
+          {t($ => $.chat.welcomeGreeting)} 👋
         </Text>
         <IconButton
           icon='close'
           size={16}
           onPress={() => updateSettings({ chatHighlightPopupDismissed: true })}
-          accessibilityLabel={t('common:close')}
+          accessibilityLabel={t($ => $.common.close)}
         />
       </Header>
       <Text variant='body2'>
         <Trans
-          i18nKey='chat:welcomeText'
+          ns='chat'
+          i18nKey={$ => $.chat.welcomeText}
           values={{ name: chatName }}
           components={{
             strong: <Text style={{ fontFamily: buildConfig().fonts.native.contentFontBold }}>{chatName}</Text>,

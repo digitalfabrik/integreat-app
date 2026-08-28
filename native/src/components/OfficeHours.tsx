@@ -21,7 +21,7 @@ type OfficeHoursProps = {
 }
 
 const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => {
-  const { t } = useTranslation('places')
+  const { t } = useTranslation()
 
   if (!officeHours || officeHours.length !== weekdays.length) {
     return null
@@ -35,7 +35,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
     return (
       <StyledView>
         <Icon source='clock-outline' size={24} />
-        <Text>{t('allDay')}</Text>
+        <Text>{t($ => $.places.allDay)}</Text>
       </StyledView>
     )
   }
@@ -44,7 +44,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
     return (
       <StyledView>
         <Icon source='clock-outline' size={24} />
-        <Text>{t('temporarilyClosed')}</Text>
+        <Text>{t($ => $.places.temporarilyClosed)}</Text>
       </StyledView>
     )
   }
@@ -54,7 +54,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
       headerContent={
         <StyledView>
           <Icon source='clock-outline' size={24} />
-          <Text>{t(currentlyOpen ? 'opened' : 'closed')}</Text>
+          <Text>{t($ => (currentlyOpen ? $.places.opened : $.places.closed))}</Text>
         </StyledView>
       }
       initialCollapsed>

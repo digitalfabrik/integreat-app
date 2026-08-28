@@ -31,7 +31,6 @@ jest.mock('react-native/Libraries/Components/Keyboard/Keyboard', () => ({
     dismiss: jest.fn(),
   },
 }))
-jest.mock('react-i18next')
 jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
 jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native-paper')
@@ -160,21 +159,21 @@ describe('Navigator', () => {
     await findByText('Categories')
 
     // verify bottom tab navigator is mounted by checking for tab labels
-    await findByText('localInformationLabel')
-    await findByText('news')
-    await findByText('events')
+    await findByText('layout:localInformationLabel')
+    await findByText('layout:news')
+    await findByText('layout:events')
   })
 
   it('should allow switching between all bottom tabs', async () => {
     const { findByText, getByText } = renderNavigator({ regionCode: 'augsburg', introShown: true })
 
-    fireEvent.press(getByText('events'))
+    fireEvent.press(getByText('layout:events'))
     await findByText('Events')
 
-    fireEvent.press(getByText('localInformationLabel'))
+    fireEvent.press(getByText('layout:localInformationLabel'))
     await findByText('Categories')
 
-    fireEvent.press(getByText('news'))
+    fireEvent.press(getByText('layout:news'))
     await findByText('News')
   })
 

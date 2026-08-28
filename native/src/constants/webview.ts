@@ -10,6 +10,6 @@ export const OPEN_SETTINGS_MESSAGE_TYPE = 'settings'
 
 export const getFontFaceSource = (fontName: string): string | undefined =>
   Platform.select({
-    ios: `local('${fontName}') url('${fontName}.ttf') format('truetype')`,
-    android: `url('${ANDROID_FILE_PREFIX}/android_asset/fonts/${fontName}.ttf') format('truetype')`,
+    ios: `local('${fontName}') url('${fontName}.ttf') format($ => $.truetype)`,
+    android: `url('${ANDROID_FILE_PREFIX}/android_asset/fonts/${fontName}.ttf') format($ => $.truetype)`,
   })

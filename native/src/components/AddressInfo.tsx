@@ -10,8 +10,7 @@ import { LocationModel } from 'shared/api'
 
 import { contentDirection } from '../constants/contentDirection'
 import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
-import { captureError } from '../utils/sentry'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
@@ -28,22 +27,27 @@ type AddressInfoProps = {
 const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => {
   const { address, postcode, town } = location
   const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
   const theme = useTheme()
-  const { t } = useTranslation('places')
+  const { t } = useTranslation()
 
   const copyLocationToClipboard = (): void => {
     Clipboard.setString(`${address}, ${postcode} ${town}`)
-    showSnackbar({ text: t('addressCopied') })
+    showSnackbar({ text: t($ => $.places.addressCopied) })
   }
 
   const openExternalMaps = () => {
     const externalMapsUrl = getExternalMapsLink(location, Platform.OS)
-    openExternalUrl(externalMapsUrl, showSnackbar).catch(captureError)
+    openExternalUrl(externalMapsUrl)
   }
 
   return (
     <Container nativeID='accessibility-order-address' language={language}>
-      <TouchableRipple borderless accessibilityLabel={t('copyAddress')} role='button' onPress={copyLocationToClipboard}>
+      <TouchableRipple
+        borderless
+        accessibilityLabel={t($ => $.places.copyAddress)}
+        role='button'
+        onPress={copyLocationToClipboard}>
         <>
           <Text>{address}</Text>
           <Text>
@@ -56,7 +60,7 @@ const AddressInfo = ({ location, language }: AddressInfoProps): ReactElement => 
         style={{ alignSelf: 'center', paddingVertical: 0, paddingHorizontal: 8 }}
         role='link'
         onPress={openExternalMaps}
-        accessibilityLabel={t('openExternalMaps')}>
+        accessibilityLabel={t($ => $.places.openExternalMaps)}>
         <Icon color={theme.colors.primary} source='open-in-new' />
       </TouchableRipple>
     </Container>

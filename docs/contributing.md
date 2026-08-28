@@ -51,8 +51,8 @@ To merge a pull request, it has to match our Definition of Done. It includes amo
 - If applicable: A [release note](#release-notes) was added.
 
 _Note: All user facing texts must be translated.
-To do so, add them to the correct namespace in [translations.json](../translations/src/translations.json).
-Only add German and English translations, other languages must be collected and be [translated by professional translators](../translations/README.md#export-and-import-workflow).
+To do so, add them to the correct namespace in the [German](../translations/src/translations/de.json) and [English](../translations/src/translations/en.json) translation files.
+Other languages are usually [translated externally](../translations/README.md#export-and-import-workflow).
 If you speak another language natively, feel free to add those translations as well.
 DO NOT use Google Translate or similar services to translate other languages._
 

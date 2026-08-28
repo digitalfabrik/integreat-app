@@ -33,7 +33,7 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
   const { isConnected } = useNetInfo()
   const { regionCode, languageCode, settings, updateChatSettings } = useRegionAppContext()
   const { data } = useLoadRegionContent({ regionCode, languageCode })
-  const { t } = useTranslation('chat')
+  const { t } = useTranslation()
 
   const chatSettings = settings.chat[regionCode]
   const chatId = chatSettings?.id ?? ''
@@ -62,7 +62,7 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
   const menuItems = [
     <HeaderMenuItem
       key='newChat'
-      title={t('newChat')}
+      title={t($ => $.chat.newChat)}
       onPress={() => {
         setMenuVisible(false)
         setNewChatConfirmationVisible(true)
@@ -103,16 +103,16 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
       <AlertDialog
         visible={newChatConfirmationVisible}
         close={() => setNewChatConfirmationVisible(false)}
-        title={t('newChat')}
+        title={t($ => $.chat.newChat)}
         actions={[
           <Button key='cancel' onPress={() => setNewChatConfirmationVisible(false)} mode='outlined' style={{ flex: 1 }}>
-            {t('layout:cancel')}
+            {t($ => $.layout.cancel)}
           </Button>,
           <Button key='confirm' onPress={createNewChat} mode='contained' style={{ flex: 3 }}>
-            {t('newChat')}
+            {t($ => $.chat.newChat)}
           </Button>,
         ]}>
-        <Text>{t('newChatConfirmation')}</Text>
+        <Text>{t($ => $.chat.newChatConfirmation)}</Text>
       </AlertDialog>
     </>
   )
