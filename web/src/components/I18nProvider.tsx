@@ -21,9 +21,12 @@ const I18nProvider = ({ children, contentLanguage }: I18nProviderProps): ReactEl
   useEffect(() => {
     const initI18Next = async () => {
       const resources = loadTranslations(buildConfig().translationsOverride)
+      const namespaces = Object.keys(resources[config.defaultFallback] ?? {})
       const i18nextInstance = i18next.createInstance().use(BrowserLanguageDetectorService)
       await i18nextInstance.init({
         resources,
+        defaultNS: namespaces,
+        enableSelector: 'strict',
         fallbackLng: {
           ...config.getTranslationFallbacks(),
           default: [config.defaultFallback],

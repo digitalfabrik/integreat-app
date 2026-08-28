@@ -84,7 +84,7 @@ const PlacesBottomSheet = ({
   const { languageCode } = useRegionAppContext()
   const bottomSheetRef = useRef<BottomSheet>(null)
   const flatListRef = useRef<BottomSheetFlatListMethods>(null)
-  const { t } = useTranslation('places')
+  const { t } = useTranslation()
   const theme = useTheme()
 
   // Workaround for bottomSheet gets hidden after permissions dialog on Android so we force remounting after app comes back to foreground.
@@ -115,7 +115,7 @@ const PlacesBottomSheet = ({
       <BottomSheetHandle
         nextFocusForward={zoomInFocusTarget}
         isFullscreen={isFullscreen}
-        title={slug ? undefined : t('common:nearby')}
+        title={slug ? undefined : t($ => $.common.nearby)}
         onPress={() => setSnapPointIndex(isFullscreen ? 1 : snapPoints.length - 1)}
       />
     ),
@@ -130,7 +130,12 @@ const PlacesBottomSheet = ({
       distance={userLocation && place.distance(userLocation)}
     />
   ) : (
-    <Failure code={ErrorCodes.PageNotFound} retry={refresh} goTo={deselectAll} goToLabel={t('backToOverview')} />
+    <Failure
+      code={ErrorCodes.PageNotFound}
+      retry={refresh}
+      goTo={deselectAll}
+      goToLabel={t($ => $.places.backToOverview)}
+    />
   )
 
   const renderPlaceListItem = ({ item: place }: { item: PlaceModel }): ReactElement => (
@@ -166,7 +171,7 @@ const PlacesBottomSheet = ({
           data={places}
           role='list'
           {...conditionalA11yProps({ hidden: !!slug })}
-          accessibilityLabel={t('placesCount', { count: places.length })}
+          accessibilityLabel={t($ => $.places.placesCount, { count: places.length })}
           renderItem={renderPlaceListItem}
           onScrollBeginDrag={Platform.OS === 'ios' ? expandFullscreen : undefined}
           showsVerticalScrollIndicator={false}
@@ -177,7 +182,7 @@ const PlacesBottomSheet = ({
                 alignSelf: 'center',
                 marginTop: 20,
               }}>
-              {t('noPlaces')}
+              {t($ => $.places.noPlaces)}
             </Text>
           }
           ItemSeparatorComponent={PlaceListDivider}

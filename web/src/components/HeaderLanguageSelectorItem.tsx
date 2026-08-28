@@ -35,7 +35,7 @@ const HeaderLanguageSelectorItem = ({
   const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(null)
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
   const { mobile, desktop } = useDimensions()
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation()
 
   const open = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorElement(event.currentTarget)
   const close = () => setAnchorElement(null)
@@ -52,7 +52,7 @@ const HeaderLanguageSelectorItem = ({
     <HeaderActionItem
       key='languages'
       onClick={open}
-      text={isOpen ? '' : t('changeLanguage') /* to not cover the dropdown with the tooltip */}
+      text={isOpen ? '' : t($ => $.layout.changeLanguage) /* to not cover the dropdown with the tooltip */}
       icon={<TranslateOutlinedIcon />}
       innerText={forceText || desktop ? currentLanguageName : undefined}
     />

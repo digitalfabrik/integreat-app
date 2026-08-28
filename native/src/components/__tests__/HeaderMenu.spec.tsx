@@ -7,11 +7,6 @@ import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import HeaderMenu from '../HeaderMenu'
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key: string, params?: { message: string }) => (params ? `${key}: ${params.message}` : key),
-  }),
-}))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('../../utils/openExternalUrl', () => jest.fn(async () => undefined))
 

@@ -18,7 +18,7 @@ type NothingFoundProps = {
 }
 
 const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement => {
-  const { t } = useTranslation('search')
+  const { t } = useTranslation()
   return (
     <Container paddingTop={paddingTop}>
       <StyledIcon size={60} source='emoticon-sad-outline' />
@@ -30,7 +30,7 @@ const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement =
           padding: 12,
           paddingHorizontal: 28,
         }}>
-        {t('search:nothingFound')}
+        {t($ => $.search.nothingFound)}
       </Text>
     </Container>
   )

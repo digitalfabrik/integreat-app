@@ -51,7 +51,7 @@ const MalteHelpForm = ({
   regionCode,
   malteHelpFormOffer,
 }: MalteHelpFormProps): ReactElement => {
-  const { t } = useTranslation('malteHelpForm')
+  const { t } = useTranslation()
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -109,16 +109,16 @@ const MalteHelpForm = ({
     <>
       <Note>
         <PeopleOutlineOutlinedIcon />
-        {t('supportNote')}
+        {t($ => $.malteHelpForm.supportNote)}
       </Note>
       <Note>
         <HealthAndSafetyOutlinedIcon />
-        {t('securityNote')}
+        {t($ => $.malteHelpForm.securityNote)}
       </Note>
       <Form onSubmit={submitHandler} noValidate>
         <TextField
           id='name'
-          label={t('name')}
+          label={t($ => $.malteHelpForm.name)}
           required
           fullWidth
           value={name}
@@ -127,13 +127,13 @@ const MalteHelpForm = ({
         />
         <TextField
           id='roomNumber'
-          label={`${t('roomNumber')} (${t('common:optional')})`}
+          label={`${t($ => $.malteHelpForm.roomNumber)} (${t($ => $.common.optional)})`}
           fullWidth
           value={roomNumber}
           onChange={event => setRoomNumber(event.target.value)}
         />
         <RadioGroup
-          caption={t('howToBeContacted')}
+          caption={t($ => $.malteHelpForm.howToBeContacted)}
           groupId='contactChannel'
           selectedValue={contactChannel}
           submitted={submitted}
@@ -142,67 +142,71 @@ const MalteHelpForm = ({
           values={[
             {
               key: 'email',
-              label: t('eMail'),
+              label: t($ => $.malteHelpForm.eMail),
               inputProps: {
                 value: email,
                 onChange: setEmail,
                 required: true,
                 error: invalidEmail,
-                helperText: invalidEmail ? t('invalidEmailAddress') : undefined,
+                helperText: invalidEmail ? t($ => $.malteHelpForm.invalidEmailAddress) : undefined,
               },
             },
             {
               key: 'telephone',
-              label: t('telephone'),
+              label: t($ => $.malteHelpForm.telephone),
               inputProps: { value: telephone, onChange: setTelephone, required: true },
             },
-            { key: 'personally', label: t('personally') },
+            { key: 'personally', label: t($ => $.malteHelpForm.personally) },
           ]}
         />
         <RadioGroup
-          caption={t('contactPerson')}
+          caption={t($ => $.malteHelpForm.contactPerson)}
           groupId='contactPerson'
           selectedValue={contactGender}
           onChange={setContactGender}
           values={[
-            { key: 'any', label: t('contactPersonAnyGender') },
-            { key: 'female', label: t('contactPersonGenderFemale') },
-            { key: 'male', label: t('contactPersonGenderMale') },
+            { key: 'any', label: t($ => $.malteHelpForm.contactPersonAnyGender) },
+            { key: 'female', label: t($ => $.malteHelpForm.contactPersonGenderFemale) },
+            { key: 'male', label: t($ => $.malteHelpForm.contactPersonGenderMale) },
           ]}
         />
         <TextField
           id='comment'
-          label={t('contactReason')}
+          label={t($ => $.malteHelpForm.contactReason)}
           fullWidth
           multiline
           rows={DEFAULT_ROWS_NUMBER}
           value={comment}
           onChange={event => setComment(event.target.value)}
-          helperText={t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
+          helperText={t($ => $.malteHelpForm.maxCharacters, { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
         />
-        <p>{t('responseHint')}</p>
+        <p>{t($ => $.malteHelpForm.responseHint)}</p>
         <FormControl required error={submitted && !privacyPolicyAccepted}>
           <PrivacyCheckbox
             language={languageCode}
             checked={privacyPolicyAccepted}
             setChecked={setPrivacyPolicyAccepted}
           />
-          {submitted && !privacyPolicyAccepted && <FormHelperText>{t('common:notePrivacyPolicy')}</FormHelperText>}
+          {submitted && !privacyPolicyAccepted && <FormHelperText>{t($ => $.common.notePrivacyPolicy)}</FormHelperText>}
         </FormControl>
         <Stack sx={{ height: 1 }} />
         <Button type='submit' startIcon={<SendIcon />} variant='contained'>
-          {t('submit')}
+          {t($ => $.malteHelpForm.submit)}
         </Button>
       </Form>
       <Snackbar
         open={snackbarOpen}
         severity={sendingStatus === 'successful' ? 'success' : 'error'}
         onClose={() => setSnackbarOpen(false)}
-        title={sendingStatus === 'failed' ? t('submitFailed') : undefined}
-        message={sendingStatus === 'failed' ? t('submitFailedReasoning') : t('submitSuccessful')}
+        title={sendingStatus === 'failed' ? t($ => $.malteHelpForm.submitFailed) : undefined}
+        message={
+          sendingStatus === 'failed'
+            ? t($ => $.malteHelpForm.submitFailedReasoning)
+            : t($ => $.malteHelpForm.submitSuccessful)
+        }
         action={
           <Button component={Link} to={dashboardRoute} size='small'>
-            {t('error:goTo.categories')}
+            {t($ => $.error.goTo.categories)}
           </Button>
         }
       />

@@ -1,4 +1,4 @@
-import obdachOverrideTranslations from 'translations/override-translations/obdach.json' with { type: 'json' }
+import obdachOverrideTranslations from 'translations/override-translations/obdach'
 
 import { OBDACH_ASSETS } from '../AssetsType.ts'
 import type { CommonBuildConfigType, WebBuildConfigType } from '../BuildConfigType.ts'

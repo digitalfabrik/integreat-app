@@ -76,18 +76,18 @@ const PlaceFiltersModal = ({
 }: PlaceFiltersModalProps): ReactElement => {
   const [tempPlaceCategory, setTempPlaceCategory] = useState(placeCategoryFilter)
   const [tempCurrentlyOpen, setTempCurrentlyOpen] = useState(currentlyOpenFilter)
-  const { t } = useTranslation('places')
+  const { t } = useTranslation()
 
   const filters = { placeCategoryFilter: tempPlaceCategory, currentlyOpenFilter: tempCurrentlyOpen }
   const close = () => closeModal(filters)
   const placesCount = getPlacesCount(filters)
 
   return (
-    <Modal closeModal={close} headerTitle='' title={t('adjustFilters')} modalVisible>
+    <Modal closeModal={close} headerTitle='' title={t($ => $.places.adjustFilters)} modalVisible>
       <Container>
         <Section>
           <Row>
-            <Text variant='h6'>{t('openingHours')}</Text>
+            <Text variant='h6'>{t($ => $.places.openingHours)}</Text>
           </Row>
           <StyledRow>
             <Icon source='clock-outline' />
@@ -97,7 +97,7 @@ const PlaceFiltersModal = ({
                 padding: 4,
                 flexShrink: 1,
               }}>
-              {t('onlyCurrentlyOpen')}
+              {t($ => $.places.onlyCurrentlyOpen)}
             </Text>
             <FlexEnd>
               {/* key is a workaround for iOS 26 where the Switch animation does not update on first click */}
@@ -107,14 +107,14 @@ const PlaceFiltersModal = ({
         </Section>
         <Section>
           <Row>
-            <Text variant='h6'>{t('placeCategories')}</Text>
+            <Text variant='h6'>{t($ => $.places.placeCategories)}</Text>
             <Text
               variant='body3'
               style={{
                 alignSelf: 'flex-end',
                 padding: 4,
               }}>
-              {t('alphabetLetters')}
+              {t($ => $.places.alphabetLetters)}
             </Text>
           </Row>
           <TileRow>
@@ -131,7 +131,7 @@ const PlaceFiltersModal = ({
         </Section>
         <Section style={{ marginBottom: 8 }}>
           <Button onPress={close} mode='contained' disabled={placesCount === 0}>
-            {t('showPlaces', { count: placesCount })}
+            {t($ => $.places.showPlaces, { count: placesCount })}
           </Button>
         </Section>
       </Container>

@@ -20,8 +20,10 @@ type NewsSourceChipProps = {
 }
 
 const NewsSourceChip = ({ source }: NewsSourceChipProps): ReactElement => {
-  const { t } = useTranslation('news')
+  const { t } = useTranslation()
   const theme = useTheme()
+
+  const label = getNewsSourceLabel({ source, localNewsLabel: t($ => $.news.local) })
   const borderColor = getNewsColor({
     palette: { ...theme.colors, secondary: { main: theme.colors.secondary } },
     source,
@@ -29,7 +31,7 @@ const NewsSourceChip = ({ source }: NewsSourceChipProps): ReactElement => {
 
   return (
     <Chip mode='outlined' style={[styles.chip, { borderColor, backgroundColor: theme.colors.background }]} compact>
-      <Text variant='body2'>{getNewsSourceLabel({ source, t })}</Text>
+      <Text variant='body2'>{label}</Text>
     </Chip>
   )
 }

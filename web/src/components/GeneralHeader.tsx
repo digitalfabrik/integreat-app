@@ -21,7 +21,7 @@ type GeneralHeaderProps = {
 const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): ReactElement => {
   const slug = useLocation().pathname.split('/')[1]
   const { toggleTheme } = useTheme()
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation()
 
   const regionsPath = pathnameFromRouteInformation({ route: REGIONS_ROUTE, languageCode })
   const languageChangePaths = (regionLanguages ?? supportedLanguages).map(language => ({
@@ -40,7 +40,12 @@ const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): R
       />
     ) : null,
     <HeaderMenu key='menu' pageTitle={null}>
-      <MenuItem key='theme' text={t('contrastTheme')} icon={<ContrastIcon fontSize='small' />} onClick={toggleTheme} />
+      <MenuItem
+        key='theme'
+        text={t($ => $.layout.contrastTheme)}
+        icon={<ContrastIcon fontSize='small' />}
+        onClick={toggleTheme}
+      />
     </HeaderMenu>,
   ]
 

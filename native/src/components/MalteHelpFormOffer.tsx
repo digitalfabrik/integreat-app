@@ -76,7 +76,7 @@ const MalteHelpFormOffer = ({
     progressive: true,
     defaultValues,
   })
-  const { t } = useTranslation('malteHelpForm')
+  const { t } = useTranslation()
   const { languageCode } = useRegionAppContext()
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const showSnackbar = useSnackbar()
@@ -97,13 +97,13 @@ const MalteHelpFormOffer = ({
         comment: data.comment,
       })
       onSubmit()
-      showSnackbar({ text: t('submitSuccessful') })
+      showSnackbar({ text: t($ => $.malteHelpForm.submitSuccessful) })
     } catch (e) {
       if (e instanceof InvalidEmailError) {
-        setError('email', { type: 'custom', message: t('invalidEmailAddress') })
-        showSnackbar({ text: t('invalidEmailAddress') })
+        setError('email', { type: 'custom', message: t($ => $.malteHelpForm.invalidEmailAddress) })
+        showSnackbar({ text: t($ => $.malteHelpForm.invalidEmailAddress) })
       } else {
-        showSnackbar({ text: t('error:unknownError') })
+        showSnackbar({ text: t($ => $.error.unknownError) })
       }
     }
   })
@@ -116,49 +116,49 @@ const MalteHelpFormOffer = ({
         <InformationRow>
           <Icon source='account-multiple-outline' />
           <Text variant='body2' style={{ flex: 1 }}>
-            {t('supportNote')}
+            {t($ => $.malteHelpForm.supportNote)}
           </Text>
         </InformationRow>
         <InformationRow>
           <Icon source='shield-plus-outline' />
           <Text variant='body2' style={{ flex: 1 }}>
-            {t('securityNote')}
+            {t($ => $.malteHelpForm.securityNote)}
           </Text>
         </InformationRow>
 
-        <FormInput name='name' title={t('name')} control={control} rules={{ required: true }} />
-        <FormInput name='roomNumber' title={t('roomNumber')} control={control} showOptional />
+        <FormInput name='name' title={t($ => $.malteHelpForm.name)} control={control} rules={{ required: true }} />
+        <FormInput name='roomNumber' title={t($ => $.malteHelpForm.roomNumber)} control={control} showOptional />
 
         <View>
-          <Text variant='h6'>{t('howToBeContacted')}</Text>
+          <Text variant='h6'>{t($ => $.malteHelpForm.howToBeContacted)}</Text>
           <FormRadioButtons
             name='contactChannel'
             control={control}
             values={[
-              { key: 'email', label: t('eMail'), inputName: 'email' },
-              { key: 'telephone', label: t('telephone'), inputName: 'telephone' },
-              { key: 'personally', label: t('personally') },
+              { key: 'email', label: t($ => $.malteHelpForm.eMail), inputName: 'email' },
+              { key: 'telephone', label: t($ => $.malteHelpForm.telephone), inputName: 'telephone' },
+              { key: 'personally', label: t($ => $.malteHelpForm.personally) },
             ]}
           />
         </View>
 
         <View>
-          <Text variant='h6'>{t('contactPerson')}</Text>
+          <Text variant='h6'>{t($ => $.malteHelpForm.contactPerson)}</Text>
           <FormRadioButtons
             name='contactGender'
             control={control}
             values={[
-              { key: 'any', label: t('contactPersonAnyGender') },
-              { key: 'female', label: t('contactPersonGenderFemale') },
-              { key: 'male', label: t('contactPersonGenderMale') },
+              { key: 'any', label: t($ => $.malteHelpForm.contactPersonAnyGender) },
+              { key: 'female', label: t($ => $.malteHelpForm.contactPersonGenderFemale) },
+              { key: 'male', label: t($ => $.malteHelpForm.contactPersonGenderMale) },
             ]}
           />
         </View>
 
         <FormInput
           name='comment'
-          title={t('contactReason')}
-          hint={`(${t('maxCharacters', { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })})`}
+          title={t($ => $.malteHelpForm.contactReason)}
+          hint={t($ => $.malteHelpForm.maxCharacters, { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
           control={control}
           rules={{ maxLength: MALTE_HELP_FORM_MAX_COMMENT_LENGTH }}
           maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
@@ -166,7 +166,7 @@ const MalteHelpFormOffer = ({
         />
 
         <Text variant='body2' style={{ flex: 1 }}>
-          {t('responseHint')}
+          {t($ => $.malteHelpForm.responseHint)}
         </Text>
         <PrivacyCheckbox
           language={languageCode}
@@ -177,7 +177,7 @@ const MalteHelpFormOffer = ({
           mode='contained'
           onPress={submit}
           disabled={!formState.isValid || formState.isSubmitting || !privacyPolicyAccepted}>
-          {t('submit')}
+          {t($ => $.malteHelpForm.submit)}
         </Button>
       </Container>
     </KeyboardAwareScrollView>

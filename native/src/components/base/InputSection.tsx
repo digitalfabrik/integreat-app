@@ -45,13 +45,13 @@ const InputSection = ({
   accessibilityRole,
 }: InputSectionProps): ReactElement => {
   const theme = useTheme()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const lines = multiline ? numberOfLines : 1
 
   return (
     <Container>
-      {showOptional && <Text style={{ textAlign: 'right' }}>({t('common:optional')})</Text>}
+      {showOptional && <Text style={{ textAlign: 'right' }}>({t($ => $.common.optional)})</Text>}
       <TextInput
         mode='outlined'
         outlineColor={theme.colors.outlineVariant}

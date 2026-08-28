@@ -4,14 +4,6 @@ import { createMemoryRouter, RouterProvider } from 'react-router'
 
 import SearchFeedback from '../SearchFeedback'
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: (namespace?: string) => ({
-    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
-  }),
-  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
-}))
-
 const renderSearchFeedback = (noResults: boolean) => {
   const router = createMemoryRouter(
     [

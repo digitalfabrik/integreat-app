@@ -33,7 +33,7 @@ type QrCodeModalProps = {
 }
 
 const QrCodeModal = ({ modalVisible, closeModal, title, description, content }: QrCodeModalProps): ReactElement => {
-  const { t } = useTranslation('layout')
+  const { t } = useTranslation()
   const theme = useTheme()
   const svgXml = encodeQR(content, 'svg')
 
@@ -46,14 +46,14 @@ const QrCodeModal = ({ modalVisible, closeModal, title, description, content }: 
           width={QR_CODE_SIZE}
           height={QR_CODE_SIZE}
           fill={theme.colors.onSurface}
-          aria-label={t('qrCode')}
+          aria-label={t($ => $.layout.qrCode)}
         />
         <Text selectable style={styles.text}>
           {content}
         </Text>
       </View>
       <Button mode='outlined' onPress={closeModal} style={styles.button}>
-        {t('common:close')}
+        {t($ => $.common.close)}
       </Button>
     </Modal>
   )

@@ -25,6 +25,7 @@ import { UseQueryFromEndpointReturn } from '../hooks/useQueryFromEndpoint'
 import { captureError } from '../utils/sentry'
 import ChatConversation from './ChatConversation'
 import ChatInput from './ChatInput'
+import { getErrorMessage } from './FailureSwitcher'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
 
@@ -58,7 +59,7 @@ const Chat = ({
 }: ChatProps): ReactElement => {
   const [sendingError, setSendingError] = useState<Error | null>(null)
   const [textInput, setTextInput] = useState<string>('')
-  const { t } = useTranslation(['chat', 'error'])
+  const { t } = useTranslation()
 
   const unsyncedMessages = serializedUnsyncedMessages.map(ChatMessageModel.deserialize)
 
@@ -131,8 +132,8 @@ const Chat = ({
     return (
       <Container>
         <Stack sx={{ paddingInline: 3, gap: 1 }}>
-          <H1>{t('settings:privacyPolicy')}</H1>
-          {t('privacyPolicyInformation')}
+          <H1>{t($ => $.settings.privacyPolicy)}</H1>
+          {t($ => $.chat.privacyPolicyInformation)}
           <PrivacyCheckbox
             language={languageCode}
             checked={false}
@@ -158,13 +159,13 @@ const Chat = ({
           <Alert
             severity='error'
             action={
-              <Tooltip title={t('error:tryAgain')}>
-                <IconButton onClick={retry} aria-label={t('error:tryAgain')} size='small'>
+              <Tooltip title={t($ => $.error.tryAgain)}>
+                <IconButton onClick={retry} aria-label={t($ => $.error.tryAgain)} size='small'>
                   <RefreshIcon />
                 </IconButton>
               </Tooltip>
             }>
-            {t(fromError(error ?? sendingError), { ns: 'error' })}
+            {getErrorMessage(fromError(error ?? sendingError), t)}
           </Alert>
         )}
         <ChatInput value={textInput} setValue={setTextInput} onSubmit={onSubmit} region={region} />

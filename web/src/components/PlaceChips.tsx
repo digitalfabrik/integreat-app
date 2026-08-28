@@ -27,10 +27,10 @@ const PlaceChips = ({ place }: { place: PlaceModel }): ReactElement => {
         />
       )}
       {place.barrierFree === true && (
-        <Chip icon={<AccessibleIcon />} label={t('common:accessible')} variant='outlined' />
+        <Chip icon={<AccessibleIcon />} label={t($ => $.common.accessible)} variant='outlined' />
       )}
       {place.barrierFree === false && (
-        <Chip icon={<NotAccessibleIcon />} label={t('common:notAccessible')} variant='outlined' />
+        <Chip icon={<NotAccessibleIcon />} label={t($ => $.common.notAccessible)} variant='outlined' />
       )}
     </Stack>
   )

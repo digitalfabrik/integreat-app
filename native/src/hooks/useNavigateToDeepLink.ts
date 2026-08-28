@@ -1,4 +1,6 @@
+import { TFunction } from 'i18next'
 import { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import Url from 'url-parse'
 
 import { InternalPathnameParser, REGIONS_ROUTE, RouteInformationType } from 'shared'
@@ -17,6 +19,7 @@ type NavigateToDeepLinkParams<T extends RoutesType> = {
   navigateTo: (route: RouteInformationType) => void
   showSnackbar: (snackbar: SnackbarType) => void
   appContext: AppContextType
+  t: TFunction
 }
 
 const navigateToDeepLink = <T extends RoutesType>({
@@ -25,6 +28,7 @@ const navigateToDeepLink = <T extends RoutesType>({
   navigateTo,
   showSnackbar,
   appContext,
+  t,
 }: NavigateToDeepLinkParams<T>): void => {
   const { regionCode, languageCode, changeRegionCode } = appContext
   const { fixedRegion } = buildConfig().featureFlags
@@ -33,7 +37,7 @@ const navigateToDeepLink = <T extends RoutesType>({
   const routeInformation = new InternalPathnameParser(pathname, languageCode, fixedRegion, query).route()
 
   if (!routeInformation) {
-    showSnackbar({ text: 'notFound.category' })
+    showSnackbar({ text: t($ => $.error.notFound.category) })
     return
   }
 
@@ -60,10 +64,11 @@ const useNavigateToDeepLink = ({ redirect } = { redirect: false }): ((url: strin
   const showSnackbar = useSnackbar()
   const appContext = useAppContext()
   const { navigation, navigateTo } = useNavigate({ redirect })
+  const { t } = useTranslation()
 
   return useCallback(
-    (url: string) => navigateToDeepLink({ url, navigation, navigateTo, appContext, showSnackbar }),
-    [appContext, navigation, navigateTo, showSnackbar],
+    (url: string) => navigateToDeepLink({ url, navigation, navigateTo, appContext, showSnackbar, t }),
+    [appContext, navigation, navigateTo, showSnackbar, t],
   )
 }
 

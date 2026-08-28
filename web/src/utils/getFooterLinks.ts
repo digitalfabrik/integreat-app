@@ -1,3 +1,5 @@
+import { TFunction } from 'i18next'
+
 import { IMPRINT_ROUTE, LICENSES_ROUTE, MAIN_IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import { FooterLinkItemProps } from '../components/FooterListItem'
@@ -6,9 +8,10 @@ import buildConfig from '../constants/buildConfig'
 type GetFooterLinksProps = {
   languageCode: string
   regionCode?: string
+  t: TFunction
 }
 
-const getFooterLinks = ({ languageCode, regionCode }: GetFooterLinksProps): FooterLinkItemProps[] => {
+const getFooterLinks = ({ languageCode, regionCode, t }: GetFooterLinksProps): FooterLinkItemProps[] => {
   const { aboutUrls, privacyUrls, accessibilityUrls } = buildConfig()
   const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
   const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
@@ -26,12 +29,12 @@ const getFooterLinks = ({ languageCode, regionCode }: GetFooterLinksProps): Foot
   const licensesPath = `/${LICENSES_ROUTE}/${languageCode}`
 
   return [
-    { to: imprintPath, text: 'imprint' },
-    { to: aboutUrl, text: 'settings:aboutUs' },
-    { to: privacyUrl, text: 'privacy' },
-    { to: licensesPath, text: 'settings:openSourceLicenses' },
-    { to: linkToSbom, text: 'SBoM', doNotTranslate: true },
-    { to: accessibilityUrl, text: 'accessibility' },
+    { to: imprintPath, text: t($ => $.layout.imprint) },
+    { to: aboutUrl, text: t($ => $.settings.aboutUs) },
+    { to: privacyUrl, text: t($ => $.layout.privacy) },
+    { to: licensesPath, text: t($ => $.settings.openSourceLicenses) },
+    { to: linkToSbom, text: 'SBoM' },
+    { to: accessibilityUrl, text: t($ => $.layout.accessibility) },
   ]
 }
 

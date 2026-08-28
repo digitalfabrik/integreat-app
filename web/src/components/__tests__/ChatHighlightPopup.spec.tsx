@@ -5,8 +5,6 @@ import { CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalSt
 import { renderWithTheme } from '../../testing/render'
 import ChatHighlightPopup from '../ChatHighlightPopup'
 
-jest.mock('react-i18next')
-
 describe('ChatHighlightPopup', () => {
   const chatName = 'Frag Integreat'
 
@@ -36,7 +34,7 @@ describe('ChatHighlightPopup', () => {
       <ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />,
     )
 
-    fireEvent.click(getByLabelText('chat:common:close'))
+    fireEvent.click(getByLabelText('common:close'))
 
     expect(queryByText('chat:welcomeGreeting')).toBeFalsy()
     expect(queryByText('chat:welcomeText')).toBeFalsy()

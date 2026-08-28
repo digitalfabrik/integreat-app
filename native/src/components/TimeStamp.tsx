@@ -19,7 +19,7 @@ type TimeStampProps = {
 }
 
 export const TimeStamp = ({ lastUpdate, showText = true, format = 'DDD' }: TimeStampProps): ReactElement => {
-  const { i18n, t } = useTranslation('common')
+  const { i18n, t } = useTranslation()
   const theme = useTheme()
   const styles = StyleSheet.create({
     timeStampText: {
@@ -30,7 +30,7 @@ export const TimeStamp = ({ lastUpdate, showText = true, format = 'DDD' }: TimeS
   return (
     <DirectionContainer language={i18n.language}>
       <Text variant='caption' style={styles.timeStampText}>
-        {showText && t('lastUpdate')}
+        {showText && t($ => $.common.lastUpdate)}
         {showText && ' '}
         {lastUpdate.setLocale(i18n.language).toFormat(format)}
       </Text>

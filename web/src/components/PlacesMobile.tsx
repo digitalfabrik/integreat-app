@@ -98,7 +98,7 @@ const PlacesMobile = ({
   const { places, place, mapFeatures, mapFeature } = data
   const dimensions = useDimensions()
   const canDeselect = !!mapFeature || !!slug
-  const { t } = useTranslation('places')
+  const { t } = useTranslation()
 
   const scrollToTop = () => {
     if (sheetRef.current?.scrollElement) {
@@ -142,7 +142,7 @@ const PlacesMobile = ({
         overlay={
           <>
             {canDeselect && (
-              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t('backToOverview')}>
+              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t($ => $.places.backToOverview)}>
                 <DirectionDependentBackIcon />
               </StyledIconButton>
             )}
@@ -152,7 +152,7 @@ const PlacesMobile = ({
       />
       <BottomActionSheet
         ref={sheetRef}
-        title={canDeselect || loading ? undefined : t('common:nearby')}
+        title={canDeselect || loading ? undefined : t($ => $.common.nearby)}
         sibling={
           <>
             <MapControlsContainer>

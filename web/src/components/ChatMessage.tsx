@@ -66,7 +66,7 @@ type ChatMessageProps = {
 }
 
 const ChatMessage = ({ retrySend, message, previousMessage, openUrl }: ChatMessageProps): ReactElement => {
-  const { t } = useTranslation('chat')
+  const { t } = useTranslation()
 
   const hasAuthorChanged = message.userIsAuthor !== previousMessage?.userIsAuthor
   const hasAutomaticAnswerChanged = message.isAutomaticAnswer !== previousMessage?.isAutomaticAnswer
@@ -79,8 +79,12 @@ const ChatMessage = ({ retrySend, message, previousMessage, openUrl }: ChatMessa
       isAutomaticAnswer={message.isAutomaticAnswer}
       hint={
         !message.synced ? (
-          <Tooltip title={t('error:tryAgain')}>
-            <RetryButton onClick={() => retrySend(message)} aria-label={t('error:tryAgain')} color='error' size='small'>
+          <Tooltip title={t($ => $.error.tryAgain)}>
+            <RetryButton
+              onClick={() => retrySend(message)}
+              aria-label={t($ => $.error.tryAgain)}
+              color='error'
+              size='small'>
               <RefreshIcon />
             </RetryButton>
           </Tooltip>

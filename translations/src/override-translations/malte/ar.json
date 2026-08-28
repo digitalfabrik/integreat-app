@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "تطبيق {{appName}} هو مُساعدك الرقمي المقدم من مؤسسة مالتيزر (Malteser). تجد هنا معلومات ومواعيد ومشورة محلية مُقدمة من مؤسستك. مُحدَّثة دائمًا وبلغتك!"
+  },
+  "dashboard": {
+    "events": "المواعيد"
+  },
+  "error": {
+    "notFound": {
+      "event": "للأسف، لم يتم العثور على هذا الموعد."
+    },
+    "goTo": {
+      "events": "إلى المواعيد"
+    }
+  },
+  "events": {
+    "events": "المواعيد",
+    "currentlyNoEvents": "لا توجد مواعيد حاليًا.",
+    "pageTitle": "المواعيد"
+  },
+  "feedback": {
+    "contentOfEvent": "موضوع الموعد \"{{event}}\""
+  },
+  "intro": {
+    "appDescription": "تطبيق {{appName}} هو مُساعدك الرقمي المقدم من مؤسسة مالتيزر (Malteser).",
+    "events": "المواعيد",
+    "eventsDescription": "مواعيد وفعاليات حالية"
+  },
+  "layout": {
+    "events": "المواعيد",
+    "noEvents": "لا توجد مواعيد"
+  },
+  "regions": {
+    "metaDescription": "تطبيق {{appName}} هو مُساعدك الرقمي المقدم من مؤسسة مالتيزر (Malteser). تجد هنا معلومات ومواعيد ومشورة محلية مُقدمة من مؤسستك. مُحدَّثة دائمًا وبلغتك!"
+  }
+}

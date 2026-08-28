@@ -6,13 +6,6 @@ import { InvalidEmailError, OfferModel, submitMalteHelpForm } from 'shared/api'
 import { renderWithRouterAndTheme, renderWithTheme } from '../../testing/render'
 import MalteHelpForm from '../MalteHelpForm'
 
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: (namespace?: string) => ({
-    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
-  }),
-  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
-}))
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   submitMalteHelpForm: jest.fn(),
@@ -21,7 +14,7 @@ jest.mock('shared/api', () => ({
 const submitButtonLabel = 'malteHelpForm:submit'
 const nameInputLabel = 'malteHelpForm:name'
 const name = 'Doe, Jane'
-const roomNumberInputLabel = 'malteHelpForm:roomNumber (malteHelpForm:common:optional)'
+const roomNumberInputLabel = 'malteHelpForm:roomNumber (common:optional)'
 const roomNumber = '42'
 const emailInputLabel = 'malteHelpForm:eMail'
 const email = 'testEmail@tuerantuer.org'
@@ -355,7 +348,7 @@ describe('MalteHelpForm', () => {
 
     fireEvent.click(submitButton)
     await waitFor(() => {
-      expect(queryByText('malteHelpForm:common:notePrivacyPolicy')).toBeInTheDocument()
+      expect(queryByText('common:notePrivacyPolicy')).toBeInTheDocument()
     })
 
     expect(submitMalteHelpForm).not.toHaveBeenCalled()

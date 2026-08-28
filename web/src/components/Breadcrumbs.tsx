@@ -44,7 +44,7 @@ type BreadcrumbsProps = {
 const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => {
   const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLButtonElement | null>(null)
   const { xsmall } = useDimensions()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
 
   const openMenu = (event: React.MouseEvent<HTMLButtonElement>) => setMenuAnchorElement(event.currentTarget)
   const closeMenu = () => setMenuAnchorElement(null)
@@ -76,7 +76,7 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
       <StyledMuiBreadcrumbs aria-label='Breadcrumb' separator='>'>
         {collapseHomeButton ? null : homeButton}
         {hiddenBreadcrumbs.length > 0 && (
-          <IconButton key='menu' onClick={openMenu} aria-label={t('showMore')} color='inherit'>
+          <IconButton key='menu' onClick={openMenu} aria-label={t($ => $.common.showMore)} color='inherit'>
             <MoreHorizIcon />
           </IconButton>
         )}

@@ -4,7 +4,6 @@ import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import Link from './base/Link'
 
@@ -15,24 +14,20 @@ const StyledListItem = styled(ListItem)({
 export type FooterLinkItemProps = {
   to: string
   text: string
-  doNotTranslate?: boolean
 }
 
-const FooterListItem = ({ to, text, doNotTranslate }: FooterLinkItemProps): ReactElement => {
-  const { t } = useTranslation(['layout', 'settings'])
-  return (
-    <StyledListItem key={to} disablePadding>
-      <ListItemButton component={Link} to={to}>
-        <ListItemText
-          primary={
-            <Typography variant='body2' sx={{ textAlign: 'center' }}>
-              {doNotTranslate ? text : t(text)}
-            </Typography>
-          }
-        />
-      </ListItemButton>
-    </StyledListItem>
-  )
-}
+const FooterListItem = ({ to, text }: FooterLinkItemProps): ReactElement => (
+  <StyledListItem key={to} disablePadding>
+    <ListItemButton component={Link} to={to}>
+      <ListItemText
+        primary={
+          <Typography variant='body2' sx={{ textAlign: 'center' }}>
+            {text}
+          </Typography>
+        }
+      />
+    </ListItemButton>
+  </StyledListItem>
+)
 
 export default FooterListItem

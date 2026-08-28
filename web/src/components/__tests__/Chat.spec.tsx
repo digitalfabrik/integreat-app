@@ -20,7 +20,6 @@ jest.mock(
     ({ html }: { html: string }) =>
       html,
 )
-jest.mock('react-i18next')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   createSendChatMessageEndpoint: jest.fn(),
@@ -89,7 +88,7 @@ describe('Chat', () => {
 
   it('should show error alert when response has an error', () => {
     const { getByText } = render(mockResponse({ error: new Error('api error') }))
-    expect(getByText('chat,error:unknownError')).toBeTruthy()
+    expect(getByText('error:unknownError')).toBeTruthy()
   })
 
   it('should disable send button when loading', () => {
@@ -103,7 +102,7 @@ describe('Chat', () => {
 
       const { getByLabelText } = render(mockResponse(), [unsyncedMessage])
 
-      expect(getByLabelText('chat:error:tryAgain')).toBeTruthy()
+      expect(getByLabelText('error:tryAgain')).toBeTruthy()
     })
 
     it('should call setUnsyncedMessages when send fails', async () => {
@@ -122,7 +121,7 @@ describe('Chat', () => {
       const unsyncedMessage = ChatMessageModel.unsyncedMessage('Meine Nachricht')
 
       const { getByLabelText } = render(mockResponse(), [unsyncedMessage])
-      fireEvent.click(getByLabelText('chat:error:tryAgain'))
+      fireEvent.click(getByLabelText('error:tryAgain'))
 
       await waitFor(() => expect(mockSetUnsyncedMessages).toHaveBeenCalledWith([]))
     })
@@ -132,7 +131,7 @@ describe('Chat', () => {
       sendMessage.mockRejectedValue(new Error('send failed'))
 
       const { getByLabelText } = render(mockResponse(), [unsyncedMessage])
-      fireEvent.click(getByLabelText('chat:error:tryAgain'))
+      fireEvent.click(getByLabelText('error:tryAgain'))
 
       await waitFor(() => expect(sendMessage).toHaveBeenCalledTimes(1))
       expect(mockSetUnsyncedMessages).not.toHaveBeenCalled()
@@ -146,13 +145,13 @@ describe('Chat', () => {
 
     it('should show privacy policy screen when not yet accepted', () => {
       const { getByText, queryByRole } = render()
-      expect(getByText('chat,error:settings:privacyPolicy')).toBeTruthy()
+      expect(getByText('settings:privacyPolicy')).toBeTruthy()
       expect(queryByRole('button', { name: 'chat:sendButton' })).toBeNull()
     })
 
     it('should show chat after accepting privacy policy', () => {
       const { getByText, getByRole } = render()
-      expect(getByText('chat,error:settings:privacyPolicy')).toBeTruthy()
+      expect(getByText('settings:privacyPolicy')).toBeTruthy()
 
       fireEvent.click(getByRole('checkbox'))
 

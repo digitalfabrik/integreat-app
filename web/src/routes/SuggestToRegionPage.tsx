@@ -42,7 +42,7 @@ type SuggestToRegionPageProps = {
 }
 
 const SuggestToRegionPage = ({ languageCode }: SuggestToRegionPageProps): ReactElement | null => {
-  const { t } = useTranslation('suggestToRegion')
+  const { t } = useTranslation()
   const [isCopied, setIsCopied] = useState(false)
   useScrollToTopOnMount()
 
@@ -62,21 +62,21 @@ const SuggestToRegionPage = ({ languageCode }: SuggestToRegionPageProps): ReactE
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
       <Stack sx={{ paddingBlock: 4, gap: 2 }}>
-        <H1>{t('callToAction')}</H1>
-        <Typography variant='body1'>{t('explanation')}</Typography>
+        <H1>{t($ => $.suggestToRegion.callToAction)}</H1>
+        <Typography variant='body1'>{t($ => $.suggestToRegion.explanation)}</Typography>
         <StyledSvg src={icon} width={160} height={160} />
         <Typography component='h2' variant='subtitle1'>
-          {t('whatToDo')}
+          {t($ => $.suggestToRegion.whatToDo)}
         </Typography>
         <Stepper orientation='vertical'>
           <Step active>
             <StepLabel>
-              <Typography>{t('findOutMail')}</Typography>
+              <Typography>{t($ => $.suggestToRegion.findOutMail)}</Typography>
             </StepLabel>
           </Step>
           <Step active>
             <StepLabel>
-              <Typography>{t('sendText')}</Typography>
+              <Typography>{t($ => $.suggestToRegion.sendText)}</Typography>
             </StepLabel>
           </Step>
         </Stepper>
@@ -85,7 +85,7 @@ const SuggestToRegionPage = ({ languageCode }: SuggestToRegionPageProps): ReactE
             onClick={copyToClipboard}
             startIcon={isCopied ? <DoneIcon /> : <CopyIcon />}
             variant='contained'>
-            {isCopied ? t('common:copied') : t('copyText')}
+            {isCopied ? t($ => $.common.copied) : t($ => $.suggestToRegion.copyText)}
           </StyledButton>
           <TemplateText dir='ltr'>{template}</TemplateText>
         </Stack>

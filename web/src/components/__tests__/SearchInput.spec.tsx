@@ -4,7 +4,6 @@ import React from 'react'
 import { renderWithTheme } from '../../testing/render'
 import SearchInput from '../SearchInput'
 
-jest.mock('react-i18next')
 jest.mock('stylis')
 
 describe('SearchInput', () => {

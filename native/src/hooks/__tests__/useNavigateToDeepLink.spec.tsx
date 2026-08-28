@@ -176,7 +176,7 @@ describe('useNavigateToDeepLink', () => {
       renderMockComponent({ url })
 
       await waitFor(() => expect(showSnackbar).toHaveBeenCalledTimes(1))
-      expect(showSnackbar).toHaveBeenCalledWith({ text: 'notFound.category' })
+      expect(showSnackbar).toHaveBeenCalledWith({ text: 'error:notFound.category' })
 
       expect(navigation.reset).not.toHaveBeenCalled()
       expect(navigateTo).not.toHaveBeenCalled()

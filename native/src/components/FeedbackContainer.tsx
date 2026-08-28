@@ -43,7 +43,7 @@ const FeedbackContainer = ({
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
   const [showFeedback, setShowFeedback] = useState<boolean>(query === undefined)
-  const { t } = useTranslation('feedback')
+  const { t } = useTranslation()
 
   useEffect(() => {
     setSearchTerm(query)
@@ -100,14 +100,16 @@ const FeedbackContainer = ({
     <Container>
       <>
         <Text variant='h6'>
-          {language === fallbackLanguage ? t('noResultsInUserLanguage') : t('noResultsInUserAndSourceLanguage')}
+          {language === fallbackLanguage
+            ? t($ => $.feedback.noResultsInUserLanguage)
+            : t($ => $.feedback.noResultsInUserAndSourceLanguage)}
         </Text>
-        <Text>{t('checkQuery', { appName: buildConfig().appName })}</Text>
+        <Text>{t($ => $.feedback.checkQuery, { appName: buildConfig().appName })}</Text>
         <Text variant='h6' style={{ marginTop: 8, textAlign: 'center' }}>
-          {t('informationMissing')}
+          {t($ => $.feedback.informationMissing)}
         </Text>
         <Button mode='outlined' onPress={() => setShowFeedback(true)}>
-          {t('giveFeedback')}
+          {t($ => $.feedback.giveFeedback)}
         </Button>
       </>
     </Container>

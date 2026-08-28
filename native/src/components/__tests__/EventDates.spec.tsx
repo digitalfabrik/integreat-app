@@ -8,8 +8,6 @@ import { DateModel, EventModelBuilder } from 'shared/api'
 import render from '../../testing/render'
 import EventDates from '../EventDates'
 
-jest.mock('react-i18next')
-
 jest.useFakeTimers({ now: new Date('2023-10-09T15:23:57.443+02:00') })
 describe('EventDates', () => {
   const language = 'de'
@@ -32,7 +30,7 @@ describe('EventDates', () => {
 
     expect(getByText('9. Okt. - 10. Okt.')).toBeTruthy()
     expect(getByText('7:00 - 9:00')).toBeTruthy()
-    expect(queryByText('furtherDates')).toBeFalsy()
+    expect(queryByText('events:furtherDates')).toBeFalsy()
   })
 
   it('should render the next recurrence as the upcoming date for a recurring event', () => {
@@ -40,17 +38,17 @@ describe('EventDates', () => {
     const { getByText } = render(<EventDates event={event} language={language} compact />)
 
     expect(getByText('9. Okt. - 10. Okt.')).toBeTruthy()
-    expect(getByText('furtherDates')).toBeTruthy()
+    expect(getByText('events:furtherDates')).toBeTruthy()
   })
 
   it('should reveal the upcoming dates when expanding a monthly recurring event', () => {
     const event = eventWithDate('DTSTART:20230414T050000\nRRULE:FREQ=MONTHLY;BYDAY=+2MO')
     const { getByText, queryByText } = render(<EventDates event={event} language={language} compact />)
 
-    expect(getByText('furtherDates')).toBeTruthy()
+    expect(getByText('events:furtherDates')).toBeTruthy()
     expect(queryByText('13. Nov. - 14. Nov.')).toBeFalsy()
 
-    fireEvent.press(getByText('furtherDates'))
+    fireEvent.press(getByText('events:furtherDates'))
 
     expect(getByText('13. Nov. - 14. Nov.')).toBeTruthy()
     expect(getByText('11. Dez. - 12. Dez.')).toBeTruthy()
@@ -63,7 +61,7 @@ describe('EventDates', () => {
     const event = eventWithDate('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')
     const { getByText } = render(<EventDates event={event} language={language} compact />)
 
-    fireEvent.press(getByText('furtherDates'))
+    fireEvent.press(getByText('events:furtherDates'))
 
     expect(getByText('16. Okt. - 17. Okt.')).toBeTruthy()
     expect(getByText('23. Okt. - 24. Okt.')).toBeTruthy()
@@ -76,7 +74,7 @@ describe('EventDates', () => {
     )
     const { getByText } = render(<EventDates event={event} language={language} compact />)
 
-    fireEvent.press(getByText('furtherDates'))
+    fireEvent.press(getByText('events:furtherDates'))
 
     expect(getByText('18. Okt. - 19. Okt.')).toBeTruthy()
     expect(getByText('9:00 - 11:00')).toBeTruthy()

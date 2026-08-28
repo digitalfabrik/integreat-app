@@ -7,7 +7,6 @@ import buildConfig from '../../constants/buildConfig'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import RegionSelector from '../RegionSelector'
 
-jest.mock('react-i18next')
 jest.mock('stylis')
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),

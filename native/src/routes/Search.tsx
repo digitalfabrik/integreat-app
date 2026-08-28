@@ -44,7 +44,7 @@ const Search = ({
 }: SearchProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const debouncedQuery = useDebounce(query)
-  const { t } = useTranslation('search')
+  const { t } = useTranslation()
   const theme = useTheme()
   const insets = useSafeAreaInsets()
 
@@ -80,12 +80,12 @@ const Search = ({
               variant='body2'
               style={{ margin: 12, marginHorizontal: 20, color: theme.colors.onSurfaceVariant }}
               accessibilityLiveRegion={searchResults.length === 0 ? 'assertive' : 'polite'}>
-              {t('searchResultsCount', { count: searchResults.length })}
+              {t($ => $.search.searchResultsCount, { count: searchResults.length })}
             </Text>
             <List
               items={searchResults}
               renderItem={renderItem}
-              accessibilityLabel={t('searchResultsCount', { count: searchResults.length })}
+              accessibilityLabel={t($ => $.search.searchResultsCount, { count: searchResults.length })}
               style={{ flex: 1 }}
               keyboardShouldPersistTaps='handled'
               noItemsMessage={

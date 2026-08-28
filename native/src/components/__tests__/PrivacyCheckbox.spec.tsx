@@ -4,8 +4,6 @@ import React from 'react'
 import render from '../../testing/render'
 import PrivacyCheckbox from '../PrivacyCheckbox'
 
-jest.mock('react-i18next')
-
 describe('PrivacyCheckbox', () => {
   const setChecked = jest.fn()
   it('should select checkbox on click', () => {

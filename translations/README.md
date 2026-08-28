@@ -7,6 +7,7 @@
 - [Export and import workflow](#export-and-import-workflow)
 - [Conversion between JSON, CSV and ODS](#conversion-between-json-csv-and-ods)
 - [Used file formats](#used-file-formats)
+- [Sync files](#sync-files)
 
 ## Supported Languages
 
@@ -17,14 +18,16 @@ All supported languages and language tags can be viewed [here](src/config.ts) or
 You need to follow several steps to add new languages:
 
 - Pick the correct tag for your language: https://iso639-3.sil.org/code_tables/639/data
-  - Usually the two letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language tag should be used.
-  - Exceptions: If the ISO 639-1 language tag corresponds to the macro language or you want to prevent ambiguities/misconceptions,
-    the three letter [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) language tag may be the better choice.
+  - Usually the two-letter [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language tag should be used.
+  - Exceptions: If the ISO 639-1 language tag corresponds to the macro language, or you want to prevent ambiguities/misconceptions,
+    the three-letter [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) language tag may be the better choice.
 - Add your language tag to the [config](src/config.ts) with its script direction (and possible additional fonts).
 - Add your language to the [polyfill list](../native/src/utils/importDisplayNamesPackage.ts).
 - Test the new language on both native and web.
 - Add the new language to the [wiki](https://wiki.tuerantuer.org/integreat-languages).
-- Translate our [translations](src/translations.json) in your new language, see [export and import workflow](#export-and-import-workflow).
+- Translate our [translations](src/translations) in your new language, see [export and import workflow](#export-and-import-workflow).
+- [Optional] Translate the whitelabel [override translations](src/override-translations), see [export and import workflow](#export-and-import-workflow).
+- Sync the index files with `yarn workspace translations sync-indexes` (see [sync index files](#sync-index-files)).
 
 If you need a new font for your language, the following steps are required:
 
@@ -43,9 +46,10 @@ If there are enough untranslated strings, they can be submitted to professionals
 - Create an issue in our issue tracker.
 - Create a new branch for the translations.
 - Export the translations and overrides you want:
-  - `yarn export:ods:translations`
-  - `yarn export:ods:override-malte`
-  - `yarn export:ods:override-aschaffenburg`
+  - `yarn export`
+  - `yarn export:malte`
+  - `yarn export:aschaffenburg`
+  - `yarn export:obdach`
 - Now you can edit the ODS files (e.g. send them to an external translation service). Exporting plain CSVs is currently not supported.
 
 Note: If the translators only work with English source translations, simply change `source_language` in [config.ts](src/config.ts) to `en`.
@@ -55,9 +59,10 @@ Make sure to revert this after exporting.
 
 - Place the edited ODS files in the directories which were generated in the [export step](#submitting-for-translation).
 - Import the translations and overrides you want:
-  - `yarn import:ods:translations`
-  - `yarn import:ods:override-malte`
-  - `yarn import:ods:override-aschaffenburg`
+  - `yarn import`
+  - `yarn import:malte`
+  - `yarn import:aschaffenburg`
+  - `yarn import:obdach`
 - Review the changes carefully.
 
 **Warning:** Make sure to check the received translations on mistakes. For example make sure that our placeholders are not translated.
@@ -77,26 +82,29 @@ For conversion between csv and ods the [csv-to-ods](tools/csv-to-ods) and [ods-t
 
 ### JSON to CSV
 
-Convert the specified json file to multiple csv (one per language) in the given directory:
-`yarn manage convert <json file> <csv directory> csv`
+Export a directory of per-language JSON files to a directory of per-language CSV files:
+`yarn manage export <json directory> <csv directory>`
 
-Example: `yarn manage convert ./src/translations.json translations-csv csv`
+Example: `yarn manage export ./src/translations translations-csv`
 
 Notes:
 
-- The module keys in the CSVs are sorted
+- The keys in the CSVs are sorted
+- Only languages listed in [config.ts](src/config.ts) are exported
 
 ### CSV to JSON
 
-Convert the csv files in the specified directory to a json file:
-`yarn manage convert <csv directory> <json file> json`
+Import a directory of per-language CSV files into a directory of per-language JSON files:
+`yarn manage import <csv directory> <json directory>`
 
-Example: `yarn manage convert translations-csv ./translations.json json`
+Example: `yarn manage import translations-csv ./src/translations`
 
 Notes:
 
-- The module and language keys in the JSON are sorted
-- The source language is always the first language
+- Every CSV must carry the same `source_language` column; a mismatch aborts the import
+- Namespaces inside each per-language JSON are sorted
+- Languages present in the CSVs but missing from [config.ts](src/config.ts) abort the import
+- Languages present in [config.ts](src/config.ts) but missing from the CSVs are logged as warnings
 
 ### CSV to ODS
 
@@ -115,7 +123,8 @@ Example: `./tools/ods-to-csv translations-ods translation-csv`
 ### JSON
 
 - Used for internal representation of our translations
-- Structure: `namespace` > `language` > `(nested) key` > `translation`
+- One file per language, e.g. `src/translations/de.json`
+- Structure inside each file: `namespace` > `(nested) key` > `translation`
 - UTF-8 encoded
 
 ### CSV
@@ -128,3 +137,16 @@ Example: `./tools/ods-to-csv translations-ods translation-csv`
 ### ODS
 
 - Used for distribution of CSVs as the CSV format does not define the exact format.
+
+## Sync files
+
+`loadTranslations` and whitelabel build configs need all per-language JSON files.
+For this purpose, we use autogenerated index.ts barrel files: [src/translations/index.ts](src/translations/index.ts) and `src/override-translations/<build-config-name>/index.ts`.
+In order to typecheck interpolation parameters and provide the translation values in the IDE,
+we need to auto generate [src/resources.gen.ts](src/resources.gen.ts) with the resources as const.
+
+Sync the index files and the resource types by running:
+
+```bash
+yarn workspace translations sync
+```

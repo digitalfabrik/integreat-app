@@ -1,4 +1,5 @@
 import { waitFor } from '@testing-library/react-native'
+import { TFunction } from 'i18next'
 import React from 'react'
 import { Translation } from 'react-i18next'
 
@@ -39,7 +40,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue('ku')
     const { getByText } = render(
       <I18nProvider>
-        <Translation>{t => <Text>{t('layout:localInformation')}</Text>}</Translation>
+        <Translation>{(t: TFunction) => <Text>{t($ => $.layout.localInformation)}</Text>}</Translation>
       </I18nProvider>,
     )
     await waitFor(() => expect(getByText('Zanyariyên xwecihî')).toBeTruthy())
@@ -49,7 +50,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['zh'])
     const { findByText } = render(
       <I18nProvider>
-        <Translation>{t => <Text>{t('layout:events')}</Text>}</Translation>
+        <Translation>{(t: TFunction) => <Text>{t($ => $.layout.events)}</Text>}</Translation>
       </I18nProvider>,
     )
     expect(await findByText('Veranstaltungen')).toBeTruthy()
@@ -59,7 +60,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue('en')
     const { getByText } = render(
       <I18nProvider>
-        <Translation>{t => <Text>{t('layout:localInformation')}</Text>}</Translation>
+        <Translation>{(t: TFunction) => <Text>{t($ => $.layout.localInformation)}</Text>}</Translation>
       </I18nProvider>,
     )
     await waitFor(() => getByText('Lokale Informationen'))
@@ -70,7 +71,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue('zh-CN')
     const { getByText } = render(
       <I18nProvider>
-        <Translation>{t => <Text>{t('layout:localInformation')}</Text>}</Translation>
+        <Translation>{(t: TFunction) => <Text>{t($ => $.layout.localInformation)}</Text>}</Translation>
       </I18nProvider>,
     )
     await waitFor(() => getByText('本地信息'))
@@ -81,7 +82,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue('zh-CN')
     const { getByText } = render(
       <I18nProvider>
-        <Translation>{t => <Text>{t('layout:localInformation')}</Text>}</Translation>
+        <Translation>{(t: TFunction) => <Text>{t($ => $.layout.localInformation)}</Text>}</Translation>
       </I18nProvider>,
     )
     await waitFor(() => getByText('本地信息'))
@@ -92,7 +93,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue('de-DE')
     const { getByText, queryByText } = render(
       <I18nProvider>
-        <Translation>{t => <Text>{t('layout:localInformation')}</Text>}</Translation>
+        <Translation>{(t: TFunction) => <Text>{t($ => $.layout.localInformation)}</Text>}</Translation>
         <Translation>{(t, { i18n }) => <Text>{i18n.languages[0]}</Text>}</Translation>
       </I18nProvider>,
     )

@@ -7,8 +7,7 @@ import { InternalPathnameParser } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
-import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
@@ -44,7 +43,7 @@ const PageDetail = ({
   accessibilityLabel,
 }: PageDetailProps): ReactElement => {
   const { navigateTo } = useNavigate()
-  const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
   const theme = useTheme()
   const route = path ? new InternalPathnameParser(path, language, buildConfig().featureFlags.fixedRegion).route() : null
 
@@ -62,7 +61,7 @@ const PageDetail = ({
 
   const handlePress = () => {
     if (isExternalUrl && path) {
-      openExternalUrl(path, showSnackbar)
+      openExternalUrl(path)
     } else {
       navigateTo(route)
     }

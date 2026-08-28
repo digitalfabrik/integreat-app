@@ -3,8 +3,6 @@ import React from 'react'
 import { renderAllRoutes } from '../../testing/render'
 import RegionContentToolbar from '../RegionContentToolbar'
 
-jest.mock('react-i18next')
-
 describe('RegionContentToolbar', () => {
   it('should show feedback items', () => {
     const { getByText } = renderAllRoutes('/augsburg/de', {

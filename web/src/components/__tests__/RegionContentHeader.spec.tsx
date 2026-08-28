@@ -7,7 +7,6 @@ import useDimensions from '../../hooks/useDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import RegionContentHeader from '../RegionContentHeader'
 
-jest.mock('react-i18next')
 jest.mock('../../hooks/useDimensions', () => jest.fn(() => mockDimensions))
 
 describe('RegionContentHeader', () => {

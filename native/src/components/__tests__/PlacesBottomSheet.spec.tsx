@@ -8,7 +8,6 @@ import renderWithTheme from '../../testing/render'
 import PlacesBottomSheet from '../PlacesBottomSheet'
 
 jest.mock('../../components/Page')
-jest.mock('react-i18next')
 jest.mock('styled-components')
 jest.mock('@gorhom/bottom-sheet', () => ({
   __esModule: true,
@@ -45,12 +44,12 @@ describe('PlacesBottomSheet', () => {
   it('should show failure if place is not found', () => {
     const { queryByText, getByText } = renderPlaces({ slug: 'invalid' })
 
-    expect(getByText('pageNotFound')).toBeTruthy()
+    expect(getByText('error:pageNotFound')).toBeTruthy()
     expect(queryByText(place0.title)).toBeFalsy()
     expect(queryByText(place1.title)).toBeFalsy()
     expect(queryByText(place2.title)).toBeFalsy()
 
-    fireEvent.press(getByText('backToOverview'))
+    fireEvent.press(getByText('places:backToOverview'))
 
     expect(deselectAll).toHaveBeenCalledTimes(1)
   })

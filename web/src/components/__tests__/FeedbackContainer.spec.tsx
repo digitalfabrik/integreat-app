@@ -17,13 +17,6 @@ const FeedbackOpener = ({ rating }: { rating: string }) => {
 }
 
 const mockRequest = jest.fn()
-jest.mock('react-i18next', () => ({
-  ...jest.requireActual('react-i18next'),
-  useTranslation: (namespace?: string) => ({
-    t: (key: string) => (namespace ? `${namespace}:${key}` : key),
-  }),
-  Trans: ({ i18nKey }: { i18nKey: string }) => i18nKey,
-}))
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
   createFeedbackEndpoint: () => ({
@@ -102,7 +95,7 @@ describe('FeedbackContainer', () => {
     fireEvent.change(getByLabelText('feedback:commentHeadline'), { target: { value: 'my comment' } })
     fireEvent.change(getByLabelText('feedback:contactMailAddress'), { target: { value: 'me@example.com' } })
 
-    fireEvent.click(getByLabelText('layout:common:close'))
+    fireEvent.click(getByLabelText('common:close'))
     expect(queryByText('feedback:headline')).toBeNull()
 
     fireEvent.click(getByText('reopen'))

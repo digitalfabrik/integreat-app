@@ -35,7 +35,7 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
   const { regionCode, languageCode, settings } = useRegionAppContext()
   const chatSettings = settings.chat[regionCode]
   const { navigation } = useNavigate()
-  const { t } = useTranslation('chat')
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const { data, refresh } = useLoadFromEndpoint(createChatMessagesEndpoint, determineApiUrl, {
@@ -70,7 +70,9 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
         aria-label={getChatName(buildConfig().appName)}
       />
       {unreadMessageCount > 0 && (
-        <StyledBadge aria-label={t('unreadMessages', { count: unreadMessageCount })}>{unreadMessageCount}</StyledBadge>
+        <StyledBadge aria-label={t($ => $.chat.unreadMessages, { count: unreadMessageCount })}>
+          {unreadMessageCount}
+        </StyledBadge>
       )}
     </Container>
   )

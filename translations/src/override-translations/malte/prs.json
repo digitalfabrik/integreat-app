@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "{{appName}} یاری کننده دیجیتل شما از طرف Malteser است. در اینجا معلومات محلی، ملاقات ها و مشاوره را پیدا می کنید. همواره به‎​روز و به لسان شما!"
+  },
+  "dashboard": {
+    "events": "ملاقات ها"
+  },
+  "error": {
+    "notFound": {
+      "event": "این ملاقات متاسفانه پیدا نشد."
+    },
+    "goTo": {
+      "events": "به ملاقات ها"
+    }
+  },
+  "events": {
+    "events": "ملاقات ها",
+    "currentlyNoEvents": "فعلاً کدام ملاقاتی وجود ندارد.",
+    "pageTitle": "ملاقات ها"
+  },
+  "feedback": {
+    "contentOfEvent": "محتوای ملاقات \"{{event}}\""
+  },
+  "intro": {
+    "appDescription": "{{appName}} یاری کننده دیجیتل شما از طرف Malteser است",
+    "events": "ملاقات ها",
+    "eventsDescription": "ملاقات ها و رویدادهای فعلی"
+  },
+  "layout": {
+    "events": "ملاقات ها",
+    "noEvents": "هیچ ملاقاتی وجود ندارد"
+  },
+  "regions": {
+    "metaDescription": "{{appName}} یاری کننده دیجیتل شما از طرف Malteser است. در اینجا معلومات محلی، ملاقات ها و مشاوره را پیدا می کنید. همواره به‎​روز و به لسان شما!"
+  }
+}

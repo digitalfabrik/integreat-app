@@ -6,7 +6,6 @@ import { renderRoute } from '../testing/render'
 
 const renderSuccessful = 'route'
 
-jest.mock('react-i18next')
 jest.mock('../RegionContentNavigator', () => () => <div>{renderSuccessful}</div>)
 
 describe('FixedRegionContentNavigator', () => {

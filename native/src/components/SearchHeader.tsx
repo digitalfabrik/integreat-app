@@ -27,22 +27,22 @@ type SearchHeaderProps = {
 }
 
 const SearchHeader = ({ query, navigation, onSearchChanged }: SearchHeaderProps): ReactElement => {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation()
   const theme = useTheme()
   return (
     <BoxShadow>
       <Horizontal>
         <Appbar.BackAction
           onPress={navigation.goBack}
-          accessibilityLabel={t('back')}
+          accessibilityLabel={t($ => $.common.back)}
           style={{ backgroundColor: 'transparent' }}
           iconColor={theme.colors.onSurface}
         />
         <SearchInput
-          ariaLabel={t('search:searchContent')}
+          ariaLabel={t($ => $.search.searchContent)}
           setValue={onSearchChanged}
           value={query}
-          placeholderText={t('search:searchContent')}
+          placeholderText={t($ => $.search.searchContent)}
           style={{ flex: 1 }}
         />
       </Horizontal>

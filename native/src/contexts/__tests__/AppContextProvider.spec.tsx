@@ -15,9 +15,6 @@ import { subscribeNews, unsubscribeNews } from '../../utils/PushNotificationsMan
 import { AppContext } from '../AppContext'
 import AppContextProvider from '../AppContextProvider'
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({ i18n: { languages: ['en'] } }),
-}))
 jest.mock('../../utils/PushNotificationsManager', () => ({
   subscribeNews: jest.fn(async () => undefined),
   unsubscribeNews: jest.fn(async () => undefined),

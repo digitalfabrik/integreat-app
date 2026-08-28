@@ -6,8 +6,6 @@ import React from 'react'
 import { THEME_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import ThemeContainer from '../ThemeContainer'
 
-jest.mock('react-i18next')
-
 const TestChild = () => {
   const { isContrastTheme } = useTheme()
   return <span>{isContrastTheme ? 'contrast' : 'light'}</span>

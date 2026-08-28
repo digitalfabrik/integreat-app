@@ -22,9 +22,14 @@ export const getNewsColor = ({ palette, source }: { palette: NewsColorPalette; s
   return palette.tuNews.main
 }
 
-export const getNewsSourceLabel = ({ t, source }: { t: (key: string) => string; source: NewsSource }): string => {
+type GetNewsSourceLabelProps = {
+  localNewsLabel: string
+  source: NewsSource
+}
+
+export const getNewsSourceLabel = ({ source, localNewsLabel }: GetNewsSourceLabelProps): string => {
   if (source === LOCAL_NEWS_SOURCE) {
-    return t('local')
+    return localNewsLabel
   }
   if (source === AMAL_NEWS_SOURCE) {
     return 'Amal News'

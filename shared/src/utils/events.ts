@@ -30,7 +30,9 @@ const eventGroups: Record<Exclude<DateGroupKey, 'further'>, number> = {
   nextThirtyDays: 30,
 }
 
-export const eventGroupTitle = (key: DateGroupKey): [string, { days?: number }?] =>
+type EventGroupTitleReturn = ['nextDays', { days: number }] | ['today' | 'tomorrow' | 'further']
+
+export const eventGroupTitle = (key: DateGroupKey): EventGroupTitleReturn =>
   key === 'nextSevenDays' || key === 'nextThirtyDays' ? ['nextDays', { days: eventGroups[key] }] : [key]
 
 export const getGroupKey = (event: EventModel): DateGroupKey => {

@@ -16,7 +16,7 @@ export const ErrorCodes = {
   RateLimited: 'rateLimited',
   ResponseMappingFailed: 'responseMappingFailed',
   UnknownError: 'unknownError',
-}
+} as const
 
 export type ErrorCode = (typeof ErrorCodes)[keyof typeof ErrorCodes]
 

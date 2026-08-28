@@ -1,0 +1,36 @@
+{
+  "categories": {
+    "metaDescription": "{{appName}} vaš je digitalni pomoćnik ustanove Malteser. Ovdje ćete pronaći lokalne informacije, termine i savjetovanje vaše ustanove. Uvijek aktualno i na vašem jeziku!"
+  },
+  "dashboard": {
+    "events": "Termini"
+  },
+  "error": {
+    "notFound": {
+      "event": "Ovaj termin nažalost nije pronađen."
+    },
+    "goTo": {
+      "events": "Idi na termine"
+    }
+  },
+  "events": {
+    "events": "Termini",
+    "currentlyNoEvents": "Trenutačno nema termina.",
+    "pageTitle": "Termini"
+  },
+  "feedback": {
+    "contentOfEvent": "Sadržaj termina \"{{event}}\""
+  },
+  "intro": {
+    "appDescription": "{{appName}} vaš je digitalni pomoćnik ustanove Malteser",
+    "events": "Termini",
+    "eventsDescription": "Trenutačni termini i događanja"
+  },
+  "layout": {
+    "events": "Termini",
+    "noEvents": "Nema termina"
+  },
+  "regions": {
+    "metaDescription": "{{appName}} vaš je digitalni pomoćnik ustanove Malteser. Ovdje ćete pronaći lokalne informacije, termine i savjetovanje vaše ustanove. Uvijek aktualno i na vašem jeziku!"
+  }
+}

@@ -9,8 +9,7 @@ import { useLoadAsync } from 'shared/api'
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
 import Text from '../components/base/Text'
-import useSnackbar from '../hooks/useSnackbar'
-import openExternalUrl from '../utils/openExternalUrl'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 
 type LicenseItemProps = {
   name: string
@@ -22,7 +21,7 @@ type LicenseItemProps = {
 
 const LicenseItem = (props: LicenseItemProps): ReactElement => {
   const { name, version, license, author, onPress } = props
-  const { t } = useTranslation('licenses')
+  const { t } = useTranslation()
   const theme = useTheme()
 
   const styles = StyleSheet.create({
@@ -45,10 +44,10 @@ const LicenseItem = (props: LicenseItemProps): ReactElement => {
           {author}
         </Text>
         <Text variant='body2' style={styles.description}>
-          {t('version')} {version}
+          {t($ => $.licenses.version)} {version}
         </Text>
         <Text variant='body2' style={styles.description}>
-          {t('license')} {license}
+          {t($ => $.licenses.license)} {license}
         </Text>
       </View>
     </TouchableRipple>
@@ -59,12 +58,12 @@ const loadLicenses = async () => parseLicenses((await import('../assets/licenses
 
 const Licenses = (): ReactElement => {
   const { data: licenses } = useLoadAsync(loadLicenses)
-  const { t } = useTranslation('settings')
-  const showSnackbar = useSnackbar()
+  const { t } = useTranslation()
+  const openExternalUrl = useOpenExternalUrl()
 
   const renderItem = ({ item }: { item: License }) => {
     const { license, name, repository, version, author } = item
-    const openLink = () => (repository ? openExternalUrl(repository, showSnackbar) : undefined)
+    const openLink = () => (repository ? openExternalUrl(repository) : undefined)
     return <LicenseItem key={name} name={name} author={author} version={version} license={license} onPress={openLink} />
   }
 
@@ -73,7 +72,7 @@ const Licenses = (): ReactElement => {
       <FlatList
         data={licenses}
         renderItem={renderItem}
-        ListHeaderComponent={<Caption title={t('openSourceLicenses')} />}
+        ListHeaderComponent={<Caption title={t($ => $.settings.openSourceLicenses)} />}
       />
     </Layout>
   )

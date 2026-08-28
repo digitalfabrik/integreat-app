@@ -9,13 +9,6 @@ import RedirectContainer from '../RedirectContainer'
 
 jest.mock('../../hooks/useNavigateToDeepLink')
 jest.mock('../../utils/NativeLanguageDetector')
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    i18n: {
-      language: 'ckb',
-    },
-  }),
-}))
 
 describe('RedirectContainer', () => {
   const url = 'https://example.com/custom/url'

@@ -17,7 +17,7 @@ import { RegionModel } from 'shared/api'
 type NavigationItem = {
   to: string
   value: string
-  label: string
+  label: 'localInformationLabel' | 'locations' | 'news' | 'events'
   Icon: typeof SvgIcon
 }
 

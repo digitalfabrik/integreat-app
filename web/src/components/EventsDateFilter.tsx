@@ -30,7 +30,7 @@ const EventsDateFilter = ({
   resetDates,
 }: EventsDateFilterProps): ReactElement => {
   const [showDateFilter, setShowDateFilter] = useState(false)
-  const { t } = useTranslation('events')
+  const { t } = useTranslation()
 
   const formattedStartDate = startDate?.toFormat('dd.MM.yyyy') ?? '∞'
   const formattedEndDate = endDate?.toFormat('dd.MM.yyyy') ?? '∞'
@@ -43,30 +43,30 @@ const EventsDateFilter = ({
             tabIndex={-1}
             component='div'
             startIcon={showDateFilter ? <CloseFullscreenIcon /> : <FilterListIcon />}>
-            {t(showDateFilter ? 'hideFilters' : 'showFilters')}
+            {t($ => (showDateFilter ? $.events.hideFilters : $.events.showFilters))}
           </Button>
         </AccordionSummary>
         <AccordionDetails>
           <Stack direction='row' sx={{ justifyContent: 'space-evenly', alignItems: 'start', flexWrap: 'wrap', gap: 2 }}>
             <DatePicker
-              title={t('from')}
+              title={t($ => $.events.from)}
               date={startDate}
               setDate={setStartDate}
-              error={startDateError ? t(startDateError) : undefined}
-              calendarLabel={t('selectStartDateCalendar')}
+              error={startDateError}
+              calendarLabel={t($ => $.events.selectStartDateCalendar)}
             />
             <DatePicker
-              title={t('to')}
+              title={t($ => $.events.to)}
               date={endDate}
               setDate={setEndDate}
-              calendarLabel={t('selectEndDateCalendar')}
+              calendarLabel={t($ => $.events.selectEndDateCalendar)}
             />
           </Stack>
         </AccordionDetails>
       </Accordion>
       {(startDate || endDate) && (
         <Button onClick={resetDates} color='inherit' startIcon={<CloseOutlinedIcon />}>
-          {`${t('resetFilter')} ${formattedStartDate} - ${formattedEndDate}`}
+          {`${t($ => $.events.resetFilter)} ${formattedStartDate} - ${formattedEndDate}`}
         </Button>
       )}
     </>

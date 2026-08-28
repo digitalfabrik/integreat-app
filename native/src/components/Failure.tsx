@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-paper'
@@ -30,6 +31,17 @@ const getErrorIcon = (errorCode: ErrorCode) => {
   }
 }
 
+export const getErrorMessage = (errorCode: ErrorCode, t: TFunction): string => {
+  switch (errorCode) {
+    case ErrorCodes.RegionUnavailable:
+      return t($ => $.error.notFound.region)
+    case ErrorCodes.LanguageUnavailable:
+      return t($ => $.error.notFound.language)
+    default:
+      return t($ => $.error[errorCode])
+  }
+}
+
 export type FailureProps = {
   code: ErrorCode
   retry: (() => void) | null
@@ -40,21 +52,21 @@ export type FailureProps = {
 const Failure = ({ code, retry, goTo, goToLabel }: FailureProps): ReactElement => {
   const { navigateTo, navigation } = useNavigate()
   const { languageCode } = useContext(AppContext)
-  const { t } = useTranslation('error')
+  const { t } = useTranslation()
 
   const goToAction = goTo ?? (navigation.canGoBack() ? navigation.goBack : { route: REGIONS_ROUTE, languageCode })
 
   return (
     <Container>
       <Icon size={160} source={getErrorIcon(code)} />
-      <Text role='alert'>{t(code === ErrorCodes.RegionUnavailable ? 'notFound.region' : code)}</Text>
+      <Text role='alert'>{getErrorMessage(code, t)}</Text>
       {retry && (
         <Button mode='contained' onPress={retry}>
-          {t('tryAgain')}
+          {t($ => $.error.tryAgain)}
         </Button>
       )}
       <Button onPress={typeof goToAction === 'function' ? goToAction : () => navigateTo(goToAction)} mode='outlined'>
-        {t(goToLabel ?? 'common:back')}
+        {goToLabel ?? t($ => $.common.back)}
       </Button>
     </Container>
   )

@@ -22,7 +22,7 @@ type RegionSelectorProps = {
 
 const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): ReactElement => {
   const [filterText, setFilterText] = useState<string>('')
-  const { t } = useTranslation('regions')
+  const { t } = useTranslation()
 
   const resultRegions = filterSortRegions(regions, filterText, buildConfig().featureFlags.developerFriendly)
 
@@ -45,15 +45,17 @@ const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): Re
 
   return (
     <Stack sx={{ maxWidth: 640, paddingTop: 4, gap: 2 }}>
-      <H1>{t('welcome', { appName: buildConfig().appName })}</H1>
-      <Typography variant='body1'>{t('welcomeInformation')}</Typography>
+      <H1>{t($ => $.regions.welcome, { appName: buildConfig().appName })}</H1>
+      <Typography variant='body1'>{t($ => $.regions.welcomeInformation)}</Typography>
       <SearchInput
         id='search-region'
-        ariaLabel={t('searchRegion')}
+        ariaLabel={t($ => $.regions.searchRegion)}
         filterText={filterText}
         placeholderText={exampleRegion?.sortingName ?? REGION_SEARCH_EXAMPLE}
         onFilterTextChange={setFilterText}
-        description={t('searchRegionDescription', { exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE })}
+        description={t($ => $.regions.searchRegionDescription, {
+          exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE,
+        })}
         autoFocus
       />
       {loading ? (
@@ -61,9 +63,9 @@ const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): Re
       ) : (
         <Stack>
           <Typography variant='subtitle1' aria-live={resultRegions.length === 0 ? 'assertive' : 'polite'}>
-            {t('search:searchResultsCount', { count: resultRegions.length })}
+            {t($ => $.search.searchResultsCount, { count: resultRegions.length })}
           </Typography>
-          <List items={groups} noItemsMessage='search:nothingFound' />
+          <List items={groups} noItemsMessage={t($ => $.search.nothingFound)} />
         </Stack>
       )}
     </Stack>
