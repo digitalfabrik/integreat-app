@@ -6,7 +6,7 @@ import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import NotAccessibleIcon from '../../../assets/icons/not-accessible.svg'
 import SignPostIcon from '../../../assets/icons/signpost-outline.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
-import TuNewsIcon from '../../../assets/icons/tu-news.svg'
+import TuNewsLogo from '../../../assets/icons/tu-news.png'
 import IntroLanguageIcon from '../../../assets/intro/language.svg'
 import IntroNewsIcon from '../../../assets/intro/news.svg'
 import IntroOfflineIcon from '../../../assets/intro/offline.svg'
@@ -29,5 +29,5 @@ export {
   NotAccessibleIcon,
   SignPostIcon,
   SprungbrettIcon,
-  TuNewsIcon,
+  TuNewsLogo,
 }

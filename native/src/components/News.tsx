@@ -10,9 +10,9 @@ import {
   NewsSourceFilter as NewsSourceFilterType,
   replaceLinks,
 } from 'shared'
-import { AMAL_NEWS_SOURCE, ErrorCodes, LOCAL_NEWS_SOURCE, NewsModel, RegionModel } from 'shared/api'
+import { AMAL_NEWS_SOURCE, ErrorCodes, getNewsSourceLabel, LOCAL_NEWS_SOURCE, NewsModel, RegionModel } from 'shared/api'
 
-import { AmalNewsLogo, TuNewsIcon } from '../assets'
+import { AmalNewsLogo, TuNewsLogo } from '../assets'
 import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
@@ -25,14 +25,22 @@ import Failure from './Failure'
 import List from './List'
 import NewsListItem from './NewsListItem'
 import Page from './Page'
+import SimpleImage from './SimpleImage'
 import TimeStamp from './TimeStamp'
 import ToggleTextButtonGroup from './ToggleTextButtonGroup'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
-const NewsSourceLogo = styled(Icon)`
+const SvgSourceLogo = styled(Icon)`
   width: 100%;
   height: 64px;
+`
+
+const PngSourceLogo = styled(SimpleImage)`
+  align-self: center;
+  width: 200px;
+  height: 64px;
+  border-radius: 8px;
 `
 
 const NewsSourceLink = styled(Pressable)`
@@ -90,8 +98,15 @@ const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSource
                 <TimeStamp lastUpdate={selectedNewsItem.lastUpdate} showText={false} />
               </Text>
               {selectedNewsItem.source !== LOCAL_NEWS_SOURCE && (
-                <NewsSourceLink onPress={() => openExternalUrl(selectedNewsItem.externalUrl, showSnackbar)} role='link'>
-                  <NewsSourceLogo icon={selectedNewsItem.source === AMAL_NEWS_SOURCE ? AmalNewsLogo : TuNewsIcon} />
+                <NewsSourceLink
+                  onPress={() => openExternalUrl(selectedNewsItem.externalUrl, showSnackbar)}
+                  role='link'
+                  accessibilityLabel={getNewsSourceLabel({ source: selectedNewsItem.source, t })}>
+                  {selectedNewsItem.source === AMAL_NEWS_SOURCE ? (
+                    <SvgSourceLogo icon={AmalNewsLogo} />
+                  ) : (
+                    <PngSourceLogo source={TuNewsLogo} />
+                  )}
                 </NewsSourceLink>
               )}
             </View>
