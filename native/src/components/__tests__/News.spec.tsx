@@ -15,6 +15,10 @@ import mocked = jest.mocked
 
 jest.mock('react-i18next')
 jest.mock('../../components/Page')
+jest.mock('../../components/SimpleImage', () => ({
+  __esModule: true,
+  default: () => null,
+}))
 jest.mock('../../hooks/useNavigate')
 jest.mock('../../utils/openExternalUrl')
 

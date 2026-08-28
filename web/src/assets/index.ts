@@ -8,7 +8,7 @@ import PersonLightIcon from '../../../assets/icons/person-light.svg'
 import PersonIcon from '../../../assets/icons/person.svg'
 import ReadAloudIcon from '../../../assets/icons/readAloud.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
-import TuNewsIcon from '../../../assets/icons/tu-news.svg'
+import TuNewsLogo from '../../../assets/icons/tu-news.png'
 
 export {
   AmalNewsLogo,
@@ -21,5 +21,5 @@ export {
   PersonLightIcon,
   ReadAloudIcon,
   SprungbrettIcon,
-  TuNewsIcon,
+  TuNewsLogo,
 }

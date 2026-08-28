@@ -7,7 +7,7 @@ import { parseHTML } from 'shared'
 import { NewsModel } from 'shared/api'
 
 import { EXCERPT_MAX_LINES } from '../constants'
-import { contentAlignmentRTLText } from '../constants/contentDirection'
+import { contentAlignmentRTLText, contentDirection } from '../constants/contentDirection'
 import { useAppContext } from '../hooks/useRegionAppContext'
 import NewsSourceChip from './NewsSourceChip'
 import TimeStamp from './TimeStamp'
@@ -39,7 +39,7 @@ const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactEle
       titleNumberOfLines={0}
       descriptionNumberOfLines={0}
       title={
-        <View style={Styles.titleRow}>
+        <View style={[Styles.titleRow, { flexDirection: contentDirection(languageCode) }]}>
           <Text variant='h5' style={{ textAlign: contentAlignmentRTLText(newsItem.title), flex: 1 }}>
             {newsItem.title}
           </Text>
