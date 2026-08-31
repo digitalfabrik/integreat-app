@@ -89,7 +89,7 @@ const TtsPlayer = ({
     <StyledTtsPlayer
       // There shouldn't be an additional bottom navigation height for a fixed region, for ex. aschaffenburg, as it does not have bottom tab navigation
       insetBottom={bottom + (buildConfig().featureFlags.fixedRegion ? 0 : dimensions.bottomNavigationHeight)}
-      accessibilityLabel={t('readAloudPlayer')}>
+      accessibilityLabel={t($ => $.layout.readAloud)}>
       <TouchableRipple
         borderless
         role='button'
