@@ -4,7 +4,6 @@ import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placehol
 import AmalNewsLogo from '../../../assets/icons/amal-news.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
 import NotAccessibleIcon from '../../../assets/icons/not-accessible.svg'
-import SignPostIcon from '../../../assets/icons/signpost-outline.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
 import TuNewsIcon from '../../../assets/icons/tu-news.svg'
 import IntroLanguageIcon from '../../../assets/intro/language.svg'
@@ -27,7 +26,6 @@ export {
   IntroSearchIcon,
   IntroWelcomeIcon,
   NotAccessibleIcon,
-  SignPostIcon,
   SprungbrettIcon,
   TuNewsIcon,
 }
