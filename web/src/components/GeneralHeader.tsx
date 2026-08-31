@@ -7,12 +7,10 @@ import { useLocation } from 'react-router'
 import { REGIONS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { LanguageModel } from 'shared/api'
 
-import useAnnounceLanguageChange from '../hooks/useAnnounceLanguageChange'
 import { supportedLanguages } from '../utils'
 import Header from './Header'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import HeaderMenu from './HeaderMenu'
-import LiveAnnouncer from './LiveAnnouncer'
 import MenuItem from './MenuItem'
 
 type GeneralHeaderProps = {
@@ -31,8 +29,6 @@ const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): R
     name: language.name,
     path: `/${slug}/${language.code}`,
   }))
-
-  const announcement = useAnnounceLanguageChange(languageCode, languageChangePaths, t)
 
   const actionItems = [
     languageChangePaths.length > 0 ? (
@@ -53,12 +49,7 @@ const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): R
     </HeaderMenu>,
   ]
 
-  return (
-    <>
-      <LiveAnnouncer message={announcement} />
-      <Header logoHref={regionsPath} actionItems={actionItems} language={languageCode} />
-    </>
-  )
+  return <Header logoHref={regionsPath} actionItems={actionItems} language={languageCode} />
 }
 
 export default GeneralHeader

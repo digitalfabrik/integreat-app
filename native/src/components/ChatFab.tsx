@@ -76,8 +76,7 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
         accessibilityRole='button'
         activeOpacity={0.9}
         onPress={() => navigation.navigate(CHAT_ROUTE)}
-        accessibilityLabel={getChatName(buildConfig().appName)}
-        testID='fab'>
+        accessibilityLabel={getChatName(buildConfig().appName)}>
         <Icon size={24} source='forum-outline' color={theme.colors.background} />
       </TouchableFab>
       {unreadMessageCount > 0 && (

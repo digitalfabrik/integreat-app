@@ -2,13 +2,15 @@ import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
 import { drawerClasses } from '@mui/material/Drawer'
 import Popover from '@mui/material/Popover'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
+import usePreviousProp from '../hooks/usePreviousProp'
 import HeaderActionItem from './HeaderActionItem'
 import LanguageNotAvailableMessage from './LanguageNotAvailableMessage'
 import LanguageSelection, { LanguageChangePath } from './LanguageSelection'
+import LiveAnnouncer from './LiveAnnouncer'
 import Sidebar from './Sidebar'
 import { SimpleAlertDialog } from './base/AlertDialog'
 
@@ -35,7 +37,9 @@ const HeaderLanguageSelectorItem = ({
   const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(null)
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
   const { mobile, desktop } = useDimensions()
+  const previousLanguageCode = usePreviousProp({ prop: languageCode })
   const { t } = useTranslation()
+  const [announcement, setAnnouncement] = useState('')
 
   const open = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorElement(event.currentTarget)
   const close = () => setAnchorElement(null)
@@ -47,6 +51,11 @@ const HeaderLanguageSelectorItem = ({
   }
 
   const currentLanguageName = languageChangePaths.find(item => item.code === languageCode)?.name
+  useEffect(() => {
+    if (previousLanguageCode !== languageCode) {
+      setAnnouncement(t($ => $.layout.languageChanged, { name: currentLanguageName ?? languageCode }))
+    }
+  }, [previousLanguageCode, languageCode, currentLanguageName, t])
 
   const LanguageSelectionButton = (
     <HeaderActionItem
@@ -86,6 +95,7 @@ const HeaderLanguageSelectorItem = ({
 
   return (
     <>
+      <LiveAnnouncer message={announcement} />
       {LanguageSelectionButton}
       <Popover
         open={isOpen}

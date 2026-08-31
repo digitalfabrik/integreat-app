@@ -5,13 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { regionContentPath, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
 import { CategoryModel, RegionModel } from 'shared/api'
 
-import useAnnounceLanguageChange from '../hooks/useAnnounceLanguageChange'
 import useDimensions from '../hooks/useDimensions'
 import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderLanguageSelectorItem from './HeaderLanguageSelectorItem'
 import { LanguageChangePath } from './LanguageSelection'
-import LiveAnnouncer from './LiveAnnouncer'
 import NavigationTabs from './NavigationTabs'
 import RegionContentMenu from './RegionContentMenu'
 
@@ -39,8 +37,6 @@ const RegionContentHeader = ({
   const searchPath = pathnameFromRouteInformation({ route: SEARCH_ROUTE, ...params })
   const { desktop } = useDimensions()
 
-  const announcement = useAnnounceLanguageChange(languageCode, languageChangePaths, t)
-
   const actionItems = [
     <HeaderActionItem key='search' to={searchPath} text={t($ => $.layout.search)} icon={<SearchOutlinedIcon />} />,
     languageChangePaths ? (
@@ -55,16 +51,13 @@ const RegionContentHeader = ({
   ].filter(Boolean)
 
   return (
-    <>
-      <LiveAnnouncer message={announcement} />
-      <Header
-        logoHref={categoriesPath}
-        actionItems={actionItems}
-        regionName={regionModel.name}
-        language={languageCode}
-        tabBar={desktop && <NavigationTabs regionModel={regionModel} languageCode={languageCode} />}
-      />
-    </>
+    <Header
+      logoHref={categoriesPath}
+      actionItems={actionItems}
+      regionName={regionModel.name}
+      language={languageCode}
+      tabBar={desktop && <NavigationTabs regionModel={regionModel} languageCode={languageCode} />}
+    />
   )
 }
 
