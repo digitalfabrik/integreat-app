@@ -88,9 +88,11 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
                 ':hover': {
                   backgroundColor: theme.palette.background.default,
                 },
-                [`&.${chipClasses.focusVisible}`]: {
-                  backgroundColor: theme.palette.background.default,
-                },
+              },
+              [`&.${chipClasses.focusVisible}`]: {
+                outline: `2px solid ${isContrast ? theme.palette.background.accent : theme.palette.text.primary}`,
+                outlineOffset: 2,
+                backgroundColor: theme.palette.background.default,
               },
             },
           },
