@@ -36,31 +36,48 @@ const tourStepsMobile = ({ t, rtl, region, languageCode }: TourStepsProps): Tour
       ? null
       : {
           ...headerStep(rtl ? 'right' : 'left', HEADER_POPOVER_POSITIONS.changeLocation),
-          content: <TourStepContent title={t('layout:changeLocation')} descriptionKey='changeLocationDescription' />,
+          content: (
+            <TourStepContent
+              title={t($ => $.layout.changeLocation)}
+              descriptionKey={$ => $.tour.changeLocationDescription}
+            />
+          ),
         },
     {
       ...headerStep(atEnd, HEADER_POPOVER_POSITIONS.searchAndLanguage),
-      content: <TourStepContent title={t('searchAndLanguageTitle')} descriptionKey='searchAndLanguageDescription' />,
+      content: (
+        <TourStepContent
+          title={t($ => $.tour.searchAndLanguageTitle)}
+          descriptionKey={$ => $.tour.searchAndLanguageDescription}
+        />
+      ),
     },
     {
       ...headerStep(atEnd, HEADER_POPOVER_POSITIONS.additionalFeatures),
       content: (
         <TourStepContent
-          title={t('additionalFeaturesTitle')}
-          descriptionKey='additionalFeaturesWithFeedbackDescription'
+          title={t($ => $.tour.additionalFeaturesTitle)}
+          descriptionKey={$ => $.tour.additionalFeaturesWithFeedbackDescription}
         />
       ),
     },
     {
       selector: `#${TILES_ELEMENT_ID} > :first-child`,
       position: 'bottom',
-      content: <TourStepContent title={t('categoriesTitle')} descriptionKey='categoriesDescription' />,
+      content: (
+        <TourStepContent title={t($ => $.tour.categoriesTitle)} descriptionKey={$ => $.tour.categoriesDescription} />
+      ),
     },
     getNavigationItems({ regionModel: region, languageCode })
       ? {
           selector: `#${BOTTOM_NAVIGATION_ELEMENT_ID}`,
           position: 'top',
-          content: <TourStepContent title={t('navigationTitle')} descriptionKey='navigationDescription' />,
+          content: (
+            <TourStepContent
+              title={t($ => $.tour.navigationTitle)}
+              descriptionKey={$ => $.tour.navigationDescription}
+            />
+          ),
         }
       : null,
     featureFlags.chat && region.chatEnabled
@@ -71,7 +88,7 @@ const tourStepsMobile = ({ t, rtl, region, languageCode }: TourStepsProps): Tour
           // Rounded mask for chat button
           padding: { mask: TOUR_MASK_PADDING, popover: [0, TOUR_POPOVER_PADDING] },
           styles: { maskArea: base => ({ ...base, rx: base.width / 2 }) },
-          content: <TourStepContent title={getChatName(appName)} descriptionKey='chatDescription' />,
+          content: <TourStepContent title={getChatName(appName)} descriptionKey={$ => $.tour.chatDescription} />,
         }
       : null,
   ]
