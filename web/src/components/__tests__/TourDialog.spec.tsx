@@ -6,8 +6,6 @@ import { TOUR_DIALOG_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { renderWithTheme } from '../../testing/render'
 import TourDialog from '../TourDialog'
 
-jest.mock('react-i18next')
-
 describe('TourDialog', () => {
   const steps: StepType[] = [
     { selector: '#first', content: 'First step' },
@@ -28,7 +26,7 @@ describe('TourDialog', () => {
   it('should offer the tour on the first visit', () => {
     const { getByText } = renderDialog()
 
-    expect(getByText('tour:intro:welcome')).toBeTruthy()
+    expect(getByText('intro:welcome')).toBeTruthy()
     expect(getByText('tour:welcomeDescription')).toBeTruthy()
     expect(getByText('tour:startTour')).toBeTruthy()
     expect(getByText('tour:skipTour')).toBeTruthy()
@@ -38,7 +36,7 @@ describe('TourDialog', () => {
     localStorage.setItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY, 'false')
     const { queryByText } = renderDialog()
 
-    expect(queryByText('tour:intro:welcome')).toBeNull()
+    expect(queryByText('intro:welcome')).toBeNull()
   })
 
   it('should offer the tour again if it was interrupted after starting it', () => {
@@ -46,7 +44,7 @@ describe('TourDialog', () => {
 
     fireEvent.click(getByText('tour:startTour'))
 
-    expect(queryByText('tour:intro:welcome')).toBeNull()
+    expect(queryByText('intro:welcome')).toBeNull()
     expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 
@@ -55,7 +53,7 @@ describe('TourDialog', () => {
 
     fireEvent.click(getByText('tour:skipTour'))
 
-    expect(queryByText('tour:intro:welcome')).toBeNull()
+    expect(queryByText('intro:welcome')).toBeNull()
     expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('false')
   })
 

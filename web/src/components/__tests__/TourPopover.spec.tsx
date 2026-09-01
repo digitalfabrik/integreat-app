@@ -7,8 +7,6 @@ import { renderWithTheme } from '../../testing/render'
 import TourPopover from '../TourPopover'
 import { TourStepType } from '../TourStepContent'
 
-jest.mock('react-i18next')
-
 describe('TourPopover', () => {
   const setCurrentStep = jest.fn()
   const setIsOpen = jest.fn()
@@ -38,7 +36,7 @@ describe('TourPopover', () => {
   it('should navigate to the next step', () => {
     const { getByText } = renderPopover(0)
 
-    fireEvent.click(getByText('tour:layout:next'))
+    fireEvent.click(getByText('layout:next'))
 
     expect(setCurrentStep).toHaveBeenCalledWith(1)
   })
@@ -46,7 +44,7 @@ describe('TourPopover', () => {
   it('should navigate to the previous step', () => {
     const { getByText } = renderPopover(1)
 
-    fireEvent.click(getByText('tour:layout:previous'))
+    fireEvent.click(getByText('layout:previous'))
 
     expect(setCurrentStep).toHaveBeenCalledWith(0)
   })
@@ -54,7 +52,7 @@ describe('TourPopover', () => {
   it('should disable navigating back on the first step', () => {
     const { getByText } = renderPopover(0)
 
-    expect(getByText('tour:layout:previous').closest('button')).toBeDisabled()
+    expect(getByText('layout:previous').closest('button')).toBeDisabled()
   })
 
   it('should advance past the last step to finish the tour', () => {
@@ -69,7 +67,7 @@ describe('TourPopover', () => {
   it('should close the tour and not offer it again', () => {
     const { getByLabelText } = renderPopover(0)
 
-    fireEvent.click(getByLabelText('tour:common:close'))
+    fireEvent.click(getByLabelText('common:close'))
 
     expect(setIsOpen).toHaveBeenCalledWith(false)
     expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('false')

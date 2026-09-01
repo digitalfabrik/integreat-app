@@ -82,7 +82,7 @@ const Dot = styled('span', { shouldForwardProp: prop => prop !== 'current' })<{ 
 )
 
 const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverContentProps): ReactElement | null => {
-  const { t } = useTranslation('tour')
+  const { t } = useTranslation()
   const [, setDialogVisible] = useLocalStorage<boolean>({
     key: TOUR_DIALOG_VISIBLE_STORAGE_KEY,
     initialValue: true,
@@ -111,12 +111,14 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
       <Stack sx={{ padding: 2, gap: 2 }}>
         <Stack direction='row' sx={{ alignItems: 'flex-start', gap: 1 }}>
           <Stack sx={{ flex: 1 }}>{step.content}</Stack>
-          <IconButton onClick={closeTour} size='small' aria-label={t('common:close')}>
+          <IconButton onClick={closeTour} size='small' aria-label={t($ => $.common.close)}>
             <CloseIcon fontSize='small' />
           </IconButton>
         </Stack>
         <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
-          <Typography variant='body3' aria-label={t('progress', { current: currentStep + 1, total: steps.length })}>
+          <Typography
+            variant='body3'
+            aria-label={t($ => $.tour.progress, { current: currentStep + 1, total: steps.length })}>
             <Typography component='span' variant='body3' color='primary'>
               {currentStep + 1}
             </Typography>
@@ -134,13 +136,13 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
             disabled={isFirstStep}
             onClick={() => setCurrentStep(currentStep - 1)}
             startIcon={<DirectionDependentBackIcon fontSize='small' />}>
-            {t('layout:previous')}
+            {t($ => $.layout.previous)}
           </Button>
           <Button
             size='small'
             onClick={() => setCurrentStep(currentStep + 1)}
             endIcon={<DirectionDependentForwardIcon fontSize='small' />}>
-            {t(isLastStep ? 'finish' : 'layout:next')}
+            {t($ => (isLastStep ? $.tour.finish : $.layout.next))}
           </Button>
         </Stack>
       </Stack>

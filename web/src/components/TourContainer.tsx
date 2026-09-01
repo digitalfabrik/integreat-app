@@ -23,7 +23,7 @@ type TourContainerProps = {
 }
 
 const TourContainer = ({ region, languageCode }: TourContainerProps): ReactElement => {
-  const { t } = useTranslation('tour')
+  const { t } = useTranslation()
   const { desktop } = useDimensions()
   const { contentDirection } = useTheme()
 

@@ -1,7 +1,7 @@
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { StepType } from '@reactour/tour'
-import { TFunction } from 'i18next'
+import { SelectorParam, TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { Trans } from 'react-i18next'
 
@@ -24,14 +24,14 @@ export type TourStepsProps = {
 
 type TourStepContentProps = {
   title: string
-  descriptionKey: string
+  descriptionKey: SelectorParam
 }
 
 const TourStepContent = ({ title, descriptionKey }: TourStepContentProps): ReactElement => (
   <Stack sx={{ gap: 1 }}>
     <Typography variant='subtitle1'>{title}</Typography>
     <Typography variant='body2'>
-      <Trans i18nKey={`tour:${descriptionKey}`} components={{ strong: <strong /> }} />
+      <Trans i18nKey={descriptionKey} components={{ strong: <strong /> }} />
     </Typography>
   </Stack>
 )
