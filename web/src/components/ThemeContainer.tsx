@@ -90,7 +90,7 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
                 },
               },
               [`&.${chipClasses.focusVisible}`]: {
-                outline: `2px solid ${isContrast ? theme.palette.background.accent : theme.palette.text.primary}`,
+                outline: `2px solid ${theme.palette.tertiary.dark}`,
                 outlineOffset: 2,
                 backgroundColor: theme.palette.background.default,
               },
