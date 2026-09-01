@@ -43,7 +43,7 @@ const StyledSvg = styled(Svg)`
 `
 
 const TourDialog = (): ReactElement | null => {
-  const { t } = useTranslation('tour')
+  const { t } = useTranslation()
   const { isOpen, setIsOpen, currentStep, setCurrentStep, steps } = useTour()
   const [welcomeVisible, setWelcomeVisible] = useLocalStorage<boolean>({
     key: TOUR_DIALOG_VISIBLE_STORAGE_KEY,
@@ -69,17 +69,17 @@ const TourDialog = (): ReactElement | null => {
   const finished = isOpen && currentStep >= steps.length
   const content = finished
     ? {
-        title: t('finishTitle'),
-        description: t('finishDescription', { appName }),
-        actionText: t('finishAction'),
+        title: t($ => $.tour.finishTitle),
+        description: t($ => $.tour.finishDescription, { appName }),
+        actionText: t($ => $.tour.finishAction),
         action: finishTour,
         close: finishTour,
         showSkipButton: false,
       }
     : {
-        title: t('intro:welcome', { appName }),
-        description: t('welcomeDescription'),
-        actionText: t('startTour'),
+        title: t($ => $.intro.welcome, { appName }),
+        description: t($ => $.tour.welcomeDescription),
+        actionText: t($ => $.tour.startTour),
         action: startTour,
         close: () => setWelcomeVisible(false),
         showSkipButton: true,
@@ -98,7 +98,7 @@ const TourDialog = (): ReactElement | null => {
       open>
       <StyledSvg src={icons.appLogoMobile} width={LOGO_SIZE} height={LOGO_SIZE} />
       <Stack sx={{ alignItems: 'flex-end', marginInline: 1, marginBlockStart: 1 }}>
-        <IconButton onClick={content.close} size='small' aria-label={t('common:close')}>
+        <IconButton onClick={content.close} size='small' aria-label={t($ => $.common.close)}>
           <CloseIcon fontSize='small' />
         </IconButton>
       </Stack>
@@ -113,7 +113,7 @@ const TourDialog = (): ReactElement | null => {
           <Button onClick={content.action} variant='contained' fullWidth>
             {content.actionText}
           </Button>
-          {content.showSkipButton && <Button onClick={content.close}>{t('skipTour')}</Button>}
+          {content.showSkipButton && <Button onClick={content.close}>{t($ => $.tour.skipTour)}</Button>}
         </Stack>
       </DialogContent>
     </StyledMuiDialog>

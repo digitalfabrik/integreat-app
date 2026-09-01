@@ -52,7 +52,12 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
           selector: `#${HEADER_TITLE_ELEMENT_ID}`,
           position: positionBelowElement(atStart),
           arrowAlignment: atStart,
-          content: <TourStepContent title={t('layout:changeLocation')} descriptionKey='changeLocationDescription' />,
+          content: (
+            <TourStepContent
+              title={t($ => $.layout.changeLocation)}
+              descriptionKey={$ => $.tour.changeLocationDescription}
+            />
+          ),
         },
     getNavigationItems({ regionModel: region, languageCode })
       ? {
@@ -60,21 +65,33 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
           selector: `#${NAVIGATION_TABS_ELEMENT_ID}`,
           position: positionBelowElement(atStart),
           arrowAlignment: atStart,
-          content: <TourStepContent title={t('navigationTitle')} descriptionKey='navigationDescription' />,
+          content: (
+            <TourStepContent
+              title={t($ => $.tour.navigationTitle)}
+              descriptionKey={$ => $.tour.navigationDescription}
+            />
+          ),
         }
       : null,
     {
       offset: { horizontal: 24, vertical: 32 },
       selector: `#${TILES_ELEMENT_ID} > :first-child`,
       position: besideElement,
-      content: <TourStepContent title={t('categoriesTitle')} descriptionKey='categoriesDescription' />,
+      content: (
+        <TourStepContent title={t($ => $.tour.categoriesTitle)} descriptionKey={$ => $.tour.categoriesDescription} />
+      ),
     },
     {
       offset: { horizontal: -16, vertical: 24 },
       selector: `#${HEADER_ACTIONS_ELEMENT_ID}`,
       position: positionBelowElement(atEnd),
       arrowAlignment: atEnd,
-      content: <TourStepContent title={t('searchAndLanguageTitle')} descriptionKey='searchAndLanguageDescription' />,
+      content: (
+        <TourStepContent
+          title={t($ => $.tour.searchAndLanguageTitle)}
+          descriptionKey={$ => $.tour.searchAndLanguageDescription}
+        />
+      ),
     },
     {
       offset: { horizontal: 4, vertical: 24 },
@@ -85,7 +102,12 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
       arrowAlignment: atEnd,
       action: clickHtmlElement,
       actionAfter: closeHeaderMenu,
-      content: <TourStepContent title={t('additionalFeaturesTitle')} descriptionKey='additionalFeaturesDescription' />,
+      content: (
+        <TourStepContent
+          title={t($ => $.tour.additionalFeaturesTitle)}
+          descriptionKey={$ => $.tour.additionalFeaturesDescription}
+        />
+      ),
     },
     featureFlags.chat && region.chatEnabled
       ? {
@@ -93,14 +115,16 @@ const tourStepsDesktop = ({ t, rtl, region, languageCode }: TourStepsProps): Tou
           selector: `#${CHAT_FAB_ELEMENT_ID}`,
           position: 'top',
           arrowAlignment: atEnd,
-          content: <TourStepContent title={getChatName(appName)} descriptionKey='chatDescription' />,
+          content: <TourStepContent title={getChatName(appName)} descriptionKey={$ => $.tour.chatDescription} />,
         }
       : null,
     {
       offset: { horizontal: 16 },
       selector: `#${TOOLBAR_ELEMENT_ID}`,
       position: besideElement,
-      content: <TourStepContent title={t('feedback:giveFeedback')} descriptionKey='feedbackDescription' />,
+      content: (
+        <TourStepContent title={t($ => $.feedback.giveFeedback)} descriptionKey={$ => $.tour.feedbackDescription} />
+      ),
     },
   ]
 
