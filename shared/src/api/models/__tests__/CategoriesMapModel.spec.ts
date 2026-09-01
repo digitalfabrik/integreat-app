@@ -16,6 +16,7 @@ describe('CategoriesMapModel', () => {
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
     organization: null,
     embeddedOffers: [],
+    slugHistory: [],
   })
   const categories = [
     new CategoryModel({
@@ -30,6 +31,7 @@ describe('CategoriesMapModel', () => {
       thumbnail: 'thumb-nail',
       organization: null,
       embeddedOffers: [],
+      slugHistory: [],
     }),
     new CategoryModel({
       root: false,
@@ -43,6 +45,7 @@ describe('CategoriesMapModel', () => {
       thumbnail: 'thumb-nail',
       organization: null,
       embeddedOffers: [],
+      slugHistory: [],
     }),
     new CategoryModel({
       root: false,
@@ -56,6 +59,7 @@ describe('CategoriesMapModel', () => {
       thumbnail: 'thumb-nail',
       organization: null,
       embeddedOffers: [],
+      slugHistory: [],
     }),
     new CategoryModel({
       root: false,
@@ -69,6 +73,7 @@ describe('CategoriesMapModel', () => {
       thumbnail: 'thumb-nail',
       organization: null,
       embeddedOffers: [],
+      slugHistory: [],
     }),
   ]
   const categoriesMapModel = new CategoriesMapModel(categories)

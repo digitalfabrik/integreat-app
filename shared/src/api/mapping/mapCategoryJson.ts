@@ -33,6 +33,7 @@ const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryMode
           thumbnail: offer.thumbnail,
         }),
     ),
+    slugHistory: json.slug_history,
   })
 
 export default mapCategoryJson

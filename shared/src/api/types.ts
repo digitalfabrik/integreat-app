@@ -82,6 +82,7 @@ export type JsonCategoryType = {
   order: number
   organization: OrganizationType
   embedded_offers: JsonOfferType[]
+  slug_history: string[]
 }
 
 export type JsonChatMessageType = {
