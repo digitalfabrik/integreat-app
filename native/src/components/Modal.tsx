@@ -1,6 +1,6 @@
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native'
 import React, { ReactElement, ReactNode } from 'react'
-import { ScrollView, StyleSheet, View, Modal as RNModal, Platform } from 'react-native'
+import { ScrollView, StyleSheet, View, Modal as RNModal } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme } from 'styled-components/native'
 
@@ -49,7 +49,7 @@ const Modal = ({
 
   return (
     <RNModal visible={modalVisible} transparent onRequestClose={closeModal} style={styles.modalStyle}>
-      <View style={{ flex: 1, paddingTop: Platform.OS === 'ios' ? insets.top : 0 }}>
+      <View style={{ flex: 1, paddingTop: insets.top }}>
         <NavigationThemeProvider value={navigationTheme}>
           <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <View style={styles.header}>
