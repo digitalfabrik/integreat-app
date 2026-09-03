@@ -44,7 +44,13 @@ const TourContainer = ({ region, languageCode }: TourContainerProps): ReactEleme
       disableInteraction
       scrollSmooth
       styles={{
-        popover: base => ({ ...base, padding: 0, backgroundColor: 'transparent', boxShadow: 'none' }),
+        popover: base => ({
+          ...base,
+          padding: 0,
+          backgroundColor: 'transparent',
+          boxShadow: 'none',
+          transition: 'transform 0.45s ease, top 0.45s ease',
+        }),
         maskArea: base => ({ ...base, rx: HIGHLIGHT_BORDER_RADIUS }),
       }}>
       <TourDialog />
