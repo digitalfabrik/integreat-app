@@ -47,7 +47,9 @@ const NewsStack = createStackNavigator<RoutesParamsType>()
 
 const TAB_HEIGHT = 60
 
-// note: the theme.dark logic will get replaced with proper theme handling at #4334
+// Note: the theme.dark logic will get replaced with proper theme handling at #4334
+// https://github.com/digitalfabrik/integreat-app/issues/4334
+
 const getActiveTabColor = (theme: DefaultTheme): string =>
   theme.dark ? theme.colors.primaryContainer : theme.colors.primary
 
