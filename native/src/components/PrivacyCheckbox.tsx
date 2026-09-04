@@ -1,7 +1,9 @@
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { StyleSheet, Platform } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { Checkbox, TouchableRipple } from 'react-native-paper'
+
+import { parseHTML } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import Link from './Link'
@@ -26,12 +28,17 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
   const { privacyUrls } = buildConfig()
   const privacyUrl = privacyUrls[language] || privacyUrls.default
   const { t } = useTranslation()
+  const accessibilityLabel = parseHTML(
+    t($ => $.common.privacyPolicy),
+    false,
+    { xmlMode: true },
+  )
   return (
     <TouchableRipple
       borderless
       onPress={() => setChecked(!checked)}
       role='checkbox'
-      accessibilityLabel={Platform.OS === 'ios' ? t($ => $.common.privacyPolicy) : undefined}
+      accessibilityLabel={accessibilityLabel}
       accessibilityState={{ checked }}
       style={styles.TouchableRippleStyle}>
       <>
