@@ -27,9 +27,9 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 }))
 
 const AttributionContainer = styled('div')`
-  position: fixed;
+  position: absolute;
   right: 0;
-  bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.theme.dimensions.bottomSheet.snapPoints.medium}px));
+  bottom: 0;
 `
 
 const MapControlsContainer = styled(AttributionContainer)`
