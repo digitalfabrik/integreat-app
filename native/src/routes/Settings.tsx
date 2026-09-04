@@ -1,3 +1,4 @@
+import { TFunction } from 'i18next'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList } from 'react-native'
@@ -6,7 +7,6 @@ import { Divider } from 'react-native-paper'
 import { REGIONS_ROUTE, SettingsRouteType } from 'shared'
 
 import Caption from '../components/Caption'
-import LayoutedScrollView from '../components/LayoutedScrollView'
 import SettingItem from '../components/SettingItem'
 import SwitchCmsUrlButton from '../components/SwitchCmsUrlButton'
 import { NavigationProps } from '../constants/NavigationTypes'
@@ -15,6 +15,20 @@ import useSnackbar from '../hooks/useSnackbar'
 import dataContainer from '../utils/DefaultDataContainer'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
 import { log, captureError } from '../utils/sentry'
+
+const SettingsHeader = ({
+  t,
+  clearResourcesAndCache,
+}: {
+  t: TFunction
+  clearResourcesAndCache: () => void
+}): ReactElement => (
+  <>
+    <Caption title={t($ => $.layout.settings)} />
+    <SwitchCmsUrlButton clearResourcesAndCache={clearResourcesAndCache} />
+    <Divider />
+  </>
+)
 
 type SettingsProps = {
   navigation: NavigationProps<SettingsRouteType>
@@ -59,20 +73,14 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   }).filter((it): it is SettingsSectionType => it !== null)
 
   return (
-    <LayoutedScrollView>
-      <Caption title={t($ => $.layout.settings)} />
-      <SwitchCmsUrlButton clearResourcesAndCache={clearResourcesAndCache} />
-      <Divider />
-      <FlatList
-        data={sections}
-        extraData={appContext.settings}
-        renderItem={renderItem}
-        ItemSeparatorComponent={Divider}
-        ListFooterComponent={Divider}
-        // Fixes VirtualizedList should never be nested inside plain ScrollViews
-        scrollEnabled={false}
-      />
-    </LayoutedScrollView>
+    <FlatList
+      ListHeaderComponent={<SettingsHeader t={t} clearResourcesAndCache={clearResourcesAndCache} />}
+      data={sections}
+      extraData={appContext.settings}
+      renderItem={renderItem}
+      ItemSeparatorComponent={Divider}
+      ListFooterComponent={Divider}
+    />
   )
 }
 
