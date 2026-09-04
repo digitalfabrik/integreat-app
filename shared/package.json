@@ -44,7 +44,7 @@
     "normalize-path": "^3.0.0",
     "qr": "^0.6.0",
     "rrule": "2.8.1",
-    "sanitize-html": "2.17.5",
+    "sanitize-html": "2.17.7",
     "sentencex": "^0.4.2",
     "uuid": "^14.0.2"
   },
