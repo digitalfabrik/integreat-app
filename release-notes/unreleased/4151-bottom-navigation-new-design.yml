@@ -1,0 +1,7 @@
+issue_key: 4151
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The bottom navigation now highlights the active tab more clearly and uses new icons.
+de: Die untere Navigation hebt den aktiven Tab nun deutlicher hervor und verwendet neue Symbole.

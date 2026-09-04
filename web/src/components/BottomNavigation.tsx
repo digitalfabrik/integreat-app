@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, PLACES_ROUTE } from 'shared'
+import { ACTIVE_TAB_HEIGHT, CATEGORIES_ROUTE, EVENTS_ROUTE, NEWS_ROUTE, PLACES_ROUTE } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import { BOTTOM_NAVIGATION_ELEMENT_ID } from '../constants/layout'
@@ -38,7 +38,21 @@ const StyledBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) 
   color: theme.palette.text.secondary,
 
   [`&.${bottomNavigationActionClasses.selected}`]: {
-    color: theme.palette.text.primary,
+    // Note: the isContrastTheme logic will get replaced with proper theme handling at #4334
+    // https://github.com/digitalfabrik/integreat-app/issues/4334
+
+    color: theme.isContrastTheme ? theme.palette.primary.light : theme.palette.primary.main,
+
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: ACTIVE_TAB_HEIGHT,
+      borderRadius: `0 0 20px 20px`,
+      backgroundColor: 'currentColor',
+    },
   },
 
   [theme.breakpoints.down('sm')]: {

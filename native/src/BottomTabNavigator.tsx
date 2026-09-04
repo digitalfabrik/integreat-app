@@ -1,13 +1,15 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { BottomTabBarButtonProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { PlatformPressable } from '@react-navigation/elements'
 import { getFocusedRouteNameFromRoute, useNavigationState } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import React, { ReactElement, useCallback, useRef } from 'react'
+import React, { ReactElement, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { DefaultTheme, useTheme } from 'styled-components/native'
+import styled, { DefaultTheme, useTheme } from 'styled-components/native'
 
 import {
+  ACTIVE_TAB_HEIGHT,
   BottomTabRouteType,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
@@ -19,7 +21,6 @@ import {
   PLACES_TAB_ROUTE,
 } from 'shared'
 
-import { SignPostIcon } from './assets'
 import ChatFab from './components/ChatFab'
 import { defaultHeader } from './components/DefaultHeader'
 import Icon from './components/base/Icon'
@@ -45,6 +46,22 @@ const EventsStack = createStackNavigator<RoutesParamsType>()
 const NewsStack = createStackNavigator<RoutesParamsType>()
 
 const TAB_HEIGHT = 60
+
+// Note: the theme.dark logic will get replaced with proper theme handling at #4334
+// https://github.com/digitalfabrik/integreat-app/issues/4334
+
+const getActiveTabColor = (theme: DefaultTheme): string =>
+  theme.dark ? theme.colors.primaryContainer : theme.colors.primary
+
+const ActiveIndicator = styled.View`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: ${ACTIVE_TAB_HEIGHT}px;
+  border-radius: 0 0 20px 20px;
+  background-color: ${props => getActiveTabColor(props.theme)};
+`
 
 const CategoriesStackScreen = () => (
   <CategoriesStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
@@ -75,18 +92,19 @@ const createTabIcon =
   ({ color, size }: { color: string; size: number }) => <Icon source={iconSource} color={color} size={size} />
 
 const createTabLabel =
-  (theme: DefaultTheme, label: string) =>
-  ({ focused }: { focused: boolean }) => (
-    <Text
-      variant='body3'
-      numberOfLines={1}
-      style={{
-        fontWeight: focused ? 'bold' : 'normal',
-        color: focused ? theme.colors.onSurface : theme.colors.onSurfaceVariant,
-      }}>
+  (label: string) =>
+  ({ focused, color }: { focused: boolean; color: string }) => (
+    <Text variant='body3' numberOfLines={1} style={{ fontWeight: focused ? 'bold' : 'normal', color }}>
       {label}
     </Text>
   )
+
+const TabButton = ({ children, ...props }: BottomTabBarButtonProps): ReactElement => (
+  <PlatformPressable {...props}>
+    {props['aria-selected'] && <ActiveIndicator />}
+    {children}
+  </PlatformPressable>
+)
 
 type BottomTabNavigatorProps = {
   route: RouteProps<BottomTabRouteType>
@@ -114,14 +132,6 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
   useSetRouteTitle({ navigation, title: cachedData?.region.name })
   const theme = useTheme()
 
-  const CategoriesIcon = useCallback(
-    // eslint-disable-next-line react/no-unused-prop-types
-    ({ focused }: { focused: boolean }) => (
-      <Icon icon={SignPostIcon} color={focused ? theme.colors.onSurface : theme.colors.onSurfaceVariant} />
-    ),
-    [theme],
-  )
-
   if (!cachedData) {
     return <LoadingErrorHandler loading={loading} error={error} refresh={refresh} />
   }
@@ -134,11 +144,8 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
       name={CATEGORIES_TAB_ROUTE}
       component={CategoriesStackScreen}
       options={{
-        tabBarLabel: createTabLabel(
-          theme,
-          t($ => $.layout.localInformationLabel),
-        ),
-        tabBarIcon: CategoriesIcon,
+        tabBarLabel: createTabLabel(t($ => $.layout.localInformationLabel)),
+        tabBarIcon: createTabIcon('home'),
         tabBarAccessibilityLabel: t($ => $.layout.localInformationLabel),
       }}
     />,
@@ -147,11 +154,8 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         name={PLACES_TAB_ROUTE}
         component={PlacesStackScreen}
         options={{
-          tabBarLabel: createTabLabel(
-            theme,
-            t($ => $.layout.locations),
-          ),
-          tabBarIcon: createTabIcon('map-outline'),
+          tabBarLabel: createTabLabel(t($ => $.layout.locations)),
+          tabBarIcon: createTabIcon('map'),
           tabBarAccessibilityLabel: t($ => $.layout.locations),
         }}
       />
@@ -161,11 +165,8 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}
         options={{
-          tabBarLabel: createTabLabel(
-            theme,
-            t($ => $.layout.news),
-          ),
-          tabBarIcon: createTabIcon('newspaper'),
+          tabBarLabel: createTabLabel(t($ => $.layout.news)),
+          tabBarIcon: createTabIcon('note-text'),
           tabBarAccessibilityLabel: t($ => $.layout.news),
         }}
       />
@@ -175,10 +176,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         name={EVENTS_TAB_ROUTE}
         component={EventsStackScreen}
         options={{
-          tabBarLabel: createTabLabel(
-            theme,
-            t($ => $.layout.events),
-          ),
+          tabBarLabel: createTabLabel(t($ => $.layout.events)),
           tabBarIcon: createTabIcon('calendar-blank-outline'),
           tabBarAccessibilityLabel: t($ => $.layout.events),
         }}
@@ -195,8 +193,9 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         backBehavior='history'
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: theme.colors.onSurface,
+          tabBarActiveTintColor: getActiveTabColor(theme),
           tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
+          tabBarButton: TabButton,
           tabBarStyle: {
             height: TAB_HEIGHT + insets.bottom,
             backgroundColor: theme.colors.surfaceVariant,
