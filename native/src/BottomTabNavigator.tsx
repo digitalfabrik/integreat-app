@@ -27,10 +27,12 @@ import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'
 import { NavigationProps, RouteProps, RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
+import dimensions from './constants/dimensions'
 import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
 import useRegionAppContext from './hooks/useRegionAppContext'
 import useSetRouteTitle from './hooks/useSetRouteTitle'
+import useTtsPlayer from './hooks/useTtsPlayer'
 import CategoriesContainer from './routes/CategoriesContainer'
 import EventsContainer from './routes/EventsContainer'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
@@ -43,8 +45,6 @@ const CategoriesStack = createStackNavigator<RoutesParamsType>()
 const PlacesStack = createStackNavigator<RoutesParamsType>()
 const EventsStack = createStackNavigator<RoutesParamsType>()
 const NewsStack = createStackNavigator<RoutesParamsType>()
-
-const TAB_HEIGHT = 60
 
 const CategoriesStackScreen = () => (
   <CategoriesStack.Navigator screenOptions={{ header: defaultHeader, animation: 'none' }}>
@@ -96,6 +96,7 @@ type BottomTabNavigatorProps = {
 const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation()
   const { regionCode, languageCode } = useRegionAppContext()
+  const { visible } = useTtsPlayer()
   const { navigateTo } = useNavigate()
   const insets = useSafeAreaInsets()
   const { data, loading, error, refresh } = useLoadRegionContent({ regionCode, languageCode })
@@ -127,7 +128,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
   }
 
   const { eventsEnabled, placesEnabled, newsEnabled, chatEnabled } = cachedData.region
-  const chatVisible = buildConfig().featureFlags.chat && chatEnabled && activeTab !== PLACES_TAB_ROUTE
+  const chatVisible = buildConfig().featureFlags.chat && chatEnabled && activeTab !== PLACES_TAB_ROUTE && !visible
 
   const Tabs = [
     <Tab.Screen
@@ -198,7 +199,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
           tabBarActiveTintColor: theme.colors.onSurface,
           tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
           tabBarStyle: {
-            height: TAB_HEIGHT + insets.bottom,
+            height: dimensions.bottomNavigationHeight + insets.bottom,
             backgroundColor: theme.colors.surfaceVariant,
             display: bottomTabsVisible ? 'flex' : 'none',
           },
@@ -206,7 +207,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         }}>
         {Tabs}
       </Tab.Navigator>
-      {chatVisible && <ChatFab style={{ bottom: TAB_HEIGHT + insets.bottom }} />}
+      {chatVisible && <ChatFab style={{ bottom: dimensions.bottomNavigationHeight + insets.bottom }} />}
     </View>
   )
 }

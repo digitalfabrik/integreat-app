@@ -35,9 +35,9 @@ describe('ChatFab', () => {
 
   it('navigates to the chat route when pressed', () => {
     mockUseLoadFromEndpointWithData({ messages: [] })
-    const { getByTestId } = renderChatFab()
+    const { getByLabelText } = renderChatFab()
 
-    fireEvent.press(getByTestId('fab'))
+    fireEvent.press(getByLabelText('Frag Integreat'))
     expect(navigation.navigate).toHaveBeenCalledWith(CHAT_ROUTE)
   })
 
