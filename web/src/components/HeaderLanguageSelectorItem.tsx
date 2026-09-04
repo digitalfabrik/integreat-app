@@ -80,6 +80,7 @@ const HeaderLanguageSelectorItem = ({
   if (mobile) {
     return (
       <>
+        <LiveAnnouncer message={announcement} />
         <StyledSidebar openButton={LanguageSelectionButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
           <LanguageSelection
             languageChangePaths={languageChangePaths}
