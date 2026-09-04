@@ -198,7 +198,7 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
   return (
     <CacheProvider value={contentDirection === 'rtl' ? rtlCache : ltrCache}>
       <ThemeProvider theme={{ ...theme, dimensions }}>
-        <Global styles={globalStyle({ theme })} />
+        <Global styles={globalStyle()} />
         {children}
       </ThemeProvider>
     </CacheProvider>
