@@ -1,10 +1,12 @@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
+import Stack from '@mui/material/Stack'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { regionContentPath, pathnameFromRouteInformation, SEARCH_ROUTE } from 'shared'
 import { CategoryModel, RegionModel } from 'shared/api'
 
+import { HEADER_ACTIONS_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
 import Header from './Header'
 import HeaderActionItem from './HeaderActionItem'
@@ -38,17 +40,18 @@ const RegionContentHeader = ({
   const { desktop } = useDimensions()
 
   const actionItems = [
-    <HeaderActionItem key='search' to={searchPath} text={t($ => $.layout.search)} icon={<SearchOutlinedIcon />} />,
-    languageChangePaths ? (
-      <HeaderLanguageSelectorItem
-        key='languageChange'
-        languageChangePaths={languageChangePaths}
-        languageCode={languageCode}
-        feedbackAvailable
-      />
-    ) : null,
+    <Stack key='searchAndLanguage' id={HEADER_ACTIONS_ELEMENT_ID} direction='row' sx={{ alignItems: 'center', gap: 1 }}>
+      <HeaderActionItem to={searchPath} text={t($ => $.layout.search)} icon={<SearchOutlinedIcon />} />
+      {!!languageChangePaths && (
+        <HeaderLanguageSelectorItem
+          languageChangePaths={languageChangePaths}
+          languageCode={languageCode}
+          feedbackAvailable
+        />
+      )}
+    </Stack>,
     <RegionContentMenu key='sidebar' category={category} pageTitle={pageTitle} fitScreen={fitScreen} />,
-  ].filter(Boolean)
+  ]
 
   return (
     <Header

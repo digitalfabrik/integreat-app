@@ -1,0 +1,99 @@
+import React from 'react'
+
+import { getChatName } from 'shared'
+
+import TourStepContent, { ArrowAlignment, TourStepsProps, TourStepType } from '../components/TourStepContent'
+import buildConfig from '../constants/buildConfig'
+import {
+  BOTTOM_NAVIGATION_ELEMENT_ID,
+  CHAT_FAB_ELEMENT_ID,
+  HEADER_ELEMENT_ID,
+  TILES_ELEMENT_ID,
+} from '../constants/layout'
+import { TOUR_MASK_PADDING, TOUR_POPOVER_PADDING } from '../constants/tour'
+import getNavigationItems from './navigationItems'
+
+const HEADER_POPOVER_POSITIONS = { changeLocation: 0.4, searchAndLanguage: 0.6, additionalFeatures: 1 }
+
+const tourStepsMobile = ({ t, rtl, region, languageCode }: TourStepsProps): TourStepType[] => {
+  const { appName, featureFlags } = buildConfig()
+  const atEnd = rtl ? 'left' : 'right'
+
+  const headerStep = (
+    arrowAlignment: ArrowAlignment,
+    popoverPosition: number,
+  ): Pick<TourStepType, 'selector' | 'position' | 'arrowAlignment'> => ({
+    selector: `#${HEADER_ELEMENT_ID}`,
+    arrowAlignment,
+    position: ({ width, windowWidth, bottom }) => {
+      const position = rtl ? 1 - popoverPosition : popoverPosition
+      return [(windowWidth - width) * position, bottom]
+    },
+  })
+
+  const steps: (TourStepType | null)[] = [
+    featureFlags.fixedRegion
+      ? null
+      : {
+          ...headerStep(rtl ? 'right' : 'left', HEADER_POPOVER_POSITIONS.changeLocation),
+          content: (
+            <TourStepContent
+              title={t($ => $.layout.changeLocation)}
+              descriptionKey={$ => $.tour.changeLocationDescription}
+            />
+          ),
+        },
+    {
+      ...headerStep(atEnd, HEADER_POPOVER_POSITIONS.searchAndLanguage),
+      content: (
+        <TourStepContent
+          title={t($ => $.tour.searchAndLanguageTitle)}
+          descriptionKey={$ => $.tour.searchAndLanguageDescription}
+        />
+      ),
+    },
+    {
+      ...headerStep(atEnd, HEADER_POPOVER_POSITIONS.additionalFeatures),
+      content: (
+        <TourStepContent
+          title={t($ => $.tour.additionalFeaturesTitle)}
+          descriptionKey={$ => $.tour.additionalFeaturesWithFeedbackDescription}
+        />
+      ),
+    },
+    {
+      selector: `#${TILES_ELEMENT_ID} > :first-child`,
+      position: 'bottom',
+      content: (
+        <TourStepContent title={t($ => $.tour.categoriesTitle)} descriptionKey={$ => $.tour.categoriesDescription} />
+      ),
+    },
+    getNavigationItems({ regionModel: region, languageCode })
+      ? {
+          selector: `#${BOTTOM_NAVIGATION_ELEMENT_ID}`,
+          position: 'top',
+          content: (
+            <TourStepContent
+              title={t($ => $.tour.navigationTitle)}
+              descriptionKey={$ => $.tour.navigationDescription}
+            />
+          ),
+        }
+      : null,
+    featureFlags.chat && region.chatEnabled
+      ? {
+          selector: `#${CHAT_FAB_ELEMENT_ID}`,
+          position: 'top',
+          arrowAlignment: atEnd,
+          // Rounded mask for chat button
+          padding: { mask: TOUR_MASK_PADDING, popover: [0, TOUR_POPOVER_PADDING] },
+          styles: { maskArea: base => ({ ...base, rx: base.width / 2 }) },
+          content: <TourStepContent title={getChatName(appName)} descriptionKey={$ => $.tour.chatDescription} />,
+        }
+      : null,
+  ]
+
+  return steps.filter((step): step is TourStepType => step !== null)
+}
+
+export default tourStepsMobile
