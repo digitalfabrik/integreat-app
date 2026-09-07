@@ -20,12 +20,6 @@ As a [type of user], I want [goal/desire], so that [benefit/value].
 <!-- Specific, testable conditions that must be met for this story to be considered complete. -->
 <!-- Use Given/When/Then or checkbox format. -->
 
-### Related Issues
-
-<!-- Link all related issues which are e.g. CMS issues or otherwise related, blocking, duplicating issues, ... -->
-
-N/A
-
 ### Technical Notes
 
 <!-- Any implementation hints, API contracts, data models, or architectural considerations for the developer. -->

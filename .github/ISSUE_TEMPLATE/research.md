@@ -22,12 +22,6 @@ type: Research
 
 TBD
 
-### Related Issues
-
-<!-- Link all related issues which are e.g. CMS issues or otherwise related, blocking, duplicating issues, ... -->
-
-N/A
-
 ### Additional Context
 
 <!-- Any other information, links, or references. -->
