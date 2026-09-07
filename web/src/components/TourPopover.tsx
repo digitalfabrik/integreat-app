@@ -81,6 +81,12 @@ const Dot = styled('span', { shouldForwardProp: prop => prop !== 'current' })<{ 
   }),
 )
 
+const CloseButton = styled(IconButton)(({ theme }) => ({
+  position: 'absolute',
+  insetBlockStart: theme.spacing(1),
+  insetInlineEnd: theme.spacing(1),
+}))
+
 const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverContentProps): ReactElement | null => {
   const { t } = useTranslation()
   const [, setDialogVisible] = useLocalStorage<boolean>({
@@ -109,12 +115,10 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
       arrowAlignment={step.arrowAlignment ?? 'left'}
       offset={step.offset}>
       <Stack sx={{ padding: 2, gap: 2 }}>
-        <Stack direction='row' sx={{ alignItems: 'flex-start', gap: 1 }}>
-          <Stack sx={{ flex: 1 }}>{step.content}</Stack>
-          <IconButton onClick={closeTour} size='small' aria-label={t($ => $.common.close)}>
-            <CloseIcon fontSize='small' />
-          </IconButton>
-        </Stack>
+        <CloseButton onClick={closeTour} size='small' aria-label={t($ => $.common.close)}>
+          <CloseIcon fontSize='small' />
+        </CloseButton>
+        {step.content}
         <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
           <Typography
             variant='body3'
@@ -130,14 +134,17 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
             ))}
           </Stack>
         </Stack>
-        <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
-          <Button
-            size='small'
-            disabled={isFirstStep}
-            onClick={() => setCurrentStep(currentStep - 1)}
-            startIcon={<DirectionDependentBackIcon fontSize='small' />}>
-            {t($ => $.layout.previous)}
-          </Button>
+        <Stack
+          direction='row'
+          sx={{ alignItems: 'center', justifyContent: isFirstStep ? 'flex-end' : 'space-between' }}>
+          {!isFirstStep && (
+            <Button
+              size='small'
+              onClick={() => setCurrentStep(currentStep - 1)}
+              startIcon={<DirectionDependentBackIcon fontSize='small' />}>
+              {t($ => $.layout.previous)}
+            </Button>
+          )}
           <Button
             size='small'
             onClick={() => setCurrentStep(currentStep + 1)}
