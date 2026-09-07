@@ -49,10 +49,10 @@ describe('TourPopover', () => {
     expect(setCurrentStep).toHaveBeenCalledWith(0)
   })
 
-  it('should disable navigating back on the first step', () => {
-    const { getByText } = renderPopover(0)
+  it('should not show the back button on the first step', () => {
+    const { queryByText } = renderPopover(0)
 
-    expect(getByText('layout:previous').closest('button')).toBeDisabled()
+    expect(queryByText('layout:previous')).toBeNull()
   })
 
   it('should advance past the last step to finish the tour', () => {
