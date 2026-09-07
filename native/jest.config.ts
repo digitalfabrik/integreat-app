@@ -17,6 +17,13 @@ const transformNodeModules = [
   '@mhpdev/react-native-speech',
   'uuid',
   'qr',
+  'sanitize-html',
+  'htmlparser2',
+  'domhandler',
+  'domutils',
+  'dom-serializer',
+  'domelementtype',
+  'entities',
 ]
 process.env.TZ = 'Europe/Berlin'
 export default {
