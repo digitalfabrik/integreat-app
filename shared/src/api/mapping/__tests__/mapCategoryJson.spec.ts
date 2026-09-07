@@ -31,6 +31,7 @@ describe('categories', () => {
     last_updated: '2017-01-01T05:10:05+02:00',
     organization: null,
     embedded_offers: [],
+    slug_history: ['anlaufstellen-old', 'anlaufstellen'],
   }
   const categoryJson2 = {
     id: 404,
@@ -63,6 +64,7 @@ describe('categories', () => {
       logo: 'https://example.com/my-icon',
       website: 'https://example.com',
     },
+    slug_history: ['نقشه-شهر'],
     embedded_offers: [
       {
         alias: 'serlo-abc',
@@ -119,6 +121,7 @@ describe('categories', () => {
     lastUpdate: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
     organization: null,
     embeddedOffers: [],
+    slugHistory: ['anlaufstellen-old', 'anlaufstellen'],
   })
   const categoryModel2 = new CategoryModel({
     root: false,
@@ -136,6 +139,7 @@ describe('categories', () => {
       url: 'https://example.com',
     }),
     embeddedOffers: offerModels,
+    slugHistory: ['نقشه-شهر'],
   })
 
   it('should map json correctly', () => {

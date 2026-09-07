@@ -12,7 +12,6 @@ class CategoryModel extends ExtendedDocumentModel {
   _order: number
   _organization: OrganizationModel | null
   _embeddedOffers: OfferModel[]
-
   constructor(params: {
     root: boolean
     path: string
@@ -25,15 +24,19 @@ class CategoryModel extends ExtendedDocumentModel {
     lastUpdate: DateTime
     organization: OrganizationModel | null
     embeddedOffers: OfferModel[]
+    slugHistory: string[]
   }) {
-    const { order, parentPath, root, organization, embeddedOffers, ...other } = params
+    const { order, parentPath, root, organization, embeddedOffers, slugHistory, ...other } = params
     super(other)
     this._root = root
     this._parentPath = normalizePath(parentPath)
     this._order = order
     this._organization = organization
     this._embeddedOffers = embeddedOffers
+    this._slugHistory = slugHistory
   }
+
+  _slugHistory: string[]
 
   get embeddedOffers(): OfferModel[] {
     return this._embeddedOffers
@@ -53,6 +56,10 @@ class CategoryModel extends ExtendedDocumentModel {
 
   get organization(): OrganizationModel | null {
     return this._organization
+  }
+
+  get slugHistory(): string[] {
+    return this._slugHistory
   }
 
   isEqual(other: DocumentModel): boolean {

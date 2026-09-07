@@ -56,6 +56,7 @@ type ContentCategoryJsonType = {
   order: number
   organization: OrganizationJsonType | null
   embeddedOffers: OfferJsonType[]
+  slugHistory: string[]
 }
 
 type OfferJsonType = {
@@ -454,6 +455,7 @@ class DatabaseConnector {
         thumbnail: offer.thumbnail,
         path: offer.path,
       })),
+      slugHistory: category.slugHistory,
     }))
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
   }
@@ -491,6 +493,7 @@ class DatabaseConnector {
                     path: jsonOffer.path,
                   }),
               ),
+              slugHistory: jsonObject.slugHistory,
             }),
         ),
       )

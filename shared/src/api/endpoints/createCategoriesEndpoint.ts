@@ -34,6 +34,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
           lastUpdate: DateTime.fromMillis(0),
           organization: null,
           embeddedOffers: [],
+          slugHistory: [],
         }),
       )
       return new CategoriesMapModel(categories)

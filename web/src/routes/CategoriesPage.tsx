@@ -97,6 +97,7 @@ const useCategoryData = (
               lastUpdate: DateTime.fromMillis(0),
               organization: null,
               embeddedOffers: [],
+              slugHistory: [],
             }),
           ]
         : rawCategories,
