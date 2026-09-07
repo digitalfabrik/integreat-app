@@ -23,9 +23,11 @@ import { RegionRouteProps } from './index'
 const CenteredLink = styled(Link)({
   display: 'flex',
   justifyContent: 'center',
+  paddingBlock: 32,
 })
 
 const TuNewsImage = styled('img')({
+  objectFit: 'contain',
   width: 200,
   height: 64,
   borderRadius: 8,

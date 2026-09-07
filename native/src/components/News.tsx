@@ -43,7 +43,7 @@ const PngSourceLogo = styled(SimpleImage)`
 `
 
 const NewsSourceLink = styled(Pressable)`
-  padding-top: 16px;
+  padding-block: 32px;
 `
 
 const ListHeaderContainer = styled(View)`

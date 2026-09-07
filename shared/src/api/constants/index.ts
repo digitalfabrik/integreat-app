@@ -1,3 +1,5 @@
+import type { TFunction } from 'i18next'
+
 export const API_VERSION = 'v3'
 
 export const LOCAL_NEWS_SOURCE = 'local'
@@ -23,13 +25,13 @@ export const getNewsColor = ({ palette, source }: { palette: NewsColorPalette; s
 }
 
 type GetNewsSourceLabelProps = {
-  localNewsLabel: string
+  t: TFunction
   source: NewsSource
 }
 
-export const getNewsSourceLabel = ({ source, localNewsLabel }: GetNewsSourceLabelProps): string => {
+export const getNewsSourceLabel = ({ source, t }: GetNewsSourceLabelProps): string => {
   if (source === LOCAL_NEWS_SOURCE) {
-    return localNewsLabel
+    return t($ => $.news.local)
   }
   if (source === AMAL_NEWS_SOURCE) {
     return 'Amal News'
