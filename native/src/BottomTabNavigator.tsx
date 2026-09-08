@@ -56,8 +56,8 @@ const getActiveTabColor = (theme: DefaultTheme): string =>
 const ActiveIndicator = styled.View`
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 10%;
+  right: 10%;
   height: ${ACTIVE_TAB_HEIGHT}px;
   border-radius: 0 0 20px 20px;
   background-color: ${props => getActiveTabColor(props.theme)};
@@ -145,7 +145,7 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
       component={CategoriesStackScreen}
       options={{
         tabBarLabel: createTabLabel(t($ => $.layout.localInformationLabel)),
-        tabBarIcon: createTabIcon('home'),
+        tabBarIcon: createTabIcon('home-variant'),
         tabBarAccessibilityLabel: t($ => $.layout.localInformationLabel),
       }}
     />,
