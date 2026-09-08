@@ -1,7 +1,7 @@
 import CalendarTodayIcon from '@mui/icons-material/CalendarTodayOutlined'
-import MapIcon from '@mui/icons-material/MapOutlined'
-import NewspaperIcon from '@mui/icons-material/NewspaperOutlined'
-import SignpostIcon from '@mui/icons-material/SignpostOutlined'
+import FeedIcon from '@mui/icons-material/Feed'
+import HomeFilledIcon from '@mui/icons-material/HomeFilled'
+import MapIcon from '@mui/icons-material/Map'
 import SvgIcon from '@mui/material/SvgIcon'
 
 import {
@@ -36,9 +36,9 @@ const getNavigationItems = ({ regionModel, languageCode }: GetNavigationItemsPro
   const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, ...params })
 
   const items: (NavigationItem | null)[] = [
-    { value: CATEGORIES_ROUTE, to: categoriesPath, label: 'localInformationLabel', Icon: SignpostIcon },
+    { value: CATEGORIES_ROUTE, to: categoriesPath, label: 'localInformationLabel', Icon: HomeFilledIcon },
     placesEnabled ? { value: PLACES_ROUTE, to: placesPath, label: 'locations', Icon: MapIcon } : null,
-    newsEnabled ? { value: NEWS_ROUTE, to: newsPath, label: 'news', Icon: NewspaperIcon } : null,
+    newsEnabled ? { value: NEWS_ROUTE, to: newsPath, label: 'news', Icon: FeedIcon } : null,
     eventsEnabled ? { value: EVENTS_ROUTE, to: eventsPath, label: 'events', Icon: CalendarTodayIcon } : null,
   ]
   const validItems = items.filter((tab): tab is NavigationItem => tab !== null)
