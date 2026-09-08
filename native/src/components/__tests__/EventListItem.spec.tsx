@@ -3,6 +3,7 @@ import React from 'react'
 import { rrulestr } from 'rrule'
 
 import { DateModel, EventModelBuilder } from 'shared/api'
+import { mockT } from 'shared/testing'
 
 import render from '../../testing/render'
 import EventListItem from '../EventListItem'
@@ -22,7 +23,7 @@ describe('EventListItem', () => {
 
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.formatDateInterval(language))).toBeTruthy()
-    expect(getByText(event.date.formatTimeInterval(language, { allDayLabel: 'places:allDay' }))).toBeTruthy()
+    expect(getByText(event.date.formatTimeInterval(language, { t: mockT }))).toBeTruthy()
   })
 
   describe('date icon', () => {

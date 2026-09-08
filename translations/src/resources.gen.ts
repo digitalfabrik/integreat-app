@@ -133,7 +133,7 @@ const resources = {
     "selectRange": "Select Range",
     "outOfRangeError": "Date out of range",
     "furtherDates": "Further dates",
-    "startingFrom": "from {{date}}"
+    "untilDate": "until {{date}}"
   },
   "feedback": {
     "send": "Send",

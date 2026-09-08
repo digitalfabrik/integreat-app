@@ -131,7 +131,7 @@
     "selectRange": "Zeitraum auswählen",
     "outOfRangeError": "Datum außerhalb des Bereichs",
     "furtherDates": "Weitere Termine",
-    "startingFrom": "ab {{date}}"
+    "untilDate": "bis {{date}}"
   },
   "feedback": {
     "send": "Abschicken",
