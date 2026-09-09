@@ -158,7 +158,6 @@ const PlacesBottomSheet = ({
       index={snapPointIndex}
       isFullscreen={isFullscreen}
       snapPoints={snapPoints}
-      enableContentPanningGesture={Platform.OS !== 'ios'}
       enableDynamicSizing={false}
       animateOnMount
       backgroundStyle={{ backgroundColor: theme.colors.background }}
