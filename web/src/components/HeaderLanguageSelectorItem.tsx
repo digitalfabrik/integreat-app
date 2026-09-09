@@ -2,7 +2,7 @@ import TranslateOutlinedIcon from '@mui/icons-material/TranslateOutlined'
 import { drawerClasses } from '@mui/material/Drawer'
 import Popover from '@mui/material/Popover'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useEffect, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
@@ -37,7 +37,6 @@ const HeaderLanguageSelectorItem = ({
   const [anchorElement, setAnchorElement] = useState<HTMLButtonElement | null>(null)
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
   const { mobile, desktop } = useDimensions()
-  const previousLanguageCode = usePreviousProp({ prop: languageCode })
   const { t } = useTranslation()
   const [announcement, setAnnouncement] = useState('')
 
@@ -51,11 +50,13 @@ const HeaderLanguageSelectorItem = ({
   }
 
   const currentLanguageName = languageChangePaths.find(item => item.code === languageCode)?.name
-  useEffect(() => {
-    if (previousLanguageCode !== languageCode) {
-      setAnnouncement(t($ => $.layout.languageChanged, { name: currentLanguageName ?? languageCode }))
-    }
-  }, [previousLanguageCode, languageCode, currentLanguageName, t])
+  usePreviousProp({
+    prop: languageCode,
+    onPropChange: newCode => {
+      const name = languageChangePaths.find(item => item.code === newCode)?.name
+      setAnnouncement(t($ => $.layout.languageChanged, { name: name ?? newCode }))
+    },
+  })
 
   const LanguageSelectionButton = (
     <HeaderActionItem
