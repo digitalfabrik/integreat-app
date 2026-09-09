@@ -1,5 +1,5 @@
 import { styled, useTheme } from '@mui/material/styles'
-import maplibregl from 'maplibre-gl'
+import * as maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, {
   ForwardedRef,
@@ -129,16 +129,7 @@ const MapView = ({
       event.originalEvent.stopPropagation()
       const feature = event.features && (event.features[0] as unknown as MapFeature)
       if (feature && feature.layer.id === featureLayerId) {
-        selectFeature(
-          {
-            ...feature,
-            properties: {
-              // https://github.com/maplibre/maplibre-gl-js/issues/1325
-              places: JSON.parse(feature.properties.places as unknown as string),
-            },
-          },
-          false,
-        )
+        selectFeature({ ...feature, properties: { places: feature.properties.places } }, false)
       } else {
         selectFeature(null, false)
       }
@@ -184,7 +175,6 @@ const MapView = ({
   return (
     <MapContainer>
       <Map
-        mapLib={maplibregl}
         ref={updateMapRef}
         reuseMaps
         cursor={cursor}

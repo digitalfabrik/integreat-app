@@ -80,6 +80,9 @@ export default defineConfig(async configEnv => {
       __BUILD_CONFIG_NAME__: JSON.stringify(buildConfigName),
       __BUILD_CONFIG__: JSON.stringify(buildConfig),
     },
+    optimizeDeps: {
+      exclude: ['maplibre-gl'],
+    },
     preview: {
       open: true,
       port: 9001,
