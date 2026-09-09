@@ -29,7 +29,6 @@
     "luxon": "3.7.2",
     "@types/luxon": "3.7.1",
     "react": "19.2.8",
-    "qs": "6.15.3",
     "appium/ws": "8.21.3",
     "@appium/support/uuid": "13.0.1",
     "@browserstack/ai-sdk-node/uuid": "11.1.1",
