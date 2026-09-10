@@ -28,12 +28,8 @@ const LicenseItem = ({ license, name, url, version, author }: LicenseItemProps):
       secondary={
         <>
           <StyledParagraph>{author}</StyledParagraph>
-          <StyledParagraph>
-            {t($ => $.licenses.version)} {version}
-          </StyledParagraph>
-          <StyledParagraph>
-            {t($ => $.licenses.license)} {license}
-          </StyledParagraph>
+          {version && <StyledParagraph>{t($ => $.about.licenses.version, { version })}</StyledParagraph>}
+          <StyledParagraph>{t($ => $.about.licenses.license, { license })}</StyledParagraph>
         </>
       }
     />

@@ -47,7 +47,7 @@ describe('I18nProvider', () => {
       const { findByText } = render(
         <I18nProvider contentLanguage={contentLanguage}>
           <Translation>{(t, { i18n }) => <p>{i18n.languages[0]}</p>}</Translation>
-          <Translation>{(t: TFunction) => <p>{t($ => $.layout.localInformation)}</p>}</Translation>
+          <Translation>{(t: TFunction) => <p>{t($ => $.categories.title)}</p>}</Translation>
         </I18nProvider>,
       )
       expect(await findByText(expectedLanguage)).toBeTruthy()
@@ -124,7 +124,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['en'])
     const { findByText } = render(
       <I18nProvider contentLanguage={undefined}>
-        <Translation>{(t: TFunction) => <p>{t($ => $.layout.localInformation)}</p>}</Translation>
+        <Translation>{(t: TFunction) => <p>{t($ => $.categories.title)}</p>}</Translation>
       </I18nProvider>,
     )
     expect(await findByText('Lokale Informationen')).toBeTruthy()
@@ -134,7 +134,7 @@ describe('I18nProvider', () => {
     mockDetect.mockReturnValue(['zh'])
     const { findByText } = render(
       <I18nProvider contentLanguage={undefined}>
-        <Translation>{(t: TFunction) => <p>{t($ => $.layout.events)}</p>}</Translation>
+        <Translation>{(t: TFunction) => <p>{t($ => $.events.title)}</p>}</Translation>
       </I18nProvider>,
     )
     expect(await findByText('Veranstaltungen')).toBeTruthy()

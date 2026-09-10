@@ -62,30 +62,27 @@ const SuggestToRegionPage = ({ languageCode }: SuggestToRegionPageProps): ReactE
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
       <Stack sx={{ paddingBlock: 4, gap: 2 }}>
-        <H1>{t($ => $.suggestToRegion.callToAction)}</H1>
-        <Typography variant='body1'>{t($ => $.suggestToRegion.explanation)}</Typography>
+        <H1>{t($ => $.suggestToRegion.title, { appName: buildConfig().appName })}</H1>
+        <Typography variant='body1'>{t($ => $.suggestToRegion.description)}</Typography>
         <StyledSvg src={icon} width={160} height={160} />
         <Typography component='h2' variant='subtitle1'>
           {t($ => $.suggestToRegion.whatToDo)}
         </Typography>
         <Stepper orientation='vertical'>
-          <Step active>
-            <StepLabel>
-              <Typography>{t($ => $.suggestToRegion.findOutMail)}</Typography>
-            </StepLabel>
-          </Step>
-          <Step active>
-            <StepLabel>
-              <Typography>{t($ => $.suggestToRegion.sendText)}</Typography>
-            </StepLabel>
-          </Step>
+          {(['getEmail', 'copyText', 'fillPlaceholders', 'send'] as const).map(step => (
+            <Step key={step} active>
+              <StepLabel>
+                <Typography>{t($ => $.suggestToRegion.steps[step])}</Typography>
+              </StepLabel>
+            </Step>
+          ))}
         </Stepper>
         <Stack>
           <StyledButton
             onClick={copyToClipboard}
             startIcon={isCopied ? <DoneIcon /> : <CopyIcon />}
             variant='contained'>
-            {isCopied ? t($ => $.common.copied) : t($ => $.suggestToRegion.copyText)}
+            {isCopied ? t($ => $.common.state.copied) : t($ => $.common.actions.copy)}
           </StyledButton>
           <TemplateText dir='ltr'>{template}</TemplateText>
         </Stack>

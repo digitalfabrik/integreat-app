@@ -1,13 +1,15 @@
 import { TFunction } from 'i18next'
 
 export const mockT = ((selector: (proxy: unknown) => unknown) => {
-  let lastKey = ''
+  const path: string[] = []
   const proxy: unknown = new Proxy(() => undefined, {
     get: (_, prop) => {
-      lastKey = String(prop)
+      if (typeof prop === 'string') {
+        path.push(prop)
+      }
       return proxy
     },
   })
   selector(proxy)
-  return lastKey
+  return path.join('.')
 }) as unknown as TFunction

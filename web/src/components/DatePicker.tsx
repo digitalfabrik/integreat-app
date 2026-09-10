@@ -28,7 +28,7 @@ const DatePicker = ({ title, date, setDate, error, calendarLabel }: CustomDatePi
   const { t } = useTranslation()
   const [validationError, setValidationError] = useState<DateValidationError | null>(null)
   const { languageCode } = useRegionContentParams()
-  const errorMessage = error ?? (validationError ? t($ => $.events.invalidDate) : null)
+  const errorMessage = error ?? (validationError ? t($ => $.events.filter.error.invalidDate) : null)
   const muiLocaleText = getDatePickerLocaleText(languageCode)
   const currentTheme = useTheme()
   const directionAdjustedTheme = muiLocaleText ? currentTheme : { ...currentTheme, direction: 'ltr' }

@@ -27,12 +27,12 @@ export const TimeStamp = ({ lastUpdate, showText = true, format = 'DDD' }: TimeS
     },
   })
 
+  const formattedDate = lastUpdate.setLocale(i18n.language).toFormat(format)
+
   return (
     <DirectionContainer language={i18n.language}>
       <Text variant='caption' style={styles.timeStampText}>
-        {showText && t($ => $.common.lastUpdate)}
-        {showText && ' '}
-        {lastUpdate.setLocale(i18n.language).toFormat(format)}
+        {showText ? t($ => $.common.state.updatedAt, { date: formattedDate }) : formattedDate}
       </Text>
     </DirectionContainer>
   )

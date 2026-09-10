@@ -35,10 +35,10 @@ const MapZoomControls = ({ mapViewRef }: MapZoomControlsProps): ReactElement => 
 
   return (
     <Stack sx={{ gap: 1 }}>
-      <StyledIconButton onClick={mapViewRef.zoomIn} aria-label={t($ => $.places.zoomIn)}>
+      <StyledIconButton onClick={mapViewRef.zoomIn} aria-label={t($ => $.places.zoom.in)}>
         <AddIcon />
       </StyledIconButton>
-      <StyledIconButton onClick={mapViewRef.zoomOut} aria-label={t($ => $.places.zoomOut)}>
+      <StyledIconButton onClick={mapViewRef.zoomOut} aria-label={t($ => $.places.zoom.out)}>
         <RemoveIcon />
       </StyledIconButton>
     </Stack>

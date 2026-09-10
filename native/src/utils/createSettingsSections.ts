@@ -47,8 +47,8 @@ const createSettingsSections = ({
   clearResourcesAndCache,
 }: CreateSettingsSectionsProps): (SettingsSectionType | null)[] => [
   {
-    title: t($ => $.settings.pushNewsTitle),
-    description: t($ => $.settings.pushNewsDescription),
+    title: t($ => $.settings.pushNotifications.title),
+    description: t($ => $.settings.pushNotifications.description),
     getSettingValue: (settings: SettingsType) => settings.allowPushNotifications,
     onPress: async () => {
       const newAllowPushNotifications = !settings.allowPushNotifications
@@ -76,7 +76,7 @@ const createSettingsSections = ({
         showSnackbar({
           text: t($ => $.error.permissionRequired),
           action: {
-            label: t($ => $.layout.settings),
+            label: t($ => $.settings.title),
             onPress: openSettings,
           },
         })
@@ -84,8 +84,8 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t($ => $.layout.contrastTheme),
-    description: t($ => $.layout.contrastThemeDescription),
+    title: t($ => $.settings.contrast.title),
+    description: t($ => $.settings.contrast.description),
     getSettingValue: (settings: SettingsType) => settings.selectedTheme === 'contrast',
     onPress: () => {
       const newTheme: ThemeType = settings.selectedTheme === 'light' ? 'contrast' : 'light'
@@ -93,8 +93,8 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t($ => $.settings.sentryTitle),
-    description: t($ => $.settings.sentryDescription, { appName: buildConfig().appName }),
+    title: t($ => $.settings.sentry.title),
+    description: t($ => $.settings.sentry.description, { appName: buildConfig().appName }),
     getSettingValue: (settings: SettingsType) => settings.errorTracking,
     onPress: async () => {
       const newErrorTracking = !settings.errorTracking
@@ -109,18 +109,18 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t($ => $.settings.externalResourcesTitle),
-    description: t($ => $.settings.externalResourcesDescription),
+    title: t($ => $.settings.externalSources.title),
+    description: t($ => $.settings.externalSources.descriptionShort),
     onPress: () => navigation.navigate(CONSENT_ROUTE),
   },
   {
     role: 'link',
-    title: t($ => $.layout.imprint),
+    title: t($ => $.about.imprint),
     onPress: () => navigation.navigate(settings.selectedCity ? IMPRINT_ROUTE : MAIN_IMPRINT_ROUTE),
   },
   {
     role: 'link',
-    title: t($ => $.settings.aboutUs),
+    title: t($ => $.about.aboutUs),
     onPress: async () => {
       const { aboutUrls } = buildConfig()
       const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
@@ -129,7 +129,7 @@ const createSettingsSections = ({
   },
   {
     role: 'link',
-    title: t($ => $.settings.privacyPolicy),
+    title: t($ => $.common.privacy.title),
     onPress: async () => {
       const { privacyUrls } = buildConfig()
       const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
@@ -138,7 +138,7 @@ const createSettingsSections = ({
   },
   {
     role: 'link',
-    title: t($ => $.layout.accessibility),
+    title: t($ => $.about.accessibility),
     onPress: async () => {
       const { accessibilityUrls } = buildConfig()
       const accessibilityUrl = accessibilityUrls[languageCode] ?? accessibilityUrls.default
@@ -146,7 +146,7 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t($ => $.settings.openSourceLicenses),
+    title: t($ => $.about.licenses.title),
     onPress: () => navigation.navigate(LICENSES_ROUTE),
   },
   {
@@ -158,7 +158,7 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t($ => $.settings.version, { version: NativeConstants.appVersion ?? '1.0.0' }),
+    title: t($ => $.about.licenses.version, { version: NativeConstants.appVersion ?? '1.0.0' }),
     onPress: () => {
       volatileValues.versionTaps += 1
 

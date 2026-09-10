@@ -13,17 +13,15 @@ type LanguageNotAvailableMessageProps = {
 const LanguageNotAvailableMessage = ({
   feedbackAvailable = false,
   close,
-}: LanguageNotAvailableMessageProps): ReactElement => (
-  <Trans ns='layout' i18nKey={$ => $.layout.languageNotAvailableMessage}>
-    This gets replaced
-    {feedbackAvailable ? (
-      <Link to={`?${toQueryParams({ feedback: RATING_NEGATIVE })}`} onClick={close} highlighted>
-        by react-i18next
-      </Link>
-    ) : (
-      <span>by react-i18next</span>
-    )}
-  </Trans>
-)
+}: LanguageNotAvailableMessageProps): ReactElement => {
+  const to = `?${toQueryParams({ feedback: RATING_NEGATIVE })}`
+  return (
+    <Trans
+      ns='languages'
+      i18nKey={$ => $.languages.error.notFound.description}
+      components={{ Link: feedbackAvailable ? <Link to={to} onClick={close} highlighted /> : <span /> }}
+    />
+  )
+}
 
 export default LanguageNotAvailableMessage

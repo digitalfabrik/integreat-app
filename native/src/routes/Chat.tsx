@@ -62,7 +62,7 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
   const menuItems = [
     <HeaderMenuItem
       key='newChat'
-      title={t($ => $.chat.newChat)}
+      title={t($ => $.chat.startNew.title)}
       onPress={() => {
         setMenuVisible(false)
         setNewChatConfirmationVisible(true)
@@ -103,16 +103,16 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
       <AlertDialog
         visible={newChatConfirmationVisible}
         close={() => setNewChatConfirmationVisible(false)}
-        title={t($ => $.chat.newChat)}
+        title={t($ => $.chat.startNew.title)}
         actions={[
           <Button key='cancel' onPress={() => setNewChatConfirmationVisible(false)} mode='outlined' style={{ flex: 1 }}>
-            {t($ => $.layout.cancel)}
+            {t($ => $.common.actions.cancel)}
           </Button>,
           <Button key='confirm' onPress={createNewChat} mode='contained' style={{ flex: 3 }}>
-            {t($ => $.chat.newChat)}
+            {t($ => $.chat.startNew.title)}
           </Button>,
         ]}>
-        <Text>{t($ => $.chat.newChatConfirmation)}</Text>
+        <Text>{t($ => $.chat.startNew.description)}</Text>
       </AlertDialog>
     </>
   )

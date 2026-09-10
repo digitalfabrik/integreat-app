@@ -39,8 +39,8 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
   const menuItems = isPdfUrl
     ? [
         <Menu.Item
-          key={t($ => $.layout.openExternal)}
-          title={t($ => $.layout.openExternal)}
+          key={t($ => $.common.actions.openExternal)}
+          title={t($ => $.common.actions.openExternal)}
           onPress={shareUrl ? () => openExternalUrl(shareUrl) : undefined}
           style={{ backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface }}
         />,

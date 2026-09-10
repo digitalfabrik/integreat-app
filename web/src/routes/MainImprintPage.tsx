@@ -13,7 +13,7 @@ type MainImprintPageProps = { languageCode: string }
 const MainImprintPage = ({ languageCode }: MainImprintPageProps): ReactElement => {
   const { t } = useTranslation()
 
-  const pageTitle = t($ => $.mainImprint.pageTitle, { appName: buildConfig().appName })
+  const pageTitle = t($ => $.about.imprint, { appName: buildConfig().appName })
 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>

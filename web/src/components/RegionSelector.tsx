@@ -45,15 +45,15 @@ const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): Re
 
   return (
     <Stack sx={{ maxWidth: 640, paddingTop: 4, gap: 2 }}>
-      <H1>{t($ => $.regions.welcome, { appName: buildConfig().appName })}</H1>
-      <Typography variant='body1'>{t($ => $.regions.welcomeInformation)}</Typography>
+      <H1>{t($ => $.regions.title, { appName: buildConfig().appName })}</H1>
+      <Typography variant='body1'>{t($ => $.regions.description)}</Typography>
       <SearchInput
         id='search-region'
-        ariaLabel={t($ => $.regions.searchRegion)}
+        ariaLabel={t($ => $.regions.search.region)}
         filterText={filterText}
         placeholderText={exampleRegion?.sortingName ?? REGION_SEARCH_EXAMPLE}
         onFilterTextChange={setFilterText}
-        description={t($ => $.regions.searchRegionDescription, {
+        description={t($ => $.regions.search.description, {
           exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE,
         })}
         autoFocus
@@ -63,9 +63,9 @@ const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): Re
       ) : (
         <Stack>
           <Typography variant='subtitle1' aria-live={resultRegions.length === 0 ? 'assertive' : 'polite'}>
-            {t($ => $.search.searchResultsCount, { count: resultRegions.length })}
+            {t($ => $.search.resultCount, { count: resultRegions.length })}
           </Typography>
-          <List items={groups} noItemsMessage={t($ => $.search.nothingFound)} />
+          <List items={groups} />
         </Stack>
       )}
     </Stack>

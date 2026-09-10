@@ -1,5 +1,4 @@
 import CloseIcon from '@mui/icons-material/Close'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Drawer, { drawerClasses } from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
@@ -35,7 +34,7 @@ type SidebarProps = {
   open: boolean
   setOpen: (show: boolean) => void
   footer?: ReactNode
-  openButton?: ReactElement
+  openButton: ReactElement
   className?: string
 }
 
@@ -49,14 +48,7 @@ const Sidebar = ({ children, open, setOpen, footer, openButton, className }: Sid
 
   return (
     <>
-      {openButton ?? (
-        <IconButton
-          onClick={() => setOpen(true)}
-          aria-label={t($ => $.layout.sideBarOpenAriaLabel)}
-          aria-expanded={open}>
-          <MoreVertIcon />
-        </IconButton>
-      )}
+      {openButton}
       <StyledDrawer
         open={open}
         onClose={() => setOpen(false)}
@@ -69,7 +61,7 @@ const Sidebar = ({ children, open, setOpen, footer, openButton, className }: Sid
         disableRestoreFocus>
         <Header>
           <Stack sx={{ minHeight: headerHeight, justifyContent: 'center', alignItems: 'flex-end', paddingInline: 1 }}>
-            <IconButton onClick={() => setOpen(false)} aria-label={t($ => $.layout.sideBarCloseAriaLabel)}>
+            <IconButton onClick={() => setOpen(false)} aria-label={t($ => $.common.actions.close)}>
               <CloseIcon />
             </IconButton>
           </Stack>

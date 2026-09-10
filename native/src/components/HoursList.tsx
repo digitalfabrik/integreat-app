@@ -21,7 +21,7 @@ const HoursList = ({ hours, appointmentUrl }: HoursListProps): ReactElement => {
         <OpeningHoursListItem
           key={weekdays[index]}
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          weekday={t($ => $.places[weekdays[index]!])}
+          weekday={t($ => $.places.weekdays[weekdays[index]!])}
           isCurrentDay={index === DateTime.now().weekday - 1}
           appointmentUrl={appointmentUrl}
           openingHours={openingHours}

@@ -127,7 +127,7 @@ const MalteHelpForm = ({
         />
         <TextField
           id='roomNumber'
-          label={`${t($ => $.malteHelpForm.roomNumber)} (${t($ => $.common.optional)})`}
+          label={`${t($ => $.malteHelpForm.roomNumber)} (${t($ => $.common.state.optional)})`}
           fullWidth
           value={roomNumber}
           onChange={event => setRoomNumber(event.target.value)}
@@ -187,7 +187,7 @@ const MalteHelpForm = ({
             checked={privacyPolicyAccepted}
             setChecked={setPrivacyPolicyAccepted}
           />
-          {submitted && !privacyPolicyAccepted && <FormHelperText>{t($ => $.common.notePrivacyPolicy)}</FormHelperText>}
+          {submitted && !privacyPolicyAccepted && <FormHelperText>{t($ => $.common.privacy.required)}</FormHelperText>}
         </FormControl>
         <Stack sx={{ height: 1 }} />
         <Button type='submit' startIcon={<SendIcon />} variant='contained'>
@@ -206,7 +206,7 @@ const MalteHelpForm = ({
         }
         action={
           <Button component={Link} to={dashboardRoute} size='small'>
-            {t($ => $.error.goTo.categories)}
+            {t($ => $.common.actions.back)}
           </Button>
         }
       />

@@ -75,19 +75,14 @@ const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): Re
           <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
             <ChatLogoAvatar size={AVATAR_SIZE} />
             <Typography variant='body2' sx={{ flex: 1 }}>
-              {t($ => $.chat.welcomeGreeting)} 👋
+              {t($ => $.chat.welcome.title)} 👋
             </Typography>
-            <IconButton onClick={() => setVisible(false)} size='small' aria-label={t($ => $.common.close)}>
+            <IconButton onClick={() => setVisible(false)} size='small' aria-label={t($ => $.common.actions.close)}>
               <CloseIcon fontSize='small' />
             </IconButton>
           </Stack>
           <Typography variant='body2'>
-            <Trans
-              ns='chat'
-              i18nKey={$ => $.chat.welcomeText}
-              values={{ name: chatName }}
-              components={{ strong: <strong /> }}
-            />
+            <Trans ns='chat' i18nKey={$ => $.chat.welcome.description} values={{ name: chatName }} />
           </Typography>
         </Stack>
       </StyledPaper>

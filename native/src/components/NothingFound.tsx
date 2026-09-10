@@ -30,7 +30,7 @@ const NothingFound = ({ paddingTop = false }: NothingFoundProps): ReactElement =
           padding: 12,
           paddingHorizontal: 28,
         }}>
-        {t($ => $.search.nothingFound)}
+        {t($ => $.error.nothingFound)}
       </Text>
     </Container>
   )

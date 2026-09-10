@@ -54,7 +54,7 @@ const SettingsItemValue = ({ value, hasBadge, onPress }: SettingItemValueProps):
     return (
       <BadgeContainer>
         <Badge enabled={value} />
-        <Text> {value ? t($ => $.settings.enabled) : t($ => $.settings.disabled)}</Text>
+        <Text> {value ? t($ => $.common.state.enabled) : t($ => $.common.state.disabled)}</Text>
       </BadgeContainer>
     )
   }
