@@ -35,7 +35,7 @@ const TypingIndicator = ({ isVisible }: TypingIndicatorProps): ReactElement | nu
   const { t } = useTranslation()
   return isVisible ? (
     <InnerChatMessage userIsAuthor={false} showAvatar isAutomaticAnswer>
-      <DotsWrapper aria-label={t($ => $.chat.generateAnswer)}>
+      <DotsWrapper aria-label={t($ => $.chat.typing)}>
         <Dot />
         <Dot />
         <Dot />

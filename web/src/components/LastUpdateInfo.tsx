@@ -17,9 +17,10 @@ export const LastUpdateInfo = ({
   format = 'DDD',
 }: LastUpdateInfoProps): ReactElement => {
   const { i18n, t } = useTranslation()
+  const formattedDate = lastUpdate.setLocale(i18n.language).toFormat(format)
   return (
     <Typography variant='caption' className={className}>
-      {withText && t($ => $.common.lastUpdate)} {lastUpdate.setLocale(i18n.language).toFormat(format)}
+      {withText ? t($ => $.common.state.updatedAt, { date: formattedDate }) : formattedDate}
     </Typography>
   )
 }

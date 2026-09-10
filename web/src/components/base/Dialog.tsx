@@ -73,7 +73,9 @@ const Dialog = ({
         <Stack
           direction={desktop ? 'row-reverse' : 'row'}
           sx={{ alignItems: 'center', justifyContent: desktop ? 'space-between' : undefined, marginInline: 1 }}>
-          <IconButton aria-label={t($ => (minimize ? $.common.minimize : $.common.close))} onClick={close}>
+          <IconButton
+            aria-label={t($ => (minimize ? $.common.actions.minimize : $.common.actions.close))}
+            onClick={close}>
             {desktop ? closeIcon : <DirectionDependentBackIcon />}
           </IconButton>
           {desktop && Actions}

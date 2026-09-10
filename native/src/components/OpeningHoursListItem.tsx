@@ -48,10 +48,10 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
       <Text variant={isCurrentDay ? 'h6' : 'body2'}>{weekday}</Text>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {(openingHours.openAllDay as boolean) && (
-          <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t($ => $.places.allDay)}</Text>
+          <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t($ => $.places.hours.allDay)}</Text>
         )}
         {(openingHours.closedAllDay as boolean) && (
-          <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t($ => $.places.closed)}</Text>
+          <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t($ => $.places.hours.closed)}</Text>
         )}
         {!(openingHours.openAllDay as boolean) &&
           !(openingHours.closedAllDay as boolean) &&
@@ -74,7 +74,7 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
                 style={{ height: 24, width: 24 }}
                 size={18}
                 source='alert-circle-outline'
-                label={t($ => $.places.appointmentNecessary)}
+                label={t($ => $.places.hours.appointment.required)}
               />
             </TouchableRipple>
 

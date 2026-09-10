@@ -52,7 +52,7 @@ const SearchListItem = ({ language, title, contentWithoutHtml, query, path }: Se
       description={excerpt.length > 0 ? <Highlighter search={query} text={excerpt} /> : undefined}
       onPress={() => navigateTo(routeInformation)}
       role='link'
-      accessibilityHint={t($ => $.search.itemHint)}
+      accessibilityHint={t($ => $.search.viewResult)}
       accessibilityLanguage={language}
       style={styles.ListItemStyle}
     />

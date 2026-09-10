@@ -288,7 +288,13 @@ const resources = {
       "show_two": "Show {{count}} places",
       "show_few": "Show {{count}} places",
       "show_many": "Show {{count}} places",
-      "show_other": "Show {{count}} places"
+      "show_other": "Show {{count}} places",
+      "placeCount_zero": "0 places",
+      "placeCount_one": "1 place",
+      "placeCount_two": "{{count}} places",
+      "placeCount_few": "{{count}} places",
+      "placeCount_many": "{{count}} places",
+      "placeCount_other": "{{count}} places"
     },
     "hours": {
       "title": "Opening hours",
@@ -324,7 +330,7 @@ const resources = {
       "description": "Choose your region or the next largest region, e.g. {{exampleRegion}}"
     },
     "nearby": {
-      "none": "No nearby region.",
+      "nothingFound": "No nearby region.",
       "refresh": "Refresh nearby regions"
     }
   },
@@ -404,12 +410,10 @@ const resources = {
     "nearby": "Near you",
     "show": "Show your own location",
     "loading": "Determining location…",
-    "error": {
-      "locationAccessRequired": "To display nearby regions, location access must be enabled.",
-      "noPermission": "Location access required",
-      "disabled": "Location services are disabled",
-      "timeout": "Location not found"
-    }
+    "locationAccessRequired": "To display nearby regions, location access must be enabled.",
+    "noPermission": "Location access required",
+    "notAvailable": "Location services are disabled",
+    "timeout": "Location not found"
   },
   "tts": {
     "title": "Read aloud",

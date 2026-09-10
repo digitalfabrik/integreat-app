@@ -38,20 +38,14 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
         </Stack>
         <Stack>
           <Typography variant='subtitle1'>
-            {t($ => $.categories.organizationContent, { organization: organization.name })}
+            {t($ => $.categories.organization.title, { organization: organization.name })}
           </Typography>
           <Typography variant='body2'>
             <Trans
               ns='categories'
-              i18nKey={$ => $.categories.organizationMoreInformation}
-              components={{
-                1: <span>{organization.name}</span>,
-                3: (
-                  <Link to={organization.url} highlighted>
-                    {new URL(organization.url).hostname}
-                  </Link>
-                ),
-              }}
+              i18nKey={$ => $.categories.organization.description}
+              values={{ organization: organization.name, domain: new URL(organization.url).hostname }}
+              components={{ Link: <Link to={organization.url} highlighted /> }}
             />
           </Typography>
         </Stack>

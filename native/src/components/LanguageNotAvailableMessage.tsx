@@ -40,10 +40,13 @@ const LanguageNotAvailableMessage = ({
 
   return (
     <Text>
-      <Trans ns='layout' i18nKey={$ => $.layout.languageNotAvailableMessage}>
-        This gets replaced
-        {canGiveFeedback ? <Link onPress={navigateToFeedback}>by react-i18next</Link> : <Text>by react-i18next</Text>}
-      </Trans>
+      <Trans
+        ns='languages'
+        i18nKey={$ => $.languages.error.notFound.description}
+        components={{
+          Link: canGiveFeedback ? <Link onPress={navigateToFeedback}>feedback</Link> : <Text>feedback</Text>,
+        }}
+      />
     </Text>
   )
 }

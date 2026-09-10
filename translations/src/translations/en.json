@@ -286,7 +286,13 @@
       "show_two": "Show {{count}} places",
       "show_few": "Show {{count}} places",
       "show_many": "Show {{count}} places",
-      "show_other": "Show {{count}} places"
+      "show_other": "Show {{count}} places",
+      "placeCount_zero": "0 places",
+      "placeCount_one": "1 place",
+      "placeCount_two": "{{count}} places",
+      "placeCount_few": "{{count}} places",
+      "placeCount_many": "{{count}} places",
+      "placeCount_other": "{{count}} places"
     },
     "hours": {
       "title": "Opening hours",

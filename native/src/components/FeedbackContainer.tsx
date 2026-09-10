@@ -101,15 +101,15 @@ const FeedbackContainer = ({
       <>
         <Text variant='h6'>
           {language === fallbackLanguage
-            ? t($ => $.feedback.noResultsInUserLanguage)
-            : t($ => $.feedback.noResultsInUserAndSourceLanguage)}
+            ? t($ => $.feedback.search.noResultsInUserLanguage)
+            : t($ => $.feedback.search.noResultsInUserAndSourceLanguage)}
         </Text>
-        <Text>{t($ => $.feedback.checkQuery, { appName: buildConfig().appName })}</Text>
+        <Text>{t($ => $.feedback.search.checkQuery, { appName: buildConfig().appName })}</Text>
         <Text variant='h6' style={{ marginTop: 8, textAlign: 'center' }}>
-          {t($ => $.feedback.informationMissing)}
+          {t($ => $.feedback.search.informationMissing)}
         </Text>
         <Button mode='outlined' onPress={() => setShowFeedback(true)}>
-          {t($ => $.feedback.giveFeedback)}
+          {t($ => $.feedback.give)}
         </Button>
       </>
     </Container>

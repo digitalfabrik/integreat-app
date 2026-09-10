@@ -286,7 +286,13 @@
       "show_two": "{{count}} Orte anzeigen",
       "show_few": "{{count}} Orte anzeigen",
       "show_many": "{{count}} Orte anzeigen",
-      "show_other": "{{count}} Orte anzeigen"
+      "show_other": "{{count}} Orte anzeigen",
+      "placeCount_zero": "0 Orte",
+      "placeCount_one": "1 Ort",
+      "placeCount_two": "{{count}} Orte",
+      "placeCount_few": "{{count}} Orte",
+      "placeCount_many": "{{count}} Orte",
+      "placeCount_other": "{{count}} Orte"
     },
     "hours": {
       "title": "Öffnungszeiten",
