@@ -26,11 +26,11 @@ describe('PlaceFiltersOverlayButtons', () => {
   it('should show buttons', () => {
     const { getByText } = renderPlaceFiltersOverlayButtons(placeCategory, true)
 
-    fireEvent.click(getByText('places:adjustFilters'))
+    fireEvent.click(getByText('places:filter.adjust'))
     expect(setShowFilterSelection).toHaveBeenCalledTimes(1)
     expect(setShowFilterSelection).toHaveBeenCalledWith(true)
 
-    fireEvent.click(getByText('places:opened'))
+    fireEvent.click(getByText('places:hours.open'))
     expect(setCurrentlyOpenFilter).toHaveBeenCalledTimes(1)
     expect(setCurrentlyOpenFilter).toHaveBeenCalledWith(false)
 
@@ -42,8 +42,8 @@ describe('PlaceFiltersOverlayButtons', () => {
   it('should only show open place filter button', () => {
     const { getByText, queryByText } = renderPlaceFiltersOverlayButtons(undefined, false)
 
-    expect(getByText('places:adjustFilters')).toBeTruthy()
-    expect(queryByText('places:opened')).toBeFalsy()
+    expect(getByText('places:filter.adjust')).toBeTruthy()
+    expect(queryByText('places:hours.open')).toBeFalsy()
     expect(queryByText(placeCategory.name)).toBeFalsy()
   })
 })

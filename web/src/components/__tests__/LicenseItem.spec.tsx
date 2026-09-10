@@ -16,8 +16,8 @@ describe('LicenseItem', () => {
     const { getByText } = renderWithTheme(<LicenseItem {...defaultProps} />)
     expect(getByText('react')).toBeTruthy()
     expect(getByText('Meta Platforms, Inc.')).toBeTruthy()
-    expect(getByText('licenses:version 18.2.0')).toBeTruthy()
-    expect(getByText('licenses:license MIT')).toBeTruthy()
+    expect(getByText('about:licenses.version')).toBeTruthy()
+    expect(getByText('about:licenses.license')).toBeTruthy()
   })
 
   it('should render as a link when url is provided', () => {

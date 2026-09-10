@@ -62,12 +62,12 @@ describe('LanguageSelection', () => {
   it('should open unavailable dialog if language is neither available nor selected', () => {
     const { getByText, queryByText } = renderLanguageSelection()
 
-    expect(queryByText('layout:noTranslation')).toBeNull()
+    expect(queryByText('languages:error.noTranslation')).toBeNull()
 
     fireEvent.press(getByText(unavailableLanguage.name))
 
     expect(navigation.goBack).not.toHaveBeenCalled()
     expect(changeLanguageCode).not.toHaveBeenCalled()
-    expect(getByText('layout:noTranslation')).toBeTruthy()
+    expect(getByText('languages:error.noTranslation')).toBeTruthy()
   })
 })

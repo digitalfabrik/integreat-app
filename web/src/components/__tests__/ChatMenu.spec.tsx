@@ -11,28 +11,28 @@ describe('ChatMenu', () => {
   it('should open menu on icon button click', () => {
     const { getByLabelText, getByText } = renderWithTheme(<ChatMenu chatId='123' resetChat={updateChatId} />)
 
-    const menuButton = getByLabelText('chat:chatOptions')
+    const menuButton = getByLabelText('common:labels.menu')
     fireEvent.click(menuButton)
 
-    expect(getByText('chat:newChat')).toBeTruthy()
+    expect(getByText('chat:startNew.title')).toBeTruthy()
   })
 
   it('should disable new chat button when chatId is null', () => {
     const { getByLabelText, getByText } = renderWithTheme(<ChatMenu chatId={null} resetChat={updateChatId} />)
 
-    const menuButton = getByLabelText('chat:chatOptions')
+    const menuButton = getByLabelText('common:labels.menu')
     fireEvent.click(menuButton)
 
-    expect(getByText('chat:newChat').closest('li')).toHaveClass('Mui-disabled')
+    expect(getByText('chat:startNew.title').closest('li')).toHaveClass('Mui-disabled')
   })
 
   it('should show confirmation dialog when new chat is clicked', () => {
     const { getByLabelText, getByText } = renderWithTheme(<ChatMenu chatId='123' resetChat={updateChatId} />)
 
-    fireEvent.click(getByLabelText('chat:chatOptions'))
-    fireEvent.click(getByText('chat:newChat'))
+    fireEvent.click(getByLabelText('common:labels.menu'))
+    fireEvent.click(getByText('chat:startNew.title'))
 
-    expect(getByText('chat:newChatConfirmation')).toBeTruthy()
+    expect(getByText('chat:startNew.description')).toBeTruthy()
   })
 
   it('should close dialog on cancel', () => {
@@ -40,12 +40,12 @@ describe('ChatMenu', () => {
       <ChatMenu chatId='123' resetChat={updateChatId} />,
     )
 
-    fireEvent.click(getByLabelText('chat:chatOptions'))
-    fireEvent.click(getByText('chat:newChat'))
-    expect(queryByText('chat:newChatConfirmation')).toBeTruthy()
+    fireEvent.click(getByLabelText('common:labels.menu'))
+    fireEvent.click(getByText('chat:startNew.title'))
+    expect(queryByText('chat:startNew.description')).toBeTruthy()
 
-    fireEvent.click(getByText('layout:cancel'))
-    expect(queryByText('chat:newChatConfirmation')).toBeFalsy()
+    fireEvent.click(getByText('common:actions.cancel'))
+    expect(queryByText('chat:startNew.description')).toBeFalsy()
     expect(updateChatId).not.toHaveBeenCalled()
   })
 
@@ -54,11 +54,11 @@ describe('ChatMenu', () => {
       <ChatMenu chatId='123' resetChat={updateChatId} />,
     )
 
-    fireEvent.click(getByLabelText('chat:chatOptions'))
-    fireEvent.click(getByText('chat:newChat'))
-    fireEvent.click(getByRole('button', { name: 'chat:newChat' }))
+    fireEvent.click(getByLabelText('common:labels.menu'))
+    fireEvent.click(getByText('chat:startNew.title'))
+    fireEvent.click(getByRole('button', { name: 'chat:startNew.title' }))
 
     expect(updateChatId).toHaveBeenCalled()
-    expect(queryByText('chat:newChatConfirmation')).toBeFalsy()
+    expect(queryByText('chat:startNew.description')).toBeFalsy()
   })
 })

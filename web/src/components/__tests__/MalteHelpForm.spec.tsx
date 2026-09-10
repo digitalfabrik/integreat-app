@@ -14,7 +14,7 @@ jest.mock('shared/api', () => ({
 const submitButtonLabel = 'malteHelpForm:submit'
 const nameInputLabel = 'malteHelpForm:name'
 const name = 'Doe, Jane'
-const roomNumberInputLabel = 'malteHelpForm:roomNumber (common:optional)'
+const roomNumberInputLabel = 'malteHelpForm:roomNumber (common:state.optional)'
 const roomNumber = '42'
 const emailInputLabel = 'malteHelpForm:eMail'
 const email = 'testEmail@tuerantuer.org'
@@ -64,7 +64,7 @@ describe('MalteHelpForm', () => {
 
     const messageInput = getByLabelText(messageInputLabel, { exact: false })
     fireEvent.change(messageInput, { target: { value: message } })
-    fireEvent.click(getByText('common:privacyPolicy'))
+    fireEvent.click(getByText('common:privacy.confirmation'))
 
     fireEvent.click(submitButton)
     expect(submitMalteHelpForm).toHaveBeenCalledWith(
@@ -100,7 +100,7 @@ describe('MalteHelpForm', () => {
 
     const phoneInput = getAllByLabelText(phoneInputLabel, { exact: false })[1]!
     fireEvent.change(phoneInput, { target: { value: phoneNumber } })
-    fireEvent.click(getByText('common:privacyPolicy'))
+    fireEvent.click(getByText('common:privacy.confirmation'))
 
     const messageInput = getByLabelText(messageInputLabel, { exact: false })
     fireEvent.change(messageInput, { target: { value: message } })
@@ -136,7 +136,7 @@ describe('MalteHelpForm', () => {
     expect(personalContactButton).not.toBeChecked()
     fireEvent.click(personalContactButton)
     expect(personalContactButton).toBeChecked()
-    fireEvent.click(getByText('common:privacyPolicy'))
+    fireEvent.click(getByText('common:privacy.confirmation'))
 
     const messageInput = getByLabelText(messageInputLabel, { exact: false })
     fireEvent.change(messageInput, { target: { value: message } })
@@ -172,7 +172,7 @@ describe('MalteHelpForm', () => {
     expect(personalContactButton).not.toBeChecked()
     fireEvent.click(personalContactButton)
     expect(personalContactButton).toBeChecked()
-    fireEvent.click(getByText('common:privacyPolicy'))
+    fireEvent.click(getByText('common:privacy.confirmation'))
 
     const femaleContactButton = getByLabelText(femaleContactLabel, { exact: false })
     expect(femaleContactButton).not.toBeChecked()
@@ -213,7 +213,7 @@ describe('MalteHelpForm', () => {
     expect(personalContactButton).not.toBeChecked()
     fireEvent.click(personalContactButton)
     expect(personalContactButton).toBeChecked()
-    fireEvent.click(getByText('common:privacyPolicy'))
+    fireEvent.click(getByText('common:privacy.confirmation'))
 
     const maleContactButton = getByLabelText(maleContactLabel, { exact: false })
     expect(maleContactButton).not.toBeChecked()
@@ -271,7 +271,7 @@ describe('MalteHelpForm', () => {
 
     const emailInput = getAllByLabelText(emailInputLabel, { exact: false })[1]!
     fireEvent.change(emailInput, { target: { value: 'email' } })
-    fireEvent.click(getByText('common:privacyPolicy'))
+    fireEvent.click(getByText('common:privacy.confirmation'))
 
     const messageInput = getByLabelText(messageInputLabel, { exact: false })
     fireEvent.change(messageInput, { target: { value: message } })
@@ -309,7 +309,7 @@ describe('MalteHelpForm', () => {
 
     const emailInput = getAllByLabelText(emailInputLabel, { exact: false })[1]!
     fireEvent.change(emailInput, { target: { value: email } })
-    fireEvent.click(getByText('common:privacyPolicy'))
+    fireEvent.click(getByText('common:privacy.confirmation'))
 
     const messageInput = getByLabelText(messageInputLabel, { exact: false })
     fireEvent.change(messageInput, { target: { value: message } })
@@ -348,7 +348,7 @@ describe('MalteHelpForm', () => {
 
     fireEvent.click(submitButton)
     await waitFor(() => {
-      expect(queryByText('common:notePrivacyPolicy')).toBeInTheDocument()
+      expect(queryByText('common:privacy.required')).toBeInTheDocument()
     })
 
     expect(submitMalteHelpForm).not.toHaveBeenCalled()

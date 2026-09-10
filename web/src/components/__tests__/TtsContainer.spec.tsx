@@ -77,20 +77,20 @@ describe('TtsContainer', () => {
   it('should correctly play and pause tts', async () => {
     const { getByText, getByLabelText } = renderTtsPlayer()
     fireEvent.click(getByText('show'))
-    await waitFor(() => expect(getByLabelText('layout:play')).toBeInTheDocument())
-    fireEvent.click(getByLabelText('layout:play'))
+    await waitFor(() => expect(getByLabelText('tts:play')).toBeInTheDocument())
+    fireEvent.click(getByLabelText('tts:play'))
 
     expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject('test')))
-    fireEvent.click(getByLabelText('layout:pause'))
+    fireEvent.click(getByLabelText('tts:pause'))
     expect(EasySpeech.cancel).toHaveBeenCalled()
-    await waitFor(() => expect(getByLabelText('layout:play')).toBeTruthy())
+    await waitFor(() => expect(getByLabelText('tts:play')).toBeTruthy())
   })
 
   it('should correctly play for Deutsch (leicht)', async () => {
     const { getByText, getByLabelText } = renderTtsPlayer('de-si')
     fireEvent.click(getByText('show'))
-    await waitFor(() => expect(getByLabelText('layout:play')).toBeInTheDocument())
-    fireEvent.click(getByLabelText('layout:play'))
+    await waitFor(() => expect(getByLabelText('tts:play')).toBeInTheDocument())
+    fireEvent.click(getByLabelText('tts:play'))
 
     expect(EasySpeech.speak).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -103,10 +103,10 @@ describe('TtsContainer', () => {
   it('should close and cancel utterance', async () => {
     const { getByText, queryByRole, getByLabelText } = renderTtsPlayer()
     fireEvent.click(getByText('show'))
-    await waitFor(() => expect(getByLabelText('layout:play')).toBeInTheDocument())
-    fireEvent.click(getByLabelText('layout:play'))
+    await waitFor(() => expect(getByLabelText('tts:play')).toBeInTheDocument())
+    fireEvent.click(getByLabelText('tts:play'))
 
-    const closeButton = getByLabelText('common:close')
+    const closeButton = getByLabelText('common:actions.close')
     fireEvent.click(closeButton)
 
     expect(EasySpeech.cancel).toHaveBeenCalled()
@@ -119,39 +119,39 @@ describe('TtsContainer', () => {
     fireEvent.click(getByText('set sentences'))
     fireEvent.click(getByText('show'))
 
-    await waitFor(() => expect(getByLabelText('layout:play')).toBeTruthy())
+    await waitFor(() => expect(getByLabelText('tts:play')).toBeTruthy())
 
-    fireEvent.click(getByLabelText('layout:play'))
-    await waitFor(() => expect(getByLabelText('layout:pause')).toBeTruthy())
+    fireEvent.click(getByLabelText('tts:play'))
+    await waitFor(() => expect(getByLabelText('tts:pause')).toBeTruthy())
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(2))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(3)
 
-    fireEvent.click(getByLabelText('layout:previous'))
+    fireEvent.click(getByLabelText('common:actions.previous'))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(3))
     expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[0]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(4)
 
-    fireEvent.click(getByLabelText('layout:next'))
+    fireEvent.click(getByLabelText('common:actions.next'))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(4))
     expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(5)
 
-    fireEvent.click(getByLabelText('layout:next'))
+    fireEvent.click(getByLabelText('common:actions.next'))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(5))
     expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject(sentences[2]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(6)
 
-    fireEvent.click(getByLabelText('layout:previous'))
+    fireEvent.click(getByLabelText('common:actions.previous'))
     await waitFor(() => expect(EasySpeech.speak).toHaveBeenCalledTimes(6))
     expect(EasySpeech.speak).toHaveBeenCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(7)
 
-    fireEvent.click(getByLabelText('layout:pause'))
-    await waitFor(() => expect(getByLabelText('layout:play')).toBeTruthy())
+    fireEvent.click(getByLabelText('tts:pause'))
+    await waitFor(() => expect(getByLabelText('tts:play')).toBeTruthy())
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(8)
 
-    fireEvent.click(getByLabelText('layout:play'))
-    await waitFor(() => expect(getByLabelText('layout:pause')).toBeTruthy())
+    fireEvent.click(getByLabelText('tts:play'))
+    await waitFor(() => expect(getByLabelText('tts:pause')).toBeTruthy())
     expect(EasySpeech.speak).toHaveBeenCalledTimes(7)
     expect(EasySpeech.speak).toHaveBeenLastCalledWith(expect.objectContaining(testTtsObject(sentences[1]!)))
     expect(EasySpeech.cancel).toHaveBeenCalledTimes(8)
