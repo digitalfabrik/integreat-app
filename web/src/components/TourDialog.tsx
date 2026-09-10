@@ -20,14 +20,12 @@ const DIALOG_WIDTH = 320
 const TITLE_ELEMENT_ID = 'tour-dialog-title'
 const DESCRIPTION_ELEMENT_ID = 'tour-dialog-description'
 
-const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
+const StyledMuiDialog = styled(MuiDialog)({
   [`.${dialogClasses.paper}`]: {
     overflow: 'visible',
-    [theme.breakpoints.up('md')]: {
-      width: DIALOG_WIDTH,
-    },
+    width: DIALOG_WIDTH,
   },
-}))
+})
 
 const StyledSvg = styled(Svg)`
   position: absolute;
@@ -74,7 +72,6 @@ const TourDialog = (): ReactElement | null => {
         actionText: t($ => $.tour.finishAction),
         action: finishTour,
         close: finishTour,
-        showSkipButton: false,
       }
     : {
         title: t($ => $.intro.welcome, { appName }),
@@ -82,7 +79,6 @@ const TourDialog = (): ReactElement | null => {
         actionText: t($ => $.tour.startTour),
         action: startTour,
         close: () => setWelcomeVisible(false),
-        showSkipButton: true,
       }
 
   if (!finished && (!welcomeVisible || started)) {
@@ -91,7 +87,7 @@ const TourDialog = (): ReactElement | null => {
 
   return (
     <StyledMuiDialog
-      onClose={content.close}
+      onClose={finished ? finishTour : () => setStarted(true)}
       container={dialogContainer}
       aria-labelledby={TITLE_ELEMENT_ID}
       aria-describedby={DESCRIPTION_ELEMENT_ID}
@@ -113,7 +109,7 @@ const TourDialog = (): ReactElement | null => {
           <Button onClick={content.action} variant='contained' fullWidth>
             {content.actionText}
           </Button>
-          {content.showSkipButton && <Button onClick={content.close}>{t($ => $.tour.skipTour)}</Button>}
+          {!finished && <Button onClick={content.close}>{t($ => $.tour.skipTour)}</Button>}
         </Stack>
       </DialogContent>
     </StyledMuiDialog>

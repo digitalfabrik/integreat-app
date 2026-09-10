@@ -6,6 +6,7 @@ import { CategoriesMapModelBuilder } from 'shared/api'
 import { mockDimensions } from '../../__mocks__/useDimensions'
 import { TtsContext } from '../../contexts/TtsContext'
 import useDimensions from '../../hooks/useDimensions'
+import { TOUR_DIALOG_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { renderAllRoutes } from '../../testing/render'
 import RegionContentMenu from '../RegionContentMenu'
 
@@ -45,6 +46,7 @@ describe('RegionContentMenu', () => {
     expect(getByText('layout:feedback')).toBeTruthy()
     expect(getByText('layout:readAloud')).toBeTruthy()
     expect(getByText('layout:contrastTheme')).toBeTruthy()
+    expect(getByText('tour:startTour')).toBeTruthy()
 
     fireEvent.click(getByText('layout:readAloud'))
 
@@ -87,6 +89,7 @@ describe('RegionContentMenu', () => {
     expect(getByText('layout:feedback')).toBeTruthy()
     expect(getByText('layout:readAloud')).toBeTruthy()
     expect(getByText('layout:contrastTheme')).toBeTruthy()
+    expect(getByText('tour:startTour')).toBeTruthy()
   })
 
   it('should hide feedback for news routes', () => {
@@ -104,6 +107,7 @@ describe('RegionContentMenu', () => {
     expect(queryByText('layout:feedback')).toBeFalsy()
     expect(getByText('layout:readAloud')).toBeTruthy()
     expect(getByText('layout:contrastTheme')).toBeTruthy()
+    expect(getByText('tour:startTour')).toBeTruthy()
   })
 
   it('tts toolbar item should be disabled if there is nothing to read', () => {
@@ -135,5 +139,23 @@ describe('RegionContentMenu', () => {
     expect(queryByText('layout:feedback')).toBeFalsy()
     expect(getByText('layout:readAloud')).toBeTruthy()
     expect(getByText('layout:contrastTheme')).toBeTruthy()
+    expect(getByText('tour:startTour')).toBeTruthy()
+  })
+
+  it('should offer the tour again and navigate to the home screen', () => {
+    localStorage.setItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY, 'false')
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
+    const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de/events', {
+      RegionContentElement: (
+        <TtsContext.Provider value={defaultTtsContext}>
+          <RegionContentMenu pageTitle='Test Page' />
+        </TtsContext.Provider>
+      ),
+    })
+
+    fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
+    fireEvent.click(getByText('tour:startTour'))
+
+    expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 })

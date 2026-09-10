@@ -123,10 +123,12 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
           <Typography
             variant='body3'
             aria-label={t($ => $.tour.progress, { current: currentStep + 1, total: steps.length })}>
-            <Typography component='span' variant='body3' color='primary'>
+            <Typography component='span' variant='body3' color='textPrimary'>
               {currentStep + 1}
             </Typography>
-            {`/${steps.length}`}
+            <Typography component='span' variant='body3' color='textDisabled'>
+              {`/${steps.length}`}
+            </Typography>
           </Typography>
           <Stack direction='row' sx={{ gap: 1 }} aria-hidden>
             {steps.map((step, index) => (
