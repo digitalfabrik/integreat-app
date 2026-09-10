@@ -16,7 +16,7 @@ describe('ChatHighlightPopup', () => {
     )
 
     expect(getByText('chat:welcome.title 👋')).toBeTruthy()
-    expect(getByText('chat:welcome.description')).toBeTruthy()
+    expect(getByText('chat:welcome.description Frag Integreat')).toBeTruthy()
   })
 
   it('should not render popup when previously dismissed', () => {
@@ -27,7 +27,7 @@ describe('ChatHighlightPopup', () => {
     )
 
     expect(queryByText('chat:welcome.title 👋')).toBeFalsy()
-    expect(queryByText('chat:welcome.description')).toBeFalsy()
+    expect(queryByText('chat:welcome.description Frag Integreat')).toBeFalsy()
   })
 
   it('should persist dismissal when close button is pressed', () => {

@@ -176,7 +176,7 @@ describe('Places', () => {
   it('should pop the filter modal entry before pushReset when showPlaces is pressed', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByText('places:filter.show'))
+    fireEvent.press(getByText('places:filter.show 3'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
     expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
@@ -193,7 +193,7 @@ describe('Places', () => {
     const { localHistory, getByRole, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
     fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
-    fireEvent.press(getByText('places:filter.show'))
+    fireEvent.press(getByText('places:filter.show 1'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
     expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
@@ -248,7 +248,7 @@ describe('Places', () => {
     const { getByRole, getByText, getAllByText, rerender } = renderWithTheme(initial.element)
 
     fireEvent.press(getByRole('switch', { name: 'Gastronomie' }))
-    fireEvent.press(getByText('places:filter.show'))
+    fireEvent.press(getByText('places:filter.show 2'))
     expect(initial.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: place0.category.id,
       currentlyOpen: false,
@@ -266,7 +266,7 @@ describe('Places', () => {
     const reopened = renderAt({ ...resetHistory, showFilterSelection: true })
     rerender(reopened.element)
 
-    fireEvent.press(getByText('places:filter.show'))
+    fireEvent.press(getByText('places:filter.show 3'))
     expect(reopened.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: undefined,
       currentlyOpen: false,

@@ -38,7 +38,7 @@ describe('PlaceDetails', () => {
 
     expect(getByText(place.title)).toBeTruthy()
     expect(getByText(place.category!.name!)).toBeTruthy()
-    expect(getByText('places:distance')).toBeTruthy()
+    expect(getByText('places:distance 3.1')).toBeTruthy()
     expect(getByText(place.location.address)).toBeTruthy()
     expect(getByText(`${place.location.postcode} ${place.location.town}`)).toBeTruthy()
     expect(getByText('common:labels.description')).toBeTruthy()

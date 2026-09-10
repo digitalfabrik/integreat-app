@@ -4,6 +4,7 @@ import path from 'node:path'
 import { ReactNode } from 'react'
 import { initReactI18next } from 'react-i18next'
 
+import { parseMissingKeyHandler } from 'shared/testing'
 import { loadTranslations } from 'translations'
 
 console.error = () => undefined
@@ -19,7 +20,7 @@ i18next.use(initReactI18next).init({
   enableSelector: 'strict',
   interpolation: { escapeValue: false },
   appendNamespaceToMissingKey: true,
-  parseMissingKeyHandler: (key: string) => key,
+  parseMissingKeyHandler,
 })
 
 jest.mock('@react-native-async-storage/async-storage', () => require('@react-native-async-storage/async-storage/jest'))
