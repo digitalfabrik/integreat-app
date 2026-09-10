@@ -2,51 +2,52 @@ import type { TranslationsType } from '../types.ts'
 
 export const testTranslations: TranslationsType = {
   de: {
-    app: {
-      pageTitles: {
-        notFound: 'Seite nicht gefunden',
-        tuNews: 'tünews',
-        news: 'Nachrichten',
-      },
-      metaDescription:
-        'Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.',
-    },
-    layout: {
-      localInformation: 'Lokale Informationen',
+    categories: {
+      title: 'Lokale Informationen',
       events: 'Veranstaltungen',
-      news: 'Nachrichten',
-      newsAlternative: 'Neuigkeiten',
+    },
+    events: {
+      title: 'Veranstaltungen',
+    },
+    news: {
+      title: 'Nachrichten',
     },
   },
   ar: {
-    layout: {
-      localInformation: 'معلومات محلية',
-      events: 'الفعاليات',
+    categories: {
+      title: 'معلومات محلية',
+    },
+    events: {
+      title: 'الفعاليات',
     },
   },
   kmr: {
-    layout: {
-      localInformation: 'Zanyariyên xwecihî',
+    categories: {
+      title: 'Zanyariyên xwecihî',
     },
   },
   'zh-CN': {
-    layout: {
-      localInformation: '本地信息',
+    categories: {
+      title: '本地信息',
     },
   },
 }
 
 export const testOverrideTranslations: TranslationsType = {
   de: {
-    dashboard: {
-      localInformation: 'Malte Informationen',
-      news: 'Malte Nachrichten',
+    categories: {
+      title: 'Malte Informationen',
+    },
+    news: {
+      title: 'Malte Nachrichten',
     },
   },
   en: {
-    dashboard: {
-      localInformation: 'Malte information',
-      events: 'Malte Events',
+    categories: {
+      title: 'Malte information',
+    },
+    events: {
+      title: 'Malte Events',
     },
   },
 }

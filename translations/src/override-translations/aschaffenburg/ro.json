@@ -1,5 +1,7 @@
 {
-  "categories": {
-    "metaDescription": "{{appName}} este însoțitorul dvs. digital pentru orașul Aschaffenburg. Aici veți găsi informații locale, puncte de contact și servicii."
+  "common": {
+    "meta": {
+      "description": "{{appName}} este însoțitorul dvs. digital pentru orașul Aschaffenburg. Aici veți găsi informații locale, puncte de contact și servicii."
+    }
   }
 }

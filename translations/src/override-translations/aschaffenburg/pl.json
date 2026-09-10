@@ -1,5 +1,7 @@
 {
-  "categories": {
-    "metaDescription": "{{appName}} to Twój towarzysz w mieście Aschaffenburg. Tu znajdziesz lokalne informacje, punkty kontaktowe i serwisy."
+  "common": {
+    "meta": {
+      "description": "{{appName}} to Twój towarzysz w mieście Aschaffenburg. Tu znajdziesz lokalne informacje, punkty kontaktowe i serwisy."
+    }
   }
 }
