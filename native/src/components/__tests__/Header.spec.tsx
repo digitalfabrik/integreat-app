@@ -199,7 +199,7 @@ describe('Header', () => {
     fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalledWith({
-      message: 'share:message',
+      message: 'share:message Test Category - Stadt Augsburg\nhttps://example.com/share',
       title: 'Test Category - Stadt Augsburg',
     })
   })
@@ -215,7 +215,7 @@ describe('Header', () => {
     fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalledWith({
-      message: 'share:message',
+      message: 'share:message categories:imprint - Stadt Augsburg\nhttps://example.com/share',
       title: 'categories:imprint - Stadt Augsburg',
     })
   })
@@ -231,7 +231,7 @@ describe('Header', () => {
     fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalledWith({
-      message: 'share:message',
+      message: 'share:message Stadt Augsburg\nhttps://example.com/share',
       title: 'Stadt Augsburg',
     })
   })
