@@ -40,8 +40,8 @@ describe('PlacesDesktop', () => {
     places.forEach(place => {
       expect(queryByText(place.title)).toBeFalsy()
     })
-    expect(queryByText('common:nearby')).toBeFalsy()
-    expect(queryByText('places:distanceKilometre')).toBeFalsy()
+    expect(queryByText('userLocation:nearby')).toBeFalsy()
+    expect(queryByText('places:distance')).toBeFalsy()
   })
 
   it('should list detail information about the current feature and the place if feature and place provided', async () => {
@@ -50,20 +50,20 @@ describe('PlacesDesktop', () => {
 
     expect(queryByText(singlePlace.title)).toBeTruthy()
     expect(queryByText(singlePlace.category.name)).toBeTruthy()
-    expect(queryByText('places:distanceKilometre')).toBeTruthy()
+    expect(queryByText('places:distance')).toBeTruthy()
     expect(queryByText(singlePlace.location.address!)).toBeTruthy()
     expect(queryByText(singlePlace.content)).toBeTruthy()
-    expect(queryByLabelText('places:backToOverview')).toBeTruthy()
-    expect(queryByText('common:nearby')).toBeNull()
-    expect(queryByText('places:detailsPreviousPlace')).toBeTruthy()
-    expect(queryByText('places:detailsNextPlace')).toBeTruthy()
+    expect(queryByLabelText('common:actions.back')).toBeTruthy()
+    expect(queryByText('userLocation:nearby')).toBeNull()
+    expect(queryByText('common:actions.previous')).toBeTruthy()
+    expect(queryByText('common:actions.next')).toBeTruthy()
   })
 
   it('should show back button and hide list title for selected mapFeature', () => {
     const { queryByText, queryByLabelText } = renderPlacesDesktop(undefined, prepareMapFeature(places, 0, [0, 0]))
 
-    expect(queryByLabelText('places:backToOverview')).toBeTruthy()
-    expect(queryByText('common:nearby')).toBeFalsy()
+    expect(queryByLabelText('common:actions.back')).toBeTruthy()
+    expect(queryByText('userLocation:nearby')).toBeFalsy()
 
     places.forEach(place => {
       expect(queryByText(place.title)).toBeTruthy()
@@ -73,8 +73,8 @@ describe('PlacesDesktop', () => {
   it('should render place list if no place is provided', () => {
     const { queryByLabelText, queryByText } = renderPlacesDesktop()
 
-    expect(queryByLabelText('places:backToOverview')).toBeFalsy()
-    expect(queryByText('common:nearby')).toBeTruthy()
+    expect(queryByLabelText('common:actions.back')).toBeFalsy()
+    expect(queryByText('userLocation:nearby')).toBeTruthy()
     places.forEach(place => {
       expect(queryByText(place.title)).toBeTruthy()
     })

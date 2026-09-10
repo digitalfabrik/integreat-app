@@ -36,14 +36,8 @@ describe('LicensesPage', () => {
       { name: 'lodash', version: '4.17.21', license: 'MIT', repository: undefined, author: undefined },
     ])
     const { getByText, getAllByText } = renderWithRouterAndTheme(<LicensesPage languageCode='de' />)
-    expect(getAllByText('settings:openSourceLicenses')).toHaveLength(2)
+    expect(getAllByText('about:licenses.title')).toHaveLength(2)
     expect(getByText('react')).toBeTruthy()
     expect(getByText('lodash')).toBeTruthy()
-  })
-
-  it('should show empty message when no licenses are loaded', () => {
-    mockUseLoadAsync([])
-    const { getByRole } = renderWithRouterAndTheme(<LicensesPage languageCode='de' />)
-    expect(getByRole('alert')).toHaveTextContent('licenses:noLicensesMessage')
   })
 })

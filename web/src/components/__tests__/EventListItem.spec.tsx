@@ -65,7 +65,7 @@ describe('EventListItem', () => {
 
       const { queryByLabelText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
 
-      expect(queryByLabelText('events:recurring')).toBeFalsy()
+      expect(queryByLabelText('events:recurrence.recurring')).toBeFalsy()
     })
 
     it('should show icon if recurring event', () => {
@@ -73,7 +73,7 @@ describe('EventListItem', () => {
 
       const { queryByLabelText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
 
-      expect(queryByLabelText('events:recurring')).toBeTruthy()
+      expect(queryByLabelText('events:recurrence.recurring')).toBeTruthy()
     })
   })
 })

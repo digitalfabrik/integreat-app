@@ -52,33 +52,33 @@ describe('Feedback', () => {
   it('should show error when submitting without rating and input', () => {
     const { getByText, queryByText } = renderWithTheme(<Feedback {...buildProps({})} />)
 
-    const button = getByText('feedback:send')
+    const button = getByText('common:actions.send')
     expect(button).toBeEnabled()
-    expect(queryByText('feedback:noteFillFeedback')).toBeNull()
+    expect(queryByText('feedback:required')).toBeNull()
     fireEvent.click(button)
-    expect(getByText('feedback:noteFillFeedback')).toBeTruthy()
+    expect(getByText('feedback:required')).toBeTruthy()
   })
 
   it('should show error for missing rating and input when submitted', () => {
     const { getByText } = renderWithTheme(<Feedback {...buildProps({ language: 'en' })} />)
-    fireEvent.click(getByText('feedback:send'))
-    expect(getByText('feedback:noteFillFeedback')).toBeTruthy()
+    fireEvent.click(getByText('common:actions.send'))
+    expect(getByText('feedback:required')).toBeTruthy()
   })
 
   it('should show error if privacy policy is not accepted', () => {
     const { getByText } = renderWithTheme(<Feedback {...buildProps({ rating: 'positive' })} />)
 
-    const button = getByText('feedback:send')
+    const button = getByText('common:actions.send')
     expect(button).toBeEnabled()
     fireEvent.click(button)
-    expect(getByText('common:notePrivacyPolicy')).toBeTruthy()
+    expect(getByText('common:privacy.required')).toBeTruthy()
   })
 
   it('should display correct description for search', () => {
     const { getByLabelText, queryByText } = renderWithTheme(
       <Feedback {...buildProps({ rating: 'negative', comment: 'comment', searchTerm: 'query' })} />,
     )
-    expect(getByLabelText('feedback:wantedInformation')).toBeInTheDocument()
+    expect(getByLabelText('feedback:search.wantedInformation')).toBeInTheDocument()
     expect(queryByText('search:nothingFound')).toBeFalsy()
   })
 
@@ -94,13 +94,13 @@ describe('Feedback', () => {
         })}
       />,
     )
-    expect(getByLabelText('feedback:wantedInformation')).toBeTruthy()
+    expect(getByLabelText('feedback:search.wantedInformation')).toBeTruthy()
   })
 
   it('onSubmit should be called on button press', async () => {
     const { getByText } = renderWithTheme(<Feedback {...buildProps({ rating: 'negative', comment: 'comment' })} />)
-    const button = getByText('feedback:send')
-    getByText('common:privacyPolicy').click()
+    const button = getByText('common:actions.send')
+    getByText('common:privacy.confirmation').click()
     fireEvent.click(button)
     expect(onSubmit).toHaveBeenCalled()
   })

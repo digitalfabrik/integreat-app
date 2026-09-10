@@ -16,7 +16,7 @@ jest.mock('../AppointmentOnlyOverlay', () => {
         <>
           <Text>places:makeAppointmentTooltipWithLink</Text>
           <TouchableOpacity onPress={closeOverlay}>
-            <Text>common:close</Text>
+            <Text>common:actions.close</Text>
           </TouchableOpacity>
         </>
       ) : null,
@@ -49,24 +49,24 @@ describe('OpeningEntry', () => {
     const { getByText, queryByText } = renderOpeningEntries(false, false, false, false)
     expect(getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeTruthy()
     expect(getByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeTruthy()
-    expect(queryByText('places:allDay')).toBeFalsy()
-    expect(queryByText('places:closed')).toBeFalsy()
+    expect(queryByText('places:hours.allDay')).toBeFalsy()
+    expect(queryByText('places:hours.closed')).toBeFalsy()
   })
 
   it('should display all day opened for the weekday if allDay flag is true', () => {
     const { getByText, queryByText } = renderOpeningEntries(true, false, false, false)
-    expect(getByText('places:allDay')).toBeTruthy()
+    expect(getByText('places:hours.allDay')).toBeTruthy()
     expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
     expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
-    expect(queryByText('places:closed')).toBeFalsy()
+    expect(queryByText('places:hours.closed')).toBeFalsy()
   })
 
   it('should display closed for the weekday if closed flag is true', () => {
     const { getByText, queryByText } = renderOpeningEntries(false, true, false, false)
-    expect(getByText('places:closed')).toBeTruthy()
+    expect(getByText('places:hours.closed')).toBeTruthy()
     expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
     expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
-    expect(queryByText('places:allDay')).toBeFalsy()
+    expect(queryByText('places:hours.allDay')).toBeFalsy()
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {
@@ -83,14 +83,14 @@ describe('OpeningEntry', () => {
   it('should show that the location is only open with an appointment and toggle the overlay', async () => {
     const user = userEvent.setup()
     const { getByLabelText, getByText, queryByText } = renderOpeningEntries(false, false, false, true)
-    const appointmentOnlyIcon = getByLabelText('places:appointmentNecessary')
+    const appointmentOnlyIcon = getByLabelText('places:hours.appointment.required')
     expect(appointmentOnlyIcon).toBeDefined()
-    expect(queryByText('places:makeAppointmentTooltipWithLink')).toBeNull()
+    expect(queryByText('places:hours.appointment.make.description')).toBeNull()
 
     await user.press(appointmentOnlyIcon)
-    expect(queryByText('places:makeAppointmentTooltipWithLink')).toBeDefined()
+    expect(queryByText('places:hours.appointment.make.description')).toBeDefined()
 
-    await user.press(getByText('common:close'))
-    await waitFor(() => expect(queryByText('places:makeAppointmentTooltipWithLink')).toBeNull())
+    await user.press(getByText('common:actions.close'))
+    await waitFor(() => expect(queryByText('places:hours.appointment.make.description')).toBeNull())
   })
 })

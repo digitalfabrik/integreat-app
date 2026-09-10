@@ -40,7 +40,7 @@ describe('NewsListItem', () => {
   })
 
   it.each([
-    [LOCAL_NEWS_SOURCE, 'news:local'],
+    [LOCAL_NEWS_SOURCE, 'news:sources.local'],
     [TU_NEWS_SOURCE, 'tuenews'],
     [AMAL_NEWS_SOURCE, 'Amal News'],
   ] as const)('should render the source chip for %s', (source, label) => {

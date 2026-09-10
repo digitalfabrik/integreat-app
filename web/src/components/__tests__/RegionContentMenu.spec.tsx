@@ -36,17 +36,17 @@ describe('RegionContentMenu', () => {
       ),
     })
 
-    fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
+    fireEvent.click(getByLabelText('common:labels.menu'))
 
-    expect(getByText('categories:createPdf').closest('a')).toHaveAttribute(
+    expect(getByText('categories:pdf.create').closest('a')).toHaveAttribute(
       'href',
       'https://cms-test.integreat-app.de/augsburg/de/wp-json/ig-mpdf/v1/pdf?url=%2Faugsburg%2Fde%2Fcategory_0%2Fcategory_1',
     )
-    expect(getByText('layout:feedback')).toBeTruthy()
-    expect(getByText('layout:readAloud')).toBeTruthy()
-    expect(getByText('layout:contrastTheme')).toBeTruthy()
+    expect(getByText('feedback:title')).toBeTruthy()
+    expect(getByText('tts:title')).toBeTruthy()
+    expect(getByText('settings:contrast.title')).toBeTruthy()
 
-    fireEvent.click(getByText('layout:readAloud'))
+    fireEvent.click(getByText('tts:title'))
 
     expect(showTtsPlayer).toHaveBeenCalledTimes(1)
   })
@@ -60,12 +60,12 @@ describe('RegionContentMenu', () => {
       ),
     })
 
-    fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
+    fireEvent.click(getByLabelText('common:labels.menu'))
 
-    expect(queryByText('categories:createPdf')).toBeFalsy()
-    expect(getByText('layout:feedback')).toBeTruthy()
-    expect(getByText('layout:readAloud')).toBeTruthy()
-    expect(getByText('layout:contrastTheme')).toBeTruthy()
+    expect(queryByText('pdf:create')).toBeFalsy()
+    expect(getByText('feedback:title')).toBeTruthy()
+    expect(getByText('tts:title')).toBeTruthy()
+    expect(getByText('settings:contrast.title')).toBeTruthy()
   })
 
   it('should hide feedback for news routes', () => {
@@ -77,12 +77,12 @@ describe('RegionContentMenu', () => {
       ),
     })
 
-    fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
+    fireEvent.click(getByLabelText('common:labels.menu'))
 
-    expect(queryByText('categories:createPdf')).toBeFalsy()
-    expect(queryByText('layout:feedback')).toBeFalsy()
-    expect(getByText('layout:readAloud')).toBeTruthy()
-    expect(getByText('layout:contrastTheme')).toBeTruthy()
+    expect(queryByText('pdf:create')).toBeFalsy()
+    expect(queryByText('feedback:title')).toBeFalsy()
+    expect(getByText('tts:title')).toBeTruthy()
+    expect(getByText('settings:contrast.title')).toBeTruthy()
   })
 
   it('tts toolbar item should be disabled if there is nothing to read', () => {
@@ -94,9 +94,9 @@ describe('RegionContentMenu', () => {
       ),
     })
 
-    fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
+    fireEvent.click(getByLabelText('common:labels.menu'))
 
-    expect(getByText('layout:readAloud').closest('li')).toHaveClass('Mui-disabled')
+    expect(getByText('tts:title').closest('li')).toHaveClass('Mui-disabled')
   })
 
   it('should hide feedback on desktop', () => {
@@ -109,10 +109,10 @@ describe('RegionContentMenu', () => {
       ),
     })
 
-    fireEvent.click(getByLabelText('layout:sideBarOpenAriaLabel'))
+    fireEvent.click(getByLabelText('common:labels.menu'))
 
-    expect(queryByText('layout:feedback')).toBeFalsy()
-    expect(getByText('layout:readAloud')).toBeTruthy()
-    expect(getByText('layout:contrastTheme')).toBeTruthy()
+    expect(queryByText('feedback:title')).toBeFalsy()
+    expect(getByText('tts:title')).toBeTruthy()
+    expect(getByText('settings:contrast.title')).toBeTruthy()
   })
 })

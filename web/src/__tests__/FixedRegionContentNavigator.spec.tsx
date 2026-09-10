@@ -32,6 +32,6 @@ describe('FixedRegionContentNavigator', () => {
       },
     )
     expect(queryByText(renderSuccessful)).not.toBeTruthy()
-    expect(getByText('error:notFound.category')).toBeTruthy()
+    expect(getByText('error:pageNotFound')).toBeTruthy()
   })
 })

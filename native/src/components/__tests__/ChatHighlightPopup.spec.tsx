@@ -15,8 +15,8 @@ describe('ChatHighlightPopup', () => {
       </TestingAppContext>,
     )
 
-    expect(getByText('chat:welcomeGreeting 👋')).toBeTruthy()
-    expect(getByText('chat:welcomeText')).toBeTruthy()
+    expect(getByText('chat:welcome.title 👋')).toBeTruthy()
+    expect(getByText('chat:welcome.description')).toBeTruthy()
   })
 
   it('should not render popup when previously dismissed', () => {
@@ -26,8 +26,8 @@ describe('ChatHighlightPopup', () => {
       </TestingAppContext>,
     )
 
-    expect(queryByText('chat:welcomeGreeting 👋')).toBeFalsy()
-    expect(queryByText('chat:welcomeText')).toBeFalsy()
+    expect(queryByText('chat:welcome.title 👋')).toBeFalsy()
+    expect(queryByText('chat:welcome.description')).toBeFalsy()
   })
 
   it('should persist dismissal when close button is pressed', () => {
@@ -38,7 +38,7 @@ describe('ChatHighlightPopup', () => {
       </TestingAppContext>,
     )
 
-    fireEvent.press(getByLabelText('common:close'))
+    fireEvent.press(getByLabelText('common:actions.close'))
 
     expect(updateSettings).toHaveBeenCalledWith({ chatHighlightPopupDismissed: true })
   })

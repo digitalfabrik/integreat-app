@@ -14,7 +14,7 @@ describe('PlaceListItem', () => {
     const { getByText } = renderWithRouterAndTheme(<PlaceListItem onClick={onClick} place={place} distance={3.1} />)
 
     expect(getByText(place.title)).toBeTruthy()
-    expect(getByText('places:distanceKilometre')).toBeTruthy()
+    expect(getByText('places:distance')).toBeTruthy()
     expect(getByText(place.category.name)).toBeTruthy()
   })
 
@@ -23,7 +23,7 @@ describe('PlaceListItem', () => {
       <PlaceListItem onClick={onClick} place={place} distance={null} />,
     )
 
-    expect(queryByText('places:distanceKilometre')).toBeFalsy()
+    expect(queryByText('places:distance')).toBeFalsy()
     fireEvent.click(getByRole('link'))
     expect(onClick).toHaveBeenCalledTimes(1)
   })

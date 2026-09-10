@@ -13,7 +13,7 @@ describe('AlertDialog', () => {
         visible
         close={jest.fn()}
         title={<Text>dialog-title</Text>}
-        actions={[<Button key='common:ok' title='confirm' onPress={onAction} />]}>
+        actions={[<Button key='common:actions.ok' title='confirm' onPress={onAction} />]}>
         <Text>dialog-body</Text>
       </AlertDialog>,
     )
@@ -48,7 +48,7 @@ describe('SimpleAlertDialog', () => {
 
     expect(getByText('simple-title')).toBeTruthy()
     expect(getByText('simple-body')).toBeTruthy()
-    fireEvent.press(getByText('common:close'))
+    fireEvent.press(getByText('common:actions.close'))
     expect(close).toHaveBeenCalled()
   })
 })

@@ -59,7 +59,7 @@ describe('Breadcrumbs', () => {
     const ancestors = [breadcrumb0, breadcrumb1, breadcrumb2, breadcrumb3]
     const { getByLabelText } = render(ancestors, breadcrumb4)
 
-    expect(getByLabelText('common:showMore')).toBeTruthy()
+    expect(getByLabelText('common:actions.showMore')).toBeTruthy()
   })
 
   it('should show home icon for first breadcrumb when multiple exist', () => {

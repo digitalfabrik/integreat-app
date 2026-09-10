@@ -32,7 +32,7 @@ describe('Licenses', () => {
   it('should render the page title', () => {
     mockUseLoadAsync([])
     const { getByText } = render(<Licenses />)
-    expect(getByText('settings:openSourceLicenses')).toBeTruthy()
+    expect(getByText('about:licenses.title')).toBeTruthy()
   })
 
   it('should render license items', () => {

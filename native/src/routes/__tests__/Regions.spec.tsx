@@ -65,20 +65,20 @@ describe('Regions', () => {
   it('should show footer if enabled', () => {
     mockBuildConfig(true)
     const { getByText } = renderRegions()
-    expect(getByText('regions:regionNotFound')).toBeTruthy()
-    expect(getByText('regions:suggestToRegion')).toBeTruthy()
+    expect(getByText('suggestToRegion:regionNotFoundCta')).toBeTruthy()
+    expect(getByText('suggestToRegion:title')).toBeTruthy()
   })
 
   it('should not show footer if disabled', () => {
     mockBuildConfig(false)
     const { queryByText } = renderRegions()
-    expect(queryByText('regions:regionNotFound')).toBeNull()
+    expect(queryByText('suggestToRegion:regionNotFoundCta')).toBeNull()
   })
 
   it('should navigate to suggestToRegion page on button click', () => {
     mockBuildConfig(true)
     const { getByText } = renderRegions()
-    const button = getByText('regions:suggestToRegion')
+    const button = getByText('suggestToRegion:title')
     fireEvent.press(button)
     expect(navigation.navigate).toHaveBeenCalledWith(SUGGEST_TO_REGION_ROUTE)
   })

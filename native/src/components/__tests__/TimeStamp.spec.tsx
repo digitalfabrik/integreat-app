@@ -13,12 +13,12 @@ describe('TimeStamp', () => {
 
   it('should display last update text and formatted timestamp', () => {
     const { getByText } = renderTimeStamp(null, null)
-    expect(getByText(`common:lastUpdate ${lastUpdate.setLocale('en').toFormat('DDD')}`)).toBeTruthy()
+    expect(getByText(`common:state.updatedAt ${lastUpdate.setLocale('en').toFormat('DDD')}`)).toBeTruthy()
   })
 
   it('should display last update text and formatted timestamp explicitly', () => {
     const { getByText } = renderTimeStamp(null, true)
-    expect(getByText(`common:lastUpdate ${lastUpdate.setLocale('en').toFormat('DDD')}`)).toBeTruthy()
+    expect(getByText(`common:state.updatedAt ${lastUpdate.setLocale('en').toFormat('DDD')}`)).toBeTruthy()
   })
 
   it('should display formatted timestamp with format provided', () => {

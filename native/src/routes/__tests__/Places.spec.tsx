@@ -143,7 +143,7 @@ describe('Places', () => {
   it('should call push when backToOverview is pressed for an invalid slug', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
 
-    fireEvent.press(getByText('places:backToOverview'))
+    fireEvent.press(getByText('common:actions.back'))
 
     expect(localHistory.push).toHaveBeenCalledWith({})
   })
@@ -151,7 +151,7 @@ describe('Places', () => {
   it('should call push with multiPlace when backToOverview is pressed with both multiPlace and invalid slug', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, multiPlace: 0, slug: 'invalid' })
 
-    fireEvent.press(getByText('places:backToOverview'))
+    fireEvent.press(getByText('common:actions.back'))
 
     expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: 0 })
   })
@@ -159,7 +159,7 @@ describe('Places', () => {
   it('should call push with showFilterSelection when adjustFilters is pressed', () => {
     const { localHistory, getByText } = renderPlaces()
 
-    fireEvent.press(getByText('places:adjustFilters'))
+    fireEvent.press(getByText('places:filter.adjust'))
 
     expect(localHistory.push).toHaveBeenCalledWith({ showFilterSelection: true })
   })
@@ -176,7 +176,7 @@ describe('Places', () => {
   it('should pop the filter modal entry before pushReset when showPlaces is pressed', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByText('places:showPlaces'))
+    fireEvent.press(getByText('places:filter.show'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
     expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
@@ -193,7 +193,7 @@ describe('Places', () => {
     const { localHistory, getByRole, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
     fireEvent.press(getByRole('switch', { name: 'Dienstleistung' }))
-    fireEvent.press(getByText('places:showPlaces'))
+    fireEvent.press(getByText('places:filter.show'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
     expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
@@ -217,7 +217,7 @@ describe('Places', () => {
   it('should call pushReset to clear currentlyOpen when currentlyOpen chip is pressed', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, currentlyOpen: true })
 
-    fireEvent.press(getByText('places:opened'))
+    fireEvent.press(getByText('places:hours.open'))
 
     expect(localHistory.pushReset).toHaveBeenCalledWith({
       placeCategoryId: undefined,
@@ -248,7 +248,7 @@ describe('Places', () => {
     const { getByRole, getByText, getAllByText, rerender } = renderWithTheme(initial.element)
 
     fireEvent.press(getByRole('switch', { name: 'Gastronomie' }))
-    fireEvent.press(getByText('places:showPlaces'))
+    fireEvent.press(getByText('places:filter.show'))
     expect(initial.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: place0.category.id,
       currentlyOpen: false,
@@ -266,7 +266,7 @@ describe('Places', () => {
     const reopened = renderAt({ ...resetHistory, showFilterSelection: true })
     rerender(reopened.element)
 
-    fireEvent.press(getByText('places:showPlaces'))
+    fireEvent.press(getByText('places:filter.show'))
     expect(reopened.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: undefined,
       currentlyOpen: false,
