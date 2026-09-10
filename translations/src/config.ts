@@ -17,6 +17,8 @@ type FallbacksType = Record<string, string[]>
 class Config {
   // The language from which we translate
   sourceLanguage = 'de'
+  // The language we generate types from and use as development base
+  referenceLanguage = 'en'
   // The languages into which we translate from 'sourceLanguage' including the sourceLanguage
   // See https://wiki.tuerantuer.org/integreat-languages and https://iso639-3.sil.org/code_tables/639/data
   supportedLanguages: SupportedLanguagesType = {
