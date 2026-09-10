@@ -19,7 +19,7 @@ describe('SuggestToRegion', () => {
 
   it('should render correctly', () => {
     const { getByText, queryByText } = render(<SuggestToRegion />)
-    expect(getByText('suggestToRegion:title')).toBeDefined()
+    expect(getByText('suggestToRegion:title Integreat')).toBeDefined()
     expect(getByText('suggestToRegion:description')).toBeDefined()
     expect(getByText('suggestToRegion:whatToDo')).toBeDefined()
     expect(getByText('suggestToRegion:steps.getEmail')).toBeDefined()

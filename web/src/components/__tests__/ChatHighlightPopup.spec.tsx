@@ -17,7 +17,7 @@ describe('ChatHighlightPopup', () => {
     const { getByText } = renderWithTheme(<ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />)
 
     expect(getByText('chat:welcome.title 👋')).toBeTruthy()
-    expect(getByText('chat:welcome.description')).toBeTruthy()
+    expect(getByText('chat:welcome.description Frag Integreat')).toBeTruthy()
     expect(localStorage.getItem(CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 
@@ -25,7 +25,7 @@ describe('ChatHighlightPopup', () => {
     const { queryByText } = renderWithTheme(<ChatHighlightPopup anchorEl={null} chatName={chatName} />)
 
     expect(queryByText('chat:welcome.title')).toBeFalsy()
-    expect(queryByText('chat:welcome.description')).toBeFalsy()
+    expect(queryByText('chat:welcome.description', { exact: false })).toBeFalsy()
   })
 
   it('should hide popup when close button is clicked', () => {
