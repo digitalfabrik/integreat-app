@@ -3,6 +3,7 @@ import MuiList from '@mui/material/List'
 import ListSubheader from '@mui/material/ListSubheader'
 import { styled } from '@mui/material/styles'
 import React, { ElementType, ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { withDividers } from '../../utils'
 import Failure from '../Failure'
@@ -30,8 +31,10 @@ const List = ({
   className,
   showDividers = true,
 }: ListProps): ReactElement | null => {
+  const { t } = useTranslation()
+  const errorMessage = noItemsMessage ?? t($ => $.error.nothingFound)
   if (items.length === 0) {
-    return typeof noItemsMessage === 'string' ? <Failure errorMessage={noItemsMessage} /> : (noItemsMessage ?? null)
+    return typeof errorMessage === 'string' ? <Failure errorMessage={errorMessage} /> : errorMessage
   }
   return (
     <MuiList className={className} disablePadding={disablePadding}>

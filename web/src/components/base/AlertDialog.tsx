@@ -49,7 +49,7 @@ const AlertDialog = ({ title, close, children, className, actions }: DialogProps
           {title}
         </DialogTitle>
         {desktop && (
-          <IconButton aria-label={t($ => $.common.close)} onClick={close}>
+          <IconButton aria-label={t($ => $.common.actions.close)} onClick={close}>
             <CloseIcon />
           </IconButton>
         )}
@@ -75,7 +75,7 @@ export const SimpleAlertDialog = ({ title, body, close }: SimpleAlertDialogProps
       actions={
         <DialogActions>
           <Button onClick={close} variant='outlined'>
-            {t($ => $.common.close)}
+            {t($ => $.common.actions.close)}
           </Button>
         </DialogActions>
       }>

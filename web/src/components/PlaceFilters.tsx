@@ -47,40 +47,40 @@ const PlaceFilters = ({
   }
 
   return (
-    <Dialog title={t($ => $.places.adjustFilters)} close={close}>
+    <Dialog title={t($ => $.places.filter.adjust)} close={close}>
       <Stack sx={{ gap: 3 }}>
         <Stack sx={{ width: '100%', gap: 1 }}>
           <Typography component='h3' variant='subtitle1'>
-            {t($ => $.places.openingHours)}
+            {t($ => $.places.hours.title)}
           </Typography>
           <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
             <AccessTimeIcon />
             <Checkbox
               checked={currentlyOpenFilter}
               setChecked={setCurrentlyOpenFilter}
-              label={t($ => $.places.onlyCurrentlyOpen)}
+              label={t($ => $.places.filter.onlyOpen)}
             />
           </Stack>
         </Stack>
         <Stack sx={{ width: '100%', gap: 2 }}>
           <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
             <Typography component='h3' variant='subtitle1'>
-              {t($ => $.places.placeCategories)}
+              {t($ => $.places.filter.categories)}
             </Typography>
-            <Typography variant='subtitle2'>{t($ => $.places.alphabetLetters)}</Typography>
+            <Typography variant='subtitle2'>{t($ => $.places.filter.alphabet)}</Typography>
           </Stack>
           <TileRow
             exclusive
             value={selectedPlaceCategory?.id}
             onChange={handleFilterChange}
-            aria-label={t($ => $.places.placeCategories)}>
+            aria-label={t($ => $.places.filter.categories)}>
             {placeCategories.map(it => (
               <ToggleButton key={it.id} value={it.id} text={it.name} icon={it.icon} />
             ))}
           </TileRow>
         </Stack>
         <Button onClick={close} variant='contained' disabled={placesCount === 0} fullWidth>
-          {t($ => $.places.showPlaces, { count: placesCount })}
+          {t($ => $.places.filter.show, { count: placesCount })}
         </Button>
       </Stack>
     </Dialog>

@@ -139,7 +139,7 @@ class DateModel {
 
   formatTimeInterval(locale: string, { t }: { t: TFunction }): string {
     if (this.allDay) {
-      return t($ => $.places.allDay)
+      return t($ => $.places.hours.allDay)
     }
 
     const startTime = formatTime(this.startDate, { locale })
@@ -170,7 +170,9 @@ class DateModel {
     const lastRecurrenceJsDate = this.recurrenceRule.before(until, true)
     const lastRecurrence = lastRecurrenceJsDate ? DateTime.fromJSDate(lastRecurrenceJsDate).toUTC() : null
 
-    return lastRecurrence ? t($ => $.events.untilDate, { date: formatDate(lastRecurrence, { locale }) }) : null
+    return lastRecurrence
+      ? t($ => $.events.recurrence.untilDate, { date: formatDate(lastRecurrence, { locale }) })
+      : null
   }
 
   private getRecurrenceRuleInLocalTime(recurrenceRule: RRuleType): RRuleType {

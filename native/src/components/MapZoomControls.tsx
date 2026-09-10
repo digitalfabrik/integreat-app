@@ -84,12 +84,12 @@ const MapZoomControls = ({ mapRef, cameraRef, ref }: MapZoomControlsProps): Reac
     <View style={styles.container}>
       <FocusedOnlyButton
         onPress={() => zoom(1)}
-        accessibilityLabel={t($ => $.places.zoomIn)}
+        accessibilityLabel={t($ => $.places.zoom.in)}
         ref={ref}
         nextFocusForward={zoomOutFocusTarget}>
         <Icon source='plus' color={theme.colors.onSurface} />
       </FocusedOnlyButton>
-      <FocusedOnlyButton onPress={() => zoom(-1)} accessibilityLabel={t($ => $.places.zoomOut)} ref={handleZoomOutRef}>
+      <FocusedOnlyButton onPress={() => zoom(-1)} accessibilityLabel={t($ => $.places.zoom.out)} ref={handleZoomOutRef}>
         <Icon source='minus' color={theme.colors.onSurface} />
       </FocusedOnlyButton>
     </View>

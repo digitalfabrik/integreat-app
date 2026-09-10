@@ -28,16 +28,16 @@ const PlacePanelNavigation = ({ switchPlace }: PlacePanelNavigationProps): React
         startIcon={<DirectionDependentBackIcon />}
         tabIndex={0}
         color='inherit'
-        aria-label={t($ => $.places.previousPlace)}>
-        {t($ => $.places.detailsPreviousPlace)}
+        aria-label={t($ => $.common.actions.previous)}>
+        {t($ => $.common.actions.previous)}
       </StyledButton>
       <StyledButton
         onClick={() => switchPlace(1)}
         endIcon={<DirectionDependentNextIcon />}
         tabIndex={0}
         color='inherit'
-        aria-label={t($ => $.places.nextPlace)}>
-        {t($ => $.places.detailsNextPlace)}
+        aria-label={t($ => $.common.actions.next)}>
+        {t($ => $.common.actions.next)}
       </StyledButton>
     </Stack>
   )

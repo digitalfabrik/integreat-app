@@ -65,9 +65,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
 
     try {
       await RNCalendarEvents.saveEvent(event.title, eventOptions)
-      showSnackbar({ text: t($ => $.events.added) })
+      showSnackbar({ text: t($ => $.events.export.added) })
     } catch (e) {
-      showSnackbar({ text: t($ => $.error.generalError) })
+      showSnackbar({ text: t($ => $.error.unknownError) })
       captureError(e)
     }
   }
@@ -75,13 +75,13 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
   const chooseCalendar = async (id: string | undefined, exportAll: boolean): Promise<void> => {
     setShowCalendarChoiceModal(false)
     if (!id) {
-      showSnackbar({ text: t($ => $.error.generalError) })
+      showSnackbar({ text: t($ => $.error.unknownError) })
       return
     }
     try {
       await exportEventToCalendar(id, exportAll)
     } catch (e) {
-      showSnackbar({ text: t($ => $.error.generalError) })
+      showSnackbar({ text: t($ => $.error.unknownError) })
       captureError(e)
     }
   }
@@ -91,9 +91,9 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
 
     if (authorizationStatus !== 'authorized') {
       showSnackbar({
-        text: t($ => $.error.noCalendarPermission),
+        text: t($ => $.events.export.error.forbidden),
         action: {
-          label: t($ => $.layout.settings),
+          label: t($ => $.settings.title),
           onPress: openSettings,
         },
       })
@@ -102,7 +102,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)
 
     if (editableCalendars.length === 0) {
-      showSnackbar({ text: t($ => $.error.noCalendarFound) })
+      showSnackbar({ text: t($ => $.events.export.error.notFound) })
     } else if (editableCalendars.length > 1 || event.date.recurrenceRule) {
       setCalendars(editableCalendars)
       setShowCalendarChoiceModal(true)
@@ -125,7 +125,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
         />
       )}
       <Button icon='calendar-import' mode='text' style={{ marginVertical: 16 }} onPress={checkCalendarsAndExportEvent}>
-        {t($ => $.events.addToCalendar)}
+        {t($ => $.events.export.addToCalendar)}
       </Button>
     </>
   )

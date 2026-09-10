@@ -14,9 +14,7 @@ const FailureSwitcherWithHelmet = ({ error }: FailureSwitcherProps): ReactElemen
   const { t } = useTranslation()
   return (
     <>
-      <Helmet
-        pageTitle={error instanceof NotFoundError ? t($ => $.error.notFound.pageTitle) : t($ => $.error.pageTitle)}
-      />
+      <Helmet pageTitle={error instanceof NotFoundError ? t($ => $.error.pageNotFound) : t($ => $.error.title)} />
       <FailureSwitcher error={error} />
     </>
   )

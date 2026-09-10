@@ -41,7 +41,7 @@ export const SimpleAlertDialog = ({ visible, close, title, children }: SimpleAle
       title={title}
       actions={[
         <Button key='close' onPress={close}>
-          {t($ => $.common.close)}
+          {t($ => $.common.actions.close)}
         </Button>,
       ]}>
       {children}

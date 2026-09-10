@@ -154,7 +154,7 @@ const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     }
   })
 
-  const pageTitle = `${category && !category.isRoot() ? category.title : t($ => $.layout.localInformation)} - ${region.name}`
+  const pageTitle = `${category && !category.isRoot() ? category.title : t($ => $.categories.title)} - ${region.name}`
   const locationLayoutParams: Omit<RegionContentLayoutProps, 'isLoading'> = {
     region,
     languageChangePaths,
@@ -227,7 +227,7 @@ const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRo
     .map((categoryModel: CategoryModel) => getBreadcrumb(categoryModel, region.name))
   const breadcrumbs = [...ancestorBreadcrumbs, getBreadcrumb(category, region.name)]
 
-  const metaDescription = t($ => $.categories.metaDescription, { appName: buildConfig().appName })
+  const metaDescription = t($ => $.common.meta.description, { appName: buildConfig().appName })
 
   return (
     <RegionContentLayout isLoading={false} {...locationLayoutParams}>

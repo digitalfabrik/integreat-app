@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 
 import { OfferModel, createSprungbrettJobsEndpoint } from 'shared/api'
 
@@ -14,8 +13,6 @@ type SprungbrettOfferPageProps = {
 }
 
 const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): ReactElement | null => {
-  const { t } = useTranslation()
-
   const { data, error, isPending } = useQueryFromEndpoint(
     createSprungbrettJobsEndpoint,
     sprungbrettOffer.path,
@@ -32,7 +29,7 @@ const SprungbrettOffer = ({ sprungbrettOffer }: SprungbrettOfferPageProps): Reac
 
   const items = data.map(job => <SprungbrettListItem key={job.url} job={job} />)
 
-  return <List items={items} noItemsMessage={t($ => $.sprungbrett.noOffersAvailable)} />
+  return <List items={items} />
 }
 
 export default SprungbrettOffer

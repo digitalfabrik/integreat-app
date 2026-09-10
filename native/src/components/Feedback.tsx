@@ -62,10 +62,10 @@ const Feedback = ({
   if (sendingStatus === 'successful') {
     return (
       <Wrapper>
-        <Caption title={t($ => $.feedback.thanksHeadline)} />
-        <Text>{t($ => $.feedback.thanksMessage)}</Text>
+        <Caption title={t($ => $.feedback.thanks.title)} />
+        <Text>{t($ => $.feedback.thanks.description)}</Text>
         <Button onPress={navigation.goBack} mode='contained' style={{ marginTop: 16 }}>
-          {t($ => $.common.close)}
+          {t($ => $.common.actions.close)}
         </Button>
       </Wrapper>
     )
@@ -76,20 +76,20 @@ const Feedback = ({
       <Wrapper>
         {isSearchFeedback ? (
           <InputSection
-            title={t($ => $.feedback.searchTermDescription)}
+            title={t($ => $.feedback.search.searchTermDescription)}
             value={searchTerm}
             onChange={setSearchTerm}
             accessibilityRole='search'
           />
         ) : (
           <>
-            <Caption title={t($ => $.feedback.headline)} />
+            <Caption title={t($ => $.feedback.title)} />
             <FeedbackButtons rating={rating} setRating={setRating} />
           </>
         )}
         <InputSection
-          title={t($ => $.feedback.commentHeadline)}
-          description={t($ => $.feedback.commentDescription, { appName: buildConfig().appName })}
+          title={t($ => $.feedback.comment.title)}
+          description={t($ => $.feedback.comment.description, { appName: buildConfig().appName })}
           value={comment}
           onChange={onCommentChanged}
           multiline
@@ -98,7 +98,7 @@ const Feedback = ({
           accessibilityRole='text'
         />
         <InputSection
-          title={t($ => $.feedback.contactMailAddress)}
+          title={t($ => $.feedback.contactEmail)}
           value={contactMail}
           onChange={onFeedbackContactMailChanged}
           keyboardType='email-address'
@@ -107,15 +107,15 @@ const Feedback = ({
         />
         {sendingStatus === 'failed' && (
           <Text variant='body2' style={{ textAlign: 'left' }}>
-            {t($ => $.feedback.failedSendingFeedback)}
+            {t($ => $.error.unknownError)}
           </Text>
         )}
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
         {submitFeedbackDisabled && (
-          <Note text={t($ => (feedbackMissing ? $.feedback.noteFillFeedback : $.common.notePrivacyPolicy))} />
+          <Note text={t($ => (feedbackMissing ? $.feedback.required : $.common.privacy.required))} />
         )}
         <Button disabled={submitFeedbackDisabled} onPress={onSubmit} mode='contained' style={{ marginTop: 16 }}>
-          {t($ => $.feedback.send)}
+          {t($ => $.common.actions.send)}
         </Button>
       </Wrapper>
     </KeyboardAwareScrollView>

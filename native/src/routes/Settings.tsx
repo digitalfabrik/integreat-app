@@ -40,7 +40,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
       log('Failed to persist settings.', { level: 'error' })
       captureError(e)
       appContext.updateSettings(oldSettings)
-      showSnackbar({ text: t($ => $.error.settingsError) })
+      showSnackbar({ text: t($ => $.settings.error.save) })
     }
   }
 
@@ -60,7 +60,7 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
 
   return (
     <LayoutedScrollView>
-      <Caption title={t($ => $.layout.settings)} />
+      <Caption title={t($ => $.settings.title)} />
       <SwitchCmsUrlButton clearResourcesAndCache={clearResourcesAndCache} />
       <Divider />
       <FlatList

@@ -88,31 +88,34 @@ const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps):
   return (
     <Container elevation={4}>
       <StyledBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
-        {navigationItems.map(item => (
-          <StyledBottomNavigationAction
-            key={item.value}
-            component={Link}
-            to={item.to}
-            value={item.value}
-            label={
-              xsmall ? (
-                <Typography
-                  component='div'
-                  variant='body3'
-                  sx={{
-                    fontWeight: value === item.value ? 'bold' : 'normal',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}>
-                  {t($ => $.layout[item.label])}
-                </Typography>
-              ) : (
-                t($ => $.layout[item.label])
-              )
-            }
-            icon={<item.Icon />}
-          />
-        ))}
+        {navigationItems.map(item => {
+          const label = t($ => (item.value === CATEGORIES_ROUTE ? $.categories.titleShort : $[item.value].title))
+          return (
+            <StyledBottomNavigationAction
+              key={item.value}
+              component={Link}
+              to={item.to}
+              value={item.value}
+              label={
+                xsmall ? (
+                  <Typography
+                    component='div'
+                    variant='body3'
+                    sx={{
+                      fontWeight: value === item.value ? 'bold' : 'normal',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                    {label}
+                  </Typography>
+                ) : (
+                  label
+                )
+              }
+              icon={<item.Icon />}
+            />
+          )
+        })}
       </StyledBottomNavigation>
     </Container>
   )

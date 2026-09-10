@@ -24,7 +24,7 @@ const Consent = (): ReactElement | null => {
     <ConsentSection
       key={item}
       title={item}
-      description={t($ => $.consent.consentDescription, { source: item })}
+      description={t($ => $.settings.externalSources.source, { source: item })}
       allowed={externalSourcePermissions[item] ?? false}
       onPress={() => onPress(item)}
     />
@@ -37,12 +37,14 @@ const Consent = (): ReactElement | null => {
         renderItem={renderConsentItem}
         header={
           <>
-            <Caption title={t($ => $.consent.title)} />
-            <Text style={{ paddingHorizontal: 16, marginBottom: 24 }}>{t($ => $.consent.descriptionNative)}</Text>
+            <Caption title={t($ => $.settings.externalSources.title)} />
+            <Text style={{ paddingHorizontal: 16, marginBottom: 24 }}>
+              {t($ => $.settings.externalSources.description)}
+            </Text>
             <Divider />
           </>
         }
-        noItemsMessage={t($ => $.consent.noSources)}
+        noItemsMessage={t($ => $.settings.externalSources.nothingFound)}
       />
     </Layout>
   )

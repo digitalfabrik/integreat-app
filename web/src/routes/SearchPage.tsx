@@ -53,7 +53,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
   return (
     <>
       <Typography variant='subtitle2' aria-live={results.length === 0 ? 'assertive' : 'polite'}>
-        {t($ => $.search.searchResultsCount, { count: results.length })}
+        {t($ => $.search.resultCount, { count: results.length })}
       </Typography>
       <List items={items} />
       <SearchFeedback noResults={results.length === 0} />
@@ -138,7 +138,7 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
   return (
     <RegionContentLayout isLoading={false} {...layoutParams}>
       <Helmet
-        pageTitle={`${t($ => $.search.pageTitle)} - ${region.name}`}
+        pageTitle={`${t($ => $.search.title)} - ${region.name}`}
         languageChangePaths={languageChangePaths}
         regionModel={region}
       />

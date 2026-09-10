@@ -35,7 +35,7 @@ const HeaderBox = ({ goBack, canGoBack = true, title, language, regionsPath }: H
     <Appbar.BackAction
       style={{ backgroundColor: 'transparent' }}
       onPress={goBack}
-      accessibilityLabel={t($ => $.common.back)}
+      accessibilityLabel={t($ => $.common.actions.back)}
       iconColor={theme.colors.onSurface}
     />
   ) : (

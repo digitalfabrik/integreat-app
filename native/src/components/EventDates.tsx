@@ -98,7 +98,7 @@ const EventDates = ({
             <InlineWrap language={language}>
               <Icon source='repeat' size={iconSize} color={theme.colors.primary} />
               <Text variant={textVariant} style={{ color: theme.colors.primary }}>
-                {t($ => $.events.furtherDates)}
+                {t($ => $.events.recurrence.furtherDates)}
               </Text>
               <Icon source={expanded ? 'chevron-up' : 'chevron-down'} color={theme.colors.primary} />
             </InlineWrap>
@@ -130,7 +130,7 @@ const EventDates = ({
                   onPress={() => setExpansionCount(expansionCount + 1)}
                   language={language}
                   compact>
-                  {t($ => $.common.showMore)}
+                  {t($ => $.common.actions.showMore)}
                 </ShowMoreButton>
               )}
             </View>

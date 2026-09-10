@@ -46,7 +46,7 @@ const PlaceDetails = ({ place, language, distance, onFocus }: PlaceDetailsProps)
       </Text>
       {distance !== null && (
         <Text variant='body3' style={{ marginVertical: 8 }}>
-          {t($ => $.places.distanceKilometre, { distance: distance.toFixed(1) })}
+          {t($ => $.places.distance, { distance: distance.toFixed(1) })}
         </Text>
       )}
       {!!place.thumbnail && <CustomThumbnail src={place.thumbnail} />}
@@ -54,7 +54,7 @@ const PlaceDetails = ({ place, language, distance, onFocus }: PlaceDetailsProps)
       <StyledDivider />
       {content.length > 0 && (
         <>
-          <Accordion headerContent={t($ => $.places.description)}>
+          <Accordion headerContent={t($ => $.common.labels.description)}>
             <Page content={content} language={language} padding={false} />
           </Accordion>
           <StyledDivider />
@@ -64,7 +64,7 @@ const PlaceDetails = ({ place, language, distance, onFocus }: PlaceDetailsProps)
       <StyledDivider />
       {contacts.length > 0 && (
         <>
-          <Accordion headerContent={t($ => $.places.contacts)} initialCollapsed>
+          <Accordion headerContent={t($ => $.common.contacts.title)} initialCollapsed>
             <StyledContactsContainer>
               {contacts.map((contact, index) => (
                 <Contact

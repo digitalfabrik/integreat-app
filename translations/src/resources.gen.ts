@@ -324,7 +324,7 @@ const resources = {
       "description": "Choose your region or the next largest region, e.g. {{exampleRegion}}"
     },
     "nearby": {
-      "none": "No nearby region.",
+      "nothingFound": "No nearby region.",
       "refresh": "Refresh nearby regions"
     }
   },
@@ -404,12 +404,10 @@ const resources = {
     "nearby": "Near you",
     "show": "Show your own location",
     "loading": "Determining location…",
-    "error": {
-      "locationAccessRequired": "To display nearby regions, location access must be enabled.",
-      "noPermission": "Location access required",
-      "disabled": "Location services are disabled",
-      "timeout": "Location not found"
-    }
+    "locationAccessRequired": "To display nearby regions, location access must be enabled.",
+    "noPermission": "Location access required",
+    "notAvailable": "Location services are disabled",
+    "timeout": "Location not found"
   },
   "tts": {
     "title": "Read aloud",

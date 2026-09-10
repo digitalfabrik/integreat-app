@@ -46,13 +46,13 @@ const SearchFeedback = ({ noResults }: SearchFeedbackProps): ReactElement => {
       <CenteredContainer>
         <SmallTitle>
           {languageCode === fallbackLanguage
-            ? t($ => $.feedback.noResultsInUserLanguage)
-            : t($ => $.feedback.noResultsInUserAndSourceLanguage)}
+            ? t($ => $.feedback.search.noResultsInUserLanguage)
+            : t($ => $.feedback.search.noResultsInUserAndSourceLanguage)}
         </SmallTitle>
-        <Hint>{t($ => $.feedback.checkQuery, { appName: buildConfig().appName })}</Hint>
-        <SmallTitle>{t($ => $.feedback.informationMissing)}</SmallTitle>
+        <Hint>{t($ => $.feedback.search.checkQuery, { appName: buildConfig().appName })}</Hint>
+        <SmallTitle>{t($ => $.feedback.search.informationMissing)}</SmallTitle>
         <Button onClick={openFeedback} variant='outlined'>
-          {t($ => $.feedback.giveFeedback)}
+          {t($ => $.feedback.give)}
         </Button>
       </CenteredContainer>
     )
@@ -60,7 +60,7 @@ const SearchFeedback = ({ noResults }: SearchFeedbackProps): ReactElement => {
 
   return (
     <Container>
-      <Button onClick={openFeedback}>{t($ => $.feedback.informationNotFound)}</Button>
+      <Button onClick={openFeedback}>{t($ => $.feedback.search.informationNotFound)}</Button>
     </Container>
   )
 }

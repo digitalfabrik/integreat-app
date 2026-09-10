@@ -117,7 +117,7 @@ const EventDates = ({
               <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
                 <RepeatIcon color='primary' fontSize='small' />
                 <Typography color='primary' variant='body2'>
-                  {t($ => $.events.furtherDates)}
+                  {t($ => $.events.recurrence.furtherDates)}
                 </Typography>
               </Stack>
             }>
@@ -139,7 +139,7 @@ const EventDates = ({
             {hasMoreRecurrences && !compact && (
               <Button onClick={() => setExpansionCount(expansionCount + 1)} startIcon={<ExpandMoreIcon />} size='small'>
                 <Typography variant='body2' sx={{ textTransform: 'none' }}>
-                  {t($ => $.common.showMore)}
+                  {t($ => $.common.actions.showMore)}
                 </Typography>
               </Button>
             )}

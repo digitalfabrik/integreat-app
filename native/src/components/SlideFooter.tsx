@@ -41,7 +41,7 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
           }}
           onPress={onDone}
           disabled={isLastSlide}>
-          {t($ => $.intro.skip)}
+          {t($ => $.common.actions.skip)}
         </Button>
 
         <Button
@@ -52,7 +52,7 @@ const SlideFooter = ({ onDone, slideCount, goToSlide, currentSlide, t }: SlideFo
             fontSize: 14,
           }}
           onPress={isLastSlide ? onDone : goToNextSlide}>
-          {t($ => $.intro.next)}
+          {t($ => $.common.actions.next)}
         </Button>
       </ButtonContainer>
     </SideFooterContainer>

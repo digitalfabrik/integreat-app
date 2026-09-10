@@ -43,30 +43,30 @@ const EventsDateFilter = ({
             tabIndex={-1}
             component='div'
             startIcon={showDateFilter ? <CloseFullscreenIcon /> : <FilterListIcon />}>
-            {t($ => (showDateFilter ? $.events.hideFilters : $.events.showFilters))}
+            {t($ => (showDateFilter ? $.common.actions.hideFilters : $.common.actions.showFilters))}
           </Button>
         </AccordionSummary>
         <AccordionDetails>
           <Stack direction='row' sx={{ justifyContent: 'space-evenly', alignItems: 'start', flexWrap: 'wrap', gap: 2 }}>
             <DatePicker
-              title={t($ => $.events.from)}
+              title={t($ => $.events.filter.from)}
               date={startDate}
               setDate={setStartDate}
               error={startDateError}
-              calendarLabel={t($ => $.events.selectStartDateCalendar)}
+              calendarLabel={t($ => $.events.filter.selectStart)}
             />
             <DatePicker
-              title={t($ => $.events.to)}
+              title={t($ => $.events.filter.to)}
               date={endDate}
               setDate={setEndDate}
-              calendarLabel={t($ => $.events.selectEndDateCalendar)}
+              calendarLabel={t($ => $.events.filter.selectEnd)}
             />
           </Stack>
         </AccordionDetails>
       </Accordion>
       {(startDate || endDate) && (
         <Button onClick={resetDates} color='inherit' startIcon={<CloseOutlinedIcon />}>
-          {`${t($ => $.events.resetFilter)} ${formattedStartDate} - ${formattedEndDate}`}
+          {`${t($ => $.events.filter.reset)} ${formattedStartDate} - ${formattedEndDate}`}
         </Button>
       )}
     </>

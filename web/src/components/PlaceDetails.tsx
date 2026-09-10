@@ -42,7 +42,7 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
   const addressSection = (
     <Stack sx={{ paddingBlock: 1, gap: 1 }}>
       <Typography component='h2' variant='subtitle1'>
-        {t($ => $.places.detailsAddress)}
+        {t($ => $.common.contacts.address.title)}
       </Typography>
       <Button component={Link} to={externalMapsLink} color='inherit' startIcon={<LocationOnOutlinedIcon />} fullWidth>
         <Stack direction='row' sx={{ width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -61,7 +61,7 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
   const contactsSection = contacts.length > 0 && (
     <>
       <Divider />
-      <Accordion id='contacts' title={t($ => $.places.contacts)} defaultCollapsed>
+      <Accordion id='contacts' title={t($ => $.common.contacts.title)} defaultCollapsed>
         <StyledContactsList
           items={contacts.map(contact => (
             <Contact key={contact.headline} contact={contact} />
@@ -91,9 +91,7 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
           {place.title}
         </Typography>
         {distance !== null && (
-          <Typography variant='body2'>
-            {t($ => $.places.distanceKilometre, { distance: distance.toFixed(1) })}
-          </Typography>
+          <Typography variant='body2'>{t($ => $.places.distance, { distance: distance.toFixed(1) })}</Typography>
         )}
         <PlaceChips place={place} />
         {!!place.thumbnail && <CustomThumbnail src={place.thumbnail} />}
@@ -101,7 +99,7 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
       <Divider />
       {content.length > 0 && (
         <>
-          <Accordion id='content' title={t($ => $.places.detailsInformation)}>
+          <Accordion id='content' title={t($ => $.common.labels.description)}>
             <RemoteContent html={content} smallText />
           </Accordion>
           <Divider />

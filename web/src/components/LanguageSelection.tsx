@@ -63,12 +63,12 @@ const LanguageSelection = ({
   const currentLanguage = languageChangePaths.find(item => item.code === languageCode)
   const filteredLanguageChangePaths = filterLanguages(languageChangePaths, query, languageCode, config.sourceLanguage)
 
-  const openLanguageUnavailableDialog = () => openAlertDialog(t($ => $.layout.languageNotFoundQuestion))
-  const openTranslationUnavailableDialog = () => openAlertDialog(t($ => $.layout.noTranslation))
+  const openLanguageUnavailableDialog = () => openAlertDialog(t($ => $.languages.error.notFound.question))
+  const openTranslationUnavailableDialog = () => openAlertDialog(t($ => $.languages.error.noTranslation))
 
   const languageNotFoundButton = (
     <StyledLanguageNotFondButton onClick={openLanguageUnavailableDialog} variant='outlined'>
-      {t($ => $.layout.languageNotFoundQuestion)}
+      {t($ => $.languages.error.notFound.question)}
     </StyledLanguageNotFondButton>
   )
 
@@ -77,7 +77,7 @@ const LanguageSelection = ({
       <Stack sx={{ gap: 2 }}>
         <SearchInput
           id='search-language'
-          ariaLabel={t($ => $.layout.searchLanguage)}
+          ariaLabel={t($ => $.languages.search)}
           placeholderText={currentLanguage?.name ?? ''}
           filterText={query}
           onFilterTextChange={setQuery}

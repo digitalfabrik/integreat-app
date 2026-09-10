@@ -50,10 +50,7 @@ const Sidebar = ({ children, open, setOpen, footer, openButton, className }: Sid
   return (
     <>
       {openButton ?? (
-        <IconButton
-          onClick={() => setOpen(true)}
-          aria-label={t($ => $.layout.sideBarOpenAriaLabel)}
-          aria-expanded={open}>
+        <IconButton onClick={() => setOpen(true)} aria-label={t($ => $.common.actions.open)} aria-expanded={open}>
           <MoreVertIcon />
         </IconButton>
       )}
@@ -69,7 +66,7 @@ const Sidebar = ({ children, open, setOpen, footer, openButton, className }: Sid
         disableRestoreFocus>
         <Header>
           <Stack sx={{ minHeight: headerHeight, justifyContent: 'center', alignItems: 'flex-end', paddingInline: 1 }}>
-            <IconButton onClick={() => setOpen(false)} aria-label={t($ => $.layout.sideBarCloseAriaLabel)}>
+            <IconButton onClick={() => setOpen(false)} aria-label={t($ => $.common.actions.close)}>
               <CloseIcon />
             </IconButton>
           </Stack>

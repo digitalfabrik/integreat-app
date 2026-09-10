@@ -115,7 +115,7 @@ const PlacesBottomSheet = ({
       <BottomSheetHandle
         nextFocusForward={zoomInFocusTarget}
         isFullscreen={isFullscreen}
-        title={slug ? undefined : t($ => $.common.nearby)}
+        title={slug ? undefined : t($ => $.userLocation.nearby)}
         onPress={() => setSnapPointIndex(isFullscreen ? 1 : snapPoints.length - 1)}
       />
     ),
@@ -134,7 +134,7 @@ const PlacesBottomSheet = ({
       code={ErrorCodes.PageNotFound}
       retry={refresh}
       goTo={deselectAll}
-      goToLabel={t($ => $.places.backToOverview)}
+      goToLabel={t($ => $.common.actions.back)}
     />
   )
 
@@ -170,7 +170,7 @@ const PlacesBottomSheet = ({
           data={places}
           role='list'
           {...conditionalA11yProps({ hidden: !!slug })}
-          accessibilityLabel={t($ => $.places.placesCount, { count: places.length })}
+          accessibilityLabel={t($ => $.places.filter.show, { count: places.length })}
           renderItem={renderPlaceListItem}
           onScrollBeginDrag={Platform.OS === 'ios' ? expandFullscreen : undefined}
           showsVerticalScrollIndicator={false}
@@ -181,7 +181,7 @@ const PlacesBottomSheet = ({
                 alignSelf: 'center',
                 marginTop: 20,
               }}>
-              {t($ => $.places.noPlaces)}
+              {t($ => $.places.error.nothingFound)}
             </Text>
           }
           ItemSeparatorComponent={PlaceListDivider}

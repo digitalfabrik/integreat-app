@@ -34,7 +34,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTit
   const theme = useTheme()
   return (
     <TitleContainer language={language}>
-      <Text variant='h5'>{t($ => $.places.openingHours)}</Text>
+      <Text variant='h5'>{t($ => $.places.hours.title)}</Text>
       <Text
         variant='h6'
         style={{
@@ -42,7 +42,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTit
           alignSelf: 'center',
           ...(contentDirection(language) === 'row-reverse' ? { paddingLeft: 12 } : { paddingRight: 12 }),
         }}>
-        {label ?? t($ => (isCurrentlyOpen ? $.places.opened : $.places.closed))}
+        {label ?? t($ => $.places.hours[isCurrentlyOpen ? 'open' : 'closed'])}
       </Text>
     </TitleContainer>
   )
@@ -80,7 +80,7 @@ const OpeningHours = ({
       }}>
       <>
         <Text variant='body1' style={{ color: theme.colors.primary, textDecorationLine: 'underline' }}>
-          {t($ => $.places.makeAppointment)}
+          {t($ => $.places.hours.appointment.make.title)}
         </Text>
         <Icon color={theme.colors.primary} size={16} source='open-in-new' />
       </>
@@ -92,7 +92,7 @@ const OpeningHours = ({
       <>
         <OpeningHoursTitle
           isCurrentlyOpen={isCurrentlyOpen}
-          label={t($ => (isTemporarilyClosed ? $.places.temporarilyClosed : $.places.onlyWithAppointment))}
+          label={t($ => (isTemporarilyClosed ? $.places.hours.temporarilyClosed : $.places.hours.appointment.required))}
           language={language}
         />
         {AppointmentLink}

@@ -31,7 +31,7 @@ type GetNewsSourceLabelProps = {
 
 export const getNewsSourceLabel = ({ source, t }: GetNewsSourceLabelProps): string => {
   if (source === LOCAL_NEWS_SOURCE) {
-    return t($ => $.news.local)
+    return t($ => $.news.sources.local)
   }
   if (source === AMAL_NEWS_SOURCE) {
     return 'Amal News'

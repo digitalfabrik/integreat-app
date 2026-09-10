@@ -32,14 +32,14 @@ const FeedbackButtons = ({ rating, setRating }: FeedbackButtonsProps): ReactElem
   return (
     <Container>
       <ToggleButton
-        text={t($ => $.feedback.useful)}
+        text={t($ => $.feedback.rating.useful)}
         onPress={() => setRating(rating !== RATING_POSITIVE ? RATING_POSITIVE : null)}
         icon={<Icon size={32} color={iconColor(RATING_POSITIVE)} source='emoticon-happy-outline' />}
         active={rating === RATING_POSITIVE}
       />
       <Spacing />
       <ToggleButton
-        text={t($ => $.feedback.notUseful)}
+        text={t($ => $.feedback.rating.notUseful)}
         onPress={() => setRating(rating !== RATING_NEGATIVE ? RATING_NEGATIVE : null)}
         icon={<Icon size={32} color={iconColor(RATING_NEGATIVE)} source='emoticon-sad-outline' />}
         active={rating === RATING_NEGATIVE}

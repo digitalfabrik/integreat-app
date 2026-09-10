@@ -142,7 +142,7 @@ const PlacesMobile = ({
         overlay={
           <>
             {canDeselect && (
-              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t($ => $.places.backToOverview)}>
+              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t($ => $.common.actions.back)}>
                 <DirectionDependentBackIcon />
               </StyledIconButton>
             )}
@@ -152,7 +152,7 @@ const PlacesMobile = ({
       />
       <BottomActionSheet
         ref={sheetRef}
-        title={canDeselect || loading ? undefined : t($ => $.common.nearby)}
+        title={canDeselect || loading ? undefined : t($ => $.userLocation.nearby)}
         sibling={
           <>
             <MapControlsContainer>

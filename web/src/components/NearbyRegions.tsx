@@ -30,10 +30,12 @@ const NearbyRegions = ({ regions, language, filterText }: NearbyRegionsProps): R
   if (nearbyRegions.length === 0) {
     return (
       <Stack sx={{ paddingBlock: 1 }}>
-        <StickyListSubheader stickyTop={stickyTop}>{t($ => $.common.nearby)}</StickyListSubheader>
+        <StickyListSubheader stickyTop={stickyTop}>{t($ => $.userLocation.nearby)}</StickyListSubheader>
         <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between', paddingInline: 2 }}>
-          <ListItemText primary={t($ => (userLocation ? $.regions.noNearbyRegions : $.regions.locationError))} />
-          <IconButton aria-label={t($ => $.regions.refresh)} onClick={refresh}>
+          <ListItemText
+            primary={t($ => (userLocation ? $.regions.nearby.nothingFound : $.userLocation.locationAccessRequired))}
+          />
+          <IconButton aria-label={t($ => $.regions.nearby.refresh)} onClick={refresh}>
             <RefreshIcon />
           </IconButton>
         </Stack>
@@ -43,7 +45,7 @@ const NearbyRegions = ({ regions, language, filterText }: NearbyRegionsProps): R
 
   return (
     <RegionListGroup
-      title={t($ => $.common.nearby)}
+      title={t($ => $.userLocation.nearby)}
       regions={nearbyRegions}
       languageCode={language}
       filterText={filterText}
