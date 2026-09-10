@@ -1,5 +1,7 @@
 {
-  "categories": {
-    "metaDescription": "{{appName}}, Aschaffenburg Şehrindeki dijital refakatçinizdir. Burada yerel bilgileri, başvuru merkezlerini ve sunulan hizmetleri bulabilirsiniz."
+  "common": {
+    "meta": {
+      "description": "{{appName}}, Aschaffenburg Şehrindeki dijital refakatçinizdir. Burada yerel bilgileri, başvuru merkezlerini ve sunulan hizmetleri bulabilirsiniz."
+    }
   }
 }
