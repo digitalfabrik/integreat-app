@@ -50,12 +50,12 @@ describe('Places', () => {
   it('should show failure if place is not found', async () => {
     const { queryByText, getByText } = renderPlaces({ slug: 'invalid' })
 
-    expect(getByText('error:notFound.place')).toBeTruthy()
+    expect(getByText('places:error.notFound')).toBeTruthy()
     expect(queryByText(place0.title)).toBeFalsy()
     expect(queryByText(place1.title)).toBeFalsy()
     expect(queryByText(place2.title)).toBeFalsy()
 
-    fireEvent.click(getByText('places:backToOverview'))
+    fireEvent.click(getByText('common:actions.back'))
 
     expect(getByText(place0.title)).toBeTruthy()
 
@@ -179,14 +179,14 @@ describe('Places', () => {
     expect(getByText(`Feature-${place1.title}`)).toBeTruthy()
 
     // Open place filters
-    fireEvent.click(getByText('places:adjustFilters'))
+    fireEvent.click(getByText('places:filter.adjust'))
 
     expect(getAllByText('Gastronomie')).toHaveLength(3)
     expect(getAllByText('Dienstleistung')).toHaveLength(2)
 
     // Select Dienstleistung filter and close filters
     fireEvent.click(getAllByText('Dienstleistung')[1]!)
-    fireEvent.click(getByText('places:showPlaces'))
+    fireEvent.click(getByText('places:filter.show'))
 
     // Chip button + one place with category Dienstleistung
     expect(getAllByText('Dienstleistung')).toHaveLength(2)

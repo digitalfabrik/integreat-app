@@ -108,7 +108,7 @@ describe('Chat', () => {
     const { getByLabelText, queryByTestId } = renderChat({}, updateChatSettings)
 
     expect(queryByTestId('webview')).toBeNull()
-    expect(getByLabelText('common:loading')).toBeTruthy()
+    expect(getByLabelText('common:state.loading')).toBeTruthy()
     await waitFor(() => expect(updateChatSettings).toHaveBeenCalledWith({ seenMessages: 0, id: expect.any(String) }))
   })
 
@@ -148,13 +148,13 @@ describe('Chat', () => {
   it('shows the new chat confirmation dialog when the new chat menu item is pressed', () => {
     const { getByText, queryByText } = renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } })
 
-    expect(queryByText('chat:newChatConfirmation')).toBeNull()
+    expect(queryByText('chat:startNew.description')).toBeNull()
 
     act(() => {
       lastMenuItems()[0]!.props.onPress()
     })
 
-    expect(getByText('chat:newChatConfirmation')).toBeTruthy()
+    expect(getByText('chat:startNew.description')).toBeTruthy()
   })
 
   it('creates a fresh chat with a new id and zero seen messages when the confirmation is accepted', () => {
@@ -165,7 +165,7 @@ describe('Chat', () => {
       lastMenuItems()[0]!.props.onPress()
     })
 
-    const newChatLabels = getAllByText('chat:newChat')
+    const newChatLabels = getAllByText('chat:startNew.title')
     fireEvent.press(newChatLabels[newChatLabels.length - 1]!)
 
     expect(updateChatSettings).toHaveBeenCalledWith({ seenMessages: 0, id: expect.any(String) })
@@ -181,7 +181,7 @@ describe('Chat', () => {
       lastMenuItems()[0]!.props.onPress()
     })
 
-    fireEvent.press(getByText('layout:cancel'))
+    fireEvent.press(getByText('common:actions.cancel'))
 
     expect(updateChatSettings).not.toHaveBeenCalled()
   })

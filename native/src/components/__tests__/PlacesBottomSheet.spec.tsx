@@ -49,7 +49,7 @@ describe('PlacesBottomSheet', () => {
     expect(queryByText(place1.title)).toBeFalsy()
     expect(queryByText(place2.title)).toBeFalsy()
 
-    fireEvent.press(getByText('places:backToOverview'))
+    fireEvent.press(getByText('common:actions.back'))
 
     expect(deselectAll).toHaveBeenCalledTimes(1)
   })

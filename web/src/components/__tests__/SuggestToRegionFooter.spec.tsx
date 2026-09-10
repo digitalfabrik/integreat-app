@@ -8,7 +8,7 @@ describe('SuggestToRegionFooter', () => {
 
   it('should render text and button', () => {
     const { getByText } = renderWithRouterAndTheme(<SuggestToRegionFooter languageCode='de' />)
-    expect(getByText('regions:regionNotFound')).toBeDefined()
-    expect(getByText('regions:suggestToRegion')).toBeDefined()
+    expect(getByText('suggestToRegion:regionNotFoundCta')).toBeDefined()
+    expect(getByText('suggestToRegion:title')).toBeDefined()
   })
 })

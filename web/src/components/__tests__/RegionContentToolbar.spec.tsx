@@ -8,15 +8,15 @@ describe('RegionContentToolbar', () => {
     const { getByText } = renderAllRoutes('/augsburg/de', {
       RegionContentElement: <RegionContentToolbar />,
     })
-    expect(getByText('feedback:useful')).toBeTruthy()
-    expect(getByText('feedback:notUseful')).toBeTruthy()
+    expect(getByText('feedback:rating.useful')).toBeTruthy()
+    expect(getByText('feedback:rating.notUseful')).toBeTruthy()
   })
 
   it('should hide feedback for news routes', () => {
     const { queryByText } = renderAllRoutes('/augsburg/de/news/local', {
       RegionContentElement: <RegionContentToolbar />,
     })
-    expect(queryByText('feedback:useful')).toBeFalsy()
-    expect(queryByText('feedback:notUseful')).toBeFalsy()
+    expect(queryByText('feedback:rating.useful')).toBeFalsy()
+    expect(queryByText('feedback:rating.notUseful')).toBeFalsy()
   })
 })

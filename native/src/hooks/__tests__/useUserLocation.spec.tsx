@@ -55,7 +55,7 @@ describe('useUserLocation', () => {
           onPress={() => refreshPermissionAndLocation({ showSnackbarIfBlocked: false })}
         />
         <Button
-          title='regions:refresh'
+          title='regions:nearby.refresh'
           onPress={() => {
             refreshPermissionAndLocation({ requestPermission: false, showSnackbarIfBlocked: false })
           }}
@@ -124,7 +124,7 @@ describe('useUserLocation', () => {
     mockGetCurrentPosition.mockImplementationOnce((setPosition: (position: GeolocationResponse) => void) =>
       setPosition({ ...augsburgCoordinates, coords: { ...augsburgCoordinates.coords, longitude: 0, latitude: 0 } }),
     )
-    fireEvent.press(getByText('regions:refresh'))
+    fireEvent.press(getByText('regions:nearby.refresh'))
 
     await waitFor(() => expect(getByText(`longitude: 0`)).toBeTruthy())
     expect(getByText(`latitude: 0`)).toBeTruthy()
@@ -134,7 +134,7 @@ describe('useUserLocation', () => {
         setError &&
         setError({ code: 2, message: 'timeout', POSITION_UNAVAILABLE: 0, PERMISSION_DENIED: 1, TIMEOUT: 2 }),
     )
-    fireEvent.press(getByText('regions:refresh'))
+    fireEvent.press(getByText('regions:nearby.refresh'))
 
     await waitFor(() => expect(getByText('timeout')).toBeTruthy())
   })
@@ -153,10 +153,10 @@ describe('useUserLocation', () => {
     expect(showSnackbar).toHaveBeenCalledTimes(1)
     expect(showSnackbar).toHaveBeenCalledWith({
       action: {
-        label: 'layout:settings',
+        label: 'settings:title',
         onPress: openSettings,
       },
-      text: 'regions:noPermission',
+      text: 'userLocation:noPermission',
     })
 
     expect(mockGetCurrentPosition).not.toHaveBeenCalled()

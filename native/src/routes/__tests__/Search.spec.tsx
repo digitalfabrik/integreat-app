@@ -56,7 +56,7 @@ describe('Search', () => {
 
     fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'no results, please')
 
-    expect(getByText('feedback:noResultsInUserLanguage')).toBeTruthy()
+    expect(getByText('feedback:search.noResultsInUserLanguage')).toBeTruthy()
   })
 
   it('should open with an initial search text if one is supplied', () => {

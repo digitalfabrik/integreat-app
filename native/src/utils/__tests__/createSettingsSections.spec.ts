@@ -45,7 +45,7 @@ describe('createSettingsSections', () => {
   describe('allowPushNotifications', () => {
     it('should set correct setting on press', async () => {
       const sections = createSettings()
-      const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
+      const pushNotificationSection = sections.find(it => it?.title === 'settings.pushNotifications.title')!
       await pushNotificationSection!.onPress()
       expect(updateSettings).toHaveBeenCalledTimes(1)
       expect(updateSettings).toHaveBeenCalledWith({ allowPushNotifications: false })
@@ -60,7 +60,7 @@ describe('createSettingsSections', () => {
 
     it('should unsubscribe from push notification topic', async () => {
       const sections = createSettings()
-      const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
+      const pushNotificationSection = sections.find(it => it?.title === 'settings.pushNotifications.title')!
 
       expect(mockUnsubscribeNews).not.toHaveBeenCalled()
 
@@ -77,7 +77,7 @@ describe('createSettingsSections', () => {
 
     it('should subscribe to push notification topic if permission is granted', async () => {
       const sections = createSettings({ allowPushNotifications: false })
-      const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
+      const pushNotificationSection = sections.find(it => it?.title === 'settings.pushNotifications.title')!
 
       expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
       expect(mockSubscribeNews).not.toHaveBeenCalled()
@@ -101,7 +101,7 @@ describe('createSettingsSections', () => {
 
     it('should open settings and return false if permissions not granted', async () => {
       const sections = createSettings({ allowPushNotifications: false })
-      const pushNotificationSection = sections.find(it => it?.title === 'pushNewsTitle')!
+      const pushNotificationSection = sections.find(it => it?.title === 'settings.pushNotifications.title')!
 
       expect(mockRequestPushNotificationPermission).not.toHaveBeenCalled()
       expect(mockSubscribeNews).not.toHaveBeenCalled()

@@ -63,7 +63,7 @@ describe('EventsPage', () => {
   it('should link to all languages if no event is selected', () => {
     mockUseQueryFromEndpointWithData(events)
     const { getAllByText, getByRole } = renderOverview()
-    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+    fireEvent.click(getByRole('button', { name: 'languages:change' }))
 
     expect(getAllByText('English')[0]?.closest('a')).toHaveAttribute('href', `/${region.code}/en/${EVENTS_ROUTE}`)
     expect(getAllByText(arabicName)[0]?.closest('a')).toHaveAttribute('href', `/${region.code}/ar/${EVENTS_ROUTE}`)
@@ -75,7 +75,7 @@ describe('EventsPage', () => {
     mockUseQueryFromEndpointWithData(events)
     const event = events[0]!
     const { getAllByText, getByRole } = renderDetail(event.path)
-    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+    fireEvent.click(getByRole('button', { name: 'languages:change' }))
 
     expect(getAllByText('English')[0]?.closest('a')).toHaveAttribute('href', event.availableLanguages.en!)
     expect(getAllByText(arabicName)[0]?.closest('a')).toHaveAttribute('href', event.availableLanguages.ar!)

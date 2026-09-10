@@ -16,16 +16,16 @@ describe('ChatHighlightPopup', () => {
     const anchorEl = document.createElement('button')
     const { getByText } = renderWithTheme(<ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />)
 
-    expect(getByText('chat:welcomeGreeting 👋')).toBeTruthy()
-    expect(getByText('chat:welcomeText')).toBeTruthy()
+    expect(getByText('chat:welcome.title 👋')).toBeTruthy()
+    expect(getByText('chat:welcome.description')).toBeTruthy()
     expect(localStorage.getItem(CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 
   it('should not render popup when anchorEl is null', () => {
     const { queryByText } = renderWithTheme(<ChatHighlightPopup anchorEl={null} chatName={chatName} />)
 
-    expect(queryByText('chat:welcomeGreeting')).toBeFalsy()
-    expect(queryByText('chat:welcomeText')).toBeFalsy()
+    expect(queryByText('chat:welcome.title')).toBeFalsy()
+    expect(queryByText('chat:welcome.description')).toBeFalsy()
   })
 
   it('should hide popup when close button is clicked', () => {
@@ -34,10 +34,10 @@ describe('ChatHighlightPopup', () => {
       <ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />,
     )
 
-    fireEvent.click(getByLabelText('common:close'))
+    fireEvent.click(getByLabelText('common:actions.close'))
 
-    expect(queryByText('chat:welcomeGreeting')).toBeFalsy()
-    expect(queryByText('chat:welcomeText')).toBeFalsy()
+    expect(queryByText('chat:welcome.title')).toBeFalsy()
+    expect(queryByText('chat:welcome.description')).toBeFalsy()
     expect(localStorage.getItem(CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY)).toBe('false')
   })
 
@@ -46,7 +46,7 @@ describe('ChatHighlightPopup', () => {
     const anchorEl = document.createElement('button')
     const { queryByText } = renderWithTheme(<ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />)
 
-    expect(queryByText('chat:welcomeGreeting')).toBeFalsy()
-    expect(queryByText('chat:welcomeText')).toBeFalsy()
+    expect(queryByText('chat:welcome.title')).toBeFalsy()
+    expect(queryByText('chat:welcome.description')).toBeFalsy()
   })
 })
