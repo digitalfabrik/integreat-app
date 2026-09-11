@@ -7,6 +7,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
+import { HEADER_TITLE_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
 
@@ -48,6 +49,7 @@ const HeaderTitle = ({ title, regionsPath }: HeaderTitleProps): ReactElement => 
       onOpen={() => setTooltipOpen(true)}
       onClose={() => setTooltipOpen(false)}>
       <Button
+        id={HEADER_TITLE_ELEMENT_ID}
         component={Link}
         to={regionsPath}
         endIcon={<KeyboardArrowDownIcon />}

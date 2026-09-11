@@ -415,5 +415,26 @@
     "findOutMail": "Get the e-mail address of your region",
     "sendText": "Copy this text, complete the [ ]-contents with your details and send off",
     "copyText": "Copy text"
+  },
+  "tour": {
+    "welcomeDescription": "This short tour shows you the most important features of the app.",
+    "startTour": "Start tour",
+    "skipTour": "Skip tour",
+    "progress": "Step {{current}} of {{total}}",
+    "changeLocationDescription": "Select your <strong>city</strong> here to find local information.",
+    "navigationTitle": "Navigation",
+    "navigationDescription": "Switch between <strong>Information</strong>, <strong>Map</strong>, <strong>News</strong> and <strong>Events</strong> here.",
+    "categoriesTitle": "Discover topics",
+    "categoriesDescription": "Discover information on topics such as <strong>Housing</strong>, <strong>Education</strong>, <strong>Work</strong> and more.",
+    "searchAndLanguageTitle": "Search and language",
+    "searchAndLanguageDescription": "<strong>Search</strong> for topics, events and places or change the <strong>language</strong>.",
+    "additionalFeaturesTitle": "Additional features",
+    "additionalFeaturesDescription": "Use further features here such as <strong>creating a PDF</strong>, <strong>reading aloud</strong>, <strong>sharing</strong> and <strong>high contrast</strong>.",
+    "additionalFeaturesWithFeedbackDescription": "Use further features here such as <strong>creating a PDF</strong>, <strong>reading aloud</strong>, <strong>giving feedback</strong>, <strong>sharing</strong> and more.",
+    "chatDescription": "Ask your questions here and quickly get suitable answers.",
+    "finish": "Finish",
+    "finishTitle": "Done!",
+    "finishDescription": "Now you know the most important features. Good luck with {{appName}}!",
+    "finishAction": "Let's go"
   }
 }

@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { getChatName } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
+import { CHAT_FAB_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
 import ChatHighlightPopup from './ChatHighlightPopup'
 import LiveAnnouncer from './LiveAnnouncer'
@@ -40,7 +41,7 @@ const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
   return (
-    <ChatButtonContainer bottom={bottomNavigationHeight ?? visibleFooterHeight}>
+    <ChatButtonContainer id={CHAT_FAB_ELEMENT_ID} bottom={bottomNavigationHeight ?? visibleFooterHeight}>
       <LiveAnnouncer message={unreadMessageCount > 0 ? unreadMessages : ''} />
       <Badge
         badgeContent={unreadMessageCount > 0 ? unreadMessageCount : undefined}

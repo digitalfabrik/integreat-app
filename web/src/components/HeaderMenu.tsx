@@ -14,6 +14,7 @@ import React, { ReactElement, RefObject, useImperativeHandle } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
+import { HEADER_MENU_ELEMENT_ID, HEADER_MENU_PANEL_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
 import { useRouteParams } from '../hooks/useRegionContentParams'
 import { withDividers } from '../utils'
@@ -55,9 +56,9 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
 
   useImperativeHandle(ref, () => ({ closeMenu: () => setMenuAnchorElement(null) }))
 
-  const openMenu = (event: React.MouseEvent<HTMLElement>) => setMenuAnchorElement(event.currentTarget)
   const closeMenu = () => setMenuAnchorElement(null)
   const open = menuAnchorElement !== null
+  const openMenu = (event: React.MouseEvent<HTMLElement>) => setMenuAnchorElement(open ? null : event.currentTarget)
 
   const items = Array.isArray(children) ? children : [children]
 
@@ -113,10 +114,22 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
 
   return (
     <>
-      <IconButton onClick={openMenu} aria-label={t($ => $.layout.sideBarOpenAriaLabel)} aria-expanded={open}>
+      <IconButton
+        id={HEADER_MENU_ELEMENT_ID}
+        onClick={openMenu}
+        aria-label={t($ => $.layout.sideBarOpenAriaLabel)}
+        aria-expanded={open}>
         <MoreVertIcon />
       </IconButton>
-      <StyledMenu anchorEl={menuAnchorElement} open={open} onClose={closeMenu}>
+      <StyledMenu
+        anchorEl={menuAnchorElement}
+        open={open}
+        onClose={closeMenu}
+        slotProps={{
+          paper: { id: HEADER_MENU_PANEL_ELEMENT_ID },
+          // Let the tour measure the menu once it is opened and positioned
+          transition: { onEntered: () => window.dispatchEvent(new Event('resize')) },
+        }}>
         {withDividers([
           ...items,
           <MenuItem
