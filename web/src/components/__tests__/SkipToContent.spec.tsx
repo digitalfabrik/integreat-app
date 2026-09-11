@@ -7,6 +7,6 @@ describe('SkipToContent', () => {
   it('should render skip to content button', () => {
     const { getByText } = renderWithTheme(<SkipToContent />)
 
-    expect(getByText('layout:skipToContent')).toBeTruthy()
+    expect(getByText('common:a11y.skipToContent')).toBeTruthy()
   })
 })

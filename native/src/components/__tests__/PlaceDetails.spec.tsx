@@ -38,16 +38,16 @@ describe('PlaceDetails', () => {
 
     expect(getByText(place.title)).toBeTruthy()
     expect(getByText(place.category!.name!)).toBeTruthy()
-    expect(getByText('places:distanceKilometre')).toBeTruthy()
+    expect(getByText('places:distance')).toBeTruthy()
     expect(getByText(place.location.address)).toBeTruthy()
     expect(getByText(`${place.location.postcode} ${place.location.town}`)).toBeTruthy()
-    expect(getByText('places:description')).toBeTruthy()
+    expect(getByText('common:labels.description')).toBeTruthy()
     expect(getByText(place.content)).toBeTruthy()
 
-    fireEvent.press(getByText('places:contacts'))
+    fireEvent.press(getByText('common:contacts.title'))
     const contact = place.contacts[0]!
     expect(getByText(contact.headline!)).toBeTruthy()
-    expect(getByText('places:website')).toBeTruthy()
+    expect(getByText('common:contacts.website')).toBeTruthy()
     expect(getByText(contact.phoneNumber!)).toBeTruthy()
     expect(getByText(contact.email!)).toBeTruthy()
   })
@@ -58,7 +58,7 @@ describe('PlaceDetails', () => {
       <PlaceDetails place={place} language={language} distance={null} onFocus={jest.fn()} />,
     )
 
-    expect(queryByText('places:distanceKilometre', { exact: false })).toBeFalsy()
+    expect(queryByText('places:distance', { exact: false })).toBeFalsy()
   })
 
   it('should not render contact information if there is none', () => {
@@ -73,7 +73,7 @@ describe('PlaceDetails', () => {
       />,
     )
 
-    expect(queryByText('places:contactInformation')).toBeFalsy()
+    expect(queryByText('common:contacts.title')).toBeFalsy()
   })
 
   it('should open external maps app on icon click', async () => {
@@ -82,7 +82,7 @@ describe('PlaceDetails', () => {
       <PlaceDetails onFocus={jest.fn()} place={place} language={language} distance={distance} />,
     )
 
-    fireEvent.press(getByLabelText('places:openExternalMaps'))
+    fireEvent.press(getByLabelText('common:actions.openExternal'))
     const externalMapsUrl = 'maps:30,30?q=Test Title, Test Address 1, 12345 Test Town'
     await waitFor(() => expect(mockOpenExternalUrl).toHaveBeenCalledWith(externalMapsUrl))
   })
@@ -95,7 +95,7 @@ describe('PlaceDetails', () => {
 
     fireEvent.press(getByText(place.location.address))
     expect(Clipboard.setString).toHaveBeenCalledWith('Test Address 1, 12345 Test Town')
-    expect(showSnackbar).toHaveBeenCalledWith({ text: 'places:addressCopied' })
+    expect(showSnackbar).toHaveBeenCalledWith({ text: 'common:state.copied' })
   })
 
   it('should show accessibility information for accessible PLACE', () => {
@@ -103,7 +103,7 @@ describe('PlaceDetails', () => {
     const { getByText } = renderWithTheme(
       <PlaceDetails onFocus={jest.fn()} place={accessiblePlace} language={language} distance={distance} />,
     )
-    expect(getByText('common:accessible')).toBeTruthy()
+    expect(getByText('places:accessible')).toBeTruthy()
   })
 
   it('should show accessibility information for not accessible PLACE', () => {
@@ -111,7 +111,7 @@ describe('PlaceDetails', () => {
     const { getByText } = renderWithTheme(
       <PlaceDetails onFocus={jest.fn()} place={notAccessiblePlace} language={language} distance={distance} />,
     )
-    expect(getByText('common:notAccessible')).toBeTruthy()
+    expect(getByText('places:notAccessible')).toBeTruthy()
   })
 
   it('should not show accessibility information for PLACE with unknown accessibility', () => {
@@ -119,8 +119,8 @@ describe('PlaceDetails', () => {
     const { queryByText } = renderWithTheme(
       <PlaceDetails onFocus={jest.fn()} place={unknownAccessiblePlace} language={language} distance={distance} />,
     )
-    expect(queryByText('common:accessible')).toBeFalsy()
-    expect(queryByText('common:notAccessible')).toBeFalsy()
+    expect(queryByText('places:accessible')).toBeFalsy()
+    expect(queryByText('places:notAccessible')).toBeFalsy()
   })
 
   it('should show the PLACE organization if there is one', () => {

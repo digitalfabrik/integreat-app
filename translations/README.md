@@ -8,6 +8,7 @@
 - [Conversion between JSON, CSV and ODS](#conversion-between-json-csv-and-ods)
 - [Used file formats](#used-file-formats)
 - [Sync files](#sync-files)
+- [Validate translations](#validate-translations)
 
 ## Supported Languages
 
@@ -27,7 +28,7 @@ You need to follow several steps to add new languages:
 - Add the new language to the [wiki](https://wiki.tuerantuer.org/integreat-languages).
 - Translate our [translations](src/translations) in your new language, see [export and import workflow](#export-and-import-workflow).
 - [Optional] Translate the whitelabel [override translations](src/override-translations), see [export and import workflow](#export-and-import-workflow).
-- Sync the index files with `yarn workspace translations sync-indexes` (see [sync index files](#sync-index-files)).
+- Regenerate the index barrels and resource types with `yarn workspace translations sync` (see [sync files](#sync-files)).
 
 If you need a new font for your language, the following steps are required:
 
@@ -64,13 +65,6 @@ Make sure to revert this after exporting.
   - `yarn import:aschaffenburg`
   - `yarn import:obdach`
 - Review the changes carefully.
-
-**Warning:** Make sure to check the received translations on mistakes. For example make sure that our placeholders are not translated.
-The following regex can be used to find invalid placeholders (make sure to enable case-sensitive and regex search):
-
-```regexp
-\{\{(?!appName|date|exampleRegion|distance|count|organization|domain|source|message|numberOfCharacters|filter|version|number|region)[^}]*}}
-```
 
 ## Conversion between JSON, CSV and ODS
 
@@ -150,3 +144,25 @@ Sync the index files and the resource types by running:
 ```bash
 yarn workspace translations sync
 ```
+
+## Validate translations
+
+To validate the translations and overrides against the reference translations (`en`):
+
+```bash
+yarn workspace translations validate
+```
+
+or, including a check that generated files are up to date as well:
+
+```bash
+yarn workspace translations check
+```
+
+It checks for
+
+- keys present in a language file but missing from the reference file
+- keys missing from a fully translated language (the reference language and the source language)
+- empty string values
+- placeholders (`{{name}}`) whose set differs from the reference translation
+- `<tag>` or `<1>` markers (used by `<Trans />`) whose set differs from the reference translation

@@ -109,7 +109,7 @@ describe('openExternalUrl', () => {
     await openExternalUrl(url, { showSnackbar, t: mockT })
 
     expect(showSnackbar).toHaveBeenCalledTimes(1)
-    expect(showSnackbar).toHaveBeenCalledWith({ text: 'noSuitableAppInstalled' })
+    expect(showSnackbar).toHaveBeenCalledWith({ text: 'error.noSuitableAppInstalled' })
 
     expect(Linking.openURL).not.toHaveBeenCalled()
     expect(InAppBrowser.open).not.toHaveBeenCalled()

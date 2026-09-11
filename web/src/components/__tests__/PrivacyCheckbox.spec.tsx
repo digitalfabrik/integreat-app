@@ -8,7 +8,7 @@ describe('PrivacyCheckbox', () => {
   const setChecked = jest.fn()
   it('should select checkbox on click', () => {
     const { getByText } = renderWithTheme(<PrivacyCheckbox language='en' checked={false} setChecked={setChecked} />)
-    fireEvent.click(getByText('common:privacyPolicy'))
+    fireEvent.click(getByText('common:privacy.confirmation'))
     expect(setChecked).toHaveBeenCalledTimes(1)
     expect(setChecked).toHaveBeenCalledWith(true)
   })

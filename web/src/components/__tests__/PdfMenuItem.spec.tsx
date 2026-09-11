@@ -48,7 +48,7 @@ describe('PdfMenuItem', () => {
     const { getByText } = renderInMenu(
       <PdfMenuItem category={rootCategory} regionCode={regionCode} languageCode={languageCode} />,
     )
-    const pdfUrlLink = getByText('categories:createPdf').closest('a')
+    const pdfUrlLink = getByText('categories:pdf.create').closest('a')
 
     expect(pdfUrlLink?.href).toBe(`${cmsApiBaseUrl}/${regionCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`)
   })
@@ -59,7 +59,7 @@ describe('PdfMenuItem', () => {
     const { getByText } = renderInMenu(
       <PdfMenuItem category={childCategory} regionCode={regionCode} languageCode={languageCode} />,
     )
-    const pdfUrlLink = getByText('categories:createPdf').closest('a')
+    const pdfUrlLink = getByText('categories:pdf.create').closest('a')
 
     expect(pdfUrlLink?.href).toBe(
       `${cmsApiBaseUrl}/${regionCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(
@@ -74,6 +74,6 @@ describe('PdfMenuItem', () => {
     const { getByText } = renderInMenu(
       <PdfMenuItem category={rootCategory} regionCode={regionCode} languageCode={languageCode} />,
     )
-    expect(getByText('categories:createPdf').closest('li')).toHaveClass('Mui-disabled')
+    expect(getByText('categories:pdf.create').closest('li')).toHaveClass('Mui-disabled')
   })
 })

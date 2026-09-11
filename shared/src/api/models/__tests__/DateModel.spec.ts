@@ -887,7 +887,7 @@ describe('DateModel', () => {
         recurrenceRule: null,
         onlyWeekdays: false,
       })
-      expect(date.formatTimeInterval('de', { t: mockT })).toBe('allDay')
+      expect(date.formatTimeInterval('de', { t: mockT })).toBe('places.hours.allDay')
     })
   })
 
@@ -957,7 +957,7 @@ describe('DateModel', () => {
         ...baseDates,
         recurrenceRule: rrulestr('DTSTART:20231016T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231106T050000'),
       })
-      expect(date.formatRecurrenceEnd('de', { t: mockT })).toBe('untilDate')
+      expect(date.formatRecurrenceEnd('de', { t: mockT })).toBe('events.recurrence.untilDate')
     })
 
     it('should interpolate the last recurrence date into the translated message', () => {

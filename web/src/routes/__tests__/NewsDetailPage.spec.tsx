@@ -108,7 +108,7 @@ describe('NewsDetailPage', () => {
   it('should link only to languages with available translations', () => {
     mockUseQueryFromEndpointWithData(buildNews(LOCAL_NEWS_SOURCE))
     const { getAllByText, getByRole } = renderDetail()
-    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+    fireEvent.click(getByRole('button', { name: 'languages:change' }))
 
     expect(getAllByText('English')[0]?.closest('a')).toHaveAttribute(
       'href',
@@ -120,7 +120,7 @@ describe('NewsDetailPage', () => {
   it('should not link to other languages while news is loading', () => {
     mockUseQueryFromEndpointWithData(undefined)
     const { getAllByText, getByRole } = renderDetail()
-    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+    fireEvent.click(getByRole('button', { name: 'languages:change' }))
 
     expect(getAllByText('English')[0]?.closest('a')).toBeNull()
     expect(getAllByText(arabicName)[0]?.closest('a')).toBeNull()

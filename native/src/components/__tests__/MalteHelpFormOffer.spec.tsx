@@ -86,7 +86,7 @@ describe('MalteHelpFormOffer', () => {
 
     const emailInput = getByTestId(emailInputLabel)
     await user.type(emailInput, email)
-    fireEvent.press(getByText('common:privacyPolicy'))
+    fireEvent.press(getByText('common:privacy.confirmation'))
     expect(emailInput.props.value).toBe(email)
     expect(submitButton).toBeEnabled()
 
@@ -134,7 +134,7 @@ describe('MalteHelpFormOffer', () => {
     const phoneInput = getByTestId(phoneInputLabel)
     await user.type(phoneInput, phoneNumber)
     expect(phoneInput.props.value).toBe(phoneNumber)
-    fireEvent.press(getByText('common:privacyPolicy'))
+    fireEvent.press(getByText('common:privacy.confirmation'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByTestId(messageInputLabel)
@@ -183,7 +183,7 @@ describe('MalteHelpFormOffer', () => {
     const messageInput = getByTestId(messageInputLabel)
     await user.type(messageInput, message)
     expect(messageInput.props.value).toBe(message)
-    fireEvent.press(getByText('common:privacyPolicy'))
+    fireEvent.press(getByText('common:privacy.confirmation'))
     await waitFor(() => expect(submitButton).toBeEnabled())
 
     await user.press(submitButton)
@@ -229,7 +229,7 @@ describe('MalteHelpFormOffer', () => {
     const messageInput = getByTestId(messageInputLabel)
     await user.type(messageInput, message)
     expect(messageInput.props.value).toBe(message)
-    fireEvent.press(getByText('common:privacyPolicy'))
+    fireEvent.press(getByText('common:privacy.confirmation'))
     await waitFor(() => expect(submitButton).toBeEnabled())
 
     await user.press(submitButton)
@@ -275,7 +275,7 @@ describe('MalteHelpFormOffer', () => {
     const messageInput = getByTestId(messageInputLabel)
     await user.type(messageInput, message)
     expect(messageInput.props.value).toBe(message)
-    fireEvent.press(getByText('common:privacyPolicy'))
+    fireEvent.press(getByText('common:privacy.confirmation'))
     await waitFor(() => expect(submitButton).toBeEnabled())
 
     await user.press(submitButton)
@@ -344,7 +344,7 @@ describe('MalteHelpFormOffer', () => {
     const emailInput = getByTestId(emailInputLabel)
     await user.type(emailInput, 'email')
     expect(emailInput.props.value).toBe('email')
-    fireEvent.press(getByText('common:privacyPolicy'))
+    fireEvent.press(getByText('common:privacy.confirmation'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByTestId(messageInputLabel)
@@ -391,7 +391,7 @@ describe('MalteHelpFormOffer', () => {
     const emailInput = getByTestId(emailInputLabel)
     await user.type(emailInput, email)
     expect(emailInput.props.value).toBe(email)
-    fireEvent.press(getByText('common:privacyPolicy'))
+    fireEvent.press(getByText('common:privacy.confirmation'))
     expect(submitButton).toBeEnabled()
 
     const messageInput = getByTestId(messageInputLabel)

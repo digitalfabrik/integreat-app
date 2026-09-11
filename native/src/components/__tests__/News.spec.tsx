@@ -130,7 +130,7 @@ describe('News', () => {
 
   it('should show currently no news', () => {
     const { queryByText } = renderNews({ news: [] })
-    expect(queryByText('news:currentlyNoNews')).toBeTruthy()
+    expect(queryByText('news:error.nothingFound')).toBeTruthy()
 
     expect(queryByText(defaultNews[0].title)).toBeFalsy()
     expect(queryByText(defaultNews[1].title)).toBeFalsy()
@@ -159,7 +159,7 @@ describe('News', () => {
   it('should call setNewsSource when a filter option is pressed', () => {
     const { getByText } = renderNews({})
 
-    fireEvent.press(getByText('news:national'))
+    fireEvent.press(getByText('news:sources.national'))
     expect(setNewsSource).toHaveBeenCalledWith('national')
   })
 

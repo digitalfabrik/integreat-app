@@ -78,7 +78,7 @@ describe('PlacesPage', () => {
   it('should calculate correct language change paths', () => {
     mockUseQueryFromEndpointWithData(places)
     const { getAllByText, getByRole } = renderPlaces('/places/test')
-    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+    fireEvent.click(getByRole('button', { name: 'languages:change' }))
 
     expect(getAllByText('English')[0]?.closest('a')).toHaveAttribute('href', place0.availableLanguages.en)
     expect(getAllByText('Deutsch')[0]?.closest('a')).toHaveAttribute('href', place0.availableLanguages.de)
@@ -87,7 +87,7 @@ describe('PlacesPage', () => {
   it('should link only to languages with available translations if a place is selected', () => {
     mockUseQueryFromEndpointWithData(places)
     const { getAllByText, getByRole } = renderPlaces('/places/test', 'de')
-    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+    fireEvent.click(getByRole('button', { name: 'languages:change' }))
 
     const arabicLanguageName = 'اَللُّغَةُ اَلْعَرَبِيَّة'
     expect(getAllByText(arabicLanguageName)[0]?.closest('a')).toBeNull()
@@ -96,7 +96,7 @@ describe('PlacesPage', () => {
   it('should link to all languages if no place is selected', () => {
     mockUseQueryFromEndpointWithData(places)
     const { getAllByText, getByRole } = renderPlaces('/places', 'de')
-    fireEvent.click(getByRole('button', { name: 'layout:changeLanguage' }))
+    fireEvent.click(getByRole('button', { name: 'languages:change' }))
 
     const arabicLanguageName = 'اَللُّغَةُ اَلْعَرَبِيَّة'
     expect(getAllByText(arabicLanguageName)[0]?.closest('a')).toHaveAttribute(

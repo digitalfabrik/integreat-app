@@ -45,7 +45,7 @@ describe('TransparentHeader', () => {
   it('should show back button and navigate back on click if stack exists', () => {
     const props = buildProps(1)
     const { getByLabelText } = render(<TransparentHeader {...props} />)
-    fireEvent.press(getByLabelText('common:back'))
+    fireEvent.press(getByLabelText('common:actions.back'))
     expect(props.navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
@@ -68,8 +68,8 @@ describe('TransparentHeader', () => {
     const { getByTestId, getByText } = render(<TransparentHeader {...props} />)
 
     fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText('layout:share'))
+    fireEvent.press(getByText('share:title'))
 
-    expect(showSnackbar).toHaveBeenCalledWith({ text: 'error:generalError' })
+    expect(showSnackbar).toHaveBeenCalledWith({ text: 'error:unknownError' })
   })
 })

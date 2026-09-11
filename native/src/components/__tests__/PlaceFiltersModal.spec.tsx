@@ -52,7 +52,7 @@ describe('PlaceFiltersModal', () => {
     const { getByText } = renderPlaceFiltersModal()
 
     fireEvent.press(getByText(firstCategory.name))
-    fireEvent.press(getByText('places:showPlaces'))
+    fireEvent.press(getByText('places:filter.show'))
 
     expect(closeModal).toHaveBeenCalledTimes(1)
     expect(closeModal).toHaveBeenCalledWith({ placeCategoryFilter: firstCategory, currentlyOpenFilter: false })
@@ -62,7 +62,7 @@ describe('PlaceFiltersModal', () => {
     const { getByText } = renderPlaceFiltersModal({ placeCategoryFilter: firstCategory })
 
     fireEvent.press(getByText(firstCategory.name))
-    fireEvent.press(getByText('places:showPlaces'))
+    fireEvent.press(getByText('places:filter.show'))
 
     expect(closeModal).toHaveBeenCalledWith({ placeCategoryFilter: undefined, currentlyOpenFilter: false })
   })
@@ -71,7 +71,7 @@ describe('PlaceFiltersModal', () => {
     const { getByText } = renderPlaceFiltersModal({ placeCategoryFilter: firstCategory })
 
     fireEvent.press(getByText(secondCategory.name))
-    fireEvent.press(getByText('places:showPlaces'))
+    fireEvent.press(getByText('places:filter.show'))
 
     expect(closeModal).toHaveBeenCalledWith({ placeCategoryFilter: secondCategory, currentlyOpenFilter: false })
   })
@@ -79,7 +79,7 @@ describe('PlaceFiltersModal', () => {
   it('should pass the initial filters back unchanged when nothing is pressed', () => {
     const { getByText } = renderPlaceFiltersModal({ placeCategoryFilter: firstCategory, currentlyOpenFilter: true })
 
-    fireEvent.press(getByText('places:showPlaces'))
+    fireEvent.press(getByText('places:filter.show'))
 
     expect(closeModal).toHaveBeenCalledWith({ placeCategoryFilter: firstCategory, currentlyOpenFilter: true })
   })
@@ -96,7 +96,7 @@ describe('PlaceFiltersModal', () => {
     getPlacesCount.mockReturnValue(0)
     const { getByText } = renderPlaceFiltersModal()
 
-    fireEvent.press(getByText('places:showPlaces'))
+    fireEvent.press(getByText('places:filter.show'))
 
     expect(closeModal).not.toHaveBeenCalled()
   })

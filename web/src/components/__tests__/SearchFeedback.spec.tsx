@@ -22,7 +22,7 @@ describe('SearchFeedback', () => {
     const { getByText, router } = renderSearchFeedback(true)
 
     expect(router.state.location.search).toBe('')
-    fireEvent.click(getByText('feedback:giveFeedback'))
+    fireEvent.click(getByText('feedback:give'))
     expect(router.state.location.search).toBe('?feedback=negative')
   })
 })

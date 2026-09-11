@@ -32,7 +32,7 @@ describe('LanguageNotAvailablePage', () => {
   it('should render', () => {
     const { getByText } = renderLanguageNotAvailablePage()
 
-    expect(getByText('error:notFound.language')).toBeTruthy()
+    expect(getByText('languages:error.notFound.title')).toBeTruthy()
     languages.forEach(language => {
       expect(getByText(language.name)).toBeTruthy()
     })

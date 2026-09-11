@@ -21,17 +21,17 @@ describe('SuggestToRegionPage', () => {
 
   it('should render texts', () => {
     const { getByText } = renderPage()
-    expect(getByText('suggestToRegion:callToAction')).toBeDefined()
-    expect(getByText('suggestToRegion:explanation')).toBeDefined()
+    expect(getByText('suggestToRegion:title')).toBeDefined()
+    expect(getByText('suggestToRegion:description')).toBeDefined()
     expect(template).toBeDefined()
   })
 
   it('should handle button click correctly', async () => {
     const { getByText, queryByText } = renderPage()
-    expect(queryByText('common:copied')).toBeNull()
-    const button = getByText('suggestToRegion:copyText')
+    expect(queryByText('common:state.copied')).toBeNull()
+    const button = getByText('common:actions.copy')
     fireEvent.click(button)
-    await waitFor(() => expect(getByText('common:copied')).toBeDefined())
+    await waitFor(() => expect(getByText('common:state.copied')).toBeDefined())
     expect(navigator.clipboard.writeText).toHaveBeenCalled()
   })
 })

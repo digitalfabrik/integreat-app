@@ -103,7 +103,7 @@ describe('ChatConversation', () => {
 
   it('should display welcome text if conversation has not started', () => {
     const { getByText } = render([], false)
-    expect(getByText('chat:conversationText')).toBeTruthy()
+    expect(getByText('chat:initial.description')).toBeTruthy()
   })
 
   it('should display typing indicator', () => {
@@ -111,7 +111,7 @@ describe('ChatConversation', () => {
     expect(getByText(testMessages[0]!.content)).toBeTruthy()
     expect(getByText(testMessages[1]!.content)).toBeTruthy()
     expect(getByLabelText('chat:consultant')).toBeTruthy()
-    expect(getByLabelText('chat:generateAnswer')).toBeTruthy()
+    expect(getByLabelText('chat:typing')).toBeTruthy()
   })
 
   it('should hide typing indicator if isTyping changes to false', () => {
@@ -123,7 +123,7 @@ describe('ChatConversation', () => {
       automaticAnswer: true,
     })
     const { queryByLabelText, rerender } = render(testMessages, true)
-    expect(queryByLabelText('chat:generateAnswer')).toBeTruthy()
+    expect(queryByLabelText('chat:typing')).toBeTruthy()
     rerender(
       <ChatConversation
         retrySend={retrySend}
@@ -132,7 +132,7 @@ describe('ChatConversation', () => {
         openUrl={jest.fn()}
       />,
     )
-    expect(queryByLabelText('chat:generateAnswer')).toBeNull()
+    expect(queryByLabelText('chat:typing')).toBeNull()
   })
 
   it('should display icon after automaticAnswer or author changes', () => {

@@ -159,21 +159,21 @@ describe('Navigator', () => {
     await findByText('Categories')
 
     // verify bottom tab navigator is mounted by checking for tab labels
-    await findByText('layout:localInformationLabel')
-    await findByText('layout:news')
-    await findByText('layout:events')
+    await findByText('categories:titleShort')
+    await findByText('events:title')
+    await findByText('events:title')
   })
 
   it('should allow switching between all bottom tabs', async () => {
     const { findByText, getByText } = renderNavigator({ regionCode: 'augsburg', introShown: true })
 
-    fireEvent.press(getByText('layout:events'))
+    fireEvent.press(getByText('events:title'))
     await findByText('Events')
 
-    fireEvent.press(getByText('layout:localInformationLabel'))
+    fireEvent.press(getByText('categories:titleShort'))
     await findByText('Categories')
 
-    fireEvent.press(getByText('layout:news'))
+    fireEvent.press(getByText('news:title'))
     await findByText('News')
   })
 
