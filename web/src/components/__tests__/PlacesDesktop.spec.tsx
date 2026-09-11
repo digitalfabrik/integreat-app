@@ -41,16 +41,16 @@ describe('PlacesDesktop', () => {
       expect(queryByText(place.title)).toBeFalsy()
     })
     expect(queryByText('userLocation:nearby')).toBeFalsy()
-    expect(queryByText('places:distance')).toBeFalsy()
+    expect(queryByText('places:distance', { exact: false })).toBeFalsy()
   })
 
   it('should list detail information about the current feature and the place if feature and place provided', async () => {
     const singlePlace = places[1]!
-    const { queryByText, queryByLabelText } = renderPlacesDesktop(singlePlace)
+    const { queryByText, queryByLabelText, getByText } = renderPlacesDesktop(singlePlace)
 
     expect(queryByText(singlePlace.title)).toBeTruthy()
     expect(queryByText(singlePlace.category.name)).toBeTruthy()
-    expect(queryByText('places:distance')).toBeTruthy()
+    expect(getByText('places:distance 3733.7')).toBeTruthy()
     expect(queryByText(singlePlace.location.address!)).toBeTruthy()
     expect(queryByText(singlePlace.content)).toBeTruthy()
     expect(queryByLabelText('common:actions.back')).toBeTruthy()

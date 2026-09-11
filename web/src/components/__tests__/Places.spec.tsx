@@ -186,7 +186,7 @@ describe('Places', () => {
 
     // Select Dienstleistung filter and close filters
     fireEvent.click(getAllByText('Dienstleistung')[1]!)
-    fireEvent.click(getByText('places:filter.show'))
+    fireEvent.click(getByText('places:filter.show 1'))
 
     // Chip button + one place with category Dienstleistung
     expect(getAllByText('Dienstleistung')).toHaveLength(2)

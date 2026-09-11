@@ -10,6 +10,7 @@ jest.mock('../../components/NearbyRegions', () => {
   const { Text } = require('react-native-paper')
   return () => <Text>NearbyRegions</Text>
 })
+jest.mock('../../components/Header')
 
 describe('RegionSelector', () => {
   const regions = new RegionModelBuilder(5).build()
@@ -32,16 +33,16 @@ describe('RegionSelector', () => {
   })
 
   it('should show live regions matching filter text', () => {
-    const { queryByText, getByText, getByPlaceholderText } = render(
+    const { queryByText, getByText, getAllByText, getByPlaceholderText } = render(
       <RegionSelector navigateToDashboard={navigateToDashboard} regions={regions} />,
     )
 
     fireEvent.changeText(getByPlaceholderText(region.sortingName), region.name.slice(5, 9))
 
-    // Highlighter splits up the name in multiple parts
-    expect(getByText(region.name.slice(0, 5), { exact: false })).toBeTruthy()
+    // The name is rendered in the region entry and as example region of the search description
+    expect(getAllByText(region.name, { exact: false })).toHaveLength(2)
+    // Highlighter wraps the matching part of the name in its own element
     expect(getByText(region.name.slice(5, 9).trim())).toBeTruthy()
-    expect(getByText(region.name.slice(9), { exact: false })).toBeTruthy()
     regions.slice(1).forEach(region => expect(queryByText(region.name)).toBeFalsy())
   })
 
