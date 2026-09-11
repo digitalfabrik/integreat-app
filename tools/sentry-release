@@ -130,6 +130,9 @@ then
   exit 1
 fi
 
+# sentry-cli discards the URL from .sentryclirc if the AUTH_TOKEN comes from a different source, i.e. environment variables
+export SENTRY_URL="https://sentry.tuerantuer.org/"
+
 version="${package_name}@${version_name}"
 
 
