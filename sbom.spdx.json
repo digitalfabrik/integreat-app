@@ -1,0 +1,1641 @@
+{
+ "spdxVersion": "SPDX-2.3",
+ "dataLicense": "CC0-1.0",
+ "SPDXID": "SPDXRef-DOCUMENT",
+ "name": "integreat-app",
+ "documentNamespace": "https://anchore.com/syft/dir/integreat-app-8f79ab57-7a3a-433c-9499-a0a928c0c549",
+ "creationInfo": {
+  "licenseListVersion": "3.28",
+  "creators": [
+   "Organization: Anchore, Inc",
+   "Tool: syft-1.51.1"
+  ],
+  "created": "2026-09-11T13:40:49Z"
+ },
+ "packages": [
+  {
+   "name": "actions/checkout",
+   "SPDXID": "SPDXRef-Package-github-action-actions-checkout-a9fac315761297b1",
+   "versionInfo": "v2",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/test.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/checkout:actions\\/checkout:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/checkout@v2"
+    }
+   ]
+  },
+  {
+   "name": "actions/checkout",
+   "SPDXID": "SPDXRef-Package-github-action-actions-checkout-563ef7d6f3b6e0cd",
+   "versionInfo": "v3",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/release.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/checkout:actions\\/checkout:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/checkout@v3"
+    }
+   ]
+  },
+  {
+   "name": "actions/checkout",
+   "SPDXID": "SPDXRef-Package-github-action-actions-checkout-2e5e3e92c3c0531d",
+   "versionInfo": "v3",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/test.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/checkout:actions\\/checkout:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/checkout@v3"
+    }
+   ]
+  },
+  {
+   "name": "actions/checkout",
+   "SPDXID": "SPDXRef-Package-github-action-actions-checkout-b8330c829742f3bd",
+   "versionInfo": "v3",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/update-prettier.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/checkout:actions\\/checkout:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/checkout@v3"
+    }
+   ]
+  },
+  {
+   "name": "actions/checkout",
+   "SPDXID": "SPDXRef-Package-github-action-actions-checkout-d626c95abced270f",
+   "versionInfo": "v4",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/app-toolbelt/.github/workflows/docs.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/checkout:actions\\/checkout:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/checkout@v4"
+    }
+   ]
+  },
+  {
+   "name": "actions/checkout",
+   "SPDXID": "SPDXRef-Package-github-action-actions-checkout-cea65411fa0c2351",
+   "versionInfo": "v4",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-github-app-jwt/.github/workflows/release.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/checkout:actions\\/checkout:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/checkout@v4"
+    }
+   ]
+  },
+  {
+   "name": "actions/checkout",
+   "SPDXID": "SPDXRef-Package-github-action-actions-checkout-3ed42ee9671fc9f1",
+   "versionInfo": "v4",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-github-app-jwt/.github/workflows/test.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/checkout:actions\\/checkout:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/checkout@v4"
+    }
+   ]
+  },
+  {
+   "name": "actions/checkout",
+   "SPDXID": "SPDXRef-Package-github-action-actions-checkout-68c03c1d70265aea",
+   "versionInfo": "v4",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/test.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/checkout:actions\\/checkout:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/checkout@v4"
+    }
+   ]
+  },
+  {
+   "name": "actions/checkout",
+   "SPDXID": "SPDXRef-Package-github-action-actions-checkout-072641e28acc478f",
+   "versionInfo": "v6",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/json-with-bigint/.github/workflows/ci.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/checkout:actions\\/checkout:v6:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/checkout@v6"
+    }
+   ]
+  },
+  {
+   "name": "actions/setup-node",
+   "SPDXID": "SPDXRef-Package-github-action-actions-setup-node-f14cf78558069d01",
+   "versionInfo": "v3",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/release.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup-node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup_node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup-node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup_node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup-node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup_node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/setup-node@v3"
+    }
+   ]
+  },
+  {
+   "name": "actions/setup-node",
+   "SPDXID": "SPDXRef-Package-github-action-actions-setup-node-82be1ac30212f415",
+   "versionInfo": "v3",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/test.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup-node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup_node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup-node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup_node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup-node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup_node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/setup-node@v3"
+    }
+   ]
+  },
+  {
+   "name": "actions/setup-node",
+   "SPDXID": "SPDXRef-Package-github-action-actions-setup-node-5b08d3aac31e1bb2",
+   "versionInfo": "v3",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/update-prettier.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup-node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup_node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup-node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup_node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup-node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup_node:v3:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/setup-node@v3"
+    }
+   ]
+  },
+  {
+   "name": "actions/setup-node",
+   "SPDXID": "SPDXRef-Package-github-action-actions-setup-node-0e87677d9722796e",
+   "versionInfo": "v4",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/app-toolbelt/.github/workflows/docs.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup-node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup_node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup-node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup_node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup-node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup_node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/setup-node@v4"
+    }
+   ]
+  },
+  {
+   "name": "actions/setup-node",
+   "SPDXID": "SPDXRef-Package-github-action-actions-setup-node-fc19374cc44f5468",
+   "versionInfo": "v4",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-github-app-jwt/.github/workflows/release.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup-node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup_node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup-node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup_node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup-node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup_node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/setup-node@v4"
+    }
+   ]
+  },
+  {
+   "name": "actions/setup-node",
+   "SPDXID": "SPDXRef-Package-github-action-actions-setup-node-c43209868599aabc",
+   "versionInfo": "v4",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-github-app-jwt/.github/workflows/test.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup-node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup_node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup-node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup_node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup-node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup_node:v4:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/setup-node@v4"
+    }
+   ]
+  },
+  {
+   "name": "actions/setup-node",
+   "SPDXID": "SPDXRef-Package-github-action-actions-setup-node-b75c15d85c85427b",
+   "versionInfo": "v6",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/json-with-bigint/.github/workflows/ci.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup-node:v6:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-node:actions\\/setup_node:v6:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup-node:v6:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_node:actions\\/setup_node:v6:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup-node:v6:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup_node:v6:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/setup-node@v6"
+    }
+   ]
+  },
+  {
+   "name": "actions/setup-python",
+   "SPDXID": "SPDXRef-Package-github-action-actions-setup-python-0c19f8f02c93eadb",
+   "versionInfo": "v5",
+   "supplier": "Organization: GitHub",
+   "originator": "Organization: GitHub",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/app-toolbelt/.github/workflows/docs.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-python:actions\\/setup-python:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup-python:actions\\/setup_python:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_python:actions\\/setup-python:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup_python:actions\\/setup_python:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup-python:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:actions\\/setup:actions\\/setup_python:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/actions/setup-python@v5"
+    }
+   ]
+  },
+  {
+   "name": "denoland/setup-deno",
+   "SPDXID": "SPDXRef-Package-github-action-denoland-setup-deno-d56a5ef9c930fbca",
+   "versionInfo": "v1",
+   "supplier": "Organization: denoland",
+   "originator": "Organization: denoland",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-github-app-jwt/.github/workflows/test.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup-deno:denoland\\/setup-deno:v1:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup-deno:denoland\\/setup_deno:v1:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup_deno:denoland\\/setup-deno:v1:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup_deno:denoland\\/setup_deno:v1:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup:denoland\\/setup-deno:v1:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup:denoland\\/setup_deno:v1:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/denoland/setup-deno@v1"
+    }
+   ]
+  },
+  {
+   "name": "denoland/setup-deno",
+   "SPDXID": "SPDXRef-Package-github-action-denoland-setup-deno-d4f9da1917ef9e99",
+   "versionInfo": "v2",
+   "supplier": "Organization: denoland",
+   "originator": "Organization: denoland",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/test.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup-deno:denoland\\/setup-deno:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup-deno:denoland\\/setup_deno:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup_deno:denoland\\/setup-deno:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup_deno:denoland\\/setup_deno:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup:denoland\\/setup-deno:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:denoland\\/setup:denoland\\/setup_deno:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/denoland/setup-deno@v2"
+    }
+   ]
+  },
+  {
+   "name": "fastify/workflows/.github/workflows/plugins-ci-package-manager.yml",
+   "SPDXID": "SPDXRef-Package-github-action-workflow-fastify-workflows-.github-workflows-plugins-ci-package-manager.yml-2663f68937513984",
+   "versionInfo": "v5",
+   "supplier": "Organization: fastify",
+   "originator": "Organization: fastify",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/fast-content-type-parse/.github/workflows/package-manager-ci.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package-manager.yml:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package-manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package-manager.yml:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package_manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package_manager.yml:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package-manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package_manager.yml:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package_manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package-manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package_manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package-manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package_manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package-manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package_manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package-manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package_manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci-package-manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci_package_manager.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/fastify/workflows@v5#.github/workflows/plugins-ci-package-manager.yml"
+    }
+   ]
+  },
+  {
+   "name": "fastify/workflows/.github/workflows/plugins-ci.yml",
+   "SPDXID": "SPDXRef-Package-github-action-workflow-fastify-workflows-.github-workflows-plugins-ci.yml-19a1e2e9ce1df6a9",
+   "versionInfo": "v5",
+   "supplier": "Organization: fastify",
+   "originator": "Organization: fastify",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/fast-content-type-parse/.github/workflows/ci.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci.yml:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci.yml:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci.yml:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci.yml:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins:fastify\\/workflows\\/.github\\/workflows\\/plugins-ci.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:fastify\\/workflows\\/.github\\/workflows\\/plugins:fastify\\/workflows\\/.github\\/workflows\\/plugins_ci.yml:v5:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/fastify/workflows@v5#.github/workflows/plugins-ci.yml"
+    }
+   ]
+  },
+  {
+   "name": "gr2m/create-or-update-pull-request-action",
+   "SPDXID": "SPDXRef-Package-github-action-gr2m-create-or-update-pull-request-action-abfbb235cf6e53fa",
+   "versionInfo": "v1.x",
+   "supplier": "Organization: gr2m",
+   "originator": "Organization: gr2m",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/update-prettier.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create-or-update-pull-request-action:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create-or-update-pull-request-action:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create_or_update_pull_request_action:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create_or_update_pull_request_action:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create-or-update-pull-request:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create-or-update-pull-request:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create_or_update_pull_request:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create_or_update_pull_request:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create-or-update-pull:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create-or-update-pull:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create_or_update_pull:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create_or_update_pull:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create-or-update:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create-or-update:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create_or_update:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create_or_update:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create-or:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create-or:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create_or:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create_or:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create:gr2m\\/create-or-update-pull-request-action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:gr2m\\/create:gr2m\\/create_or_update_pull_request_action:v1.x:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/gr2m/create-or-update-pull-request-action@v1.x"
+    }
+   ]
+  },
+  {
+   "name": "oven-sh/setup-bun",
+   "SPDXID": "SPDXRef-Package-github-action-oven-sh-setup-bun-0a1e24d31740d2db",
+   "versionInfo": "v2",
+   "supplier": "Organization: oven-sh",
+   "originator": "Organization: oven-sh",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from GitHub Actions workflow file or composite action file: /node_modules/universal-user-agent/.github/workflows/test.yml",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:oven-sh\\/setup-bun:oven-sh\\/setup-bun:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:oven-sh\\/setup-bun:oven_sh\\/setup_bun:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:oven_sh\\/setup_bun:oven-sh\\/setup-bun:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:oven_sh\\/setup_bun:oven_sh\\/setup_bun:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:oven-sh\\/setup:oven-sh\\/setup-bun:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:oven-sh\\/setup:oven_sh\\/setup_bun:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:oven_sh\\/setup:oven-sh\\/setup-bun:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:oven_sh\\/setup:oven_sh\\/setup_bun:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:oven:oven-sh\\/setup-bun:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:oven:oven_sh\\/setup_bun:v2:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:github/oven-sh/setup-bun@v2"
+    }
+   ]
+  },
+  {
+   "name": "tools",
+   "SPDXID": "SPDXRef-Package-npm-tools-ac38b5aca40eb5c4",
+   "versionInfo": "0.0.0-use.local",
+   "supplier": "NOASSERTION",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "sourceInfo": "acquired package info from installed node module manifest file: /yarn.lock",
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "externalRefs": [
+    {
+     "referenceCategory": "SECURITY",
+     "referenceType": "cpe23Type",
+     "referenceLocator": "cpe:2.3:a:tools:tools:0.0.0-use.local:*:*:*:*:*:*:*"
+    },
+    {
+     "referenceCategory": "PACKAGE-MANAGER",
+     "referenceType": "purl",
+     "referenceLocator": "pkg:npm/tools@0.0.0-use.local"
+    }
+   ]
+  },
+  {
+   "name": "integreat-app",
+   "SPDXID": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "versionInfo": "2026.9.1",
+   "supplier": "NOASSERTION",
+   "downloadLocation": "NOASSERTION",
+   "filesAnalyzed": false,
+   "licenseConcluded": "NOASSERTION",
+   "licenseDeclared": "NOASSERTION",
+   "copyrightText": "NOASSERTION",
+   "primaryPackagePurpose": "FILE"
+  }
+ ],
+ "files": [
+  {
+   "fileName": "node_modules/@esbuild/linux-x64/bin/esbuild",
+   "SPDXID": "SPDXRef-File-...-esbuild-linux-x64-bin-esbuild-8203658e79c83b0e",
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "0000000000000000000000000000000000000000"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "node_modules/@sentry/cli-linux-x64/bin/sentry-cli",
+   "SPDXID": "SPDXRef-File-...-sentry-cli-linux-x64-bin-sentry-cli-b18ed184b9f70a5f",
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "0000000000000000000000000000000000000000"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "node_modules/app-toolbelt/.github/workflows/docs.yml",
+   "SPDXID": "SPDXRef-File-....github-workflows-docs.yml-902da9b3514b5e74",
+   "fileTypes": [
+    "TEXT"
+   ],
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "2dc29c20fae9c64c25178b4efac685167152fb58"
+    },
+    {
+     "algorithm": "SHA256",
+     "checksumValue": "75c764ffb4a8b92625808351f28e52a0373c9c17164734113309726ab4f97150"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "node_modules/fast-content-type-parse/.github/workflows/ci.yml",
+   "SPDXID": "SPDXRef-File-....github-workflows-ci.yml-34ed9b297d27c815",
+   "fileTypes": [
+    "TEXT"
+   ],
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "71cd21517c4c09f102d248fc46441c9f79813ed7"
+    },
+    {
+     "algorithm": "SHA256",
+     "checksumValue": "a89ab62fd13c83157ff88a91b9c8bb25d12dd138b09658501fb7f01ed150eb73"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "node_modules/fast-content-type-parse/.github/workflows/package-manager-ci.yml",
+   "SPDXID": "SPDXRef-File-...workflows-package-manager-ci.yml-f63ca97e2665da84",
+   "fileTypes": [
+    "TEXT"
+   ],
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "533e3946671ad907c4bad2dac6c3f9d9e05d0da0"
+    },
+    {
+     "algorithm": "SHA256",
+     "checksumValue": "ea77c3d1430943d9ba23bde2fd8c8c6c0de8f1721797ed842171bf328b511b4b"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "node_modules/json-with-bigint/.github/workflows/ci.yml",
+   "SPDXID": "SPDXRef-File-....github-workflows-ci.yml-028eca2d2f3019fc",
+   "fileTypes": [
+    "TEXT"
+   ],
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "c052b2a6ecbb1bb99d5b7f7850800db7f40f8979"
+    },
+    {
+     "algorithm": "SHA256",
+     "checksumValue": "dad4c977b98e11ed03ab5d3e4edf3af2d371a40711420be53342e21326fe6398"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "node_modules/universal-github-app-jwt/.github/workflows/release.yml",
+   "SPDXID": "SPDXRef-File-....github-workflows-release.yml-4df6f5f96c761a86",
+   "fileTypes": [
+    "TEXT"
+   ],
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "489ce885207d4034be71c09bcf5bfdadf1bfc274"
+    },
+    {
+     "algorithm": "SHA256",
+     "checksumValue": "f3ea8f1a50dd77d76296b9de12c19d75bc1175631f37f81267a9ec139bd954dc"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "node_modules/universal-github-app-jwt/.github/workflows/test.yml",
+   "SPDXID": "SPDXRef-File-....github-workflows-test.yml-bec6dd40312e8320",
+   "fileTypes": [
+    "TEXT"
+   ],
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "51dd3d93eb44c5e024cb0d18f67c999caa8577e3"
+    },
+    {
+     "algorithm": "SHA256",
+     "checksumValue": "4013530d8812f95368067daf78424bba96525f05f0f9b1dfd0d0af360a69184d"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "node_modules/universal-user-agent/.github/workflows/release.yml",
+   "SPDXID": "SPDXRef-File-....github-workflows-release.yml-aca7e38155eeb538",
+   "fileTypes": [
+    "TEXT"
+   ],
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "1aa6a66ab16b348f906c697271aea36b6bc77a01"
+    },
+    {
+     "algorithm": "SHA256",
+     "checksumValue": "8f7b86ea91613bea270cf76cc5aff72ce11b9914ff8f012ac049aab7cac6aeb8"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "node_modules/universal-user-agent/.github/workflows/test.yml",
+   "SPDXID": "SPDXRef-File-....github-workflows-test.yml-7827409a2fbc37c2",
+   "fileTypes": [
+    "TEXT"
+   ],
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "bda9e547098a98a1262e72c4813ac28c5a862121"
+    },
+    {
+     "algorithm": "SHA256",
+     "checksumValue": "fc061192152553bf1234a4bc7578bd77054dfc8bd18a25db83df573f0ddfa452"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "node_modules/universal-user-agent/.github/workflows/update-prettier.yml",
+   "SPDXID": "SPDXRef-File-....github-workflows-update-prettier.yml-1186a7f27a476bf2",
+   "fileTypes": [
+    "TEXT"
+   ],
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "7fb53f4a29871cdf12d9e99fa96ce6df22d369a3"
+    },
+    {
+     "algorithm": "SHA256",
+     "checksumValue": "10cdd9cb2c2d41a2aeefaeee0c5ba6f5e0742d518877e98046efc1f0c83c0e8f"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  },
+  {
+   "fileName": "yarn.lock",
+   "SPDXID": "SPDXRef-File-yarn.lock-dcee26e98fae7b36",
+   "fileTypes": [
+    "TEXT"
+   ],
+   "checksums": [
+    {
+     "algorithm": "SHA1",
+     "checksumValue": "1c1a727e9181cff29642ac7badc69df896e14cd4"
+    },
+    {
+     "algorithm": "SHA256",
+     "checksumValue": "b12ac62a34efa67cc91fe7a30d53f39aff8a708a13d2ed22624882f8b89ce128"
+    }
+   ],
+   "licenseConcluded": "NOASSERTION",
+   "licenseInfoInFiles": [
+    "NOASSERTION"
+   ],
+   "copyrightText": "NOASSERTION"
+  }
+ ],
+ "relationships": [
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-checkout-072641e28acc478f",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-ci.yml-028eca2d2f3019fc",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-oven-sh-setup-bun-0a1e24d31740d2db",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-test.yml-7827409a2fbc37c2",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-setup-python-0c19f8f02c93eadb",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-docs.yml-902da9b3514b5e74",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-setup-node-0e87677d9722796e",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-docs.yml-902da9b3514b5e74",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-workflow-fastify-workflows-.github-workflows-plugins-ci.yml-19a1e2e9ce1df6a9",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-ci.yml-34ed9b297d27c815",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-workflow-fastify-workflows-.github-workflows-plugins-ci-package-manager.yml-2663f68937513984",
+   "relatedSpdxElement": "SPDXRef-File-...workflows-package-manager-ci.yml-f63ca97e2665da84",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-checkout-2e5e3e92c3c0531d",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-test.yml-7827409a2fbc37c2",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-checkout-3ed42ee9671fc9f1",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-test.yml-bec6dd40312e8320",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-checkout-563ef7d6f3b6e0cd",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-release.yml-aca7e38155eeb538",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-setup-node-5b08d3aac31e1bb2",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-update-prettier.yml-1186a7f27a476bf2",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-checkout-68c03c1d70265aea",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-test.yml-7827409a2fbc37c2",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-setup-node-82be1ac30212f415",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-test.yml-7827409a2fbc37c2",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-checkout-a9fac315761297b1",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-test.yml-7827409a2fbc37c2",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-gr2m-create-or-update-pull-request-action-abfbb235cf6e53fa",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-update-prettier.yml-1186a7f27a476bf2",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-npm-tools-ac38b5aca40eb5c4",
+   "relatedSpdxElement": "SPDXRef-File-yarn.lock-dcee26e98fae7b36",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-setup-node-b75c15d85c85427b",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-ci.yml-028eca2d2f3019fc",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-checkout-b8330c829742f3bd",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-update-prettier.yml-1186a7f27a476bf2",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-setup-node-c43209868599aabc",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-test.yml-bec6dd40312e8320",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-checkout-cea65411fa0c2351",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-release.yml-4df6f5f96c761a86",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-denoland-setup-deno-d4f9da1917ef9e99",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-test.yml-7827409a2fbc37c2",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-denoland-setup-deno-d56a5ef9c930fbca",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-test.yml-bec6dd40312e8320",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-checkout-d626c95abced270f",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-docs.yml-902da9b3514b5e74",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-setup-node-f14cf78558069d01",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-release.yml-aca7e38155eeb538",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-Package-github-action-actions-setup-node-fc19374cc44f5468",
+   "relatedSpdxElement": "SPDXRef-File-....github-workflows-release.yml-4df6f5f96c761a86",
+   "relationshipType": "OTHER",
+   "comment": "evident-by: indicates the package's existence is evident by the given file"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-checkout-a9fac315761297b1",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-checkout-563ef7d6f3b6e0cd",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-checkout-2e5e3e92c3c0531d",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-checkout-b8330c829742f3bd",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-checkout-d626c95abced270f",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-checkout-cea65411fa0c2351",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-checkout-3ed42ee9671fc9f1",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-checkout-68c03c1d70265aea",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-checkout-072641e28acc478f",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-setup-node-f14cf78558069d01",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-setup-node-82be1ac30212f415",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-setup-node-5b08d3aac31e1bb2",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-setup-node-0e87677d9722796e",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-setup-node-fc19374cc44f5468",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-setup-node-c43209868599aabc",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-setup-node-b75c15d85c85427b",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-actions-setup-python-0c19f8f02c93eadb",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-denoland-setup-deno-d56a5ef9c930fbca",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-denoland-setup-deno-d4f9da1917ef9e99",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-workflow-fastify-workflows-.github-workflows-plugins-ci-package-manager.yml-2663f68937513984",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-workflow-fastify-workflows-.github-workflows-plugins-ci.yml-19a1e2e9ce1df6a9",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-gr2m-create-or-update-pull-request-action-abfbb235cf6e53fa",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-github-action-oven-sh-setup-bun-0a1e24d31740d2db",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relatedSpdxElement": "SPDXRef-Package-npm-tools-ac38b5aca40eb5c4",
+   "relationshipType": "CONTAINS"
+  },
+  {
+   "spdxElementId": "SPDXRef-DOCUMENT",
+   "relatedSpdxElement": "SPDXRef-DocumentRoot-Directory-integreat-app",
+   "relationshipType": "DESCRIBES"
+  }
+ ]
+}
