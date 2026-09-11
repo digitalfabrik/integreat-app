@@ -9,7 +9,7 @@ parameters:
     type: boolean
 docker:
   - image: cimg/android:2025.10.1-node
-resource_class: small
+resource_class: medium
 shell: /bin/bash -eo pipefail
 environment:
   FASTLANE_SKIP_UPDATE_CHECK: true
