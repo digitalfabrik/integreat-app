@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components/native'
 import { sanitizeContent } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import dimensions from '../constants/dimensions'
+import { getPageContainerPaddingHorizontal } from '../constants/dimensions'
 import { useAppContext } from '../hooks/useRegionAppContext'
 import useResourceCache from '../hooks/useResourceCache'
 import { getStaticServerFileUrl } from '../utils/helpers'
@@ -57,7 +57,7 @@ const RemoteContent = ({ onLoad, content, language, loading }: RemoteContentProp
           externalSourcePermissions,
           t,
           deviceWidth,
-          dimensions.pageContainerPaddingHorizontal,
+          getPageContainerPaddingHorizontal(deviceWidth),
         ),
       }}
       onLoad={onLoad}
