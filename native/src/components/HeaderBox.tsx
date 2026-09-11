@@ -33,6 +33,7 @@ const HeaderBox = ({ goBack, canGoBack = true, title, language, regionsPath }: H
   const AppIcon = buildConfigAssets().AppIcon
   const HeaderIcon = canGoBack ? (
     <Appbar.BackAction
+      accessibilityRole='button'
       style={{ backgroundColor: 'transparent' }}
       onPress={goBack}
       accessibilityLabel={t($ => $.common.back)}
