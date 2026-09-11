@@ -8,7 +8,7 @@ import { withDividers } from '../../utils'
 import Failure from '../Failure'
 
 export const StickyListSubheader = styled(ListSubheader, { shouldForwardProp })<{
-  stickyTop: number
+  stickyTop?: number
   component?: ElementType
 }>(({ stickyTop }) => ({
   top: stickyTop,
