@@ -19935,6 +19935,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-virtuoso@npm:^4.18.13":
+  version: 4.18.13
+  resolution: "react-virtuoso@npm:4.18.13"
+  peerDependencies:
+    react: ">=16 || >=17 || >= 18 || >= 19"
+    react-dom: ">=16 || >=17 || >= 18 || >=19"
+  checksum: 10c0/55a5cb4dfb9a97dcbe5713a2601888869c7f693e19d46e7f6331c963d1c667b6486dc0838768aece0eb9739f399cb8c3f666bec0569be320d91936502b3b394a
+  languageName: node
+  linkType: hard
+
 "react@npm:19.2.8":
   version: 19.2.8
   resolution: "react@npm:19.2.8"
@@ -23315,6 +23325,7 @@ __metadata:
     react-router: "npm:^7.18.2"
     react-spring-bottom-sheet: "npm:^3.4.1"
     react-svg: "npm:^19.1.4"
+    react-virtuoso: "npm:^4.18.13"
     schema-dts: "npm:^2.0.0"
     shared: "workspace:^"
     stylis: "npm:4.2.0"
