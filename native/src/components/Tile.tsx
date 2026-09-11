@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react'
-import { StyleSheet } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -11,11 +10,23 @@ import SimpleImage from './SimpleImage'
 import Text from './base/Text'
 
 const THUMBNAIL_HEIGHT = 150
+const MIN_TILE_WIDTH = 180
+const MIN_COLUMNS = 2
+const MAX_COLUMNS = 4
+const FULL_WIDTH_PERCENT = 100
 
 const Thumbnail = styled(SimpleImage)`
   height: ${THUMBNAIL_HEIGHT}px;
   width: 150px;
   align-self: center;
+`
+
+const TileContainer = styled(TouchableRipple)`
+  flex-grow: 1;
+  flex-basis: ${MIN_TILE_WIDTH}px;
+  min-width: ${FULL_WIDTH_PERCENT / MAX_COLUMNS}%;
+  max-width: ${FULL_WIDTH_PERCENT / MIN_COLUMNS}%;
+  margin-bottom: 20px;
 `
 
 type TileProps = {
@@ -24,13 +35,6 @@ type TileProps = {
   language: string
 }
 
-const styles = StyleSheet.create({
-  tileContainer: {
-    marginBottom: 20,
-    width: '50%',
-  },
-})
-
 const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
   const openExternalUrl = useOpenExternalUrl()
   const theme = useTheme()
@@ -38,12 +42,11 @@ const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
   const thumbnail = <Thumbnail source={tile.thumbnail} />
 
   return (
-    <TouchableRipple
+    <TileContainer
       borderless
       onPress={() => (tile.isExternalUrl ? openExternalUrl(tile.path) : onTilePress(tile))}
       role='link'
-      accessibilityLanguage={language}
-      style={styles.tileContainer}>
+      accessibilityLanguage={language}>
       <>
         {theme.dark ? <ContrastImage>{thumbnail}</ContrastImage> : thumbnail}
         <Text
@@ -56,7 +59,7 @@ const Tile = ({ onTilePress, tile, language }: TileProps): ReactElement => {
           {tile.title}
         </Text>
       </>
-    </TouchableRipple>
+    </TileContainer>
   )
 }
 
