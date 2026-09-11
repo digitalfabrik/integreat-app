@@ -13,6 +13,10 @@ import News from '../News'
 import mocked = jest.mocked
 
 jest.mock('../../components/Page')
+jest.mock('../../components/SimpleImage', () => ({
+  __esModule: true,
+  default: () => null,
+}))
 jest.mock('../../hooks/useNavigate')
 const mockOpenExternalUrl = jest.fn()
 jest.mock('../../utils/openExternalUrl', () => ({ __esModule: true, default: () => mockOpenExternalUrl }))
