@@ -22,9 +22,9 @@ const AppointmentOnlyOverlay = ({
     <SimpleAlertDialog
       visible={isVisible}
       close={closeOverlay}
-      title={<Text variant='subtitle2'>{t($ => $.places.appointmentNecessary)}</Text>}>
+      title={<Text variant='subtitle2'>{t($ => $.places.hours.appointment.required)}</Text>}>
       <Text>
-        <Trans ns='places' i18nKey={$ => $.places.makeAppointmentTooltipWithLink}>
+        <Trans ns='places' i18nKey={$ => $.places.hours.appointment.make.description}>
           This gets replaced
           {appointmentUrl ? <Link url={appointmentUrl}>by react-i18next</Link> : <Text>by react-i18next</Text>}
         </Trans>

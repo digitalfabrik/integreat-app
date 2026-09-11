@@ -36,7 +36,7 @@ const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement
   const { t } = useTranslation()
 
   const chatName = getChatName(buildConfig().appName)
-  const unreadMessages = t($ => $.chat.unreadMessages, { count: unreadMessageCount })
+  const unreadMessages = t($ => $.chat.unread, { count: unreadMessageCount })
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
   return (

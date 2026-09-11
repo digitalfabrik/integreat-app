@@ -47,8 +47,8 @@ const Regions = ({ navigation }: RegionsProps): ReactElement => {
         {regions && (
           <>
             <Wrapper>
-              <Text variant='h3'>{t($ => $.regions.welcome, { appName: buildConfig().appName })}</Text>
-              <Text variant='body2'>{t($ => $.regions.welcomeInformation)}</Text>
+              <Text variant='h3'>{t($ => $.regions.title, { appName: buildConfig().appName })}</Text>
+              <Text variant='body2'>{t($ => $.regions.description)}</Text>
               <RegionSelector regions={regions} navigateToDashboard={navigateToDashboard} />
             </Wrapper>
             <SuggestToRegionFooter navigateToSuggestToRegion={() => navigation.navigate(SUGGEST_TO_REGION_ROUTE)} />

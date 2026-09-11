@@ -26,13 +26,13 @@ const Contact = ({ contact }: ContactProps): ReactElement => {
     <ListItem disablePadding>
       <Stack sx={{ gap: 1, width: '100%' }}>
         <Typography component='h3' variant='subtitle2'>
-          {headline ?? t($ => $.places.contactInformation)}
+          {headline ?? t($ => $.common.contacts.title)}
         </Typography>
         {!!website && (
           <ContactDetail
             icon={PublicOutlinedIcon}
             link={website}
-            content={t($ => $.places.website)}
+            content={t($ => $.common.contacts.website)}
             iconEnd={OpenInNewIcon}
           />
         )}

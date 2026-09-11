@@ -29,7 +29,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
     return (
       <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
         <AccessTimeIcon fontSize='small' />
-        <Typography variant='body2'>{t($ => $.places.allDay)}</Typography>
+        <Typography variant='body2'>{t($ => $.places.hours.allDay)}</Typography>
       </Stack>
     )
   }
@@ -38,7 +38,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
     return (
       <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
         <AccessTimeIcon fontSize='small' />
-        <Typography variant='body2'>{t($ => $.places.temporarilyClosed)}</Typography>
+        <Typography variant='body2'>{t($ => $.places.hours.temporarilyClosed)}</Typography>
       </Stack>
     )
   }
@@ -49,7 +49,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
       title={
         <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
           <AccessTimeIcon fontSize='small' />
-          <Typography variant='body2'>{t($ => (currentlyOpen ? $.places.opened : $.places.closed))}</Typography>
+          <Typography variant='body2'>{t($ => $.places.hours[currentlyOpen ? 'open' : 'closed'])}</Typography>
         </Stack>
       }
       defaultCollapsed>

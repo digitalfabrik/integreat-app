@@ -29,7 +29,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
   const privacyUrl = privacyUrls[language] || privacyUrls.default
   const { t } = useTranslation()
   const accessibilityLabel = parseHTML(
-    t($ => $.common.privacyPolicy),
+    t($ => $.common.privacy.confirmation),
     false,
     { xmlMode: true },
   )
@@ -44,7 +44,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked }: PrivacyCheckboxProps
       <>
         <Checkbox.Android status={checked ? 'checked' : 'unchecked'} onPress={() => setChecked(!checked)} />
         <Text variant='body2' style={{ flex: 1 }}>
-          <Trans ns='common' i18nKey={$ => $.common.privacyPolicy}>
+          <Trans ns='common' i18nKey={$ => $.common.privacy.confirmation}>
             This gets replaced
             <Link url={privacyUrl}>by react-i18next</Link>
           </Trans>

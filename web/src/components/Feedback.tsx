@@ -50,7 +50,6 @@ const Feedback = ({
   const { t } = useTranslation()
 
   const isSearchFeedback = searchTerm !== undefined
-  const commentTitle = isSearchFeedback ? 'wantedInformation' : 'commentHeadline'
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const feedbackMissing = rating === null && comment.trim().length === 0 && !searchTerm
   const submitFeedbackDisabled = feedbackMissing || !privacyPolicyAccepted
@@ -70,43 +69,43 @@ const Feedback = ({
           id='searchTerm'
           value={searchTerm}
           onChange={event => setSearchTerm(event.target.value)}
-          label={t($ => $.feedback.searchTermDescription)}
+          label={t($ => $.feedback.search.searchTermDescription)}
           required
           fullWidth
           error={showErrors && !searchTerm}
-          helperText={showErrors && !searchTerm ? t($ => $.feedback.noteFillFeedback) : undefined}
+          helperText={showErrors && !searchTerm ? t($ => $.feedback.required) : undefined}
         />
       ) : (
         <FormControl error={showErrors && rating === null}>
           <FeedbackButtons rating={rating} setRating={setRating} />
-          {showErrors && rating === null && <FormHelperText>{t($ => $.feedback.noteFillFeedback)}</FormHelperText>}
+          {showErrors && rating === null && <FormHelperText>{t($ => $.feedback.required)}</FormHelperText>}
         </FormControl>
       )}
-      <OptionalHint>({t($ => $.common.optional)})</OptionalHint>
+      <OptionalHint>({t($ => $.common.state.optional)})</OptionalHint>
       <TextField
         id='comment'
         value={comment}
         onChange={event => onCommentChanged(event.target.value)}
-        label={t($ => $.feedback[commentTitle])}
+        label={isSearchFeedback ? t($ => $.feedback.search.wantedInformation) : t($ => $.feedback.comment.title)}
         variant='outlined'
         multiline
         rows={DEFAULT_ROWS_NUMBER}
-        helperText={t($ => $.feedback.commentDescription, { appName: buildConfig().appName })}
+        helperText={t($ => $.feedback.comment.description, { appName: buildConfig().appName })}
       />
-      <OptionalHint>({t($ => $.common.optional)})</OptionalHint>
+      <OptionalHint>({t($ => $.common.state.optional)})</OptionalHint>
       <TextField
         id='email'
         value={contactMail}
         onChange={event => onContactMailChanged(event.target.value)}
-        label={t($ => $.feedback.contactMailAddress)}
+        label={t($ => $.feedback.contactEmail)}
         variant='outlined'
       />
       <PrivacyFormControl error={showErrors && !privacyPolicyAccepted} required>
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
-        {showErrors && !privacyPolicyAccepted && <FormHelperText>{t($ => $.common.notePrivacyPolicy)}</FormHelperText>}
+        {showErrors && !privacyPolicyAccepted && <FormHelperText>{t($ => $.common.privacy.required)}</FormHelperText>}
       </PrivacyFormControl>
       <Button onClick={handleSubmit} variant='contained' startIcon={<SendIcon />}>
-        {t($ => $.feedback.send)}
+        {t($ => $.common.actions.send)}
       </Button>
     </Stack>
   )

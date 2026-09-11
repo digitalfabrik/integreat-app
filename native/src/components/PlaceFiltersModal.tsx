@@ -83,11 +83,11 @@ const PlaceFiltersModal = ({
   const placesCount = getPlacesCount(filters)
 
   return (
-    <Modal closeModal={close} headerTitle='' title={t($ => $.places.adjustFilters)} modalVisible>
+    <Modal closeModal={close} headerTitle='' title={t($ => $.places.filter.adjust)} modalVisible>
       <Container>
         <Section>
           <Row>
-            <Text variant='h6'>{t($ => $.places.openingHours)}</Text>
+            <Text variant='h6'>{t($ => $.places.hours.title)}</Text>
           </Row>
           <StyledRow>
             <Icon source='clock-outline' />
@@ -97,7 +97,7 @@ const PlaceFiltersModal = ({
                 padding: 4,
                 flexShrink: 1,
               }}>
-              {t($ => $.places.onlyCurrentlyOpen)}
+              {t($ => $.places.filter.onlyOpen)}
             </Text>
             <FlexEnd>
               {/* key is a workaround for iOS 26 where the Switch animation does not update on first click */}
@@ -107,14 +107,14 @@ const PlaceFiltersModal = ({
         </Section>
         <Section>
           <Row>
-            <Text variant='h6'>{t($ => $.places.placeCategories)}</Text>
+            <Text variant='h6'>{t($ => $.places.filter.categories)}</Text>
             <Text
               variant='body3'
               style={{
                 alignSelf: 'flex-end',
                 padding: 4,
               }}>
-              {t($ => $.places.alphabetLetters)}
+              {t($ => $.places.filter.alphabet)}
             </Text>
           </Row>
           <TileRow>
@@ -131,7 +131,7 @@ const PlaceFiltersModal = ({
         </Section>
         <Section style={{ marginBottom: 8 }}>
           <Button onPress={close} mode='contained' disabled={placesCount === 0}>
-            {t($ => $.places.showPlaces, { count: placesCount })}
+            {t($ => $.places.filter.show, { count: placesCount })}
           </Button>
         </Section>
       </Container>

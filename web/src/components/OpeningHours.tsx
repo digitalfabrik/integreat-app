@@ -24,10 +24,10 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label }: OpeningHoursTitleProps) =
       direction='row'
       sx={{ justifyContent: 'space-between', alignItems: 'center', width: '100%', gap: 1, paddingInlineEnd: 1 }}>
       <Typography component='h2' variant='subtitle1'>
-        {t($ => $.places.openingHours)}
+        {t($ => $.places.hours.title)}
       </Typography>
       <Typography variant='subtitle1' color={isCurrentlyOpen ? 'success' : 'error'}>
-        {label ?? t($ => (isCurrentlyOpen ? $.places.opened : $.places.closed))}
+        {label ?? t($ => $.places.hours[isCurrentlyOpen ? 'open' : 'closed'])}
       </Typography>
     </Stack>
   )
@@ -51,12 +51,12 @@ const OpeningHours = ({
 
   const AppointmentLink = appointmentUrl ? (
     <Button component={Link} to={appointmentUrl} endIcon={<OpenInNewIcon />}>
-      {t($ => $.places.makeAppointment)}
+      {t($ => $.places.hours.appointment.make.title)}
     </Button>
   ) : null
 
   if (isTemporarilyClosed || appointmentOnly) {
-    const label = t($ => (isTemporarilyClosed ? $.places.temporarilyClosed : $.places.onlyWithAppointment))
+    const label = t($ => (isTemporarilyClosed ? $.places.hours.temporarilyClosed : $.places.hours.appointment.required))
     return (
       <Stack sx={{ paddingBlock: 1, gap: 1 }}>
         <OpeningHoursTitle isCurrentlyOpen={isCurrentlyOpen} label={label} />

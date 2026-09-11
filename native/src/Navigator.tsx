@@ -125,7 +125,7 @@ const Navigator = (): ReactElement | null => {
     } else if (regions) {
       // Region is not available anymore
       changeRegionCode(null)
-      showSnackbar({ text: t($ => $.error.notFound.region) })
+      showSnackbar({ text: t($ => $.regions.notFound) })
       dataContainer.deleteRegion(regionCode).catch(captureError)
       updateInitialRoute({ name: REGIONS_ROUTE })
     }

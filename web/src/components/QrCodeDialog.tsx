@@ -38,14 +38,14 @@ const QrCodeDialog = ({ open, close, title, description, content }: QrCodeDialog
       actions={
         <DialogActions>
           <Button onClick={close} variant='outlined'>
-            {t($ => $.common.close)}
+            {t($ => $.common.actions.close)}
           </Button>
         </DialogActions>
       }>
       <Stack sx={{ alignItems: 'center', gap: 2 }}>
         <Typography variant='body2'>{description}</Typography>
 
-        <StyledSvg src={svgSrc} width={QR_CODE_SIZE} height={QR_CODE_SIZE} ariaLabel={t($ => $.layout.qrCode)} />
+        <StyledSvg src={svgSrc} width={QR_CODE_SIZE} height={QR_CODE_SIZE} ariaLabel={t($ => $.share.qr.label)} />
 
         <Typography variant='body2' sx={{ textAlign: 'center' }}>
           {content}

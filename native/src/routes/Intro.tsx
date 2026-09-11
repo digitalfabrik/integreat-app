@@ -50,38 +50,38 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
   const slides = [
     {
       key: 'integreat',
-      title: t($ => $.intro.welcome, { appName }),
-      description: t($ => $.intro.welcomeDescription, { appName }),
+      title: t($ => $.intro.welcome.title, { appName }),
+      description: t($ => $.intro.welcome.description, { appName }),
       Content: <StyledIcon icon={IntroWelcomeIcon} />,
     },
     {
       key: 'languageChange',
-      title: t($ => $.intro.languageChange, { appName }),
-      description: t($ => $.intro.languageChangeDescription, { appName }),
+      title: t($ => $.languages.change, { appName }),
+      description: t($ => $.intro.slides.languageChange.description, { appName }),
       Content: <StyledIcon icon={IntroLanguageIcon} />,
     },
     {
       key: 'search',
-      title: t($ => $.intro.search),
-      description: t($ => $.intro.searchDescription),
+      title: t($ => $.intro.slides.search.title),
+      description: t($ => $.intro.slides.search.description),
       Content: <StyledIcon icon={IntroSearchIcon} />,
     },
     {
       key: 'places',
-      title: t($ => $.intro.places),
-      description: t($ => $.intro.placesDescription),
+      title: t($ => $.intro.slides.places.title),
+      description: t($ => $.intro.slides.places.description),
       Content: <StyledIcon icon={IntroPlacesIcon} />,
     },
     {
       key: 'news',
-      title: t($ => $.intro.news, { appName }),
-      description: t($ => $.intro.newsDescription, { appName }),
+      title: t($ => $.intro.slides.news.title, { appName }),
+      description: t($ => $.intro.slides.news.description, { appName }),
       Content: <StyledIcon icon={IntroNewsIcon} />,
     },
     {
       key: 'offline',
-      title: t($ => $.intro.offline),
-      description: t($ => $.intro.offlineDescription, {
+      title: t($ => $.intro.slides.offline.title),
+      description: t($ => $.intro.slides.offline.description, {
         appName,
       }),
       Content: <StyledIcon icon={IntroOfflineIcon} />,

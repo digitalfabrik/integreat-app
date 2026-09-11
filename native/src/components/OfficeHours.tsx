@@ -29,13 +29,13 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
 
   const allDayOpen = officeHours.every(hours => hours.openAllDay)
   const allDayClosed = officeHours.every(hours => hours.closedAllDay)
-  const currentlyOpen: boolean = isCurrentlyOpen(officeHours)
+  const currentlyOpen = isCurrentlyOpen(officeHours)
 
   if (allDayOpen) {
     return (
       <StyledView>
         <Icon source='clock-outline' size={24} />
-        <Text>{t($ => $.places.allDay)}</Text>
+        <Text>{t($ => $.places.hours.allDay)}</Text>
       </StyledView>
     )
   }
@@ -44,7 +44,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
     return (
       <StyledView>
         <Icon source='clock-outline' size={24} />
-        <Text>{t($ => $.places.temporarilyClosed)}</Text>
+        <Text>{t($ => $.places.hours.temporarilyClosed)}</Text>
       </StyledView>
     )
   }
@@ -54,7 +54,7 @@ const OfficeHours = ({ officeHours }: OfficeHoursProps): ReactElement | null => 
       headerContent={
         <StyledView>
           <Icon source='clock-outline' size={24} />
-          <Text>{t($ => (currentlyOpen ? $.places.opened : $.places.closed))}</Text>
+          <Text>{t($ => $.places.hours[currentlyOpen ? 'open' : 'closed'])}</Text>
         </StyledView>
       }
       initialCollapsed>

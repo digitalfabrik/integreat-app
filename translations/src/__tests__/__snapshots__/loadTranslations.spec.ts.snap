@@ -3,45 +3,41 @@
 exports[`loadTranslations should correctly merge and transform translations 1`] = `
 {
   "ar": {
-    "layout": {
-      "events": "الفعاليات",
-      "localInformation": "معلومات محلية",
+    "categories": {
+      "title": "معلومات محلية",
+    },
+    "events": {
+      "title": "الفعاليات",
     },
   },
   "de": {
-    "app": {
-      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
-      "pageTitles": {
-        "news": "Nachrichten",
-        "notFound": "Seite nicht gefunden",
-        "tuNews": "tünews",
-      },
-    },
-    "dashboard": {
-      "localInformation": "Malte Informationen",
-      "news": "Malte Nachrichten",
-    },
-    "layout": {
+    "categories": {
       "events": "Veranstaltungen",
-      "localInformation": "Lokale Informationen",
-      "news": "Nachrichten",
-      "newsAlternative": "Neuigkeiten",
+      "title": "Malte Informationen",
+    },
+    "events": {
+      "title": "Veranstaltungen",
+    },
+    "news": {
+      "title": "Malte Nachrichten",
     },
   },
   "en": {
-    "dashboard": {
-      "events": "Malte Events",
-      "localInformation": "Malte information",
+    "categories": {
+      "title": "Malte information",
+    },
+    "events": {
+      "title": "Malte Events",
     },
   },
   "kmr": {
-    "layout": {
-      "localInformation": "Zanyariyên xwecihî",
+    "categories": {
+      "title": "Zanyariyên xwecihî",
     },
   },
   "zh-CN": {
-    "layout": {
-      "localInformation": "本地信息",
+    "categories": {
+      "title": "本地信息",
     },
   },
 }
@@ -50,35 +46,33 @@ exports[`loadTranslations should correctly merge and transform translations 1`] 
 exports[`loadTranslations should correctly transform translations 1`] = `
 {
   "ar": {
-    "layout": {
-      "events": "الفعاليات",
-      "localInformation": "معلومات محلية",
+    "categories": {
+      "title": "معلومات محلية",
+    },
+    "events": {
+      "title": "الفعاليات",
     },
   },
   "de": {
-    "app": {
-      "metaDescription": "Integreat ist Ihr digitaler Guide für Deutschland. Finden Sie lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Ihrer Sprache.",
-      "pageTitles": {
-        "news": "Nachrichten",
-        "notFound": "Seite nicht gefunden",
-        "tuNews": "tünews",
-      },
-    },
-    "layout": {
+    "categories": {
       "events": "Veranstaltungen",
-      "localInformation": "Lokale Informationen",
-      "news": "Nachrichten",
-      "newsAlternative": "Neuigkeiten",
+      "title": "Lokale Informationen",
+    },
+    "events": {
+      "title": "Veranstaltungen",
+    },
+    "news": {
+      "title": "Nachrichten",
     },
   },
   "kmr": {
-    "layout": {
-      "localInformation": "Zanyariyên xwecihî",
+    "categories": {
+      "title": "Zanyariyên xwecihî",
     },
   },
   "zh-CN": {
-    "layout": {
-      "localInformation": "本地信息",
+    "categories": {
+      "title": "本地信息",
     },
   },
 }

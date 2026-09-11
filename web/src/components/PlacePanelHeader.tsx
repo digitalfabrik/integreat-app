@@ -15,12 +15,12 @@ const PlacePanelHeader = ({ goBack }: PlacePanelHeaderProps): ReactElement => {
   return (
     <Stack direction='row' sx={{ justifyContent: 'space-between' }}>
       {goBack ? (
-        <IconButton onClick={goBack} tabIndex={0} aria-label={t($ => $.places.backToOverview)}>
+        <IconButton onClick={goBack} tabIndex={0} aria-label={t($ => $.common.actions.back)}>
           <DirectionDependentBackIcon />
         </IconButton>
       ) : (
         <Typography component='h1' variant='h3' sx={{ alignContent: 'center' }}>
-          {t($ => $.common.nearby)}
+          {t($ => $.userLocation.nearby)}
         </Typography>
       )}
     </Stack>

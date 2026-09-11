@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 import { FlatList, RefreshControl, ViewStyle } from 'react-native'
 import { Divider } from 'react-native-paper'
 
@@ -36,26 +37,31 @@ const List = <T,>({
   scrollEnabled,
   style,
   keyboardShouldPersistTaps = 'never',
-}: ListProps<T>): ReactElement => (
-  <FlatList
-    data={items}
-    renderItem={renderItem}
-    ListHeaderComponent={header}
-    ListFooterComponent={footer}
-    ListFooterComponentStyle={{ flex: 1, justifyContent: 'flex-end' }}
-    refreshControl={refresh ? <RefreshControl onRefresh={refresh} refreshing={false} /> : undefined}
-    ListEmptyComponent={
-      typeof noItemsMessage === 'string' ? <ListEmptyComponent noItemsMessage={noItemsMessage} /> : noItemsMessage
-    }
-    showsVerticalScrollIndicator={false}
-    onEndReachedThreshold={1}
-    scrollEnabled={scrollEnabled}
-    role='list'
-    accessibilityLabel={accessibilityLabel}
-    style={style}
-    keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-    ItemSeparatorComponent={Divider}
-  />
-)
+}: ListProps<T>): ReactElement => {
+  const { t } = useTranslation()
+  const emptyMessage = noItemsMessage ?? t($ => $.error.nothingFound)
+  const listEmptyComponent =
+    typeof emptyMessage === 'string' ? <ListEmptyComponent noItemsMessage={emptyMessage} /> : emptyMessage
+
+  return (
+    <FlatList
+      data={items}
+      renderItem={renderItem}
+      ListHeaderComponent={header}
+      ListFooterComponent={footer}
+      ListFooterComponentStyle={{ flex: 1, justifyContent: 'flex-end' }}
+      refreshControl={refresh ? <RefreshControl onRefresh={refresh} refreshing={false} /> : undefined}
+      ListEmptyComponent={listEmptyComponent}
+      showsVerticalScrollIndicator={false}
+      onEndReachedThreshold={1}
+      scrollEnabled={scrollEnabled}
+      role='list'
+      accessibilityLabel={accessibilityLabel}
+      style={style}
+      keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+      ItemSeparatorComponent={Divider}
+    />
+  )
+}
 
 export default List

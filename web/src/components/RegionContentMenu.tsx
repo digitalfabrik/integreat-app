@@ -46,7 +46,7 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
     showFeedback ? (
       <MenuItem
         key='feedback'
-        text={t($ => $.layout.feedback)}
+        text={t($ => $.feedback.title)}
         icon={<CommentIcon fontSize='small' />}
         onClick={() => setFeedbackQueryParam(true)}
         closeMenu={closeMenu}
@@ -54,7 +54,7 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
     ) : null,
     <MenuItem
       key='theme'
-      text={t($ => $.layout.contrastTheme)}
+      text={t($ => $.settings.contrast.title)}
       icon={<ContrastIcon fontSize='small' />}
       onClick={toggleTheme}
     />,
@@ -62,8 +62,8 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
       key='tts'
       icon={<Svg src={ReadAloudIcon} width={20} height={20} />}
       disabled={!canRead}
-      text={t($ => $.layout.readAloud)}
-      tooltip={canRead ? null : t($ => $.layout.nothingToReadFullMessage)}
+      text={t($ => $.tts.title)}
+      tooltip={canRead ? null : t($ => $.tts.error.nothingToRead.description)}
       onClick={showTtsPlayer}
       closeMenu={closeMenu}
     />,

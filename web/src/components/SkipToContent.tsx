@@ -36,7 +36,7 @@ const SkipToContent = (): ReactElement => {
         href={`#${MAIN_ELEMENT_ID}`}
         onFocus={() => setBackdropOpen(true)}
         onBlur={() => setBackdropOpen(false)}>
-        {t($ => $.layout.skipToContent)}
+        {t($ => $.common.a11y.skipToContent)}
         <Chip label='ENTER' color='primary' icon={<KeyboardReturnIcon />} size='small' />
       </StyledButton>
     </>

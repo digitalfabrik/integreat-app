@@ -51,9 +51,7 @@ const CategoriesContent = ({
   }
 
   if (categoryModel.isRoot()) {
-    return (
-      <Tiles tiles={getCategoryTiles({ categories: children, regionCode })} title={t($ => $.layout.localInformation)} />
-    )
+    return <Tiles tiles={getCategoryTiles({ categories: children, regionCode })} title={t($ => $.categories.title)} />
   }
 
   return (

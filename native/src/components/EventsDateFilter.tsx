@@ -34,7 +34,7 @@ type ResetFilterTextProps = {
 
 const ResetFilterText = ({ startDate, endDate }: ResetFilterTextProps) => {
   const { t } = useTranslation()
-  const text = `${t($ => $.events.resetFilter)} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
+  const text = `${t($ => $.events.filter.reset)} ${startDate ? startDate.toFormat('dd.MM.yyyy') : '∞'} - ${endDate ? endDate.toFormat('dd.MM.yyyy') : '∞'}`
   return (
     <Text variant='h6' style={{ padding: 6 }}>
       {text}
@@ -76,7 +76,7 @@ const EventsDateFilter = ({
   return (
     <>
       <List.Accordion
-        title={t($ => (showDateFilter ? $.events.hideFilters : $.events.showFilters))}
+        title={t($ => (showDateFilter ? $.common.actions.hideFilters : $.common.actions.showFilters))}
         left={filterIcon}
         right={chevronIcon}
         expanded={showDateFilter}
@@ -86,7 +86,7 @@ const EventsDateFilter = ({
         <View style={styles.dateSection}>
           <DatePickerInput
             locale={languageCode}
-            label={t($ => $.events.from)}
+            label={t($ => $.events.filter.from)}
             withDateFormatInLabel={false}
             placeholder={getInputFormatFromLocale(languageCode)}
             value={startDate?.toJSDate() ?? undefined}
@@ -105,7 +105,7 @@ const EventsDateFilter = ({
           />
           <DatePickerInput
             locale={languageCode}
-            label={t($ => $.events.to)}
+            label={t($ => $.events.filter.to)}
             withDateFormatInLabel={false}
             placeholder={getInputFormatFromLocale(languageCode)}
             value={endDate?.toJSDate() ?? undefined}

@@ -43,7 +43,7 @@ const HeaderMenu = ({
     }
 
     const title = pageTitle ?? buildConfig().appName
-    const message = t($ => $.layout.shareMessage, {
+    const message = t($ => $.share.message, {
       message: `${title}\n${shareUrl}`,
       interpolation: {
         escapeValue: false,
@@ -53,7 +53,7 @@ const HeaderMenu = ({
     try {
       await Share.share({ message, title })
     } catch (e) {
-      showSnackbar({ text: t($ => $.error.generalError) })
+      showSnackbar({ text: t($ => $.error.unknownError) })
       captureError(e)
     }
   }
@@ -64,14 +64,14 @@ const HeaderMenu = ({
       ? [
           <HeaderMenuItem
             key='share'
-            title={t($ => $.layout.share)}
+            title={t($ => $.share.title)}
             onPress={share}
             closeMenu={closeMenu}
             icon='share-variant'
           />,
           <HeaderMenuItem
             key='qr'
-            title={t($ => $.layout.qrCode)}
+            title={t($ => $.share.qr.label)}
             onPress={() => setQrModalVisible(true)}
             closeMenu={closeMenu}
             icon='qrcode'
@@ -80,7 +80,7 @@ const HeaderMenu = ({
       : []),
     <HeaderMenuItem
       key='settings'
-      title={t($ => $.layout.settings)}
+      title={t($ => $.settings.title)}
       onPress={() => navigation.navigate(SETTINGS_ROUTE)}
       closeMenu={closeMenu}
       icon='cog-outline'
@@ -95,7 +95,7 @@ const HeaderMenu = ({
         key={Number(visible)}
         visible={visible}
         onDismiss={() => setVisible(false)}
-        overlayAccessibilityLabel={t($ => $.common.close)}
+        overlayAccessibilityLabel={t($ => $.common.actions.close)}
         statusBarHeight={0}
         style={{ width: 256 }}
         contentStyle={{
@@ -109,7 +109,7 @@ const HeaderMenu = ({
             icon='dots-vertical'
             iconColor={theme.colors.onSurface}
             onPress={() => setVisible(!visible)}
-            accessibilityLabel={t($ => $.layout.settings)}
+            accessibilityLabel={t($ => $.settings.title)}
             testID='header-overflow-menu-button'
           />
         }>
@@ -119,8 +119,8 @@ const HeaderMenu = ({
         <QrCodeModal
           modalVisible={qrModalVisible}
           closeModal={() => setQrModalVisible(false)}
-          title={t($ => $.layout.shareQrCodeTitle)}
-          description={t($ => $.layout.shareQrCodeDescription)}
+          title={t($ => $.share.qr.title)}
+          description={t($ => $.share.qr.description)}
           content={shareUrl}
         />
       )}

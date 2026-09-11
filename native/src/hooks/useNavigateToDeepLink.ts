@@ -37,7 +37,7 @@ const navigateToDeepLink = <T extends RoutesType>({
   const routeInformation = new InternalPathnameParser(pathname, languageCode, fixedRegion, query).route()
 
   if (!routeInformation) {
-    showSnackbar({ text: t($ => $.error.notFound.category) })
+    showSnackbar({ text: t($ => $.error.pageNotFound) })
     return
   }
 

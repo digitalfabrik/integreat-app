@@ -36,9 +36,7 @@ const PlaceSharedChildren = ({
   }
 
   if (slug) {
-    return (
-      <StyledFailure errorMessage={t($ => $.error.notFound.place)} goToMessage='places:backToOverview' goToPath='.' />
-    )
+    return <StyledFailure errorMessage={t($ => $.places.error.notFound)} goToPath='.' />
   }
 
   const renderPlaceListItem = (place: PlaceModel) => (
@@ -51,7 +49,7 @@ const PlaceSharedChildren = ({
   )
   return (
     <List
-      noItemsMessage={t($ => $.places.noPlaces)}
+      noItemsMessage={t($ => $.places.error.nothingFound)}
       items={sortPlaces(places, userLocation).map(renderPlaceListItem)}
     />
   )

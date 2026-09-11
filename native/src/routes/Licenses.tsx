@@ -43,11 +43,13 @@ const LicenseItem = (props: LicenseItemProps): ReactElement => {
         <Text variant='body2' style={styles.description}>
           {author}
         </Text>
+        {version && (
+          <Text variant='body2' style={styles.description}>
+            {t($ => $.about.licenses.version, { version })}
+          </Text>
+        )}
         <Text variant='body2' style={styles.description}>
-          {t($ => $.licenses.version)} {version}
-        </Text>
-        <Text variant='body2' style={styles.description}>
-          {t($ => $.licenses.license)} {license}
+          {t($ => $.about.licenses.license, { license })}
         </Text>
       </View>
     </TouchableRipple>
@@ -72,7 +74,7 @@ const Licenses = (): ReactElement => {
       <FlatList
         data={licenses}
         renderItem={renderItem}
-        ListHeaderComponent={<Caption title={t($ => $.settings.openSourceLicenses)} />}
+        ListHeaderComponent={<Caption title={t($ => $.about.licenses.title)} />}
       />
     </Layout>
   )

@@ -32,8 +32,8 @@ const LicensesPage = ({ languageCode }: LicensesPageProps): ReactElement => {
 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-      <H1>{t($ => $.settings.openSourceLicenses)}</H1>
-      {!loading && <List items={items} noItemsMessage={t($ => $.licenses.noLicensesMessage)} />}
+      <H1>{t($ => $.about.licenses.title)}</H1>
+      {!loading && <List items={items} />}
     </Layout>
   )
 }

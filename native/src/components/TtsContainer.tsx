@@ -60,7 +60,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
   const { languageCode } = useContext(AppContext)
   const { t } = useTranslation()
   const showSnackbar = useSnackbar()
-  const title = sentences[0] || t($ => $.layout.nothingToRead)
+  const title = sentences[0] || t($ => $.tts.error.nothingToRead.title)
   const subscriptionsRef = useRef<EventSubscription[]>([])
   const playRequestIdRef = useRef(0)
 
@@ -94,11 +94,11 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
       return
     }
     if (sentences.length === 0) {
-      showSnackbar({ text: t($ => $.layout.nothingToReadFullMessage) })
+      showSnackbar({ text: t($ => $.tts.error.nothingToRead.description) })
       return
     }
     if (!isLanguageSupported) {
-      showSnackbar({ text: t($ => $.layout.languageNotSupported) })
+      showSnackbar({ text: t($ => $.tts.error.languageNotSupported) })
       captureError(new Error(`Language '${languageCode}' not supported`), { data: voices })
       return
     }
