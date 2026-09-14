@@ -4,35 +4,12 @@ import { ArrowAlignment, TourStepsProps, TourStepType } from '../components/Tour
 import {
   CHAT_FAB_ELEMENT_ID,
   HEADER_ACTIONS_ELEMENT_ID,
-  HEADER_MENU_ELEMENT_ID,
-  HEADER_MENU_PANEL_ELEMENT_ID,
   HEADER_TITLE_ELEMENT_ID,
   NAVIGATION_TABS_ELEMENT_ID,
   TILES_ELEMENT_ID,
   TOOLBAR_ELEMENT_ID,
 } from '../constants/layout'
-import { getTourSteps } from './tourSteps'
-
-const positionBelowElement =
-  (arrowAlignment: ArrowAlignment): NonNullable<TourStepType['position']> =>
-  ({ left, right, bottom, width, windowWidth }) => {
-    const horizontalPosition = arrowAlignment === 'left' ? left : right - width
-    // Keeps the popover within the screen for elements close to its edges
-    const clampedHorizontalPosition = Math.min(Math.max(horizontalPosition, 0), windowWidth - width)
-    return [clampedHorizontalPosition, bottom]
-  }
-
-const clickHtmlElement = (element: Element | null) => {
-  if (element instanceof HTMLElement) {
-    element.click()
-  }
-}
-
-const closeHeaderMenu = (element: Element | null) => {
-  if (element instanceof HTMLElement && element.getAttribute('aria-expanded') === 'true') {
-    element.click()
-  }
-}
+import { getTourSteps, headerMenuStep, positionBelowElement } from './tourSteps'
 
 const tourStepsDesktop = (props: TourStepsProps): TourStepType[] => {
   const { rtl } = props
@@ -70,14 +47,10 @@ const tourStepsDesktop = (props: TourStepsProps): TourStepType[] => {
     },
     {
       id: 'additionalFeatures',
+      ...headerMenuStep,
       offset: { horizontal: 4, vertical: 24 },
-      selector: `#${HEADER_MENU_ELEMENT_ID}`,
-      // Highlight the opened menu panel, not the small trigger button
-      highlightedSelectors: [`#${HEADER_MENU_PANEL_ELEMENT_ID}`],
       position: positionBelowElement(atEnd),
       arrowAlignment: atEnd,
-      action: clickHtmlElement,
-      actionAfter: closeHeaderMenu,
     },
     {
       id: 'chat',

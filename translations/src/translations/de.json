@@ -417,6 +417,7 @@
     "copyText": "Text kopieren"
   },
   "tour": {
+    "appTour": "App-Tour",
     "welcomeDescription": "Diese kurze Tour zeigt dir die wichtigsten Funktionen der App.",
     "startTour": "Tour starten",
     "skipTour": "Tour überspringen",

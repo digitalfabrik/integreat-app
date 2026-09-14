@@ -7,6 +7,7 @@ import {
   BOTTOM_NAVIGATION_ELEMENT_ID,
   CHAT_FAB_ELEMENT_ID,
   HEADER_ELEMENT_ID,
+  HEADER_MENU_ELEMENT_ID,
   TILES_ELEMENT_ID,
 } from '../../constants/layout'
 import tourStepsMobile from '../tourStepsMobile'
@@ -42,7 +43,7 @@ describe('tourStepsMobile', () => {
     expect(selectors(createRegion())).toEqual([
       `#${HEADER_ELEMENT_ID}`,
       `#${HEADER_ELEMENT_ID}`,
-      `#${HEADER_ELEMENT_ID}`,
+      `#${HEADER_MENU_ELEMENT_ID}`,
       `#${TILES_ELEMENT_ID} > :first-child`,
       `#${BOTTOM_NAVIGATION_ELEMENT_ID}`,
       `#${CHAT_FAB_ELEMENT_ID}`,
