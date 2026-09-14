@@ -12,7 +12,7 @@ import TimeStamp from './TimeStamp'
 const Container = styled.View<{ $padding: boolean; $paddingHorizontal: number }>`
   ${props => props.$padding && `padding: 0 ${props.$paddingHorizontal}px 8px;`}
 `
-const SpaceForTts = styled.View<{ $ttsPlayerVisible: boolean }>`
+export const SpaceForTts = styled.View<{ $ttsPlayerVisible: boolean }>`
   height: ${props => (props.$ttsPlayerVisible ? dimensions.ttsPlayerHeight : 0)}px;
 `
 
