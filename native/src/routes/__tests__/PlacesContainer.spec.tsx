@@ -16,6 +16,7 @@ jest.mock('@react-native-community/netinfo')
 jest.mock('../../utils/FetcherModule')
 jest.mock('../../hooks/useLoadRegionContent')
 jest.mock('../../hooks/useHeader')
+jest.mock('../../hooks/useSetRouteTitle')
 jest.mock('../../hooks/useNavigate', () => () => ({ navigateTo: jest.fn() }))
 jest.mock('@react-navigation/native')
 jest.mock('../../utils/url', () => ({

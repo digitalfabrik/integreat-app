@@ -1,6 +1,7 @@
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { ParamListBase } from '@react-navigation/native'
 import React, { ReactElement, useCallback, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { PLACES_ROUTE, PlacesRouteType } from 'shared'
 
@@ -11,6 +12,7 @@ import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useLocalStackHistory from '../hooks/useLocalStackHistory'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useRegionAppContext from '../hooks/useRegionAppContext'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../utils/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Places from './Places'
@@ -30,6 +32,7 @@ type PlacesContainerProps = {
 
 const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElement => {
   const { regionCode, languageCode } = useRegionAppContext()
+  const { t } = useTranslation()
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
 
   // We want to use a custom local history implementation to keep a history while avoiding rerenders
@@ -77,6 +80,7 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
         }
 
   useHeader({ navigation, route, availableLanguages, data, shareUrl, goBack })
+  useSetRouteTitle(currentPlace?.title ?? t($ => $.places.title))
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {

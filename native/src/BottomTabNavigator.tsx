@@ -26,12 +26,11 @@ import { defaultHeader } from './components/DefaultHeader'
 import Icon from './components/base/Icon'
 import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'
-import { NavigationProps, RouteProps, RoutesParamsType } from './constants/NavigationTypes'
+import { RouteProps, RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
 import useRegionAppContext from './hooks/useRegionAppContext'
-import useSetRouteTitle from './hooks/useSetRouteTitle'
 import CategoriesContainer from './routes/CategoriesContainer'
 import EventsContainer from './routes/EventsContainer'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
@@ -108,10 +107,9 @@ const TabButton = ({ children, ...props }: BottomTabBarButtonProps): ReactElemen
 
 type BottomTabNavigatorProps = {
   route: RouteProps<BottomTabRouteType>
-  navigation: NavigationProps<BottomTabRouteType>
 }
 
-const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): ReactElement | null => {
+const BottomTabNavigator = ({ route }: BottomTabNavigatorProps): ReactElement | null => {
   const { t } = useTranslation()
   const { regionCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
@@ -129,7 +127,6 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
 
   const cachedData = data || cachedDataRef.current
 
-  useSetRouteTitle({ navigation, title: cachedData?.region.name })
   const theme = useTheme()
 
   if (!cachedData) {

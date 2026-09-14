@@ -11,6 +11,7 @@ import SettingItem from '../components/SettingItem'
 import SwitchCmsUrlButton from '../components/SwitchCmsUrlButton'
 import { NavigationProps } from '../constants/NavigationTypes'
 import { useAppContext } from '../hooks/useRegionAppContext'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import useSnackbar from '../hooks/useSnackbar'
 import dataContainer from '../utils/DefaultDataContainer'
 import createSettingsSections, { SettingsSectionType } from '../utils/createSettingsSections'
@@ -25,6 +26,8 @@ const Settings = ({ navigation }: SettingsProps): ReactElement => {
   const showSnackbar = useSnackbar()
   const { t } = useTranslation()
   const { settings } = appContext
+
+  useSetRouteTitle(t($ => $.settings.title))
 
   const clearResourcesAndCache = () => {
     dataContainer.clearInMemoryCache()

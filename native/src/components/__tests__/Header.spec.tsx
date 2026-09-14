@@ -14,6 +14,7 @@ import {
   PLACES_ROUTE,
   PlacesRouteType,
   SEARCH_ROUTE,
+  SUGGEST_TO_REGION_ROUTE,
 } from 'shared'
 import { LanguageModelBuilder, RegionModelBuilder, LanguageModel } from 'shared/api'
 
@@ -243,7 +244,7 @@ describe('Header', () => {
     })
   })
 
-  it('should use the region name in the share message if no page title is set', () => {
+  it('should use the region name in the share message if no route title is set', () => {
     const openURL = jest.fn()
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
@@ -254,17 +255,17 @@ describe('Header', () => {
     fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalledWith({
-      message: 'share:message categories:imprint - Stadt Augsburg\nhttps://example.com/share',
+      message: 'share:message Stadt Augsburg\nhttps://example.com/share',
       title: 'Stadt Augsburg',
     })
   })
 
-  it('should remove the page title in the share message if it equals the region name', () => {
+  it('should not add the region name in the share message if it equals the route title', () => {
     const openURL = jest.fn()
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
     const { getByTestId, getByText } = renderHeader({
-      route: { key: 'key-0', name: PLACES_ROUTE, params: { title: 'Stadt Augsburg' } },
+      route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: 'Stadt Augsburg' } },
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
     fireEvent.press(getByText(t('share:title')))
@@ -272,6 +273,22 @@ describe('Header', () => {
     expect(Share.share).toHaveBeenCalledWith({
       message: 'share:message Stadt Augsburg\nhttps://example.com/share',
       title: 'Stadt Augsburg',
+    })
+  })
+
+  it('should use the route title in the share message', () => {
+    const openURL = jest.fn()
+    const spy = jest.spyOn(Linking, 'openURL')
+    spy.mockImplementation(openURL)
+    const { getByTestId, getByText } = renderHeader({
+      route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: 'Willkommen' } },
+    })
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText(t('share:title')))
+
+    expect(Share.share).toHaveBeenCalledWith({
+      message: 'share:message Willkommen - Stadt Augsburg\nhttps://example.com/share',
+      title: 'Willkommen - Stadt Augsburg',
     })
   })
 })

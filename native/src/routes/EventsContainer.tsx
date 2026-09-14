@@ -1,4 +1,5 @@
 import React, { ReactElement, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { EVENTS_ROUTE, EventsRouteType } from 'shared'
 
@@ -8,6 +9,7 @@ import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useRegionAppContext from '../hooks/useRegionAppContext'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../utils/url'
 import Events from './Events'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -21,6 +23,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
   const { slug } = route.params
   const { regionCode, languageCode } = useRegionAppContext()
   const { navigateTo } = useNavigate()
+  const { t } = useTranslation()
 
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
 
@@ -36,6 +39,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
     slug,
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
+  useSetRouteTitle(currentEvent?.title ?? t($ => $.events.title))
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
