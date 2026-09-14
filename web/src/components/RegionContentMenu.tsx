@@ -79,7 +79,7 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
     />,
     <MenuItem
       key='tour'
-      text={t($ => $.tour.startTour)}
+      text={t($ => $.tour.appTour)}
       icon={<HelpOutlineIcon fontSize='small' />}
       onClick={() => {
         setTourDialogVisible(true)

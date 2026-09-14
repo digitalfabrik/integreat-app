@@ -3,8 +3,9 @@ import React from 'react'
 
 import { getChatName } from 'shared'
 
-import TourStepContent, { TourStepsProps, TourStepType } from '../components/TourStepContent'
+import TourStepContent, { ArrowAlignment, TourStepsProps, TourStepType } from '../components/TourStepContent'
 import buildConfig from '../constants/buildConfig'
+import { HEADER_MENU_ELEMENT_ID, HEADER_MENU_PANEL_ELEMENT_ID } from '../constants/layout'
 import getNavigationItems from './navigationItems'
 
 type TourStepId =
@@ -18,6 +19,35 @@ type TourStepDefinition = {
 type TourStepLayout = Omit<TourStepType, 'content'> & {
   id: TourStepId
   descriptionKey?: SelectorParam
+}
+
+export const positionBelowElement =
+  (arrowAlignment: ArrowAlignment): NonNullable<TourStepType['position']> =>
+  ({ left, right, bottom, width, windowWidth }) => {
+    const horizontalPosition = arrowAlignment === 'left' ? left : right - width
+    // Keeps the popover within the screen for elements close to its edges
+    const clampedHorizontalPosition = Math.min(Math.max(horizontalPosition, 0), windowWidth - width)
+    return [clampedHorizontalPosition, bottom]
+  }
+
+const clickHtmlElement = (element: Element | null): void => {
+  if (element instanceof HTMLElement) {
+    element.click()
+  }
+}
+
+const closeHeaderMenu = (element: Element | null): void => {
+  if (element instanceof HTMLElement && element.getAttribute('aria-expanded') === 'true') {
+    element.click()
+  }
+}
+
+// Opens the header menu for the duration of the step and highlights the opened menu panel, not the small trigger button
+export const headerMenuStep: Pick<TourStepType, 'selector' | 'highlightedSelectors' | 'action' | 'actionAfter'> = {
+  selector: `#${HEADER_MENU_ELEMENT_ID}`,
+  highlightedSelectors: [`#${HEADER_MENU_PANEL_ELEMENT_ID}`],
+  action: clickHtmlElement,
+  actionAfter: closeHeaderMenu,
 }
 
 const getTourStepDefinitions = ({

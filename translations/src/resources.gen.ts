@@ -435,6 +435,7 @@ const resources = {
     }
   },
   "tour": {
+    "appTour": "App tour",
     "welcomeDescription": "This short tour shows you the most important features of the app.",
     "startTour": "Start tour",
     "skipTour": "Skip tour",

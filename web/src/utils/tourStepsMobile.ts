@@ -6,9 +6,9 @@ import {
   TILES_ELEMENT_ID,
 } from '../constants/layout'
 import { TOUR_MASK_PADDING, TOUR_POPOVER_PADDING } from '../constants/tour'
-import { getTourSteps } from './tourSteps'
+import { getTourSteps, headerMenuStep, positionBelowElement } from './tourSteps'
 
-const HEADER_POPOVER_POSITIONS = { changeLocation: 0.4, searchAndLanguage: 0.6, additionalFeatures: 1 }
+const HEADER_POPOVER_POSITIONS = { changeLocation: 0.4, searchAndLanguage: 0.6 }
 
 const tourStepsMobile = (props: TourStepsProps): TourStepType[] => {
   const { rtl } = props
@@ -37,7 +37,10 @@ const tourStepsMobile = (props: TourStepsProps): TourStepType[] => {
     },
     {
       id: 'additionalFeatures',
-      ...headerStep(atEnd, HEADER_POPOVER_POSITIONS.additionalFeatures),
+      ...headerMenuStep,
+      position: positionBelowElement(atEnd),
+      arrowAlignment: atEnd,
+      padding: { mask: [0, 0], popover: [0, TOUR_POPOVER_PADDING] },
       descriptionKey: $ => $.tour.additionalFeaturesWithFeedbackDescription,
     },
     {
