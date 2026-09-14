@@ -268,6 +268,7 @@ export default defineConfig([
       '**/reports/',
       '**/ios/',
       '**/android/',
+      '**/build/',
       '**/dist/',
       '.eslintrc.js',
       'eslint.config.js',
