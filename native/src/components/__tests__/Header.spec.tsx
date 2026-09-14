@@ -3,7 +3,9 @@ import React, { ReactElement } from 'react'
 import { View, Linking, Share } from 'react-native'
 
 import {
+  BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
+  CATEGORIES_TAB_ROUTE,
   CategoriesRouteType,
   LANGUAGES_ROUTE,
   IMPRINT_ROUTE,
@@ -141,6 +143,43 @@ describe('Header', () => {
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
+  it('should show the title of the focused route of a nested navigator as header title', () => {
+    mocked(navigation.getState).mockImplementation(() => ({
+      key: 'stack-key',
+      index: 1,
+      routeNames: [BOTTOM_TAB_ROUTE, IMPRINT_ROUTE],
+      routes: [
+        {
+          key: 'bottom-tab-key',
+          name: BOTTOM_TAB_ROUTE,
+          params: { title: regionModel.name },
+          state: {
+            index: 0,
+            routes: [
+              {
+                key: 'categories-tab-key',
+                name: CATEGORIES_TAB_ROUTE,
+                state: {
+                  index: 1,
+                  routes: [
+                    { key: 'categories-key-0', name: CATEGORIES_ROUTE, params: { title: regionModel.name } },
+                    { key: 'categories-key-1', name: CATEGORIES_ROUTE, params: { title: 'Nested Category' } },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        { key: 'key-0', name: IMPRINT_ROUTE },
+      ],
+      type: 'stack',
+      stale: false,
+      preloadedRoutes: [],
+    }))
+    const { getByText } = renderHeader({ route: { key: 'key-0', name: IMPRINT_ROUTE, params: {} } })
+    expect(getByText('Nested Category')).toBeTruthy()
+  })
+
   it('should not show back button if it is the home', () => {
     mockPreviousRoute(false)
     const { queryByLabelText } = renderHeader({})
@@ -204,7 +243,7 @@ describe('Header', () => {
     })
   })
 
-  it('should use the route name in the share message if no page title is set', () => {
+  it('should use the region name in the share message if no page title is set', () => {
     const openURL = jest.fn()
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
@@ -216,7 +255,7 @@ describe('Header', () => {
 
     expect(Share.share).toHaveBeenCalledWith({
       message: 'share:message categories:imprint - Stadt Augsburg\nhttps://example.com/share',
-      title: 'categories:imprint - Stadt Augsburg',
+      title: 'Stadt Augsburg',
     })
   })
 
