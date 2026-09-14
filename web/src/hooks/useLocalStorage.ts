@@ -6,6 +6,8 @@ export const CHAT_PRIVACY_POLICIES_STORAGE_KEY = 'Chat-Privacy-Policies'
 export const CHAT_UNSYNCED_MESSAGES_STORAGE_KEY = 'Chat-Unsynced-Messages'
 export const CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY = 'Chat-Highlight-Popup-Visible'
 
+export const TOUR_DIALOG_VISIBLE_STORAGE_KEY = 'Tour-Dialog-Visible'
+
 export const EXTERNAL_SOURCES_STORAGE_KEY = 'Opt-In-External-Sources'
 export const APP_BANNER_HIDDEN_EXPIRATION_DATE_STORAGE_KEY = 'App-Banner-Hidden'
 export const THEME_STORAGE_KEY = 'theme'
