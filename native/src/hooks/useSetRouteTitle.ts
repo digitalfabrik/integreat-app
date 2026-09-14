@@ -1,22 +1,15 @@
+import { useNavigation } from '@react-navigation/native'
 import { useEffect } from 'react'
 
-import { BottomTabRouteType, CategoriesRouteType, EventsRouteType, NewsRouteType, PlacesRouteType } from 'shared'
-
-import { NavigationProps } from '../constants/NavigationTypes'
-
-type UseSetRouteTitleProps = {
-  navigation: NavigationProps<
-    CategoriesRouteType | EventsRouteType | NewsRouteType | PlacesRouteType | BottomTabRouteType
-  >
-  title?: string
-}
+import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 
 /**
- * Allows custom overriding of the route title
+ * Sets the title of the current route
  * The route title is used in the header of the afterwards opened route to show the user where he would navigate back to
- * The route name is shown as default
  */
-const useSetRouteTitle = ({ navigation, title }: UseSetRouteTitleProps): void => {
+const useSetRouteTitle = (title: string | undefined): void => {
+  const navigation = useNavigation<NavigationProps<RoutesType>>()
+
   useEffect(() => {
     if (title === undefined) {
       return

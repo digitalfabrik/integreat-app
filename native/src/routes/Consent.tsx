@@ -9,11 +9,14 @@ import List from '../components/List'
 import Text from '../components/base/Text'
 import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useRegionAppContext'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 
 const Consent = (): ReactElement | null => {
   const { settings, updateSettings } = useAppContext()
   const { t } = useTranslation()
   const { externalSourcePermissions } = settings
+
+  useSetRouteTitle(t($ => $.settings.externalSources.title))
 
   const onPress = (source: string) => {
     const updatedSources = { ...externalSourcePermissions, [source]: !externalSourcePermissions[source] }

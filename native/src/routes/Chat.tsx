@@ -4,7 +4,7 @@ import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-paper'
 
-import { ChatRouteType, uuid } from 'shared'
+import { ChatRouteType, getChatName, uuid } from 'shared'
 import { createChatMessagesEndpoint, ErrorCodes, loadFromEndpoint } from 'shared/api'
 
 import Failure from '../components/Failure'
@@ -15,9 +15,11 @@ import WebView from '../components/WebView'
 import AlertDialog from '../components/base/AlertDialog'
 import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
 import useHeader from '../hooks/useHeader'
 import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useRegionAppContext from '../hooks/useRegionAppContext'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import { determineApiUrl } from '../utils/helpers'
 import { captureError } from '../utils/sentry'
 import { getChatUrl } from '../utils/url'
@@ -83,6 +85,7 @@ const Chat = ({ route, navigation }: ChatProps): ReactElement => {
   )
 
   useHeader({ navigation, route, data, availableLanguages, menu })
+  useSetRouteTitle(getChatName(buildConfig().appName))
 
   if (isConnected === false) {
     return <Failure code={ErrorCodes.NetworkConnectionFailed} retry={null} />
