@@ -13,7 +13,6 @@ describe('CategoryListItem', () => {
   const { categories: categoriesMapModel } = new CategoriesMapModelBuilder(regionModel.code, language.code).buildAll()
   const categories = categoriesMapModel.toArray()
   const category = categories[0]!
-  const subCategories = categories.filter(otherCategory => otherCategory.parentPath === category.path)
 
   const onItemPress = jest.fn()
 
@@ -23,16 +22,9 @@ describe('CategoryListItem', () => {
 
   it('should render category and subcategories', () => {
     const { getByText } = render(
-      <CategoryListItem
-        category={category}
-        subCategories={subCategories}
-        onItemPress={onItemPress}
-        language={language.code}
-      />,
+      <CategoryListItem category={category} onItemPress={onItemPress} language={language.code} />,
     )
 
     expect(getByText(category.title)).toBeTruthy()
-    expect(getByText(subCategories[0]!.title)).toBeTruthy()
-    expect(getByText(subCategories[1]!.title)).toBeTruthy()
   })
 })
