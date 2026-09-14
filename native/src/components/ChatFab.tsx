@@ -1,8 +1,8 @@
 import { useFocusEffect } from '@react-navigation/native'
 import React, { ReactElement, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ViewStyle } from 'react-native'
-import { Badge, FAB, useTheme } from 'react-native-paper'
+import { TouchableOpacity, ViewStyle } from 'react-native'
+import { Badge, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { CHAT_DEFAULT_POLLING_INTERVAL, CHAT_ROUTE, getChatName } from 'shared'
@@ -12,13 +12,25 @@ import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import { determineApiUrl } from '../utils/helpers'
+import { elevatedStyle } from '../utils/styles'
 import ChatHighlightPopup from './ChatHighlightPopup'
+import Icon from './base/Icon'
 
 const Container = styled.View`
   position: absolute;
   right: 0;
   margin: 16px;
   align-items: flex-end;
+`
+
+const TouchableFab = styled(TouchableOpacity)`
+  width: 56px;
+  height: 56px;
+  border-radius: 30%;
+  background-color: ${props => props.theme.colors.primary};
+  justify-content: center;
+  align-items: center;
+  ${elevatedStyle}
 `
 
 const StyledBadge = styled(Badge)`
@@ -60,17 +72,15 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
   return (
     <Container style={style}>
       <ChatHighlightPopup chatName={getChatName(buildConfig().appName)} />
-      <FAB
-        icon='forum-outline'
+      <TouchableFab
+        accessibilityRole='button'
+        activeOpacity={0.9}
         onPress={() => navigation.navigate(CHAT_ROUTE)}
-        accessibilityLabel={getChatName(buildConfig().appName)}
-        variant='primary'
-        style={{ backgroundColor: theme.colors.primary }}
-        size='medium'
-        aria-label={getChatName(buildConfig().appName)}
-      />
+        accessibilityLabel={getChatName(buildConfig().appName)}>
+        <Icon size={24} source='forum-outline' color={theme.colors.tertiaryContainer} />
+      </TouchableFab>
       {unreadMessageCount > 0 && (
-        <StyledBadge aria-label={t($ => $.chat.unreadMessages, { count: unreadMessageCount })}>
+        <StyledBadge accessibilityLabel={t($ => $.chat.unreadMessages, { count: unreadMessageCount })}>
           {unreadMessageCount}
         </StyledBadge>
       )}

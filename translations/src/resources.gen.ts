@@ -201,6 +201,7 @@ const resources = {
     "locations": "Map",
     "changeLocation": "Change location",
     "changeLanguage": "Change language",
+    "languageChanged": "Language changed to {{name}}",
     "settings": "Settings",
     "copyUrl": "Copy link",
     "contrastTheme": "High Contrast (beta)",

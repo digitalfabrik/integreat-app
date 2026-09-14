@@ -6,9 +6,11 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
+import usePreviousProp from '../hooks/usePreviousProp'
 import HeaderActionItem from './HeaderActionItem'
 import LanguageNotAvailableMessage from './LanguageNotAvailableMessage'
 import LanguageSelection, { LanguageChangePath } from './LanguageSelection'
+import LiveAnnouncer from './LiveAnnouncer'
 import Sidebar from './Sidebar'
 import { SimpleAlertDialog } from './base/AlertDialog'
 
@@ -36,6 +38,7 @@ const HeaderLanguageSelectorItem = ({
   const [alertDialogTitle, setAlertDialogTitle] = useState<string | null>(null)
   const { mobile, desktop } = useDimensions()
   const { t } = useTranslation()
+  const [announcement, setAnnouncement] = useState('')
 
   const open = (event: React.MouseEvent<HTMLButtonElement>) => setAnchorElement(event.currentTarget)
   const close = () => setAnchorElement(null)
@@ -47,6 +50,13 @@ const HeaderLanguageSelectorItem = ({
   }
 
   const currentLanguageName = languageChangePaths.find(item => item.code === languageCode)?.name
+  usePreviousProp({
+    prop: languageCode,
+    onPropChange: newCode => {
+      const name = languageChangePaths.find(item => item.code === newCode)?.name
+      setAnnouncement(t($ => $.layout.languageChanged, { name: name ?? newCode }))
+    },
+  })
 
   const LanguageSelectionButton = (
     <HeaderActionItem
@@ -55,6 +65,7 @@ const HeaderLanguageSelectorItem = ({
       text={isOpen ? '' : t($ => $.layout.changeLanguage) /* to not cover the dropdown with the tooltip */}
       icon={<TranslateOutlinedIcon />}
       innerText={forceText || desktop ? currentLanguageName : undefined}
+      aria-expanded={isOpen}
     />
   )
 
@@ -70,6 +81,7 @@ const HeaderLanguageSelectorItem = ({
   if (mobile) {
     return (
       <>
+        <LiveAnnouncer message={announcement} />
         <StyledSidebar openButton={LanguageSelectionButton} setOpen={() => setAnchorElement(null)} open={isOpen}>
           <LanguageSelection
             languageChangePaths={languageChangePaths}
@@ -85,6 +97,7 @@ const HeaderLanguageSelectorItem = ({
 
   return (
     <>
+      <LiveAnnouncer message={announcement} />
       {LanguageSelectionButton}
       <Popover
         open={isOpen}

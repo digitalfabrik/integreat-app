@@ -12,7 +12,7 @@ const Container = styled.View<{ $padding: boolean }>`
   ${props => props.$padding && `padding: 0 ${dimensions.pageContainerPaddingHorizontal}px 8px;`}
 `
 const SpaceForTts = styled.View<{ $ttsPlayerVisible: boolean }>`
-  height: ${props => (props.$ttsPlayerVisible ? dimensions.ttsPlayerHeight : 0)}px;
+  height: ${props => (props.$ttsPlayerVisible ? dimensions.ttsPlayerHeight + dimensions.bottomNavigationHeight : 0)}px;
 `
 
 type PageProps = {
