@@ -46,7 +46,7 @@ describe('RegionContentMenu', () => {
     expect(getByText('feedback:title')).toBeTruthy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
-    expect(getByText('tour:startTour')).toBeTruthy()
+    expect(getByText('tour:appTour')).toBeTruthy()
 
     fireEvent.click(getByText('tts:title'))
 
@@ -89,7 +89,7 @@ describe('RegionContentMenu', () => {
     expect(getByText('feedback:title')).toBeTruthy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
-    expect(getByText('tour:startTour')).toBeTruthy()
+    expect(getByText('tour:appTour')).toBeTruthy()
   })
 
   it('should hide feedback for news routes', () => {
@@ -107,7 +107,7 @@ describe('RegionContentMenu', () => {
     expect(queryByText('feedback:title')).toBeFalsy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
-    expect(getByText('tour:startTour')).toBeTruthy()
+    expect(getByText('tour:appTour')).toBeTruthy()
   })
 
   it('tts toolbar item should be disabled if there is nothing to read', () => {
@@ -139,7 +139,7 @@ describe('RegionContentMenu', () => {
     expect(queryByText('feedback:title')).toBeFalsy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
-    expect(getByText('tour:startTour')).toBeTruthy()
+    expect(getByText('tour:appTour')).toBeTruthy()
   })
 
   it('should offer the tour again and navigate to the home screen', () => {
@@ -154,7 +154,7 @@ describe('RegionContentMenu', () => {
     })
 
     fireEvent.click(getByLabelText('common:labels.menu'))
-    fireEvent.click(getByText('tour:startTour'))
+    fireEvent.click(getByText('tour:appTour'))
 
     expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('true')
   })
