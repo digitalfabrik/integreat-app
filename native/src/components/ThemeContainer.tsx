@@ -68,7 +68,7 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
         level0: 'transparent',
         level1: palette.tertiary.light,
         level2: palette.tertiary.light,
-        level3: palette.tertiary.light,
+        level3: palette.background.accent,
         level4: palette.tertiary.light,
         level5: palette.tertiary.light,
       },
