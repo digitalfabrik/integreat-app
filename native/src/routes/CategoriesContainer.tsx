@@ -45,7 +45,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     regionContentPath: category?.path ?? path,
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
-  useSetRouteTitle({ navigation, title: category?.isRoot() ? data?.region.name : category?.title })
+  useSetRouteTitle(category?.isRoot() ? data?.region.name : category?.title)
 
   const onLanguageChange = useCallback(
     (newLanguage: string) => {

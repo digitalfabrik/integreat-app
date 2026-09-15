@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { IMPRINT_ROUTE, ImprintRouteType } from 'shared'
 import { createImprintEndpoint } from 'shared/api'
@@ -7,6 +8,7 @@ import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useHeader from '../hooks/useHeader'
 import useLoadExtraRegionContent from '../hooks/useLoadExtraRegionContent'
 import useRegionAppContext from '../hooks/useRegionAppContext'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import urlFromRouteInformation from '../utils/url'
 import Imprint from './Imprint'
 import LoadingErrorHandler from './LoadingErrorHandler'
@@ -18,6 +20,7 @@ type ImprintContainerProps = {
 
 const ImprintContainer = ({ navigation, route }: ImprintContainerProps): ReactElement => {
   const { regionCode, languageCode } = useRegionAppContext()
+  const { t } = useTranslation()
   const { data, ...response } = useLoadExtraRegionContent({
     createEndpoint: createImprintEndpoint,
     regionCode,
@@ -27,6 +30,7 @@ const ImprintContainer = ({ navigation, route }: ImprintContainerProps): ReactEl
   const availableLanguages = data?.languages.map(it => it.code)
   const shareUrl = urlFromRouteInformation({ route: IMPRINT_ROUTE, languageCode, regionCode })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
+  useSetRouteTitle(t($ => $.about.imprint))
 
   return (
     <LoadingErrorHandler {...response} scrollView>

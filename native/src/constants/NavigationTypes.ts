@@ -119,17 +119,17 @@ export type RootRoutesParamsType = {
     url: string
   }
   [INTRO_ROUTE]: undefined
-  [REGIONS_ROUTE]: undefined
+  [REGIONS_ROUTE]: RouteTitle | undefined
   [SUGGEST_TO_REGION_ROUTE]: undefined
-  [CHAT_ROUTE]: undefined
-  [IMPRINT_ROUTE]: undefined
-  [MAIN_IMPRINT_ROUTE]: undefined
-  [CONSENT_ROUTE]: undefined
-  [SETTINGS_ROUTE]: undefined
-  [SEARCH_ROUTE]: {
+  [CHAT_ROUTE]: RouteTitle | undefined
+  [IMPRINT_ROUTE]: RouteTitle | undefined
+  [MAIN_IMPRINT_ROUTE]: RouteTitle | undefined
+  [CONSENT_ROUTE]: RouteTitle | undefined
+  [SETTINGS_ROUTE]: RouteTitle | undefined
+  [SEARCH_ROUTE]: RouteTitle & {
     searchText?: string | null
   }
-  [LICENSES_ROUTE]: undefined
+  [LICENSES_ROUTE]: RouteTitle | undefined
   [LANGUAGES_ROUTE]: {
     languages: LanguageModel[]
     availableLanguages: string[]
@@ -144,7 +144,7 @@ export type RootRoutesParamsType = {
     url: string
     shareUrl: string
   }
-  [FEEDBACK_MODAL_ROUTE]: {
+  [FEEDBACK_MODAL_ROUTE]: RouteTitle & {
     routeType: FeedbackRouteType
     language: string
     regionCode: string

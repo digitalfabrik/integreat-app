@@ -3,17 +3,10 @@ import { useTranslation } from 'react-i18next'
 import { Pressable, ScrollView, View } from 'react-native'
 import styled from 'styled-components/native'
 
-import {
-  NEWS_ROUTE,
-  NEWS_SOURCE_FILTERS,
-  NewsRouteType,
-  NewsSourceFilter as NewsSourceFilterType,
-  replaceLinks,
-} from 'shared'
+import { NEWS_ROUTE, NEWS_SOURCE_FILTERS, NewsSourceFilter as NewsSourceFilterType, replaceLinks } from 'shared'
 import { AMAL_NEWS_SOURCE, ErrorCodes, getNewsSourceLabel, LOCAL_NEWS_SOURCE, NewsModel, RegionModel } from 'shared/api'
 
 import { AmalNewsLogo, TuNewsLogo } from '../assets'
-import { NavigationProps } from '../constants/NavigationTypes'
 import { contentAlignmentRTLText } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
@@ -69,8 +62,7 @@ const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSource
   const openExternalUrl = useOpenExternalUrl()
   useTtsPlayer(selectedNewsItem)
 
-  const navigation = useNavigate().navigation as NavigationProps<NewsRouteType>
-  useSetRouteTitle({ navigation, title: selectedNewsItem?.title ?? t($ => $.news.title) })
+  useSetRouteTitle(selectedNewsItem?.title ?? t($ => $.news.title))
 
   const rendersNewsListItem = ({ item }: { item: NewsModel }) => (
     <NewsListItem
