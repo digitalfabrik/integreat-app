@@ -7,6 +7,7 @@ import { fromPairs, isEqual, sortBy, toPairs } from 'lodash-es'
 import path from 'path'
 
 import config from '../src/config.js'
+import { validateTranslations } from './validate.ts'
 
 const { unflatten } = flat
 
@@ -15,12 +16,12 @@ const CSV_SOURCE_LANGUAGE_COLUMN = 'source_language'
 const CSV_TARGET_LANGUAGE_COLUMN = 'target_language'
 
 type TranslationMap = { [key: string]: string | TranslationMap }
-type LanguageTranslations = { [namespace: string]: TranslationMap }
+export type LanguageTranslations = { [namespace: string]: TranslationMap }
 
-const languageFilePath = (dir: string, language: string, extension = '.json'): string =>
+export const languageFilePath = (dir: string, language: string, extension = '.json'): string =>
   path.join(dir, `${language}${extension}`)
 
-const readLanguageFile = (dir: string, language: string): LanguageTranslations | null => {
+export const readLanguageFile = (dir: string, language: string): LanguageTranslations | null => {
   const filePath = languageFilePath(dir, language)
   if (!fs.existsSync(filePath)) {
     return null
@@ -172,15 +173,14 @@ export default translations
   console.log(`Wrote ${filePath} with ${languages.length} languages`)
 }
 
-const RESOURCES_TYPING_LANGUAGE = 'en'
 const RESOURCES_GEN_PATH = 'src/resources.gen.ts'
 const TRANSLATIONS_DIR = 'src/translations'
 const TRANSLATIONS_OVERRIDE_DIR = 'src/override-translations'
 
 const writeTypes = () => {
-  const filePath = languageFilePath('src/translations', RESOURCES_TYPING_LANGUAGE)
+  const filePath = languageFilePath('src/translations', config.referenceLanguage)
   const parsed = JSON.parse(fs.readFileSync(filePath, 'utf-8')) satisfies LanguageTranslations
-  const banner = `// AUTO-GENERATED from ${RESOURCES_TYPING_LANGUAGE}.json by \`yarn workspace translations sync\`. Do not edit.\n`
+  const banner = `// AUTO-GENERATED from ${config.referenceLanguage}.json by \`yarn workspace translations sync\`. Do not edit.\n`
   const body = `const resources = ${JSON.stringify(parsed, null, 2)} as const\n\nexport default resources\n`
   fs.writeFileSync(RESOURCES_GEN_PATH, `${banner}\n${body}`, 'utf-8')
   console.log(`Wrote ${RESOURCES_GEN_PATH}`)
@@ -248,5 +248,15 @@ program
       process.exit(1)
     }
   })
+
+program.command('validate').action(() => {
+  const errors = validateTranslations(TRANSLATIONS_DIR, TRANSLATIONS_OVERRIDE_DIR)
+  if (errors.length > 0) {
+    console.error(`Found ${errors.length} translation issue(s):`)
+    errors.forEach(error => console.error(`  ${error}`))
+    process.exit(1)
+  }
+  console.log('Translations valid.')
+})
 
 program.parse(process.argv)

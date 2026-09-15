@@ -42,12 +42,12 @@ describe('Failure', () => {
 
   it('should show the error code as message', () => {
     const { getByText } = renderFailure()
-    expect(getByText(`error:${ErrorCodes.UnknownError}`)).toBeTruthy()
+    expect(getByText(`error:unknownError`)).toBeTruthy()
   })
 
   it('should show notFound.region for RegionUnavailable', () => {
     const { getByText } = renderFailure(null, ErrorCodes.RegionUnavailable)
-    expect(getByText('error:notFound.region')).toBeTruthy()
+    expect(getByText('regions:notFound')).toBeTruthy()
   })
 
   it('should call retry when retry button is pressed', () => {
@@ -59,7 +59,7 @@ describe('Failure', () => {
 
   it('should always show a back button', () => {
     const { getByText } = renderFailure()
-    expect(getByText('common:back')).toBeTruthy()
+    expect(getByText('common:actions.back')).toBeTruthy()
   })
 
   it('should use goToLabel for the back button when provided', () => {
@@ -70,21 +70,21 @@ describe('Failure', () => {
   it('should call goTo when the back button is pressed and goTo is a function', () => {
     const goTo = jest.fn()
     const { getByText } = renderFailure(null, ErrorCodes.UnknownError, goTo)
-    fireEvent.press(getByText('common:back'))
+    fireEvent.press(getByText('common:actions.back'))
     expect(goTo).toHaveBeenCalled()
   })
 
   it('should call navigateTo with the route when goTo is a route object', () => {
     const goTo: NonNullableRouteInformationType = { route: REGIONS_ROUTE, languageCode: 'de' }
     const { getByText } = renderFailure(null, ErrorCodes.UnknownError, goTo)
-    fireEvent.press(getByText('common:back'))
+    fireEvent.press(getByText('common:actions.back'))
     expect(navigateTo).toHaveBeenCalledWith(goTo)
   })
 
   it('should navigate back if goTo is not passed', () => {
     mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation: { ...navigation, canGoBack: () => true } }))
     const { getByText } = renderFailure(null, ErrorCodes.UnknownError)
-    fireEvent.press(getByText('common:back'))
+    fireEvent.press(getByText('common:actions.back'))
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
@@ -94,7 +94,7 @@ describe('Failure', () => {
       navigation: { ...navigation, canGoBack: () => false },
     }))
     const { getByText } = renderFailure(null, ErrorCodes.UnknownError)
-    fireEvent.press(getByText('common:back'))
+    fireEvent.press(getByText('common:actions.back'))
     expect(navigateTo).toHaveBeenCalledTimes(1)
     expect(navigateTo).toHaveBeenCalledWith({ route: REGIONS_ROUTE, languageCode: '' })
   })

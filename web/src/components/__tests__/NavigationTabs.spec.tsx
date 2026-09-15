@@ -55,10 +55,10 @@ describe('NavigationTabs', () => {
     places: boolean,
     news: boolean,
   ) => {
-    expectNavigationTab(getByText, categories, 'localInformation')
-    expectNavigationTab(getByText, events, 'events')
-    expectNavigationTab(getByText, places, 'locations')
-    expectNavigationTab(getByText, news, 'news')
+    expectNavigationTab(getByText, categories, 'categories:title')
+    expectNavigationTab(getByText, events, 'events:title')
+    expectNavigationTab(getByText, places, 'places:title')
+    expectNavigationTab(getByText, news, 'news:title')
   }
 
   it('should be empty if all other header items are disabled', () => {
@@ -95,7 +95,7 @@ describe('NavigationTabs', () => {
         <NavigationTabs languageCode={languageCode} regionModel={regionModel(true, true, true, true)} />
       ),
     })
-    expect(getByRole('tab', { selected: true })).toHaveTextContent('layout:localInformation')
+    expect(getByRole('tab', { selected: true })).toHaveTextContent('categories:title')
   })
 
   it('should highlight local information tab for nested categories', () => {
@@ -104,7 +104,7 @@ describe('NavigationTabs', () => {
         <NavigationTabs languageCode={languageCode} regionModel={regionModel(true, true, true, true)} />
       ),
     })
-    expect(getByRole('tab', { selected: true })).toHaveTextContent('layout:localInformation')
+    expect(getByRole('tab', { selected: true })).toHaveTextContent('categories:title')
   })
 
   it('should highlight news tab', () => {
@@ -113,7 +113,7 @@ describe('NavigationTabs', () => {
         <NavigationTabs languageCode={languageCode} regionModel={regionModel(true, true, true, true)} />
       ),
     })
-    expect(getByRole('tab', { selected: true })).toHaveTextContent('layout:news')
+    expect(getByRole('tab', { selected: true })).toHaveTextContent('news:title')
   })
 
   it('should highlight events tab', () => {
@@ -122,7 +122,7 @@ describe('NavigationTabs', () => {
         <NavigationTabs languageCode={languageCode} regionModel={regionModel(true, true, true, true)} />
       ),
     })
-    expect(getByRole('tab', { selected: true })).toHaveTextContent('layout:events')
+    expect(getByRole('tab', { selected: true })).toHaveTextContent('events:title')
   })
 
   it('should highlight places tab', () => {
@@ -131,7 +131,7 @@ describe('NavigationTabs', () => {
         <NavigationTabs languageCode={languageCode} regionModel={regionModel(true, true, true, true)} />
       ),
     })
-    expect(getByRole('tab', { selected: true })).toHaveTextContent('layout:locations')
+    expect(getByRole('tab', { selected: true })).toHaveTextContent('places:title')
   })
 
   it('should not highlight any tab for other route', () => {

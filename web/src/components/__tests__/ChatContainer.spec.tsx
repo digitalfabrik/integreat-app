@@ -53,13 +53,13 @@ describe('ChatContainer', () => {
 
     expect(router.state.location.search).toBe('?test=asdf&chat=true')
 
-    expect(getByText('chat:conversationText')).toBeTruthy()
+    expect(getByText('chat:initial.description')).toBeTruthy()
 
-    fireEvent.click(getByLabelText('common:minimize'))
+    fireEvent.click(getByLabelText('common:actions.minimize'))
 
     expect(router.state.location.search).toBe('?test=asdf')
 
-    expect(queryByText('chat:conversationText')).toBeFalsy()
+    expect(queryByText('chat:initial.description')).toBeFalsy()
   })
 
   it('should close chat if close button was clicked', () => {
@@ -75,12 +75,12 @@ describe('ChatContainer', () => {
 
     fireEvent.click(chatButtonContainer!)
 
-    const minimizeButton = getByLabelText('common:minimize')
+    const minimizeButton = getByLabelText('common:actions.minimize')
 
     fireEvent.click(minimizeButton)
 
-    expect(queryByText('chat:conversationTitle')).toBeFalsy()
-    expect(queryByText('chat:conversationText')).toBeFalsy()
+    expect(queryByText('chat:initial.title')).toBeFalsy()
+    expect(queryByText('chat:initial.description')).toBeFalsy()
   })
 
   it('should open chat if query param is set', () => {
@@ -92,7 +92,7 @@ describe('ChatContainer', () => {
         searchParams: '?chat=true&test=asdf',
       },
     )
-    expect(getByText('chat:conversationText')).toBeTruthy()
+    expect(getByText('chat:initial.description')).toBeTruthy()
     expect(router.state.location.search).toBe('?chat=true&test=asdf')
   })
 
@@ -204,7 +204,7 @@ describe('ChatContainer', () => {
       },
     )
 
-    expect(queryByLabelText('common:minimize')).toBeNull()
+    expect(queryByLabelText('common:actions.minimize')).toBeNull()
     expect(queryByText(getChatName('IntegreatTestCms'))).toBeNull()
     expect(queryByText('chat:subtitle')).toBeNull()
   })
@@ -219,7 +219,7 @@ describe('ChatContainer', () => {
       },
     )
 
-    expect(getByLabelText('common:minimize')).toBeTruthy()
+    expect(getByLabelText('common:actions.minimize')).toBeTruthy()
     expect(getByText(getChatName('IntegreatTestCms'))).toBeTruthy()
     expect(getByText('chat:subtitle')).toBeTruthy()
   })

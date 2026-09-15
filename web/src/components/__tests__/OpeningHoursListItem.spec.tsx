@@ -29,24 +29,24 @@ describe('OpeningHoursListItem', () => {
     const { getByText, queryByText } = renderOpeningEntries(false, false, false, false)
     expect(getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeTruthy()
     expect(getByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeTruthy()
-    expect(queryByText('places:allDay')).toBeFalsy()
-    expect(queryByText('places:closed')).toBeFalsy()
+    expect(queryByText('places:hours.allDay')).toBeFalsy()
+    expect(queryByText('places:hours.closed')).toBeFalsy()
   })
 
   it('should display all day opened for the weekday if allDay flag is true', () => {
     const { getByText, queryByText } = renderOpeningEntries(true, false, false, false)
-    expect(getByText('places:allDay')).toBeTruthy()
+    expect(getByText('places:hours.allDay')).toBeTruthy()
     expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
     expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
-    expect(queryByText('places:closed')).toBeFalsy()
+    expect(queryByText('places:hours.closed')).toBeFalsy()
   })
 
   it('should display closed for the weekday if closed flag is true', () => {
     const { getByText, queryByText } = renderOpeningEntries(false, true, false, false)
-    expect(getByText('places:closed')).toBeTruthy()
+    expect(getByText('places:hours.closed')).toBeTruthy()
     expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
     expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
-    expect(queryByText('places:allDay')).toBeFalsy()
+    expect(queryByText('places:hours.allDay')).toBeFalsy()
   })
 
   it('should highlight the timeslot of the current weekday bold', () => {
