@@ -1,5 +1,7 @@
 {
-  "categories": {
-    "metaDescription": "{{appName}} is your digital companion for the town of Aschaffenburg. Here you can find local information, advice centres and services."
+  "common": {
+    "meta": {
+      "description": "{{appName}} is your digital companion for the town of Aschaffenburg. Here you can find local information, advice centres and services."
+    }
   }
 }

@@ -79,7 +79,7 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
   return (
     <>
       {feedbackQueryParam !== undefined && (
-        <Dialog title={t($ => $.feedback.headline)} close={closeAndReset}>
+        <Dialog title={t($ => $.feedback.title)} close={closeAndReset}>
           <Feedback
             language={languageCode}
             onCommentChanged={setComment}
@@ -98,12 +98,10 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}
         severity={sendingStatus === 'successful' ? 'success' : 'error'}
-        message={
-          sendingStatus === 'successful' ? t($ => $.feedback.thanksMessage) : t($ => $.feedback.failedSendingFeedback)
-        }
+        message={sendingStatus === 'successful' ? t($ => $.feedback.thanks.description) : t($ => $.error.unknownError)}
         action={
           <IconButton
-            aria-label={t($ => $.common.close)}
+            aria-label={t($ => $.common.actions.close)}
             color='inherit'
             size='small'
             onClick={() => setSnackbarOpen(false)}>

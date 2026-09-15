@@ -29,12 +29,12 @@ const getFooterLinks = ({ languageCode, regionCode, t }: GetFooterLinksProps): F
   const licensesPath = `/${LICENSES_ROUTE}/${languageCode}`
 
   return [
-    { to: imprintPath, text: t($ => $.layout.imprint) },
-    { to: aboutUrl, text: t($ => $.settings.aboutUs) },
-    { to: privacyUrl, text: t($ => $.layout.privacy) },
-    { to: licensesPath, text: t($ => $.settings.openSourceLicenses) },
+    { to: imprintPath, text: t($ => $.about.imprint) },
+    { to: aboutUrl, text: t($ => $.about.aboutUs) },
+    { to: privacyUrl, text: t($ => $.common.privacy.title) },
+    { to: licensesPath, text: t($ => $.about.licenses.title) },
     { to: linkToSbom, text: 'SBoM' },
-    { to: accessibilityUrl, text: t($ => $.layout.accessibility) },
+    { to: accessibilityUrl, text: t($ => $.about.accessibility) },
   ]
 }
 

@@ -23,18 +23,13 @@ const AppointmentOnlyIcon = ({ appointmentUrl }: AppointmentOnlyIconProps): Reac
     <Tooltip
       title={
         <Stack>
-          <Typography variant='subtitle1'>{t($ => $.places.appointmentNecessary)}</Typography>
+          <Typography variant='subtitle1'>{t($ => $.places.hours.appointment.required)}</Typography>
           <Typography variant='body2'>
-            <Trans ns='places' i18nKey={$ => $.places.makeAppointmentTooltipWithLink}>
-              This gets replaced
-              {appointmentUrl ? (
-                <StyledLink to={appointmentUrl} highlighted>
-                  by react-i18next
-                </StyledLink>
-              ) : (
-                <span>by react-i18next</span>
-              )}
-            </Trans>
+            <Trans
+              ns='places'
+              i18nKey={$ => $.places.hours.appointment.make.description}
+              components={{ Link: appointmentUrl ? <StyledLink to={appointmentUrl} highlighted /> : <span /> }}
+            />
           </Typography>
         </Stack>
       }>

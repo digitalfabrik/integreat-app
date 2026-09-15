@@ -68,9 +68,9 @@ const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): 
         <SearchInput
           setValue={setFilterText}
           value={filterText}
-          ariaLabel={t($ => $.regions.searchRegion)}
+          ariaLabel={t($ => $.regions.search.region)}
           placeholderText={exampleRegion?.sortingName ?? REGION_SEARCH_EXAMPLE}
-          description={t($ => $.regions.searchRegionDescription, {
+          description={t($ => $.regions.search.description, {
             exampleRegion: exampleRegion?.name ?? REGION_SEARCH_EXAMPLE,
           })}
         />
@@ -85,10 +85,10 @@ const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): 
             color: theme.colors.onBackground,
           }}
           accessibilityLiveRegion={resultRegions.length === 0 ? 'assertive' : 'polite'}>
-          {t($ => $.search.searchResultsCount, { count: resultRegions.length })}
+          {t($ => $.search.resultCount, { count: resultRegions.length })}
         </Text>
         <RegionGroupContainer>
-          <PaperList.Subheader>{t($ => $.common.nearby)}</PaperList.Subheader>
+          <PaperList.Subheader>{t($ => $.userLocation.nearby)}</PaperList.Subheader>
           <NearbyRegions regions={regions} navigateToDashboard={navigateToDashboard} filterText={filterText} />
         </RegionGroupContainer>
         {resultRegions.length === 0 ? <NothingFound paddingTop /> : regionEntries}

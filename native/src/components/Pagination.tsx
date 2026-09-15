@@ -50,7 +50,7 @@ const Pagination = ({ slideCount, currentSlide, goToSlide }: PaginationProps): R
           style={styles.TouchableRippleStyle}
           onPress={goToSlideIndex(index)}
           role='link'
-          accessibilityLabel={t($ => $.error.goTo.pageNumber, {
+          accessibilityLabel={t($ => $.common.actions.goToPage, {
             number: index + 1,
           })}>
           <Dot isActive={index === currentSlide} />

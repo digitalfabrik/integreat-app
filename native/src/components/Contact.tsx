@@ -26,12 +26,12 @@ const Contact = ({
 
   return (
     <>
-      <Text style={{ marginBottom: 8 }}>{headline ?? t($ => $.places.contactInformation)}</Text>
+      <Text style={{ marginBottom: 8 }}>{headline ?? t($ => $.common.contacts.title)}</Text>
       {!!website && (
         <PlaceDetailRow
           externalUrl={website}
-          accessibilityLabel={t($ => $.places.website)}
-          text={t($ => $.places.website)}
+          accessibilityLabel={t($ => $.common.contacts.website)}
+          text={t($ => $.common.contacts.website)}
           icon='earth'
           iconEnd='open-in-new'
         />
@@ -39,7 +39,7 @@ const Contact = ({
       {!!phoneNumber && (
         <PlaceDetailRow
           externalUrl={`tel:${phoneNumber}`}
-          accessibilityLabel={t($ => $.places.phone)}
+          accessibilityLabel={t($ => $.common.contacts.phone.title)}
           text={phoneNumber}
           icon='phone-outline'
         />
@@ -47,7 +47,7 @@ const Contact = ({
       {!!mobileNumber && (
         <PlaceDetailRow
           externalUrl={`tel:${mobileNumber}`}
-          accessibilityLabel={t($ => $.places.mobilePhone)}
+          accessibilityLabel={t($ => $.common.contacts.phone.mobile)}
           text={mobileNumber}
           icon='cellphone'
         />
@@ -55,7 +55,7 @@ const Contact = ({
       {!!email && (
         <PlaceDetailRow
           externalUrl={`mailto:${email}`}
-          accessibilityLabel={t($ => $.places.eMail)}
+          accessibilityLabel={t($ => $.common.contacts.email)}
           text={email}
           icon='email-outline'
         />

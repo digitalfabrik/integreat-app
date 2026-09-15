@@ -92,36 +92,29 @@ const SuggestToRegion = (): ReactElement | null => {
   return (
     <Container>
       <Text variant='h4' style={styles.heading}>
-        {t($ => $.suggestToRegion.callToAction)}
+        {t($ => $.suggestToRegion.title, { appName: buildConfig().appName })}
       </Text>
 
       <Text variant='body1' style={{ color: theme.colors.onSurface }}>
-        {t($ => $.suggestToRegion.explanation)}
+        {t($ => $.suggestToRegion.description)}
       </Text>
       {SuggestToRegionIcon && <StyledIcon icon={SuggestToRegionIcon} />}
       <Text variant='h5' style={styles.listHeading}>
         {t($ => $.suggestToRegion.whatToDo)}
       </Text>
-      <ListItem>
-        <Text variant='body2' style={styles.stepNumber}>
-          1
-        </Text>
-        <Text variant='body1' style={styles.stepExplanation}>
-          {t($ => $.suggestToRegion.findOutMail)}
-        </Text>
-      </ListItem>
-      <ListItem>
-        <Text variant='body2' style={styles.stepNumber}>
-          2
-        </Text>
-        <Text variant='body1' style={styles.stepExplanation}>
-          {t($ => $.suggestToRegion.sendText)}
-        </Text>
-      </ListItem>
-
+      {(['getEmail', 'copyText', 'fillPlaceholders', 'send'] as const).map((step, index) => (
+        <ListItem key={step}>
+          <Text variant='body2' style={styles.stepNumber}>
+            {index + 1}
+          </Text>
+          <Text variant='body1' style={styles.stepExplanation}>
+            {t($ => $.suggestToRegion.steps[step])}
+          </Text>
+        </ListItem>
+      ))}
       <View style={{ zIndex: 1 }}>
         <Button icon={CopyIcon} style={styles.copyButton} mode='contained' onPress={copyToClipboard}>
-          {isCopied ? t($ => $.common.copied) : t($ => $.suggestToRegion.copyText)}
+          {isCopied ? t($ => $.common.state.copied) : t($ => $.common.actions.copy)}
         </Button>
       </View>
       <Text variant='body2' style={styles.templateText}>

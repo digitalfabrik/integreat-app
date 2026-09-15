@@ -95,7 +95,7 @@ const TtsPlayer = ({
       <TouchableRipple
         borderless
         role='button'
-        accessibilityLabel={t($ => $.common.close)}
+        accessibilityLabel={t($ => $.common.actions.close)}
         onPress={close}
         style={[styles.closeButton, isRTLText(title) ? { left: 0 } : { right: 0 }]}>
         <Icon source='close' />
@@ -107,21 +107,21 @@ const TtsPlayer = ({
         <TouchableRipple
           borderless
           role='button'
-          accessibilityLabel={t($ => $.layout.previous)}
+          accessibilityLabel={t($ => $.common.actions.previous)}
           onPress={playPrevious}
           style={styles.TouchableRippleStyle}>
           <Icon size={28} source='rewind' />
         </TouchableRipple>
         <StyledPlayIconButton
           disabled={disabled}
-          accessibilityLabel={t($ => (isPlaying ? $.layout.pause : $.layout.play))}
+          accessibilityLabel={t($ => (isPlaying ? $.tts.pause : $.tts.play))}
           onPress={() => (isPlaying ? pause() : play())}
           icon={<Icon color={theme.colors.ttsPlayer.playIconColor} source={isPlaying ? 'pause' : 'play'} />}
         />
         <TouchableRipple
           borderless
           role='button'
-          accessibilityLabel={t($ => $.layout.next)}
+          accessibilityLabel={t($ => $.common.actions.next)}
           onPress={playNext}
           style={styles.TouchableRippleStyle}>
           <Icon size={28} source='fast-forward' />

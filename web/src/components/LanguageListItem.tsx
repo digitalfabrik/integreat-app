@@ -53,7 +53,7 @@ const LanguageListItem = ({
   ) : (
     <Tooltip
       key={code}
-      title={t($ => $.layout.noTranslation)}
+      title={t($ => $.languages.error.noTranslation)}
       placement={contentDirection === 'ltr' ? 'right' : 'left'}>
       <ListItem disablePadding>
         <SelectorItemButton onClick={onUnavailableLanguageClick}>

@@ -208,12 +208,12 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
   }
   console.warn(`Creating InfoPlist.strings for the languages ${languages}`)
   languages.forEach(language => {
-    const nativeTranslations = readLanguageFile(translations, language)?.native
-    if (!nativeTranslations) {
-      console.warn(`No native translations found for language ${language}. Skipping.`)
+    const iosTranslations = readLanguageFile(translations, language)?.ios
+    if (!iosTranslations) {
+      console.warn(`No iOS translations found for language ${language}. Skipping.`)
       return
     }
-    const content = Object.entries(nativeTranslations)
+    const content = Object.entries(iosTranslations)
       .filter((entry): entry is [string, string] => typeof entry[1] === 'string')
       .map(([key, value]) => `${key} = "${value.replace(/{{appName}}/gi, appName)}";`)
       .join('\n')
@@ -237,7 +237,7 @@ const writePlistTranslations = (appName: string, { translations, destination }: 
 
 program
   .command('write-plist <appName>')
-  .description('setup native translations for ios')
+  .description('setup translations for ios')
   .requiredOption('--translations <translations>', 'the path to the translations dir')
   .requiredOption('--destination <destination>', 'the path to put the string resources to')
   .action((appName: string, options: WritePlistTranslationsOptions) => {
