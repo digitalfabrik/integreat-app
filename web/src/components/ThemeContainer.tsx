@@ -184,20 +184,15 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
 
   const themeType = queryTheme ?? storageThemeType
 
-  const theme: Theme = useMemo(() => {
-    const toggleTheme = () => {
-      const currentTheme = themeType === 'light' ? 'contrast' : 'light'
-      setStorageThemeType(currentTheme)
-    }
-
+  const theme = useMemo(() => {
+    const toggleTheme = () => setStorageThemeType(themeType === 'light' ? 'contrast' : 'light')
     const theme = createTheme(themeType, contentDirection)
-    document.body.style.backgroundColor = theme.palette.background.accent
-    return { ...theme, toggleTheme }
-  }, [themeType, setStorageThemeType, contentDirection])
+    return { ...theme, toggleTheme, dimensions }
+  }, [themeType, setStorageThemeType, contentDirection, dimensions])
 
   return (
     <CacheProvider value={contentDirection === 'rtl' ? rtlCache : ltrCache}>
-      <ThemeProvider theme={{ ...theme, dimensions }}>
+      <ThemeProvider theme={theme}>
         <Global styles={globalStyle({ theme })} />
         {children}
       </ThemeProvider>

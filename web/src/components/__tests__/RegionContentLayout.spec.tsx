@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 
 import { RegionModelBuilder } from 'shared/api'
 
-import { mockDimensions } from '../../__mocks__/useDimensions'
+import { mockDimensions } from '../../hooks/__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
 import { renderAllRoutes } from '../../testing/render'
 import RegionContentLayout from '../RegionContentLayout'

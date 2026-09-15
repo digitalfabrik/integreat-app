@@ -1,20 +1,31 @@
-import shouldForwardProp from '@emotion/is-prop-valid'
 import MuiList from '@mui/material/List'
 import ListSubheader from '@mui/material/ListSubheader'
 import { styled } from '@mui/material/styles'
-import React, { ElementType, ReactElement } from 'react'
+import React, { ElementType, ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { useScrollDimensions } from '../../hooks/useDimensions'
 import { withDividers } from '../../utils'
 import Failure from '../Failure'
 
-export const StickyListSubheader = styled(ListSubheader, { shouldForwardProp })<{
-  stickyTop: number
-  component?: ElementType
-}>(({ stickyTop }) => ({
-  top: stickyTop,
+const StyledListSubheader = styled(ListSubheader)<{ component?: ElementType }>({
   transition: 'top 0.2s ease-out',
-}))
+})
+
+type StickyListSubheaderProps = {
+  children: ReactNode
+  component?: ElementType
+}
+
+export const StickyListSubheader = ({ children, component }: StickyListSubheaderProps): ReactElement => {
+  // Subscribes to the scroll position itself, so that rerendering on scroll is limited to the subheader
+  const { stickyTop } = useScrollDimensions()
+  return (
+    <StyledListSubheader component={component} style={{ top: stickyTop }}>
+      {children}
+    </StyledListSubheader>
+  )
+}
 
 type ListProps = {
   items: ReactElement[]

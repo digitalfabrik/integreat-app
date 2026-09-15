@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { getChatName } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
-import useDimensions from '../hooks/useDimensions'
+import { useScrollDimensions } from '../hooks/useDimensions'
 import ChatHighlightPopup from './ChatHighlightPopup'
 import LiveAnnouncer from './LiveAnnouncer'
 
@@ -32,7 +32,7 @@ type ChatButtonProps = {
 }
 
 const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement => {
-  const { desktop, visibleFooterHeight, bottomNavigationHeight } = useDimensions()
+  const { desktop, visibleFooterHeight, bottomNavigationHeight } = useScrollDimensions()
   const { t } = useTranslation()
 
   const chatName = getChatName(buildConfig().appName)
