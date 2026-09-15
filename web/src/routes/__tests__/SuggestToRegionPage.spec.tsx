@@ -21,7 +21,7 @@ describe('SuggestToRegionPage', () => {
 
   it('should render texts', () => {
     const { getByText } = renderPage()
-    expect(getByText('suggestToRegion:title')).toBeDefined()
+    expect(getByText('suggestToRegion:title IntegreatTestCms')).toBeDefined()
     expect(getByText('suggestToRegion:description')).toBeDefined()
     expect(template).toBeDefined()
   })
