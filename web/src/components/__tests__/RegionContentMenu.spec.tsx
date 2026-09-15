@@ -3,8 +3,8 @@ import React from 'react'
 
 import { CategoriesMapModelBuilder } from 'shared/api'
 
-import { mockDimensions } from '../../__mocks__/useDimensions'
 import { TtsContext } from '../../contexts/TtsContext'
+import { mockDimensions } from '../../hooks/__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
 import { renderAllRoutes } from '../../testing/render'
 import RegionContentMenu from '../RegionContentMenu'
