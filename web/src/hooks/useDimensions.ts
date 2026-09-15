@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 
 import {
   BOTTOM_NAVIGATION_ELEMENT_ID,
@@ -15,11 +15,9 @@ const mapIconsHeight = 60
 type WindowDimensions = {
   width: number
   height: number
-  scrollX: number
-  scrollY: number
 }
 
-type BottomSheet = {
+type BottomSheetDimensions = {
   snapPoints: {
     min: number
     medium: number
@@ -31,11 +29,9 @@ type BottomSheet = {
 
 export type Dimensions = {
   window: WindowDimensions
-  bottomSheet: BottomSheet
+  bottomSheet: BottomSheetDimensions
 
   headerHeight: number
-  stickyTop: number
-  visibleFooterHeight: number
   ttsPlayerHeight: number
   bottomNavigationHeight: number | undefined
   toolbarWidth: number
@@ -49,20 +45,57 @@ export type Dimensions = {
   xlarge: boolean
 }
 
-const getDimensions = (): Dimensions => {
-  const { innerWidth: width, innerHeight: height, scrollX, scrollY } = window
-  const headerHeight = document.querySelector('header')?.offsetHeight ?? 0
-  const ttsPlayerHeight = document.getElementById(TTS_PLAYER_ELEMENT_ID)?.getBoundingClientRect().height ?? 0
-  const bottomNavigationHeight = document.getElementById(BOTTOM_NAVIGATION_ELEMENT_ID)?.getBoundingClientRect().height
-  const toolbarWidth = document.getElementById(TOOLBAR_ELEMENT_ID)?.getBoundingClientRect().width ?? 0
+export type ScrollDimensions = Dimensions & {
+  window: WindowDimensions & {
+    scrollX: number
+    scrollY: number
+  }
 
+  stickyTop: number
+  visibleFooterHeight: number
+}
+
+type Metrics = {
+  width: number
+  height: number
+  headerHeight: number
+  ttsPlayerHeight: number
+  bottomNavigationHeight: number | undefined
+  toolbarWidth: number
+}
+
+type ScrollMetrics = {
+  scrollX: number
+  scrollY: number
+  stickyTop: number
+  visibleFooterHeight: number
+}
+
+const measureMetrics = (): Metrics => ({
+  width: window.innerWidth,
+  height: window.innerHeight,
+  headerHeight: document.querySelector('header')?.offsetHeight ?? 0,
+  ttsPlayerHeight: document.getElementById(TTS_PLAYER_ELEMENT_ID)?.getBoundingClientRect().height ?? 0,
+  bottomNavigationHeight: document.getElementById(BOTTOM_NAVIGATION_ELEMENT_ID)?.getBoundingClientRect().height,
+  toolbarWidth: document.getElementById(TOOLBAR_ELEMENT_ID)?.getBoundingClientRect().width ?? 0,
+})
+
+const measureScrollMetrics = (): ScrollMetrics => {
+  const { innerHeight: height, scrollX, scrollY } = window
   const footerHeight = document.querySelector('footer')?.offsetHeight ?? 0
   const documentHeight = document.body.offsetHeight
-  const visibleFooterHeight = Math.max(0, height + scrollY + footerHeight - documentHeight)
+  const stickyTop = Math.max(0, document.querySelector('header')?.getBoundingClientRect().bottom ?? 0)
 
-  const headerElement = document.querySelector('header')
-  const stickyTop = Math.max(0, headerElement?.getBoundingClientRect().bottom ?? 0)
+  return {
+    scrollX,
+    scrollY,
+    stickyTop,
+    visibleFooterHeight: Math.max(0, height + scrollY + footerHeight - documentHeight),
+  }
+}
 
+const toDimensions = (metrics: Metrics): Dimensions => {
+  const { width, height, headerHeight, bottomNavigationHeight } = metrics
   const snapPoints = {
     min: bottomSheetHandleHeight + (bottomNavigationHeight ?? 0),
     medium: height * midSnapPercentage,
@@ -71,7 +104,7 @@ const getDimensions = (): Dimensions => {
   }
 
   return {
-    window: { width, height, scrollX, scrollY },
+    window: { width, height },
     bottomSheet: {
       snapPoints: {
         ...snapPoints,
@@ -80,11 +113,9 @@ const getDimensions = (): Dimensions => {
     },
 
     headerHeight,
-    stickyTop,
-    visibleFooterHeight,
-    ttsPlayerHeight,
+    ttsPlayerHeight: metrics.ttsPlayerHeight,
     bottomNavigationHeight,
-    toolbarWidth,
+    toolbarWidth: metrics.toolbarWidth,
 
     mobile: width <= BREAKPOINTS.md,
     desktop: width > BREAKPOINTS.md,
@@ -96,29 +127,100 @@ const getDimensions = (): Dimensions => {
   }
 }
 
+const toScrollDimensions = (dimensions: Dimensions, scrollMetrics: ScrollMetrics): ScrollDimensions => ({
+  ...dimensions,
+  window: { ...dimensions.window, scrollX: scrollMetrics.scrollX, scrollY: scrollMetrics.scrollY },
+  stickyTop: scrollMetrics.stickyTop,
+  visibleFooterHeight: scrollMetrics.visibleFooterHeight,
+})
+
+const shallowEqual = <T extends Record<string, unknown>>(first: T, second: T): boolean =>
+  Object.keys(first).every(key => first[key] === second[key])
+
+type Listener = () => void
+
+// A single store shared by all consumers: the DOM is measured once per frame instead of once per component.
+const listeners = new Set<Listener>()
+let metricsSnapshot = measureMetrics()
+let scrollMetricsSnapshot = measureScrollMetrics()
+let resizeObserver: ResizeObserver | null = null
+
+const measure = (): void => {
+  const newMetrics = measureMetrics()
+  const newScrollMetrics = measureScrollMetrics()
+  const dimensionsChanged = !shallowEqual(newMetrics, metricsSnapshot)
+  const scrollChanged = !shallowEqual(newScrollMetrics, scrollMetricsSnapshot)
+
+  if (!dimensionsChanged && !scrollChanged) {
+    return
+  }
+
+  if (dimensionsChanged) {
+    metricsSnapshot = newMetrics
+  }
+  if (scrollChanged) {
+    scrollMetricsSnapshot = newScrollMetrics
+  }
+  listeners.forEach(listener => listener())
+}
+
+const subscribe = (listener: Listener): (() => void) => {
+  if (listeners.size === 0) {
+    window.addEventListener('resize', measure)
+    window.addEventListener('scroll', measure, { passive: true })
+    // Observe changes to the DOM body and recalculate all dimensions (e.g. for adding/removing the tts player)
+    resizeObserver = new ResizeObserver(measure)
+    resizeObserver.observe(document.body)
+  }
+  listeners.add(listener)
+
+  return () => {
+    listeners.delete(listener)
+    if (listeners.size === 0) {
+      window.removeEventListener('resize', measure)
+      window.removeEventListener('scroll', measure)
+      resizeObserver?.disconnect()
+      resizeObserver = null
+    }
+  }
+}
+
+const useDimensionsSnapshot = <T>(getSnapshot: () => T): T => {
+  const [snapshot, setSnapshot] = useState(getSnapshot)
+
+  useEffect(() => {
+    if (listeners.size === 0) {
+      measure()
+      setSnapshot(getSnapshot())
+    }
+
+    return subscribe(() => setSnapshot(getSnapshot()))
+  }, [getSnapshot])
+
+  return snapshot
+}
+
+const getMetrics = (): Metrics => metricsSnapshot
+const getScrollMetrics = (): ScrollMetrics => scrollMetricsSnapshot
+
+/** Dimensions without the scroll position, therefore not rerendering the consuming component while scrolling. */
 const useDimensions = (): Dimensions => {
-  const [dimensions, setDimensions] = useState(getDimensions())
+  const metrics = useDimensionsSnapshot(getMetrics)
+  return useMemo(() => toDimensions(metrics), [metrics])
+}
+
+/**
+ * Dimensions including the scroll position. Rerenders the consuming component on every scroll.
+ * Use {@link useDimensions} instead if the scroll position is not needed.
+ */
+export const useScrollDimensions = (): ScrollDimensions => {
+  const dimensions = useDimensions()
+  const scrollMetrics = useDimensionsSnapshot(getScrollMetrics)
   const { visible } = useContext(TtsContext)
 
-  useEffect(() => {
-    // Observe changes to the DOM body and recalculate all window dimensions (e.g. for adding/removing the tts player)
-    const resizeObserver = new ResizeObserver(() => setDimensions(getDimensions()))
-    resizeObserver.observe(document.body)
-    return () => resizeObserver.disconnect()
-  }, [visible])
+  useEffect(measure, [visible])
 
-  useEffect(() => {
-    // Observe changes to the window sizes or the scroll position and recalculate all window dimensions
-    const handleResize = () => setDimensions(getDimensions())
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('scroll', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      window.removeEventListener('scroll', handleResize)
-    }
-  }, [])
-
-  return dimensions
+  return useMemo(() => toScrollDimensions(dimensions, scrollMetrics), [dimensions, scrollMetrics])
 }
 
 export default useDimensions

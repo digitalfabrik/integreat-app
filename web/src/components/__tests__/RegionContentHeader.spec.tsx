@@ -2,12 +2,12 @@ import React from 'react'
 
 import { RegionModelBuilder } from 'shared/api'
 
-import { mockDimensions } from '../../__mocks__/useDimensions'
+import { mockDimensions } from '../../hooks/__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import RegionContentHeader from '../RegionContentHeader'
 
-jest.mock('../../hooks/useDimensions', () => jest.fn(() => mockDimensions))
+jest.mock('../../hooks/useDimensions')
 
 describe('RegionContentHeader', () => {
   const { mocked } = jest

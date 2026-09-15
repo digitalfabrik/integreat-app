@@ -1,5 +1,5 @@
 import Stack from '@mui/material/Stack'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { groupEventsByDate, eventGroupTitle } from 'shared'
@@ -8,7 +8,6 @@ import { EventModel } from 'shared/api'
 import EventListItem from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
 import useDateFilter from '../hooks/useDateFilter'
-import useDimensions from '../hooks/useDimensions'
 import { withDividers } from '../utils'
 import List, { StickyListSubheader } from './base/List'
 
@@ -18,17 +17,12 @@ type EventListGroupProps = {
   languageCode: string
 }
 
-const EventListGroup = ({ title, events, languageCode }: EventListGroupProps): ReactElement => {
-  const { stickyTop } = useDimensions()
-  return (
-    <Stack sx={{ paddingBlock: 1 }}>
-      <StickyListSubheader component='h2' stickyTop={stickyTop}>
-        {title}
-      </StickyListSubheader>
-      {withDividers(events.map(event => <EventListItem event={event} languageCode={languageCode} key={event.path} />))}
-    </Stack>
-  )
-}
+const EventListGroup = ({ title, events, languageCode }: EventListGroupProps): ReactElement => (
+  <Stack sx={{ paddingBlock: 1 }}>
+    <StickyListSubheader component='h2'>{title}</StickyListSubheader>
+    {withDividers(events.map(event => <EventListItem event={event} languageCode={languageCode} key={event.path} />))}
+  </Stack>
+)
 
 type EventListProps = {
   events: EventModel[]
