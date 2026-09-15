@@ -11,22 +11,41 @@ import useDateFilter from '../hooks/useDateFilter'
 import { withDividers } from '../utils'
 import List, { StickyListSubheader } from './base/List'
 
-type EventListGroupProps = {
-  title: string
+type EventListProps = {
   events: EventModel[]
   languageCode: string
 }
 
-const EventListGroup = ({ title, events, languageCode }: EventListGroupProps): ReactElement => (
-  <Stack sx={{ paddingBlock: 1 }}>
-    <StickyListSubheader component='h2'>{title}</StickyListSubheader>
-    {withDividers(events.map(event => <EventListItem event={event} languageCode={languageCode} key={event.path} />))}
-  </Stack>
-)
+type EventGroupListProps = EventListProps & {
+  dateFilter: ReactElement
+}
 
-type EventListProps = {
-  events: EventModel[]
-  languageCode: string
+const EventGroupList = ({ events, languageCode, dateFilter }: EventGroupListProps): ReactElement | null => {
+  const { t } = useTranslation()
+
+  const dateGroups = useMemo(
+    () =>
+      groupEventsByDate(events).map(([key, groupedEvents]) => {
+        const [titleKey, params] = eventGroupTitle(key)
+        const title = t($ => $.events.dateGroups[titleKey], params)
+        return (
+          <Stack key={key} sx={{ paddingBlock: 1 }}>
+            <StickyListSubheader component='h2'>{title}</StickyListSubheader>
+            {withDividers(
+              groupedEvents.map(event => <EventListItem event={event} languageCode={languageCode} key={event.path} />),
+            )}
+          </Stack>
+        )
+      }),
+    [events, languageCode, t],
+  )
+
+  return (
+    <>
+      {dateFilter}
+      <List items={dateGroups} noItemsMessage={t($ => $.events.error.nothingFound)} showDividers={false} />
+    </>
+  )
 }
 
 const EventList = ({ events, languageCode }: EventListProps): ReactElement | null => {
@@ -65,24 +84,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
     )
   }
 
-  const dateGroups = groupEventsByDate(events).map(([key, events]) => {
-    const [titleKey, params] = eventGroupTitle(key)
-    return (
-      <EventListGroup
-        key={key}
-        title={t($ => $.events.dateGroups[titleKey], params)}
-        events={events}
-        languageCode={languageCode}
-      />
-    )
-  })
-
-  return (
-    <>
-      {dateFilter}
-      <List items={dateGroups} noItemsMessage={t($ => $.events.error.nothingFound)} showDividers={false} />
-    </>
-  )
+  return <EventGroupList events={events} languageCode={languageCode} dateFilter={dateFilter} />
 }
 
 export default EventList
