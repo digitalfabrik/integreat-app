@@ -21,6 +21,9 @@ import EventDates from './EventDates'
 import Link from './base/Link'
 
 const StyledListItem = styled(ListItem)`
+  content-visibility: auto;
+  contain-intrinsic-size: auto 160px;
+
   [class*='MuiListItemSecondaryAction-root'] {
     top: 32px;
   }
@@ -88,7 +91,7 @@ const EventListItem = ({
     <StyledListItem dir='auto' disablePadding secondaryAction={recurringDateIcon}>
       <StyledListItemButton component={Link} to={event.path}>
         <ListItemIcon>
-          <Icon src={thumbnailSrc} alt='' />
+          <Icon src={thumbnailSrc} alt='' loading='lazy' decoding='async' />
         </ListItemIcon>
         <ListItemText
           disableTypography
