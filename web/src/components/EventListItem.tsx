@@ -9,7 +9,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import { DateTime } from 'luxon'
-import React, { ReactElement } from 'react'
+import React, { memo, ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getExcerpt } from 'shared'
@@ -121,4 +121,4 @@ const EventListItem = ({
   )
 }
 
-export default EventListItem
+export default memo(EventListItem)
