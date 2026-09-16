@@ -1,3 +1,5 @@
+import { BREAKPOINTS } from './layout'
+
 export type DimensionsType = {
   headerHeight: number
   modalHeaderHeight: number
@@ -18,7 +20,9 @@ export type DimensionsType = {
     margin: number
   }
   pageContainerPaddingHorizontal: number
+  pageContainerPaddingHorizontalTablet: number
 }
+
 const dimensions: DimensionsType = {
   headerHeight: 60,
   modalHeaderHeight: 40,
@@ -36,5 +40,10 @@ const dimensions: DimensionsType = {
     margin: 8,
   },
   pageContainerPaddingHorizontal: 16,
+  pageContainerPaddingHorizontalTablet: 48,
 }
+
+export const getPageContainerPaddingHorizontal = (width: number): number =>
+  width >= BREAKPOINTS.sm ? dimensions.pageContainerPaddingHorizontalTablet : dimensions.pageContainerPaddingHorizontal
+
 export default dimensions
