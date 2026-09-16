@@ -9,11 +9,11 @@ import {
   MainImprintRouteType,
   EventsRouteType,
   FeedbackModalRouteType,
-  ImageViewModalRouteType,
+  ImageViewRouteType,
   IntroRouteType,
   RegionsRouteType,
   NewsRouteType,
-  PdfViewModalRouteType,
+  PdfViewRouteType,
   PlacesRouteType,
   RedirectRouteType,
   SearchRouteType,
@@ -30,8 +30,8 @@ import {
   SETTINGS_ROUTE,
   SEARCH_ROUTE,
   LANGUAGES_ROUTE,
-  PDF_VIEW_MODAL_ROUTE,
-  IMAGE_VIEW_MODAL_ROUTE,
+  PDF_VIEW_ROUTE,
+  IMAGE_VIEW_ROUTE,
   FEEDBACK_MODAL_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
   SuggestToRegionRouteType,
@@ -72,8 +72,8 @@ export type RootRoutesType =
   | SettingsRouteType
   | SearchRouteType
   | LanguagesRouteType
-  | PdfViewModalRouteType
-  | ImageViewModalRouteType
+  | PdfViewRouteType
+  | ImageViewRouteType
   | FeedbackModalRouteType
   | LicensesRouteType
   | ConsentRouteType
@@ -136,11 +136,11 @@ export type RootRoutesParamsType = {
     routeType?: FeedbackRouteType
     slug?: string
   }
-  [PDF_VIEW_MODAL_ROUTE]: {
+  [PDF_VIEW_ROUTE]: {
     url: string
     shareUrl: string
   }
-  [IMAGE_VIEW_MODAL_ROUTE]: {
+  [IMAGE_VIEW_ROUTE]: {
     url: string
     shareUrl: string
   }

@@ -92,12 +92,12 @@ jest.mock('../routes/SuggestToRegion', () => {
 
   return () => <Text>SuggestToRegion</Text>
 })
-jest.mock('../routes/PDFViewModal', () => {
+jest.mock('../routes/PdfView', () => {
   const { Text } = require('react-native-paper')
 
   return () => <Text>PdfView</Text>
 })
-jest.mock('../routes/ImageViewModal', () => {
+jest.mock('../routes/ImageView', () => {
   const { Text } = require('react-native-paper')
 
   return () => <Text>ImageView</Text>

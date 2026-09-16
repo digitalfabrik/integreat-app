@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react'
 import PdfRendererView from 'react-native-pdf-renderer'
 import styled from 'styled-components/native'
 
-import { PdfViewModalRouteType } from 'shared'
+import { PdfViewRouteType } from 'shared'
 import { ErrorCodes } from 'shared/api'
 
 import Failure from '../components/Failure'
@@ -17,12 +17,12 @@ const StyledPdfRendererView = styled(PdfRendererView)`
   background-color: ${props => props.theme.colors.background};
 `
 
-type PDFViewModalProps = {
-  route: RouteProps<PdfViewModalRouteType>
-  navigation: NavigationProps<PdfViewModalRouteType>
+type PdfViewProps = {
+  route: RouteProps<PdfViewRouteType>
+  navigation: NavigationProps<PdfViewRouteType>
 }
 
-const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): ReactElement => {
+const PdfView = ({ route, navigation: _navigation }: PdfViewProps): ReactElement => {
   const [error, setError] = useState(false)
   const { url } = route.params
   const { data: resourceCache, refresh, loading } = useResourceCache()
@@ -61,4 +61,4 @@ const PDFViewModal = ({ route, navigation: _navigation }: PDFViewModalProps): Re
     </Layout>
   )
 }
-export default PDFViewModal
+export default PdfView

@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import { IMAGE_VIEW_MODAL_ROUTE, InternalPathnameParser, PDF_VIEW_MODAL_ROUTE, RouteInformationType } from 'shared'
+import { IMAGE_VIEW_ROUTE, InternalPathnameParser, PDF_VIEW_ROUTE, RouteInformationType } from 'shared'
 
 import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
@@ -24,9 +24,9 @@ const navigateToLink = <T extends RoutesType>(
   { navigation, languageCode, navigateTo, openExternalUrl }: NavigateToLinkParams<T>,
 ): void => {
   if (url.includes('.pdf')) {
-    navigation.navigate(PDF_VIEW_MODAL_ROUTE, { url, shareUrl: url })
+    navigation.navigate(PDF_VIEW_ROUTE, { url, shareUrl: url })
   } else if (SUPPORTED_IMAGE_FILE_TYPES.some(it => url.includes(it))) {
-    navigation.navigate(IMAGE_VIEW_MODAL_ROUTE, { url, shareUrl: url })
+    navigation.navigate(IMAGE_VIEW_ROUTE, { url, shareUrl: url })
   } else if (internalUrlRegex.test(url)) {
     const { pathname } = new URL(url)
     const routeParser = new InternalPathnameParser(pathname, languageCode, buildConfig().featureFlags.fixedRegion)
