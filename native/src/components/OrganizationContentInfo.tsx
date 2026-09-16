@@ -35,16 +35,14 @@ const OrganizationContentInfo = ({ organization }: OrganizationContentInfoProps)
       <Thumbnail source={organization.logo} specifyAspectRatio />
       <View>
         <Text variant='h6' style={{ paddingTop: 16, paddingBottom: 8 }}>
-          {t($ => $.categories.organizationContent, { organization: organization.name })}
+          {t($ => $.categories.organization.title, { organization: organization.name })}
         </Text>
         <Text variant='body2' style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
           <Trans
             ns='categories'
-            i18nKey={$ => $.categories.organizationMoreInformation}
-            components={{
-              1: <Text>{organization.name}</Text>,
-              3: <StyledLink url={organization.url}>{new URL(organization.url).hostname}</StyledLink>,
-            }}
+            i18nKey={$ => $.categories.organization.description}
+            values={{ organization: organization.name, domain: new URL(organization.url).hostname }}
+            components={{ Link: <StyledLink url={organization.url}>domain</StyledLink> }}
           />
         </Text>
       </View>

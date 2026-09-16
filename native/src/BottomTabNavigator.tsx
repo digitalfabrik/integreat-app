@@ -144,9 +144,9 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
       name={CATEGORIES_TAB_ROUTE}
       component={CategoriesStackScreen}
       options={{
-        tabBarLabel: createTabLabel(t($ => $.layout.localInformationLabel)),
+        tabBarLabel: createTabLabel(t($ => $.categories.titleShort)),
         tabBarIcon: createTabIcon('home-variant'),
-        tabBarAccessibilityLabel: t($ => $.layout.localInformationLabel),
+        tabBarAccessibilityLabel: t($ => $.categories.title),
       }}
     />,
     placesEnabled && (
@@ -154,9 +154,9 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         name={PLACES_TAB_ROUTE}
         component={PlacesStackScreen}
         options={{
-          tabBarLabel: createTabLabel(t($ => $.layout.locations)),
+          tabBarLabel: createTabLabel(t($ => $.places.title)),
           tabBarIcon: createTabIcon('map'),
-          tabBarAccessibilityLabel: t($ => $.layout.locations),
+          tabBarAccessibilityLabel: t($ => $.places.title),
         }}
       />
     ),
@@ -165,9 +165,9 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         name={NEWS_TAB_ROUTE}
         component={NewsStackScreen}
         options={{
-          tabBarLabel: createTabLabel(t($ => $.layout.news)),
+          tabBarLabel: createTabLabel(t($ => $.news.title)),
           tabBarIcon: createTabIcon('note-text'),
-          tabBarAccessibilityLabel: t($ => $.layout.news),
+          tabBarAccessibilityLabel: t($ => $.news.title),
         }}
       />
     ),
@@ -176,9 +176,9 @@ const BottomTabNavigator = ({ route, navigation }: BottomTabNavigatorProps): Rea
         name={EVENTS_TAB_ROUTE}
         component={EventsStackScreen}
         options={{
-          tabBarLabel: createTabLabel(t($ => $.layout.events)),
+          tabBarLabel: createTabLabel(t($ => $.events.title)),
           tabBarIcon: createTabIcon('calendar-blank-outline'),
-          tabBarAccessibilityLabel: t($ => $.layout.events),
+          tabBarAccessibilityLabel: t($ => $.events.title),
         }}
       />
     ),

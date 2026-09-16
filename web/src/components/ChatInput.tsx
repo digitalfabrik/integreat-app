@@ -139,20 +139,20 @@ const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): React
       multiline
       minRows={1}
       maxRows={5}
-      placeholder={t($ => $.chat.chatInputHelperText)}
+      placeholder={t($ => $.chat.inputPlaceholder)}
       slotProps={{
         input: {
           endAdornment: (
             <ButtonStack expanded={expanded}>
-              <SendButton onClick={onSubmit} disabled={submitDisabled} aria-label={t($ => $.chat.sendButton)}>
+              <SendButton onClick={onSubmit} disabled={submitDisabled} aria-label={t($ => $.common.actions.send)}>
                 <SendIcon fontSize={iconFontSize} />
               </SendButton>
               <Stack direction='row'>
-                {/* <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t($ => $.layout.uploadFiles)}>
+                {/* <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t($ => $.common.upload.file)}>
                   <AttachFileIcon fontSize={iconFontSize} />
                 </ChatIconButton> */}
-                <Tooltip title={t($ => $.settings.privacyPolicy)}>
-                  <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t($ => $.layout.privacy)}>
+                <Tooltip title={t($ => $.common.privacy.title)}>
+                  <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t($ => $.common.privacy.title)}>
                     <PrivacyTipIcon fontSize={iconFontSize} />
                   </ChatIconButton>
                 </Tooltip>

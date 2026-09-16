@@ -70,18 +70,18 @@ const MobileBanner = (): ReactElement | null => {
     return (
       <StyledBanner>
         <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
-          <IconButton onClick={closeBanner} aria-label={t($ => $.common.close)} color='inherit'>
+          <IconButton onClick={closeBanner} aria-label={t($ => $.common.actions.close)} color='inherit'>
             <CloseIcon />
           </IconButton>
           <Svg src={icons.appLogoMobile} width={48} height={48} />
           <Stack>
             <Typography variant='subtitle1'>{appName}</Typography>
             <Typography variant='body3'>Tür an Tür - Digitalfabrik gGmbH</Typography>
-            <Typography variant='body3'>{t($ => $.layout.getOnPlayStore)}</Typography>
+            <Typography variant='body3'>{t($ => $.common.labels.getOnPlayStore)}</Typography>
           </Stack>
         </Stack>
         <Button onClick={checkIfAppIsInstalled} color='inherit'>
-          {t($ => $.layout.view)}
+          {t($ => $.common.actions.view)}
         </Button>
       </StyledBanner>
     )

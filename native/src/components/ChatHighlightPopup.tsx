@@ -72,19 +72,19 @@ const ChatHighlightPopup = ({ chatName }: ChatHighlightPopupProps): ReactElement
       <Header>
         <Avatar size={AVATAR_SIZE} icon={avatarIcon} />
         <Text style={{ flex: 1 }} variant='body2'>
-          {t($ => $.chat.welcomeGreeting)} 👋
+          {t($ => $.chat.welcome.title)} 👋
         </Text>
         <IconButton
           icon='close'
           size={16}
           onPress={() => updateSettings({ chatHighlightPopupDismissed: true })}
-          accessibilityLabel={t($ => $.common.close)}
+          accessibilityLabel={t($ => $.common.actions.close)}
         />
       </Header>
       <Text variant='body2'>
         <Trans
           ns='chat'
-          i18nKey={$ => $.chat.welcomeText}
+          i18nKey={$ => $.chat.welcome.description}
           values={{ name: chatName }}
           components={{
             strong: <Text style={{ fontFamily: buildConfig().fonts.native.contentFontBold }}>{chatName}</Text>,

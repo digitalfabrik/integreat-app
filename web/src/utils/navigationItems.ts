@@ -11,13 +11,16 @@ import {
   NEWS_ROUTE,
   pathnameFromRouteInformation,
   PLACES_ROUTE,
+  CategoriesRouteType,
+  EventsRouteType,
+  PlacesRouteType,
+  NewsRouteType,
 } from 'shared'
 import { RegionModel } from 'shared/api'
 
 type NavigationItem = {
   to: string
-  value: string
-  label: 'localInformationLabel' | 'locations' | 'news' | 'events'
+  value: CategoriesRouteType | EventsRouteType | PlacesRouteType | NewsRouteType
   Icon: typeof SvgIcon
 }
 
@@ -36,10 +39,10 @@ const getNavigationItems = ({ regionModel, languageCode }: GetNavigationItemsPro
   const newsPath = pathnameFromRouteInformation({ route: NEWS_ROUTE, ...params })
 
   const items: (NavigationItem | null)[] = [
-    { value: CATEGORIES_ROUTE, to: categoriesPath, label: 'localInformationLabel', Icon: HomeFilledIcon },
-    placesEnabled ? { value: PLACES_ROUTE, to: placesPath, label: 'locations', Icon: MapIcon } : null,
-    newsEnabled ? { value: NEWS_ROUTE, to: newsPath, label: 'news', Icon: FeedIcon } : null,
-    eventsEnabled ? { value: EVENTS_ROUTE, to: eventsPath, label: 'events', Icon: CalendarTodayIcon } : null,
+    { value: CATEGORIES_ROUTE, to: categoriesPath, Icon: HomeFilledIcon },
+    placesEnabled ? { value: PLACES_ROUTE, to: placesPath, Icon: MapIcon } : null,
+    newsEnabled ? { value: NEWS_ROUTE, to: newsPath, Icon: FeedIcon } : null,
+    eventsEnabled ? { value: EVENTS_ROUTE, to: eventsPath, Icon: CalendarTodayIcon } : null,
   ]
   const validItems = items.filter((tab): tab is NavigationItem => tab !== null)
   return validItems.length >= 2 ? validItems : null

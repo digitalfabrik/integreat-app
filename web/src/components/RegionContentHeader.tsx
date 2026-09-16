@@ -38,7 +38,7 @@ const RegionContentHeader = ({
   const { desktop } = useDimensions()
 
   const actionItems = [
-    <HeaderActionItem key='search' to={searchPath} text={t($ => $.layout.search)} icon={<SearchOutlinedIcon />} />,
+    <HeaderActionItem key='search' to={searchPath} text={t($ => $.search.title)} icon={<SearchOutlinedIcon />} />,
     languageChangePaths ? (
       <HeaderLanguageSelectorItem
         key='languageChange'

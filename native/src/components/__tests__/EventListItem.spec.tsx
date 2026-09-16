@@ -45,7 +45,7 @@ describe('EventListItem', () => {
         <EventListItem event={event} language={language} regionCode={regionCode} navigateTo={navigateToEvent} />,
       )
 
-      expect(queryByLabelText('events:recurring')).toBeFalsy()
+      expect(queryByLabelText('events:recurrence.recurring')).toBeFalsy()
     })
 
     it('should show icon if recurring event', () => {
@@ -55,7 +55,7 @@ describe('EventListItem', () => {
         <EventListItem event={event} language={language} regionCode={regionCode} navigateTo={navigateToEvent} />,
       )
 
-      expect(queryByLabelText('events:recurring')).toBeTruthy()
+      expect(queryByLabelText('events:recurrence.recurring')).toBeTruthy()
     })
   })
 })

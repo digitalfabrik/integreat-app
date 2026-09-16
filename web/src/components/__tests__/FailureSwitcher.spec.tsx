@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { MappingError, NotFoundError, ResponseError, fromError } from 'shared/api'
+import { fromError, MappingError, NotFoundError, ResponseError } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
 import { captureError } from '../../utils/sentry'
@@ -19,17 +19,17 @@ describe('FailureSwitcher', () => {
   })
 
   it.each`
-    type          | id              | notFoundKey   | goToKey         | goToPath
-    ${'category'} | ${'willkommen'} | ${'category'} | ${'categories'} | ${'/augsburg/de'}
-    ${'event'}    | ${'1234'}       | ${'event'}    | ${'events'}     | ${'/augsburg/de/events'}
-    ${'news'}     | ${'1'}          | ${'news'}     | ${'news'}       | ${'/augsburg/de/news'}
-    ${'place'}    | ${'1234'}       | ${'place'}    | ${'places'}     | ${'/augsburg/de/places'}
-  `('should render $type not found failure', ({ type, id, notFoundKey, goToKey, goToPath }) => {
+    type          | id              | notFoundKey   | goToPath
+    ${'category'} | ${'willkommen'} | ${'category'} | ${'/augsburg/de'}
+    ${'event'}    | ${'1234'}       | ${'events'}   | ${'/augsburg/de/events'}
+    ${'news'}     | ${'1'}          | ${'news'}     | ${'/augsburg/de/news'}
+    ${'place'}    | ${'1234'}       | ${'places'}   | ${'/augsburg/de/places'}
+  `('should render $type not found failure', ({ type, id, notFoundKey, goToPath }) => {
     const error = new NotFoundError({ type, id, language, region })
     const { getByText } = renderWithRouterAndTheme(<FailureSwitcherWithHelmet error={error} />)
 
-    expect(getByText(`error:notFound.${notFoundKey}`)).toBeTruthy()
-    expect(getByText(`error:goTo.${goToKey}`).closest('a')).toHaveProperty('href', `http://localhost${goToPath}`)
+    expect(getByText(notFoundKey === 'category' ? 'error:pageNotFound' : `${notFoundKey}:error.notFound`)).toBeTruthy()
+    expect(getByText('common:actions.back').closest('a')).toHaveProperty('href', `http://localhost${goToPath}`)
     expect(captureError).toHaveBeenCalledWith(error)
   })
 

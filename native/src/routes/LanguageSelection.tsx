@@ -82,7 +82,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
             }
             navigation.goBack()
           }
-        : () => setAlertDialogTitle(t($ => $.layout.noTranslation)),
+        : () => setAlertDialogTitle(t($ => $.languages.error.noTranslation)),
     })
   })
 
@@ -93,7 +93,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
       <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={insets.top + insets.bottom} style={{ flex: 1 }}>
         <Wrapper contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}>
           <SearchInput
-            ariaLabel={t($ => $.layout.searchLanguage)}
+            ariaLabel={t($ => $.languages.search)}
             setValue={setQuery}
             value={query}
             placeholderText={currentLanguage?.name}
@@ -102,9 +102,9 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
           <Selector selectedItemCode={languageCode} items={selectorItems} />
           <Button
             mode='outlined'
-            onPress={() => setAlertDialogTitle(t($ => $.layout.languageNotFoundQuestion))}
+            onPress={() => setAlertDialogTitle(t($ => $.languages.error.notFound.question))}
             style={styles.horizontalMargin}>
-            {t($ => $.layout.languageNotFoundQuestion)}
+            {t($ => $.languages.error.notFound.question)}
           </Button>
         </Wrapper>
       </KeyboardAvoidingView>

@@ -64,7 +64,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const shareUrl = window.location.href
   const encodedShareUrl = encodeURIComponent(shareUrl)
   const encodedTitle = encodeURIComponent(pageTitle ?? buildConfig().appName)
-  const shareMessage = t($ => $.layout.shareMessage, { message: encodedTitle })
+  const shareMessage = t($ => $.share.message, { message: encodedTitle })
 
   const whatsappUrl = `https://api.whatsapp.com/send?text=${shareMessage}%0a${encodedShareUrl}`
   const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}&t${shareMessage}`
@@ -94,13 +94,13 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
     <MenuItem
       key='email'
       to={mailUrl}
-      text={t($ => $.common.email)}
+      text={t($ => $.common.contacts.email)}
       icon={<MailOutlinedIcon fontSize='small' />}
       closeMenu={closeMenu}
     />,
     <MenuItem
       key='qr'
-      text={t($ => $.layout.qrCode)}
+      text={t($ => $.share.qr.label)}
       icon={<QrCode2Icon fontSize='small' />}
       onClick={() => setQrShareOpen(true)}
       closeMenu={closeMenu}
@@ -113,7 +113,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
 
   return (
     <>
-      <IconButton onClick={openMenu} aria-label={t($ => $.layout.sideBarOpenAriaLabel)} aria-expanded={open}>
+      <IconButton onClick={openMenu} aria-label={t($ => $.common.labels.menu)} aria-expanded={open}>
         <MoreVertIcon />
       </IconButton>
       <StyledMenu anchorEl={menuAnchorElement} open={open} onClose={closeMenu}>
@@ -121,13 +121,13 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
           ...items,
           <MenuItem
             key='copy'
-            text={t($ => (urlCopied ? $.common.copied : $.layout.copyUrl))}
+            text={t($ => (urlCopied ? $.common.state.copied : $.share.copyLink))}
             onClick={copyToClipboard}
             icon={urlCopied ? <CheckIcon fontSize='small' /> : <LinkIcon fontSize='small' />}
           />,
           <MenuAccordion
             key='share'
-            title={t($ => $.layout.share)}
+            title={t($ => $.share.title)}
             items={sharingItems}
             icon={<ShareIcon fontSize='small' />}
             expanded={expandedAccordion === 'share'}
@@ -136,7 +136,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
           mobile || fitScreen ? (
             <MenuAccordion
               key='legal'
-              title={t($ => $.layout.legal)}
+              title={t($ => $.about.legal)}
               items={legalItems}
               expanded={expandedAccordion === 'legal'}
               setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
@@ -147,8 +147,8 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
       <QrCodeDialog
         open={qrShareOpen}
         close={() => setQrShareOpen(false)}
-        title={t($ => $.layout.shareQrCodeTitle)}
-        description={t($ => $.layout.shareQrCodeDescription)}
+        title={t($ => $.share.qr.title)}
+        description={t($ => $.share.qr.description)}
         content={shareUrl}
       />
     </>

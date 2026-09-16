@@ -132,8 +132,8 @@ const Chat = ({
     return (
       <Container>
         <Stack sx={{ paddingInline: 3, gap: 1 }}>
-          <H1>{t($ => $.settings.privacyPolicy)}</H1>
-          {t($ => $.chat.privacyPolicyInformation)}
+          <H1>{t($ => $.common.privacy.title)}</H1>
+          {t($ => $.common.privacy.required)}
           <PrivacyCheckbox
             language={languageCode}
             checked={false}

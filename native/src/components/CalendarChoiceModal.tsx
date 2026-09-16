@@ -44,7 +44,7 @@ const CalendarChoiceModal = ({
   return (
     <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle} scrollView={false}>
       <Text variant='h5' style={styles.heading}>
-        {t($ => $.events.chooseCalendar)}
+        {t($ => $.events.export.calendar)}
       </Text>
       <RadioButton.Group onValueChange={setSelectedCalendarId} value={selectedCalendarId ?? ''}>
         <StyledList
@@ -61,13 +61,13 @@ const CalendarChoiceModal = ({
       {recurring && (
         <>
           <Text variant='h5' style={styles.heading}>
-            {t($ => $.events.addToCalendar)}
+            {t($ => $.events.export.addToCalendar)}
           </Text>
           <RadioButton.Group
             onValueChange={value => setExportAllEvents(value === 'true')}
             value={exportAllEvents.toString()}>
-            <RadioButton.Item mode='android' label={t($ => $.events.onlyThisEvent)} value='false' />
-            <RadioButton.Item mode='android' label={t($ => $.events.thisAndAllFutureEvents)} value='true' />
+            <RadioButton.Item mode='android' label={t($ => $.events.export.thisRecurrence)} value='false' />
+            <RadioButton.Item mode='android' label={t($ => $.events.export.allRecurrences)} value='true' />
           </RadioButton.Group>
         </>
       )}
@@ -75,7 +75,7 @@ const CalendarChoiceModal = ({
         icon='calendar-import'
         mode='contained'
         onPress={() => chooseCalendar(selectedCalendarId, exportAllEvents)}>
-        {t($ => $.events.addToCalendar)}
+        {t($ => $.events.export.addToCalendar)}
       </Button>
     </Modal>
   )

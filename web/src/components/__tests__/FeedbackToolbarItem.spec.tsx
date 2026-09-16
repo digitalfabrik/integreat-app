@@ -24,7 +24,7 @@ describe('FeedbackToolbarItem', () => {
     const { getByText, router } = renderToolbarItem(RATING_POSITIVE)
 
     expect(router.state.location.search).toBe('')
-    fireEvent.click(getByText('feedback:useful'))
+    fireEvent.click(getByText('feedback:rating.useful'))
     expect(router.state.location.search).toBe('?feedback=positive')
   })
 
@@ -32,7 +32,7 @@ describe('FeedbackToolbarItem', () => {
     const { getByText, router } = renderToolbarItem(RATING_NEGATIVE)
 
     expect(router.state.location.search).toBe('')
-    fireEvent.click(getByText('feedback:notUseful'))
+    fireEvent.click(getByText('feedback:rating.notUseful'))
     expect(router.state.location.search).toBe('?feedback=negative')
   })
 })

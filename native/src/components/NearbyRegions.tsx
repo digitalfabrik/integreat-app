@@ -38,14 +38,14 @@ const NearbyRegions = ({ regions, navigateToDashboard, filterText }: NearbyRegio
     return (
       <NearbyMessageContainer>
         <Text variant='body2' style={{ paddingTop: 16 }}>
-          {t($ => $.regions[message])}
+          {t($ => $.userLocation[message])}
         </Text>
         <RetryButtonContainer>
           {status !== 'loading' && (
             <IconButton
               icon={<Icon color={theme.colors.onSurfaceVariant} source='refresh' />}
               onPress={refreshPermissionAndLocation}
-              accessibilityLabel={t($ => $.regions.refresh)}
+              accessibilityLabel={t($ => $.regions.nearby.refresh)}
             />
           )}
         </RetryButtonContainer>
@@ -62,7 +62,7 @@ const NearbyRegions = ({ regions, navigateToDashboard, filterText }: NearbyRegio
     return (
       <NearbyMessageContainer>
         <Text variant='body2' style={{ paddingTop: 16 }}>
-          {t($ => $.regions.noNearbyRegions)}
+          {t($ => $.regions.nearby.nothingFound)}
         </Text>
       </NearbyMessageContainer>
     )

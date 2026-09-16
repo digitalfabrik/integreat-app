@@ -8,11 +8,10 @@ import Link from './base/Link'
 type FailureProps = {
   errorMessage: string
   goToPath?: string
-  goToMessage?: string
   className?: string
 }
 
-const Failure = ({ errorMessage, goToPath, goToMessage, className }: FailureProps): ReactElement => {
+const Failure = ({ errorMessage, goToPath, className }: FailureProps): ReactElement => {
   const { t } = useTranslation()
   return (
     <Stack
@@ -22,7 +21,7 @@ const Failure = ({ errorMessage, goToPath, goToMessage, className }: FailureProp
       <div role='alert'>{errorMessage} </div>
       {!!goToPath && (
         <Link to={goToPath} highlighted>
-          {goToMessage ?? t($ => $.error.goTo.start)}
+          {t($ => $.common.actions.back)}
         </Link>
       )}
     </Stack>

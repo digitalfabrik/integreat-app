@@ -65,7 +65,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
               filterEndDate={endDate}
             />
           ))}
-          noItemsMessage={t($ => $.events.currentlyNoEvents)}
+          noItemsMessage={t($ => $.events.error.nothingFound)}
         />
       </>
     )
@@ -76,7 +76,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
     return (
       <EventListGroup
         key={key}
-        title={t($ => $.events[titleKey], params)}
+        title={t($ => $.events.dateGroups[titleKey], params)}
         events={events}
         languageCode={languageCode}
       />
@@ -86,7 +86,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
   return (
     <>
       {dateFilter}
-      <List items={dateGroups} noItemsMessage={t($ => $.events.currentlyNoEvents)} showDividers={false} />
+      <List items={dateGroups} noItemsMessage={t($ => $.events.error.nothingFound)} showDividers={false} />
     </>
   )
 }
