@@ -54,7 +54,7 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
   return (
     <Container testID='transparent-header'>
       <Horizontal>
-        <HeaderBox goBack={navigation.goBack} />
+        <HeaderBox route={route} navigation={navigation} goBack={navigation.goBack} />
         <HeaderMenu
           navigation={navigation}
           shareUrl={shareUrl}

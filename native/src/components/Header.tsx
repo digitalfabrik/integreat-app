@@ -1,4 +1,3 @@
-import { NavigationRoute, ParamListBase } from '@react-navigation/native'
 import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
@@ -20,7 +19,6 @@ import {
 } from 'shared'
 import { FeedbackType, LanguageModel } from 'shared/api'
 
-import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContext'
@@ -45,13 +43,6 @@ const Horizontal = styled.View`
 const BoxShadow = styled(HighlightBox)`
   height: ${dimensions.headerHeight}px;
 `
-
-const getRouteTitle = (route: Partial<NavigationRoute<ParamListBase, string>>): string | undefined => {
-  const { state, params } = route
-  const focusedRoute = state?.routes[state.index ?? state.routes.length - 1]
-  const nestedTitle = focusedRoute ? getRouteTitle(focusedRoute) : undefined
-  return nestedTitle ?? (params as { title?: string } | undefined)?.title
-}
 
 type HeaderProps = {
   route: RouteProps<RoutesType>
@@ -82,33 +73,13 @@ const Header = ({
   const { languageCode, regionCode } = useContext(AppContext)
   const { t } = useTranslation()
   const showSnackbar = useSnackbar()
-  // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
-  const [previousRouteKey] = useState(() => {
-    const { routes } = navigation.getState()
-    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]?.key
-  })
   const { showTtsPlayer } = useTtsPlayer()
 
-  const previousRoute = navigation.getState().routes.find(route => route.key === previousRouteKey)
-  const headerTitle = previousRoute ? getRouteTitle(previousRoute) : (regionName ?? '')
-
-  const isRegions = route.name === REGIONS_ROUTE
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
-  const placesParams = route.params as RoutesParamsType[PlacesRouteType] | undefined
-  const hasPlacesParams = !!placesParams?.slug || placesParams?.multiPlace !== undefined
-
-  const tabNavigationState = navigation.getParent(TAB_NAVIGATOR_ID)?.getState()
-  const rootNavigationState = navigation.getParent(ROOT_NAVIGATOR_ID)?.getState()
-
-  const hasTabHistory = !!tabNavigationState && tabNavigationState.index > 0
-  const hasRootHistory = !!rootNavigationState && rootNavigationState.index > 0
-
-  const canGoBack =
-    previousRoute !== undefined || hasRootHistory || hasTabHistory || (route.name === PLACES_ROUTE && hasPlacesParams)
-
   const routeTitle = (route.params as { title?: string } | undefined)?.title
-  const pageTitle = routeTitle && routeTitle !== regionName ? `${routeTitle} - ${regionName}` : regionName
+  const pageTitle =
+    routeTitle && regionName && routeTitle !== regionName ? `${routeTitle} - ${regionName}` : (routeTitle ?? regionName)
 
   const getCategorySlug = (path?: string): string | undefined => (path ? getSlugFromPath(path) : undefined)
 
@@ -163,7 +134,7 @@ const Header = ({
       key='language'
       accessibilityLabel={t($ => $.languages.change)}
       iconName='language'
-      visible={showItems || isRegions}
+      visible={showItems || route.name === REGIONS_ROUTE}
       onPress={goToLanguageChange}
       innerText={forceText ? currentLanguageName : undefined}
     />,
@@ -201,19 +172,10 @@ const Header = ({
     />
   )
 
-  const regionsPath =
-    !previousRoute && !hasRootHistory && !isRegions ? () => navigation.navigate(REGIONS_ROUTE) : undefined
-
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox
-          goBack={goBack ?? navigation.goBack}
-          canGoBack={canGoBack}
-          title={headerTitle}
-          language={languageCode}
-          regionsPath={regionsPath}
-        />
+        <HeaderBox route={route} navigation={navigation} goBack={goBack} regionName={regionName} />
         <ActionButtons items={items} />
         {/* Passing null should hide the menu, so don't simplify this to menu ?? defaultMenu */}
         {menu !== undefined ? menu : defaultMenu}

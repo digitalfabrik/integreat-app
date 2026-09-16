@@ -11,10 +11,8 @@ import {
   IMPRINT_ROUTE,
   ImprintRouteType,
   NewsRouteType,
-  PLACES_ROUTE,
   PlacesRouteType,
   SEARCH_ROUTE,
-  SUGGEST_TO_REGION_ROUTE,
 } from 'shared'
 import { LanguageModelBuilder, RegionModelBuilder, LanguageModel } from 'shared/api'
 

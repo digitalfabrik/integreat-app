@@ -83,7 +83,7 @@ const PlaceFiltersModal = ({
   const placesCount = getPlacesCount(filters)
 
   return (
-    <Modal closeModal={close} headerTitle='' title={t($ => $.places.filter.adjust)} modalVisible>
+    <Modal closeModal={close} title={t($ => $.places.filter.adjust)} modalVisible>
       <Container>
         <Section>
           <Row>

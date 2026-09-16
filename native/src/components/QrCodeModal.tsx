@@ -38,7 +38,7 @@ const QrCodeModal = ({ modalVisible, closeModal, title, description, content }: 
   const svgXml = encodeQR(content, 'svg')
 
   return (
-    <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={title} scrollView={false}>
+    <Modal modalVisible={modalVisible} closeModal={closeModal} title={title} scrollView={false}>
       <View style={styles.content}>
         <Text>{description}</Text>
         <SvgXml

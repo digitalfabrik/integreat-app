@@ -156,4 +156,6 @@ export type RootRoutesParamsType = {
 
 export type RoutesParamsType = NestedRoutesParamsType & TabRoutesParamsType & RootRoutesParamsType
 export type RouteProps<T extends RoutesType> = RouteProp<RoutesParamsType, T>
+export type BaseRouteProps = RouteProps<RoutesType>
 export type NavigationProps<T extends RoutesType> = StackNavigationProp<RoutesParamsType, T, NavigatorIds>
+export type BaseNavigationProps = NavigationProps<RoutesType>

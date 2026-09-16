@@ -42,7 +42,7 @@ const CalendarChoiceModal = ({
   const calendarCount = calendars.length
 
   return (
-    <Modal modalVisible={modalVisible} closeModal={closeModal} headerTitle={eventTitle} scrollView={false}>
+    <Modal modalVisible={modalVisible} closeModal={closeModal} title={eventTitle} scrollView={false}>
       <Text variant='h5' style={styles.heading}>
         {t($ => $.events.export.calendar)}
       </Text>

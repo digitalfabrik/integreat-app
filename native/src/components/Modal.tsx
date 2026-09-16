@@ -7,7 +7,7 @@ import { useTheme } from 'styled-components/native'
 import dimensions from '../constants/dimensions'
 import { useNavigationTheme } from '../hooks/useNavigationTheme'
 import Caption from './Caption'
-import HeaderBox from './HeaderBox'
+import { HeaderBackButton } from './HeaderBox'
 
 const styles = StyleSheet.create({
   header: {
@@ -29,20 +29,12 @@ const styles = StyleSheet.create({
 type ModalProps = {
   modalVisible: boolean
   closeModal: () => void
-  headerTitle: string
   title?: string
   children: ReactNode
   scrollView?: boolean
 }
 
-const Modal = ({
-  modalVisible,
-  closeModal,
-  headerTitle,
-  title,
-  children,
-  scrollView = true,
-}: ModalProps): ReactElement => {
+const Modal = ({ modalVisible, closeModal, title, children, scrollView = true }: ModalProps): ReactElement => {
   const theme = useTheme()
   const navigationTheme = useNavigationTheme()
   const insets = useSafeAreaInsets()
@@ -53,7 +45,7 @@ const Modal = ({
         <NavigationThemeProvider value={navigationTheme}>
           <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
             <View style={styles.header}>
-              <HeaderBox goBack={closeModal} title={headerTitle} />
+              <HeaderBackButton goBack={closeModal} />
             </View>
             {scrollView ? (
               <ScrollView style={styles.scrollContent} contentContainerStyle={{ flexGrow: 1 }}>
