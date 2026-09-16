@@ -3,16 +3,16 @@ import React, { ReactElement } from 'react'
 
 import Checkbox from './base/Checkbox'
 
-type ConsentListItemProps = {
+type ExternalSourcesListItemProps = {
   description: string
   allowed: boolean
   onPress: (permissionGiven: boolean) => void
 }
 
-const ConsentListItem = ({ description, allowed, onPress }: ConsentListItemProps): ReactElement => (
+const ExternalSourcesListItem = ({ description, allowed, onPress }: ExternalSourcesListItemProps): ReactElement => (
   <ListItem disablePadding>
     <Checkbox checked={allowed} setChecked={onPress} label={description} />
   </ListItem>
 )
 
-export default ConsentListItem
+export default ExternalSourcesListItem

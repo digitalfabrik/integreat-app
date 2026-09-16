@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Divider } from 'react-native-paper'
 
 import Caption from '../components/Caption'
-import ConsentSection from '../components/ConsentSection'
+import ExternalSourceListItem from '../components/ExternalSourceListItem'
 import Layout from '../components/Layout'
 import List from '../components/List'
 import Text from '../components/base/Text'
@@ -11,7 +11,7 @@ import buildConfig from '../constants/buildConfig'
 import { useAppContext } from '../hooks/useRegionAppContext'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 
-const Consent = (): ReactElement | null => {
+const ExternalSources = (): ReactElement | null => {
   const { settings, updateSettings } = useAppContext()
   const { t } = useTranslation()
   const { externalSourcePermissions } = settings
@@ -23,8 +23,8 @@ const Consent = (): ReactElement | null => {
     updateSettings({ externalSourcePermissions: updatedSources })
   }
 
-  const renderConsentItem = ({ item }: { item: string }): ReactElement => (
-    <ConsentSection
+  const renderExternalSourcesItem = ({ item }: { item: string }): ReactElement => (
+    <ExternalSourceListItem
       key={item}
       title={item}
       description={t($ => $.settings.externalSources.source, { source: item })}
@@ -37,7 +37,7 @@ const Consent = (): ReactElement | null => {
     <Layout>
       <List
         items={buildConfig().supportedIframeSources}
-        renderItem={renderConsentItem}
+        renderItem={renderExternalSourcesItem}
         header={
           <>
             <Caption title={t($ => $.settings.externalSources.title)} />
@@ -53,4 +53,4 @@ const Consent = (): ReactElement | null => {
   )
 }
 
-export default Consent
+export default ExternalSources

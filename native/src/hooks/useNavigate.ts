@@ -6,7 +6,7 @@ import {
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
-  CONSENT_ROUTE,
+  EXTERNAL_SOURCES_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
@@ -49,7 +49,7 @@ const navigate = <T extends RoutesType>({
 
   if (
     route === LICENSES_ROUTE ||
-    route === CONSENT_ROUTE ||
+    route === EXTERNAL_SOURCES_ROUTE ||
     route === REGIONS_ROUTE ||
     route === SUGGEST_TO_REGION_ROUTE
   ) {

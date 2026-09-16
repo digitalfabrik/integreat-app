@@ -2,7 +2,7 @@ import { ThemeType } from '../constants/index.ts'
 import {
   CategoriesRouteType,
   SuggestToRegionRouteType,
-  ConsentRouteType,
+  ExternalSourcesRouteType,
   ImprintRouteType,
   EventsRouteType,
   RegionsRouteType,
@@ -34,8 +34,8 @@ export type MainImprintRouteInformationType = {
   route: MainImprintRouteType
 }
 
-export type ConsentInformationType = {
-  route: ConsentRouteType
+export type ExternalSourcesInformationType = {
+  route: ExternalSourcesRouteType
 }
 
 export type SuggestToRegionInformationType = {
@@ -90,6 +90,6 @@ export type NonNullableRouteInformationType =
   | PlacesRouteInformationType
   | LicensesInformationType
   | SearchRouteInformationType
-  | ConsentInformationType
+  | ExternalSourcesInformationType
 
 export type RouteInformationType = NonNullableRouteInformationType | null
