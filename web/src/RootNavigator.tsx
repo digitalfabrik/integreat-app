@@ -5,7 +5,7 @@ import { Navigate, Route, Routes, useLocation, useMatch, useParams } from 'react
 import {
   SUGGEST_TO_REGION_ROUTE,
   regionContentPath,
-  CONSENT_ROUTE,
+  EXTERNAL_SOURCES_ROUTE,
   REGIONS_ROUTE,
   LICENSES_ROUTE,
   MAIN_IMPRINT_ROUTE,
@@ -22,7 +22,7 @@ import RegionContentNavigator from './RegionContentNavigator'
 import buildConfig from './constants/buildConfig'
 import useScrollToTop from './hooks/useScrollToTop'
 import { regionContentPattern, RoutePatterns } from './routes'
-import ConsentPage from './routes/ConsentPage'
+import ExternalSourcesPage from './routes/ExternalSourcesPage'
 import SuggestToRegionPage from './routes/SuggestToRegionPage'
 import lazyWithRetry from './utils/retryImport'
 
@@ -67,7 +67,7 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
       {!fixedRegion && <Route path={RoutePatterns[REGIONS_ROUTE]} element={<RegionsPage languageCode={language} />} />}
       <Route path={RoutePatterns[MAIN_IMPRINT_ROUTE]} element={<MainImprintPage languageCode={language} />} />
       <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
-      <Route path={RoutePatterns[CONSENT_ROUTE]} element={<ConsentPage languageCode={language} />} />
+      <Route path={RoutePatterns[EXTERNAL_SOURCES_ROUTE]} element={<ExternalSourcesPage languageCode={language} />} />
       <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage languageCode={language} />} />
       <Route
         path={regionContentPattern}

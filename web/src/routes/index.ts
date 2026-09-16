@@ -1,7 +1,7 @@
 import {
   CATEGORIES_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
-  CONSENT_ROUTE,
+  EXTERNAL_SOURCES_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
@@ -24,7 +24,7 @@ export const RoutePatterns = {
   [MAIN_IMPRINT_ROUTE]: `/${MAIN_IMPRINT_ROUTE}/${languageCodePattern}`,
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}/${languageCodePattern}`,
   [LICENSES_ROUTE]: `/${LICENSES_ROUTE}/${languageCodePattern}`,
-  [CONSENT_ROUTE]: `/${CONSENT_ROUTE}/${languageCodePattern}`,
+  [EXTERNAL_SOURCES_ROUTE]: `/${EXTERNAL_SOURCES_ROUTE}/${languageCodePattern}`,
 
   // Region content routes, relative to /:regionCode/:languageCode
   [EVENTS_ROUTE]: EVENTS_ROUTE,

@@ -15,14 +15,19 @@ const TextContainer = styled(View)`
   flex: 1;
 `
 
-type ConsentSectionProps = {
+type ExternalSourceListItemProps = {
   title: string
   description: string
   allowed: boolean
   onPress: (value: boolean) => void
 }
 
-const ConsentSection = ({ title, description, allowed, onPress }: ConsentSectionProps): ReactElement => {
+const ExternalSourceListItem = ({
+  title,
+  description,
+  allowed,
+  onPress,
+}: ExternalSourceListItemProps): ReactElement => {
   const theme = useTheme()
   return (
     <>
@@ -38,4 +43,4 @@ const ConsentSection = ({ title, description, allowed, onPress }: ConsentSection
   )
 }
 
-export default ConsentSection
+export default ExternalSourceListItem

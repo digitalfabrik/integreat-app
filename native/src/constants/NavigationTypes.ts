@@ -37,8 +37,8 @@ import {
   SuggestToRegionRouteType,
   LICENSES_ROUTE,
   LicensesRouteType,
-  CONSENT_ROUTE,
-  ConsentRouteType,
+  EXTERNAL_SOURCES_ROUTE,
+  ExternalSourcesRouteType,
   BOTTOM_TAB_ROUTE,
   BottomTabRouteType,
   CATEGORIES_TAB_ROUTE,
@@ -76,7 +76,7 @@ export type RootRoutesType =
   | ImageViewRouteType
   | FeedbackRouteType
   | LicensesRouteType
-  | ConsentRouteType
+  | ExternalSourcesRouteType
   | ChatRouteType
   | BottomTabRouteType
 
@@ -124,7 +124,7 @@ export type RootRoutesParamsType = {
   [CHAT_ROUTE]: RouteTitle | undefined
   [IMPRINT_ROUTE]: RouteTitle | undefined
   [MAIN_IMPRINT_ROUTE]: RouteTitle | undefined
-  [CONSENT_ROUTE]: RouteTitle | undefined
+  [EXTERNAL_SOURCES_ROUTE]: RouteTitle | undefined
   [SETTINGS_ROUTE]: RouteTitle | undefined
   [SEARCH_ROUTE]: RouteTitle & {
     searchText?: string | null

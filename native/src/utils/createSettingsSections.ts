@@ -3,7 +3,14 @@ import { TFunction } from 'i18next'
 import { Role } from 'react-native'
 import { openSettings } from 'react-native-permissions'
 
-import { CONSENT_ROUTE, IMPRINT_ROUTE, LICENSES_ROUTE, MAIN_IMPRINT_ROUTE, SettingsRouteType, ThemeType } from 'shared'
+import {
+  EXTERNAL_SOURCES_ROUTE,
+  IMPRINT_ROUTE,
+  LICENSES_ROUTE,
+  MAIN_IMPRINT_ROUTE,
+  SettingsRouteType,
+  ThemeType,
+} from 'shared'
 
 import { SnackbarType } from '../components/SnackbarContainer'
 import NativeConstants from '../constants/NativeConstants'
@@ -111,7 +118,7 @@ const createSettingsSections = ({
   {
     title: t($ => $.settings.externalSources.title),
     description: t($ => $.settings.externalSources.descriptionShort),
-    onPress: () => navigation.navigate(CONSENT_ROUTE),
+    onPress: () => navigation.navigate(EXTERNAL_SOURCES_ROUTE),
   },
   {
     role: 'link',

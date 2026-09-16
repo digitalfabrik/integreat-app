@@ -3,7 +3,7 @@ import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { Platform } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
-import { CONSENT_ROUTE } from 'shared'
+import { EXTERNAL_SOURCES_ROUTE } from 'shared'
 import { ErrorCodes } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
@@ -80,7 +80,7 @@ const WebView = ({ source, onLoad, loading }: WebViewProps): ReactElement | null
       }
 
       if (message.type === OPEN_SETTINGS_MESSAGE_TYPE) {
-        navigateTo({ route: CONSENT_ROUTE })
+        navigateTo({ route: EXTERNAL_SOURCES_ROUTE })
         return
       }
 

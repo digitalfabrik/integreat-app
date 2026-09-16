@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import { ExternalSourcePermissions } from 'shared'
 
-import ConsentListItem from '../components/ConsentListItem'
+import ExternalSourcesListItem from '../components/ExternalSourceListItem'
 import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
@@ -17,8 +17,9 @@ const Description = styled('div')`
   margin-bottom: 24px;
 `
 
-type ConsentPageProps = { languageCode: string }
-const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
+type ExternalSourcesPageProps = { languageCode: string }
+
+const ExternalSourcesPage = ({ languageCode }: ExternalSourcesPageProps): ReactElement => {
   const { t } = useTranslation()
   const [externalSources, setExternalSources] = useLocalStorage<ExternalSourcePermissions>({
     key: EXTERNAL_SOURCES_STORAGE_KEY,
@@ -29,7 +30,7 @@ const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
     setExternalSources({ ...externalSources, [source]: permission })
 
   const items = buildConfig().supportedIframeSources.map(item => (
-    <ConsentListItem
+    <ExternalSourcesListItem
       key={item}
       description={t($ => $.settings.externalSources.source, { source: item })}
       allowed={externalSources[item] ?? false}
@@ -46,4 +47,4 @@ const ConsentPage = ({ languageCode }: ConsentPageProps): ReactElement => {
   )
 }
 
-export default ConsentPage
+export default ExternalSourcesPage
