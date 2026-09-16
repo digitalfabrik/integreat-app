@@ -321,8 +321,11 @@ const resources = {
     }
   },
   "regions": {
-    "title": "Welcome to {{appName}}.",
-    "description": "Your digital guide for all the information you need. Please select your region.",
+    "title": "Regions",
+    "welcome": {
+      "title": "Welcome to {{appName}}.",
+      "description": "Your digital guide for all the information you need. Please select your region."
+    },
     "change": "Change your region",
     "notFound": "This region was not found.",
     "search": {
