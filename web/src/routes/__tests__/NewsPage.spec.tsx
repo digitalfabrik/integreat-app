@@ -51,34 +51,34 @@ describe('NewsPage', () => {
   it('should render the page title, source filter and news list', () => {
     const { getAllByText, getByRole } = renderNews()
 
-    expect(getAllByText('news:news').length).toBeGreaterThan(0)
-    expect(getByRole('button', { name: 'news:all' })).toBeTruthy()
-    expect(getByRole('button', { name: 'news:local' })).toBeTruthy()
-    expect(getByRole('button', { name: 'news:national' })).toBeTruthy()
+    expect(getAllByText('news:title').length).toBeGreaterThan(0)
+    expect(getByRole('button', { name: 'news:sources.allShort' })).toBeTruthy()
+    expect(getByRole('button', { name: 'news:sources.localShort' })).toBeTruthy()
+    expect(getByRole('button', { name: 'news:sources.nationalShort' })).toBeTruthy()
   })
 
   it('should default to the all-sources filter', () => {
     const { getByRole } = renderNews()
 
-    expect(getByRole('button', { name: 'news:all' })).toHaveAttribute('aria-pressed', 'true')
+    expect(getByRole('button', { name: 'news:sources.allShort' })).toHaveAttribute('aria-pressed', 'true')
   })
 
   it('should switch the selected news source', () => {
     const { getByRole } = renderNews()
 
-    fireEvent.click(getByRole('button', { name: 'news:local' }))
+    fireEvent.click(getByRole('button', { name: 'news:sources.localShort' }))
 
-    expect(getByRole('button', { name: 'news:local' })).toHaveAttribute('aria-pressed', 'true')
-    expect(getByRole('button', { name: 'news:all' })).toHaveAttribute('aria-pressed', 'false')
+    expect(getByRole('button', { name: 'news:sources.localShort' })).toHaveAttribute('aria-pressed', 'true')
+    expect(getByRole('button', { name: 'news:sources.allShort' })).toHaveAttribute('aria-pressed', 'false')
   })
 
   it('should use the desktop labels when desktop is true', () => {
     mocked(useDimensions).mockReturnValue({ ...mockDimensions, mobile: false, desktop: true })
     const { getByRole } = renderNews()
 
-    expect(getByRole('button', { name: 'news:allNews' })).toBeTruthy()
-    expect(getByRole('button', { name: 'news:localNews' })).toBeTruthy()
-    expect(getByRole('button', { name: 'news:nationalNews' })).toBeTruthy()
+    expect(getByRole('button', { name: 'news:sources.all' })).toBeTruthy()
+    expect(getByRole('button', { name: 'news:sources.local' })).toBeTruthy()
+    expect(getByRole('button', { name: 'news:sources.national' })).toBeTruthy()
   })
 
   it('should render the news list item', () => {

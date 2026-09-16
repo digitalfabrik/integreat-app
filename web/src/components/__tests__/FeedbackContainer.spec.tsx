@@ -40,38 +40,38 @@ describe('FeedbackContainer', () => {
   it('should display dialog when feedback query param is set', () => {
     const { getByText, queryByText } = renderFeedbackContainer('/augsburg/de?feedback=positive')
 
-    expect(getByText('feedback:headline')).toBeTruthy()
-    expect(queryByText('feedback:thanksHeadline')).toBeFalsy()
+    expect(getByText('feedback:description')).toBeTruthy()
+    expect(queryByText('feedback:thanks.title')).toBeFalsy()
   })
 
   it('should not be visible without feedback query param', () => {
     const { queryByText } = renderFeedbackContainer('/augsburg/de')
 
-    expect(queryByText('feedback:headline')).toBeNull()
+    expect(queryByText('feedback:description')).toBeNull()
   })
 
   it('should display search term field on search route', () => {
     const { getByLabelText } = renderFeedbackContainer('/augsburg/de/search?feedback=positive&query=test')
 
-    expect(getByLabelText('feedback:wantedInformation')).toBeTruthy()
+    expect(getByLabelText('feedback:search.wantedInformation')).toBeTruthy()
   })
 
   it('should display success snackbar after submit', async () => {
     const { findByText, getByText } = renderFeedbackContainer('/augsburg/de?feedback=true')
 
-    fireEvent.click(getByText('feedback:useful'))
-    getByText('common:privacyPolicy').click()
-    fireEvent.click(getByText('feedback:send'))
+    fireEvent.click(getByText('feedback:rating.useful'))
+    getByText('common:privacy.confirmation').click()
+    fireEvent.click(getByText('common:actions.send'))
 
-    expect(await findByText('feedback:thanksMessage')).toBeTruthy()
+    expect(await findByText('feedback:thanks.description')).toBeTruthy()
   })
 
   it('should send query for search', async () => {
     const query = 'zeugnis'
     const { getByText } = renderFeedbackContainer(`/augsburg/de/search?feedback=positive&query=${query}`)
 
-    getByText('common:privacyPolicy').click()
-    fireEvent.click(getByText('feedback:send'))
+    getByText('common:privacy.confirmation').click()
+    fireEvent.click(getByText('common:actions.send'))
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
@@ -92,15 +92,15 @@ describe('FeedbackContainer', () => {
       <FeedbackOpener rating='positive' />,
     )
 
-    fireEvent.change(getByLabelText('feedback:commentHeadline'), { target: { value: 'my comment' } })
-    fireEvent.change(getByLabelText('feedback:contactMailAddress'), { target: { value: 'me@example.com' } })
+    fireEvent.change(getByLabelText('feedback:comment.title'), { target: { value: 'my comment' } })
+    fireEvent.change(getByLabelText('feedback:contactEmail'), { target: { value: 'me@example.com' } })
 
-    fireEvent.click(getByLabelText('common:close'))
-    expect(queryByText('feedback:headline')).toBeNull()
+    fireEvent.click(getByLabelText('common:actions.close'))
+    expect(queryByText('feedback:description')).toBeNull()
 
     fireEvent.click(getByText('reopen'))
-    expect(getByLabelText('feedback:commentHeadline')).toHaveValue('')
-    expect(getByLabelText('feedback:contactMailAddress')).toHaveValue('')
+    expect(getByLabelText('feedback:comment.title')).toHaveValue('')
+    expect(getByLabelText('feedback:contactEmail')).toHaveValue('')
   })
 
   it('should clear comment and contact mail after submitting', async () => {
@@ -109,17 +109,17 @@ describe('FeedbackContainer', () => {
       <FeedbackOpener rating='positive' />,
     )
 
-    fireEvent.change(getByLabelText('feedback:commentHeadline'), { target: { value: 'my comment' } })
-    fireEvent.change(getByLabelText('feedback:contactMailAddress'), { target: { value: 'me@example.com' } })
-    getByText('common:privacyPolicy').click()
-    fireEvent.click(getByText('feedback:send'))
+    fireEvent.change(getByLabelText('feedback:comment.title'), { target: { value: 'my comment' } })
+    fireEvent.change(getByLabelText('feedback:contactEmail'), { target: { value: 'me@example.com' } })
+    getByText('common:privacy.confirmation').click()
+    fireEvent.click(getByText('common:actions.send'))
 
-    expect(await findByText('feedback:thanksMessage')).toBeTruthy()
+    expect(await findByText('feedback:thanks.description')).toBeTruthy()
 
     fireEvent.click(getByText('reopen'))
     // The form re-renders behind the success snackbar's transition, so wait for it instead of asserting immediately
-    expect(await findByLabelText('feedback:commentHeadline')).toHaveValue('')
-    expect(await findByLabelText('feedback:contactMailAddress')).toHaveValue('')
+    expect(await findByLabelText('feedback:comment.title')).toHaveValue('')
+    expect(await findByLabelText('feedback:contactEmail')).toHaveValue('')
   })
 
   it('should send original search term if updated', () => {
@@ -131,8 +131,8 @@ describe('FeedbackContainer', () => {
     const input = getByDisplayValue(query)
     fireEvent.change(input, { target: { value: fullSearchTerm } })
 
-    getByText('common:privacyPolicy').click()
-    fireEvent.click(getByText('feedback:send'))
+    getByText('common:privacy.confirmation').click()
+    fireEvent.click(getByText('common:actions.send'))
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,

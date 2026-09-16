@@ -38,7 +38,7 @@ describe('PlacesMobile', () => {
     places.forEach(place => {
       expect(queryByText(place.title)).toBeFalsy()
     })
-    expect(queryByText('common:nearby')).toBeFalsy()
+    expect(queryByText('userLocation:nearby')).toBeFalsy()
   })
 
   it('should list detail information about the current feature and the place if feature and place provided', async () => {
@@ -47,16 +47,16 @@ describe('PlacesMobile', () => {
     const { queryByText } = renderPlacesMobile(singlePlace)
     expect(queryByText(singlePlace.title)).toBeTruthy()
     expect(queryByText(singlePlace.category.name)).toBeTruthy()
-    expect(queryByText('places:distanceKilometre')).toBeTruthy()
+    expect(queryByText('places:distance')).toBeTruthy()
     expect(queryByText(singlePlace.location.address!)).toBeTruthy()
     expect(queryByText(singlePlace.content)).toBeTruthy()
-    expect(queryByText('common:nearby')).toBeNull()
+    expect(queryByText('userLocation:nearby')).toBeNull()
   })
 
   it('should render placeList & toolbar components no place is provided', () => {
     const { queryByText } = renderPlacesMobile()
 
-    expect(queryByText('common:nearby')).toBeTruthy()
+    expect(queryByText('userLocation:nearby')).toBeTruthy()
     places.forEach(place => {
       expect(queryByText(place.title)).toBeTruthy()
     })

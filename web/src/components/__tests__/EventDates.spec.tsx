@@ -39,7 +39,7 @@ describe('EventDates', () => {
 
     expect(getByText('Mo., 9. Okt. - Di., 10. Okt.', { exact: false })).toBeTruthy()
     expect(getByText('7:00 - 9:00', { exact: false })).toBeTruthy()
-    expect(queryByText('events:furtherDates')).toBeFalsy()
+    expect(queryByText('events:recurrence.furtherDates')).toBeFalsy()
   })
 
   it('should render the next recurrence as the upcoming date for a recurring event', () => {
@@ -47,14 +47,14 @@ describe('EventDates', () => {
     const { getByText } = renderWithTheme(<EventDates event={event} languageCode={language} />)
 
     expect(getByText('Mo., 9. Okt. - Di., 10. Okt.', { exact: false })).toBeTruthy()
-    expect(getByText('events:furtherDates')).toBeTruthy()
+    expect(getByText('events:recurrence.furtherDates')).toBeTruthy()
   })
 
   it('should reveal the upcoming dates when expanding a monthly recurring event', async () => {
     const event = eventWithDate('DTSTART:20230414T050000\nRRULE:FREQ=MONTHLY;BYDAY=+2MO')
     const { getByRole, getByText } = renderWithTheme(<EventDates event={event} languageCode={language} compact />)
 
-    expect(getByText('events:furtherDates')).toBeTruthy()
+    expect(getByText('events:recurrence.furtherDates')).toBeTruthy()
     expect(getByText('Mo., 13. Nov. - Di., 14. Nov.')).not.toBeVisible()
 
     fireEvent.click(getByRole('button'))
