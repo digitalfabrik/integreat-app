@@ -53,11 +53,17 @@ const HeaderBox = ({ route, navigation, goBack, regionName }: HeaderBoxProps): R
     const { routes } = navigation.getState()
     return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]?.key
   })
-
-  const previousRoute = navigation.getState().routes.find(route => route.key === previousRouteKey)
+  const [previousRootRouteKey] = useState(() => {
+    const rootState = navigation.getParent(ROOT_NAVIGATOR_ID)?.getState()
+    return rootState?.routes[rootState.index - 1]?.key
+  })
 
   const tabNavigationState = navigation.getParent(TAB_NAVIGATOR_ID)?.getState()
   const rootNavigationState = navigation.getParent(ROOT_NAVIGATOR_ID)?.getState()
+
+  const previousRoute =
+    navigation.getState().routes.find(route => route.key === previousRouteKey) ??
+    rootNavigationState?.routes.find(route => route.key === previousRootRouteKey)
 
   const hasTabHistory = !!tabNavigationState && tabNavigationState.index > 0
   const hasRootHistory = !!rootNavigationState && rootNavigationState.index > 0

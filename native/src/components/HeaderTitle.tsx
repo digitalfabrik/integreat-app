@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 
-import { RoutesParamsType } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContext'
 import Icon from './base/Icon'
@@ -33,7 +32,7 @@ const getRouteTitle = (route: Partial<NavigationRoute<ParamListBase, string>>): 
 }
 
 type HeaderTitleProps = {
-  previousRoute: NavigationRoute<RoutesParamsType, keyof RoutesParamsType> | undefined
+  previousRoute: NavigationRoute<ParamListBase, string> | undefined
   regionName: string | undefined
   regionsPath: (() => void) | undefined
 }

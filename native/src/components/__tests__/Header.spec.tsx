@@ -7,6 +7,7 @@ import {
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
   CategoriesRouteType,
+  EVENTS_TAB_ROUTE,
   LANGUAGES_ROUTE,
   IMPRINT_ROUTE,
   ImprintRouteType,
@@ -16,6 +17,7 @@ import {
 } from 'shared'
 import { LanguageModelBuilder, RegionModelBuilder, LanguageModel } from 'shared/api'
 
+import { NavigatorIds, ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../../constants'
 import { RouteProps } from '../../constants/NavigationTypes'
 import useSnackbar from '../../hooks/useSnackbar'
 import TestingAppContext from '../../testing/TestingAppContext'
@@ -76,6 +78,12 @@ describe('Header', () => {
       stale: false,
       preloadedRoutes: [],
     }))
+  }
+
+  const mockParentNavigator = (navigatorId: NavigatorIds, state: Record<string, unknown>) => {
+    mocked(navigation.getParent).mockImplementation(id =>
+      id === navigatorId ? ({ getState: jest.fn(() => state) } as never) : undefined,
+    )
   }
 
   const renderHeader = ({
@@ -187,12 +195,29 @@ describe('Header', () => {
 
   it('should show location change button even when tab history exists', () => {
     mockPreviousRoute(false)
-    mocked(navigation.getParent).mockReturnValue({
-      getState: jest.fn(() => ({ history: [{ key: 'tab-key-0' }, { key: 'tab-key-1' }] })),
-      getParent: jest.fn(() => {}),
-    } as never)
+    mockParentNavigator(TAB_NAVIGATOR_ID, {
+      index: 1,
+      routes: [
+        { key: 'tab-key-0', name: CATEGORIES_TAB_ROUTE },
+        { key: 'tab-key-1', name: EVENTS_TAB_ROUTE },
+      ],
+    })
     const { getByLabelText } = renderHeader({})
     expect(getByLabelText('Stadt Augsburg regions:change')).toBeTruthy()
+  })
+
+  it('should show the title of the previous root route if the current stack has no history', () => {
+    mockPreviousRoute(false)
+    mockParentNavigator(ROOT_NAVIGATOR_ID, {
+      index: 1,
+      routes: [
+        { key: 'search-key', name: SEARCH_ROUTE, params: { title: 'search:title' } },
+        { key: 'bottom-tab-key', name: BOTTOM_TAB_ROUTE },
+      ],
+    })
+    const { getByText, queryByLabelText } = renderHeader({})
+    expect(getByText('search:title')).toBeTruthy()
+    expect(queryByLabelText('Stadt Augsburg regions:change')).toBeNull()
   })
 
   it('should not open language change modal if no translation available', async () => {
