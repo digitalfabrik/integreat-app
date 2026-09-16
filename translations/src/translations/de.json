@@ -136,7 +136,7 @@
       "allRecurrences": "Diese und alle zukünftigen Veranstaltungen",
       "error": {
         "forbidden": "Der Zugriff auf den Kalender ist nicht erlaubt.",
-        "notFound": "Kein passender Kalender"
+        "nothingFound": "Kein passender Kalender"
       }
     },
     "filter": {

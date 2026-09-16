@@ -138,7 +138,7 @@ const resources = {
       "allRecurrences": "This and all future events",
       "error": {
         "forbidden": "Access to the calendar is not permitted.",
-        "notFound": "No suitable calendar"
+        "nothingFound": "No suitable calendar"
       }
     },
     "filter": {

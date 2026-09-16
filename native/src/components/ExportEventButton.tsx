@@ -102,7 +102,7 @@ const ExportEventButton = ({ event }: ExportEventButtonType): ReactElement => {
     const editableCalendars = (await RNCalendarEvents.findCalendars()).filter(cal => cal.allowsModifications)
 
     if (editableCalendars.length === 0) {
-      showSnackbar({ text: t($ => $.events.export.error.notFound) })
+      showSnackbar({ text: t($ => $.events.export.error.nothingFound) })
     } else if (editableCalendars.length > 1 || event.date.recurrenceRule) {
       setCalendars(editableCalendars)
       setShowCalendarChoiceModal(true)
