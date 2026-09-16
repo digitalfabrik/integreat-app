@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 
+import { config } from 'translations'
+
 import buildConfig from '../constants/buildConfig'
 import { AppContext } from '../contexts/AppContext'
 import Icon from './base/Icon'
@@ -42,6 +44,7 @@ const HeaderTitle = ({ previousRoute, regionName, regionsPath }: HeaderTitleProp
   const { t } = useTranslation()
 
   const title = previousRoute ? getRouteTitle(previousRoute) : regionName
+  const a11yLanguage = title === regionName ? config.sourceLanguage : languageCode
 
   if (!title) {
     return null
@@ -63,7 +66,7 @@ const HeaderTitle = ({ previousRoute, regionName, regionsPath }: HeaderTitleProp
       accessibilityRole='button'
       accessibilityLabel={`${title} ${t($ => $.regions.change)}`}>
       <View style={styles.titleTextContainer}>
-        <Text variant='subtitle1' numberOfLines={2} accessibilityLanguage={languageCode} style={{ flexShrink: 1 }}>
+        <Text variant='subtitle1' numberOfLines={2} accessibilityLanguage={a11yLanguage} style={{ flexShrink: 1 }}>
           {title}
         </Text>
         <Icon source='chevron-down' size={24} />
