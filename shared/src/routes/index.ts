@@ -61,8 +61,8 @@ export const PDF_VIEW_ROUTE: PdfViewRouteType = 'pdf'
 export type ImageViewRouteType = 'image'
 export const IMAGE_VIEW_ROUTE: ImageViewRouteType = 'image'
 
-export type FeedbackModalRouteType = 'feedback'
-export const FEEDBACK_MODAL_ROUTE: FeedbackModalRouteType = 'feedback'
+export type FeedbackRouteType = 'feedback'
+export const FEEDBACK_ROUTE: FeedbackRouteType = 'feedback'
 
 export type ConsentRouteType = 'consent'
 export const CONSENT_ROUTE: ConsentRouteType = 'consent'

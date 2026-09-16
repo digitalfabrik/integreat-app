@@ -77,7 +77,7 @@ jest.mock('../routes/LanguageSelection', () => {
 
   return () => <Text>LanguageSelection</Text>
 })
-jest.mock('../routes/FeedbackModalContainer', () => {
+jest.mock('../routes/FeedbackContainer', () => {
   const { Text } = require('react-native-paper')
 
   return () => <Text>Feedback</Text>

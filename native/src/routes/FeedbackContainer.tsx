@@ -3,15 +3,16 @@ import { useTranslation } from 'react-i18next'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { RATING_POSITIVE, Rating, SendingStatusType } from 'shared'
-import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
+import { FeedbackRouteType, Rating, SendingStatusType } from 'shared'
+import { createFeedbackEndpoint, FeedbackType } from 'shared/api'
 import { config } from 'translations'
 
+import Feedback from '../components/Feedback'
+import Text from '../components/base/Text'
+import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import { determineApiUrl } from '../utils/helpers'
 import { captureError } from '../utils/sentry'
-import Feedback from './Feedback'
-import Text from './base/Text'
 
 const Container = styled.View`
   flex: 1;
@@ -21,7 +22,7 @@ const Container = styled.View`
 `
 
 export type FeedbackContainerProps = {
-  routeType: FeedbackRouteType
+  routeType: FeedbackType
   language: string
   regionCode: string
   query?: string
@@ -29,7 +30,7 @@ export type FeedbackContainerProps = {
   rating?: Rating
 }
 
-const FeedbackContainer = ({
+export const FeedbackContainer = ({
   query,
   language,
   routeType,
@@ -116,4 +117,13 @@ const FeedbackContainer = ({
   )
 }
 
-export default FeedbackContainer
+type FeedbackRouteContainerProps = {
+  route: RouteProps<FeedbackRouteType>
+  navigation: NavigationProps<FeedbackRouteType>
+}
+
+const FeedbackRouteContainer = ({ route }: FeedbackRouteContainerProps): ReactElement => (
+  <FeedbackContainer {...route.params} />
+)
+
+export default FeedbackRouteContainer

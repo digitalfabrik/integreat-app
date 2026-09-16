@@ -12,7 +12,7 @@ import {
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
   MAIN_IMPRINT_ROUTE,
-  FEEDBACK_MODAL_ROUTE,
+  FEEDBACK_ROUTE,
   IMAGE_VIEW_ROUTE,
   INTRO_ROUTE,
   IntroRouteType,
@@ -40,7 +40,7 @@ import { useAppContext } from './hooks/useRegionAppContext'
 import useSnackbar from './hooks/useSnackbar'
 import Chat from './routes/Chat'
 import Consent from './routes/Consent'
-import FeedbackModalContainer from './routes/FeedbackModalContainer'
+import FeedbackContainer from './routes/FeedbackContainer'
 import ImageView from './routes/ImageView'
 import ImprintContainer from './routes/ImprintContainer'
 import Intro from './routes/Intro'
@@ -155,7 +155,7 @@ const Navigator = (): ReactElement | null => {
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
         <Stack.Screen name={IMPRINT_ROUTE} component={ImprintContainer} />
-        <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
+        <Stack.Screen name={FEEDBACK_ROUTE} component={FeedbackContainer} />
         <Stack.Screen name={CHAT_ROUTE} component={Chat} />
         <Stack.Screen name={REGIONS_ROUTE} component={Regions} />
       </Stack.Group>

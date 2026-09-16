@@ -19,7 +19,7 @@ export const FEEDBACK_ENDPOINT_NAME = 'categoriesFeedback'
 const API_RATING_POSITIVE = 'up'
 const API_RATING_NEGATIVE = 'down'
 
-export const FeedbackTypes = {
+export const ApiFeedbackTypes = {
   Page: 'page',
   Categories: 'categories',
   Search: 'search',
@@ -30,15 +30,14 @@ export const FeedbackTypes = {
   Map: 'map',
 }
 
-export type FeedbackType = (typeof FeedbackTypes)[keyof typeof FeedbackTypes]
+type ApiFeedbackType = (typeof ApiFeedbackTypes)[keyof typeof ApiFeedbackTypes]
 
-export const CONTENT_FEEDBACK_CATEGORY = 'Inhalte'
+const CONTENT_FEEDBACK_CATEGORY = 'Inhalte'
 
-export type FeedbackRouteType =
-  CategoriesRouteType | EventsRouteType | PlacesRouteType | ImprintRouteType | SearchRouteType
+export type FeedbackType = CategoriesRouteType | EventsRouteType | PlacesRouteType | ImprintRouteType | SearchRouteType
 
 export type ParamsType = {
-  routeType: FeedbackRouteType
+  routeType: FeedbackType
   region: string
   language: string
   comment: string
@@ -49,25 +48,25 @@ export type ParamsType = {
   rating: Rating | null
 }
 
-const getFeedbackType = (routeType: FeedbackRouteType, slug?: string): FeedbackType => {
+const getFeedbackType = (routeType: FeedbackType, slug?: string): ApiFeedbackType => {
   switch (routeType) {
     case EVENTS_ROUTE:
-      return slug ? FeedbackTypes.Event : FeedbackTypes.Events
+      return slug ? ApiFeedbackTypes.Event : ApiFeedbackTypes.Events
 
     case IMPRINT_ROUTE:
-      return FeedbackTypes.Imprint
+      return ApiFeedbackTypes.Imprint
 
     case PLACES_ROUTE:
-      return slug ? FeedbackTypes.Place : FeedbackTypes.Map
+      return slug ? ApiFeedbackTypes.Place : ApiFeedbackTypes.Map
 
     case CATEGORIES_ROUTE:
-      return slug ? FeedbackTypes.Page : FeedbackTypes.Categories
+      return slug ? ApiFeedbackTypes.Page : ApiFeedbackTypes.Categories
 
     case SEARCH_ROUTE:
-      return FeedbackTypes.Search
+      return ApiFeedbackTypes.Search
 
     default:
-      return FeedbackTypes.Categories
+      return ApiFeedbackTypes.Categories
   }
 }
 

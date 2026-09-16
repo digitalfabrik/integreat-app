@@ -15,7 +15,6 @@ import {
 } from 'shared'
 import { ExtendedDocumentModel } from 'shared/api'
 
-import FeedbackContainer from '../components/FeedbackContainer'
 import Layout from '../components/Layout'
 import List from '../components/List'
 import SearchHeader from '../components/SearchHeader'
@@ -24,6 +23,7 @@ import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useCaptureError from '../hooks/useCaptureError'
+import { FeedbackContainer } from './FeedbackContainer'
 
 export type SearchProps = {
   navigation: NavigationProps<SearchRouteType>

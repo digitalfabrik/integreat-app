@@ -8,7 +8,7 @@ import {
   ImprintRouteType,
   MainImprintRouteType,
   EventsRouteType,
-  FeedbackModalRouteType,
+  FeedbackRouteType,
   ImageViewRouteType,
   IntroRouteType,
   RegionsRouteType,
@@ -32,7 +32,7 @@ import {
   LANGUAGES_ROUTE,
   PDF_VIEW_ROUTE,
   IMAGE_VIEW_ROUTE,
-  FEEDBACK_MODAL_ROUTE,
+  FEEDBACK_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
   SuggestToRegionRouteType,
   LICENSES_ROUTE,
@@ -54,7 +54,7 @@ import {
   Rating,
   NewsSourceFilter,
 } from 'shared'
-import { LanguageModel, FeedbackRouteType } from 'shared/api'
+import { LanguageModel, FeedbackType } from 'shared/api'
 
 import { NavigatorIds } from './index'
 
@@ -74,7 +74,7 @@ export type RootRoutesType =
   | LanguagesRouteType
   | PdfViewRouteType
   | ImageViewRouteType
-  | FeedbackModalRouteType
+  | FeedbackRouteType
   | LicensesRouteType
   | ConsentRouteType
   | ChatRouteType
@@ -133,7 +133,7 @@ export type RootRoutesParamsType = {
   [LANGUAGES_ROUTE]: {
     languages: LanguageModel[]
     availableLanguages: string[]
-    routeType?: FeedbackRouteType
+    routeType?: FeedbackType
     slug?: string
   }
   [PDF_VIEW_ROUTE]: {
@@ -144,8 +144,8 @@ export type RootRoutesParamsType = {
     url: string
     shareUrl: string
   }
-  [FEEDBACK_MODAL_ROUTE]: {
-    routeType: FeedbackRouteType
+  [FEEDBACK_ROUTE]: {
+    routeType: FeedbackType
     language: string
     regionCode: string
     slug?: string
