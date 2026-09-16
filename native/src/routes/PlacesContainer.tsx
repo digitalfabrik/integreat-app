@@ -34,11 +34,12 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
   const { regionCode, languageCode } = useRegionAppContext()
   const { t } = useTranslation()
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
+  const { title, zoom, ...localStackHistoryParams } = route.params
 
   // We want to use a custom local history implementation to keep a history while avoiding rerenders
   // Stack history would require rerendering the map and bottom sheet on every place (un-)selection
   const localHistory = useLocalStackHistory({
-    params: route.params,
+    params: localStackHistoryParams,
     historyFromParams: ({ slug, multiPlace, placeCategoryId }) => [
       { slug, multiPlace, placeCategoryId, currentlyOpen: false, showFilterSelection: false },
     ],
@@ -67,7 +68,7 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
     slug,
     multiPlace,
     placeCategoryId,
-    zoom: route.params.zoom,
+    zoom,
   })
 
   const goBack =
@@ -104,7 +105,7 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
           localHistory={localHistory}
           places={data.places}
           regionModel={data.region}
-          initialZoom={route.params.zoom}
+          initialZoom={zoom}
         />
       )}
     </LoadingErrorHandler>

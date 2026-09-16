@@ -167,6 +167,22 @@ describe('useLocalStackHistory', () => {
     expect(getByText('length: 1')).toBeTruthy()
   })
 
+  it('should keep the history if a new params object with unchanged values is passed', () => {
+    const { getByText, rerender } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
+
+    fireEvent.press(getByText('push'))
+    expect(getByText('length: 2')).toBeTruthy()
+
+    rerender(
+      <NavigationContainer>
+        <MockComponent params={{ value: 'initial', count: 1 }} />
+      </NavigationContainer>,
+    )
+
+    expect(getByText('length: 2')).toBeTruthy()
+    expect(getByText('value: pushed')).toBeTruthy()
+  })
+
   it('should reset history to new params after entries were pushed', () => {
     const { getByText, rerender } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 

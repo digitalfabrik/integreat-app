@@ -81,7 +81,7 @@ describe('PlacesContainer', () => {
   })
 
   const createRoute = (
-    params: { slug?: string; multiPlace?: number; placeCategoryId?: number; zoom?: number } = {},
+    params: { slug?: string; multiPlace?: number; placeCategoryId?: number; zoom?: number; title?: string } = {},
   ) => ({
     key: 'route-key',
     name: PLACES_ROUTE,
@@ -89,7 +89,7 @@ describe('PlacesContainer', () => {
   })
 
   const renderContainer = (
-    params: { slug?: string; multiPlace?: number; placeCategoryId?: number; zoom?: number } = {},
+    params: { slug?: string; multiPlace?: number; placeCategoryId?: number; zoom?: number; title?: string } = {},
     contextProps: { languageCode?: string } = {},
   ) =>
     renderWithTheme(
@@ -159,6 +159,37 @@ describe('PlacesContainer', () => {
     goBackListener?.()
 
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
+  })
+
+  it('should keep the selected place when the route params are recreated with a new title', () => {
+    const { getByText, rerender } = renderContainer()
+
+    fireEvent.press(getByText('select-place'))
+    expect(getByText('slug:selected-place')).toBeTruthy()
+
+    // useSetRouteTitle calls navigation.setParams, which makes react-navigation pass a new params object
+    rerender(
+      <TestingAppContext>
+        <PlacesContainer route={createRoute({ title: 'Place title' })} navigation={navigation} />
+      </TestingAppContext>,
+    )
+
+    expect(getByText('slug:selected-place')).toBeTruthy()
+  })
+
+  it('should reset the local history when the route params change', () => {
+    const { getByText, rerender } = renderContainer({ title: 'Place list title' })
+
+    fireEvent.press(getByText('select-place'))
+    expect(getByText('slug:selected-place')).toBeTruthy()
+
+    rerender(
+      <TestingAppContext>
+        <PlacesContainer route={createRoute({ slug: 'linked-place' })} navigation={navigation} />
+      </TestingAppContext>,
+    )
+
+    expect(getByText('slug:linked-place')).toBeTruthy()
   })
 
   it('should update slug in local history when language changes', () => {

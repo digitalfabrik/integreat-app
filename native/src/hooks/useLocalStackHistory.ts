@@ -61,7 +61,12 @@ const useLocalStackHistory = <S extends {}, T>({
   )
 
   // When linking to this tab reset the history to the linked params to allow for consistent back navigation
-  usePreviousProp({ prop: params, onPropChange: () => setHistory(historyFromParams(params)) })
+  // Compare the param values instead of the object identity, as the params object is recreated on every render
+  // and on every navigation.setParams call (e.g. when setting the route title)
+  usePreviousProp({
+    prop: JSON.stringify(params),
+    onPropChange: () => setHistory(historyFromParams(params)),
+  })
 
   return { current, history, push, pushReset, pop, reset }
 }
