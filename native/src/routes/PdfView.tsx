@@ -8,7 +8,6 @@ import { ErrorCodes } from 'shared/api'
 import Failure from '../components/Failure'
 import Layout from '../components/Layout'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import useNavigate from '../hooks/useNavigate'
 import useResourceCache from '../hooks/useResourceCache'
 import { getLocalFilePath } from '../utils/helpers'
 import useOpenExternalUrl from '../utils/openExternalUrl'
@@ -22,11 +21,10 @@ type PdfViewProps = {
   navigation: NavigationProps<PdfViewRouteType>
 }
 
-const PdfView = ({ route, navigation: _navigation }: PdfViewProps): ReactElement => {
+const PdfView = ({ route, navigation }: PdfViewProps): ReactElement => {
   const [error, setError] = useState(false)
   const { url } = route.params
   const { data: resourceCache, refresh, loading } = useResourceCache()
-  const navigation = useNavigate().navigation
   const openExternalUrl = useOpenExternalUrl()
   const filePath = resourceCache[url]
 
