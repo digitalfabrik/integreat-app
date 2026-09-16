@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Divider } from 'react-native-paper'
 
 import Caption from '../components/Caption'
 import ExternalSourceListItem from '../components/ExternalSourceListItem'
@@ -44,7 +43,6 @@ const ExternalSources = (): ReactElement | null => {
             <Text style={{ paddingHorizontal: 16, marginBottom: 24 }}>
               {t($ => $.settings.externalSources.description)}
             </Text>
-            <Divider />
           </>
         }
         noItemsMessage={t($ => $.settings.externalSources.nothingFound)}

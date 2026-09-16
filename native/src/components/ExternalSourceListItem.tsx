@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
-import { Divider } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import Switch from './base/Switch'
@@ -30,16 +29,13 @@ const ExternalSourceListItem = ({
 }: ExternalSourceListItemProps): ReactElement => {
   const theme = useTheme()
   return (
-    <>
-      <Container>
-        <TextContainer>
-          <Text>{title}</Text>
-          <Text style={{ color: theme.colors.onSurfaceVariant }}>{description}</Text>
-        </TextContainer>
-        <Switch onValueChange={onPress} value={allowed} />
-      </Container>
-      <Divider />
-    </>
+    <Container>
+      <TextContainer>
+        <Text>{title}</Text>
+        <Text style={{ color: theme.colors.onSurfaceVariant }}>{description}</Text>
+      </TextContainer>
+      <Switch onValueChange={onPress} value={allowed} />
+    </Container>
   )
 }
 
