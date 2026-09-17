@@ -1,15 +1,15 @@
 import CloseIcon from '@mui/icons-material/Close'
 import IconButton from '@mui/material/IconButton'
-import Paper from '@mui/material/Paper'
 import Popper from '@mui/material/Popper'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
-import { styled } from '@mui/material/styles'
+import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
 import useLocalStorage, { CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import { ChatLogoAvatar } from './ChatAvatar'
+import PopoverPaper from './base/PopoverPaper'
 
 const POPUP_OFFSET = -8
 const AVATAR_SIZE = 24
@@ -18,37 +18,11 @@ const StyledPopper = styled(Popper)`
   z-index: ${props => props.theme.zIndex.fab};
 `
 
-const StyledPaper = styled(Paper)`
+const StyledPaper = styled(PopoverPaper)`
   width: max-content;
   max-width: 224px;
   margin-bottom: 16px;
-  border-radius: 16px;
   filter: drop-shadow(0 2px 4px rgb(0 0 0 / 24%));
-
-  @keyframes appear {
-    from {
-      opacity: 0;
-      transform: scale(0.5);
-    }
-
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  animation: appear 200ms ease-out;
-
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: -16px;
-    inset-inline-end: 16px;
-    width: 16px;
-    height: 16px;
-    background: inherit;
-    clip-path: polygon(0 0, 80% 100%, 100% 0);
-  }
 `
 
 type ChatHighlightPopupProps = {
@@ -58,6 +32,7 @@ type ChatHighlightPopupProps = {
 
 const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): ReactElement => {
   const { t } = useTranslation()
+  const { contentDirection } = useTheme()
   const [visible, setVisible] = useLocalStorage<boolean>({
     key: CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY,
     initialValue: true,
@@ -70,7 +45,7 @@ const ChatHighlightPopup = ({ anchorEl, chatName }: ChatHighlightPopupProps): Re
       placement='top-end'
       disablePortal
       modifiers={[{ name: 'offset', options: { offset: [POPUP_OFFSET, 4] } }]}>
-      <StyledPaper elevation={2}>
+      <StyledPaper elevation={2} arrowPosition='top' arrowAlignment={contentDirection === 'rtl' ? 'left' : 'right'}>
         <Stack sx={{ padding: 2, gap: 1 }}>
           <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
             <ChatLogoAvatar size={AVATAR_SIZE} />

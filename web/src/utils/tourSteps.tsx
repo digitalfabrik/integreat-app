@@ -6,16 +6,15 @@ import { getChatName } from 'shared'
 import { RegionModel } from 'shared/api'
 
 import TourStepContent from '../components/TourStepContent'
+import { ArrowAlignment, PopoverOffset } from '../components/base/PopoverPaper'
 import buildConfig from '../constants/buildConfig'
 import { HEADER_MENU_ELEMENT_ID, HEADER_MENU_PANEL_ELEMENT_ID } from '../constants/layout'
 import getNavigationItems from './navigationItems'
 
-export type ArrowAlignment = 'left' | 'right'
-
 export type TourStepType = StepType & {
   content: ReactElement
   arrowAlignment?: ArrowAlignment
-  offset?: { horizontal?: number; vertical?: number }
+  offset?: PopoverOffset
 }
 
 export type TourStepsProps = {
@@ -26,7 +25,7 @@ export type TourStepsProps = {
 }
 
 type TourStepId =
-  'changeLocation' | 'searchAndLanguage' | 'additionalFeatures' | 'categories' | 'navigation' | 'chat' | 'feedback'
+  'regionChange' | 'searchAndLanguage' | 'additionalFeatures' | 'categories' | 'navigation' | 'chat' | 'feedback'
 
 type TourStepDefinition = {
   title: string
@@ -35,7 +34,6 @@ type TourStepDefinition = {
 
 type TourStepLayout = Omit<TourStepType, 'content'> & {
   id: TourStepId
-  descriptionKey?: SelectorParam
 }
 
 export const positionBelowElement =
@@ -75,35 +73,35 @@ const getTourStepDefinitions = ({
   const { appName, featureFlags } = buildConfig()
 
   return {
-    changeLocation: featureFlags.fixedRegion
+    regionChange: featureFlags.fixedRegion
       ? null
       : {
           title: t($ => $.regions.change),
-          descriptionKey: $ => $.tour.changeLocationDescription,
+          descriptionKey: $ => $.tour.regionChange.description,
         },
     searchAndLanguage: {
-      title: t($ => $.tour.searchAndLanguageTitle),
-      descriptionKey: $ => $.tour.searchAndLanguageDescription,
+      title: t($ => $.tour.searchAndLanguage.title),
+      descriptionKey: $ => $.tour.searchAndLanguage.description,
     },
     additionalFeatures: {
-      title: t($ => $.tour.additionalFeaturesTitle),
-      descriptionKey: $ => $.tour.additionalFeaturesDescription,
+      title: t($ => $.tour.additionalFeatures.title),
+      descriptionKey: $ => $.tour.additionalFeatures.description,
     },
     categories: {
-      title: t($ => $.tour.categoriesTitle),
-      descriptionKey: $ => $.tour.categoriesDescription,
+      title: t($ => $.tour.categories.title),
+      descriptionKey: $ => $.tour.categories.description,
     },
     navigation: getNavigationItems({ regionModel: region, languageCode })
       ? {
-          title: t($ => $.tour.navigationTitle),
-          descriptionKey: $ => $.tour.navigationDescription,
+          title: t($ => $.tour.navigation.title),
+          descriptionKey: $ => $.tour.navigation.description,
         }
       : null,
     chat:
       featureFlags.chat && region.chatEnabled
         ? {
             title: getChatName(appName),
-            descriptionKey: $ => $.tour.chatDescription,
+            descriptionKey: $ => $.tour.chat.description,
           }
         : null,
     feedback: {
@@ -117,7 +115,7 @@ export const getTourSteps = (props: TourStepsProps, layouts: TourStepLayout[]): 
   const definitions = getTourStepDefinitions(props)
 
   return layouts
-    .map(({ id, descriptionKey, ...layout }) => {
+    .map(({ id, ...layout }) => {
       const definition = definitions[id]
       if (!definition) {
         return null
@@ -125,9 +123,7 @@ export const getTourSteps = (props: TourStepsProps, layouts: TourStepLayout[]): 
 
       return {
         ...layout,
-        content: (
-          <TourStepContent title={definition.title} descriptionKey={descriptionKey ?? definition.descriptionKey} />
-        ),
+        content: <TourStepContent title={definition.title} descriptionKey={definition.descriptionKey} />,
       }
     })
     .filter((step): step is TourStepType => step !== null)

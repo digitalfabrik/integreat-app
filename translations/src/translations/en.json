@@ -433,25 +433,35 @@
     }
   },
   "tour": {
-    "appTour": "App tour",
-    "welcomeDescription": "This short tour shows you the most important features of the app.",
-    "startTour": "Start tour",
-    "skipTour": "Skip tour",
+    "title": "App tour",
+    "welcome": "This short tour shows you the most important features of the app.",
+    "start": "Start tour",
     "progress": "Step {{current}} of {{total}}",
-    "changeLocationDescription": "Select your <strong>city</strong> here to find local information.",
-    "navigationTitle": "Navigation",
-    "navigationDescription": "Switch between <strong>Information</strong>, <strong>Map</strong>, <strong>News</strong> and <strong>Events</strong> here.",
-    "categoriesTitle": "Discover topics",
-    "categoriesDescription": "Discover information on topics such as <strong>Housing</strong>, <strong>Education</strong>, <strong>Work</strong> and more.",
-    "searchAndLanguageTitle": "Search and language",
-    "searchAndLanguageDescription": "<strong>Search</strong> for topics, events and places or change the <strong>language</strong>.",
-    "additionalFeaturesTitle": "Additional features",
-    "additionalFeaturesDescription": "Use further features here such as <strong>creating a PDF</strong>, <strong>reading aloud</strong>, <strong>sharing</strong> and <strong>high contrast</strong>.",
-    "additionalFeaturesWithFeedbackDescription": "Use further features here such as <strong>creating a PDF</strong>, <strong>reading aloud</strong>, <strong>giving feedback</strong>, <strong>sharing</strong> and more.",
-    "chatDescription": "Ask your questions here and quickly get suitable answers.",
-    "finish": "Finish",
-    "finishTitle": "Done!",
-    "finishDescription": "Now you know the most important features. Good luck with {{appName}}!",
-    "finishAction": "Let's go"
+    "regionChange": {
+      "description": "Select your <strong>region</strong> here to find local information."
+    },
+    "navigation": {
+      "title": "Navigation",
+      "description": "Switch between <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> and <strong>$t(events:title)</strong> here."
+    },
+    "categories": {
+      "title": "Discover topics",
+      "description": "Discover information on topics such as <strong>Housing</strong>, <strong>Education</strong>, <strong>Work</strong> and more."
+    },
+    "searchAndLanguage": {
+      "title": "Search and language",
+      "description": "<strong>Search</strong> for local information, events and places or change the <strong>language</strong>."
+    },
+    "additionalFeatures": {
+      "title": "Additional features",
+      "description": "Use further features here such as <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> and <strong>{{additionalFeature}}</strong>."
+    },
+    "chat": {
+      "description": "Ask your questions here and quickly get suitable answers."
+    },
+    "finish": {
+      "title": "Done!",
+      "description": "Now you know the most important features. Good luck with {{appName}}!"
+    }
   }
 }

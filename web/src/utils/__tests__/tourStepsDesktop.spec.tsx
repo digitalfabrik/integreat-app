@@ -67,16 +67,16 @@ describe('tourStepsDesktop', () => {
     config.featureFlags.chat = true
   })
 
-  it('should not include the change location step if a fixed region is configured', () => {
+  it('should not include the region change step if a fixed region is configured', () => {
     config.featureFlags.fixedRegion = 'augsburg'
     expect(selectors(createRegion())).not.toContain(`#${HEADER_TITLE_ELEMENT_ID}`)
     config.featureFlags.fixedRegion = null
   })
 
   it('should mirror the arrow alignment for right to left languages', () => {
-    const [changeLocation] = tourStepsDesktop({ t, rtl: true, region: createRegion(), languageCode: 'de' })
+    const [regionChange] = tourStepsDesktop({ t, rtl: true, region: createRegion(), languageCode: 'de' })
 
-    expect(changeLocation?.arrowAlignment).toBe('right')
+    expect(regionChange?.arrowAlignment).toBe('right')
   })
 
   it('should open and close the header menu on the additional features step', () => {

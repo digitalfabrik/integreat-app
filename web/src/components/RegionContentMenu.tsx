@@ -11,7 +11,7 @@ import { CategoryModel } from 'shared/api'
 
 import { ReadAloudIcon } from '../assets'
 import { TtsContext } from '../contexts/TtsContext'
-import useLocalStorage, { TOUR_DIALOG_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
+import useLocalStorage, { TOUR_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useQueryParam from '../hooks/useQueryParam'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import HeaderMenu, { MenuRef } from './HeaderMenu'
@@ -27,8 +27,8 @@ type RegionContentMenuProps = {
 
 const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenuProps): ReactElement => {
   const [_, setFeedbackQueryParam] = useQueryParam(FEEDBACK_QUERY_KEY)
-  const [, setTourDialogVisible] = useLocalStorage({
-    key: TOUR_DIALOG_VISIBLE_STORAGE_KEY,
+  const [, setTourVisible] = useLocalStorage({
+    key: TOUR_VISIBLE_STORAGE_KEY,
     initialValue: true,
   })
   const { route, regionCode, languageCode } = useRegionContentParams()
@@ -79,10 +79,10 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
     />,
     <MenuItem
       key='tour'
-      text={t($ => $.tour.appTour)}
+      text={t($ => $.tour.title)}
       icon={<HelpOutlineIcon fontSize='small' />}
       onClick={() => {
-        setTourDialogVisible(true)
+        setTourVisible(true)
         if (pathname === homePath) {
           window.location.reload()
           return

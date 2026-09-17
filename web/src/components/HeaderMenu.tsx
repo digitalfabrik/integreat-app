@@ -58,7 +58,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
 
   const closeMenu = () => setMenuAnchorElement(null)
   const open = menuAnchorElement !== null
-  const openMenu = (event: React.MouseEvent<HTMLElement>) => setMenuAnchorElement(open ? null : event.currentTarget)
+  const toggleMenu = (event: React.MouseEvent<HTMLElement>) => setMenuAnchorElement(open ? null : event.currentTarget)
 
   const items = Array.isArray(children) ? children : [children]
 
@@ -116,7 +116,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
     <>
       <IconButton
         id={HEADER_MENU_ELEMENT_ID}
-        onClick={openMenu}
+        onClick={toggleMenu}
         aria-label={t($ => $.common.labels.menu)}
         aria-expanded={open}>
         <MoreVertIcon />

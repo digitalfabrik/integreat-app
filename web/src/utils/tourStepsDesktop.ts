@@ -1,5 +1,6 @@
 import { Position } from '@reactour/tour'
 
+import { ArrowAlignment } from '../components/base/PopoverPaper'
 import {
   CHAT_FAB_ELEMENT_ID,
   HEADER_ACTIONS_ELEMENT_ID,
@@ -8,14 +9,7 @@ import {
   TILES_ELEMENT_ID,
   TOOLBAR_ELEMENT_ID,
 } from '../constants/layout'
-import {
-  ArrowAlignment,
-  getTourSteps,
-  headerMenuStep,
-  positionBelowElement,
-  TourStepsProps,
-  TourStepType,
-} from './tourSteps'
+import { getTourSteps, headerMenuStep, positionBelowElement, TourStepsProps, TourStepType } from './tourSteps'
 
 const tourStepsDesktop = (props: TourStepsProps): TourStepType[] => {
   const { rtl } = props
@@ -25,7 +19,7 @@ const tourStepsDesktop = (props: TourStepsProps): TourStepType[] => {
 
   return getTourSteps(props, [
     {
-      id: 'changeLocation',
+      id: 'regionChange',
       offset: { horizontal: -8, vertical: 24 },
       selector: `#${HEADER_TITLE_ELEMENT_ID}`,
       position: positionBelowElement(atStart),

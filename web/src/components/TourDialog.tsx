@@ -12,18 +12,17 @@ import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
 import { LAYOUT_ELEMENT_ID } from '../constants/layout'
-import useLocalStorage, { TOUR_DIALOG_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
+import useLocalStorage, { TOUR_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import Svg from './base/Svg'
 
 const LOGO_SIZE = 48
-const DIALOG_WIDTH = 320
 const TITLE_ELEMENT_ID = 'tour-dialog-title'
 const DESCRIPTION_ELEMENT_ID = 'tour-dialog-description'
 
 const StyledMuiDialog = styled(MuiDialog)({
   [`.${dialogClasses.paper}`]: {
     overflow: 'visible',
-    width: DIALOG_WIDTH,
+    width: 320,
   },
 })
 
@@ -43,51 +42,51 @@ const StyledSvg = styled(Svg)`
 const TourDialog = (): ReactElement | null => {
   const { t } = useTranslation()
   const { isOpen, setIsOpen, currentStep, setCurrentStep, steps } = useTour()
-  const [welcomeVisible, setWelcomeVisible] = useLocalStorage<boolean>({
-    key: TOUR_DIALOG_VISIBLE_STORAGE_KEY,
+  const [tourVisible, setTourVisible] = useLocalStorage<boolean>({
+    key: TOUR_VISIBLE_STORAGE_KEY,
     initialValue: true,
   })
-  const [started, setStarted] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(true)
   const { appName, icons } = buildConfig()
 
   // This is necessary to ensure the theme is correctly applied to the dialog content
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
 
   const finishTour = () => {
-    setWelcomeVisible(false)
+    setTourVisible(false)
     setIsOpen(false)
     setCurrentStep(0)
   }
   const startTour = () => {
     window.scrollTo({ top: 0 })
-    setStarted(true)
+    setIsDialogOpen(false)
     setIsOpen(true)
   }
 
   const finished = isOpen && currentStep >= steps.length
   const content = finished
     ? {
-        title: t($ => $.tour.finishTitle),
-        description: t($ => $.tour.finishDescription, { appName }),
-        actionText: t($ => $.tour.finishAction),
+        title: t($ => $.tour.finish.title),
+        description: t($ => $.tour.finish.description, { appName }),
+        actionText: t($ => $.common.actions.close),
         action: finishTour,
         close: finishTour,
       }
     : {
         title: t($ => $.intro.welcome.title, { appName }),
-        description: t($ => $.tour.welcomeDescription),
-        actionText: t($ => $.tour.startTour),
+        description: t($ => $.tour.welcome),
+        actionText: t($ => $.tour.start),
         action: startTour,
-        close: () => setWelcomeVisible(false),
+        close: () => setTourVisible(false),
       }
 
-  if (!finished && (!welcomeVisible || started)) {
+  if (!finished && (!tourVisible || !isDialogOpen)) {
     return null
   }
 
   return (
     <StyledMuiDialog
-      onClose={finished ? finishTour : () => setStarted(true)}
+      onClose={finished ? finishTour : () => setIsDialogOpen(false)}
       container={dialogContainer}
       aria-labelledby={TITLE_ELEMENT_ID}
       aria-describedby={DESCRIPTION_ELEMENT_ID}
@@ -109,7 +108,7 @@ const TourDialog = (): ReactElement | null => {
           <Button onClick={content.action} variant='contained' fullWidth>
             {content.actionText}
           </Button>
-          {!finished && <Button onClick={content.close}>{t($ => $.tour.skipTour)}</Button>}
+          {!finished && <Button onClick={content.close}>{t($ => $.common.actions.skip)}</Button>}
         </Stack>
       </DialogContent>
     </StyledMuiDialog>
