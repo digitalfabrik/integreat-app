@@ -1,6 +1,5 @@
 import { Position } from '@reactour/tour'
 
-import { ArrowAlignment, TourStepsProps, TourStepType } from '../components/TourStepContent'
 import {
   CHAT_FAB_ELEMENT_ID,
   HEADER_ACTIONS_ELEMENT_ID,
@@ -9,7 +8,14 @@ import {
   TILES_ELEMENT_ID,
   TOOLBAR_ELEMENT_ID,
 } from '../constants/layout'
-import { getTourSteps, headerMenuStep, positionBelowElement } from './tourSteps'
+import {
+  ArrowAlignment,
+  getTourSteps,
+  headerMenuStep,
+  positionBelowElement,
+  TourStepsProps,
+  TourStepType,
+} from './tourSteps'
 
 const tourStepsDesktop = (props: TourStepsProps): TourStepType[] => {
   const { rtl } = props

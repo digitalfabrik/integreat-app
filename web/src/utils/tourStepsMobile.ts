@@ -1,4 +1,3 @@
-import { ArrowAlignment, TourStepsProps, TourStepType } from '../components/TourStepContent'
 import {
   BOTTOM_NAVIGATION_ELEMENT_ID,
   CHAT_FAB_ELEMENT_ID,
@@ -6,7 +5,14 @@ import {
   TILES_ELEMENT_ID,
 } from '../constants/layout'
 import { TOUR_MASK_PADDING, TOUR_POPOVER_PADDING } from '../constants/tour'
-import { getTourSteps, headerMenuStep, positionBelowElement } from './tourSteps'
+import {
+  ArrowAlignment,
+  getTourSteps,
+  headerMenuStep,
+  positionBelowElement,
+  TourStepsProps,
+  TourStepType,
+} from './tourSteps'
 
 const HEADER_POPOVER_POSITIONS = { changeLocation: 0.4, searchAndLanguage: 0.6 }
 

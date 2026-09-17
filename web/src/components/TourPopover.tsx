@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 import { TOUR_POPOVER_MAX_WIDTH } from '../constants/tour'
 import useLocalStorage, { TOUR_DIALOG_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
-import { ArrowAlignment, TourStepType } from './TourStepContent'
+import { ArrowAlignment, TourStepType } from '../utils/tourSteps'
 import { DirectionDependentBackIcon } from './base/Dialog'
 
 const BORDER_RADIUS = 12
@@ -72,14 +72,18 @@ const StyledPaper = styled(Paper, {
   },
 }))
 
-const Dot = styled('span', { shouldForwardProp: prop => prop !== 'current' })<{ current: boolean }>(
-  ({ theme, current }) => ({
+const Dot = styled('span', { shouldForwardProp: prop => prop !== 'current' })<{ current: boolean }>(({
+  theme,
+  current,
+}) => {
+  const inactiveColor = theme.isContrastTheme ? theme.palette.text.disabled : theme.palette.action.disabled
+  return {
     width: DOT_SIZE,
     height: DOT_SIZE,
     borderRadius: '50%',
-    backgroundColor: current ? theme.palette.primary.main : theme.palette.action.disabled,
-  }),
-)
+    backgroundColor: current ? theme.palette.primary.main : inactiveColor,
+  }
+})
 
 const CloseButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
@@ -115,7 +119,7 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
       arrowAlignment={step.arrowAlignment ?? 'left'}
       offset={step.offset}>
       <Stack sx={{ padding: 2, gap: 2 }}>
-        <CloseButton onClick={closeTour} size='small' aria-label={t($ => $.common.close)}>
+        <CloseButton onClick={closeTour} size='small' aria-label={t($ => $.common.actions.close)}>
           <CloseIcon fontSize='small' />
         </CloseButton>
         {step.content}
@@ -144,14 +148,14 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
               size='small'
               onClick={() => setCurrentStep(currentStep - 1)}
               startIcon={<DirectionDependentBackIcon fontSize='small' />}>
-              {t($ => $.layout.previous)}
+              {t($ => $.common.actions.previous)}
             </Button>
           )}
           <Button
             size='small'
             onClick={() => setCurrentStep(currentStep + 1)}
             endIcon={<DirectionDependentForwardIcon fontSize='small' />}>
-            {t($ => (isLastStep ? $.tour.finish : $.layout.next))}
+            {t($ => (isLastStep ? $.tour.finish : $.common.actions.next))}
           </Button>
         </Stack>
       </Stack>
