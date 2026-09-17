@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { View } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
-import { ImageViewModalRouteType } from 'shared'
+import { ImageViewRouteType } from 'shared'
 import { ErrorCodes } from 'shared/api'
 
 import Failure from '../components/Failure'
@@ -11,11 +11,11 @@ import { RouteProps } from '../constants/NavigationTypes'
 import useResourceCache from '../hooks/useResourceCache'
 import { getCachedResource } from '../utils/helpers'
 
-type ImageViewModalProps = {
-  route: RouteProps<ImageViewModalRouteType>
+type ImageViewProps = {
+  route: RouteProps<ImageViewRouteType>
 }
 
-const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
+const ImageView = ({ route }: ImageViewProps): ReactElement => {
   const [isError, setError] = useState(false)
   const { url } = route.params
   const theme = useTheme()
@@ -46,4 +46,4 @@ const ImageViewModal = ({ route }: ImageViewModalProps): ReactElement => {
   )
 }
 
-export default ImageViewModal
+export default ImageView

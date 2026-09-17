@@ -2,7 +2,7 @@ import { MapParamsToBodyType as ImportedMapParamsToBodyType } from './MapParamsT
 import { MapParamsToUrlType as ImportedMapParamsToUrlType } from './MapParamsToUrlType.ts'
 import { MapResponseType as ImportedMapResponseType } from './MapResponseType.ts'
 import {
-  FeedbackRouteType as ImportedFeedbackRouteType,
+  FeedbackType as ImportedFeedbackType,
   ParamsType as ImportedFeedbackParamsType,
 } from './endpoints/createFeedbackEndpoint.ts'
 import { Return as ImportedReturnType } from './endpoints/hooks/useLoadAsync.ts'
@@ -21,7 +21,7 @@ export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>
 export type FeedbackParamsType = ImportedFeedbackParamsType
-export type FeedbackRouteType = ImportedFeedbackRouteType
+export type FeedbackType = ImportedFeedbackType
 export type ReturnType<T extends object> = ImportedReturnType<T>
 export { default as FetchError } from './errors/FetchError.ts'
 export { default as ResponseError } from './errors/ResponseError.ts'
@@ -62,7 +62,6 @@ export {
   InvalidEmailError,
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from './endpoints/submitMalteHelpForm.ts'
-export { CONTENT_FEEDBACK_CATEGORY } from './endpoints/createFeedbackEndpoint.ts'
 export { default as createPlacesEndpoint, PLACES_ENDPOINT_NAME } from './endpoints/createPlacesEndpoint.ts'
 export {
   default as createSprungbrettJobsEndpoint,

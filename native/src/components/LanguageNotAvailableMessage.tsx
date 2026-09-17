@@ -1,8 +1,8 @@
 import React, { ReactElement, useContext } from 'react'
 import { Trans } from 'react-i18next'
 
-import { FEEDBACK_MODAL_ROUTE, LanguagesRouteType } from 'shared'
-import { FeedbackRouteType } from 'shared/api'
+import { FEEDBACK_ROUTE, LanguagesRouteType } from 'shared'
+import { FeedbackType } from 'shared/api'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 import { AppContext } from '../contexts/AppContext'
@@ -11,7 +11,7 @@ import Text from './base/Text'
 
 type LanguageNotAvailableMessageProps = {
   navigation: NavigationProps<LanguagesRouteType>
-  routeType?: FeedbackRouteType
+  routeType?: FeedbackType
   slug?: string
   close: () => void
 }
@@ -28,7 +28,7 @@ const LanguageNotAvailableMessage = ({
   const navigateToFeedback = () => {
     if (regionCode && routeType) {
       close()
-      navigation.navigate(FEEDBACK_MODAL_ROUTE, {
+      navigation.navigate(FEEDBACK_ROUTE, {
         routeType,
         language: languageCode,
         regionCode,

@@ -4,7 +4,7 @@ import React from 'react'
 import { CATEGORIES_ROUTE, RATING_NEGATIVE, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
 
 import render from '../../testing/render'
-import FeedbackContainer from '../FeedbackContainer'
+import { FeedbackContainer } from '../FeedbackContainer'
 
 const mockRequest = jest.fn()
 jest.mock('styled-components')

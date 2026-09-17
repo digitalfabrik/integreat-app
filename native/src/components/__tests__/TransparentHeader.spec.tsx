@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react-native'
 import React, { ReactElement } from 'react'
 import { Share, View } from 'react-native'
 
-import { PDF_VIEW_MODAL_ROUTE } from 'shared'
+import { PDF_VIEW_ROUTE } from 'shared'
 
 import useSnackbar from '../../hooks/useSnackbar'
 import createNavigationMock from '../../testing/createNavigationPropMock'
@@ -34,7 +34,7 @@ describe('TransparentHeader', () => {
     navigation: createNavigationMock(routeIndex),
     route: {
       key: 'key-0',
-      name: PDF_VIEW_MODAL_ROUTE,
+      name: PDF_VIEW_ROUTE,
       params: {
         shareUrl,
         url: 'test',

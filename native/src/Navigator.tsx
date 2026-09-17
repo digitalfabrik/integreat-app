@@ -12,14 +12,14 @@ import {
   CONSENT_ROUTE,
   IMPRINT_ROUTE,
   MAIN_IMPRINT_ROUTE,
-  FEEDBACK_MODAL_ROUTE,
-  IMAGE_VIEW_MODAL_ROUTE,
+  FEEDBACK_ROUTE,
+  IMAGE_VIEW_ROUTE,
   INTRO_ROUTE,
   IntroRouteType,
   REGIONS_ROUTE,
   RegionsRouteType,
   LICENSES_ROUTE,
-  PDF_VIEW_MODAL_ROUTE,
+  PDF_VIEW_ROUTE,
   REDIRECT_ROUTE,
   RedirectRouteType,
   SEARCH_ROUTE,
@@ -40,15 +40,15 @@ import { useAppContext } from './hooks/useRegionAppContext'
 import useSnackbar from './hooks/useSnackbar'
 import Chat from './routes/Chat'
 import Consent from './routes/Consent'
-import FeedbackModalContainer from './routes/FeedbackModalContainer'
-import ImageViewModal from './routes/ImageViewModal'
+import FeedbackContainer from './routes/FeedbackContainer'
+import ImageView from './routes/ImageView'
 import ImprintContainer from './routes/ImprintContainer'
 import Intro from './routes/Intro'
 import LanguageSelection from './routes/LanguageSelection'
 import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import MainImprint from './routes/MainImprint'
-import PDFViewModal from './routes/PDFViewModal'
+import PdfView from './routes/PdfView'
 import Regions from './routes/Regions'
 import SearchContainer from './routes/SearchContainer'
 import Settings from './routes/Settings'
@@ -155,15 +155,15 @@ const Navigator = (): ReactElement | null => {
 
       <Stack.Group screenOptions={{ header: defaultHeader }}>
         <Stack.Screen name={IMPRINT_ROUTE} component={ImprintContainer} />
-        <Stack.Screen name={FEEDBACK_MODAL_ROUTE} component={FeedbackModalContainer} />
+        <Stack.Screen name={FEEDBACK_ROUTE} component={FeedbackContainer} />
         <Stack.Screen name={CHAT_ROUTE} component={Chat} />
         <Stack.Screen name={REGIONS_ROUTE} component={Regions} />
       </Stack.Group>
 
       <Stack.Group screenOptions={{ header: transparentHeader }}>
-        <Stack.Screen name={PDF_VIEW_MODAL_ROUTE} component={PDFViewModal} />
+        <Stack.Screen name={PDF_VIEW_ROUTE} component={PdfView} />
         <Stack.Screen name={LANGUAGES_ROUTE} component={LanguageSelection} />
-        <Stack.Screen name={IMAGE_VIEW_MODAL_ROUTE} component={ImageViewModal} />
+        <Stack.Screen name={IMAGE_VIEW_ROUTE} component={ImageView} />
         {buildConfig().featureFlags.suggestToRegion && (
           <Stack.Screen name={SUGGEST_TO_REGION_ROUTE} component={SuggestToRegion} />
         )}

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
 import { FEEDBACK_QUERY_KEY, parseQueryParams, Rating, SEARCH_ROUTE, SendingStatusType } from 'shared'
-import { createFeedbackEndpoint, FeedbackRouteType } from 'shared/api'
+import { createFeedbackEndpoint, FeedbackType } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import useQueryParam from '../hooks/useQueryParam'
@@ -53,7 +53,7 @@ const FeedbackContainer = ({ slug }: FeedbackContainerProps): ReactElement | nul
     const request = async () => {
       const feedbackEndpoint = createFeedbackEndpoint(cmsApiBaseUrl)
       await feedbackEndpoint.request({
-        routeType: route as FeedbackRouteType,
+        routeType: route as FeedbackType,
         region: regionCode,
         language: languageCode,
         comment,

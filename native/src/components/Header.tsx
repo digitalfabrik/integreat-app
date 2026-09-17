@@ -10,7 +10,7 @@ import {
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   EventsRouteType,
-  FEEDBACK_MODAL_ROUTE,
+  FEEDBACK_ROUTE,
   getSlugFromPath,
   REGIONS_ROUTE,
   NEWS_ROUTE,
@@ -20,7 +20,7 @@ import {
   CHAT_ROUTE,
   getChatName,
 } from 'shared'
-import { FeedbackRouteType, LanguageModel } from 'shared/api'
+import { FeedbackType, LanguageModel } from 'shared/api'
 import { config } from 'translations'
 
 import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
@@ -133,7 +133,7 @@ const Header = ({
       navigation.navigate(LANGUAGES_ROUTE, {
         languages,
         availableLanguages,
-        routeType: route.name as FeedbackRouteType,
+        routeType: route.name as FeedbackType,
         slug: getSlugForRoute(),
       })
     }
@@ -141,8 +141,8 @@ const Header = ({
 
   const navigateToFeedback = () => {
     if (regionCode) {
-      navigation.navigate(FEEDBACK_MODAL_ROUTE, {
-        routeType: route.name as FeedbackRouteType,
+      navigation.navigate(FEEDBACK_ROUTE, {
+        routeType: route.name as FeedbackType,
         language: languageCode,
         regionCode,
         slug: getSlugForRoute(),

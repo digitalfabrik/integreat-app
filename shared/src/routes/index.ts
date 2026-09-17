@@ -55,14 +55,14 @@ export const BOTTOM_TAB_ROUTE: BottomTabRouteType = 'bottomTab'
 export type LanguagesRouteType = 'languages'
 export const LANGUAGES_ROUTE: LanguagesRouteType = 'languages'
 
-export type PdfViewModalRouteType = 'pdf'
-export const PDF_VIEW_MODAL_ROUTE: PdfViewModalRouteType = 'pdf'
+export type PdfViewRouteType = 'pdf'
+export const PDF_VIEW_ROUTE: PdfViewRouteType = 'pdf'
 
-export type ImageViewModalRouteType = 'image'
-export const IMAGE_VIEW_MODAL_ROUTE: ImageViewModalRouteType = 'image'
+export type ImageViewRouteType = 'image'
+export const IMAGE_VIEW_ROUTE: ImageViewRouteType = 'image'
 
-export type FeedbackModalRouteType = 'feedback'
-export const FEEDBACK_MODAL_ROUTE: FeedbackModalRouteType = 'feedback'
+export type FeedbackRouteType = 'feedback'
+export const FEEDBACK_ROUTE: FeedbackRouteType = 'feedback'
 
 export type ConsentRouteType = 'consent'
 export const CONSENT_ROUTE: ConsentRouteType = 'consent'

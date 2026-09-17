@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { IMAGE_VIEW_MODAL_ROUTE, REGIONS_ROUTE, PDF_VIEW_MODAL_ROUTE } from 'shared'
+import { IMAGE_VIEW_ROUTE, REGIONS_ROUTE, PDF_VIEW_ROUTE } from 'shared'
 
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
@@ -50,7 +50,7 @@ describe('useNavigateToLink', () => {
     const url = 'https://example.com/my.pdf'
     renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
-    expect(navigation.navigate).toHaveBeenCalledWith(PDF_VIEW_MODAL_ROUTE, { url, shareUrl: url })
+    expect(navigation.navigate).toHaveBeenCalledWith(PDF_VIEW_ROUTE, { url, shareUrl: url })
     expect(navigateTo).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
@@ -59,7 +59,7 @@ describe('useNavigateToLink', () => {
     const url = 'https://example.com/my.jpg'
     renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
-    expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
+    expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_ROUTE, {
       url,
       shareUrl: url,
     })
@@ -71,7 +71,7 @@ describe('useNavigateToLink', () => {
     const url = 'https://example.com/my.jpeg'
     renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
-    expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
+    expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_ROUTE, {
       url,
       shareUrl: url,
     })
@@ -83,7 +83,7 @@ describe('useNavigateToLink', () => {
     const url = 'https://example.com/my.png'
     renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
-    expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_MODAL_ROUTE, {
+    expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_ROUTE, {
       url,
       shareUrl: url,
     })

@@ -8,7 +8,7 @@ import {
   NEWS_ROUTE,
 } from '../../../routes/index.ts'
 import { API_VERSION } from '../../constants/index.ts'
-import createFeedbackEndpoint, { FeedbackTypes } from '../createFeedbackEndpoint.ts'
+import createFeedbackEndpoint, { ApiFeedbackTypes } from '../createFeedbackEndpoint.ts'
 
 describe('feedback', () => {
   const baseUrl = 'https://integreat-api-url.de'
@@ -109,15 +109,15 @@ describe('feedback', () => {
 
   it.each`
     route               | props                     | feedbackType
-    ${CATEGORIES_ROUTE} | ${{}}                     | ${FeedbackTypes.Categories}
-    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }} | ${FeedbackTypes.Page}
-    ${EVENTS_ROUTE}     | ${{}}                     | ${FeedbackTypes.Events}
-    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackTypes.Event}
-    ${IMPRINT_ROUTE}    | ${{}}                     | ${FeedbackTypes.Imprint}
-    ${PLACES_ROUTE}     | ${{ slug: '1234' }}       | ${FeedbackTypes.Place}
-    ${PLACES_ROUTE}     | ${{}}                     | ${FeedbackTypes.Map}
-    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}    | ${FeedbackTypes.Search}
-    ${NEWS_ROUTE}       | ${{}}                     | ${FeedbackTypes.Categories}
+    ${CATEGORIES_ROUTE} | ${{}}                     | ${ApiFeedbackTypes.Categories}
+    ${CATEGORIES_ROUTE} | ${{ slug: 'willkommen' }} | ${ApiFeedbackTypes.Page}
+    ${EVENTS_ROUTE}     | ${{}}                     | ${ApiFeedbackTypes.Events}
+    ${EVENTS_ROUTE}     | ${{ slug: '1234' }}       | ${ApiFeedbackTypes.Event}
+    ${IMPRINT_ROUTE}    | ${{}}                     | ${ApiFeedbackTypes.Imprint}
+    ${PLACES_ROUTE}     | ${{ slug: '1234' }}       | ${ApiFeedbackTypes.Place}
+    ${PLACES_ROUTE}     | ${{}}                     | ${ApiFeedbackTypes.Map}
+    ${SEARCH_ROUTE}     | ${{ query: 'query ' }}    | ${ApiFeedbackTypes.Search}
+    ${NEWS_ROUTE}       | ${{}}                     | ${ApiFeedbackTypes.Categories}
   `(
     'should successfully request feedback for $feedbackType if rating was set',
     async ({ route, props, feedbackType }) => {
