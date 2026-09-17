@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next'
 
-import { CONSENT_ROUTE, ExternalSourcePermissions } from 'shared'
+import { EXTERNAL_SOURCES_ROUTE, ExternalSourcePermissions } from 'shared'
 
 export type IframeSources = Record<number, string>
 export const IFRAME_BLANK_SOURCE = 'about:blank'
@@ -125,7 +125,7 @@ const showSettingsLink = (element: HTMLDivElement, t: TFunction): void => {
   const link = document.createElement('a')
   link.innerHTML = t($ => $.settings.title)
   link.id = 'opt-in-settings-link'
-  link.href = `/${CONSENT_ROUTE}`
+  link.href = `/${EXTERNAL_SOURCES_ROUTE}`
   element.appendChild(link)
 }
 

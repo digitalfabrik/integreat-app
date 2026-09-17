@@ -64,8 +64,8 @@ export const IMAGE_VIEW_ROUTE: ImageViewRouteType = 'image'
 export type FeedbackRouteType = 'feedback'
 export const FEEDBACK_ROUTE: FeedbackRouteType = 'feedback'
 
-export type ConsentRouteType = 'consent'
-export const CONSENT_ROUTE: ConsentRouteType = 'consent'
+export type ExternalSourcesRouteType = 'consent'
+export const EXTERNAL_SOURCES_ROUTE: ExternalSourcesRouteType = 'consent'
 
 export type ChatRouteType = 'chat'
 export const CHAT_ROUTE: ChatRouteType = 'chat'
@@ -83,7 +83,7 @@ export const RESERVED_TOP_LEVEL_SLUGS: string[] = [
   REGIONS_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NOT_FOUND_ROUTE,
-  CONSENT_ROUTE,
+  EXTERNAL_SOURCES_ROUTE,
   LICENSES_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
   LEGACY_REGIONS_ROUTE,

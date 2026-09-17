@@ -9,7 +9,7 @@ import {
   CategoriesRouteType,
   LANGUAGES_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
-  CONSENT_ROUTE,
+  EXTERNAL_SOURCES_ROUTE,
   IMPRINT_ROUTE,
   MAIN_IMPRINT_ROUTE,
   FEEDBACK_ROUTE,
@@ -39,7 +39,7 @@ import useLoadRegions from './hooks/useLoadRegions'
 import { useAppContext } from './hooks/useRegionAppContext'
 import useSnackbar from './hooks/useSnackbar'
 import Chat from './routes/Chat'
-import Consent from './routes/Consent'
+import ExternalSources from './routes/ExternalSources'
 import FeedbackContainer from './routes/FeedbackContainer'
 import ImageView from './routes/ImageView'
 import ImprintContainer from './routes/ImprintContainer'
@@ -172,7 +172,7 @@ const Navigator = (): ReactElement | null => {
       <Stack.Group screenOptions={{ header: settingsHeader }}>
         <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
         <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
-        <Stack.Screen name={CONSENT_ROUTE} component={Consent} />
+        <Stack.Screen name={EXTERNAL_SOURCES_ROUTE} component={ExternalSources} />
         <Stack.Screen name={MAIN_IMPRINT_ROUTE} component={MainImprint} />
       </Stack.Group>
     </Stack.Navigator>

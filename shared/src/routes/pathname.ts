@@ -2,7 +2,7 @@ import { NonNullableRouteInformationType } from './RouteInformationTypes.ts'
 import {
   CATEGORIES_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
-  CONSENT_ROUTE,
+  EXTERNAL_SOURCES_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
@@ -34,7 +34,7 @@ export const regionContentPath = ({ regionCode, languageCode, route, path }: Reg
 export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteInformationType): string => {
   if (
     routeInformation.route === LICENSES_ROUTE ||
-    routeInformation.route === CONSENT_ROUTE ||
+    routeInformation.route === EXTERNAL_SOURCES_ROUTE ||
     routeInformation.route === MAIN_IMPRINT_ROUTE
   ) {
     // https://integreat.app/consent, https://integreat.app/licenses, https://integreat.app/main-imprint
