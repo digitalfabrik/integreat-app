@@ -1,6 +1,6 @@
-import { Dimensions } from '../hooks/useDimensions'
+import { ScrollDimensions, Dimensions } from '../useDimensions'
 
-export const mockDimensions: Dimensions = {
+export const mockDimensions: ScrollDimensions = {
   window: {
     width: 400,
     height: 400,
@@ -33,4 +33,6 @@ export const mockDimensions: Dimensions = {
   xlarge: false,
 }
 
-export default (): Dimensions => mockDimensions
+export const useDimensions = jest.fn((): ScrollDimensions => mockDimensions)
+
+export default jest.fn((): Dimensions => mockDimensions)

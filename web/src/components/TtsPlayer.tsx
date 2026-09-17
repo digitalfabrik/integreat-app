@@ -11,7 +11,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { TTS_PLAYER_ELEMENT_ID } from '../constants/layout'
-import useDimensions from '../hooks/useDimensions'
+import { useScrollDimensions } from '../hooks/useDimensions'
 import useUpdateDimensions from '../hooks/useUpdateDimensions'
 
 const StyledTtsPlayer = styled('dialog')<{ bottom: number }>`
@@ -94,7 +94,7 @@ const TtsPlayer = ({
   pause,
   disabled,
 }: TtsPlayerProps): ReactElement => {
-  const { visibleFooterHeight, bottomNavigationHeight } = useDimensions()
+  const { visibleFooterHeight, bottomNavigationHeight } = useScrollDimensions()
   const { t } = useTranslation()
   useUpdateDimensions()
 
