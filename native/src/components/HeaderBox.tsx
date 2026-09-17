@@ -6,7 +6,7 @@ import styled, { useTheme } from 'styled-components/native'
 import { REGIONS_ROUTE } from 'shared'
 
 import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
-import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
+import { BaseRouteProps, BaseNavigationProps } from '../constants/NavigationTypes'
 import { buildConfigAssets } from '../constants/buildConfig'
 import HeaderTitle from './HeaderTitle'
 import Icon from './base/Icon'
@@ -41,8 +41,8 @@ export const HeaderBackButton = ({ goBack }: HeaderBackButtonProps): ReactElemen
 }
 
 type HeaderBoxProps = {
-  route: RouteProps<RoutesType>
-  navigation: NavigationProps<RoutesType>
+  route: BaseRouteProps
+  navigation: BaseNavigationProps
   goBack?: () => void
   regionName?: string
 }

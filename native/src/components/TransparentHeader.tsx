@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Menu } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
+import { BaseRouteProps, BaseNavigationProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import useOpenExternalUrl from '../utils/openExternalUrl'
 import HeaderBox from './HeaderBox'
@@ -23,8 +23,8 @@ const Container = styled.View`
 `
 
 type TransparentHeaderProps = {
-  route: RouteProps<RoutesType>
-  navigation: NavigationProps<RoutesType>
+  route: BaseRouteProps
+  navigation: BaseNavigationProps
 }
 
 const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): ReactElement | null => {

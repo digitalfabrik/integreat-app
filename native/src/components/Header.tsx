@@ -19,7 +19,7 @@ import {
 } from 'shared'
 import { FeedbackType, LanguageModel } from 'shared/api'
 
-import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
+import { BaseRouteProps, BaseNavigationProps, RoutesParamsType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContext'
 import useSnackbar from '../hooks/useSnackbar'
@@ -45,8 +45,8 @@ const BoxShadow = styled(HighlightBox)`
 `
 
 type HeaderProps = {
-  route: RouteProps<RoutesType>
-  navigation: NavigationProps<RoutesType>
+  route: BaseRouteProps
+  navigation: BaseNavigationProps
   showItems?: boolean
   languages?: LanguageModel[]
   availableLanguages?: string[]
