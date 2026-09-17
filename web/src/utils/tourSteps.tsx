@@ -1,12 +1,29 @@
-import { SelectorParam } from 'i18next'
-import React from 'react'
+import { StepType } from '@reactour/tour'
+import { SelectorParam, TFunction } from 'i18next'
+import React, { ReactElement } from 'react'
 
 import { getChatName } from 'shared'
+import { RegionModel } from 'shared/api'
 
-import TourStepContent, { ArrowAlignment, TourStepsProps, TourStepType } from '../components/TourStepContent'
+import TourStepContent from '../components/TourStepContent'
 import buildConfig from '../constants/buildConfig'
 import { HEADER_MENU_ELEMENT_ID, HEADER_MENU_PANEL_ELEMENT_ID } from '../constants/layout'
 import getNavigationItems from './navigationItems'
+
+export type ArrowAlignment = 'left' | 'right'
+
+export type TourStepType = StepType & {
+  content: ReactElement
+  arrowAlignment?: ArrowAlignment
+  offset?: { horizontal?: number; vertical?: number }
+}
+
+export type TourStepsProps = {
+  t: TFunction
+  rtl: boolean
+  region: RegionModel
+  languageCode: string
+}
 
 type TourStepId =
   'changeLocation' | 'searchAndLanguage' | 'additionalFeatures' | 'categories' | 'navigation' | 'chat' | 'feedback'
@@ -61,7 +78,7 @@ const getTourStepDefinitions = ({
     changeLocation: featureFlags.fixedRegion
       ? null
       : {
-          title: t($ => $.layout.changeLocation),
+          title: t($ => $.regions.change),
           descriptionKey: $ => $.tour.changeLocationDescription,
         },
     searchAndLanguage: {
@@ -90,8 +107,8 @@ const getTourStepDefinitions = ({
           }
         : null,
     feedback: {
-      title: t($ => $.feedback.giveFeedback),
-      descriptionKey: $ => $.feedback.commentDescription,
+      title: t($ => $.feedback.give),
+      descriptionKey: $ => $.feedback.comment.description,
     },
   }
 }

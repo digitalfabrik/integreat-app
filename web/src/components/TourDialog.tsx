@@ -74,7 +74,7 @@ const TourDialog = (): ReactElement | null => {
         close: finishTour,
       }
     : {
-        title: t($ => $.intro.welcome, { appName }),
+        title: t($ => $.intro.welcome.title, { appName }),
         description: t($ => $.tour.welcomeDescription),
         actionText: t($ => $.tour.startTour),
         action: startTour,
@@ -94,7 +94,7 @@ const TourDialog = (): ReactElement | null => {
       open>
       <StyledSvg src={icons.appLogoMobile} width={LOGO_SIZE} height={LOGO_SIZE} />
       <Stack sx={{ alignItems: 'flex-end', marginInline: 1, marginBlockStart: 1 }}>
-        <IconButton onClick={content.close} size='small' aria-label={t($ => $.common.close)}>
+        <IconButton onClick={content.close} size='small' aria-label={t($ => $.common.actions.close)}>
           <CloseIcon fontSize='small' />
         </IconButton>
       </Stack>

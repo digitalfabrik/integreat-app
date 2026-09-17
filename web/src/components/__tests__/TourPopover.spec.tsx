@@ -4,8 +4,8 @@ import React from 'react'
 
 import { TOUR_DIALOG_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { renderWithTheme } from '../../testing/render'
+import { TourStepType } from '../../utils/tourSteps'
 import TourPopover from '../TourPopover'
-import { TourStepType } from '../TourStepContent'
 
 describe('TourPopover', () => {
   const setCurrentStep = jest.fn()
@@ -30,13 +30,13 @@ describe('TourPopover', () => {
     const { getByText, getByLabelText } = renderPopover(0)
 
     expect(getByText('First step')).toBeTruthy()
-    expect(getByLabelText('tour:progress')).toHaveTextContent('1/2')
+    expect(getByLabelText('tour:progress [1,2]')).toHaveTextContent('1/2')
   })
 
   it('should navigate to the next step', () => {
     const { getByText } = renderPopover(0)
 
-    fireEvent.click(getByText('layout:next'))
+    fireEvent.click(getByText('common:actions.next'))
 
     expect(setCurrentStep).toHaveBeenCalledWith(1)
   })
@@ -44,7 +44,7 @@ describe('TourPopover', () => {
   it('should navigate to the previous step', () => {
     const { getByText } = renderPopover(1)
 
-    fireEvent.click(getByText('layout:previous'))
+    fireEvent.click(getByText('common:actions.previous'))
 
     expect(setCurrentStep).toHaveBeenCalledWith(0)
   })
@@ -52,7 +52,7 @@ describe('TourPopover', () => {
   it('should not show the back button on the first step', () => {
     const { queryByText } = renderPopover(0)
 
-    expect(queryByText('layout:previous')).toBeNull()
+    expect(queryByText('common:actions.previous')).toBeNull()
   })
 
   it('should advance past the last step to finish the tour', () => {
@@ -67,7 +67,7 @@ describe('TourPopover', () => {
   it('should close the tour and not offer it again', () => {
     const { getByLabelText } = renderPopover(0)
 
-    fireEvent.click(getByLabelText('common:close'))
+    fireEvent.click(getByLabelText('common:actions.close'))
 
     expect(setIsOpen).toHaveBeenCalledWith(false)
     expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('false')

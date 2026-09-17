@@ -26,7 +26,7 @@ describe('TourDialog', () => {
   it('should offer the tour on the first visit', () => {
     const { getByText } = renderDialog()
 
-    expect(getByText('intro:welcome')).toBeTruthy()
+    expect(getByText('intro:welcome.title IntegreatTestCms')).toBeTruthy()
     expect(getByText('tour:welcomeDescription')).toBeTruthy()
     expect(getByText('tour:startTour')).toBeTruthy()
     expect(getByText('tour:skipTour')).toBeTruthy()
@@ -36,7 +36,7 @@ describe('TourDialog', () => {
     localStorage.setItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY, 'false')
     const { queryByText } = renderDialog()
 
-    expect(queryByText('intro:welcome')).toBeNull()
+    expect(queryByText('intro:welcome.title IntegreatTestCms')).toBeNull()
   })
 
   it('should offer the tour again if it was interrupted after starting it', () => {
@@ -44,7 +44,7 @@ describe('TourDialog', () => {
 
     fireEvent.click(getByText('tour:startTour'))
 
-    expect(queryByText('intro:welcome')).toBeNull()
+    expect(queryByText('intro:welcome.title IntegreatTestCms')).toBeNull()
     expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 
@@ -53,7 +53,7 @@ describe('TourDialog', () => {
 
     fireEvent.click(getByText('tour:skipTour'))
 
-    expect(queryByText('intro:welcome')).toBeNull()
+    expect(queryByText('intro:welcome.title IntegreatTestCms')).toBeNull()
     expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('false')
   })
 
@@ -61,7 +61,7 @@ describe('TourDialog', () => {
     const { getByText, queryByText } = renderDialog({ finished: true })
 
     expect(getByText('tour:finishTitle')).toBeTruthy()
-    expect(getByText('tour:finishDescription')).toBeTruthy()
+    expect(getByText('tour:finishDescription IntegreatTestCms')).toBeTruthy()
     expect(queryByText('tour:skipTour')).toBeNull()
 
     fireEvent.click(getByText('tour:finishAction'))
