@@ -11,6 +11,7 @@ import Feedback from '../components/Feedback'
 import Text from '../components/base/Text'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import { determineApiUrl } from '../utils/helpers'
 import { captureError } from '../utils/sentry'
 
@@ -122,8 +123,10 @@ type FeedbackRouteContainerProps = {
   navigation: NavigationProps<FeedbackRouteType>
 }
 
-const FeedbackRouteContainer = ({ route }: FeedbackRouteContainerProps): ReactElement => (
-  <FeedbackContainer {...route.params} />
-)
+const FeedbackRouteContainer = ({ route }: FeedbackRouteContainerProps): ReactElement => {
+  const { t } = useTranslation()
+  useSetRouteTitle(t($ => $.feedback.title))
+  return <FeedbackContainer {...route.params} />
+}
 
 export default FeedbackRouteContainer

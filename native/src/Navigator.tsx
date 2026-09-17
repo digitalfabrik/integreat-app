@@ -33,7 +33,7 @@ import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
 import TransparentHeader from './components/TransparentHeader'
 import { ROOT_NAVIGATOR_ID } from './constants'
-import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from './constants/NavigationTypes'
+import { BaseRouteProps, BaseNavigationProps, RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import useLoadRegions from './hooks/useLoadRegions'
 import { useAppContext } from './hooks/useRegionAppContext'
@@ -57,8 +57,8 @@ import dataContainer from './utils/DefaultDataContainer'
 import { initSentry, log, captureError } from './utils/sentry'
 
 type HeaderProps = {
-  route: RouteProps<RoutesType>
-  navigation: NavigationProps<RoutesType>
+  route: BaseRouteProps
+  navigation: BaseNavigationProps
 }
 
 const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />

@@ -18,7 +18,7 @@ import {
   SEARCH_ROUTE,
 } from 'shared'
 
-import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
+import { NavigationProps, RoutesType, BaseNavigationProps } from '../constants/NavigationTypes'
 import { AppContext, AppContextType } from '../contexts/AppContext'
 import { navigateNested } from '../utils/navigation'
 import useOpenExternalUrl from '../utils/openExternalUrl'
@@ -121,11 +121,11 @@ const navigate = <T extends RoutesType>({
 
 type UseNavigateReturn = {
   navigateTo: (routeInformation: RouteInformationType) => void
-  navigation: NavigationProps<RoutesType>
+  navigation: BaseNavigationProps
 }
 
 const useNavigate = ({ redirect } = { redirect: false }): UseNavigateReturn => {
-  const navigation = useNavigation<NavigationProps<RoutesType>>()
+  const navigation = useNavigation<BaseNavigationProps>()
   const appContext = useContext(AppContext)
   const openExternalUrl = useOpenExternalUrl()
 

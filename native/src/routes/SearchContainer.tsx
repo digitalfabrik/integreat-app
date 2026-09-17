@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { prepareSearchDocuments, SearchRouteType } from 'shared'
 import { config } from 'translations'
@@ -6,6 +7,7 @@ import { config } from 'translations'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useRegionAppContext from '../hooks/useRegionAppContext'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import LoadingErrorHandler from './LoadingErrorHandler'
 import Search from './Search'
 
@@ -16,9 +18,12 @@ export type SearchContainerProps = {
 
 const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElement | null => {
   const { regionCode, languageCode } = useRegionAppContext()
+  const { t } = useTranslation()
   const initialSearchText = route.params.searchText ?? ''
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
   const { data: sourceLanguageData } = useLoadRegionContent({ regionCode, languageCode: config.sourceLanguage })
+
+  useSetRouteTitle(t($ => $.search.title))
 
   const userLanguageDocuments = prepareSearchDocuments(data?.categories, data?.events, data?.places)
   const sourceLanguageDocuments =

@@ -9,6 +9,7 @@ import { useLoadAsync } from 'shared/api'
 import Caption from '../components/Caption'
 import Layout from '../components/Layout'
 import Text from '../components/base/Text'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import useOpenExternalUrl from '../utils/openExternalUrl'
 
 type LicenseItemProps = {
@@ -62,6 +63,8 @@ const Licenses = (): ReactElement => {
   const { data: licenses } = useLoadAsync(loadLicenses)
   const { t } = useTranslation()
   const openExternalUrl = useOpenExternalUrl()
+
+  useSetRouteTitle(t($ => $.about.licenses.title))
 
   const renderItem = ({ item }: { item: License }) => {
     const { license, name, repository, version, author } = item

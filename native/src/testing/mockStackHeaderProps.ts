@@ -3,15 +3,15 @@ import { merge } from 'lodash'
 
 import { CATEGORIES_ROUTE } from 'shared'
 
-import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
+import { BaseRouteProps, BaseNavigationProps } from '../constants/NavigationTypes'
 import createNavigationMock from './createNavigationPropMock'
 
 type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>
 }
 type MockStackHeaderPropsProps = {
-  route: RouteProps<RoutesType>
-  navigation: NavigationProps<RoutesType>
+  route: BaseRouteProps
+  navigation: BaseNavigationProps
 }
 
 const mockStackHeaderProps = (

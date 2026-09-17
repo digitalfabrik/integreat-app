@@ -3,29 +3,23 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components/native'
 
 import {
-  BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CategoriesRouteType,
-  LANGUAGES_ROUTE,
-  IMPRINT_ROUTE,
   EVENTS_ROUTE,
   EventsRouteType,
   FEEDBACK_ROUTE,
   getSlugFromPath,
-  REGIONS_ROUTE,
+  IMPRINT_ROUTE,
+  LANGUAGES_ROUTE,
   NEWS_ROUTE,
   PLACES_ROUTE,
   PlacesRouteType,
+  REGIONS_ROUTE,
   SEARCH_ROUTE,
-  CHAT_ROUTE,
-  getChatName,
 } from 'shared'
 import { FeedbackType, LanguageModel } from 'shared/api'
-import { config } from 'translations'
 
-import { ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../constants'
-import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
-import buildConfig from '../constants/buildConfig'
+import { BaseRouteProps, BaseNavigationProps, RoutesParamsType } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContext'
 import useSnackbar from '../hooks/useSnackbar'
@@ -51,8 +45,8 @@ const BoxShadow = styled(HighlightBox)`
 `
 
 type HeaderProps = {
-  route: RouteProps<RoutesType>
-  navigation: NavigationProps<RoutesType>
+  route: BaseRouteProps
+  navigation: BaseNavigationProps
   showItems?: boolean
   languages?: LanguageModel[]
   availableLanguages?: string[]
@@ -79,31 +73,13 @@ const Header = ({
   const { languageCode, regionCode } = useContext(AppContext)
   const { t } = useTranslation()
   const showSnackbar = useSnackbar()
-  // Save route/canGoBack to state to prevent it from changing during navigating which would lead to flickering of the title and back button
-  const [previousRouteKey] = useState(() => {
-    const { routes } = navigation.getState()
-    return routes[routes.findIndex(navRoute => navRoute.key === route.key) - 1]?.key
-  })
-  const previousRoute = navigation.getState().routes.find(route => route.key === previousRouteKey)
   const { showTtsPlayer } = useTtsPlayer()
-  const isRegions = route.name === REGIONS_ROUTE
+
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
-  const placesParams = route.params as RoutesParamsType[PlacesRouteType] | undefined
-  const hasPlacesParams = !!placesParams?.slug || placesParams?.multiPlace !== undefined
-
-  const tabNavigationState = navigation.getParent(TAB_NAVIGATOR_ID)?.getState()
-  const rootNavigationState = navigation.getParent(ROOT_NAVIGATOR_ID)?.getState()
-
-  const hasTabHistory = !!tabNavigationState && tabNavigationState.index > 0
-  const hasRootHistory = !!rootNavigationState && rootNavigationState.index > 0
-
-  const canGoBack =
-    previousRoute !== undefined || hasRootHistory || hasTabHistory || (route.name === PLACES_ROUTE && hasPlacesParams)
-
-  // @ts-expect-error will be fixed in #4032
-  const routeTitle = (route.params as { title?: string } | undefined)?.title ?? t($ => $[route.name])
-  const pageTitle = regionName !== routeTitle ? `${routeTitle} - ${regionName}` : routeTitle
+  const routeTitle = (route.params as { title?: string } | undefined)?.title
+  const pageTitle =
+    routeTitle && regionName && routeTitle !== regionName ? `${routeTitle} - ${regionName}` : (routeTitle ?? regionName)
 
   const getCategorySlug = (path?: string): string | undefined => (path ? getSlugFromPath(path) : undefined)
 
@@ -111,16 +87,12 @@ const Header = ({
     switch (route.name) {
       case EVENTS_ROUTE:
         return (route.params as RoutesParamsType[EventsRouteType]).slug
-
       case PLACES_ROUTE:
         return (route.params as RoutesParamsType[PlacesRouteType]).slug
-
       case CATEGORIES_ROUTE:
         return getCategorySlug((route.params as RoutesParamsType[CategoriesRouteType]).path)
-
       case IMPRINT_ROUTE:
         return IMPRINT_ROUTE
-
       default:
         return undefined
     }
@@ -162,7 +134,7 @@ const Header = ({
       key='language'
       accessibilityLabel={t($ => $.languages.change)}
       iconName='language'
-      visible={showItems || isRegions}
+      visible={showItems || route.name === REGIONS_ROUTE}
       onPress={goToLanguageChange}
       innerText={forceText ? currentLanguageName : undefined}
     />,
@@ -200,66 +172,10 @@ const Header = ({
     />
   )
 
-  const isSinglePlaceFromPlacesRoute = (): boolean => {
-    const placesRouteParams = route.params as RoutesParamsType[PlacesRouteType] | undefined
-    const isSinglePlace = !!placesRouteParams?.slug || placesRouteParams?.multiPlace !== undefined
-    const notFromDeepLink = previousRoute?.name === PLACES_ROUTE
-    return isSinglePlace && notFromDeepLink
-  }
-
-  const getHeaderTitle = (): { title: string; language?: string } => {
-    if (!previousRoute) {
-      // Home/Dashboard: Show current region name
-      return { title: regionName ?? '', language: config.sourceLanguage }
-    }
-
-    if (isSinglePlaceFromPlacesRoute()) {
-      return { title: t($ => $.places.title), language: undefined } // system language
-    }
-
-    const eventsRouteParams = route.params as RoutesParamsType[EventsRouteType] | undefined
-    const isSingleEvent = !!eventsRouteParams?.slug
-    const notFromEventsDeepLink = previousRoute.name === EVENTS_ROUTE
-    if (isSingleEvent && notFromEventsDeepLink) {
-      return { title: t($ => $.events.title), language: undefined } // system language
-    }
-
-    const previousRouteTitle = (previousRoute.params as { title?: string } | undefined)?.title
-    if (previousRouteTitle) {
-      return { title: previousRouteTitle, language: languageCode }
-    }
-
-    // After search navigation reset, previousRoute may be BOTTOM_TAB_NAVIGATION_ROUTE
-    if (previousRoute.name === CATEGORIES_ROUTE || previousRoute.name === BOTTOM_TAB_ROUTE) {
-      return { title: regionName ?? '', language: languageCode }
-    }
-
-    if (previousRoute.name === REGIONS_ROUTE) {
-      return { title: t($ => $.regions.change), language: undefined } // system language
-    }
-
-    if (previousRoute.name === CHAT_ROUTE) {
-      return { title: getChatName(buildConfig().appName), language: undefined } // system language
-    }
-
-    // @ts-expect-error will be fixed in #4032
-    return { title: t($ => $[previousRoute.name]), language: undefined } // system language
-  }
-
-  const { title, language } = getHeaderTitle()
-  const regionsPath =
-    !previousRoute && !hasRootHistory && !isRegions ? () => navigation.navigate(REGIONS_ROUTE) : undefined
-
   return (
     <BoxShadow>
       <Horizontal>
-        <HeaderBox
-          goBack={goBack ?? navigation.goBack}
-          canGoBack={canGoBack}
-          title={title}
-          language={language}
-          regionsPath={regionsPath}
-        />
+        <HeaderBox route={route} navigation={navigation} goBack={goBack} regionName={regionName} />
         <ActionButtons items={items} />
         {/* Passing null should hide the menu, so don't simplify this to menu ?? defaultMenu */}
         {menu !== undefined ? menu : defaultMenu}

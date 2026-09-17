@@ -9,6 +9,7 @@ import LayoutedScrollView from '../components/LayoutedScrollView'
 import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
 import buildConfig, { buildConfigAssets } from '../constants/buildConfig'
+import useSetRouteTitle from '../hooks/useSetRouteTitle'
 
 const Container = styled(LayoutedScrollView)`
   padding: 30px;
@@ -30,6 +31,8 @@ const SuggestToRegion = (): ReactElement | null => {
   const [isCopied, setIsCopied] = useState<boolean>(false)
   const { t } = useTranslation()
   const theme = useTheme()
+
+  useSetRouteTitle(t($ => $.suggestToRegion.title, { appName: buildConfig().appName }))
 
   const suggestToRegion = buildConfig().featureFlags.suggestToRegion
   const SuggestToRegionIcon = buildConfigAssets().SuggestToRegionIcon

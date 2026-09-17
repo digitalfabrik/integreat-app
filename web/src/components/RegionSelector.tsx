@@ -45,8 +45,8 @@ const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): Re
 
   return (
     <Stack sx={{ maxWidth: 640, paddingTop: 4, gap: 2 }}>
-      <H1>{t($ => $.regions.title, { appName: buildConfig().appName })}</H1>
-      <Typography variant='body1'>{t($ => $.regions.description)}</Typography>
+      <H1>{t($ => $.regions.welcome.title, { appName: buildConfig().appName })}</H1>
+      <Typography variant='body1'>{t($ => $.regions.welcome.description)}</Typography>
       <SearchInput
         id='search-region'
         ariaLabel={t($ => $.regions.search.region)}

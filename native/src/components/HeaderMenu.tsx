@@ -5,7 +5,7 @@ import { IconButton, Menu, useTheme } from 'react-native-paper'
 
 import { SETTINGS_ROUTE } from 'shared'
 
-import { NavigationProps, RoutesType } from '../constants/NavigationTypes'
+import { BaseNavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import useSnackbar from '../hooks/useSnackbar'
 import { withDividers } from '../utils'
@@ -14,7 +14,7 @@ import HeaderMenuItem from './HeaderMenuItem'
 import QrCodeModal from './QrCodeModal'
 
 type HeaderMenuProps = {
-  navigation: NavigationProps<RoutesType>
+  navigation: BaseNavigationProps
   visible: boolean
   setVisible: (visible: boolean) => void
   menuItems: ReactElement[]

@@ -3,18 +3,21 @@ import React, { ReactElement } from 'react'
 import { View, Linking, Share } from 'react-native'
 
 import {
+  BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
+  CATEGORIES_TAB_ROUTE,
   CategoriesRouteType,
+  EVENTS_TAB_ROUTE,
   LANGUAGES_ROUTE,
   IMPRINT_ROUTE,
   ImprintRouteType,
   NewsRouteType,
-  PLACES_ROUTE,
   PlacesRouteType,
   SEARCH_ROUTE,
 } from 'shared'
 import { LanguageModelBuilder, RegionModelBuilder, LanguageModel } from 'shared/api'
 
+import { NavigatorIds, ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../../constants'
 import { RouteProps } from '../../constants/NavigationTypes'
 import useSnackbar from '../../hooks/useSnackbar'
 import TestingAppContext from '../../testing/TestingAppContext'
@@ -75,6 +78,12 @@ describe('Header', () => {
       stale: false,
       preloadedRoutes: [],
     }))
+  }
+
+  const mockParentNavigator = (navigatorId: NavigatorIds, state: Record<string, unknown>) => {
+    mocked(navigation.getParent).mockImplementation(id =>
+      id === navigatorId ? ({ getState: jest.fn(() => state) } as never) : undefined,
+    )
   }
 
   const renderHeader = ({
@@ -141,6 +150,43 @@ describe('Header', () => {
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
+  it('should show the title of the focused route of a nested navigator as header title', () => {
+    mocked(navigation.getState).mockImplementation(() => ({
+      key: 'stack-key',
+      index: 1,
+      routeNames: [BOTTOM_TAB_ROUTE, IMPRINT_ROUTE],
+      routes: [
+        {
+          key: 'bottom-tab-key',
+          name: BOTTOM_TAB_ROUTE,
+          params: { title: regionModel.name },
+          state: {
+            index: 0,
+            routes: [
+              {
+                key: 'categories-tab-key',
+                name: CATEGORIES_TAB_ROUTE,
+                state: {
+                  index: 1,
+                  routes: [
+                    { key: 'categories-key-0', name: CATEGORIES_ROUTE, params: { title: regionModel.name } },
+                    { key: 'categories-key-1', name: CATEGORIES_ROUTE, params: { title: 'Nested Category' } },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        { key: 'key-0', name: IMPRINT_ROUTE },
+      ],
+      type: 'stack',
+      stale: false,
+      preloadedRoutes: [],
+    }))
+    const { getByText } = renderHeader({ route: { key: 'key-0', name: IMPRINT_ROUTE, params: {} } })
+    expect(getByText('Nested Category')).toBeTruthy()
+  })
+
   it('should not show back button if it is the home', () => {
     mockPreviousRoute(false)
     const { queryByLabelText } = renderHeader({})
@@ -149,12 +195,29 @@ describe('Header', () => {
 
   it('should show location change button even when tab history exists', () => {
     mockPreviousRoute(false)
-    mocked(navigation.getParent).mockReturnValue({
-      getState: jest.fn(() => ({ history: [{ key: 'tab-key-0' }, { key: 'tab-key-1' }] })),
-      getParent: jest.fn(() => {}),
-    } as never)
+    mockParentNavigator(TAB_NAVIGATOR_ID, {
+      index: 1,
+      routes: [
+        { key: 'tab-key-0', name: CATEGORIES_TAB_ROUTE },
+        { key: 'tab-key-1', name: EVENTS_TAB_ROUTE },
+      ],
+    })
     const { getByLabelText } = renderHeader({})
     expect(getByLabelText('Stadt Augsburg regions:change')).toBeTruthy()
+  })
+
+  it('should show the title of the previous root route if the current stack has no history', () => {
+    mockPreviousRoute(false)
+    mockParentNavigator(ROOT_NAVIGATOR_ID, {
+      index: 1,
+      routes: [
+        { key: 'search-key', name: SEARCH_ROUTE, params: { title: 'search:title' } },
+        { key: 'bottom-tab-key', name: BOTTOM_TAB_ROUTE },
+      ],
+    })
+    const { getByText, queryByLabelText } = renderHeader({})
+    expect(getByText('search:title')).toBeTruthy()
+    expect(queryByLabelText('Stadt Augsburg regions:change')).toBeNull()
   })
 
   it('should not open language change modal if no translation available', async () => {
@@ -204,7 +267,7 @@ describe('Header', () => {
     })
   })
 
-  it('should use the route name in the share message if no page title is set', () => {
+  it('should use the region name in the share message if no route title is set', () => {
     const openURL = jest.fn()
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
@@ -215,17 +278,17 @@ describe('Header', () => {
     fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalledWith({
-      message: 'share:message categories:imprint - Stadt Augsburg\nhttps://example.com/share',
-      title: 'categories:imprint - Stadt Augsburg',
+      message: 'share:message Stadt Augsburg\nhttps://example.com/share',
+      title: 'Stadt Augsburg',
     })
   })
 
-  it('should remove the page title in the share message if it equals the region name', () => {
+  it('should not add the region name in the share message if it equals the route title', () => {
     const openURL = jest.fn()
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
     const { getByTestId, getByText } = renderHeader({
-      route: { key: 'key-0', name: PLACES_ROUTE, params: { title: 'Stadt Augsburg' } },
+      route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: 'Stadt Augsburg' } },
     })
     fireEvent.press(getByTestId('header-overflow-menu-button'))
     fireEvent.press(getByText(t('share:title')))
@@ -233,6 +296,22 @@ describe('Header', () => {
     expect(Share.share).toHaveBeenCalledWith({
       message: 'share:message Stadt Augsburg\nhttps://example.com/share',
       title: 'Stadt Augsburg',
+    })
+  })
+
+  it('should use the route title in the share message', () => {
+    const openURL = jest.fn()
+    const spy = jest.spyOn(Linking, 'openURL')
+    spy.mockImplementation(openURL)
+    const { getByTestId, getByText } = renderHeader({
+      route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: 'Willkommen' } },
+    })
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText(t('share:title')))
+
+    expect(Share.share).toHaveBeenCalledWith({
+      message: 'share:message Willkommen - Stadt Augsburg\nhttps://example.com/share',
+      title: 'Willkommen - Stadt Augsburg',
     })
   })
 })
