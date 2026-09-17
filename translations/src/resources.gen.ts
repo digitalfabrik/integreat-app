@@ -433,6 +433,38 @@ const resources = {
         "description": "No voice found. In order to use the read aloud functionality, a voice has to be installed. Please refer to the instructions for your operating system below."
       }
     }
+  },
+  "tour": {
+    "title": "App tour",
+    "welcome": "This short tour shows you the most important features of the app.",
+    "start": "Start tour",
+    "progress": "Step {{current}} of {{total}}",
+    "regionChange": {
+      "description": "Select your <strong>region</strong> here to find local information."
+    },
+    "navigation": {
+      "title": "Navigation",
+      "description": "Switch between <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> and <strong>$t(events:title)</strong> here."
+    },
+    "categories": {
+      "title": "Discover topics",
+      "description": "Discover information on topics such as <strong>Housing</strong>, <strong>Education</strong>, <strong>Work</strong> and more."
+    },
+    "searchAndLanguage": {
+      "title": "Search and language",
+      "description": "<strong>Search</strong> for local information, events and places or change the <strong>language</strong>."
+    },
+    "additionalFeatures": {
+      "title": "Additional features",
+      "description": "Use further features here such as <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> and <strong>{{additionalFeature}}</strong>."
+    },
+    "chat": {
+      "description": "Ask your questions here and quickly get suitable answers."
+    },
+    "finish": {
+      "title": "Done!",
+      "description": "Now you know the most important features. Good luck with {{appName}}!"
+    }
   }
 } as const
 
