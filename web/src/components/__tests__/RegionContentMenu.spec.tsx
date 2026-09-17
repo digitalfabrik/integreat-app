@@ -6,7 +6,7 @@ import { CategoriesMapModelBuilder } from 'shared/api'
 import { mockDimensions } from '../../__mocks__/useDimensions'
 import { TtsContext } from '../../contexts/TtsContext'
 import useDimensions from '../../hooks/useDimensions'
-import { TOUR_DIALOG_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
+import { TOUR_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { renderAllRoutes } from '../../testing/render'
 import RegionContentMenu from '../RegionContentMenu'
 
@@ -46,7 +46,7 @@ describe('RegionContentMenu', () => {
     expect(getByText('feedback:title')).toBeTruthy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
-    expect(getByText('tour:appTour')).toBeTruthy()
+    expect(getByText('tour:title')).toBeTruthy()
 
     fireEvent.click(getByText('tts:title'))
 
@@ -89,7 +89,7 @@ describe('RegionContentMenu', () => {
     expect(getByText('feedback:title')).toBeTruthy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
-    expect(getByText('tour:appTour')).toBeTruthy()
+    expect(getByText('tour:title')).toBeTruthy()
   })
 
   it('should hide feedback for news routes', () => {
@@ -107,7 +107,7 @@ describe('RegionContentMenu', () => {
     expect(queryByText('feedback:title')).toBeFalsy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
-    expect(getByText('tour:appTour')).toBeTruthy()
+    expect(getByText('tour:title')).toBeTruthy()
   })
 
   it('tts toolbar item should be disabled if there is nothing to read', () => {
@@ -139,11 +139,11 @@ describe('RegionContentMenu', () => {
     expect(queryByText('feedback:title')).toBeFalsy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
-    expect(getByText('tour:appTour')).toBeTruthy()
+    expect(getByText('tour:title')).toBeTruthy()
   })
 
   it('should offer the tour again and navigate to the home screen', () => {
-    localStorage.setItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY, 'false')
+    localStorage.setItem(TOUR_VISIBLE_STORAGE_KEY, 'false')
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
     const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de/events', {
       RegionContentElement: (
@@ -154,8 +154,8 @@ describe('RegionContentMenu', () => {
     })
 
     fireEvent.click(getByLabelText('common:labels.menu'))
-    fireEvent.click(getByText('tour:appTour'))
+    fireEvent.click(getByText('tour:title'))
 
-    expect(localStorage.getItem(TOUR_DIALOG_VISIBLE_STORAGE_KEY)).toBe('true')
+    expect(localStorage.getItem(TOUR_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 })

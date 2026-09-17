@@ -6,8 +6,9 @@ import buildConfig from '../../constants/buildConfig'
 import {
   BOTTOM_NAVIGATION_ELEMENT_ID,
   CHAT_FAB_ELEMENT_ID,
-  HEADER_ELEMENT_ID,
+  HEADER_ACTIONS_ELEMENT_ID,
   HEADER_MENU_ELEMENT_ID,
+  HEADER_TITLE_ELEMENT_ID,
   TILES_ELEMENT_ID,
 } from '../../constants/layout'
 import tourStepsMobile from '../tourStepsMobile'
@@ -41,8 +42,8 @@ describe('tourStepsMobile', () => {
 
   it('should show all steps in the order of the tour', () => {
     expect(selectors(createRegion())).toEqual([
-      `#${HEADER_ELEMENT_ID}`,
-      `#${HEADER_ELEMENT_ID}`,
+      `#${HEADER_TITLE_ELEMENT_ID}`,
+      `#${HEADER_ACTIONS_ELEMENT_ID}`,
       `#${HEADER_MENU_ELEMENT_ID}`,
       `#${TILES_ELEMENT_ID} > :first-child`,
       `#${BOTTOM_NAVIGATION_ELEMENT_ID}`,
@@ -58,15 +59,15 @@ describe('tourStepsMobile', () => {
     expect(selectors(createRegion({ chat: false }))).not.toContain(`#${CHAT_FAB_ELEMENT_ID}`)
   })
 
-  it('should not include the change location step if a fixed region is configured', () => {
+  it('should not include the region change step if a fixed region is configured', () => {
     config.featureFlags.fixedRegion = 'augsburg'
     expect(selectors(createRegion())).toHaveLength(5)
     config.featureFlags.fixedRegion = null
   })
 
   it('should mirror the arrow alignment for right to left languages', () => {
-    const [changeLocation] = tourStepsMobile({ t, rtl: true, region: createRegion(), languageCode: 'de' })
+    const [regionChange] = tourStepsMobile({ t, rtl: true, region: createRegion(), languageCode: 'de' })
 
-    expect(changeLocation?.arrowAlignment).toBe('right')
+    expect(regionChange?.arrowAlignment).toBe('right')
   })
 })

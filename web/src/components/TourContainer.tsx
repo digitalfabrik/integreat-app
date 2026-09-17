@@ -14,7 +14,6 @@ import TourPopover from './TourPopover'
 
 const HIGHLIGHT_BORDER_RADIUS = 12
 const DESKTOP_PADDING = 6
-// The highlighted elements are as high as the whole bar and the popover is only placed above or below them
 const MOBILE_PADDING = { mask: [TOUR_MASK_PADDING, 0], popover: [0, TOUR_POPOVER_PADDING] }
 
 type TourContainerProps = {
@@ -34,7 +33,7 @@ const TourContainer = ({ region, languageCode }: TourContainerProps): ReactEleme
   return (
     <TourProvider
       // The provider only reads the steps once, therefore it has to be recreated when switching between the layouts
-      key={String(desktop)}
+      key={desktop.toString()}
       steps={steps}
       ContentComponent={TourPopover}
       // Only swaps the keyboard arrow keys

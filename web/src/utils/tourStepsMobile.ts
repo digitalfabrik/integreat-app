@@ -1,45 +1,35 @@
+import { ArrowAlignment } from '../components/base/PopoverPaper'
 import {
   BOTTOM_NAVIGATION_ELEMENT_ID,
   CHAT_FAB_ELEMENT_ID,
-  HEADER_ELEMENT_ID,
+  HEADER_ACTIONS_ELEMENT_ID,
+  HEADER_TITLE_ELEMENT_ID,
   TILES_ELEMENT_ID,
 } from '../constants/layout'
 import { TOUR_MASK_PADDING, TOUR_POPOVER_PADDING } from '../constants/tour'
-import {
-  ArrowAlignment,
-  getTourSteps,
-  headerMenuStep,
-  positionBelowElement,
-  TourStepsProps,
-  TourStepType,
-} from './tourSteps'
-
-const HEADER_POPOVER_POSITIONS = { changeLocation: 0.4, searchAndLanguage: 0.6 }
+import { getTourSteps, headerMenuStep, positionBelowElement, TourStepsProps, TourStepType } from './tourSteps'
 
 const tourStepsMobile = (props: TourStepsProps): TourStepType[] => {
   const { rtl } = props
+  const atStart: ArrowAlignment = rtl ? 'right' : 'left'
   const atEnd: ArrowAlignment = rtl ? 'left' : 'right'
-
-  const headerStep = (
-    arrowAlignment: ArrowAlignment,
-    popoverPosition: number,
-  ): Pick<TourStepType, 'selector' | 'position' | 'arrowAlignment'> => ({
-    selector: `#${HEADER_ELEMENT_ID}`,
-    arrowAlignment,
-    position: ({ width, windowWidth, bottom }) => {
-      const position = rtl ? 1 - popoverPosition : popoverPosition
-      return [(windowWidth - width) * position, bottom]
-    },
-  })
 
   return getTourSteps(props, [
     {
-      id: 'changeLocation',
-      ...headerStep(rtl ? 'right' : 'left', HEADER_POPOVER_POSITIONS.changeLocation),
+      id: 'regionChange',
+      selector: `#${HEADER_TITLE_ELEMENT_ID}`,
+      position: positionBelowElement(atStart),
+      arrowAlignment: atStart,
+      // lowering padding of the mask horizontally
+      padding: { mask: [4, 0], popover: [0, TOUR_POPOVER_PADDING] },
     },
     {
       id: 'searchAndLanguage',
-      ...headerStep(atEnd, HEADER_POPOVER_POSITIONS.searchAndLanguage),
+      selector: `#${HEADER_ACTIONS_ELEMENT_ID}`,
+      position: positionBelowElement(atEnd),
+      arrowAlignment: atEnd,
+      // Evenly spaced mask around the action buttons
+      padding: { mask: TOUR_MASK_PADDING, popover: [0, TOUR_POPOVER_PADDING] },
     },
     {
       id: 'additionalFeatures',
@@ -47,7 +37,6 @@ const tourStepsMobile = (props: TourStepsProps): TourStepType[] => {
       position: positionBelowElement(atEnd),
       arrowAlignment: atEnd,
       padding: { mask: [0, 0], popover: [0, TOUR_POPOVER_PADDING] },
-      descriptionKey: $ => $.tour.additionalFeaturesWithFeedbackDescription,
     },
     {
       id: 'categories',
