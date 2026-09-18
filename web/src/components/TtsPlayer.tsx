@@ -101,7 +101,7 @@ const TtsPlayer = ({
   return (
     <StyledTtsPlayer
       id={TTS_PLAYER_ELEMENT_ID}
-      aria-label={t($ => $.layout.readAloud)}
+      aria-label={t($ => $.tts.title)}
       aria-describedby={`${TTS_PLAYER_ELEMENT_ID}-title`}
       bottom={bottomNavigationHeight ?? visibleFooterHeight}
       open>

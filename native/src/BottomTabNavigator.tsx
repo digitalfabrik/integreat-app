@@ -32,7 +32,6 @@ import dimensions from './constants/dimensions'
 import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
 import useRegionAppContext from './hooks/useRegionAppContext'
-import useSetRouteTitle from './hooks/useSetRouteTitle'
 import useTtsPlayer from './hooks/useTtsPlayer'
 import CategoriesContainer from './routes/CategoriesContainer'
 import EventsContainer from './routes/EventsContainer'
@@ -46,8 +45,6 @@ const CategoriesStack = createStackNavigator<RoutesParamsType>()
 const PlacesStack = createStackNavigator<RoutesParamsType>()
 const EventsStack = createStackNavigator<RoutesParamsType>()
 const NewsStack = createStackNavigator<RoutesParamsType>()
-
-const TAB_HEIGHT = 60
 
 // Note: the theme.dark logic will get replaced with proper theme handling at #4334
 // https://github.com/digitalfabrik/integreat-app/issues/4334

@@ -121,7 +121,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
         aria-controls={open ? 'header-menu' : undefined}>
         <MoreVertIcon />
       </IconButton>
-      <StyledMenu role='menu' id='header-menu' anchorEl={menuAnchorElement} open={open} onClose={closeMenu}>
+      <StyledMenu id='header-menu' anchorEl={menuAnchorElement} open={open} onClose={closeMenu}>
         {withDividers([
           ...items,
           <MenuItem
