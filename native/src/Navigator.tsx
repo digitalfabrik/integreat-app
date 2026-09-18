@@ -1,4 +1,4 @@
-import { createStackNavigator, StackHeaderProps } from '@react-navigation/stack'
+import { createNativeStackNavigator, NativeStackHeaderProps } from '@react-navigation/native-stack'
 import React, { ReactElement, useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -61,11 +61,13 @@ type HeaderProps = {
   navigation: BaseNavigationProps
 }
 
-const transparentHeader = (headerProps: StackHeaderProps) => <TransparentHeader {...(headerProps as HeaderProps)} />
+const transparentHeader = (headerProps: NativeStackHeaderProps) => (
+  <TransparentHeader {...(headerProps as HeaderProps)} />
+)
 
-const settingsHeader = (headerProps: StackHeaderProps) => <Header {...(headerProps as HeaderProps)} menu={null} />
+const settingsHeader = (headerProps: NativeStackHeaderProps) => <Header {...(headerProps as HeaderProps)} menu={null} />
 
-const Stack = createStackNavigator<RoutesParamsType>()
+const Stack = createNativeStackNavigator<RoutesParamsType>()
 
 type InitialRouteType =
   | {
@@ -141,15 +143,15 @@ const Navigator = (): ReactElement | null => {
     <Stack.Navigator
       id={ROOT_NAVIGATOR_ID}
       initialRouteName={initialRoute.name}
-      screenOptions={{ headerMode: 'screen', animation: 'none', cardStyle: { paddingBottom: insets.bottom } }}>
-      <Stack.Group screenOptions={{ header: () => null }}>
+      screenOptions={{ animation: 'none', contentStyle: { paddingBottom: insets.bottom } }}>
+      <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen name={REDIRECT_ROUTE} initialParams={{ url: redirectUrl }} component={RedirectContainer} />
         <Stack.Screen name={INTRO_ROUTE} component={Intro} />
         <Stack.Screen name={SEARCH_ROUTE} component={SearchContainer} />
         <Stack.Screen
           name={BOTTOM_TAB_ROUTE}
           component={BottomTabNavigator}
-          options={{ cardStyle: { paddingBottom: 0 } }}
+          options={{ contentStyle: { paddingBottom: 0 } }}
         />
       </Stack.Group>
 

@@ -3,6 +3,7 @@ import { LinkingOptions, NavigationContainer } from '@react-navigation/native'
 import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement } from 'react'
 import { LogBox, View } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { registerTranslation, en, de, ar, es, fr, hi, it, nl, pl, pt, tr, zh } from 'react-native-paper-dates'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
@@ -81,21 +82,23 @@ export const NavigationContainerWithTheme = (): ReactElement => {
 }
 
 const App = (): ReactElement => (
-  <StaticServerProvider>
-    <I18nProvider>
-      <AppContextProvider>
-        <ThemeContainer>
-          <SafeAreaProvider>
-            <SnackbarContainer>
-              <TtsContainer>
-                <NavigationContainerWithTheme />
-              </TtsContainer>
-            </SnackbarContainer>
-          </SafeAreaProvider>
-        </ThemeContainer>
-      </AppContextProvider>
-    </I18nProvider>
-  </StaticServerProvider>
+  <GestureHandlerRootView style={{ flex: 1 }}>
+    <StaticServerProvider>
+      <I18nProvider>
+        <AppContextProvider>
+          <ThemeContainer>
+            <SafeAreaProvider>
+              <SnackbarContainer>
+                <TtsContainer>
+                  <NavigationContainerWithTheme />
+                </TtsContainer>
+              </SnackbarContainer>
+            </SafeAreaProvider>
+          </ThemeContainer>
+        </AppContextProvider>
+      </I18nProvider>
+    </StaticServerProvider>
+  </GestureHandlerRootView>
 )
 
 export default App
