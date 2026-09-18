@@ -58,7 +58,8 @@
       "hideFilters": "Filter verbergen"
     },
     "a11y": {
-      "skipToContent": "Zum Inhalt springen"
+      "skipToContent": "Zum Inhalt springen",
+      "languageChanged": "Sprache wurde auf {{languageName}} umgestellt"
     },
     "state": {
       "copied": "Kopiert",
@@ -417,7 +418,7 @@
     "timeout": "Standort nicht gefunden"
   },
   "tts": {
-    "title": "Vorlesefunktion",
+    "title": "Vorlesen",
     "pause": "Pause",
     "play": "Abspielen",
     "error": {
