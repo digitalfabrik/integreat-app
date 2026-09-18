@@ -81,7 +81,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
               changeLanguageCode(code)
             }
             AccessibilityInfo.announceForAccessibility(
-              t($ => $.layout.languageChanged, { name: userLanguageNames?.of(code) ?? name }),
+              t($ => $.common.a11y.languageChanged, { languageName: userLanguageNames?.of(code) ?? name }),
             )
             navigation.goBack()
           }

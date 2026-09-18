@@ -54,7 +54,7 @@ const HeaderLanguageSelectorItem = ({
     prop: languageCode,
     onPropChange: newCode => {
       const name = languageChangePaths.find(item => item.code === newCode)?.name
-      setAnnouncement(t($ => $.layout.languageChanged, { name: name ?? newCode }))
+      setAnnouncement(t($ => $.common.a11y.languageChanged, { languageName: name ?? newCode }))
     },
   })
 
