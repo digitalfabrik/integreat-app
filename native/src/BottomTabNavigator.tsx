@@ -1,7 +1,7 @@
 import { BottomTabBarButtonProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { PlatformPressable } from '@react-navigation/elements'
 import { getFocusedRouteNameFromRoute, useNavigationState } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { ReactElement, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
@@ -39,10 +39,10 @@ import PlacesContainer from './routes/PlacesContainer'
 import { usePushNotificationListener } from './utils/PushNotificationsManager'
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()
-const CategoriesStack = createStackNavigator<RoutesParamsType>()
-const PlacesStack = createStackNavigator<RoutesParamsType>()
-const EventsStack = createStackNavigator<RoutesParamsType>()
-const NewsStack = createStackNavigator<RoutesParamsType>()
+const CategoriesStack = createNativeStackNavigator<RoutesParamsType>()
+const PlacesStack = createNativeStackNavigator<RoutesParamsType>()
+const EventsStack = createNativeStackNavigator<RoutesParamsType>()
+const NewsStack = createNativeStackNavigator<RoutesParamsType>()
 
 const TAB_HEIGHT = 60
 

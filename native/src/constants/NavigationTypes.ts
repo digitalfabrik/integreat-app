@@ -1,5 +1,5 @@
 import { RouteProp } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { DateTime } from 'luxon'
 
 import {
@@ -157,5 +157,5 @@ export type RootRoutesParamsType = {
 export type RoutesParamsType = NestedRoutesParamsType & TabRoutesParamsType & RootRoutesParamsType
 export type RouteProps<T extends RoutesType> = RouteProp<RoutesParamsType, T>
 export type BaseRouteProps = RouteProps<RoutesType>
-export type NavigationProps<T extends RoutesType> = StackNavigationProp<RoutesParamsType, T, NavigatorIds>
+export type NavigationProps<T extends RoutesType> = NativeStackNavigationProp<RoutesParamsType, T, NavigatorIds>
 export type BaseNavigationProps = NavigationProps<RoutesType>

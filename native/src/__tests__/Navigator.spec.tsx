@@ -31,7 +31,13 @@ jest.mock('react-native/Libraries/Components/Keyboard/Keyboard', () => ({
     dismiss: jest.fn(),
   },
 }))
-jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter')
+// The native stack registers native driven animations, which need a subscription to be returned on subscribing
+jest.mock('react-native/Libraries/EventEmitter/NativeEventEmitter', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    addListener: jest.fn(() => ({ remove: jest.fn() })),
+  })),
+}))
 jest.mock('../routes/Intro', () => {
   const { Text } = require('react-native-paper')
 
