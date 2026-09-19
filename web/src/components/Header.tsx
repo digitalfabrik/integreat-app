@@ -14,7 +14,7 @@ import HeaderTitle from './HeaderTitle'
 const HEADER_HEIGHT = 80
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.isContrastTheme ? theme.palette.background.accent : undefined,
+  backgroundColor: theme.palette.background.accent,
 }))
 
 const HeaderContainer = styled('header')`

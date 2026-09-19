@@ -20,7 +20,7 @@ import { DirectionDependentBackIcon } from './base/Dialog'
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   backgroundColor: theme.palette.background.accent,
-  border: `1px solid ${theme.palette.mode === 'light' ? theme.palette.grey[400] : theme.palette.grey[700]}`,
+  border: `1px solid ${theme.palette.tertiary.light}`,
   ':hover': {
     backgroundColor: theme.palette.background.default,
   },

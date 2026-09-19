@@ -67,7 +67,6 @@ export type CommonColorPalette = CommonColors & {
   text: TypeText
   action: ActionColor
   ttsPlayer: TypeTtsPlayer
-  chat: TypeChat
 }
 
 export type ThemeColorPalette = CommonColorPalette & {

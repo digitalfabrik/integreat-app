@@ -10,8 +10,7 @@ import { MapViewRef } from './MapView'
 
 const StyledIconButton = styled(IconButton)`
   background-color: ${props => props.theme.palette.background.accent};
-  border: 1px solid
-    ${props => (props.theme.isContrastTheme ? props.theme.palette.grey[700] : props.theme.palette.grey[400])};
+  border: 1px solid ${props => props.theme.palette.tertiary.light};
 
   :hover {
     background-color: ${props => props.theme.palette.background.default};

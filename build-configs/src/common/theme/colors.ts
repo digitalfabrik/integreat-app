@@ -34,7 +34,7 @@ export const commonLightColors: CommonColorPalette = {
     contrastText: '#FFFFFF',
   },
   tertiary: {
-    light: '#EAEEF9',
+    light: '#566780',
     main: '#364153',
     dark: '#242D3B',
     contrastText: '#E6E0E9',
@@ -52,20 +52,11 @@ export const commonLightColors: CommonColorPalette = {
   action: {
     disabledBackground: '#FFFFFF',
     disabled: '#C9C9C9',
-    active: '#000000',
+    active: '#242D3B',
   },
   ttsPlayer: {
     background: '#dedede',
     playIconColor: '#007aa8',
-  },
-  chat: {
-    background: '#FFFFFF',
-    headerBackground: '#EAEEF9',
-    answerMessageBackground: '#F5F5F5',
-    userMessageBackground: '#EAEEF9',
-    messageBorderColor: 'transparent',
-    chatInputOutlineColor: '#9E9E9E',
-    chatInputPlaceholderColor: '#666666',
   },
 }
 
@@ -73,10 +64,10 @@ export const commonDarkColors: CommonColorPalette = {
   ...commonColors,
   mode: 'dark',
   primary: {
-    light: '#98C7FF',
-    main: '#4F8FFD',
-    dark: '#475CC7',
-    contrastText: '#FFFFFF',
+    light: '#C0DCFF',
+    main: '#98C7FF',
+    dark: '#4F8FFD',
+    contrastText: '#1D1B20',
   },
   tertiary: {
     light: '#E9EDFB',
@@ -86,7 +77,7 @@ export const commonDarkColors: CommonColorPalette = {
   },
   background: {
     default: '#020202',
-    paper: '#020202',
+    paper: '#1E1E1E',
     accent: '#20293A',
   },
   text: {
@@ -97,19 +88,10 @@ export const commonDarkColors: CommonColorPalette = {
   action: {
     disabledBackground: '#000000',
     disabled: '#364153',
-    active: '#FFFFFF',
+    active: '#E6E0E9',
   },
   ttsPlayer: {
     background: '#29354B',
     playIconColor: '#007aa8',
-  },
-  chat: {
-    background: '#1E1E1E',
-    headerBackground: '#1E1E1E',
-    answerMessageBackground: '#2B2B2B',
-    userMessageBackground: '#242D3B',
-    messageBorderColor: '#C9C9C9',
-    chatInputOutlineColor: '#B6B6B6',
-    chatInputPlaceholderColor: '#8B8B8B',
   },
 }

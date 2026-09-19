@@ -2,7 +2,7 @@ import shouldForwardProp from '@emotion/is-prop-valid'
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined'
 import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
-import { styled, useTheme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -18,14 +18,15 @@ const ChatAvatar = styled(Avatar, { shouldForwardProp })<{
   opacity: visible ? 1 : 0,
   width: size,
   height: size,
-  backgroundColor: theme.isContrastTheme ? theme.palette.text.primary : theme.palette.tertiary.dark,
+  backgroundColor: theme.palette.action.active,
 }))
 
-const CenteredSvg = styled(Svg)({
+const CenteredSvg = styled(Svg)(({ theme }) => ({
+  color: theme.palette.background.paper,
   '& svg': {
     display: 'block',
   },
-})
+}))
 
 type ChatLogoAvatarProps = {
   size?: number
@@ -33,12 +34,11 @@ type ChatLogoAvatarProps = {
 }
 
 export const ChatLogoAvatar = ({ size = DEFAULT_AVATAR_SIZE, visible }: ChatLogoAvatarProps): ReactElement => {
-  const theme = useTheme()
   const appLogo = buildConfig().icons.appLogoInverted
 
   return (
     <ChatAvatar size={size} visible={visible}>
-      <CenteredSvg src={appLogo} width={size} height={size} overrideFillColors={theme.palette.background.paper} />
+      <CenteredSvg src={appLogo} width={size} height={size} inheritColor />
     </ChatAvatar>
   )
 }
@@ -50,7 +50,6 @@ type MessageAvatarProps = {
 
 export const MessageAvatar = ({ isAutomaticAnswer, visible }: MessageAvatarProps): ReactElement => {
   const { t } = useTranslation()
-  const theme = useTheme()
   const label = t($ => (isAutomaticAnswer ? $.chat.bot : $.chat.consultant))
   const appLogo = buildConfig().icons.appLogoInverted
 
@@ -58,12 +57,7 @@ export const MessageAvatar = ({ isAutomaticAnswer, visible }: MessageAvatarProps
     <Tooltip title={label} disableHoverListener={!visible}>
       <ChatAvatar visible={visible} aria-label={label}>
         {isAutomaticAnswer ? (
-          <CenteredSvg
-            src={appLogo}
-            width={DEFAULT_AVATAR_SIZE}
-            height={DEFAULT_AVATAR_SIZE}
-            overrideFillColors={theme.palette.background.paper}
-          />
+          <CenteredSvg src={appLogo} width={DEFAULT_AVATAR_SIZE} height={DEFAULT_AVATAR_SIZE} inheritColor />
         ) : (
           <PersonOutlinedIcon />
         )}

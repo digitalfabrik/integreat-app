@@ -15,6 +15,7 @@ const StyledMenuItem = styled(MuiMenuItem)({
 const TooltipContent = styled(Stack)({
   pointerEvents: 'auto',
 })
+
 type MenuListItemProps = {
   icon?: ReactElement
   iconEnd?: ReactElement
