@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} ከMaltesers የቀረበ የእርስዎ ዲጂታል ረዳት ነው። እዚህ ስለ አካባቢዎ መረጃዎችን፣ ኩነቶችን እና ከተቋምዎ የሚሰጡ ምክሮችን ያገኛሉ። ሁልጊዜም ወቅታዊ እና በራስዎ ቋንቋ!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "ይህ ኩነት አልተገኘም።",
+      "nothingFound": "ምንም የተገኙ ኩነቶች የሉም።"
+    },
+    "export": {
+      "allRecurrences": "ይህ እና ወደፊት የሚካሄዱ ሁሉም ኩነቶች",
+      "thisRecurrence": "ይህ ኩነት ብቻ"
+    },
+    "title": "ኩነቶች"
+  }
+}

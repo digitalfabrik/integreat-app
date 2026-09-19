@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} er din digitale assistent fra Malteserne. Her finder du lokale oplysninger, arrangementer og rådgivning fra din institution. Altid opdateret og på dit sprog!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Denne begivenhed blev ikke fundet.",
+      "nothingFound": "Ingen begivenheder fundet."
+    },
+    "export": {
+      "allRecurrences": "Denne og alle fremtidige begivenheder",
+      "thisRecurrence": "Kun denne begivenhed"
+    },
+    "title": "Begivenheder"
+  }
+}

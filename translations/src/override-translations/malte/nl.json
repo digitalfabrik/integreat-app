@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} is uw digitale assistent van de Maltezer Orde. Hier vindt u lokale informatie, evenementen en advies van uw organisatie. Altijd up-to-date en in uw eigen taal!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Dit evenement is niet gevonden.",
+      "nothingFound": "Geen evenementen gevonden."
+    },
+    "export": {
+      "allRecurrences": "Dit en alle toekomstige evenementen",
+      "thisRecurrence": "Alleen dit evenement"
+    },
+    "title": "Evenementen"
+  }
+}

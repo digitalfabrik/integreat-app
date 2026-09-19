@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} là trợ lý kỹ thuật số của bạn từ Malteser. Tại đây, bạn sẽ tìm thấy thông tin địa phương, sự kiện và lời khuyên từ tổ chức của mình. Luôn được cập nhật và bằng ngôn ngữ của bạn!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Không tìm thấy sự kiện này.",
+      "nothingFound": "Không tìm thấy sự kiện nào."
+    },
+    "export": {
+      "allRecurrences": "Sự kiện này và tất cả các sự kiện trong tương lai",
+      "thisRecurrence": "Chỉ sự kiện này"
+    },
+    "title": "Sự kiện"
+  }
+}

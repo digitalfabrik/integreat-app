@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} è il tuo assistente digitale del Sovrano Ordine di Malta. Qui troverai informazioni locali, eventi e consigli dal tuo ente di riferimento. Sempre aggiornato e nella tua lingua!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Questo evento non è stato trovato.",
+      "nothingFound": "Nessun evento trovato."
+    },
+    "export": {
+      "allRecurrences": "Questo e tutti gli eventi futuri",
+      "thisRecurrence": "Solo questo evento"
+    },
+    "title": "Eventi"
+  }
+}
