@@ -46,7 +46,7 @@ const exportTranslationsToCsv = (
   const flatReference = flat(readLanguageFile(fromDir, referenceLanguage) ?? {}) satisfies Record<string, string>
 
   supportedLanguages
-    .filter(language => language !== sourceLanguage)
+    .filter(language => [sourceLanguage, referenceLanguage].includes(language))
     .forEach(language => {
       const flatTarget = flat(readLanguageFile(fromDir, language) ?? {}) satisfies Record<string, string>
       const rows = sourceEntries.map(([key, sourceValue]) => [
@@ -111,7 +111,9 @@ const importTranslationsFromCsv = (fromDir: string, toDir: string, sourceLanguag
   } satisfies Record<string, LanguageTranslations>
 
   const importedLanguages = Object.keys(translations)
-  const supportedLanguages = Object.keys(config.supportedLanguages)
+  const supportedLanguages = Object.keys(config.supportedLanguages).filter(
+    language => language !== config.referenceLanguage,
+  )
   const unsupportedLanguages = importedLanguages.filter(language => !supportedLanguages.includes(language))
   const missingLanguages = supportedLanguages.filter(language => !importedLanguages.includes(language))
   if (unsupportedLanguages.length > 0) {
