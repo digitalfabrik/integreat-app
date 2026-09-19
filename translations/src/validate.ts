@@ -19,6 +19,24 @@ const extractPlaceholders = (value: string): string[] => (value.match(/{{[^}]+}}
 // <strong>text</strong> or <1>text</1>
 const extractTags = (value: string): string[] => (value.match(/<\/?[a-zA-Z0-9]+>/g) ?? []).sort()
 
+// i18next allows nesting translations within other translations: $t(namespace:key) or $t(key, { count: 1 })
+// https://www.i18next.com/translation-function/nesting
+const NESTED_KEY_PATTERN = /\$t\(([^),]+)(?:,[^)]*)?\)/g
+const NAMESPACE_SEPARATOR = ':'
+const KEY_SEPARATOR = '.'
+
+const extractNestedKeys = (value: string): string[] =>
+  [...value.matchAll(NESTED_KEY_PATTERN)].map(match => match[1]?.trim() ?? '').sort()
+
+// Nested keys are either namespace qualified (common:appName) or relative to the namespace they are used in
+const resolveNestedKey = (nestedKey: string, key: string): string => {
+  if (nestedKey.includes(NAMESPACE_SEPARATOR)) {
+    return nestedKey.replace(NAMESPACE_SEPARATOR, KEY_SEPARATOR)
+  }
+  const namespace = key.split(KEY_SEPARATOR)[0] ?? key
+  return `${namespace}${KEY_SEPARATOR}${nestedKey}`
+}
+
 export const findExtraKeys = (language: string, languageKeys: string[], referenceKeys: string[]): string[] =>
   languageKeys
     .filter(key => !referenceKeys.includes(key))
@@ -63,6 +81,35 @@ const findTagMismatches = (
         `(${referenceLanguage}=${JSON.stringify(referenceTags)}, ${language}=${JSON.stringify(languageTags)})`,
     )
 
+export const findNestingMismatches = (
+  language: string,
+  referenceTranslations: FlatTranslations,
+  translations: FlatTranslations,
+): string[] =>
+  Object.entries(translations)
+    .map(([key, value]) => [key, extractNestedKeys(referenceTranslations[key] ?? ''), extractNestedKeys(value)])
+    .filter(([, referenceNestedKeys, languageNestedKeys]) => !isEqual(referenceNestedKeys, languageNestedKeys))
+    .map(
+      ([key, referenceNestedKeys, languageNestedKeys]) =>
+        `${language}.json: ${key}: nested keys differ from ${referenceLanguage}.json ` +
+        `(${referenceLanguage}=${JSON.stringify(referenceNestedKeys)}, ` +
+        `${language}=${JSON.stringify(languageNestedKeys)})`,
+    )
+
+export const findUnknownNestedKeys = (
+  language: string,
+  referenceTranslations: FlatTranslations,
+  translations: FlatTranslations,
+): string[] =>
+  Object.entries(translations).flatMap(([key, value]) =>
+    extractNestedKeys(value)
+      .map(nestedKey => resolveNestedKey(nestedKey, key))
+      .filter(nestedKey => referenceTranslations[nestedKey] === undefined)
+      .map(
+        nestedKey => `${language}.json: ${key}: nested key does not exist in ${referenceLanguage}.json: ${nestedKey}`,
+      ),
+  )
+
 const validateTranslation = (
   name: string,
   translations: LanguageTranslations,
@@ -78,6 +125,8 @@ const validateTranslation = (
     ...findEmptyValues(name, languageFlat),
     ...findPlaceholderMismatches(name, referenceFlat, languageFlat),
     ...findTagMismatches(name, referenceFlat, languageFlat),
+    ...findNestingMismatches(name, referenceFlat, languageFlat),
+    ...findUnknownNestedKeys(name, referenceFlat, languageFlat),
   ]
 }
 
