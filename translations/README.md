@@ -53,8 +53,9 @@ If there are enough untranslated strings, they can be submitted to professionals
   - `yarn export:obdach`
 - Now you can edit the ODS files (e.g. send them to an external translation service). Exporting plain CSVs is currently not supported.
 
-Note: If the translators only work with English source translations, simply change `source_language` in [config.ts](src/config.ts) to `en`.
-Make sure to revert this after exporting.
+Note: The exported files also contain a `reference_language` column (`en`) next to the `source_language` column (`de`) as
+additional context for the translators. If the translators only work with English source translations, simply change
+`sourceLanguage` in [config.ts](src/config.ts) to `en`. Make sure to revert this after exporting.
 
 ### Receiving finished translations
 
@@ -95,7 +96,8 @@ Example: `yarn manage import translations-csv ./src/translations`
 
 Notes:
 
-- Every CSV must carry the same `source_language` column; a mismatch aborts the import
+- Every CSV must carry the same `source_language` and `reference_language` columns; a mismatch aborts the import
+- Only the `target_language` column is imported; `reference_language` is a translation aid only
 - Namespaces inside each per-language JSON are sorted
 - Languages present in the CSVs but missing from [config.ts](src/config.ts) abort the import
 - Languages present in [config.ts](src/config.ts) but missing from the CSVs are logged as warnings
@@ -124,7 +126,9 @@ Example: `./tools/ods-to-csv translations-ods translation-csv`
 ### CSV
 
 - Comma Separated Values
-- Each CSV contains exactly one language
+- Each CSV contains exactly one target language
+- Columns: `key`, `source_language` (the language we translate from, e.g. `de`), `reference_language` (the reference
+  translation as additional context, e.g. `en`) and `target_language` (the language the CSV is named after)
 - Structured via dot-delimited keys. Keys for translations are created using module names and nested keys.
 - UTF-8 encoded
 

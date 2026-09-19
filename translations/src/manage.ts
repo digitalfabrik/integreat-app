@@ -13,6 +13,7 @@ const { unflatten } = flat
 
 const CSV_KEY_COLUMN = 'key'
 const CSV_SOURCE_LANGUAGE_COLUMN = 'source_language'
+const CSV_REFERENCE_LANGUAGE_COLUMN = 'reference_language'
 const CSV_TARGET_LANGUAGE_COLUMN = 'target_language'
 
 type TranslationMap = { [key: string]: string | TranslationMap }
@@ -33,6 +34,7 @@ const exportTranslationsToCsv = (
   fromDir: string,
   toDir: string,
   sourceLanguage: string,
+  referenceLanguage: string,
   supportedLanguages: string[],
 ) => {
   const sourceTranslations = readLanguageFile(fromDir, sourceLanguage)
@@ -41,29 +43,38 @@ const exportTranslationsToCsv = (
   }
   const flatSource = flat(sourceTranslations) satisfies Record<string, string>
   const sourceEntries = sortBy(toPairs(flatSource), ([key]) => key)
+  const flatReference = flat(readLanguageFile(fromDir, referenceLanguage) ?? {}) satisfies Record<string, string>
 
   supportedLanguages
     .filter(language => language !== sourceLanguage)
     .forEach(language => {
       const flatTarget = flat(readLanguageFile(fromDir, language) ?? {}) satisfies Record<string, string>
-      const rows = sourceEntries.map(([key, sourceValue]) => [key, sourceValue, flatTarget[key] ?? ''])
+      const rows = sourceEntries.map(([key, sourceValue]) => [
+        key,
+        sourceValue,
+        flatReference[key] ?? '',
+        flatTarget[key] ?? '',
+      ])
 
       const csvPath = languageFilePath(toDir, language, '.csv')
       const output = fs.createWriteStream(csvPath)
       output.on('close', () => console.log(`Successfully written ${csvPath}`))
       output.on('error', error => console.log(`Failed to write ${csvPath}.csv: ${error}`))
-      stringify([[CSV_KEY_COLUMN, CSV_SOURCE_LANGUAGE_COLUMN, CSV_TARGET_LANGUAGE_COLUMN], ...rows]).pipe(output)
+      stringify([
+        [CSV_KEY_COLUMN, CSV_SOURCE_LANGUAGE_COLUMN, CSV_REFERENCE_LANGUAGE_COLUMN, CSV_TARGET_LANGUAGE_COLUMN],
+        ...rows,
+      ]).pipe(output)
     })
 
   console.log(`Keys in source language ${sourceLanguage}: ${sourceEntries.length}`)
 }
 
 program.command('export <fromPath> <toPath>').action((fromPath: string, toPath: string) => {
-  const { supportedLanguages, sourceLanguage } = config
+  const { supportedLanguages, sourceLanguage, referenceLanguage } = config
   if (!fs.existsSync(toPath)) {
     fs.mkdirSync(toPath, { recursive: true })
   }
-  exportTranslationsToCsv(fromPath, toPath, sourceLanguage, Object.keys(supportedLanguages))
+  exportTranslationsToCsv(fromPath, toPath, sourceLanguage, referenceLanguage, Object.keys(supportedLanguages))
 })
 
 const loadColumn = (csvFile: string, columnName: string): LanguageTranslations => {
@@ -87,6 +98,11 @@ const importTranslationsFromCsv = (fromDir: string, toDir: string, sourceLanguag
   const sourceTranslations = loadColumn(firstCsv, CSV_SOURCE_LANGUAGE_COLUMN)
   if (!csvs.every(csv => isEqual(loadColumn(csv, CSV_SOURCE_LANGUAGE_COLUMN), sourceTranslations))) {
     throw new Error(`The column '${CSV_SOURCE_LANGUAGE_COLUMN}' must be the same in every CSV`)
+  }
+
+  const referenceTranslations = loadColumn(firstCsv, CSV_REFERENCE_LANGUAGE_COLUMN)
+  if (!csvs.every(csv => isEqual(loadColumn(csv, CSV_REFERENCE_LANGUAGE_COLUMN), referenceTranslations))) {
+    throw new Error(`The column '${CSV_REFERENCE_LANGUAGE_COLUMN}' must be the same in every CSV`)
   }
 
   const translations = {
