@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} 是马耳他慈悲会为您提供的数字助手。在这里，您可以获取所在机构的本地资讯、活动信息和实用建议。内容实时更新，并支持您的母语！"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "未找到此活动。",
+      "nothingFound": "未找到任何活动。"
+    },
+    "export": {
+      "allRecurrences": "此活动及所有后续活动",
+      "thisRecurrence": "仅此活动"
+    },
+    "title": "活动"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} arîkarê te yê dîjîtal ê ji Malteserê ye. Li vir tu dikarî agahiyên herêmî, çalakî û şîretên ji saziya xwe bibînî. Her tim nûjen û bi zimanê te!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Ev çalakî nehate dîtin.",
+      "nothingFound": "Tu çalakî nehatin dîtin."
+    },
+    "export": {
+      "allRecurrences": "Ev û hemû çalakiyên pêşerojê",
+      "thisRecurrence": "Tenê ev çalakî"
+    },
+    "title": "Çalakî"
+  }
+}

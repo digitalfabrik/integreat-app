@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}}, Malteser tarafından sunulan dijital asistanınızdır. Burada kurumunuzdan yerel bilgilere, etkinliklere ve tavsiyelere ulaşabilirsiniz. Her zaman güncel ve kendi dilinizde!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Bu etkinlik bulunamadı.",
+      "nothingFound": "Etkinlik bulunamadı."
+    },
+    "export": {
+      "allRecurrences": "Bu ve sonraki tüm etkinlikler",
+      "thisRecurrence": "Yalnızca bu etkinlik"
+    },
+    "title": "Etkinlikler"
+  }
+}

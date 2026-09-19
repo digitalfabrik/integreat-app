@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "A(z) {{appName}} az Ön digitális asszisztense a Máltai Szeretetszolgálattól. Itt helyi információkat, eseményeket és az intézményétől származó tanácsokat talál. Mindig naprakészen és az Ön nyelvén!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Ez az esemény nem található.",
+      "nothingFound": "Nem találhatók események."
+    },
+    "export": {
+      "allRecurrences": "Ez és az összes jövőbeli esemény",
+      "thisRecurrence": "Csak ez az esemény"
+    },
+    "title": "Események"
+  }
+}

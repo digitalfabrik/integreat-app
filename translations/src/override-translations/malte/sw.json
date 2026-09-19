@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} ni msaidizi wako wa kidijitali kutoka kwa Malteser. Hapa utapata taarifa za eneo husika, matukio na ushauri kutoka kwa taasisi yako. Kila mara taarifa za kisasa na kwa lugha yako!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Tukio hili halijapatikana.",
+      "nothingFound": "Hakuna matukio yaliyopatikana."
+    },
+    "export": {
+      "allRecurrences": "Tukio hili na matukio yote yajayo",
+      "thisRecurrence": "Tukio hili pekee"
+    },
+    "title": "Matukio"
+  }
+}
