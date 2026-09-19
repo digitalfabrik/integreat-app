@@ -53,11 +53,12 @@ const List = <T,>({
       showsVerticalScrollIndicator={false}
       onEndReachedThreshold={1}
       role='list'
-    accessibilityLabel={accessibilityLabel}
-    style={style}
-    keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-    ItemSeparatorComponent={Divider}
-  />
-)}
+      accessibilityLabel={accessibilityLabel}
+      style={style}
+      keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+      ItemSeparatorComponent={Divider}
+    />
+  )
+}
 
 export default List
