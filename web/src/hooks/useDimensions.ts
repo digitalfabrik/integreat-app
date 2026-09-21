@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useSyncExternalStore } from 'react'
 
 import {
   BOTTOM_NAVIGATION_ELEMENT_ID,
@@ -171,6 +171,7 @@ const subscribe = (listener: Listener): (() => void) => {
     // Observe changes to the DOM body and recalculate all dimensions (e.g. for adding/removing the tts player)
     resizeObserver = new ResizeObserver(measure)
     resizeObserver.observe(document.body)
+    measure()
   }
   listeners.add(listener)
 
@@ -185,20 +186,7 @@ const subscribe = (listener: Listener): (() => void) => {
   }
 }
 
-const useDimensionsSnapshot = <T>(getSnapshot: () => T): T => {
-  const [snapshot, setSnapshot] = useState(getSnapshot)
-
-  useEffect(() => {
-    if (listeners.size === 0) {
-      measure()
-      setSnapshot(getSnapshot())
-    }
-
-    return subscribe(() => setSnapshot(getSnapshot()))
-  }, [getSnapshot])
-
-  return snapshot
-}
+const useDimensionsSnapshot = <T>(getSnapshot: () => T): T => useSyncExternalStore(subscribe, getSnapshot)
 
 const getMetrics = (): Metrics => metricsSnapshot
 const getScrollMetrics = (): ScrollMetrics => scrollMetricsSnapshot
