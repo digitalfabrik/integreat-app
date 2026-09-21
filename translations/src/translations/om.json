@@ -1,468 +1,468 @@
 {
   "about": {
-    "aboutUs": "Waa'ee keenya",
-    "accessibility": "Dhaqqamamummaa",
-    "imprint": "Maxxansaa",
     "legal": "Seera qabeessummaa",
+    "imprint": "Maxxansaa",
+    "accessibility": "Dhaqqamamummaa",
+    "aboutUs": "Waa'ee keenya",
     "licenses": {
-      "license": "Hayyama: {{license}}",
       "title": "Hayyamoota madda banaa",
-      "version": "Fooyya'iinsa: {{version}}"
+      "version": "Fooyya'iinsa: {{version}}",
+      "license": "Hayyama: {{license}}"
     }
   },
   "categories": {
+    "title": "Odeeffannoo naannoo",
+    "titleShort": "Odeeffannoo",
     "organization": {
-      "description": "Odeeffannoo dabalataa waa'ee {{organization}} argachuuf <Link>{{domain}}</Link> daawwadhaa.",
-      "title": "Qabiyyeen fuula kanaa {{organization}} irraayyi."
+      "title": "Qabiyyeen fuula kanaa {{organization}} irraayyi.",
+      "description": "Odeeffannoo dabalataa waa'ee {{organization}} argachuuf <Link>{{domain}}</Link> daawwadhaa."
     },
     "pdf": {
       "create": "PDF uumi",
       "disabled": "Afaan kanaan yeroo ammaa kana PDF uumuun hin danda'amu."
-    },
-    "title": "Odeeffannoo naannoo",
-    "titleShort": "Odeeffannoo"
-  },
-  "chat": {
-    "bot": "Chaatiibootii",
-    "consultant": "Gorsaa/tuu",
-    "initial": {
-      "description": "Odeeffannoo naannoo yookiin haala dhuunfaa kee ilaalchisee gaafachuu dandeessa.",
-      "title": "Maaloo gaaffii kee saanduqa barruu keessatti galchi."
-    },
-    "inputPlaceholder": "Maaloo gaaffii kee galchi…",
-    "startNew": {
-      "description": "Dhuguma haasaa haaraa jalqabuu barbaaddaa? Seenaan haasaa amma jiru ni haqama.",
-      "title": "Haasaa haaraa eegali"
-    },
-    "subtitle": "Gargaaraa barbaacha dijitaalaa kee",
-    "typing": "Barreessaa jira…",
-    "unread_few": "Ergaawwan chaatii hin dubbifamin {{count}}",
-    "unread_many": "Ergaawwan chaatii hin dubbifamin {{count}}",
-    "unread_one": "Ergaa chaatii hin dubbifamne 1",
-    "unread_other": "Ergaawwan chaatii hin dubbifamin {{count}}",
-    "unread_two": "Ergaawwan chaatii hin dubbifamin {{count}}",
-    "welcome": {
-      "description": "Ani <strong>{{name}}</strong> dha, Gargaaraa Barbaacha Dijitaalaa keeti. Gaaffii kee na gaafachuu dandeessa.",
-      "title": "Akkam!"
     }
   },
-  "common": {
-    "a11y": {
-      "skipToContent": "Gara qabiyyetti darbi"
+  "chat": {
+    "subtitle": "Gargaaraa barbaacha dijitaalaa kee",
+    "bot": "Chaatiibootii",
+    "consultant": "Gorsaa/tuu",
+    "typing": "Barreessaa jira…",
+    "inputPlaceholder": "Maaloo gaaffii kee galchi…",
+    "initial": {
+      "title": "Maaloo gaaffii kee saanduqa barruu keessatti galchi.",
+      "description": "Odeeffannoo naannoo yookiin haala dhuunfaa kee ilaalchisee gaafachuu dandeessa."
     },
+    "welcome": {
+      "title": "Akkam!",
+      "description": "Ani <strong>{{name}}</strong> dha, Gargaaraa Barbaacha Dijitaalaa keeti. Gaaffii kee na gaafachuu dandeessa."
+    },
+    "startNew": {
+      "title": "Haasaa haaraa eegali",
+      "description": "Dhuguma haasaa haaraa jalqabuu barbaaddaa? Seenaan haasaa amma jiru ni haqama."
+    },
+    "unread_one": "Ergaa chaatii hin dubbifamne 1",
+    "unread_two": "Ergaawwan chaatii hin dubbifamin {{count}}",
+    "unread_few": "Ergaawwan chaatii hin dubbifamin {{count}}",
+    "unread_many": "Ergaawwan chaatii hin dubbifamin {{count}}",
+    "unread_other": "Ergaawwan chaatii hin dubbifamin {{count}}"
+  },
+  "common": {
     "actions": {
       "back": "Dura",
       "cancel": "Dhiisi",
       "clearInput": "Galtee haqi",
       "close": "Cufi",
       "copy": "Garagalchi",
-      "goToPage": "Gara fuula {{number}}tti",
-      "hideFilters": "Filtara dhoksi",
       "minimize": "Xiqqeessi",
       "next": "Itti fufi",
       "ok": "Tole",
       "open": "Bani",
-      "openExternal": "Alatti bani",
       "previous": "Kan duraa",
       "send": "Ergi",
-      "showFilters": "Gingilchaa agarsiisi",
-      "showLess": "Xiqqeessi agarsiisi",
-      "showMore": "Dabalataan agarsiisi",
       "skip": "Irra darbi",
-      "view": "Agarsiisi"
+      "view": "Agarsiisi",
+      "openExternal": "Alatti bani",
+      "goToPage": "Gara fuula {{number}}tti",
+      "showMore": "Dabalataan agarsiisi",
+      "showLess": "Xiqqeessi agarsiisi",
+      "showFilters": "Gingilchaa agarsiisi",
+      "hideFilters": "Filtara dhoksi"
     },
-    "contacts": {
-      "address": {
-        "copy": "Teessoo garagalchi",
-        "title": "Teessoo"
-      },
-      "email": "Imeelii",
-      "phone": {
-        "mobile": "Lakk. bilbila harkaa",
-        "title": "Lakkoofsa bilbilaa"
-      },
-      "title": "Qunnamtiiwwan",
-      "website": "Weebsaayitii"
+    "a11y": {
+      "skipToContent": "Gara qabiyyetti darbi"
+    },
+    "state": {
+      "copied": "Garagalfameera",
+      "updatedAt": "Fooyya'iinsa dhumaa: {{date}}",
+      "loading": "Fe'aa jira…",
+      "optional": "filannoo",
+      "enabled": "hojiirra ooleera",
+      "disabled": "hojiirraa ooleera"
     },
     "labels": {
       "description": "Ibsa",
-      "getOnPlayStore": "ASIRRAA ARGADHU — Google Play Store keessatti",
-      "menu": "Meeeniyuu"
+      "menu": "Meeeniyuu",
+      "getOnPlayStore": "ASIRRAA ARGADHU — Google Play Store keessatti"
     },
     "meta": {
       "description": "{{appName}} qajeelcha kee isa dijitaalaa Jarmaniiti. Odeeffannoowwan naannoo, qophiilee fi gorsawwan barbaadi. Yeroo hunda kan haaraa fi afaan keetiin."
     },
     "privacy": {
+      "title": "Imaammata Mateenyaa",
       "confirmation": "<Link>Imaammata Mateenyaa</Link> dubbiseera, akkasumas daataa koo adeemsisuu fi kuusuuf walii galeera.",
-      "required": "Maaloo imaammata mateenyaa waliin walii gali.",
-      "title": "Imaammata Mateenyaa"
+      "required": "Maaloo imaammata mateenyaa waliin walii gali."
     },
-    "state": {
-      "copied": "Garagalfameera",
-      "disabled": "hojiirraa ooleera",
-      "enabled": "hojiirra ooleera",
-      "loading": "Fe'aa jira…",
-      "optional": "filannoo",
-      "updatedAt": "Fooyya'iinsa dhumaa: {{date}}"
+    "contacts": {
+      "title": "Qunnamtiiwwan",
+      "address": {
+        "title": "Teessoo",
+        "copy": "Teessoo garagalchi"
+      },
+      "phone": {
+        "title": "Lakkoofsa bilbilaa",
+        "mobile": "Lakk. bilbila harkaa"
+      },
+      "email": "Imeelii",
+      "website": "Weebsaayitii"
     }
   },
   "error": {
+    "title": "Dogoggora",
+    "noSuitableAppInstalled": "Appilikeeshiniin walsimu hin fe'amne.",
     "forbidden": "Naannoo kana argachuuf hayyama hin qabdu.",
     "networkConnectionFailed": "Sarvarii waliin walqunnamtii uumuun hin danda'amne.",
     "networkRequestFailed": "Gaaffii kee adeemsisuun hin danda'amne.",
-    "noSuitableAppInstalled": "Appilikeeshiniin walsimu hin fe'amne.",
-    "nothingFound": "Wanti barbaadame hin argamne.",
-    "pageNotFound": "Fuulli kun hin argamne.",
-    "permissionRequired": "Hayyama barbaachisa",
-    "rateLimited": "Gaaffilee hedduu ergiteetta. Maaloo xiqqoo eegi.",
     "responseMappingFailed": "Deebii sarvarii adeemsisuun hin danda'amne.",
-    "title": "Dogoggora",
-    "tryAgain": "Irra deebi'ii yaali",
-    "unknownError": "Dogoggorri hin beekamne uumameera."
+    "rateLimited": "Gaaffilee hedduu ergiteetta. Maaloo xiqqoo eegi.",
+    "pageNotFound": "Fuulli kun hin argamne.",
+    "nothingFound": "Wanti barbaadame hin argamne.",
+    "permissionRequired": "Hayyama barbaachisa",
+    "unknownError": "Dogoggorri hin beekamne uumameera.",
+    "tryAgain": "Irra deebi'ii yaali"
   },
   "events": {
-    "dateGroups": {
-      "further": "Dabalata",
-      "nextDays": "Guyyoota {{days}} itti aanan",
-      "today": "Har'a",
-      "tomorrow": "Boru"
-    },
+    "title": "Qophiilee",
+    "onlineMeeting": "Walga'ii toora interneetii",
     "error": {
       "notFound": "Qophiin kun hin argamne.",
       "nothingFound": "Qophiileen tokkollee hin argamne."
     },
+    "recurrence": {
+      "recurring": "kan irra deddeebi'u",
+      "furtherDates": "Beellama dabalataa",
+      "untilDate": "hanga {{date}}tti"
+    },
+    "dateGroups": {
+      "today": "Har'a",
+      "tomorrow": "Boru",
+      "nextDays": "Guyyoota {{days}} itti aanan",
+      "further": "Dabalata"
+    },
     "export": {
+      "download": "Ergi",
       "addToCalendar": "Kalandaritti dabali",
       "added": "Kalandaritti dabalameera",
-      "allRecurrences": "Qophii kanaafi kanneen gara fuulduraa hunda",
       "calendar": "Kalandarii",
-      "download": "Ergi",
+      "thisRecurrence": "Qophii kana qofa",
+      "allRecurrences": "Qophii kanaafi kanneen gara fuulduraa hunda",
       "error": {
         "forbidden": "Kalandarii kana fayyadamuuf eeyyamni hin kennamne.",
         "nothingFound": "Kalandariin walsimu hin jiru"
-      },
-      "thisRecurrence": "Qophii kana qofa"
+      }
     },
     "filter": {
-      "error": {
-        "endBeforeStart": "Guyyaan jalqabaa guyyaa dhumaa dura ta'uu qaba.",
-        "invalidDate": "Guyyaa dogoggoraa"
-      },
-      "from": "irraa",
-      "reset": "Gingilchaa haqi: {{filter}}",
-      "selectEnd": "Kalandarii irraa guyyaa xumuraa filadhu",
       "selectStart": "Guyyaa jalqabaa kaaleendarii keessaa filadhu",
-      "to": "hanga"
-    },
-    "onlineMeeting": "Walga'ii toora interneetii",
-    "recurrence": {
-      "furtherDates": "Beellama dabalataa",
-      "recurring": "kan irra deddeebi'u",
-      "untilDate": "hanga {{date}}tti"
-    },
-    "title": "Qophiilee"
+      "selectEnd": "Kalandarii irraa guyyaa xumuraa filadhu",
+      "from": "irraa",
+      "to": "hanga",
+      "reset": "Gingilchaa haqi: {{filter}}",
+      "error": {
+        "invalidDate": "Guyyaa dogoggoraa",
+        "endBeforeStart": "Guyyaan jalqabaa guyyaa dhumaa dura ta'uu qaba."
+      }
+    }
   },
   "feedback": {
+    "title": "Yaada",
+    "give": "Yaada kenni",
+    "description": "Sadarkaa filadhu fi/yookiin yaada barreessi.",
     "comment": {
-      "description": "Yaada keessan nuuf qoodaa! Yaada gaariis ta'ee kan qeeqaa ni dinqisiifanna, sababiin isaas {{appName}} fooyyessuuf nu gargaara.",
-      "title": "Yaada"
+      "title": "Yaada",
+      "description": "Yaada keessan nuuf qoodaa! Yaada gaariis ta'ee kan qeeqaa ni dinqisiifanna, sababiin isaas {{appName}} fooyyessuuf nu gargaara."
     },
     "contactEmail": "Iimeeyilii deebii fi gaaffiif ta'u",
-    "description": "Sadarkaa filadhu fi/yookiin yaada barreessi.",
-    "give": "Yaada kenni",
-    "rating": {
-      "notUseful": "Fayidaa hin qabu",
-      "useful": "Fayidaa qaba"
-    },
     "required": "Yaada kee erguu danda'uuf, maaloo deebii filadhu yookiin yaada barreessi.",
-    "search": {
-      "checkQuery": "Jechoota barbaaddan mirkaneeffadhaa yookiin afaan filatame jijjiiraa.",
-      "informationMissing": "Odeeffannoon asitti hanqateeraa?",
-      "informationNotFound": "Waan barbaaddan hin arganne?",
-      "noResultsInUserAndSourceLanguage": "Kan nama gaddisiisu, afaan keessaniinis ta'ee afaan Jarmaniitiin bu'aan walgitu hin argamne.",
-      "noResultsInUserLanguage": "Kan nama gaddisiisu, afaan keessaniin bu'aan walgitu hin argamne.",
-      "searchTermDescription": "Jecha armaan gadiitiif bu'aan tokkollee hin argamne:",
-      "wantedInformation": "Odeeffannoo akkamiitu hanqate?"
+    "rating": {
+      "useful": "Fayidaa qaba",
+      "notUseful": "Fayidaa hin qabu"
     },
     "thanks": {
-      "description": "Yaanni kee milkaa'inaan ergameera.",
-      "title": "Yaada keetiif baay'ee galatoomi."
+      "title": "Yaada keetiif baay'ee galatoomi.",
+      "description": "Yaanni kee milkaa'inaan ergameera."
     },
-    "title": "Yaada"
+    "search": {
+      "informationNotFound": "Waan barbaaddan hin arganne?",
+      "wantedInformation": "Odeeffannoo akkamiitu hanqate?",
+      "informationMissing": "Odeeffannoon asitti hanqateeraa?",
+      "searchTermDescription": "Jecha armaan gadiitiif bu'aan tokkollee hin argamne:",
+      "checkQuery": "Jechoota barbaaddan mirkaneeffadhaa yookiin afaan filatame jijjiiraa.",
+      "noResultsInUserLanguage": "Kan nama gaddisiisu, afaan keessaniin bu'aan walgitu hin argamne.",
+      "noResultsInUserAndSourceLanguage": "Kan nama gaddisiisu, afaan keessaniinis ta'ee afaan Jarmaniitiin bu'aan walgitu hin argamne."
+    }
   },
   "intro": {
+    "welcome": {
+      "title": "Baga gara {{appName}} dhuftan",
+      "description": "{{appName}} keessatti afaan dhalootaa keetiin deebiiwwanii fi gorsa ni argatta. Fakkeenyaaf: Gargaarsa eessaan argadha? Yoom hojjechuun danda'a?"
+    },
     "slides": {
+      "search": {
+        "title": "Barbaacha Salphaa",
+        "description": "Menyuu gubbaa mirgaa irraa barbaaduun odeeffannoo sirrii ta'e saffisaan argachuu dandeessa."
+      },
       "languageChange": {
         "description": "Manni carraa (menyuu) gubbaa irraa afaan {{appName}} jijjiiruu dandeessa."
       },
-      "news": {
-        "description": "Naannoo keetti maaltu haaraa jira? {{appName}} keessatti baruu dandeessa.",
-        "title": "Odeeffannoo Haaraa"
+      "places": {
+        "title": "Tajaajiloota naannoo keetii",
+        "description": "Kaartaa irratti bakkeewwan naannoo kee jiran, fakkeenyaaf bakkeewwan koorsii afaanii argachuu dandeessa."
       },
       "offline": {
-        "description": "Yeroo hunda intarneetii hin qabduu? Rakkina hin qabu. {{appName}} intarneetii malees fayyadamuu dandeessa.",
-        "title": "Intarneetii malees ni hojjeta"
+        "title": "Intarneetii malees ni hojjeta",
+        "description": "Yeroo hunda intarneetii hin qabduu? Rakkina hin qabu. {{appName}} intarneetii malees fayyadamuu dandeessa."
       },
-      "places": {
-        "description": "Kaartaa irratti bakkeewwan naannoo kee jiran, fakkeenyaaf bakkeewwan koorsii afaanii argachuu dandeessa.",
-        "title": "Tajaajiloota naannoo keetii"
-      },
-      "search": {
-        "description": "Menyuu gubbaa mirgaa irraa barbaaduun odeeffannoo sirrii ta'e saffisaan argachuu dandeessa.",
-        "title": "Barbaacha Salphaa"
+      "news": {
+        "title": "Odeeffannoo Haaraa",
+        "description": "Naannoo keetti maaltu haaraa jira? {{appName}} keessatti baruu dandeessa."
       }
-    },
-    "welcome": {
-      "description": "{{appName}} keessatti afaan dhalootaa keetiin deebiiwwanii fi gorsa ni argatta. Fakkeenyaaf: Gargaarsa eessaan argadha? Yoom hojjechuun danda'a?",
-      "title": "Baga gara {{appName}} dhuftan"
     }
   },
   "ios": {
-    "NSCalendarsFullAccessUsageDescription": "{{appName}} qophiilee itti dabaluuf kaalendarii keessan fayyadamuu barbaada.",
-    "NSCalendarsUsageDescription": "{{appName}} qophiilee itti dabaluuf kaalendarii keessan fayyadamuu barbaada.",
-    "NSLocationAlwaysAndWhenInUseUsageDescription": "Bakkeewwan dhiyoo jiran argachuuf, {{appName}} iddoo keessan (location) beekuu barbaada.",
+    "NSPhotoLibraryAddUsageDescription": "Suuroota olkaa'uuf, {{appName}} kuusaa suuraa (gaalarii) keessan fayyadamuuf eeyyama barbaada.",
     "NSLocationWhenInUseUsageDescription": "Bakkeewwan dhiyoo jiran argachuuf, {{appName}} iddoo keessan (location) beekuu barbaada.",
-    "NSPhotoLibraryAddUsageDescription": "Suuroota olkaa'uuf, {{appName}} kuusaa suuraa (gaalarii) keessan fayyadamuuf eeyyama barbaada."
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Bakkeewwan dhiyoo jiran argachuuf, {{appName}} iddoo keessan (location) beekuu barbaada.",
+    "NSCalendarsUsageDescription": "{{appName}} qophiilee itti dabaluuf kaalendarii keessan fayyadamuu barbaada.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} qophiilee itti dabaluuf kaalendarii keessan fayyadamuu barbaada."
   },
   "languages": {
     "change": "Afaan jijjiiri",
     "changed": "Afaan gara {{languageName}}tti jijjiirameera",
+    "search": "Afaan barbaadi",
     "error": {
       "noTranslation": "Hiikni hin argamne",
       "notFound": {
-        "description": "Fuulli kun ammatti afaanota hundaani hin argamu. Afaanota dabalataa dhiheessuuf hojjechaa jirra. Afaan keessan karaa tajaajila <Link>Yaada</Link> gaafachuu dandeessu.",
+        "title": "Afaan kun hin argamne.",
         "question": "Afaan barbaaddan dhabdanii?",
-        "title": "Afaan kun hin argamne."
+        "description": "Fuulli kun ammatti afaanota hundaani hin argamu. Afaanota dabalataa dhiheessuuf hojjechaa jirra. Afaan keessan karaa tajaajila <Link>Yaada</Link> gaafachuu dandeessu."
       }
-    },
-    "search": "Afaan barbaadi"
+    }
   },
   "malteHelpForm": {
+    "supportNote": "Yeroo rakkina ykn gaaffii qabdanitti nageenyi fi deeggarsi akka isinitti dhaga'amu barbaanna. Unka qunnamtii armaan gadiitiin qaamolee qunnamsiisoo waliin walqunnamtii uumuu dandeessu. Gosa dhimma keessanii ibsuun filannoowwan qunnamtii adda addaa keessaa filachuu dandeessu.",
+    "securityNote": "Nageenyi keessan dursa olaanaa keenyadha. Iccitiin keessan yeroo hunda eegamaa ta'uu isaa mirkaneessuuf, odeeffannoon keessan iccitiidhaan qabama.",
+    "name": "Maqaa maatii, Maqaa",
+    "roomNumber": "Lakkoofsa kutaa",
+    "howToBeContacted": "Akkaataan itti qunnamamuu barbaadu:",
+    "eMail": "Imeelii",
+    "telephone": "Bilbila",
+    "telephoneNumber": "Lakk. Bilbilaa",
+    "personally": "Dhuunfaadhaan",
     "contactPerson": "Nama qunnamtii:",
     "contactPersonAnyGender": "Koorniyaan nama qunnamtii dhimma hin qabu",
     "contactPersonGenderFemale": "Dubartiidhaan qunnamamuu nan barbaada",
     "contactPersonGenderMale": "Dhiiraan qunnamamuu nan barbaada",
     "contactReason": "Dhimma keessan:",
-    "eMail": "Imeelii",
-    "howToBeContacted": "Akkaataan itti qunnamamuu barbaadu:",
-    "invalidEmailAddress": "Teessoon imeelii galchitan sirrii miti.",
     "maxCharacters": "ykn qubee {{numberOfCharacters}} qofa",
-    "name": "Maqaa maatii, Maqaa",
-    "personally": "Dhuunfaadhaan",
     "responseHint": "Deebii argachuuf guyyoota hojii muraasa fudhachuu danda'a. Dhimma keessan saffisaan ilaaluuf carraaqqii goona.",
-    "roomNumber": "Lakkoofsa kutaa",
-    "securityNote": "Nageenyi keessan dursa olaanaa keenyadha. Iccitiin keessan yeroo hunda eegamaa ta'uu isaa mirkaneessuuf, odeeffannoon keessan iccitiidhaan qabama.",
     "submit": "Unka ergi",
+    "submitSuccessful": "Unki milkaa'inaan ergameera",
     "submitFailed": "Unki erguu hin danda'amne",
     "submitFailedReasoning": "Maaloo walqunnamsiisa interneetii tasgabbaa'aa qabaachuu keessan mirkaneeffadhaa irra deebi'aatii yaalaa.",
-    "submitSuccessful": "Unki milkaa'inaan ergameera",
-    "supportNote": "Yeroo rakkina ykn gaaffii qabdanitti nageenyi fi deeggarsi akka isinitti dhaga'amu barbaanna. Unka qunnamtii armaan gadiitiin qaamolee qunnamsiisoo waliin walqunnamtii uumuu dandeessu. Gosa dhimma keessanii ibsuun filannoowwan qunnamtii adda addaa keessaa filachuu dandeessu.",
-    "telephone": "Bilbila",
-    "telephoneNumber": "Lakk. Bilbilaa"
+    "invalidEmailAddress": "Teessoon imeelii galchitan sirrii miti."
   },
   "news": {
+    "title": "Oduu",
+    "sources": {
+      "all": "Ergaawwan hunda",
+      "local": "Oduuwwan naannoo",
+      "national": "Oduuwwan biyyaalessaa",
+      "allShort": "Hunda",
+      "localShort": "Naannoo",
+      "nationalShort": "Biyyaalessaa"
+    },
     "error": {
       "notFound": "Ergaan kun hin argamne.",
       "nothingFound": "Ergaan tokkollee hin argamne."
-    },
-    "sources": {
-      "all": "Ergaawwan hunda",
-      "allShort": "Hunda",
-      "local": "Oduuwwan naannoo",
-      "localShort": "Naannoo",
-      "national": "Oduuwwan biyyaalessaa",
-      "nationalShort": "Biyyaalessaa"
-    },
-    "title": "Oduu"
+    }
   },
   "places": {
+    "title": "Kaartaa",
     "accessible": "Qaama miidhamtootaaf kan mijate",
-    "distance": "km {{distance}} fagaata",
+    "notAccessible": "Qaama miidhamtootaaf hin mijatu",
     "error": {
       "notFound": "Bakki kun hin argamne.",
       "nothingFound": "Bakkeewwan tokkoyyuu hin argamne."
     },
-    "filter": {
-      "adjust": "Bakkeewwan calali",
-      "alphabet": "A-Z",
-      "categories": "Kutaalee",
-      "onlyOpen": "Bakkeewwan yeroo ammaa banaa ta'an qofa agarsiisi",
-      "placeCount_few": "Bakkeewwan {{count}}",
-      "placeCount_many": "Bakkeewwan {{count}}",
-      "placeCount_one": "Bakka 1",
-      "placeCount_other": "Bakkeewwan {{count}}",
-      "placeCount_two": "Bakkeewwan {{count}}",
-      "placeCount_zero": "Bakkeewwan 0",
-      "show_few": "Bakkeewwan {{count}} agarsiisi",
-      "show_many": "Bakkeewwan {{count}} agarsiisi",
-      "show_one": "Bakka 1 agarsiisi",
-      "show_other": "Bakkeewwan {{count}} agarsiisi",
-      "show_two": "Bakkeewwan {{count}} agarsiisi",
-      "show_zero": "Bakkeewwan 0 argaman"
-    },
-    "hours": {
-      "allDay": "guyyaa guutuu",
-      "appointment": {
-        "make": {
-          "description": "<Link>Weebsaayitii</Link> irratti yookiin bilbilaan beellama qabadhaa.",
-          "title": "Beellama qabadhu"
-        },
-        "required": "Beellamni barbaachisaadha"
-      },
-      "closed": "Cufameera",
-      "open": "Bantameera",
-      "temporarilyClosed": "Yeroof cufameera",
-      "title": "Sa'aatii banaa ta'u"
-    },
-    "notAccessible": "Qaama miidhamtootaaf hin mijatu",
-    "title": "Kaartaa",
-    "weekdays": {
-      "dienstag": "Kibxata",
-      "donnerstag": "Kamisa",
-      "freitag": "Jimaata",
-      "mittwoch": "Roobii",
-      "montag": "Wiixata",
-      "samstag": "Sanbata",
-      "sonntag": "Dilbata"
-    },
+    "distance": "km {{distance}} fagaata",
     "zoom": {
       "in": "Guddisi",
       "out": "Xiqeessi"
+    },
+    "filter": {
+      "adjust": "Bakkeewwan calali",
+      "onlyOpen": "Bakkeewwan yeroo ammaa banaa ta'an qofa agarsiisi",
+      "categories": "Kutaalee",
+      "alphabet": "A-Z",
+      "show_zero": "Bakkeewwan 0 argaman",
+      "show_one": "Bakka 1 agarsiisi",
+      "show_two": "Bakkeewwan {{count}} agarsiisi",
+      "show_few": "Bakkeewwan {{count}} agarsiisi",
+      "show_many": "Bakkeewwan {{count}} agarsiisi",
+      "show_other": "Bakkeewwan {{count}} agarsiisi",
+      "placeCount_zero": "Bakkeewwan 0",
+      "placeCount_one": "Bakka 1",
+      "placeCount_two": "Bakkeewwan {{count}}",
+      "placeCount_few": "Bakkeewwan {{count}}",
+      "placeCount_many": "Bakkeewwan {{count}}",
+      "placeCount_other": "Bakkeewwan {{count}}"
+    },
+    "hours": {
+      "title": "Sa'aatii banaa ta'u",
+      "allDay": "guyyaa guutuu",
+      "open": "Bantameera",
+      "closed": "Cufameera",
+      "temporarilyClosed": "Yeroof cufameera",
+      "appointment": {
+        "required": "Beellamni barbaachisaadha",
+        "make": {
+          "title": "Beellama qabadhu",
+          "description": "<Link>Weebsaayitii</Link> irratti yookiin bilbilaan beellama qabadhaa."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Wiixata",
+      "dienstag": "Kibxata",
+      "mittwoch": "Roobii",
+      "donnerstag": "Kamisa",
+      "freitag": "Jimaata",
+      "samstag": "Sanbata",
+      "sonntag": "Dilbata"
     }
   },
   "regions": {
+    "title": "Naannolee",
+    "welcome": {
+      "title": "Baga gara {{appName}} nagaan dhuftan.",
+      "description": "Odeeffannoowwan si barbaachisan hundaaf qajeelcha dijitaalaa kee. Maaloo naannoo kee filadhu."
+    },
     "change": "Naannoo jijjiiri",
+    "notFound": "Naannoon kun hin argamne.",
+    "search": {
+      "region": "Naannoo barbaadi",
+      "description": "Naannoo kee ykn magaalaa guddoo dhihoo jirtu filadhu, fkn {{exampleRegion}}"
+    },
     "nearby": {
       "nothingFound": "Naannoon dhihoo hin jiru.",
       "refresh": "Naannoolee dhihoo haaromsi"
-    },
-    "notFound": "Naannoon kun hin argamne.",
-    "search": {
-      "description": "Naannoo kee ykn magaalaa guddoo dhihoo jirtu filadhu, fkn {{exampleRegion}}",
-      "region": "Naannoo barbaadi"
-    },
-    "title": "Naannolee",
-    "welcome": {
-      "description": "Odeeffannoowwan si barbaachisan hundaaf qajeelcha dijitaalaa kee. Maaloo naannoo kee filadhu.",
-      "title": "Baga gara {{appName}} nagaan dhuftan."
     }
   },
   "search": {
+    "title": "Barbaadi",
+    "searchContent": "Qabiyyee barbaadi",
+    "viewResult": "Bu'aa barbaachaa bani",
+    "resultCount_zero": "Bu'aalee barbaachaa 0",
+    "resultCount_one": "Bu'aa barbaachaa 1",
+    "resultCount_two": "Bu'aalee barbaachaa {{count}}",
     "resultCount_few": "Bu'aalee barbaachaa {{count}}",
     "resultCount_many": "Bu'aalee barbaachaa {{count}}",
-    "resultCount_one": "Bu'aa barbaachaa 1",
-    "resultCount_other": "Bu'aalee barbaachaa {{count}}",
-    "resultCount_two": "Bu'aalee barbaachaa {{count}}",
-    "resultCount_zero": "Bu'aalee barbaachaa 0",
-    "searchContent": "Qabiyyee barbaadi",
-    "title": "Barbaadi",
-    "viewResult": "Bu'aa barbaachaa bani"
+    "resultCount_other": "Bu'aalee barbaachaa {{count}}"
   },
   "settings": {
-    "contrast": {
-      "description": "Haalli adda baasuu (kontraastii) dubbisuuf akka tolu taasisa",
-      "title": "Adda baasuu olaanaa (beta)"
-    },
+    "title": "Qindaa'inoota",
     "error": {
       "save": "Qindaa'inoota olkaawuun hin danda'amne"
     },
-    "externalSources": {
-      "allowed": "Qabiyyeen kun madda alaa kanarraa qabiyyee qaba. Qabiyyee akkasii qindaa'inoota keessatti cufuu (dhowwuu) dandeessa.",
-      "blocked": "Qabiyyeen alaa madda kanarraa dhufe cufameera. Qindaa'inoota keessatti madda kana hayyamuu dandeessa.",
-      "description": "Qabiyyeen maddoota alaa akka sitti agarsiifamuuf yeroo hundaaf hayyamuu dandeessa. Hayyama kana yeroo barbaaddetti asitti haquu dandeessa.",
-      "descriptionShort": "Maddoota alaa kamtu akka hayyamaman murteessi.",
-      "nothingFound": "Maddi alaa kamiyyuu hin jiru.",
-      "optIn": "Qabiyyeen madda alaa kanaa akka natti agarsiifamu nan hayyama.",
-      "source": "Qabiyyee {{source}} irraa eeyyami",
-      "title": "Maddoota Alaa"
+    "sentry": {
+      "title": "Tasgabbii Appii",
+      "description": "Gabaasa caccabuu ofumaan erguudhaan {{appName}} fooyyessi"
     },
     "pushNotifications": {
-      "description": "Oduuwwan naannoo haarawaa argachuuf beeksisa dhiibbaa (push notifications) fudhadhu",
-      "title": "Beeksisa Dhiibbaa"
+      "title": "Beeksisa Dhiibbaa",
+      "description": "Oduuwwan naannoo haarawaa argachuuf beeksisa dhiibbaa (push notifications) fudhadhu"
     },
-    "sentry": {
-      "description": "Gabaasa caccabuu ofumaan erguudhaan {{appName}} fooyyessi",
-      "title": "Tasgabbii Appii"
+    "contrast": {
+      "title": "Adda baasuu olaanaa (beta)",
+      "description": "Haalli adda baasuu (kontraastii) dubbisuuf akka tolu taasisa"
     },
-    "title": "Qindaa'inoota"
+    "externalSources": {
+      "title": "Maddoota Alaa",
+      "descriptionShort": "Maddoota alaa kamtu akka hayyamaman murteessi.",
+      "description": "Qabiyyeen maddoota alaa akka sitti agarsiifamuuf yeroo hundaaf hayyamuu dandeessa. Hayyama kana yeroo barbaaddetti asitti haquu dandeessa.",
+      "source": "Qabiyyee {{source}} irraa eeyyami",
+      "optIn": "Qabiyyeen madda alaa kanaa akka natti agarsiifamu nan hayyama.",
+      "allowed": "Qabiyyeen kun madda alaa kanarraa qabiyyee qaba. Qabiyyee akkasii qindaa'inoota keessatti cufuu (dhowwuu) dandeessa.",
+      "blocked": "Qabiyyeen alaa madda kanarraa dhufe cufameera. Qindaa'inoota keessatti madda kana hayyamuu dandeessa.",
+      "nothingFound": "Maddi alaa kamiyyuu hin jiru."
+    }
   },
   "share": {
-    "copyLink": "Geessituu garagalchi",
+    "title": "Qoodi",
     "message": "Amma kan argame: {{message}}",
+    "copyLink": "Geessituu garagalchi",
     "qr": {
-      "description": "Koodii QR meeshaa biraa irratti iskaan gochuudhaan fuula kana salphatti qoodi.",
       "label": "Koodii QR",
-      "title": "Koodii QR tiin qoodi"
-    },
-    "title": "Qoodi"
+      "title": "Koodii QR tiin qoodi",
+      "description": "Koodii QR meeshaa biraa irratti iskaan gochuudhaan fuula kana salphatti qoodi."
+    }
   },
   "suggestToRegion": {
+    "title": "{{appName}} naannoo keetiif yaada dhiyeessi",
     "description": "Yaadni appii Integreat si hawwatee jiraa, akkasumas magaalaan, aanaan yookiin hawaasni kee furmaata dijitaalaa kana irraa fayyadamuu danda'u jettee amantaa? Yoos asitti salphatti hirmaachuu dandeessa.",
     "regionNotFoundCta": "Naannoo kee dhabdee? Ammuma hirmaadhu!",
+    "whatToDo": "Wanti ati gochuu dandeessu:",
     "steps": {
+      "getEmail": "Teessoo Imeelii naannoo keetii bari",
       "copyText": "Barruu kana garagalchi",
       "fillPlaceholders": "Bakka qabduu [ ] odeeffannoo keetiin guuti",
-      "getEmail": "Teessoo Imeelii naannoo keetii bari",
       "send": "Imeelicha gara naannoo keetiitti ergi"
-    },
-    "title": "{{appName}} naannoo keetiif yaada dhiyeessi",
-    "whatToDo": "Wanti ati gochuu dandeessu:"
+    }
   },
   "tour": {
-    "additionalFeatures": {
-      "description": "Tajaajiloota dabalataa kanneen akka <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> fi <strong>{{additionalFeature}}</strong> asitti fayyadami.",
-      "title": "Tajaajiloota dabalataa"
+    "title": "Daawwannaa Appii",
+    "welcome": "Daawwannaan gabaabaan kun tajaajiloota ijoo appilikeeshinii kanaa si agarsiisa.",
+    "start": "Daawwannaa eegali",
+    "progress": "Tarkaanfii {{current}} {{total}} keessaa",
+    "regionChange": {
+      "description": "Odeeffannoo naannoo argachuuf <strong>Naannoo</strong> kee asitti filadhu."
+    },
+    "navigation": {
+      "title": "Naannessa",
+      "description": "Asirratti gidduu <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> fi <strong>$t(events:title)</strong> jijjiiri."
     },
     "categories": {
-      "description": "Mata dureewwan akka <strong>Jireenya/Mana</strong>, <strong>Barnoota</strong>, <strong>Hojii</strong> fi kanneen biroo irratti odeeffannoo argadhu.",
-      "title": "Mata dureewwan adda baafadhu"
+      "title": "Mata dureewwan adda baafadhu",
+      "description": "Mata dureewwan akka <strong>Jireenya/Mana</strong>, <strong>Barnoota</strong>, <strong>Hojii</strong> fi kanneen biroo irratti odeeffannoo argadhu."
+    },
+    "searchAndLanguage": {
+      "title": "Barbaacha fi Afaan",
+      "description": "Odeeffannoo naannoo, qophiilee fi iddoowwan <strong>barbaadi</strong> yookiin <strong>Afaan</strong> jijjiiri."
+    },
+    "menu": {
+      "title": "Tajaajiloota dabalataa",
+      "description": "Tajaajiloota dabalataa kanneen akka <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> fi <strong>{{additionalFeature}}</strong> asitti fayyadami."
     },
     "chat": {
       "description": "Gaaffilee kee asitti gaafachuun deebii sirrii ta'e daftee argadhu."
     },
     "finish": {
-      "description": "Amma tajaajiloota guguddoo bartee jirta. Fayyadama {{appName}} gaarii siif haa ta'u!",
-      "title": "Xumurameera!"
-    },
-    "navigation": {
-      "description": "Asirratti gidduu <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> fi <strong>$t(events:title)</strong> jijjiiri.",
-      "title": "Naannessa"
-    },
-    "progress": "Tarkaanfii {{current}} {{total}} keessaa",
-    "regionChange": {
-      "description": "Odeeffannoo naannoo argachuuf <strong>Naannoo</strong> kee asitti filadhu."
-    },
-    "searchAndLanguage": {
-      "description": "Odeeffannoo naannoo, qophiilee fi iddoowwan <strong>barbaadi</strong> yookiin <strong>Afaan</strong> jijjiiri.",
-      "title": "Barbaacha fi Afaan"
-    },
-    "start": "Daawwannaa eegali",
-    "title": "Daawwannaa Appii",
-    "welcome": "Daawwannaan gabaabaan kun tajaajiloota ijoo appilikeeshinii kanaa si agarsiisa."
+      "title": "Xumurameera!",
+      "description": "Amma tajaajiloota guguddoo bartee jirta. Fayyadama {{appName}} gaarii siif haa ta'u!"
+    }
   },
   "tts": {
-    "error": {
-      "languageNotSupported": "Afaan kun hin deggeramu.",
-      "noVoices": {
-        "description": "Sagaleen hin argamne. Tajaajila sagaleen dubbisuu fayyadamuuf, sagaleen fe'amuu qaba. Maaloo qajeelfama sirna hojjetaa (OS) keetii hordofi.",
-        "title": "Sagaleen hin fe'amne"
-      },
-      "nothingToRead": {
-        "description": "Fuula kana irratti wanti dubbifamu hin jiru.",
-        "title": "Wanti dubbifamu hin jiru"
-      }
-    },
+    "title": "Sagaleen dubbisi",
     "pause": "Xumuraaf tursiisi",
     "play": "Taphachiisi",
-    "title": "Sagaleen dubbisi"
+    "error": {
+      "languageNotSupported": "Afaan kun hin deggeramu.",
+      "nothingToRead": {
+        "title": "Wanti dubbifamu hin jiru",
+        "description": "Fuula kana irratti wanti dubbifamu hin jiru."
+      },
+      "noVoices": {
+        "title": "Sagaleen hin fe'amne",
+        "description": "Sagaleen hin argamne. Tajaajila sagaleen dubbisuu fayyadamuuf, sagaleen fe'amuu qaba. Maaloo qajeelfama sirna hojjetaa (OS) keetii hordofi."
+      }
+    }
   },
   "userLocation": {
+    "nearby": "Dhiyoo keetti",
+    "show": "Bakka koo agarsiisi",
     "loading": "Bakka jirtu barbaadaa jira…",
     "locationAccessRequired": "Naannoolee dhiyoo jiran agarsiisuuf, heyyama bakkaa (location access) banuun barbaachisaadha.",
-    "nearby": "Dhiyoo keetti",
     "noPermission": "Heyyama bakkaa barbaachisa",
     "notAvailable": "Tajaajilli bakkaa cufameera",
-    "show": "Bakka koo agarsiisi",
     "timeout": "Bakki jirtu hin argamne"
   }
 }

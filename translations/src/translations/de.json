@@ -1,4 +1,15 @@
 {
+  "about": {
+    "legal": "Rechtliches",
+    "imprint": "Impressum",
+    "accessibility": "Barrierefreiheit",
+    "aboutUs": "Über uns",
+    "licenses": {
+      "title": "Open-Source-Lizenzen",
+      "version": "Version: {{version}}",
+      "license": "Lizenz: {{license}}"
+    }
+  },
   "categories": {
     "title": "Lokale Informationen",
     "titleShort": "Informationen",
@@ -206,8 +217,16 @@
       }
     }
   },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "Um Bilder zu speichern, benötigt {{appName}} Zugriff auf die Galerie.",
+    "NSLocationWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.",
+    "NSCalendarsUsageDescription": "{{appName}} möchte auf den Kalender zugreifen, um Veranstaltungen hinzuzufügen.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} möchte auf den Kalender zugreifen, um Veranstaltungen hinzuzufügen."
+  },
   "languages": {
     "change": "Sprache wechseln",
+    "changed": "Sprache wurde auf {{languageName}} umgestellt",
     "search": "Suche Sprache",
     "error": {
       "noTranslation": "Keine Übersetzung verfügbar",
@@ -240,13 +259,6 @@
     "submitFailed": "Formular konnte nicht versandt werden",
     "submitFailedReasoning": "Bitte gewährleisten Sie eine stabile Internetverbindung und versuchen Sie es erneut.",
     "invalidEmailAddress": "Die angegebene E-Mail Adresse ist ungültig."
-  },
-  "ios": {
-    "NSPhotoLibraryAddUsageDescription": "Um Bilder zu speichern, benötigt {{appName}} Zugriff auf die Galerie.",
-    "NSLocationWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.",
-    "NSLocationAlwaysAndWhenInUseUsageDescription": "Um nahegelegene Orte zu finden, benötigt {{appName}} Zugriff auf den Standort.",
-    "NSCalendarsUsageDescription": "{{appName}} möchte auf den Kalender zugreifen, um Veranstaltungen hinzuzufügen.",
-    "NSCalendarsFullAccessUsageDescription": "{{appName}} möchte auf den Kalender zugreifen, um Veranstaltungen hinzuzufügen."
   },
   "news": {
     "title": "Nachrichten",
@@ -346,17 +358,6 @@
     "resultCount_many": "{{count}} Suchergebnisse",
     "resultCount_other": "{{count}} Suchergebnisse"
   },
-  "about": {
-    "legal": "Rechtliches",
-    "imprint": "Impressum",
-    "accessibility": "Barrierefreiheit",
-    "aboutUs": "Über uns",
-    "licenses": {
-      "title": "Open-Source-Lizenzen",
-      "version": "Version: {{version}}",
-      "license": "Lizenz: {{license}}"
-    }
-  },
   "settings": {
     "title": "Einstellungen",
     "error": {
@@ -407,17 +408,40 @@
       "send": "Sende die E-Mail an Deine Region"
     }
   },
-  "userLocation": {
-    "nearby": "In deiner Nähe",
-    "show": "Eigenen Standort zeigen",
-    "loading": "Bestimme Standort…",
-    "locationAccessRequired": "Um Regionen in der Nähe anzuzeigen, muss der Standortzugriff aktiviert sein.",
-    "noPermission": "Standortzugriff erforderlich",
-    "notAvailable": "Standortdienste sind deaktiviert",
-    "timeout": "Standort nicht gefunden"
+  "tour": {
+    "title": "App-Tour",
+    "welcome": "Diese kurze Tour zeigt dir die wichtigsten Funktionen der App.",
+    "start": "Tour starten",
+    "progress": "Schritt {{current}} von {{total}}",
+    "regionChange": {
+      "description": "Wähle hier deine <strong>Region</strong> aus, um lokale Informationen zu finden."
+    },
+    "navigation": {
+      "title": "Navigation",
+      "description": "Wechsle hier zwischen <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> und <strong>$t(events:title)</strong>."
+    },
+    "categories": {
+      "title": "Themen entdecken",
+      "description": "Entdecke Informationen zu Themen wie <strong>Wohnen</strong>, <strong>Bildung</strong>, <strong>Arbeit</strong> und mehr."
+    },
+    "searchAndLanguage": {
+      "title": "Suche und Sprache",
+      "description": "<strong>Suche</strong> nach lokalen Informationen, Veranstaltungen und Orten oder ändere die <strong>Sprache</strong>."
+    },
+    "menu": {
+      "title": "Weitere Funktionen",
+      "description": "Nutze hier weitere Funktionen wie <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> und <strong>{{additionalFeature}}</strong>."
+    },
+    "chat": {
+      "description": "Stelle hier deine Fragen und bekomme schnell passende Antworten."
+    },
+    "finish": {
+      "title": "Fertig!",
+      "description": "Jetzt kennst du die wichtigsten Funktionen. Viel Erfolg mit {{appName}}!"
+    }
   },
   "tts": {
-    "title": "Vorlesefunktion",
+    "title": "Vorlesen",
     "pause": "Pause",
     "play": "Abspielen",
     "error": {
@@ -431,5 +455,14 @@
         "description": "Es wurde keine Stimme gefunden. Um die Vorlesefunktion nutzen zu können, muss eine Stimme installiert sein. Bitte beachte die folgenden Anweisungen für dein Betriebssystem."
       }
     }
+  },
+  "userLocation": {
+    "nearby": "In deiner Nähe",
+    "show": "Eigenen Standort zeigen",
+    "loading": "Bestimme Standort…",
+    "locationAccessRequired": "Um Regionen in der Nähe anzuzeigen, muss der Standortzugriff aktiviert sein.",
+    "noPermission": "Standortzugriff erforderlich",
+    "notAvailable": "Standortdienste sind deaktiviert",
+    "timeout": "Standort nicht gefunden"
   }
 }

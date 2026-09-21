@@ -3,7 +3,7 @@ import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify'
 import flat from 'flat'
 import fs from 'fs'
-import { fromPairs, toPairs, union } from 'lodash-es'
+import { fromPairs, sortBy, toPairs, union } from 'lodash-es'
 import path from 'path'
 
 import config from '../src/config.js'
@@ -162,7 +162,8 @@ const importTranslationsFromCsv = (fromDir: string, toDir: string, sourceLanguag
       )
     }
 
-    const json = JSON.stringify(languageTranslations, null, 2)
+    const sortedNamespaces = fromPairs(sortBy(toPairs(languageTranslations), ([namespace]) => namespace))
+    const json = JSON.stringify(sortedNamespaces, null, 2)
     fs.writeFileSync(languageFilePath(toDir, language), `${json}\n`, 'utf-8')
   })
 }

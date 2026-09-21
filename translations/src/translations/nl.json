@@ -1,468 +1,468 @@
 {
   "about": {
-    "aboutUs": "Over ons",
-    "accessibility": "Toegankelijkheid",
-    "imprint": "Colofon",
     "legal": "Juridische informatie",
+    "imprint": "Colofon",
+    "accessibility": "Toegankelijkheid",
+    "aboutUs": "Over ons",
     "licenses": {
-      "license": "Licentie: {{license}}",
       "title": "Open-sourcelicenties",
-      "version": "Versie: {{version}}"
+      "version": "Versie: {{version}}",
+      "license": "Licentie: {{license}}"
     }
   },
   "categories": {
+    "title": "Lokale informatie",
+    "titleShort": "Informatie",
     "organization": {
-      "description": "Meer informatie over {{organization}} vind je op <Link>{{domain}}</Link>.",
-      "title": "De inhoud van deze pagina is afkomstig van {{organization}}."
+      "title": "De inhoud van deze pagina is afkomstig van {{organization}}.",
+      "description": "Meer informatie over {{organization}} vind je op <Link>{{domain}}</Link>."
     },
     "pdf": {
       "create": "Pdf maken",
       "disabled": "Het aanmaken van een pdf is momenteel niet mogelijk in deze taal."
-    },
-    "title": "Lokale informatie",
-    "titleShort": "Informatie"
-  },
-  "chat": {
-    "bot": "Chatbot",
-    "consultant": "Adviseur",
-    "initial": {
-      "description": "Je kunt vragen stellen over lokale informatie of over je persoonlijke situatie.",
-      "title": "Typ je vraag in het tekstveld."
-    },
-    "inputPlaceholder": "Typ je vraag…",
-    "startNew": {
-      "description": "Weet je zeker dat je een nieuwe chat wilt starten? De huidige chatgeschiedenis wordt verwijderd.",
-      "title": "Nieuwe chat starten"
-    },
-    "subtitle": "Je digitale zoekassistent",
-    "typing": "Aan het typen…",
-    "unread_few": "{{count}} ongelezen chatberichten",
-    "unread_many": "{{count}} ongelezen chatberichten",
-    "unread_one": "1 ongelezen chatbericht",
-    "unread_other": "{{count}} ongelezen chatberichten",
-    "unread_two": "{{count}} ongelezen chatberichten",
-    "welcome": {
-      "description": "Ik ben <strong>{{name}}</strong>, je digitale zoekassistent. Stel gerust je vraag.",
-      "title": "Hallo!"
     }
   },
-  "common": {
-    "a11y": {
-      "skipToContent": "Naar inhoud gaan"
+  "chat": {
+    "subtitle": "Je digitale zoekassistent",
+    "bot": "Chatbot",
+    "consultant": "Adviseur",
+    "typing": "Aan het typen…",
+    "inputPlaceholder": "Typ je vraag…",
+    "initial": {
+      "title": "Typ je vraag in het tekstveld.",
+      "description": "Je kunt vragen stellen over lokale informatie of over je persoonlijke situatie."
     },
+    "welcome": {
+      "title": "Hallo!",
+      "description": "Ik ben <strong>{{name}}</strong>, je digitale zoekassistent. Stel gerust je vraag."
+    },
+    "startNew": {
+      "title": "Nieuwe chat starten",
+      "description": "Weet je zeker dat je een nieuwe chat wilt starten? De huidige chatgeschiedenis wordt verwijderd."
+    },
+    "unread_one": "1 ongelezen chatbericht",
+    "unread_two": "{{count}} ongelezen chatberichten",
+    "unread_few": "{{count}} ongelezen chatberichten",
+    "unread_many": "{{count}} ongelezen chatberichten",
+    "unread_other": "{{count}} ongelezen chatberichten"
+  },
+  "common": {
     "actions": {
       "back": "Terug",
       "cancel": "Annuleren",
       "clearInput": "Invoer wissen",
       "close": "Sluiten",
       "copy": "Kopiëren",
-      "goToPage": "Naar pagina {{number}}",
-      "hideFilters": "Filters verbergen",
       "minimize": "Minimaliseren",
       "next": "Volgende",
       "ok": "Oké",
       "open": "Openen",
-      "openExternal": "Extern openen",
       "previous": "vorige",
       "send": "Verzenden",
-      "showFilters": "Filters weergeven",
-      "showLess": "Minder weergeven",
-      "showMore": "Meer weergeven",
       "skip": "Overslaan",
-      "view": "Weergeven"
+      "view": "Weergeven",
+      "openExternal": "Extern openen",
+      "goToPage": "Naar pagina {{number}}",
+      "showMore": "Meer weergeven",
+      "showLess": "Minder weergeven",
+      "showFilters": "Filters weergeven",
+      "hideFilters": "Filters verbergen"
     },
-    "contacts": {
-      "address": {
-        "copy": "Adres kopiëren",
-        "title": "Adres"
-      },
-      "email": "E-mail",
-      "phone": {
-        "mobile": "Mobiel nummer",
-        "title": "Telefoonnummer"
-      },
-      "title": "Contacten",
-      "website": "Website"
+    "a11y": {
+      "skipToContent": "Naar inhoud gaan"
+    },
+    "state": {
+      "copied": "Gekopieerd",
+      "updatedAt": "Laatst bijgewerkt: {{date}}",
+      "loading": "Laden…",
+      "optional": "optioneel",
+      "enabled": "ingeschakeld",
+      "disabled": "uitgeschakeld"
     },
     "labels": {
       "description": "Beschrijving",
-      "getOnPlayStore": "DOWNLOAD HET — In de Google Play Store",
-      "menu": "Menu"
+      "menu": "Menu",
+      "getOnPlayStore": "DOWNLOAD HET — In de Google Play Store"
     },
     "meta": {
       "description": "{{appName}} is jouw digitale gids voor Duitsland. Vind lokale informatie, evenementen en advies. Altijd actueel en in jouw taal."
     },
     "privacy": {
+      "title": "Privacybeleid",
       "confirmation": "Ik heb het <Link>privacybeleid</Link> gelezen en ga akkoord met de verwerking en opslag van mijn gegevens.",
-      "required": "Ga alsjeblieft akkoord met het privacybeleid.",
-      "title": "Privacybeleid"
+      "required": "Ga alsjeblieft akkoord met het privacybeleid."
     },
-    "state": {
-      "copied": "Gekopieerd",
-      "disabled": "uitgeschakeld",
-      "enabled": "ingeschakeld",
-      "loading": "Laden…",
-      "optional": "optioneel",
-      "updatedAt": "Laatst bijgewerkt: {{date}}"
+    "contacts": {
+      "title": "Contacten",
+      "address": {
+        "title": "Adres",
+        "copy": "Adres kopiëren"
+      },
+      "phone": {
+        "title": "Telefoonnummer",
+        "mobile": "Mobiel nummer"
+      },
+      "email": "E-mail",
+      "website": "Website"
     }
   },
   "error": {
+    "title": "Fout",
+    "noSuitableAppInstalled": "Geen geschikte app geïnstalleerd.",
     "forbidden": "Je hebt geen toegang tot deze regio.",
     "networkConnectionFailed": "De verbinding met de server is mislukt.",
     "networkRequestFailed": "Het verzoek kon niet worden verwerkt.",
-    "noSuitableAppInstalled": "Geen geschikte app geïnstalleerd.",
-    "nothingFound": "Geen resultaten gevonden.",
-    "pageNotFound": "Deze pagina is niet gevonden.",
-    "permissionRequired": "Toestemming vereist",
-    "rateLimited": "Je hebt te veel verzoeken verstuurd. Wacht even.",
     "responseMappingFailed": "Het antwoord van de server kon niet worden verwerkt.",
-    "title": "Fout",
-    "tryAgain": "Opnieuw proberen",
-    "unknownError": "Er is een onbekende fout opgetreden."
+    "rateLimited": "Je hebt te veel verzoeken verstuurd. Wacht even.",
+    "pageNotFound": "Deze pagina is niet gevonden.",
+    "nothingFound": "Geen resultaten gevonden.",
+    "permissionRequired": "Toestemming vereist",
+    "unknownError": "Er is een onbekende fout opgetreden.",
+    "tryAgain": "Opnieuw proberen"
   },
   "events": {
-    "dateGroups": {
-      "further": "Meer",
-      "nextDays": "Volgende {{days}} dagen",
-      "today": "Vandaag",
-      "tomorrow": "Morgen"
-    },
+    "title": "Evenementen",
+    "onlineMeeting": "Onlinevergadering",
     "error": {
       "notFound": "Dit evenement is niet gevonden.",
       "nothingFound": "Geen evenementen gevonden."
     },
+    "recurrence": {
+      "recurring": "terugkerend",
+      "furtherDates": "Meer data",
+      "untilDate": "tot {{date}}"
+    },
+    "dateGroups": {
+      "today": "Vandaag",
+      "tomorrow": "Morgen",
+      "nextDays": "Volgende {{days}} dagen",
+      "further": "Meer"
+    },
     "export": {
+      "download": "Exporteren",
       "addToCalendar": "Toevoegen aan agenda",
       "added": "Aan agenda toegevoegd",
-      "allRecurrences": "Dit en alle toekomstige evenementen",
       "calendar": "Agenda",
-      "download": "Exporteren",
+      "thisRecurrence": "Alleen dit evenement",
+      "allRecurrences": "Dit en alle toekomstige evenementen",
       "error": {
         "forbidden": "Toegang tot de agenda is niet toegestaan.",
         "nothingFound": "Geen passende agenda"
-      },
-      "thisRecurrence": "Alleen dit evenement"
+      }
     },
     "filter": {
-      "error": {
-        "endBeforeStart": "De startdatum moet vóór de einddatum liggen.",
-        "invalidDate": "Ongeldige datum"
-      },
-      "from": "van",
-      "reset": "Filter resetten: {{filter}}",
-      "selectEnd": "Einddatum selecteren in agenda",
       "selectStart": "Begindatum kiezen in agenda",
-      "to": "tot"
-    },
-    "onlineMeeting": "Onlinevergadering",
-    "recurrence": {
-      "furtherDates": "Meer data",
-      "recurring": "terugkerend",
-      "untilDate": "tot {{date}}"
-    },
-    "title": "Evenementen"
+      "selectEnd": "Einddatum selecteren in agenda",
+      "from": "van",
+      "to": "tot",
+      "reset": "Filter resetten: {{filter}}",
+      "error": {
+        "invalidDate": "Ongeldige datum",
+        "endBeforeStart": "De startdatum moet vóór de einddatum liggen."
+      }
+    }
   },
   "feedback": {
+    "title": "Feedback",
+    "give": "Feedback geven",
+    "description": "Kies een beoordeling en/of schrijf een opmerking.",
     "comment": {
-      "description": "Deel je feedback met ons! We waarderen zowel positieve als negatieve feedback, omdat het ons helpt {{appName}} te verbeteren.",
-      "title": "Opmerking"
+      "title": "Opmerking",
+      "description": "Deel je feedback met ons! We waarderen zowel positieve als negatieve feedback, omdat het ons helpt {{appName}} te verbeteren."
     },
     "contactEmail": "E-mailadres voor eventuele vragen",
-    "description": "Kies een beoordeling en/of schrijf een opmerking.",
-    "give": "Feedback geven",
-    "rating": {
-      "notUseful": "Niet nuttig",
-      "useful": "Nuttig"
-    },
     "required": "Kies een reactie of schrijf een opmerking om de feedback te kunnen verzenden.",
-    "search": {
-      "checkQuery": "Controleer je zoekterm of wijzig de ingestelde taal.",
-      "informationMissing": "Ontbreekt hier informatie?",
-      "informationNotFound": "Niet gevonden wat je zocht?",
-      "noResultsInUserAndSourceLanguage": "Er zijn helaas geen passende resultaten gevonden in jouw taal of in het Duits.",
-      "noResultsInUserLanguage": "Er zijn helaas geen passende resultaten gevonden in jouw taal.",
-      "searchTermDescription": "Voor de volgende zoekterm is geen resultaat gevonden:",
-      "wantedInformation": "Welke informatie ontbreekt er?"
+    "rating": {
+      "useful": "Nuttig",
+      "notUseful": "Niet nuttig"
     },
     "thanks": {
-      "description": "Je feedback is succesvol verzonden.",
-      "title": "Bedankt voor je feedback."
+      "title": "Bedankt voor je feedback.",
+      "description": "Je feedback is succesvol verzonden."
     },
-    "title": "Feedback"
+    "search": {
+      "informationNotFound": "Niet gevonden wat je zocht?",
+      "wantedInformation": "Welke informatie ontbreekt er?",
+      "informationMissing": "Ontbreekt hier informatie?",
+      "searchTermDescription": "Voor de volgende zoekterm is geen resultaat gevonden:",
+      "checkQuery": "Controleer je zoekterm of wijzig de ingestelde taal.",
+      "noResultsInUserLanguage": "Er zijn helaas geen passende resultaten gevonden in jouw taal.",
+      "noResultsInUserAndSourceLanguage": "Er zijn helaas geen passende resultaten gevonden in jouw taal of in het Duits."
+    }
   },
   "intro": {
+    "welcome": {
+      "title": "Welkom bij {{appName}}",
+      "description": "In {{appName}} vind je antwoorden en tips in je eigen taal. Bijvoorbeeld: waar vind ik hulp? Wanneer mag ik werken?"
+    },
     "slides": {
+      "search": {
+        "title": "Eenvoudig zoeken",
+        "description": "Vind snel de juiste informatie via de zoekfunctie rechtsboven in het menu."
+      },
       "languageChange": {
         "description": "Je kunt de taal van {{appName}} bovenaan in het menu wijzigen."
       },
-      "news": {
-        "description": "Wat is er nieuw bij jou in de buurt? Ontdek het in {{appName}}.",
-        "title": "Actuele informatie"
+      "places": {
+        "title": "Aanbod bij jou in de buurt",
+        "description": "Op de kaart vind je locaties bij jou in de buurt, zoals plekken voor taalcursussen."
       },
       "offline": {
-        "description": "Heb je niet altijd internet? Geen probleem. Je kunt {{appName}} ook offline gebruiken.",
-        "title": "Werkt ook offline"
+        "title": "Werkt ook offline",
+        "description": "Heb je niet altijd internet? Geen probleem. Je kunt {{appName}} ook offline gebruiken."
       },
-      "places": {
-        "description": "Op de kaart vind je locaties bij jou in de buurt, zoals plekken voor taalcursussen.",
-        "title": "Aanbod bij jou in de buurt"
-      },
-      "search": {
-        "description": "Vind snel de juiste informatie via de zoekfunctie rechtsboven in het menu.",
-        "title": "Eenvoudig zoeken"
+      "news": {
+        "title": "Actuele informatie",
+        "description": "Wat is er nieuw bij jou in de buurt? Ontdek het in {{appName}}."
       }
-    },
-    "welcome": {
-      "description": "In {{appName}} vind je antwoorden en tips in je eigen taal. Bijvoorbeeld: waar vind ik hulp? Wanneer mag ik werken?",
-      "title": "Welkom bij {{appName}}"
     }
   },
   "ios": {
-    "NSCalendarsFullAccessUsageDescription": "{{appName}} wil toegang tot je agenda om evenementen toe te voegen.",
-    "NSCalendarsUsageDescription": "{{appName}} wil toegang tot je agenda om evenementen toe te voegen.",
-    "NSLocationAlwaysAndWhenInUseUsageDescription": "Om locaties in de buurt te vinden, heeft {{appName}} toegang nodig tot je locatie.",
+    "NSPhotoLibraryAddUsageDescription": "Om afbeeldingen op te slaan heeft {{appName}} toegang nodig tot de galerij.",
     "NSLocationWhenInUseUsageDescription": "Om locaties in de buurt te vinden, heeft {{appName}} toegang nodig tot je locatie.",
-    "NSPhotoLibraryAddUsageDescription": "Om afbeeldingen op te slaan heeft {{appName}} toegang nodig tot de galerij."
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Om locaties in de buurt te vinden, heeft {{appName}} toegang nodig tot je locatie.",
+    "NSCalendarsUsageDescription": "{{appName}} wil toegang tot je agenda om evenementen toe te voegen.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} wil toegang tot je agenda om evenementen toe te voegen."
   },
   "languages": {
     "change": "Taal wijzigen",
     "changed": "Taal is gewijzigd naar het {{languageName}}",
+    "search": "Zoek taal",
     "error": {
       "noTranslation": "Geen vertaling beschikbaar",
       "notFound": {
-        "description": "Deze pagina is nog niet in alle talen beschikbaar. We zijn ons taalaanbod actief aan het uitbreiden. Je kunt je taal aanvragen via de <Link>Feedback</Link>-functie.",
+        "title": "Deze taal is niet gevonden.",
         "question": "Taal niet gevonden?",
-        "title": "Deze taal is niet gevonden."
+        "description": "Deze pagina is nog niet in alle talen beschikbaar. We zijn ons taalaanbod actief aan het uitbreiden. Je kunt je taal aanvragen via de <Link>Feedback</Link>-functie."
       }
-    },
-    "search": "Zoek taal"
+    }
   },
   "malteHelpForm": {
+    "supportNote": "We willen dat u zich veilig en ondersteund voelt als u vragen heeft of ergens tegenaan loopt. Met het onderstaande contactformulier kunt u eenvoudig contact opnemen met een van onze contactpersonen. U kunt de aard van uw verzoek aangeven en kiezen uit verschillende contactopties.",
+    "securityNote": "Uw veiligheid heeft voor ons de hoogste prioriteit. Uw gegevens worden strikt vertrouwelijk behandeld, zodat uw privacy te allen tijde gewaarborgd blijft.",
+    "name": "Achternaam, voornaam",
+    "roomNumber": "Kamernummer",
+    "howToBeContacted": "Ik wil graag als volgt gecontacteerd worden:",
+    "eMail": "E-mailadres",
+    "telephone": "Telefoon",
+    "telephoneNumber": "Tel.nr.",
+    "personally": "Persoonlijk",
     "contactPerson": "Contactpersoon:",
     "contactPersonAnyGender": "Het geslacht van de contactpersoon maakt niet uit",
     "contactPersonGenderFemale": "Ik wil graag door een vrouw gecontacteerd worden",
     "contactPersonGenderMale": "Ik wil graag door een man gecontacteerd worden",
     "contactReason": "Uw vraag of opmerking:",
-    "eMail": "E-mailadres",
-    "howToBeContacted": "Ik wil graag als volgt gecontacteerd worden:",
-    "invalidEmailAddress": "Het opgegeven e-mailadres is ongeldig.",
     "maxCharacters": "maximaal {{numberOfCharacters}} tekens",
-    "name": "Achternaam, voornaam",
-    "personally": "Persoonlijk",
     "responseHint": "Het kan enkele werkdagen duren voordat u een reactie ontvangt. We doen ons best om uw aanvraag zo snel mogelijk te verwerken.",
-    "roomNumber": "Kamernummer",
-    "securityNote": "Uw veiligheid heeft voor ons de hoogste prioriteit. Uw gegevens worden strikt vertrouwelijk behandeld, zodat uw privacy te allen tijde gewaarborgd blijft.",
     "submit": "Formulier verzenden",
+    "submitSuccessful": "Formulier succesvol verzonden",
     "submitFailed": "Formulier kon niet worden verzonden",
     "submitFailedReasoning": "Zorg voor een stabiele internetverbinding en probeer het opnieuw.",
-    "submitSuccessful": "Formulier succesvol verzonden",
-    "supportNote": "We willen dat u zich veilig en ondersteund voelt als u vragen heeft of ergens tegenaan loopt. Met het onderstaande contactformulier kunt u eenvoudig contact opnemen met een van onze contactpersonen. U kunt de aard van uw verzoek aangeven en kiezen uit verschillende contactopties.",
-    "telephone": "Telefoon",
-    "telephoneNumber": "Tel.nr."
+    "invalidEmailAddress": "Het opgegeven e-mailadres is ongeldig."
   },
   "news": {
+    "title": "Nieuws",
+    "sources": {
+      "all": "Alle berichten",
+      "local": "Lokaal nieuws",
+      "national": "Landelijk nieuws",
+      "allShort": "Alle",
+      "localShort": "Lokaal",
+      "nationalShort": "Landelijk"
+    },
     "error": {
       "notFound": "Dit bericht is niet gevonden.",
       "nothingFound": "Geen berichten gevonden."
-    },
-    "sources": {
-      "all": "Alle berichten",
-      "allShort": "Alle",
-      "local": "Lokaal nieuws",
-      "localShort": "Lokaal",
-      "national": "Landelijk nieuws",
-      "nationalShort": "Landelijk"
-    },
-    "title": "Nieuws"
+    }
   },
   "places": {
+    "title": "Kaart",
     "accessible": "Toegankelijk",
-    "distance": "{{distance}} km afstand",
+    "notAccessible": "Niet rolstoeltoegankelijk",
     "error": {
       "notFound": "Deze locatie is niet gevonden.",
       "nothingFound": "Geen locaties gevonden."
     },
-    "filter": {
-      "adjust": "Locaties filteren",
-      "alphabet": "A-Z",
-      "categories": "Categorieën",
-      "onlyOpen": "alleen locaties tonen die nu geopend zijn",
-      "placeCount_few": "{{count}} locaties",
-      "placeCount_many": "{{count}} locaties",
-      "placeCount_one": "1 locatie",
-      "placeCount_other": "{{count}} locaties",
-      "placeCount_two": "{{count}} locaties",
-      "placeCount_zero": "0 locaties",
-      "show_few": "{{count}} locaties weergeven",
-      "show_many": "{{count}} locaties weergeven",
-      "show_one": "1 locatie weergeven",
-      "show_other": "{{count}} locaties weergeven",
-      "show_two": "{{count}} locaties weergeven",
-      "show_zero": "0 locaties gevonden"
-    },
-    "hours": {
-      "allDay": "de hele dag",
-      "appointment": {
-        "make": {
-          "description": "Maak een afspraak via <Link>de website</Link> of telefonisch.",
-          "title": "Afspraak maken"
-        },
-        "required": "Afspraak vereist"
-      },
-      "closed": "gesloten",
-      "open": "geopend",
-      "temporarilyClosed": "Tijdelijk gesloten",
-      "title": "Openingstijden"
-    },
-    "notAccessible": "Niet rolstoeltoegankelijk",
-    "title": "Kaart",
-    "weekdays": {
-      "dienstag": "Dinsdag",
-      "donnerstag": "Donderdag",
-      "freitag": "Vrijdag",
-      "mittwoch": "Woensdag",
-      "montag": "Maandag",
-      "samstag": "Zaterdag",
-      "sonntag": "Zondag"
-    },
+    "distance": "{{distance}} km afstand",
     "zoom": {
       "in": "Inzoomen",
       "out": "Uitzoomen"
+    },
+    "filter": {
+      "adjust": "Locaties filteren",
+      "onlyOpen": "alleen locaties tonen die nu geopend zijn",
+      "categories": "Categorieën",
+      "alphabet": "A-Z",
+      "show_zero": "0 locaties gevonden",
+      "show_one": "1 locatie weergeven",
+      "show_two": "{{count}} locaties weergeven",
+      "show_few": "{{count}} locaties weergeven",
+      "show_many": "{{count}} locaties weergeven",
+      "show_other": "{{count}} locaties weergeven",
+      "placeCount_zero": "0 locaties",
+      "placeCount_one": "1 locatie",
+      "placeCount_two": "{{count}} locaties",
+      "placeCount_few": "{{count}} locaties",
+      "placeCount_many": "{{count}} locaties",
+      "placeCount_other": "{{count}} locaties"
+    },
+    "hours": {
+      "title": "Openingstijden",
+      "allDay": "de hele dag",
+      "open": "geopend",
+      "closed": "gesloten",
+      "temporarilyClosed": "Tijdelijk gesloten",
+      "appointment": {
+        "required": "Afspraak vereist",
+        "make": {
+          "title": "Afspraak maken",
+          "description": "Maak een afspraak via <Link>de website</Link> of telefonisch."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Maandag",
+      "dienstag": "Dinsdag",
+      "mittwoch": "Woensdag",
+      "donnerstag": "Donderdag",
+      "freitag": "Vrijdag",
+      "samstag": "Zaterdag",
+      "sonntag": "Zondag"
     }
   },
   "regions": {
+    "title": "Regio's",
+    "welcome": {
+      "title": "Welkom bij {{appName}}.",
+      "description": "Jouw digitale gids voor alle informatie die je nodig hebt. Selecteer je regio."
+    },
     "change": "Regio wijzigen",
+    "notFound": "Deze regio is niet gevonden.",
+    "search": {
+      "region": "Regio zoeken",
+      "description": "Kies je regio of de dichtstbijzijnde grotere stad, bijv. {{exampleRegion}}"
+    },
     "nearby": {
       "nothingFound": "Geen regio in de buurt.",
       "refresh": "Regio's in de buurt vernieuwen"
-    },
-    "notFound": "Deze regio is niet gevonden.",
-    "search": {
-      "description": "Kies je regio of de dichtstbijzijnde grotere stad, bijv. {{exampleRegion}}",
-      "region": "Regio zoeken"
-    },
-    "title": "Regio's",
-    "welcome": {
-      "description": "Jouw digitale gids voor alle informatie die je nodig hebt. Selecteer je regio.",
-      "title": "Welkom bij {{appName}}."
     }
   },
   "search": {
+    "title": "Zoeken",
+    "searchContent": "Inhoud zoeken",
+    "viewResult": "Zoekresultaat openen",
+    "resultCount_zero": "0 zoekresultaten",
+    "resultCount_one": "1 zoekresultaat",
+    "resultCount_two": "{{count}} zoekresultaten",
     "resultCount_few": "{{count}} zoekresultaten",
     "resultCount_many": "{{count}} zoekresultaten",
-    "resultCount_one": "1 zoekresultaat",
-    "resultCount_other": "{{count}} zoekresultaten",
-    "resultCount_two": "{{count}} zoekresultaten",
-    "resultCount_zero": "0 zoekresultaten",
-    "searchContent": "Inhoud zoeken",
-    "title": "Zoeken",
-    "viewResult": "Zoekresultaat openen"
+    "resultCount_other": "{{count}} zoekresultaten"
   },
   "settings": {
-    "contrast": {
-      "description": "De contrastmodus verbetert de leesbaarheid",
-      "title": "Hoog contrast (bèta)"
-    },
+    "title": "Instellingen",
     "error": {
       "save": "De instellingen konden niet worden opgeslagen"
     },
-    "externalSources": {
-      "allowed": "Dit onderdeel bevat inhoud van deze externe bron. Je kunt dergelijke inhoud blokkeren in de instellingen.",
-      "blocked": "Externe inhoud van deze bron is geblokkeerd. In de instellingen kun je deze bron toestaan.",
-      "description": "Je kunt permanent toestemming geven voor het weergeven van inhoud van externe bronnen. Je kunt deze toestemming hier op elk moment weer intrekken.",
-      "descriptionShort": "Bepaal welke externe bronnen worden toegestaan.",
-      "nothingFound": "Geen externe bronnen beschikbaar.",
-      "optIn": "Ik ga ermee akkoord dat inhoud van deze externe bron aan mij wordt getoond.",
-      "source": "Inhoud van {{source}} toestaan",
-      "title": "Externe bronnen"
+    "sentry": {
+      "title": "App-stabiliteit",
+      "description": "{{appName}} verbeteren door automatisch crashrapporten te verzenden"
     },
     "pushNotifications": {
-      "description": "Pushmeldingen ontvangen voor het laatste lokale nieuws",
-      "title": "Pushmeldingen"
+      "title": "Pushmeldingen",
+      "description": "Pushmeldingen ontvangen voor het laatste lokale nieuws"
     },
-    "sentry": {
-      "description": "{{appName}} verbeteren door automatisch crashrapporten te verzenden",
-      "title": "App-stabiliteit"
+    "contrast": {
+      "title": "Hoog contrast (bèta)",
+      "description": "De contrastmodus verbetert de leesbaarheid"
     },
-    "title": "Instellingen"
+    "externalSources": {
+      "title": "Externe bronnen",
+      "descriptionShort": "Bepaal welke externe bronnen worden toegestaan.",
+      "description": "Je kunt permanent toestemming geven voor het weergeven van inhoud van externe bronnen. Je kunt deze toestemming hier op elk moment weer intrekken.",
+      "source": "Inhoud van {{source}} toestaan",
+      "optIn": "Ik ga ermee akkoord dat inhoud van deze externe bron aan mij wordt getoond.",
+      "allowed": "Dit onderdeel bevat inhoud van deze externe bron. Je kunt dergelijke inhoud blokkeren in de instellingen.",
+      "blocked": "Externe inhoud van deze bron is geblokkeerd. In de instellingen kun je deze bron toestaan.",
+      "nothingFound": "Geen externe bronnen beschikbaar."
+    }
   },
   "share": {
-    "copyLink": "Link kopiëren",
+    "title": "Delen",
     "message": "Zojuist gevonden: {{message}}",
+    "copyLink": "Link kopiëren",
     "qr": {
-      "description": "Deel deze pagina eenvoudig door de QR-code met een ander apparaat te scannen.",
       "label": "QR-code",
-      "title": "Delen via QR-code"
-    },
-    "title": "Delen"
+      "title": "Delen via QR-code",
+      "description": "Deel deze pagina eenvoudig door de QR-code met een ander apparaat te scannen."
+    }
   },
   "suggestToRegion": {
+    "title": "{{appName}} voorstellen in je regio",
     "description": "Heeft het concept van de Integreat-app je overtuigd en denk je dat jouw stad of gemeente ook baat zou kunnen hebben bij deze digitale oplossing? Dan kun je hier heel eenvoudig zelf in actie komen.",
     "regionNotFoundCta": "Je regio niet gevonden? Kom nu in actie!",
+    "whatToDo": "Wat je kunt doen:",
     "steps": {
+      "getEmail": "E-mailadres van je regio opzoeken",
       "copyText": "Kopieer deze tekst",
       "fillPlaceholders": "Vul de tijdelijke aanduidingen [ ] aan met je eigen gegevens",
-      "getEmail": "E-mailadres van je regio opzoeken",
       "send": "Stuur de e-mail naar je regio"
-    },
-    "title": "{{appName}} voorstellen in je regio",
-    "whatToDo": "Wat je kunt doen:"
+    }
   },
   "tour": {
-    "additionalFeatures": {
-      "description": "Gebruik hier extra functies zoals <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> en <strong>{{additionalFeature}}</strong>.",
-      "title": "Meer functies"
+    "title": "App-rondleiding",
+    "welcome": "Deze korte rondleiding toont je de belangrijkste functies van de app.",
+    "start": "Rondleiding starten",
+    "progress": "Stap {{current}} van {{total}}",
+    "regionChange": {
+      "description": "Kies hier je <strong>regio</strong> om lokale informatie te vinden."
+    },
+    "navigation": {
+      "title": "Navigatie",
+      "description": "Schakel hier tussen <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> en <strong>$t(events:title)</strong>."
     },
     "categories": {
-      "description": "Ontdek informatie over thema's zoals <strong>Wonen</strong>, <strong>Onderwijs</strong>, <strong>Werk</strong> en meer.",
-      "title": "Thema's ontdekken"
+      "title": "Thema's ontdekken",
+      "description": "Ontdek informatie over thema's zoals <strong>Wonen</strong>, <strong>Onderwijs</strong>, <strong>Werk</strong> en meer."
+    },
+    "searchAndLanguage": {
+      "title": "Zoeken en taal",
+      "description": "<strong>Zoek</strong> naar lokale informatie, evenementen en locaties of wijzig de <strong>taal</strong>."
+    },
+    "menu": {
+      "title": "Meer functies",
+      "description": "Gebruik hier extra functies zoals <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> en <strong>{{additionalFeature}}</strong>."
     },
     "chat": {
       "description": "Stel hier je vragen en krijg snel passende antwoorden."
     },
     "finish": {
-      "description": "Nu ken je de belangrijkste functies. Veel succes met {{appName}}!",
-      "title": "Klaar!"
-    },
-    "navigation": {
-      "description": "Schakel hier tussen <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> en <strong>$t(events:title)</strong>.",
-      "title": "Navigatie"
-    },
-    "progress": "Stap {{current}} van {{total}}",
-    "regionChange": {
-      "description": "Kies hier je <strong>regio</strong> om lokale informatie te vinden."
-    },
-    "searchAndLanguage": {
-      "description": "<strong>Zoek</strong> naar lokale informatie, evenementen en locaties of wijzig de <strong>taal</strong>.",
-      "title": "Zoeken en taal"
-    },
-    "start": "Rondleiding starten",
-    "title": "App-rondleiding",
-    "welcome": "Deze korte rondleiding toont je de belangrijkste functies van de app."
+      "title": "Klaar!",
+      "description": "Nu ken je de belangrijkste functies. Veel succes met {{appName}}!"
+    }
   },
   "tts": {
-    "error": {
-      "languageNotSupported": "Taal wordt niet ondersteund.",
-      "noVoices": {
-        "description": "Geen stem gevonden. Om de voorleesfunctie te kunnen gebruiken, moet er een stem geïnstalleerd zijn. Volg de instructies voor jouw besturingssysteem.",
-        "title": "Geen stem geïnstalleerd"
-      },
-      "nothingToRead": {
-        "description": "Er valt niets te lezen op deze pagina.",
-        "title": "Niets te lezen"
-      }
-    },
+    "title": "Voorlezen",
     "pause": "Pauzeren",
     "play": "Afspelen",
-    "title": "Voorlezen"
+    "error": {
+      "languageNotSupported": "Taal wordt niet ondersteund.",
+      "nothingToRead": {
+        "title": "Niets te lezen",
+        "description": "Er valt niets te lezen op deze pagina."
+      },
+      "noVoices": {
+        "title": "Geen stem geïnstalleerd",
+        "description": "Geen stem gevonden. Om de voorleesfunctie te kunnen gebruiken, moet er een stem geïnstalleerd zijn. Volg de instructies voor jouw besturingssysteem."
+      }
+    }
   },
   "userLocation": {
+    "nearby": "Bij jou in de buurt",
+    "show": "Mijn locatie tonen",
     "loading": "Locatie bepalen…",
     "locationAccessRequired": "Om regio's in de buurt te tonen, moet locatietoegang ingeschakeld zijn.",
-    "nearby": "Bij jou in de buurt",
     "noPermission": "Locatietoegang vereist",
     "notAvailable": "Locatievoorzieningen zijn uitgeschakeld",
-    "show": "Mijn locatie tonen",
     "timeout": "Locatie niet gevonden"
   }
 }

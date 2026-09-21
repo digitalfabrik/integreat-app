@@ -1,468 +1,468 @@
 {
   "about": {
-    "aboutUs": "Kuhusu sisi",
-    "accessibility": "Ufikivu",
-    "imprint": "Maelezo ya Kisheria",
     "legal": "Mambo ya Kisheria",
+    "imprint": "Maelezo ya Kisheria",
+    "accessibility": "Ufikivu",
+    "aboutUs": "Kuhusu sisi",
     "licenses": {
-      "license": "Leseni: {{license}}",
       "title": "Leseni za Programu Huria",
-      "version": "Toleo: {{version}}"
+      "version": "Toleo: {{version}}",
+      "license": "Leseni: {{license}}"
     }
   },
   "categories": {
+    "title": "Taarifa za eneo",
+    "titleShort": "Taarifa",
     "organization": {
-      "description": "Pata taarifa zaidi kuhusu {{organization}} kwenye <Link>{{domain}}</Link>.",
-      "title": "Maudhui ya ukurasa huu yanatoka kwa {{organization}}."
+      "title": "Maudhui ya ukurasa huu yanatoka kwa {{organization}}.",
+      "description": "Pata taarifa zaidi kuhusu {{organization}} kwenye <Link>{{domain}}</Link>."
     },
     "pdf": {
       "create": "Tengeneza PDF",
       "disabled": "Kwa sasa haiwezekani kutengeneza PDF katika lugha hii."
-    },
-    "title": "Taarifa za eneo",
-    "titleShort": "Taarifa"
-  },
-  "chat": {
-    "bot": "Kijibu maswali (Chatbot)",
-    "consultant": "Mshauri",
-    "initial": {
-      "description": "Unaweza kuuliza kuhusu taarifa za eneo lako au hali yako binafsi.",
-      "title": "Tafadhali andika swali lako kwenye kisanduku cha maandishi."
-    },
-    "inputPlaceholder": "Tafadhali andika swali lako...",
-    "startNew": {
-      "description": "Je, una uhakika unataka kuanzisha gumzo jipya? Historia ya sasa ya gumzo itafutwa.",
-      "title": "Anzisha gumzo jipya"
-    },
-    "subtitle": "Msaidizi wako wa utafutaji wa kidijitali",
-    "typing": "Inaandika…",
-    "unread_few": "Ujumbe {{count}} wa gumzo ambao haujasomwa",
-    "unread_many": "Ujumbe {{count}} ya gumzo ambayo haijasomwa",
-    "unread_one": "Ujumbe 1 wa gumzo ambao haujasomwa",
-    "unread_other": "Ujumbe {{count}} wa gumzo ambao haujasomwa",
-    "unread_two": "Ujumbe {{count}} wa gumzo ambao haujasomwa",
-    "welcome": {
-      "description": "Mimi ni <strong>{{name}}</strong>, Msaidizi wako wa Utafutaji wa Kidijitali. Jisikie huru kuniuliza swali lako.",
-      "title": "Habari!"
     }
   },
-  "common": {
-    "a11y": {
-      "skipToContent": "Ruka hadi kwenye maudhui"
+  "chat": {
+    "subtitle": "Msaidizi wako wa utafutaji wa kidijitali",
+    "bot": "Kijibu maswali (Chatbot)",
+    "consultant": "Mshauri",
+    "typing": "Inaandika…",
+    "inputPlaceholder": "Tafadhali andika swali lako...",
+    "initial": {
+      "title": "Tafadhali andika swali lako kwenye kisanduku cha maandishi.",
+      "description": "Unaweza kuuliza kuhusu taarifa za eneo lako au hali yako binafsi."
     },
+    "welcome": {
+      "title": "Habari!",
+      "description": "Mimi ni <strong>{{name}}</strong>, Msaidizi wako wa Utafutaji wa Kidijitali. Jisikie huru kuniuliza swali lako."
+    },
+    "startNew": {
+      "title": "Anzisha gumzo jipya",
+      "description": "Je, una uhakika unataka kuanzisha gumzo jipya? Historia ya sasa ya gumzo itafutwa."
+    },
+    "unread_one": "Ujumbe 1 wa gumzo ambao haujasomwa",
+    "unread_two": "Ujumbe {{count}} wa gumzo ambao haujasomwa",
+    "unread_few": "Ujumbe {{count}} wa gumzo ambao haujasomwa",
+    "unread_many": "Ujumbe {{count}} ya gumzo ambayo haijasomwa",
+    "unread_other": "Ujumbe {{count}} wa gumzo ambao haujasomwa"
+  },
+  "common": {
     "actions": {
       "back": "Rudi",
       "cancel": "Ghairi",
       "clearInput": "Futa ulichoingiza",
       "close": "Funga",
       "copy": "Nakili",
-      "goToPage": "Nenda kwenye ukurasa {{number}}",
-      "hideFilters": "Ficha vichujio",
       "minimize": "Punguza",
       "next": "Endelea",
       "ok": "Sawa",
       "open": "Fungua",
-      "openExternal": "Fungua nje",
       "previous": "Iliyopita",
       "send": "Tuma",
-      "showFilters": "Onyesha vichujio",
-      "showLess": "Onyesha kidogo",
-      "showMore": "Onyesha zaidi",
       "skip": "Ruka",
-      "view": "Onyesha"
+      "view": "Onyesha",
+      "openExternal": "Fungua nje",
+      "goToPage": "Nenda kwenye ukurasa {{number}}",
+      "showMore": "Onyesha zaidi",
+      "showLess": "Onyesha kidogo",
+      "showFilters": "Onyesha vichujio",
+      "hideFilters": "Ficha vichujio"
     },
-    "contacts": {
-      "address": {
-        "copy": "Nakili anwani",
-        "title": "Anwani"
-      },
-      "email": "Barua pepe",
-      "phone": {
-        "mobile": "Nambari ya simu ya mkononi",
-        "title": "Nambari ya simu"
-      },
-      "title": "Mawasiliano",
-      "website": "Tovuti"
+    "a11y": {
+      "skipToContent": "Ruka hadi kwenye maudhui"
+    },
+    "state": {
+      "copied": "Imenakiliwa",
+      "updatedAt": "Ilisasishwa mara ya mwisho: {{date}}",
+      "loading": "Inapakia…",
+      "optional": "si lazima",
+      "enabled": "imewashwa",
+      "disabled": "imezimwa"
     },
     "labels": {
       "description": "Maelezo",
-      "getOnPlayStore": "IPATE — Kwenye Google Play Store",
-      "menu": "Menyu"
+      "menu": "Menyu",
+      "getOnPlayStore": "IPATE — Kwenye Google Play Store"
     },
     "meta": {
       "description": "{{appName}} ni mwongozo wako wa kidijitali nchini Ujerumani. Pata taarifa za eneo husika, matukio na ushauri. Kila mara imesasishwa na kwa lugha yako."
     },
     "privacy": {
+      "title": "Sera ya Faragha",
       "confirmation": "Nimesoma <Link>Sera ya Faragha</Link> na ninakubali uchakataji na uhifadhi wa data yangu.",
-      "required": "Tafadhali kubali Sera ya Faragha.",
-      "title": "Sera ya Faragha"
+      "required": "Tafadhali kubali Sera ya Faragha."
     },
-    "state": {
-      "copied": "Imenakiliwa",
-      "disabled": "imezimwa",
-      "enabled": "imewashwa",
-      "loading": "Inapakia…",
-      "optional": "si lazima",
-      "updatedAt": "Ilisasishwa mara ya mwisho: {{date}}"
+    "contacts": {
+      "title": "Mawasiliano",
+      "address": {
+        "title": "Anwani",
+        "copy": "Nakili anwani"
+      },
+      "phone": {
+        "title": "Nambari ya simu",
+        "mobile": "Nambari ya simu ya mkononi"
+      },
+      "email": "Barua pepe",
+      "website": "Tovuti"
     }
   },
   "error": {
+    "title": "Hitilafu",
+    "noSuitableAppInstalled": "Hakuna programu inayofaa iliyosakinishwa.",
     "forbidden": "Huna idhini ya kufikia eneo hili.",
     "networkConnectionFailed": "Muunganisho kwenye seva umeshindikana.",
     "networkRequestFailed": "Ombi halikuweza kushughulikiwa.",
-    "noSuitableAppInstalled": "Hakuna programu inayofaa iliyosakinishwa.",
-    "nothingFound": "Hakuna matokeo yaliyopatikana.",
-    "pageNotFound": "Ukurasa huu haujapatikana.",
-    "permissionRequired": "Ruhusa inahitajika",
-    "rateLimited": "Umetuma maombi mengi mno. Tafadhali subiri kidogo.",
     "responseMappingFailed": "Majibu ya seva hayakuweza kuchakatwa.",
-    "title": "Hitilafu",
-    "tryAgain": "Jaribu tena",
-    "unknownError": "Hitilafu isiyojulikana imetokea."
+    "rateLimited": "Umetuma maombi mengi mno. Tafadhali subiri kidogo.",
+    "pageNotFound": "Ukurasa huu haujapatikana.",
+    "nothingFound": "Hakuna matokeo yaliyopatikana.",
+    "permissionRequired": "Ruhusa inahitajika",
+    "unknownError": "Hitilafu isiyojulikana imetokea.",
+    "tryAgain": "Jaribu tena"
   },
   "events": {
-    "dateGroups": {
-      "further": "Zaidi",
-      "nextDays": "Siku {{days}} zijazo",
-      "today": "Leo",
-      "tomorrow": "Kesho"
-    },
+    "title": "Matukio",
+    "onlineMeeting": "Mkutano wa mtandaoni",
     "error": {
       "notFound": "Tukio hili halikupatikana.",
       "nothingFound": "Hakuna matukio yaliyopatikana."
     },
+    "recurrence": {
+      "recurring": "inayojirudia",
+      "furtherDates": "Matukio zaidi",
+      "untilDate": "hadi {{date}}"
+    },
+    "dateGroups": {
+      "today": "Leo",
+      "tomorrow": "Kesho",
+      "nextDays": "Siku {{days}} zijazo",
+      "further": "Zaidi"
+    },
     "export": {
+      "download": "Hamisha",
       "addToCalendar": "Ongeza kwenye kalenda",
       "added": "Imeongezwa kwenye kalenda",
-      "allRecurrences": "Tukio hili na matukio yote yajayo",
       "calendar": "Kalenda",
-      "download": "Hamisha",
+      "thisRecurrence": "Tukio hili pekee",
+      "allRecurrences": "Tukio hili na matukio yote yajayo",
       "error": {
         "forbidden": "Hauruhusiwi kufikia kalenda.",
         "nothingFound": "Hakuna kalenda inayolingana"
-      },
-      "thisRecurrence": "Tukio hili pekee"
+      }
     },
     "filter": {
-      "error": {
-        "endBeforeStart": "Tarehe ya kuanza inapaswa kuwa kabla ya tarehe ya kumalizika.",
-        "invalidDate": "Tarehe si sahihi"
-      },
-      "from": "ya",
-      "reset": "Weka upya kichujio: {{filter}}",
-      "selectEnd": "Chagua tarehe ya kumalizika kwenye kalenda",
       "selectStart": "Chagua tarehe ya kuanza kwenye kalenda",
-      "to": "hadi"
-    },
-    "onlineMeeting": "Mkutano wa mtandaoni",
-    "recurrence": {
-      "furtherDates": "Matukio zaidi",
-      "recurring": "inayojirudia",
-      "untilDate": "hadi {{date}}"
-    },
-    "title": "Matukio"
+      "selectEnd": "Chagua tarehe ya kumalizika kwenye kalenda",
+      "from": "ya",
+      "to": "hadi",
+      "reset": "Weka upya kichujio: {{filter}}",
+      "error": {
+        "invalidDate": "Tarehe si sahihi",
+        "endBeforeStart": "Tarehe ya kuanza inapaswa kuwa kabla ya tarehe ya kumalizika."
+      }
+    }
   },
   "feedback": {
+    "title": "Maoni",
+    "give": "Toa maoni",
+    "description": "Chagua tathmini na/au andika maoni.",
     "comment": {
-      "description": "Tushirikishe maoni yako! Tunathamini maoni chanya na hasi, kwani yanatusaidia kuboresha {{appName}}.",
-      "title": "Maoni"
+      "title": "Maoni",
+      "description": "Tushirikishe maoni yako! Tunathamini maoni chanya na hasi, kwani yanatusaidia kuboresha {{appName}}."
     },
     "contactEmail": "Barua pepe kwa maswali zaidi",
-    "description": "Chagua tathmini na/au andika maoni.",
-    "give": "Toa maoni",
-    "rating": {
-      "notUseful": "Haifai",
-      "useful": "Inafaa"
-    },
     "required": "Tafadhali chagua hisia au andika maoni ili uweze kutuma mrejesho.",
-    "search": {
-      "checkQuery": "Kagua neno lako la utafutaji au ubadilishe lugha iliyowekwa.",
-      "informationMissing": "Je, kuna taarifa zinazokosekana hapa?",
-      "informationNotFound": "Hujapata unachotafuta?",
-      "noResultsInUserAndSourceLanguage": "Kwa bahati mbaya, hakuna matokeo yaliyopatikana katika lugha yako au kwa Kijerumani.",
-      "noResultsInUserLanguage": "Kwa bahati mbaya, hakuna matokeo yaliyopatikana katika lugha yako.",
-      "searchTermDescription": "Hakuna matokeo yaliyopatikana kwa neno lifuatalo:",
-      "wantedInformation": "Ni taarifa gani zinazokosekana?"
+    "rating": {
+      "useful": "Inafaa",
+      "notUseful": "Haifai"
     },
     "thanks": {
-      "description": "Maoni yako yametumwa kikamilifu.",
-      "title": "Asante sana kwa maoni yako."
+      "title": "Asante sana kwa maoni yako.",
+      "description": "Maoni yako yametumwa kikamilifu."
     },
-    "title": "Maoni"
+    "search": {
+      "informationNotFound": "Hujapata unachotafuta?",
+      "wantedInformation": "Ni taarifa gani zinazokosekana?",
+      "informationMissing": "Je, kuna taarifa zinazokosekana hapa?",
+      "searchTermDescription": "Hakuna matokeo yaliyopatikana kwa neno lifuatalo:",
+      "checkQuery": "Kagua neno lako la utafutaji au ubadilishe lugha iliyowekwa.",
+      "noResultsInUserLanguage": "Kwa bahati mbaya, hakuna matokeo yaliyopatikana katika lugha yako.",
+      "noResultsInUserAndSourceLanguage": "Kwa bahati mbaya, hakuna matokeo yaliyopatikana katika lugha yako au kwa Kijerumani."
+    }
   },
   "intro": {
+    "welcome": {
+      "title": "Karibu kwenye {{appName}}",
+      "description": "Kwenye {{appName}} utapata majibu na vidokezo kwa lugha yako ya asili. Kwa mfano: Ninaweza kupata wapi msaada? Ni lini ninaruhusiwa kufanya kazi?"
+    },
     "slides": {
+      "search": {
+        "title": "Utafutaji rahisi",
+        "description": "Unaweza kupata taarifa sahihi kwa haraka kupitia sehemu ya utafutaji iliyo juu kulia kwenye menyu."
+      },
       "languageChange": {
         "description": "Unaweza kubadilisha lugha ya {{appName}} kupitia menyu iliyo juu."
       },
-      "news": {
-        "description": "Kuna mambo gani mapya karibu nawe? Gundua kupitia {{appName}}.",
-        "title": "Taarifa za hivi punde"
+      "places": {
+        "title": "Huduma zilizo karibu nawe",
+        "description": "Kwenye ramani unaweza kupata maeneo yaliyo karibu nawe, kwa mfano maeneo ya mafunzo ya lugha."
       },
       "offline": {
-        "description": "Huna intaneti kila wakati? Hakuna shida. Unaweza kutumia {{appName}} hata bila mtandao.",
-        "title": "Inafanya kazi hata bila mtandao"
+        "title": "Inafanya kazi hata bila mtandao",
+        "description": "Huna intaneti kila wakati? Hakuna shida. Unaweza kutumia {{appName}} hata bila mtandao."
       },
-      "places": {
-        "description": "Kwenye ramani unaweza kupata maeneo yaliyo karibu nawe, kwa mfano maeneo ya mafunzo ya lugha.",
-        "title": "Huduma zilizo karibu nawe"
-      },
-      "search": {
-        "description": "Unaweza kupata taarifa sahihi kwa haraka kupitia sehemu ya utafutaji iliyo juu kulia kwenye menyu.",
-        "title": "Utafutaji rahisi"
+      "news": {
+        "title": "Taarifa za hivi punde",
+        "description": "Kuna mambo gani mapya karibu nawe? Gundua kupitia {{appName}}."
       }
-    },
-    "welcome": {
-      "description": "Kwenye {{appName}} utapata majibu na vidokezo kwa lugha yako ya asili. Kwa mfano: Ninaweza kupata wapi msaada? Ni lini ninaruhusiwa kufanya kazi?",
-      "title": "Karibu kwenye {{appName}}"
     }
   },
   "ios": {
-    "NSCalendarsFullAccessUsageDescription": "{{appName}} inaomba idhini ya kufikia kalenda ili kuongeza matukio.",
-    "NSCalendarsUsageDescription": "{{appName}} inaomba idhini ya kufikia kalenda ili kuongeza matukio.",
-    "NSLocationAlwaysAndWhenInUseUsageDescription": "Ili kupata maeneo yaliyo karibu, {{appName}} inahitaji idhini ya kufikia eneo ulilopo.",
+    "NSPhotoLibraryAddUsageDescription": "Ili kuhifadhi picha, {{appName}} inahitaji ruhusa ya kufikia ghala ya picha.",
     "NSLocationWhenInUseUsageDescription": "Ili kupata maeneo yaliyo karibu, {{appName}} inahitaji idhini ya kufikia eneo ulilopo.",
-    "NSPhotoLibraryAddUsageDescription": "Ili kuhifadhi picha, {{appName}} inahitaji ruhusa ya kufikia ghala ya picha."
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Ili kupata maeneo yaliyo karibu, {{appName}} inahitaji idhini ya kufikia eneo ulilopo.",
+    "NSCalendarsUsageDescription": "{{appName}} inaomba idhini ya kufikia kalenda ili kuongeza matukio.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} inaomba idhini ya kufikia kalenda ili kuongeza matukio."
   },
   "languages": {
     "change": "Badilisha lugha",
     "changed": "Lugha imebadilishwa kuwa {{languageName}}",
+    "search": "Tafuta lugha",
     "error": {
       "noTranslation": "Hakuna tafsiri inayopatikana",
       "notFound": {
-        "description": "Ukurasa huu haupatikani bado katika lugha zote. Tunaendelea kuongeza lugha mpya kwa bidii. Unaweza kuomba lugha yako kupitia kipengele cha <Link>Maoni</Link>.",
+        "title": "Lugha hii haikupatikana.",
         "question": "Hujaona lugha yako?",
-        "title": "Lugha hii haikupatikana."
+        "description": "Ukurasa huu haupatikani bado katika lugha zote. Tunaendelea kuongeza lugha mpya kwa bidii. Unaweza kuomba lugha yako kupitia kipengele cha <Link>Maoni</Link>."
       }
-    },
-    "search": "Tafuta lugha"
+    }
   },
   "malteHelpForm": {
+    "supportNote": "Tungependa ujihisi salama na kupata usaidizi unapokumbana na changamoto au maswali yoyote. Kupitia fomu ifuatayo ya mawasiliano, unaweza kuwasiliana moja kwa moja na wahusika wetu. Unaweza kubainisha aina ya ombi lako na kuchagua njia mbalimbali za mawasiliano.",
+    "securityNote": "Usalama wako ndio kipaumbele chetu cha kwanza. Taarifa zako zitashughulikiwa kwa usiri mkubwa ili kulinda faragha yako wakati wote.",
+    "name": "Jina la ukoo, Jina la kwanza",
+    "roomNumber": "Nambari ya chumba",
+    "howToBeContacted": "Ningependa kuwasiliana kupitia:",
+    "eMail": "Barua pepe",
+    "telephone": "Simu",
+    "telephoneNumber": "Nambari ya simu",
+    "personally": "Kibinafsi",
     "contactPerson": "Mtu wa mawasiliano:",
     "contactPersonAnyGender": "Jinsia ya mtu wa kuwasiliana naye haijalishi",
     "contactPersonGenderFemale": "Ningependa kuwasiliana na mwanamke",
     "contactPersonGenderMale": "Ningependa kuwasiliana na mwanamume",
     "contactReason": "Suala lako:",
-    "eMail": "Barua pepe",
-    "howToBeContacted": "Ningependa kuwasiliana kupitia:",
-    "invalidEmailAddress": "Anwani ya barua pepe uliyoweka si sahihi.",
     "maxCharacters": "isizidi herufi {{numberOfCharacters}}",
-    "name": "Jina la ukoo, Jina la kwanza",
-    "personally": "Kibinafsi",
     "responseHint": "Huenda ikachukua siku chache za kazi kupata jibu. Tunajitahidi kushughulikia suala lako haraka iwezekanavyo.",
-    "roomNumber": "Nambari ya chumba",
-    "securityNote": "Usalama wako ndio kipaumbele chetu cha kwanza. Taarifa zako zitashughulikiwa kwa usiri mkubwa ili kulinda faragha yako wakati wote.",
     "submit": "Wasilisha fomu",
+    "submitSuccessful": "Fomu imetumwa kikamilifu",
     "submitFailed": "Fomu haikufanikiwa kutumwa",
     "submitFailedReasoning": "Tafadhali hakikisha una muunganisho dhabiti wa intaneti kisha ujaribu tena.",
-    "submitSuccessful": "Fomu imetumwa kikamilifu",
-    "supportNote": "Tungependa ujihisi salama na kupata usaidizi unapokumbana na changamoto au maswali yoyote. Kupitia fomu ifuatayo ya mawasiliano, unaweza kuwasiliana moja kwa moja na wahusika wetu. Unaweza kubainisha aina ya ombi lako na kuchagua njia mbalimbali za mawasiliano.",
-    "telephone": "Simu",
-    "telephoneNumber": "Nambari ya simu"
+    "invalidEmailAddress": "Anwani ya barua pepe uliyoweka si sahihi."
   },
   "news": {
+    "title": "Habari",
+    "sources": {
+      "all": "Habari zote",
+      "local": "Habari za eneo husika",
+      "national": "Habari za kitaifa",
+      "allShort": "Zote",
+      "localShort": "Ya eneo husika",
+      "nationalShort": "Kitaifa"
+    },
     "error": {
       "notFound": "Ujumbe huu haukupatikana.",
       "nothingFound": "Hakuna habari zilizopatikana."
-    },
-    "sources": {
-      "all": "Habari zote",
-      "allShort": "Zote",
-      "local": "Habari za eneo husika",
-      "localShort": "Ya eneo husika",
-      "national": "Habari za kitaifa",
-      "nationalShort": "Kitaifa"
-    },
-    "title": "Habari"
+    }
   },
   "places": {
+    "title": "Ramani",
     "accessible": "Inayofikika kirahisi",
-    "distance": "Umbali wa km {{distance}}",
+    "notAccessible": "Hafikiki kwa viti vya magurudumu",
     "error": {
       "notFound": "Eneo hili halikupatikana.",
       "nothingFound": "Hakuna maeneo yaliyopatikana."
     },
-    "filter": {
-      "adjust": "Chuja maeneo",
-      "alphabet": "A-Z",
-      "categories": "Kategoria",
-      "onlyOpen": "onyesha tu maeneo yaliyofunguliwa sasa",
-      "placeCount_few": "Maeneo {{count}}",
-      "placeCount_many": "Maeneo {{count}}",
-      "placeCount_one": "Eneo 1",
-      "placeCount_other": "Maeneo {{count}}",
-      "placeCount_two": "Maeneo {{count}}",
-      "placeCount_zero": "Maeneo 0",
-      "show_few": "Onyesha maeneo {{count}}",
-      "show_many": "Onyesha maeneo {{count}}",
-      "show_one": "Onyesha eneo 1",
-      "show_other": "Onyesha maeneo {{count}}",
-      "show_two": "Onyesha maeneo {{count}}",
-      "show_zero": "Maeneo 0 yamepatikana"
-    },
-    "hours": {
-      "allDay": "siku nzima",
-      "appointment": {
-        "make": {
-          "description": "Weka miadi kupitia <Link>tovuti</Link> au kwa njia ya simu.",
-          "title": "Panga miadi"
-        },
-        "required": "Miadi inahitajika"
-      },
-      "closed": "imefungwa",
-      "open": "wazi",
-      "temporarilyClosed": "Imefungwa kwa muda",
-      "title": "Saa za kufungua"
-    },
-    "notAccessible": "Hafikiki kwa viti vya magurudumu",
-    "title": "Ramani",
-    "weekdays": {
-      "dienstag": "Jumanne",
-      "donnerstag": "Alhamisi",
-      "freitag": "Ijumaa",
-      "mittwoch": "Jumatano",
-      "montag": "Jumatatu",
-      "samstag": "Jumamosi",
-      "sonntag": "Jumapili"
-    },
+    "distance": "Umbali wa km {{distance}}",
     "zoom": {
       "in": "Kuza",
       "out": "Punguza"
+    },
+    "filter": {
+      "adjust": "Chuja maeneo",
+      "onlyOpen": "onyesha tu maeneo yaliyofunguliwa sasa",
+      "categories": "Kategoria",
+      "alphabet": "A-Z",
+      "show_zero": "Maeneo 0 yamepatikana",
+      "show_one": "Onyesha eneo 1",
+      "show_two": "Onyesha maeneo {{count}}",
+      "show_few": "Onyesha maeneo {{count}}",
+      "show_many": "Onyesha maeneo {{count}}",
+      "show_other": "Onyesha maeneo {{count}}",
+      "placeCount_zero": "Maeneo 0",
+      "placeCount_one": "Eneo 1",
+      "placeCount_two": "Maeneo {{count}}",
+      "placeCount_few": "Maeneo {{count}}",
+      "placeCount_many": "Maeneo {{count}}",
+      "placeCount_other": "Maeneo {{count}}"
+    },
+    "hours": {
+      "title": "Saa za kufungua",
+      "allDay": "siku nzima",
+      "open": "wazi",
+      "closed": "imefungwa",
+      "temporarilyClosed": "Imefungwa kwa muda",
+      "appointment": {
+        "required": "Miadi inahitajika",
+        "make": {
+          "title": "Panga miadi",
+          "description": "Weka miadi kupitia <Link>tovuti</Link> au kwa njia ya simu."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Jumatatu",
+      "dienstag": "Jumanne",
+      "mittwoch": "Jumatano",
+      "donnerstag": "Alhamisi",
+      "freitag": "Ijumaa",
+      "samstag": "Jumamosi",
+      "sonntag": "Jumapili"
     }
   },
   "regions": {
+    "title": "Maeneo",
+    "welcome": {
+      "title": "Karibu kwenye {{appName}}.",
+      "description": "Mwongozo wako wa kidijitali kwa taarifa zote unazohitaji. Tafadhali chagua eneo lako."
+    },
     "change": "Badilisha eneo",
+    "notFound": "Eneo hili halikupatikana.",
+    "search": {
+      "region": "Tafuta eneo",
+      "description": "Chagua eneo lako au mji mkubwa ulio karibu zaidi, k.m. {{exampleRegion}}"
+    },
     "nearby": {
       "nothingFound": "Hakuna eneo lililo karibu.",
       "refresh": "Sasisha maeneo ya karibu"
-    },
-    "notFound": "Eneo hili halikupatikana.",
-    "search": {
-      "description": "Chagua eneo lako au mji mkubwa ulio karibu zaidi, k.m. {{exampleRegion}}",
-      "region": "Tafuta eneo"
-    },
-    "title": "Maeneo",
-    "welcome": {
-      "description": "Mwongozo wako wa kidijitali kwa taarifa zote unazohitaji. Tafadhali chagua eneo lako.",
-      "title": "Karibu kwenye {{appName}}."
     }
   },
   "search": {
+    "title": "Tafuta",
+    "searchContent": "Tafuta maudhui",
+    "viewResult": "Fungua tokeo la utafutaji",
+    "resultCount_zero": "Matokeo 0 ya utafutaji",
+    "resultCount_one": "Tokeo 1 la utafutaji",
+    "resultCount_two": "Matokeo {{count}} ya utafutaji",
     "resultCount_few": "Matokeo {{count}} ya utafutaji",
     "resultCount_many": "Matokeo {{count}} ya utafutaji",
-    "resultCount_one": "Tokeo 1 la utafutaji",
-    "resultCount_other": "Matokeo {{count}} ya utafutaji",
-    "resultCount_two": "Matokeo {{count}} ya utafutaji",
-    "resultCount_zero": "Matokeo 0 ya utafutaji",
-    "searchContent": "Tafuta maudhui",
-    "title": "Tafuta",
-    "viewResult": "Fungua tokeo la utafutaji"
+    "resultCount_other": "Matokeo {{count}} ya utafutaji"
   },
   "settings": {
-    "contrast": {
-      "description": "Hali ya mwangaza unaotofautiana huboresha usomaji",
-      "title": "Mwangaza wa juu unaotofautiana (toleo la majaribio)"
-    },
+    "title": "Mipangilio",
     "error": {
       "save": "Haikuwezekana kuhifadhi mipangilio"
     },
-    "externalSources": {
-      "allowed": "Kipengee hiki kina maudhui kutoka chanzo hiki cha nje. Unaweza kuzuia maudhui kama haya kwenye mipangilio.",
-      "blocked": "Maudhui ya nje kutoka chanzo hiki yamezuiwa. Unaweza kuruhusu chanzo hiki kwenye mipangilio.",
-      "description": "Unaweza kuruhusu kabisa maudhui kutoka vyanzo vya nje yaonyeshwe. Unaweza kubatilisha idhini hii hapa wakati wowote.",
-      "descriptionShort": "Chagua vyanzo vya nje vinavyoruhusiwa.",
-      "nothingFound": "Hakuna vyanzo vya nje vinavyopatikana.",
-      "optIn": "Ninakubali kuonyeshwa maudhui kutoka chanzo hiki cha nje.",
-      "source": "Ruhusu maudhui kutoka {{source}}",
-      "title": "Vyanzo vya nje"
+    "sentry": {
+      "title": "Uimara wa programu",
+      "description": "Boresha {{appName}} kwa kutuma ripoti za hitilafu kiotomatiki"
     },
     "pushNotifications": {
-      "description": "Pokea arifa za kusukuma kuhusu habari mpya za eneo lako",
-      "title": "Arifa za kusukuma"
+      "title": "Arifa za kusukuma",
+      "description": "Pokea arifa za kusukuma kuhusu habari mpya za eneo lako"
     },
-    "sentry": {
-      "description": "Boresha {{appName}} kwa kutuma ripoti za hitilafu kiotomatiki",
-      "title": "Uimara wa programu"
+    "contrast": {
+      "title": "Mwangaza wa juu unaotofautiana (toleo la majaribio)",
+      "description": "Hali ya mwangaza unaotofautiana huboresha usomaji"
     },
-    "title": "Mipangilio"
+    "externalSources": {
+      "title": "Vyanzo vya nje",
+      "descriptionShort": "Chagua vyanzo vya nje vinavyoruhusiwa.",
+      "description": "Unaweza kuruhusu kabisa maudhui kutoka vyanzo vya nje yaonyeshwe. Unaweza kubatilisha idhini hii hapa wakati wowote.",
+      "source": "Ruhusu maudhui kutoka {{source}}",
+      "optIn": "Ninakubali kuonyeshwa maudhui kutoka chanzo hiki cha nje.",
+      "allowed": "Kipengee hiki kina maudhui kutoka chanzo hiki cha nje. Unaweza kuzuia maudhui kama haya kwenye mipangilio.",
+      "blocked": "Maudhui ya nje kutoka chanzo hiki yamezuiwa. Unaweza kuruhusu chanzo hiki kwenye mipangilio.",
+      "nothingFound": "Hakuna vyanzo vya nje vinavyopatikana."
+    }
   },
   "share": {
-    "copyLink": "Nakili kiungo",
+    "title": "Shiriki",
     "message": "Imepatikana punde: {{message}}",
+    "copyLink": "Nakili kiungo",
     "qr": {
-      "description": "Shiriki ukurasa huu kwa urahisi kwa kuchanganua msimbo wa QR kwenye kifaa kingine.",
       "label": "Msimbo wa QR",
-      "title": "Shiriki kupitia msimbo wa QR"
-    },
-    "title": "Shiriki"
+      "title": "Shiriki kupitia msimbo wa QR",
+      "description": "Shiriki ukurasa huu kwa urahisi kwa kuchanganua msimbo wa QR kwenye kifaa kingine."
+    }
   },
   "suggestToRegion": {
+    "title": "Pendekeza {{appName}} katika eneo lako",
     "description": "Je, unavutiwa na wazo la programu ya Integreat na unaamini mji, wilaya, au manispaa yako inaweza kufaidika na suluhisho hili la kidijitali? Unaweza kuchukua hatua kwa urahisi hapa.",
     "regionNotFoundCta": "Hujaona eneo lako? Chukua hatua sasa!",
+    "whatToDo": "Hivi ndivyo unavyoweza kufanya:",
     "steps": {
+      "getEmail": "Tafuta anwani ya barua pepe ya eneo lako",
       "copyText": "Nakili maandishi haya",
       "fillPlaceholders": "Jaza nafasi zilizo wazi zenye alama ya [ ] kwa maelezo yako",
-      "getEmail": "Tafuta anwani ya barua pepe ya eneo lako",
       "send": "Tuma barua pepe kwenye eneo lako"
-    },
-    "title": "Pendekeza {{appName}} katika eneo lako",
-    "whatToDo": "Hivi ndivyo unavyoweza kufanya:"
+    }
   },
   "tour": {
-    "additionalFeatures": {
-      "description": "Tumia vipengele vingine hapa kama vile <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> na <strong>{{additionalFeature}}</strong>.",
-      "title": "Vipengele zaidi"
+    "title": "Ziara ya programu",
+    "welcome": "Mwongozo huu mfupi utakuonyesha vipengele muhimu zaidi vya programu.",
+    "start": "Anza ziara",
+    "progress": "Hatua ya {{current}} kati ya {{total}}",
+    "regionChange": {
+      "description": "Chagua <strong>eneo</strong> lako hapa ili kupata taarifa za eneo husika."
+    },
+    "navigation": {
+      "title": "Urambazaji",
+      "description": "Badilisha hapa kati ya <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> na <strong>$t(events:title)</strong>."
     },
     "categories": {
-      "description": "Gundua taarifa kuhusu mada kama vile <strong>Makazi</strong>, <strong>Elimu</strong>, <strong>Kazi</strong> na zaidi.",
-      "title": "Gundua mada"
+      "title": "Gundua mada",
+      "description": "Gundua taarifa kuhusu mada kama vile <strong>Makazi</strong>, <strong>Elimu</strong>, <strong>Kazi</strong> na zaidi."
+    },
+    "searchAndLanguage": {
+      "title": "Utafutaji na lugha",
+      "description": "<strong>Tafuta</strong> taarifa za eneo lako, matukio na maeneo, au badilisha <strong>lugha</strong>."
+    },
+    "menu": {
+      "title": "Vipengele zaidi",
+      "description": "Tumia vipengele vingine hapa kama vile <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> na <strong>{{additionalFeature}}</strong>."
     },
     "chat": {
       "description": "Uliza maswali yako hapa na upate majibu yanayofaa kwa haraka."
     },
     "finish": {
-      "description": "Sasa unajua vipengele muhimu zaidi. Kila la heri unapotumia {{appName}}!",
-      "title": "Imekamilika!"
-    },
-    "navigation": {
-      "description": "Badilisha hapa kati ya <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> na <strong>$t(events:title)</strong>.",
-      "title": "Urambazaji"
-    },
-    "progress": "Hatua ya {{current}} kati ya {{total}}",
-    "regionChange": {
-      "description": "Chagua <strong>eneo</strong> lako hapa ili kupata taarifa za eneo husika."
-    },
-    "searchAndLanguage": {
-      "description": "<strong>Tafuta</strong> taarifa za eneo lako, matukio na maeneo, au badilisha <strong>lugha</strong>.",
-      "title": "Utafutaji na lugha"
-    },
-    "start": "Anza ziara",
-    "title": "Ziara ya programu",
-    "welcome": "Mwongozo huu mfupi utakuonyesha vipengele muhimu zaidi vya programu."
+      "title": "Imekamilika!",
+      "description": "Sasa unajua vipengele muhimu zaidi. Kila la heri unapotumia {{appName}}!"
+    }
   },
   "tts": {
-    "error": {
-      "languageNotSupported": "Lugha hii haitumiki.",
-      "noVoices": {
-        "description": "Hakuna sauti iliyopatikana. Ili kutumia kipengele cha kusoma kwa sauti, ni lazima sauti iwe imesakinishwa. Tafadhali fuata maelekezo yafuatayo kwa mfumo wako wa uendeshaji.",
-        "title": "Hakuna sauti iliyosakinishwa"
-      },
-      "nothingToRead": {
-        "description": "Hakuna maudhui ya kusoma kwenye ukurasa huu.",
-        "title": "Hakuna cha kusoma"
-      }
-    },
+    "title": "Soma kwa sauti",
     "pause": "Sitisha",
     "play": "Cheza",
-    "title": "Soma kwa sauti"
+    "error": {
+      "languageNotSupported": "Lugha hii haitumiki.",
+      "nothingToRead": {
+        "title": "Hakuna cha kusoma",
+        "description": "Hakuna maudhui ya kusoma kwenye ukurasa huu."
+      },
+      "noVoices": {
+        "title": "Hakuna sauti iliyosakinishwa",
+        "description": "Hakuna sauti iliyopatikana. Ili kutumia kipengele cha kusoma kwa sauti, ni lazima sauti iwe imesakinishwa. Tafadhali fuata maelekezo yafuatayo kwa mfumo wako wa uendeshaji."
+      }
+    }
   },
   "userLocation": {
+    "nearby": "Karibu nawe",
+    "show": "Onyesha eneo langu",
     "loading": "Inatafuta eneo…",
     "locationAccessRequired": "Ili kuonyesha maeneo ya karibu, ufikiaji wa eneo lazima uwe umewashwa.",
-    "nearby": "Karibu nawe",
     "noPermission": "Ufikiaji wa eneo unahitajika",
     "notAvailable": "Huduma za eneo zimezimwa",
-    "show": "Onyesha eneo langu",
     "timeout": "Eneo halikupatikana"
   }
 }

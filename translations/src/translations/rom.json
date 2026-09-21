@@ -1,468 +1,468 @@
 {
   "about": {
-    "aboutUs": "Pal amende",
-    "accessibility": "Akseso bi baririjengo",
-    "imprint": "Impresum",
     "legal": "Kanuniske buča",
+    "imprint": "Impresum",
+    "accessibility": "Akseso bi baririjengo",
+    "aboutUs": "Pal amende",
     "licenses": {
-      "license": "Licenca: {{license}}",
       "title": "Open-Source licencurǎ",
-      "version": "Versija: {{version}}"
+      "version": "Versija: {{version}}",
+      "license": "Licenca: {{license}}"
     }
   },
   "categories": {
+    "title": "Thanutne informacie",
+    "titleShort": "Informacie",
     "organization": {
-      "description": "Buter informacie pal o {{organization}} šaj arakhes pe <Link>{{domain}}</Link>.",
-      "title": "O konteksto katar kadaja rig si katar o {{organization}}."
+      "title": "O konteksto katar kadaja rig si katar o {{organization}}.",
+      "description": "Buter informacie pal o {{organization}} šaj arakhes pe <Link>{{domain}}</Link>."
     },
     "pdf": {
       "create": "Ker PDF",
       "disabled": "Te keres PDF pe kadaja čhib akana či šaj."
-    },
-    "title": "Thanutne informacie",
-    "titleShort": "Informacie"
-  },
-  "chat": {
-    "bot": "Čatbot",
-    "consultant": "Konsultanto/ka",
-    "initial": {
-      "description": "Šaj phučes pal thanutne informacie vaj pal tiri personali situacija.",
-      "title": "Molisarav tut, čhiv tiro phučipe and-o tekstosko than."
-    },
-    "inputPlaceholder": "Molisarav tut, čhiv tiro phučipe…",
-    "startNew": {
-      "description": "Čače manges te le ekh nevo čat? O akanutno čat ka avel khoslo.",
-      "title": "Le nevo čat"
-    },
-    "subtitle": "Tiro digitalno rodipe-asistenti",
-    "typing": "Ramojsal...",
-    "unread_few": "{{count}} bičitome čat-haberya",
-    "unread_many": "{{count}} bičitome čat-haberya",
-    "unread_one": "1 bičitomó čat-haber",
-    "unread_other": "{{count}} bičitome čat-haberya",
-    "unread_two": "{{count}} bičitome čat-haberya",
-    "welcome": {
-      "description": "Me sem <strong>{{name}}</strong>, tiro Digitalno rodipe-asistenti. Puč mandar so kames.",
-      "title": "Baxtalo!"
     }
   },
-  "common": {
-    "a11y": {
-      "skipToContent": "Dža ko sadrzaj"
+  "chat": {
+    "subtitle": "Tiro digitalno rodipe-asistenti",
+    "bot": "Čatbot",
+    "consultant": "Konsultanto/ka",
+    "typing": "Ramojsal...",
+    "inputPlaceholder": "Molisarav tut, čhiv tiro phučipe…",
+    "initial": {
+      "title": "Molisarav tut, čhiv tiro phučipe and-o tekstosko than.",
+      "description": "Šaj phučes pal thanutne informacie vaj pal tiri personali situacija."
     },
+    "welcome": {
+      "title": "Baxtalo!",
+      "description": "Me sem <strong>{{name}}</strong>, tiro Digitalno rodipe-asistenti. Puč mandar so kames."
+    },
+    "startNew": {
+      "title": "Le nevo čat",
+      "description": "Čače manges te le ekh nevo čat? O akanutno čat ka avel khoslo."
+    },
+    "unread_one": "1 bičitomó čat-haber",
+    "unread_two": "{{count}} bičitome čat-haberya",
+    "unread_few": "{{count}} bičitome čat-haberya",
+    "unread_many": "{{count}} bičitome čat-haberya",
+    "unread_other": "{{count}} bičitome čat-haberya"
+  },
+  "common": {
     "actions": {
       "back": "Palal",
       "cancel": "Mukh pe drom",
       "clearInput": "Khos o hramosaripen",
       "close": "Phandav",
       "copy": "Kopirisar",
-      "goToPage": "Kji rig {{number}}",
-      "hideFilters": "Garav o filtre",
       "minimize": "Tiknyar",
       "next": "Majbut",
       "ok": "Va",
       "open": "Putre",
-      "openExternal": "Putre avryal",
       "previous": "angluno",
       "send": "Bičhal",
-      "showFilters": "Sikav filterya",
-      "showLess": "Sikav pohari",
-      "showMore": "Sikav pobuter",
       "skip": "Nakh tučhe",
-      "view": "Sikav"
+      "view": "Sikav",
+      "openExternal": "Putre avryal",
+      "goToPage": "Kji rig {{number}}",
+      "showMore": "Sikav pobuter",
+      "showLess": "Sikav pohari",
+      "showFilters": "Sikav filterya",
+      "hideFilters": "Garav o filtre"
     },
-    "contacts": {
-      "address": {
-        "copy": "Kopirisar i adresa",
-        "title": "Adresa"
-      },
-      "email": "E-Mail",
-      "phone": {
-        "mobile": "Mobilno numero",
-        "title": "Telefonisko numero"
-      },
-      "title": "Kontaktura",
-      "website": "Web rig"
+    "a11y": {
+      "skipToContent": "Dža ko sadrzaj"
+    },
+    "state": {
+      "copied": "Kopirime",
+      "updatedAt": "Palutne phuravde podatkura: {{date}}",
+      "loading": "Phirel o phuravipe…",
+      "optional": "opcionalno",
+      "enabled": "aktivirime",
+      "disabled": "deaktivirime"
     },
     "labels": {
       "description": "Opis",
-      "getOnPlayStore": "LE LES — Ano Google Play Store",
-      "menu": "Meni"
+      "menu": "Meni",
+      "getOnPlayStore": "LE LES — Ano Google Play Store"
     },
     "meta": {
       "description": "{{appName}} si tiro digitalno voditeljo vaš i Njamco. Arakh thanutne informacie, butjarimata thaj konsultacie. Sakana nevo thaj pi tiri čhib."
     },
     "privacy": {
+      "title": "Politika pala privatnost",
       "confirmation": "Me giljom i <Link>politika pala privatnost</Link> thaj sem soglasno te keren buti thaj te arakhen mire podatkura.",
-      "required": "Moliv te aves soglasno e politikasa pala privatnost.",
-      "title": "Politika pala privatnost"
+      "required": "Moliv te aves soglasno e politikasa pala privatnost."
     },
-    "state": {
-      "copied": "Kopirime",
-      "disabled": "deaktivirime",
-      "enabled": "aktivirime",
-      "loading": "Phirel o phuravipe…",
-      "optional": "opcionalno",
-      "updatedAt": "Palutne phuravde podatkura: {{date}}"
+    "contacts": {
+      "title": "Kontaktura",
+      "address": {
+        "title": "Adresa",
+        "copy": "Kopirisar i adresa"
+      },
+      "phone": {
+        "title": "Telefonisko numero",
+        "mobile": "Mobilno numero"
+      },
+      "email": "E-Mail",
+      "website": "Web rig"
     }
   },
   "error": {
+    "title": "Doš",
+    "noSuitableAppInstalled": "Nane instalirimi aplikacija savi odgovori.",
     "forbidden": "Tumen naj tumen dostupo akale regionoske.",
     "networkConnectionFailed": "I relacija e serverosa na uspisarda.",
     "networkRequestFailed": "I mangin nashti sas te procesuil pes.",
-    "noSuitableAppInstalled": "Nane instalirimi aplikacija savi odgovori.",
-    "nothingFound": "Ni jekh rezultato na arakhadilo.",
-    "pageNotFound": "Akaia rig na arakhadili.",
-    "permissionRequired": "Trubul dozwola",
-    "rateLimited": "Bićhalde but mangina. Moliv adzhukhar xantsi.",
     "responseMappingFailed": "O responso katar o servero nashti sas te procesuil pes.",
-    "title": "Doš",
-    "tryAgain": "Probuj palem",
-    "unknownError": "Avela jekh biprindžardi greška."
+    "rateLimited": "Bićhalde but mangina. Moliv adzhukhar xantsi.",
+    "pageNotFound": "Akaia rig na arakhadili.",
+    "nothingFound": "Ni jekh rezultato na arakhadilo.",
+    "permissionRequired": "Trubul dozwola",
+    "unknownError": "Avela jekh biprindžardi greška.",
+    "tryAgain": "Probuj palem"
   },
   "events": {
-    "dateGroups": {
-      "further": "Aver",
-      "nextDays": "Avutne {{days}} dīvesa",
-      "today": "Avdive",
-      "tomorrow": "Tehara"
-    },
+    "title": "Veranštaltungura",
+    "onlineMeeting": "Online-malajipen",
     "error": {
       "notFound": "Kado evenimento chi sas arakhlo.",
       "nothingFound": "Chi sas arakhle evenimentură."
     },
+    "recurrence": {
+      "recurring": "palpaledipnasko",
+      "furtherDates": "Aver termine",
+      "untilDate": "dži {{date}}"
+    },
+    "dateGroups": {
+      "today": "Avdive",
+      "tomorrow": "Tehara",
+      "nextDays": "Avutne {{days}} dīvesa",
+      "further": "Aver"
+    },
     "export": {
+      "download": "Eksportisar",
       "addToCalendar": "Thov ando kalendari",
       "added": "Thovdo ando kalendari",
-      "allRecurrences": "Kado thaj sa le avutne evenimentură",
       "calendar": "Kalendari",
-      "download": "Eksportisar",
+      "thisRecurrence": "Numaj kado evenimento",
+      "allRecurrences": "Kado thaj sa le avutne evenimentură",
       "error": {
         "forbidden": "I pharavimos ko kalendari nane muklo.",
         "nothingFound": "Khani kalendari so pasujil"
-      },
-      "thisRecurrence": "Numaj kado evenimento"
+      }
     },
     "filter": {
-      "error": {
-        "endBeforeStart": "O dīves le angluno trubul te avel anglal o agorutno dīves.",
-        "invalidDate": "Bibalo dīves"
-      },
-      "from": "katar",
-      "reset": "Pirisar o filtro: {{filter}}",
-      "selectEnd": "Alosar o agorutno dīves ando kalendari",
       "selectStart": "Alosar o startoskro datumo andro kalendari",
-      "to": "dži"
-    },
-    "onlineMeeting": "Online-malajipen",
-    "recurrence": {
-      "furtherDates": "Aver termine",
-      "recurring": "palpaledipnasko",
-      "untilDate": "dži {{date}}"
-    },
-    "title": "Veranštaltungura"
+      "selectEnd": "Alosar o agorutno dīves ando kalendari",
+      "from": "katar",
+      "to": "dži",
+      "reset": "Pirisar o filtro: {{filter}}",
+      "error": {
+        "invalidDate": "Bibalo dīves",
+        "endBeforeStart": "O dīves le angluno trubul te avel anglal o agorutno dīves."
+      }
+    }
   },
   "feedback": {
+    "title": "Feedback",
+    "give": "De gondo",
+    "description": "Alosar jekh ocenjipen vaj ramu jekh komento.",
     "comment": {
-      "description": "Phendo amenge tiro gondo! Amaro drago hin i lačho the o bilačho gondo, kaj kado žutil amen te kers {{appName}} majlačho.",
-      "title": "Komento"
+      "title": "Komento",
+      "description": "Phendo amenge tiro gondo! Amaro drago hin i lačho the o bilačho gondo, kaj kado žutil amen te kers {{appName}} majlačho."
     },
     "contactEmail": "E-mail pala pučlipna",
-    "description": "Alosar jekh ocenjipen vaj ramu jekh komento.",
-    "give": "De gondo",
-    "rating": {
-      "notUseful": "Na-i lačho",
-      "useful": "Lačho"
-    },
     "required": "Molisarav tut, alosar jekh reakcija vaj ramu jekh komento te šaj bičhales o gondo.",
-    "search": {
-      "checkQuery": "Dikh tiro rodimasko lav vaj paruv i čhib.",
-      "informationMissing": "Falinel kathe informaciji?",
-      "informationNotFound": "Na arakhlan kodo so rodejas?",
-      "noResultsInUserAndSourceLanguage": "Zžalostno, na arakhle pe nijekh rezultatura andre tiri čhib vaj po nimcicko.",
-      "noResultsInUserLanguage": "Zžalostno, na arakhle pe nijekh rezultatura andre tiri čhib.",
-      "searchTermDescription": "Vaš kodo laf chi arakhljilo khanchi:",
-      "wantedInformation": "Save informacie falin?"
+    "rating": {
+      "useful": "Lačho",
+      "notUseful": "Na-i lačho"
     },
     "thanks": {
-      "description": "Tiro feedback sas bičhaldo suksesoça.",
-      "title": "But phalencar vaš tiro feedback."
+      "title": "But phalencar vaš tiro feedback.",
+      "description": "Tiro feedback sas bičhaldo suksesoça."
     },
-    "title": "Feedback"
+    "search": {
+      "informationNotFound": "Na arakhlan kodo so rodejas?",
+      "wantedInformation": "Save informacie falin?",
+      "informationMissing": "Falinel kathe informaciji?",
+      "searchTermDescription": "Vaš kodo laf chi arakhljilo khanchi:",
+      "checkQuery": "Dikh tiro rodimasko lav vaj paruv i čhib.",
+      "noResultsInUserLanguage": "Zžalostno, na arakhle pe nijekh rezultatura andre tiri čhib.",
+      "noResultsInUserAndSourceLanguage": "Zžalostno, na arakhle pe nijekh rezultatura andre tiri čhib vaj po nimcicko."
+    }
   },
   "intro": {
+    "welcome": {
+      "title": "Mishto aviljan ko {{appName}}",
+      "description": "An-o {{appName}} arakhes vasta vi savetura p-tiro dajako čhib. Sar misal: Kote arakhav ažutipen? Kana šaj te kerav buti?"
+    },
     "slides": {
+      "search": {
+        "title": "Lokhi rodin",
+        "description": "Sigo arakhes e čače informacie k-e rodin opral ko čačo rig an-o menu."
+      },
       "languageChange": {
         "description": "Šaj paruvas e čhib tar {{appName}} opral an-o menu."
       },
-      "news": {
-        "description": "So si nevo paše tute? Arakh andre an-o {{appName}}.",
-        "title": "Neve informacie"
+      "places": {
+        "title": "Ponude paše tute",
+        "description": "P-e karta šaj arakhes thana paše tute, sar misal thana vaš čhibake kursurä."
       },
       "offline": {
-        "description": "Na-i tut svako data interneto? Nane pharipen. Šaj te keres buti le {{appName}}-eça vi bi internetosko.",
-        "title": "Kärel buti vi offline"
+        "title": "Kärel buti vi offline",
+        "description": "Na-i tut svako data interneto? Nane pharipen. Šaj te keres buti le {{appName}}-eça vi bi internetosko."
       },
-      "places": {
-        "description": "P-e karta šaj arakhes thana paše tute, sar misal thana vaš čhibake kursurä.",
-        "title": "Ponude paše tute"
-      },
-      "search": {
-        "description": "Sigo arakhes e čače informacie k-e rodin opral ko čačo rig an-o menu.",
-        "title": "Lokhi rodin"
+      "news": {
+        "title": "Neve informacie",
+        "description": "So si nevo paše tute? Arakh andre an-o {{appName}}."
       }
-    },
-    "welcome": {
-      "description": "An-o {{appName}} arakhes vasta vi savetura p-tiro dajako čhib. Sar misal: Kote arakhav ažutipen? Kana šaj te kerav buti?",
-      "title": "Mishto aviljan ko {{appName}}"
     }
   },
   "ios": {
-    "NSCalendarsFullAccessUsageDescription": "{{appName}} mangel te phravljol o kalendari te thol andre nastape.",
-    "NSCalendarsUsageDescription": "{{appName}} mangel te phravljol o kalendari te thol andre nastape.",
-    "NSLocationAlwaysAndWhenInUseUsageDescription": "Te arakhes thana paše tute, {{appName}} mangel slobodo vaš tiro than (lokacija).",
+    "NSPhotoLibraryAddUsageDescription": "Te shaj te garaven pe patret, {{appName}} trubul drom dji ka galeria.",
     "NSLocationWhenInUseUsageDescription": "Te arakhes thana paše tute, {{appName}} mangel slobodo vaš tiro than (lokacija).",
-    "NSPhotoLibraryAddUsageDescription": "Te shaj te garaven pe patret, {{appName}} trubul drom dji ka galeria."
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Te arakhes thana paše tute, {{appName}} mangel slobodo vaš tiro than (lokacija).",
+    "NSCalendarsUsageDescription": "{{appName}} mangel te phravljol o kalendari te thol andre nastape.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} mangel te phravljol o kalendari te thol andre nastape."
   },
   "languages": {
     "change": "Paruv i chib",
     "changed": "I chib paruvdili pi {{languageName}}",
+    "search": "Rode i chib",
     "error": {
       "noTranslation": "Nai khanchi traducime",
       "notFound": {
-        "description": "Kadi patrin inke nai pe sa le chiba. Ame zurales barvas amare chiba. Shaj te manges tiri chib katar i funkcia <Link>Feedback</Link>.",
+        "title": "Kadi chib chi sas arakhli.",
         "question": "Chi arakhlan i chib?",
-        "title": "Kadi chib chi sas arakhli."
+        "description": "Kadi patrin inke nai pe sa le chiba. Ame zurales barvas amare chiba. Shaj te manges tiri chib katar i funkcia <Link>Feedback</Link>."
       }
-    },
-    "search": "Rode i chib"
+    }
   },
   "malteHelpForm": {
+    "supportNote": "Mangas te aćhon sigurno thaj ažutime kana si tumen pharimata vaj pućhimata. Kadale kontaktosqe formularosa šaj te den duma manušença so šaj te ažutin tumen. Šaj te phenen so godi mangen thaj te alosaren sar mangen te len kontakt.",
+    "securityNote": "Tumari sigùrnos si amenqe majanglal. Tumare dǎtja arakhǎven-pes paćvalimnasa, te avel tumari privatnos arakhli sa o vaxt.",
+    "name": "Familijako anav, Anav",
+    "roomNumber": "Numro kotorosqo / sobeaqo",
+    "howToBeContacted": "Kade kamav te des duma mansa:",
+    "eMail": "E-Mail",
+    "telephone": "Telefòno",
+    "telephoneNumber": "Tel. numro",
+    "personally": "Korkoro",
     "contactPerson": "Manush kaske te des duma:",
     "contactPersonAnyGender": "Chi interesil kana o manush si mursh vaj zhuvli",
     "contactPersonGenderFemale": "Kamav jekh zhuvli te del duma mansa",
     "contactPersonGenderMale": "Kamav jekh mursh te del duma mansa",
     "contactReason": "Tumaro mangipe:",
-    "eMail": "E-Mail",
-    "howToBeContacted": "Kade kamav te des duma mansa:",
-    "invalidEmailAddress": "Kado E-Mail drom nai lacho.",
     "maxCharacters": "Majbut {{numberOfCharacters}} pismenura",
-    "name": "Familijako anav, Anav",
-    "personally": "Korkoro",
     "responseHint": "Shaj te zhal nesave butjake djesa dji kana aresel tuke jekh raspuns. Keras sa so shaj te kera tiri buti zurales sigo.",
-    "roomNumber": "Numro kotorosqo / sobeaqo",
-    "securityNote": "Tumari sigùrnos si amenqe majanglal. Tumare dǎtja arakhǎven-pes paćvalimnasa, te avel tumari privatnos arakhli sa o vaxt.",
     "submit": "Bićhal o formulari",
+    "submitSuccessful": "O formulari sas bićhaldo mišto",
     "submitFailed": "O formulari na sas bićhaldo",
     "submitFailedReasoning": "Molisaros, dikhen te avel tumen zurali internet-relàcija thaj zumaven palem.",
-    "submitSuccessful": "O formulari sas bićhaldo mišto",
-    "supportNote": "Mangas te aćhon sigurno thaj ažutime kana si tumen pharimata vaj pućhimata. Kadale kontaktosqe formularosa šaj te den duma manušença so šaj te ažutin tumen. Šaj te phenen so godi mangen thaj te alosaren sar mangen te len kontakt.",
-    "telephone": "Telefòno",
-    "telephoneNumber": "Tel. numro"
+    "invalidEmailAddress": "Kado E-Mail drom nai lacho."
   },
   "news": {
+    "title": "Novosti / dùme",
+    "sources": {
+      "all": "Sa le dùme / mesàže",
+      "local": "Thanutne dùme / novosti",
+      "national": "Nacionalne dùme / novosti",
+      "allShort": "Sǎ",
+      "localShort": "Thanikano",
+      "nationalShort": "Nacionalno"
+    },
     "error": {
       "notFound": "Kadi duma/mesàža na sas arakhli.",
       "nothingFound": "Ćhijekh duma/mesàža na sas arakhli."
-    },
-    "sources": {
-      "all": "Sa le dùme / mesàže",
-      "allShort": "Sǎ",
-      "local": "Thanutne dùme / novosti",
-      "localShort": "Thanikano",
-      "national": "Nacionalne dùme / novosti",
-      "nationalShort": "Nacionalno"
-    },
-    "title": "Novosti / dùme"
+    }
   },
   "places": {
+    "title": "Karta",
     "accessible": "Bi-barjerènqo / Phandlo sarinenqe",
-    "distance": "{{distance}} km dur",
+    "notAccessible": "Nane barrierefrei",
     "error": {
       "notFound": "Kado than chi arakhlilo.",
       "nothingFound": "Chi arakhlile thana."
     },
-    "filter": {
-      "adjust": "Filtrir thâna",
-      "alphabet": "A-Z",
-      "categories": "Kategoriye",
-      "onlyOpen": "Sikav feri thâna save si akana phuterde",
-      "placeCount_few": "{{count}} thâna",
-      "placeCount_many": "{{count}} thâna",
-      "placeCount_one": "1 than",
-      "placeCount_other": "{{count}} thâna",
-      "placeCount_two": "{{count}} thâna",
-      "placeCount_zero": "0 thâna",
-      "show_few": "Sikav {{count}} thâna",
-      "show_many": "Sikav {{count}} thâna",
-      "show_one": "Sikav 1 than",
-      "show_other": "Sikav {{count}} thâna",
-      "show_two": "Sikav {{count}} thâna",
-      "show_zero": "0 thâna arakhlile"
-    },
-    "hours": {
-      "allDay": "saste divesesko",
-      "appointment": {
-        "make": {
-          "description": "Kher varekaj vakit pe <Link>webstrana</Link> vaj telefonoske.",
-          "title": "Te thol pes vrama"
-        },
-        "required": "Trubul termin"
-      },
-      "closed": "phandlo",
-      "open": "putrdo",
-      "temporarilyClosed": "Harak phandlo",
-      "title": "Putrimosko vaxt"
-    },
-    "notAccessible": "Nane barrierefrei",
-    "title": "Karta",
-    "weekdays": {
-      "dienstag": "Dito",
-      "donnerstag": "Shto",
-      "freitag": "Parashtui",
-      "mittwoch": "Tetradi",
-      "montag": "Lujdi",
-      "samstag": "Savato",
-      "sonntag": "Kurko"
-    },
+    "distance": "{{distance}} km dur",
     "zoom": {
       "in": "Baredar keripen",
       "out": "Cinodare keripen"
+    },
+    "filter": {
+      "adjust": "Filtrir thâna",
+      "onlyOpen": "Sikav feri thâna save si akana phuterde",
+      "categories": "Kategoriye",
+      "alphabet": "A-Z",
+      "show_zero": "0 thâna arakhlile",
+      "show_one": "Sikav 1 than",
+      "show_two": "Sikav {{count}} thâna",
+      "show_few": "Sikav {{count}} thâna",
+      "show_many": "Sikav {{count}} thâna",
+      "show_other": "Sikav {{count}} thâna",
+      "placeCount_zero": "0 thâna",
+      "placeCount_one": "1 than",
+      "placeCount_two": "{{count}} thâna",
+      "placeCount_few": "{{count}} thâna",
+      "placeCount_many": "{{count}} thâna",
+      "placeCount_other": "{{count}} thâna"
+    },
+    "hours": {
+      "title": "Putrimosko vaxt",
+      "allDay": "saste divesesko",
+      "open": "putrdo",
+      "closed": "phandlo",
+      "temporarilyClosed": "Harak phandlo",
+      "appointment": {
+        "required": "Trubul termin",
+        "make": {
+          "title": "Te thol pes vrama",
+          "description": "Kher varekaj vakit pe <Link>webstrana</Link> vaj telefonoske."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Lujdi",
+      "dienstag": "Dito",
+      "mittwoch": "Tetradi",
+      "donnerstag": "Shto",
+      "freitag": "Parashtui",
+      "samstag": "Savato",
+      "sonntag": "Kurko"
     }
   },
   "regions": {
+    "title": "Phuva",
+    "welcome": {
+      "title": "Mishto aviljan ki {{appName}}.",
+      "description": "Tiro digitalno guid pala savorre informacie so trubun tuče. Molisaras tut, alosar tiri phuv."
+    },
     "change": "Te paruvel pes o regiuno",
+    "notFound": "Kaja phuv či sas arakhli.",
+    "search": {
+      "region": "Rode phuv",
+      "description": "Alosar tiri phuv vaj o maj baro foro paše, sar egzemplo {{exampleRegion}}"
+    },
     "nearby": {
       "nothingFound": "Khonik regiuno nane pashal.",
       "refresh": "Te anel pes pe nevo e pashe regiunura"
-    },
-    "notFound": "Kaja phuv či sas arakhli.",
-    "search": {
-      "description": "Alosar tiri phuv vaj o maj baro foro paše, sar egzemplo {{exampleRegion}}",
-      "region": "Rode phuv"
-    },
-    "title": "Phuva",
-    "welcome": {
-      "description": "Tiro digitalno guid pala savorre informacie so trubun tuče. Molisaras tut, alosar tiri phuv.",
-      "title": "Mishto aviljan ki {{appName}}."
     }
   },
   "search": {
+    "title": "Rode",
+    "searchContent": "Rode sadrzaj",
+    "viewResult": "Puter o rodipnasko rezultato",
+    "resultCount_zero": "0 rodipnaske rezultaturja",
+    "resultCount_one": "1 rodipnasko rezultato",
+    "resultCount_two": "{{count}} rodipnaske rezultaturja",
     "resultCount_few": "{{count}} rodipnaske rezultaturja",
     "resultCount_many": "{{count}} rodipnaske rezultaturja",
-    "resultCount_one": "1 rodipnasko rezultato",
-    "resultCount_other": "{{count}} rodipnaske rezultaturja",
-    "resultCount_two": "{{count}} rodipnaske rezultaturja",
-    "resultCount_zero": "0 rodipnaske rezultaturja",
-    "searchContent": "Rode sadrzaj",
-    "title": "Rode",
-    "viewResult": "Puter o rodipnasko rezultato"
+    "resultCount_other": "{{count}} rodipnaske rezultaturja"
   },
   "settings": {
-    "contrast": {
-      "description": "E kontrasto-modoso šaj majfeder te drabares",
-      "title": "Baro kontrasto (beta)"
-    },
+    "title": "Ajustirǐmata",
     "error": {
       "save": "O regulacije či šaj sas te garaven pes"
     },
-    "externalSources": {
-      "allowed": "Kado kotor si les sadrzaj katar avrutno izvoro. Tu šaj te čhines kasave sadrzaja ande regulacije.",
-      "blocked": "Avrutno sadrzaj katar kado izvoro sas čhindlo. Ande regulacije šaj te mukhês kado izvoro.",
-      "description": "Šaj des permamènto mèkiba te dikhen pes sadržaja katar avrutne reference. Šaj palem cides tlo mèkiba kathe kadikana kames.",
-      "descriptionShort": "Arakh save avrutne reference šaj te aven mukle.",
-      "nothingFound": "Nane avrutne reference dostupne.",
-      "optIn": "Me sem pendar agor, kaj te dikhav sadržaja katar kaja avrutni referenca.",
-      "source": "Muk sadržaja katar {{source}}",
-      "title": "Avrutne reference"
+    "sentry": {
+      "title": "Aplikacijako stabilìteto",
+      "description": "Lashar {{appName}} arakhlindoj automatsko raportura pala krahurja"
     },
     "pushNotifications": {
-      "description": "Lè push-notifikacije pala najneve thanutne viaste",
-      "title": "Push-notifikacije"
+      "title": "Push-notifikacije",
+      "description": "Lè push-notifikacije pala najneve thanutne viaste"
     },
-    "sentry": {
-      "description": "Lashar {{appName}} arakhlindoj automatsko raportura pala krahurja",
-      "title": "Aplikacijako stabilìteto"
+    "contrast": {
+      "title": "Baro kontrasto (beta)",
+      "description": "E kontrasto-modoso šaj majfeder te drabares"
     },
-    "title": "Ajustirǐmata"
+    "externalSources": {
+      "title": "Avrutne reference",
+      "descriptionShort": "Arakh save avrutne reference šaj te aven mukle.",
+      "description": "Šaj des permamènto mèkiba te dikhen pes sadržaja katar avrutne reference. Šaj palem cides tlo mèkiba kathe kadikana kames.",
+      "source": "Muk sadržaja katar {{source}}",
+      "optIn": "Me sem pendar agor, kaj te dikhav sadržaja katar kaja avrutni referenca.",
+      "allowed": "Kado kotor si les sadrzaj katar avrutno izvoro. Tu šaj te čhines kasave sadrzaja ande regulacije.",
+      "blocked": "Avrutno sadrzaj katar kado izvoro sas čhindlo. Ande regulacije šaj te mukhês kado izvoro.",
+      "nothingFound": "Nane avrutne reference dostupne."
+    }
   },
   "share": {
-    "copyLink": "Kopiriv o link",
+    "title": "Ulav",
     "message": "Akana arakhlem: {{message}}",
+    "copyLink": "Kopiriv o link",
     "qr": {
-      "description": "Ulaves kaja rig lokhes kidi kaj skenires o QR kodo pe aver dispozitivo.",
       "label": "QR kodo",
-      "title": "Ulaves katar o QR kodo"
-    },
-    "title": "Ulav"
+      "title": "Ulaves katar o QR kodo",
+      "description": "Ulaves kaja rig lokhes kidi kaj skenires o QR kodo pe aver dispozitivo."
+    }
   },
   "suggestToRegion": {
+    "title": "Predložisar {{appName}} anθ-tiri regija",
     "description": "O koncepto katar i Integreat aplikacija dopadisaljas tuke thaj mislis kaj vi tlo foro, tlo rajono vaj tli komuna šaj te avel la fajda katar kado digitalno lafi? Atunči šaj lokhes kathe te aves aktìvno.",
     "regionNotFoundCta": "Či arakhljan tli regija? Kerdov aktivno akanak!",
+    "whatToDo": "Kada šaj te keres:",
     "steps": {
+      "getEmail": "Arakh e e-mail adresa katar tiri regija",
       "copyText": "Kopiriv kado teksto",
       "fillPlaceholders": "Pher e thana [ ] te thos tēre informacie",
-      "getEmail": "Arakh e e-mail adresa katar tiri regija",
       "send": "Bičhal o e-mail karing tiri regija"
-    },
-    "title": "Predložisar {{appName}} anθ-tiri regija",
-    "whatToDo": "Kada šaj te keres:"
+    }
   },
   "tour": {
-    "additionalFeatures": {
-      "description": "Hulav kathe aver funkcie sar <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> thaj <strong>{{additionalFeature}}</strong>.",
-      "title": "Aver funkcie"
+    "title": "Aplikacijaki tura",
+    "welcome": "Kadi skurto tura sikavel tuke e maj važne funkcije katar i aplikacija.",
+    "start": "Startisav i tura",
+    "progress": "Pašo {{current}} katar {{total}}",
+    "regionChange": {
+      "description": "Alosar kathe tiri <strong>regija</strong>, te arakhes thaneske informacie."
+    },
+    "navigation": {
+      "title": "Navigacija",
+      "description": "Paruv kathe maškar <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> thaj <strong>$t(events:title)</strong>."
     },
     "categories": {
-      "description": "Arakh informacie pala teme sar <strong>Bešipe</strong>, <strong>Sikljovipe</strong>, <strong>Buti</strong> thaj aver.",
-      "title": "Arakh teme"
+      "title": "Arakh teme",
+      "description": "Arakh informacie pala teme sar <strong>Bešipe</strong>, <strong>Sikljovipe</strong>, <strong>Buti</strong> thaj aver."
+    },
+    "searchAndLanguage": {
+      "title": "Rodipe thaj čhib",
+      "description": "<strong>Rode</strong> thaneske informacie, eventurja thaj thana vaj paruv e <strong>čhib</strong>."
+    },
+    "menu": {
+      "title": "Aver funkcie",
+      "description": "Hulav kathe aver funkcie sar <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> thaj <strong>{{additionalFeature}}</strong>."
     },
     "chat": {
       "description": "Phuč kathe tēre phučimata thaj la sig pasujutne vash-phučimata."
     },
     "finish": {
-      "description": "Akanak džanes e maj bare funkcie. But baxt le {{appName}}-esa!",
-      "title": "Gotovo!"
-    },
-    "navigation": {
-      "description": "Paruv kathe maškar <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> thaj <strong>$t(events:title)</strong>.",
-      "title": "Navigacija"
-    },
-    "progress": "Pašo {{current}} katar {{total}}",
-    "regionChange": {
-      "description": "Alosar kathe tiri <strong>regija</strong>, te arakhes thaneske informacie."
-    },
-    "searchAndLanguage": {
-      "description": "<strong>Rode</strong> thaneske informacie, eventurja thaj thana vaj paruv e <strong>čhib</strong>.",
-      "title": "Rodipe thaj čhib"
-    },
-    "start": "Startisav i tura",
-    "title": "Aplikacijaki tura",
-    "welcome": "Kadi skurto tura sikavel tuke e maj važne funkcije katar i aplikacija."
+      "title": "Gotovo!",
+      "description": "Akanak džanes e maj bare funkcie. But baxt le {{appName}}-esa!"
+    }
   },
   "tts": {
-    "error": {
-      "languageNotSupported": "I ćhib chi del pe godi.",
-      "noVoices": {
-        "description": "Chi arakhljilo ni jekh glaso. Te šaj te koristis i funkcija pala ginavipe, trubul te avel instalirime jekh glaso. Molisarav tut, dikh kadala instrukcije pala tiro operativno sistemo.",
-        "title": "Nane instalirime ni jekh glaso"
-      },
-      "nothingToRead": {
-        "description": "Pe kadi patrin nane khanći te ginavel pe.",
-        "title": "Khanći te ginavel pe"
-      }
-    },
+    "title": "Ginav avri",
     "pause": "Pauza",
     "play": "Bašal",
-    "title": "Ginav avri"
+    "error": {
+      "languageNotSupported": "I ćhib chi del pe godi.",
+      "nothingToRead": {
+        "title": "Khanći te ginavel pe",
+        "description": "Pe kadi patrin nane khanći te ginavel pe."
+      },
+      "noVoices": {
+        "title": "Nane instalirime ni jekh glaso",
+        "description": "Chi arakhljilo ni jekh glaso. Te šaj te koristis i funkcija pala ginavipe, trubul te avel instalirime jekh glaso. Molisarav tut, dikh kadala instrukcije pala tiro operativno sistemo."
+      }
+    }
   },
   "userLocation": {
+    "nearby": "Paše tute",
+    "show": "Sikav miri lokacija",
     "loading": "Rodol pe i lokacija…",
     "locationAccessRequired": "Te sikaven pe e regiune paše tute, trubul te avel phravdo o drom karing i lokacija.",
-    "nearby": "Paše tute",
     "noPermission": "Trubul pe o drom karing i lokacija",
     "notAvailable": "E službe pala i lokacija si phandle",
-    "show": "Sikav miri lokacija",
     "timeout": "I lokacija chi arakhljili"
   }
 }

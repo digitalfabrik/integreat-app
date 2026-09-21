@@ -1,468 +1,468 @@
 {
   "about": {
-    "aboutUs": "Rreth nesh",
-    "accessibility": "Aksesueshmëria",
-    "imprint": "Të dhëna ligjore",
     "legal": "Informacion ligjor",
+    "imprint": "Të dhëna ligjore",
+    "accessibility": "Aksesueshmëria",
+    "aboutUs": "Rreth nesh",
     "licenses": {
-      "license": "Licenca: {{license}}",
       "title": "Licencat me burim të hapur",
-      "version": "Versioni: {{version}}"
+      "version": "Versioni: {{version}}",
+      "license": "Licenca: {{license}}"
     }
   },
   "categories": {
+    "title": "Informacione vendore",
+    "titleShort": "Informacione",
     "organization": {
-      "description": "Mund të gjesh më shumë informacion rreth {{organization}} në <Link>{{domain}}</Link>.",
-      "title": "Përmbajtja e kësaj faqeje ofrohet nga {{organization}}."
+      "title": "Përmbajtja e kësaj faqeje ofrohet nga {{organization}}.",
+      "description": "Mund të gjesh më shumë informacion rreth {{organization}} në <Link>{{domain}}</Link>."
     },
     "pdf": {
       "create": "Krijo PDF",
       "disabled": "Krijimi i një PDF-je në këtë gjuhë nuk është i mundur për momentin."
-    },
-    "title": "Informacione vendore",
-    "titleShort": "Informacione"
-  },
-  "chat": {
-    "bot": "Bisedues automatik",
-    "consultant": "Këshillues/e",
-    "initial": {
-      "description": "Mund të pyesësh për informacione vendore ose për situatën tënde personale.",
-      "title": "Ju lutemi, shkruani pyetjen tuaj në fushën e tekstit."
-    },
-    "inputPlaceholder": "Ju lutemi, shkruani pyetjen tuaj…",
-    "startNew": {
-      "description": "Dëshiron vërtet të nisësh një bisedë të re? Historiku aktual i bisedës do të fshihet.",
-      "title": "Nis një bisedë të re"
-    },
-    "subtitle": "Asistenti yt digjital i kërkimit",
-    "typing": "Po shkruan…",
-    "unread_few": "{{count}} mesazhe të palexuara në bisedë",
-    "unread_many": "{{count}} mesazhe të palexuara në bisedë",
-    "unread_one": "1 mesazh i palexuar në bisedë",
-    "unread_other": "{{count}} mesazhe të palexuara në bisedë",
-    "unread_two": "{{count}} mesazhe të palexuara në bisedë",
-    "welcome": {
-      "description": "Unë jam <strong>{{name}}</strong>, asistenti yt digjital i kërkimit. Më bëj lirisht pyetjen tënde.",
-      "title": "Përshëndetje!"
     }
   },
-  "common": {
-    "a11y": {
-      "skipToContent": "Kalo te përmbajtja"
+  "chat": {
+    "subtitle": "Asistenti yt digjital i kërkimit",
+    "bot": "Bisedues automatik",
+    "consultant": "Këshillues/e",
+    "typing": "Po shkruan…",
+    "inputPlaceholder": "Ju lutemi, shkruani pyetjen tuaj…",
+    "initial": {
+      "title": "Ju lutemi, shkruani pyetjen tuaj në fushën e tekstit.",
+      "description": "Mund të pyesësh për informacione vendore ose për situatën tënde personale."
     },
+    "welcome": {
+      "title": "Përshëndetje!",
+      "description": "Unë jam <strong>{{name}}</strong>, asistenti yt digjital i kërkimit. Më bëj lirisht pyetjen tënde."
+    },
+    "startNew": {
+      "title": "Nis një bisedë të re",
+      "description": "Dëshiron vërtet të nisësh një bisedë të re? Historiku aktual i bisedës do të fshihet."
+    },
+    "unread_one": "1 mesazh i palexuar në bisedë",
+    "unread_two": "{{count}} mesazhe të palexuara në bisedë",
+    "unread_few": "{{count}} mesazhe të palexuara në bisedë",
+    "unread_many": "{{count}} mesazhe të palexuara në bisedë",
+    "unread_other": "{{count}} mesazhe të palexuara në bisedë"
+  },
+  "common": {
     "actions": {
       "back": "Kthehu",
       "cancel": "Anulo",
       "clearInput": "Pastro të dhënat",
       "close": "Mbyll",
       "copy": "Kopjo",
-      "goToPage": "Te faqja {{number}}",
-      "hideFilters": "Fshih filtrat",
       "minimize": "Minimizo",
       "next": "Vazhdo",
       "ok": "Në rregull",
       "open": "Hap",
-      "openExternal": "Hap nga jashtë",
       "previous": "i mëparshmi",
       "send": "Dërgo",
-      "showFilters": "Shfaq filtrat",
-      "showLess": "Shfaq më pak",
-      "showMore": "Shfaq më shumë",
       "skip": "Kaloje",
-      "view": "Shiko"
+      "view": "Shiko",
+      "openExternal": "Hap nga jashtë",
+      "goToPage": "Te faqja {{number}}",
+      "showMore": "Shfaq më shumë",
+      "showLess": "Shfaq më pak",
+      "showFilters": "Shfaq filtrat",
+      "hideFilters": "Fshih filtrat"
     },
-    "contacts": {
-      "address": {
-        "copy": "Kopjo adresën",
-        "title": "Adresa"
-      },
-      "email": "E-mail",
-      "phone": {
-        "mobile": "Numër celulari",
-        "title": "Numër telefoni"
-      },
-      "title": "Kontaktet",
-      "website": "Faqja e internetit"
+    "a11y": {
+      "skipToContent": "Kalo te përmbajtja"
+    },
+    "state": {
+      "copied": "U kopjua",
+      "updatedAt": "Përditësimi i fundit: {{date}}",
+      "loading": "Duke u ngarkuar…",
+      "optional": "opsionale",
+      "enabled": "aktivizuar",
+      "disabled": "çaktivizuar"
     },
     "labels": {
       "description": "Përshkrimi",
-      "getOnPlayStore": "MERRE TANI — Në Google Play Store",
-      "menu": "Menyja"
+      "menu": "Menyja",
+      "getOnPlayStore": "MERRE TANI — Në Google Play Store"
     },
     "meta": {
       "description": "{{appName}} është udhëzuesi yt digjital për Gjermaninë. Gjej informacione lokale, ngjarje dhe këshillim. Gjithmonë të përditësuara dhe në gjuhën tënde."
     },
     "privacy": {
+      "title": "Politika e privatësisë",
       "confirmation": "Kam lexuar <Link>politikën e privatësisë</Link> dhe pranoj përpunimin dhe ruajtjen e të dhënave të mia.",
-      "required": "Ju lutemi, pranoni politikën e privatësisë.",
-      "title": "Politika e privatësisë"
+      "required": "Ju lutemi, pranoni politikën e privatësisë."
     },
-    "state": {
-      "copied": "U kopjua",
-      "disabled": "çaktivizuar",
-      "enabled": "aktivizuar",
-      "loading": "Duke u ngarkuar…",
-      "optional": "opsionale",
-      "updatedAt": "Përditësimi i fundit: {{date}}"
+    "contacts": {
+      "title": "Kontaktet",
+      "address": {
+        "title": "Adresa",
+        "copy": "Kopjo adresën"
+      },
+      "phone": {
+        "title": "Numër telefoni",
+        "mobile": "Numër celulari"
+      },
+      "email": "E-mail",
+      "website": "Faqja e internetit"
     }
   },
   "error": {
+    "title": "Gabim",
+    "noSuitableAppInstalled": "Nuk është instaluar asnjë aplikacion i përshtatshëm.",
     "forbidden": "Nuk keni qasje në këtë rajon.",
     "networkConnectionFailed": "Lidhja me serverin dështoi.",
     "networkRequestFailed": "Kërkesa nuk mund të përpunohej.",
-    "noSuitableAppInstalled": "Nuk është instaluar asnjë aplikacion i përshtatshëm.",
-    "nothingFound": "Nuk u gjet asnjë rezultat.",
-    "pageNotFound": "Kjo faqe nuk u gjet.",
-    "permissionRequired": "Kërkohet leje",
-    "rateLimited": "Keni dërguar shumë kërkesa. Ju lutemi, prisni një moment.",
     "responseMappingFailed": "Përgjigjja e serverit nuk mund të përpunohej.",
-    "title": "Gabim",
-    "tryAgain": "Provo përsëri",
-    "unknownError": "Ndodhi një gabim i panjohur."
+    "rateLimited": "Keni dërguar shumë kërkesa. Ju lutemi, prisni një moment.",
+    "pageNotFound": "Kjo faqe nuk u gjet.",
+    "nothingFound": "Nuk u gjet asnjë rezultat.",
+    "permissionRequired": "Kërkohet leje",
+    "unknownError": "Ndodhi një gabim i panjohur.",
+    "tryAgain": "Provo përsëri"
   },
   "events": {
-    "dateGroups": {
-      "further": "Më shumë",
-      "nextDays": "{{days}} ditët e ardhshme",
-      "today": "Sot",
-      "tomorrow": "Nesër"
-    },
+    "title": "Aktivitete",
+    "onlineMeeting": "Takim online",
     "error": {
       "notFound": "Kjo ngjarje nuk u gjet.",
       "nothingFound": "Nuk u gjet asnjë ngjarje."
     },
+    "recurrence": {
+      "recurring": "e përsëritur",
+      "furtherDates": "Termine të tjera",
+      "untilDate": "deri më {{date}}"
+    },
+    "dateGroups": {
+      "today": "Sot",
+      "tomorrow": "Nesër",
+      "nextDays": "{{days}} ditët e ardhshme",
+      "further": "Më shumë"
+    },
     "export": {
+      "download": "Eksporto",
       "addToCalendar": "Shtoje në kalendar",
       "added": "U shtua në kalendar",
-      "allRecurrences": "Këtë dhe të gjitha ngjarjet e ardhshme",
       "calendar": "Kalendari",
-      "download": "Eksporto",
+      "thisRecurrence": "Vetëm këtë ngjarje",
+      "allRecurrences": "Këtë dhe të gjitha ngjarjet e ardhshme",
       "error": {
         "forbidden": "Qasja në kalendar nuk lejohet.",
         "nothingFound": "Nuk u gjet asnjë kalendar përkatës"
-      },
-      "thisRecurrence": "Vetëm këtë ngjarje"
+      }
     },
     "filter": {
-      "error": {
-        "endBeforeStart": "Data e fillimit duhet të jetë para datës së mbarimit.",
-        "invalidDate": "Datë e pavlefshme"
-      },
-      "from": "nga",
-      "reset": "Rivendos filtrin: {{filter}}",
-      "selectEnd": "Zgjidhni datën e mbarimit në kalendar",
       "selectStart": "Zgjidh datën e fillimit në kalendar",
-      "to": "deri më"
-    },
-    "onlineMeeting": "Takim online",
-    "recurrence": {
-      "furtherDates": "Termine të tjera",
-      "recurring": "e përsëritur",
-      "untilDate": "deri më {{date}}"
-    },
-    "title": "Aktivitete"
+      "selectEnd": "Zgjidhni datën e mbarimit në kalendar",
+      "from": "nga",
+      "to": "deri më",
+      "reset": "Rivendos filtrin: {{filter}}",
+      "error": {
+        "invalidDate": "Datë e pavlefshme",
+        "endBeforeStart": "Data e fillimit duhet të jetë para datës së mbarimit."
+      }
+    }
   },
   "feedback": {
+    "title": "Reagim",
+    "give": "Jep vlerësimin",
+    "description": "Zgjidh një vlerësim dhe/ose shkruaj një koment.",
     "comment": {
-      "description": "Ndaj mendimin tënd me ne! Vlerësojmë si reagimet pozitive, ashtu edhe ato negative, pasi na ndihmojnë ta përmirësojmë {{appName}}.",
-      "title": "Koment"
+      "title": "Koment",
+      "description": "Ndaj mendimin tënd me ne! Vlerësojmë si reagimet pozitive, ashtu edhe ato negative, pasi na ndihmojnë ta përmirësojmë {{appName}}."
     },
     "contactEmail": "E-mail për pyetje të mëtejshme",
-    "description": "Zgjidh një vlerësim dhe/ose shkruaj një koment.",
-    "give": "Jep vlerësimin",
-    "rating": {
-      "notUseful": "E padobishme",
-      "useful": "E dobishme"
-    },
     "required": "Të lutem zgjidh një reagim ose shkruaj një koment për të mundur të dërgosh mendimin tënd.",
-    "search": {
-      "checkQuery": "Kontrollo fjalën e kërkimit ose ndrysho gjuhën e përzgjedhur.",
-      "informationMissing": "Mungojnë informacione këtu?",
-      "informationNotFound": "Nuk gjete atë që kërkoje?",
-      "noResultsInUserAndSourceLanguage": "Fatkeqësisht nuk u gjet asnjë rezultat përkatës në gjuhën tënde ose në gjermanisht.",
-      "noResultsInUserLanguage": "Fatkeqësisht nuk u gjet asnjë rezultat përkatës në gjuhën tënde.",
-      "searchTermDescription": "Nuk u gjet asnjë rezultat për termin e mëposhtëm:",
-      "wantedInformation": "Cilat informacione mungojnë?"
+    "rating": {
+      "useful": "E dobishme",
+      "notUseful": "E padobishme"
     },
     "thanks": {
-      "description": "Reagimi yt u dërgua me sukses.",
-      "title": "Faleminderit shumë për vlerësimin tënd."
+      "title": "Faleminderit shumë për vlerësimin tënd.",
+      "description": "Reagimi yt u dërgua me sukses."
     },
-    "title": "Reagim"
+    "search": {
+      "informationNotFound": "Nuk gjete atë që kërkoje?",
+      "wantedInformation": "Cilat informacione mungojnë?",
+      "informationMissing": "Mungojnë informacione këtu?",
+      "searchTermDescription": "Nuk u gjet asnjë rezultat për termin e mëposhtëm:",
+      "checkQuery": "Kontrollo fjalën e kërkimit ose ndrysho gjuhën e përzgjedhur.",
+      "noResultsInUserLanguage": "Fatkeqësisht nuk u gjet asnjë rezultat përkatës në gjuhën tënde.",
+      "noResultsInUserAndSourceLanguage": "Fatkeqësisht nuk u gjet asnjë rezultat përkatës në gjuhën tënde ose në gjermanisht."
+    }
   },
   "intro": {
+    "welcome": {
+      "title": "Mirë se vjen në {{appName}}",
+      "description": "Në {{appName}} gjen përgjigje dhe këshilla në gjuhën tënde amtare. Për shembull: Ku mund të gjej ndihmë? Kur kam të drejtë të punoj?"
+    },
     "slides": {
+      "search": {
+        "title": "Kërkim i thjeshtë",
+        "description": "Mund të gjesh shpejt informacionin e duhur duke përdorur kërkimin lart djathtas në meny."
+      },
       "languageChange": {
         "description": "Mund ta ndryshosh gjuhën e {{appName}} lart te menyja."
       },
-      "news": {
-        "description": "Çfarë ka të re pranë teje? Zbuloje në {{appName}}.",
-        "title": "Informacione aktuale"
+      "places": {
+        "title": "Shërbime pranë teje",
+        "description": "Në hartë mund të gjesh vende pranë teje, për shembull qendra për kurse gjuhe."
       },
       "offline": {
-        "description": "Nuk ke gjithmonë internet? Nuk ka problem. Mund ta përdorësh {{appName}} edhe pa internet.",
-        "title": "Funksionon edhe pa internet"
+        "title": "Funksionon edhe pa internet",
+        "description": "Nuk ke gjithmonë internet? Nuk ka problem. Mund ta përdorësh {{appName}} edhe pa internet."
       },
-      "places": {
-        "description": "Në hartë mund të gjesh vende pranë teje, për shembull qendra për kurse gjuhe.",
-        "title": "Shërbime pranë teje"
-      },
-      "search": {
-        "description": "Mund të gjesh shpejt informacionin e duhur duke përdorur kërkimin lart djathtas në meny.",
-        "title": "Kërkim i thjeshtë"
+      "news": {
+        "title": "Informacione aktuale",
+        "description": "Çfarë ka të re pranë teje? Zbuloje në {{appName}}."
       }
-    },
-    "welcome": {
-      "description": "Në {{appName}} gjen përgjigje dhe këshilla në gjuhën tënde amtare. Për shembull: Ku mund të gjej ndihmë? Kur kam të drejtë të punoj?",
-      "title": "Mirë se vjen në {{appName}}"
     }
   },
   "ios": {
-    "NSCalendarsFullAccessUsageDescription": "{{appName}} dëshiron të ketë qasje te kalendari yt për të shtuar ngjarje.",
-    "NSCalendarsUsageDescription": "{{appName}} dëshiron të ketë qasje te kalendari yt për të shtuar ngjarje.",
-    "NSLocationAlwaysAndWhenInUseUsageDescription": "Për të gjetur vende pranë teje, {{appName}} ka nevojë për qasje në vendndodhjen tënde.",
+    "NSPhotoLibraryAddUsageDescription": "Për të ruajtur fotografi, {{appName}} ka nevojë për qasje në galeri.",
     "NSLocationWhenInUseUsageDescription": "Për të gjetur vende pranë teje, {{appName}} ka nevojë për qasje në vendndodhjen tënde.",
-    "NSPhotoLibraryAddUsageDescription": "Për të ruajtur fotografi, {{appName}} ka nevojë për qasje në galeri."
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Për të gjetur vende pranë teje, {{appName}} ka nevojë për qasje në vendndodhjen tënde.",
+    "NSCalendarsUsageDescription": "{{appName}} dëshiron të ketë qasje te kalendari yt për të shtuar ngjarje.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} dëshiron të ketë qasje te kalendari yt për të shtuar ngjarje."
   },
   "languages": {
     "change": "Ndrysho gjuhën",
     "changed": "Gjuha u ndryshua në {{languageName}}",
+    "search": "Kërko gjuhën",
     "error": {
       "noTranslation": "Nuk ka përkthim në dispozicion",
       "notFound": {
-        "description": "Kjo faqe nuk është ende e disponueshme në të gjitha gjuhët. Ne po punojmë vazhdimisht për të shtuar gjuhë të reja. Mund të kërkoni gjuhën tuaj përmes funksionit të <Link>reagimeve</Link>.",
+        "title": "Kjo gjuhë nuk u gjet.",
         "question": "Nuk e gjetët gjuhën?",
-        "title": "Kjo gjuhë nuk u gjet."
+        "description": "Kjo faqe nuk është ende e disponueshme në të gjitha gjuhët. Ne po punojmë vazhdimisht për të shtuar gjuhë të reja. Mund të kërkoni gjuhën tuaj përmes funksionit të <Link>reagimeve</Link>."
       }
-    },
-    "search": "Kërko gjuhën"
+    }
   },
   "malteHelpForm": {
+    "supportNote": "Dëshirojmë të ndiheni të sigurt dhe të mbështetur sa herë që keni pyetje apo vështirësi. Përmes formularit të mëposhtëm të kontaktit, mund të lidheni me personat tanë përgjegjës. Ju mund të specifikoni llojin e kërkesës suaj dhe të zgjidhni midis mënyrave të ndryshme të kontaktit.",
+    "securityNote": "Siguria juaj është përparësia jonë kryesore. Të dhënat tuaja trajtohen me konfidencialitet të plotë, duke garantuar ruajtjen e privatësisë suaj në çdo moment.",
+    "name": "Mbiemri, Emri",
+    "roomNumber": "Numri i dhomës",
+    "howToBeContacted": "Mënyra e dëshiruar e kontaktit:",
+    "eMail": "E-mail",
+    "telephone": "Telefoni",
+    "telephoneNumber": "Nr. tel.",
+    "personally": "Personalisht",
     "contactPerson": "Personi i kontaktit:",
     "contactPersonAnyGender": "Gjinia e personit të kontaktit nuk ka rëndësi",
     "contactPersonGenderFemale": "Dëshiroj të kontaktohem nga një grua",
     "contactPersonGenderMale": "Dëshiroj të kontaktohem nga një burrë",
     "contactReason": "Kërkesa juaj:",
-    "eMail": "E-mail",
-    "howToBeContacted": "Mënyra e dëshiruar e kontaktit:",
-    "invalidEmailAddress": "Adresa e dhënë e e-mailit është e pavlefshme.",
     "maxCharacters": "Maksimumi {{numberOfCharacters}} karaktere",
-    "name": "Mbiemri, Emri",
-    "personally": "Personalisht",
     "responseHint": "Mund të duhen disa ditë pune derisa të merrni një përgjigje. Ne përpiqemi ta trajtojmë kërkesën tuaj sa më shpejt të jetë e mundur.",
-    "roomNumber": "Numri i dhomës",
-    "securityNote": "Siguria juaj është përparësia jonë kryesore. Të dhënat tuaja trajtohen me konfidencialitet të plotë, duke garantuar ruajtjen e privatësisë suaj në çdo moment.",
     "submit": "Dërgo formularin",
+    "submitSuccessful": "Formulari u dërgua me sukses",
     "submitFailed": "Formulari nuk mund të dërgohej",
     "submitFailedReasoning": "Ju lutemi, sigurohuni që keni një lidhje të qëndrueshme me internetin dhe provoni përsëri.",
-    "submitSuccessful": "Formulari u dërgua me sukses",
-    "supportNote": "Dëshirojmë të ndiheni të sigurt dhe të mbështetur sa herë që keni pyetje apo vështirësi. Përmes formularit të mëposhtëm të kontaktit, mund të lidheni me personat tanë përgjegjës. Ju mund të specifikoni llojin e kërkesës suaj dhe të zgjidhni midis mënyrave të ndryshme të kontaktit.",
-    "telephone": "Telefoni",
-    "telephoneNumber": "Nr. tel."
+    "invalidEmailAddress": "Adresa e dhënë e e-mailit është e pavlefshme."
   },
   "news": {
+    "title": "Lajme",
+    "sources": {
+      "all": "Të gjitha lajmet",
+      "local": "Lajme lokale",
+      "national": "Lajme kombëtare",
+      "allShort": "Të gjitha",
+      "localShort": "Lokale",
+      "nationalShort": "Kombëtare"
+    },
     "error": {
       "notFound": "Ky mesazh nuk u gjet.",
       "nothingFound": "Nuk u gjet asnjë mesazh."
-    },
-    "sources": {
-      "all": "Të gjitha lajmet",
-      "allShort": "Të gjitha",
-      "local": "Lajme lokale",
-      "localShort": "Lokale",
-      "national": "Lajme kombëtare",
-      "nationalShort": "Kombëtare"
-    },
-    "title": "Lajme"
+    }
   },
   "places": {
+    "title": "Harta",
     "accessible": "E përshtatshme për persona me aftësi të kufizuara",
-    "distance": "{{distance}} km larg",
+    "notAccessible": "Nuk është e përshtatshme për persona me aftësi të kufizuara",
     "error": {
       "notFound": "Ky vendndodhje nuk u gjet.",
       "nothingFound": "Nuk u gjet asnjë vendndodhje."
     },
-    "filter": {
-      "adjust": "Filtro vendndodhjet",
-      "alphabet": "A-Z",
-      "categories": "Kategoritë",
-      "onlyOpen": "shfaq vetëm vendet e hapura aktualisht",
-      "placeCount_few": "{{count}} vendndodhje",
-      "placeCount_many": "{{count}} vendndodhje",
-      "placeCount_one": "1 vendndodhje",
-      "placeCount_other": "{{count}} vendndodhje",
-      "placeCount_two": "{{count}} vendndodhje",
-      "placeCount_zero": "0 vendndodhje",
-      "show_few": "Shfaq {{count}} vendndodhje",
-      "show_many": "Shfaq {{count}} vendndodhje",
-      "show_one": "Shfaq 1 vendndodhje",
-      "show_other": "Shfaq {{count}} vendndodhje",
-      "show_two": "Shfaq {{count}} vendndodhje",
-      "show_zero": "0 vendndodhje të gjetura"
-    },
-    "hours": {
-      "allDay": "gjatë gjithë ditës",
-      "appointment": {
-        "make": {
-          "description": "Caktoni një takim përmes <Link>faqes së internetit</Link> ose me telefon.",
-          "title": "Caktoni një takim"
-        },
-        "required": "Kërkohet takim paraprak"
-      },
-      "closed": "mbyllur",
-      "open": "hapur",
-      "temporarilyClosed": "Përkohësisht e mbyllur",
-      "title": "Orari i punës"
-    },
-    "notAccessible": "Nuk është e përshtatshme për persona me aftësi të kufizuara",
-    "title": "Harta",
-    "weekdays": {
-      "dienstag": "E martë",
-      "donnerstag": "E enjte",
-      "freitag": "E premte",
-      "mittwoch": "E mërkurë",
-      "montag": "E hënë",
-      "samstag": "E shtunë",
-      "sonntag": "E diel"
-    },
+    "distance": "{{distance}} km larg",
     "zoom": {
       "in": "Zmadho",
       "out": "Zvogëlo"
+    },
+    "filter": {
+      "adjust": "Filtro vendndodhjet",
+      "onlyOpen": "shfaq vetëm vendet e hapura aktualisht",
+      "categories": "Kategoritë",
+      "alphabet": "A-Z",
+      "show_zero": "0 vendndodhje të gjetura",
+      "show_one": "Shfaq 1 vendndodhje",
+      "show_two": "Shfaq {{count}} vendndodhje",
+      "show_few": "Shfaq {{count}} vendndodhje",
+      "show_many": "Shfaq {{count}} vendndodhje",
+      "show_other": "Shfaq {{count}} vendndodhje",
+      "placeCount_zero": "0 vendndodhje",
+      "placeCount_one": "1 vendndodhje",
+      "placeCount_two": "{{count}} vendndodhje",
+      "placeCount_few": "{{count}} vendndodhje",
+      "placeCount_many": "{{count}} vendndodhje",
+      "placeCount_other": "{{count}} vendndodhje"
+    },
+    "hours": {
+      "title": "Orari i punës",
+      "allDay": "gjatë gjithë ditës",
+      "open": "hapur",
+      "closed": "mbyllur",
+      "temporarilyClosed": "Përkohësisht e mbyllur",
+      "appointment": {
+        "required": "Kërkohet takim paraprak",
+        "make": {
+          "title": "Caktoni një takim",
+          "description": "Caktoni një takim përmes <Link>faqes së internetit</Link> ose me telefon."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "E hënë",
+      "dienstag": "E martë",
+      "mittwoch": "E mërkurë",
+      "donnerstag": "E enjte",
+      "freitag": "E premte",
+      "samstag": "E shtunë",
+      "sonntag": "E diel"
     }
   },
   "regions": {
+    "title": "Rajonet",
+    "welcome": {
+      "title": "Mirë se vini në {{appName}}.",
+      "description": "Udhëzuesi yt dixhital për të gjitha informacionet që të nevojiten. Ju lutemi zgjidhni rajonin tuaj."
+    },
     "change": "Ndrysho rajonin",
+    "notFound": "Ky rajon nuk u gjet.",
+    "search": {
+      "region": "Kërko rajonin",
+      "description": "Zgjidh rajonin tënd ose qytetin më të afërt të madh, p.sh. {{exampleRegion}}"
+    },
     "nearby": {
       "nothingFound": "Nuk ka asnjë rajon afër.",
       "refresh": "Përditëso rajonet afër"
-    },
-    "notFound": "Ky rajon nuk u gjet.",
-    "search": {
-      "description": "Zgjidh rajonin tënd ose qytetin më të afërt të madh, p.sh. {{exampleRegion}}",
-      "region": "Kërko rajonin"
-    },
-    "title": "Rajonet",
-    "welcome": {
-      "description": "Udhëzuesi yt dixhital për të gjitha informacionet që të nevojiten. Ju lutemi zgjidhni rajonin tuaj.",
-      "title": "Mirë se vini në {{appName}}."
     }
   },
   "search": {
+    "title": "Kërko",
+    "searchContent": "Kërko përmbajtje",
+    "viewResult": "Hap rezultatin e kërkimit",
+    "resultCount_zero": "0 rezultate kërkimi",
+    "resultCount_one": "1 rezultat kërkimi",
+    "resultCount_two": "{{count}} rezultate kërkimi",
     "resultCount_few": "{{count}} rezultate kërkimi",
     "resultCount_many": "{{count}} rezultate kërkimi",
-    "resultCount_one": "1 rezultat kërkimi",
-    "resultCount_other": "{{count}} rezultate kërkimi",
-    "resultCount_two": "{{count}} rezultate kërkimi",
-    "resultCount_zero": "0 rezultate kërkimi",
-    "searchContent": "Kërko përmbajtje",
-    "title": "Kërko",
-    "viewResult": "Hap rezultatin e kërkimit"
+    "resultCount_other": "{{count}} rezultate kërkimi"
   },
   "settings": {
-    "contrast": {
-      "description": "Modaliteti me kontrast përmirëson lexueshmërinë",
-      "title": "Kontrast i lartë (beta)"
-    },
+    "title": "Cilësimet",
     "error": {
       "save": "Cilësimet nuk mund të ruheshin"
     },
-    "externalSources": {
-      "allowed": "Ky element përmban material nga ky burim i jashtëm. Mund t'i bllokosh përmbajtje të tilla te cilësimet.",
-      "blocked": "Përmbajtja e jashtme nga ky burim është bllokuar. Mund ta lejosh këtë burim te cilësimet.",
-      "description": "Mund të pranosh shfaqjen e përhershme të përmbajtjeve nga burime të jashtme. Këtë pëlqim mund ta revokosh këtu në çdo moment.",
-      "descriptionShort": "Përcakto cilat burime të jashtme lejohen.",
-      "nothingFound": "Nuk ka burime të jashtme në dispozicion.",
-      "optIn": "Pajtohem që të më shfaqen përmbajtjet e këtij burimi të jashtëm.",
-      "source": "Lejo përmbajtjen nga {{source}}",
-      "title": "Burime të jashtme"
+    "sentry": {
+      "title": "Qëndrueshmëria e aplikacionit",
+      "description": "Ndihmo në përmirësimin e {{appName}} duke dërguar automatikisht raporte përplasjesh"
     },
     "pushNotifications": {
-      "description": "Merr njoftime shtytëse (push) për lajmet më të fundit vendore",
-      "title": "Njoftime shtytëse (push)"
+      "title": "Njoftime shtytëse (push)",
+      "description": "Merr njoftime shtytëse (push) për lajmet më të fundit vendore"
     },
-    "sentry": {
-      "description": "Ndihmo në përmirësimin e {{appName}} duke dërguar automatikisht raporte përplasjesh",
-      "title": "Qëndrueshmëria e aplikacionit"
+    "contrast": {
+      "title": "Kontrast i lartë (beta)",
+      "description": "Modaliteti me kontrast përmirëson lexueshmërinë"
     },
-    "title": "Cilësimet"
+    "externalSources": {
+      "title": "Burime të jashtme",
+      "descriptionShort": "Përcakto cilat burime të jashtme lejohen.",
+      "description": "Mund të pranosh shfaqjen e përhershme të përmbajtjeve nga burime të jashtme. Këtë pëlqim mund ta revokosh këtu në çdo moment.",
+      "source": "Lejo përmbajtjen nga {{source}}",
+      "optIn": "Pajtohem që të më shfaqen përmbajtjet e këtij burimi të jashtëm.",
+      "allowed": "Ky element përmban material nga ky burim i jashtëm. Mund t'i bllokosh përmbajtje të tilla te cilësimet.",
+      "blocked": "Përmbajtja e jashtme nga ky burim është bllokuar. Mund ta lejosh këtë burim te cilësimet.",
+      "nothingFound": "Nuk ka burime të jashtme në dispozicion."
+    }
   },
   "share": {
-    "copyLink": "Kopjo lidhjen",
+    "title": "Ndaj",
     "message": "Sapo u gjet: {{message}}",
+    "copyLink": "Kopjo lidhjen",
     "qr": {
-      "description": "Ndaje këtë faqe lehtësisht duke skanuar kodin QR në një pajisje tjetër.",
       "label": "Kodi QR",
-      "title": "Ndaj me anë të kodit QR"
-    },
-    "title": "Ndaj"
+      "title": "Ndaj me anë të kodit QR",
+      "description": "Ndaje këtë faqe lehtësisht duke skanuar kodin QR në një pajisje tjetër."
+    }
   },
   "suggestToRegion": {
+    "title": "Sugjero {{appName}} në rajonin tënd",
     "description": "Koncepti i aplikacionit Integreat të ka bindur dhe mendon se edhe qyteti, rrethi ose komuna jote mund të përfitonte nga kjo zgjidhje dixhitale? Atëherë mund të veprosh lehtësisht që këtu.",
     "regionNotFoundCta": "Nuk e gjete rajonin tënd? Vepro tani!",
+    "whatToDo": "Ja çfarë mund të bësh:",
     "steps": {
+      "getEmail": "Gjej adresën e emailit për rajonin tënd",
       "copyText": "Kopjo këtë tekst",
       "fillPlaceholders": "Plotëso vendmbajtësit [ ] me të dhënat e tua",
-      "getEmail": "Gjej adresën e emailit për rajonin tënd",
       "send": "Dërgoje emailin në rajonin tënd"
-    },
-    "title": "Sugjero {{appName}} në rajonin tënd",
-    "whatToDo": "Ja çfarë mund të bësh:"
+    }
   },
   "tour": {
-    "additionalFeatures": {
-      "description": "Përdor këtu funksione të tjera si <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> dhe <strong>{{additionalFeature}}</strong>.",
-      "title": "Funksione të tjera"
+    "title": "Udhërrëfyesi i aplikacionit",
+    "welcome": "Ky udhëzues i shkurtër ju njeh me funksionet kryesore të aplikacionit.",
+    "start": "Nis turin",
+    "progress": "Hapi {{current}} nga {{total}}",
+    "regionChange": {
+      "description": "Zgjidh këtu <strong>rajonin</strong> tënd për të gjetur informacione lokale."
+    },
+    "navigation": {
+      "title": "Navigimi",
+      "description": "Kalo këtu midis <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> dhe <strong>$t(events:title)</strong>."
     },
     "categories": {
-      "description": "Zbulo informacione mbi tema si <strong>Banesa</strong>, <strong>Arsimi</strong>, <strong>Puna</strong> dhe më shumë.",
-      "title": "Zbulo temat"
+      "title": "Zbulo temat",
+      "description": "Zbulo informacione mbi tema si <strong>Banesa</strong>, <strong>Arsimi</strong>, <strong>Puna</strong> dhe më shumë."
+    },
+    "searchAndLanguage": {
+      "title": "Kërkimi dhe gjuha",
+      "description": "<strong>Kërko</strong> informacione lokale, aktivitete dhe vende, ose ndrysho <strong>gjuhën</strong>."
+    },
+    "menu": {
+      "title": "Funksione të tjera",
+      "description": "Përdor këtu funksione të tjera si <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> dhe <strong>{{additionalFeature}}</strong>."
     },
     "chat": {
       "description": "Bëj pyetjet e tua këtu dhe merr shpejt përgjigjet e duhura."
     },
     "finish": {
-      "description": "Tani i njeh funksionet kryesore. Suksese me {{appName}}!",
-      "title": "Gati!"
-    },
-    "navigation": {
-      "description": "Kalo këtu midis <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> dhe <strong>$t(events:title)</strong>.",
-      "title": "Navigimi"
-    },
-    "progress": "Hapi {{current}} nga {{total}}",
-    "regionChange": {
-      "description": "Zgjidh këtu <strong>rajonin</strong> tënd për të gjetur informacione lokale."
-    },
-    "searchAndLanguage": {
-      "description": "<strong>Kërko</strong> informacione lokale, aktivitete dhe vende, ose ndrysho <strong>gjuhën</strong>.",
-      "title": "Kërkimi dhe gjuha"
-    },
-    "start": "Nis turin",
-    "title": "Udhërrëfyesi i aplikacionit",
-    "welcome": "Ky udhëzues i shkurtër ju njeh me funksionet kryesore të aplikacionit."
+      "title": "Gati!",
+      "description": "Tani i njeh funksionet kryesore. Suksese me {{appName}}!"
+    }
   },
   "tts": {
-    "error": {
-      "languageNotSupported": "Gjuha nuk mbështetet.",
-      "noVoices": {
-        "description": "Nuk u gjet asnjë zë. Për të përdorur funksionin e leximit me zë, duhet të instalohet një zë. Ju lutemi ndiqni udhëzimet e mëposhtme për sistemin tuaj operativ.",
-        "title": "Asnjë zë i instaluar"
-      },
-      "nothingToRead": {
-        "description": "Nuk ka asgjë për të lexuar në këtë faqe.",
-        "title": "Asgjë për të lexuar"
-      }
-    },
+    "title": "Lexo me zë",
     "pause": "Pauzë",
     "play": "Luaj",
-    "title": "Lexo me zë"
+    "error": {
+      "languageNotSupported": "Gjuha nuk mbështetet.",
+      "nothingToRead": {
+        "title": "Asgjë për të lexuar",
+        "description": "Nuk ka asgjë për të lexuar në këtë faqe."
+      },
+      "noVoices": {
+        "title": "Asnjë zë i instaluar",
+        "description": "Nuk u gjet asnjë zë. Për të përdorur funksionin e leximit me zë, duhet të instalohet një zë. Ju lutemi ndiqni udhëzimet e mëposhtme për sistemin tuaj operativ."
+      }
+    }
   },
   "userLocation": {
+    "nearby": "Pranë jush",
+    "show": "Shfaq vendndodhjen time",
     "loading": "Po përcaktohet vendndodhja…",
     "locationAccessRequired": "Për të shfaqur zonat pranë, duhet të aktivizoni qasjen në vendndodhje.",
-    "nearby": "Pranë jush",
     "noPermission": "Kërkohet qasje në vendndodhje",
     "notAvailable": "Shërbimet e vendndodhjes janë të çaktivizuara",
-    "show": "Shfaq vendndodhjen time",
     "timeout": "Vendndodhja nuk u gjet"
   }
 }

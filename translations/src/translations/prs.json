@@ -1,468 +1,468 @@
 {
   "about": {
-    "aboutUs": "درباره ما",
-    "accessibility": "دسترسی‌پذیری",
-    "imprint": "مشخصات ناشر",
     "legal": "مسائل حقوقی",
+    "imprint": "مشخصات ناشر",
+    "accessibility": "دسترسی‌پذیری",
+    "aboutUs": "درباره ما",
     "licenses": {
-      "license": "مجوز: {{license}}",
       "title": "مجوزهای منبع باز",
-      "version": "نسخه: {{version}}"
+      "version": "نسخه: {{version}}",
+      "license": "مجوز: {{license}}"
     }
   },
   "categories": {
+    "title": "معلومات محلی",
+    "titleShort": "معلومات",
     "organization": {
-      "description": "معلومات بیشتر در مورد {{organization}} را می‌توانی در <Link>{{domain}}</Link> پیدا کنی.",
-      "title": "محتوای این صفحه توسط {{organization}} تهیه شده است."
+      "title": "محتوای این صفحه توسط {{organization}} تهیه شده است.",
+      "description": "معلومات بیشتر در مورد {{organization}} را می‌توانی در <Link>{{domain}}</Link> پیدا کنی."
     },
     "pdf": {
       "create": "ایجاد فایل PDF",
       "disabled": "ایجاد فایل PDF در حال حاضر به این زبان امکان‌پذیر نیست."
-    },
-    "title": "معلومات محلی",
-    "titleShort": "معلومات"
-  },
-  "chat": {
-    "bot": "چت‌بات",
-    "consultant": "مشاور",
-    "initial": {
-      "description": "می‌توانی در مورد معلومات محلی یا وضعیت شخصی‌ات سوال بپرسی.",
-      "title": "لطفاً سوال خود را در کادر متن بنویس."
-    },
-    "inputPlaceholder": "لطفاً سوال خود را بنویس…",
-    "startNew": {
-      "description": "آیا واقعاً می‌خواهی چت جدیدی را شروع کنی؟ تاریخچه گفتگوی فعلی حذف خواهد شد.",
-      "title": "شروع چت جدید"
-    },
-    "subtitle": "دستیار دیجیتال جستجوی شما",
-    "typing": "در حال نوشتن…",
-    "unread_few": "{{count}} پیام خوانده‌نشده چت",
-    "unread_many": "{{count}} پیام خوانده‌نشده چت",
-    "unread_one": "۱ پیام خوانده‌نشده چت",
-    "unread_other": "{{count}} پیام خوانده‌نشده چت",
-    "unread_two": "{{count}} پیام خوانده‌نشده چت",
-    "welcome": {
-      "description": "من <strong>{{name}}</strong> هستم، دستیار دیجیتال جستجوی شما. لطفاً پرسش خود را بپرسید.",
-      "title": "سلام!"
     }
   },
-  "common": {
-    "a11y": {
-      "skipToContent": "رفتن به محتوا"
+  "chat": {
+    "subtitle": "دستیار دیجیتال جستجوی شما",
+    "bot": "چت‌بات",
+    "consultant": "مشاور",
+    "typing": "در حال نوشتن…",
+    "inputPlaceholder": "لطفاً سوال خود را بنویس…",
+    "initial": {
+      "title": "لطفاً سوال خود را در کادر متن بنویس.",
+      "description": "می‌توانی در مورد معلومات محلی یا وضعیت شخصی‌ات سوال بپرسی."
     },
+    "welcome": {
+      "title": "سلام!",
+      "description": "من <strong>{{name}}</strong> هستم، دستیار دیجیتال جستجوی شما. لطفاً پرسش خود را بپرسید."
+    },
+    "startNew": {
+      "title": "شروع چت جدید",
+      "description": "آیا واقعاً می‌خواهی چت جدیدی را شروع کنی؟ تاریخچه گفتگوی فعلی حذف خواهد شد."
+    },
+    "unread_one": "۱ پیام خوانده‌نشده چت",
+    "unread_two": "{{count}} پیام خوانده‌نشده چت",
+    "unread_few": "{{count}} پیام خوانده‌نشده چت",
+    "unread_many": "{{count}} پیام خوانده‌نشده چت",
+    "unread_other": "{{count}} پیام خوانده‌نشده چت"
+  },
+  "common": {
     "actions": {
       "back": "بازگشت",
       "cancel": "انصراف",
       "clearInput": "پاک کردن متن",
       "close": "بستن",
       "copy": "کاپی",
-      "goToPage": "به صفحه {{number}}",
-      "hideFilters": "پنهان کردن فیلترها",
       "minimize": "کوچک‌سازی",
       "next": "بعدی",
       "ok": "تأیید",
       "open": "باز کردن",
-      "openExternal": "باز کردن در برنامه دیگر",
       "previous": "قبلی",
       "send": "ارسال",
-      "showFilters": "نمایش فیلترها",
-      "showLess": "نمایش کمتر",
-      "showMore": "نمایش بیشتر",
       "skip": "رد کردن",
-      "view": "نمایش دادن"
+      "view": "نمایش دادن",
+      "openExternal": "باز کردن در برنامه دیگر",
+      "goToPage": "به صفحه {{number}}",
+      "showMore": "نمایش بیشتر",
+      "showLess": "نمایش کمتر",
+      "showFilters": "نمایش فیلترها",
+      "hideFilters": "پنهان کردن فیلترها"
     },
-    "contacts": {
-      "address": {
-        "copy": "کاپی کردن آدرس",
-        "title": "آدرس"
-      },
-      "email": "ایمیل",
-      "phone": {
-        "mobile": "شماره مبایل",
-        "title": "شماره تلیفون"
-      },
-      "title": "مخاطبین",
-      "website": "ویب‌سایت"
+    "a11y": {
+      "skipToContent": "رفتن به محتوا"
+    },
+    "state": {
+      "copied": "کاپی شد",
+      "updatedAt": "آخرین به‌روزرسانی: {{date}}",
+      "loading": "در حال بارگذاری…",
+      "optional": "اختیاری",
+      "enabled": "فعال",
+      "disabled": "غیرفعال"
     },
     "labels": {
       "description": "توضیحات",
-      "getOnPlayStore": "دریافت کنید — در Google Play Store",
-      "menu": "مینو"
+      "menu": "مینو",
+      "getOnPlayStore": "دریافت کنید — در Google Play Store"
     },
     "meta": {
       "description": "{{appName}} رهنما و راهنمای دیجیتال شما برای آلمان است. معلومات محلی، رویدادها و خدمات مشاورتی را پیدا کنید. همیشه به‌روز و به زبان خودتان."
     },
     "privacy": {
+      "title": "خط‌مشی رازداری",
       "confirmation": "من <Link>خط‌مشی رازداری</Link> را خوانده‌ام و با پردازش و ذخیره‌سازی داده‌های خود موافقم.",
-      "required": "لطفاً خط‌مشی رازداری را بپذیرید.",
-      "title": "خط‌مشی رازداری"
+      "required": "لطفاً خط‌مشی رازداری را بپذیرید."
     },
-    "state": {
-      "copied": "کاپی شد",
-      "disabled": "غیرفعال",
-      "enabled": "فعال",
-      "loading": "در حال بارگذاری…",
-      "optional": "اختیاری",
-      "updatedAt": "آخرین به‌روزرسانی: {{date}}"
+    "contacts": {
+      "title": "مخاطبین",
+      "address": {
+        "title": "آدرس",
+        "copy": "کاپی کردن آدرس"
+      },
+      "phone": {
+        "title": "شماره تلیفون",
+        "mobile": "شماره مبایل"
+      },
+      "email": "ایمیل",
+      "website": "ویب‌سایت"
     }
   },
   "error": {
+    "title": "خطا",
+    "noSuitableAppInstalled": "هیچ برنامهٔ مناسبی نصب نشده است.",
     "forbidden": "شما به این منطقه دسترسی ندارید.",
     "networkConnectionFailed": "اتصال به سرور برقرار نشد.",
     "networkRequestFailed": "درخواست انجام نشد.",
-    "noSuitableAppInstalled": "هیچ برنامهٔ مناسبی نصب نشده است.",
-    "nothingFound": "نتیجه‌ای یافت نشد.",
-    "pageNotFound": "این صفحه پیدا نشد.",
-    "permissionRequired": "اجازه لازم است",
-    "rateLimited": "شما درخواست‌های بیش از حد ارسال کرده‌اید. لطفاً کمی صبر کنید.",
     "responseMappingFailed": "پاسخ سرور قابل پردازش نبود.",
-    "title": "خطا",
-    "tryAgain": "تلاش مجدد",
-    "unknownError": "یک خطای ناشناخته رخ داده است."
+    "rateLimited": "شما درخواست‌های بیش از حد ارسال کرده‌اید. لطفاً کمی صبر کنید.",
+    "pageNotFound": "این صفحه پیدا نشد.",
+    "nothingFound": "نتیجه‌ای یافت نشد.",
+    "permissionRequired": "اجازه لازم است",
+    "unknownError": "یک خطای ناشناخته رخ داده است.",
+    "tryAgain": "تلاش مجدد"
   },
   "events": {
-    "dateGroups": {
-      "further": "بیشتر",
-      "nextDays": "{{days}} روز آینده",
-      "today": "امروز",
-      "tomorrow": "فردا"
-    },
+    "title": "برنامه‌ها و رویدادها",
+    "onlineMeeting": "جلسه آنلاین",
     "error": {
       "notFound": "این رویداد پیدا نشد.",
       "nothingFound": "هیچ رویدادی یافت نشد."
     },
+    "recurrence": {
+      "recurring": "تکرار شونده",
+      "furtherDates": "قرارهای بعدی",
+      "untilDate": "الی {{date}}"
+    },
+    "dateGroups": {
+      "today": "امروز",
+      "tomorrow": "فردا",
+      "nextDays": "{{days}} روز آینده",
+      "further": "بیشتر"
+    },
     "export": {
+      "download": "صادر کردن",
       "addToCalendar": "افزودن به تقویم",
       "added": "به تقویم اضافه شد",
-      "allRecurrences": "این رویداد و تمام رویدادهای آینده",
       "calendar": "تقویم",
-      "download": "صادر کردن",
+      "thisRecurrence": "تنها همین رویداد",
+      "allRecurrences": "این رویداد و تمام رویدادهای آینده",
       "error": {
         "forbidden": "دسترسی به تقویم مجاز نیست.",
         "nothingFound": "تقویم مناسبی یافت نشد"
-      },
-      "thisRecurrence": "تنها همین رویداد"
+      }
     },
     "filter": {
-      "error": {
-        "endBeforeStart": "تاریخ شروع باید پیش از تاریخ ختم باشد.",
-        "invalidDate": "تاریخ نامعتبر است"
-      },
-      "from": "از",
-      "reset": "بازنشانی فیلتر: {{filter}}",
-      "selectEnd": "انتخاب تاریخ ختم در تقویم",
       "selectStart": "انتخاب تاریخ شروع از تقویم",
-      "to": "الی"
-    },
-    "onlineMeeting": "جلسه آنلاین",
-    "recurrence": {
-      "furtherDates": "قرارهای بعدی",
-      "recurring": "تکرار شونده",
-      "untilDate": "الی {{date}}"
-    },
-    "title": "برنامه‌ها و رویدادها"
+      "selectEnd": "انتخاب تاریخ ختم در تقویم",
+      "from": "از",
+      "to": "الی",
+      "reset": "بازنشانی فیلتر: {{filter}}",
+      "error": {
+        "invalidDate": "تاریخ نامعتبر است",
+        "endBeforeStart": "تاریخ شروع باید پیش از تاریخ ختم باشد."
+      }
+    }
   },
   "feedback": {
+    "title": "نظرات و بازخورد",
+    "give": "ارائه بازخورد",
+    "description": "امتیازی انتخاب کنید و/یا نظری بنویسید.",
     "comment": {
-      "description": "نظرات تان را با ما در میان بگذارید! ما از هر دو نوع بازخورد مثبت و منفی قدردانی می‌کنیم، زیرا به ما در بهبود {{appName}} کمک می‌کند.",
-      "title": "نظر"
+      "title": "نظر",
+      "description": "نظرات تان را با ما در میان بگذارید! ما از هر دو نوع بازخورد مثبت و منفی قدردانی می‌کنیم، زیرا به ما در بهبود {{appName}} کمک می‌کند."
     },
     "contactEmail": "ایمیل برای سوالات بعدی",
-    "description": "امتیازی انتخاب کنید و/یا نظری بنویسید.",
-    "give": "ارائه بازخورد",
-    "rating": {
-      "notUseful": "مفید نبود",
-      "useful": "مفید بود"
-    },
     "required": "لطفاً برای ارسال بازخورد، واکنشی را انتخاب کنید یا نظری بنویسید.",
-    "search": {
-      "checkQuery": "کلمه مورد جستجوی خود را بررسی کنید یا زبان تنظیم‌شده را تغییر دهید.",
-      "informationMissing": "اطلاعاتی در اینجا کم است؟",
-      "informationNotFound": "مورد مورد نظرتان را پیدا نکردید؟",
-      "noResultsInUserAndSourceLanguage": "متأسفانه هیچ نتیجه مناسبی به زبان شما یا به زبان آلمانی یافت نشد.",
-      "noResultsInUserLanguage": "متأسفانه هیچ نتیجه مناسبی به زبان شما یافت نشد.",
-      "searchTermDescription": "برای این عبارت نتیجه‌ای یافت نشد:",
-      "wantedInformation": "کدام معلومات وجود ندارد؟"
+    "rating": {
+      "useful": "مفید بود",
+      "notUseful": "مفید نبود"
     },
     "thanks": {
-      "description": "نظر شما با موفقیت ارسال شد.",
-      "title": "از ارسال نظرتان بسیار سپاسگزاریم."
+      "title": "از ارسال نظرتان بسیار سپاسگزاریم.",
+      "description": "نظر شما با موفقیت ارسال شد."
     },
-    "title": "نظرات و بازخورد"
+    "search": {
+      "informationNotFound": "مورد مورد نظرتان را پیدا نکردید؟",
+      "wantedInformation": "کدام معلومات وجود ندارد؟",
+      "informationMissing": "اطلاعاتی در اینجا کم است؟",
+      "searchTermDescription": "برای این عبارت نتیجه‌ای یافت نشد:",
+      "checkQuery": "کلمه مورد جستجوی خود را بررسی کنید یا زبان تنظیم‌شده را تغییر دهید.",
+      "noResultsInUserLanguage": "متأسفانه هیچ نتیجه مناسبی به زبان شما یافت نشد.",
+      "noResultsInUserAndSourceLanguage": "متأسفانه هیچ نتیجه مناسبی به زبان شما یا به زبان آلمانی یافت نشد."
+    }
   },
   "intro": {
+    "welcome": {
+      "title": "به {{appName}} خوش آمدید",
+      "description": "در {{appName}} می‌توانید پاسخ‌ها و رهنمودها را به زبان مادری‌تان بخوانید؛ به طور مثال: از کجا کمک پیدا کنم؟ چه زمانی اجازه کار کردن دارم؟"
+    },
     "slides": {
+      "search": {
+        "title": "جستجوی آسان",
+        "description": "با استفاده از بخش جستجو در گوشه سمت راست بالای مینو، می‌توانید معلومات مورد نظر خود را به آسانی پیدا کنید."
+      },
       "languageChange": {
         "description": "شما می‌توانید از طریق منوی بالا، زبان {{appName}} را تغییر دهید."
       },
-      "news": {
-        "description": "در اطراف شما چه خبر است؟ در {{appName}} معلومات کسب کنید.",
-        "title": "معلومات جدید و تازه"
+      "places": {
+        "title": "خدمات و فرصت‌های نزدیک شما",
+        "description": "روی نقشه می‌توانید مکان‌های نزدیک خود، مانند کورس‌های زبان را پیدا کنید."
       },
       "offline": {
-        "description": "همیشه به اینترنت دسترسی ندارید؟ مشکلی نیست. شما می‌توانید از {{appName}} به صورت آفلاین هم استفاده کنید.",
-        "title": "بدون انترنت (آفلاین) هم کار می‌کند"
+        "title": "بدون انترنت (آفلاین) هم کار می‌کند",
+        "description": "همیشه به اینترنت دسترسی ندارید؟ مشکلی نیست. شما می‌توانید از {{appName}} به صورت آفلاین هم استفاده کنید."
       },
-      "places": {
-        "description": "روی نقشه می‌توانید مکان‌های نزدیک خود، مانند کورس‌های زبان را پیدا کنید.",
-        "title": "خدمات و فرصت‌های نزدیک شما"
-      },
-      "search": {
-        "description": "با استفاده از بخش جستجو در گوشه سمت راست بالای مینو، می‌توانید معلومات مورد نظر خود را به آسانی پیدا کنید.",
-        "title": "جستجوی آسان"
+      "news": {
+        "title": "معلومات جدید و تازه",
+        "description": "در اطراف شما چه خبر است؟ در {{appName}} معلومات کسب کنید."
       }
-    },
-    "welcome": {
-      "description": "در {{appName}} می‌توانید پاسخ‌ها و رهنمودها را به زبان مادری‌تان بخوانید؛ به طور مثال: از کجا کمک پیدا کنم؟ چه زمانی اجازه کار کردن دارم؟",
-      "title": "به {{appName}} خوش آمدید"
     }
   },
   "ios": {
-    "NSCalendarsFullAccessUsageDescription": "{{appName}} می‌خواهد برای افزودن رویدادها، به جنتری (تقویم) شما دسترسی داشته باشد.",
-    "NSCalendarsUsageDescription": "{{appName}} می‌خواهد برای افزودن رویدادها، به جنتری (تقویم) شما دسترسی داشته باشد.",
-    "NSLocationAlwaysAndWhenInUseUsageDescription": "برای یافتن مکان‌های نزدیک، {{appName}} نیاز به دسترسی به موقعیت مکانی شما دارد.",
+    "NSPhotoLibraryAddUsageDescription": "برای ذخیره کردن عکس‌ها، {{appName}} به گالری شما نیاز به دسترسی دارد.",
     "NSLocationWhenInUseUsageDescription": "برای یافتن مکان‌های نزدیک، {{appName}} نیاز به دسترسی به موقعیت مکانی شما دارد.",
-    "NSPhotoLibraryAddUsageDescription": "برای ذخیره کردن عکس‌ها، {{appName}} به گالری شما نیاز به دسترسی دارد."
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "برای یافتن مکان‌های نزدیک، {{appName}} نیاز به دسترسی به موقعیت مکانی شما دارد.",
+    "NSCalendarsUsageDescription": "{{appName}} می‌خواهد برای افزودن رویدادها، به جنتری (تقویم) شما دسترسی داشته باشد.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} می‌خواهد برای افزودن رویدادها، به جنتری (تقویم) شما دسترسی داشته باشد."
   },
   "languages": {
     "change": "تغییر زبان",
     "changed": "زبان به {{languageName}} تغییر یافت",
+    "search": "جستجوی زبان",
     "error": {
       "noTranslation": "هیچ ترجمه‌ای در دسترس نیست",
       "notFound": {
-        "description": "این صفحه هنوز به همهٔ زبان‌ها در دسترس نیست. ما به‌طور مداوم در حال افزودن زبان‌های جدید هستیم. شما می‌توانید زبان مورد نظرتان را از طریق بخش <Link>بازخورد</Link> درخواست کنید.",
+        "title": "این زبان پیدا نشد.",
         "question": "زبان مورد نظرتان را پیدا نکردید؟",
-        "title": "این زبان پیدا نشد."
+        "description": "این صفحه هنوز به همهٔ زبان‌ها در دسترس نیست. ما به‌طور مداوم در حال افزودن زبان‌های جدید هستیم. شما می‌توانید زبان مورد نظرتان را از طریق بخش <Link>بازخورد</Link> درخواست کنید."
       }
-    },
-    "search": "جستجوی زبان"
+    }
   },
   "malteHelpForm": {
+    "supportNote": "می‌خواهیم در صورت داشتن هرگونه مشکل یا سوال، احساس امنیت کنید و مورد حمایت قرار بگیرید. از طریق فورم تماس زیر می‌توانید با افراد پاسخگو به تماس شوید. شما می‌توانید موضوع درخواست‌تان را مشخص کرده و از میان گزینه‌های مختلف تماس انتخاب نمایید.",
+    "securityNote": "امنیت شما اولویت اصلی ماست. اطلاعات شما محرمانه نگهداری می‌شود تا حریم خصوصی‌تان همواره محفوظ بماند.",
+    "name": "تخلص، نام",
+    "roomNumber": "شماره اتاق",
+    "howToBeContacted": "روش برقراری ارتباط با من:",
+    "eMail": "ایمیل",
+    "telephone": "تلیفون",
+    "telephoneNumber": "شماره تلیفون",
+    "personally": "حضوری",
     "contactPerson": "شخص ارتباطی:",
     "contactPersonAnyGender": "جنسیت شخص پاسخ‌دهنده مهم نیست",
     "contactPersonGenderFemale": "ترجیح می‌دهم یک زن با من تماس بگیرد",
     "contactPersonGenderMale": "ترجیح می‌دهم یک مرد با من تماس بگیرد",
     "contactReason": "موضوع یا درخواست شما:",
-    "eMail": "ایمیل",
-    "howToBeContacted": "روش برقراری ارتباط با من:",
-    "invalidEmailAddress": "آدرس ایمیل واردشده نامعتبر است.",
     "maxCharacters": "حداکثر {{numberOfCharacters}} نویسه",
-    "name": "تخلص، نام",
-    "personally": "حضوری",
     "responseHint": "ممکن است دریافت پاسخ چند روز کاری طول بکشد. ما تلاش می‌کنیم تا در اسرع وقت به درخواست شما رسیدگی کنیم.",
-    "roomNumber": "شماره اتاق",
-    "securityNote": "امنیت شما اولویت اصلی ماست. اطلاعات شما محرمانه نگهداری می‌شود تا حریم خصوصی‌تان همواره محفوظ بماند.",
     "submit": "ارسال فورم",
+    "submitSuccessful": "فورم با موفقیت ارسال شد",
     "submitFailed": "فورم ارسال نشد",
     "submitFailedReasoning": "لطفاً از وصل بودن اینترنت مطمئن شوید و دوباره تلاش کنید.",
-    "submitSuccessful": "فورم با موفقیت ارسال شد",
-    "supportNote": "می‌خواهیم در صورت داشتن هرگونه مشکل یا سوال، احساس امنیت کنید و مورد حمایت قرار بگیرید. از طریق فورم تماس زیر می‌توانید با افراد پاسخگو به تماس شوید. شما می‌توانید موضوع درخواست‌تان را مشخص کرده و از میان گزینه‌های مختلف تماس انتخاب نمایید.",
-    "telephone": "تلیفون",
-    "telephoneNumber": "شماره تلیفون"
+    "invalidEmailAddress": "آدرس ایمیل واردشده نامعتبر است."
   },
   "news": {
+    "title": "پیام‌ها",
+    "sources": {
+      "all": "همه پیام‌ها",
+      "local": "پیام‌های محلی",
+      "national": "پیام‌های ملی",
+      "allShort": "همه",
+      "localShort": "محلی",
+      "nationalShort": "ملی"
+    },
     "error": {
       "notFound": "این پیام پیدا نشد.",
       "nothingFound": "هیچ پیامی یافت نشد."
-    },
-    "sources": {
-      "all": "همه پیام‌ها",
-      "allShort": "همه",
-      "local": "پیام‌های محلی",
-      "localShort": "محلی",
-      "national": "پیام‌های ملی",
-      "nationalShort": "ملی"
-    },
-    "title": "پیام‌ها"
+    }
   },
   "places": {
+    "title": "نقشه",
     "accessible": "قابل دسترس برای افراد دارای معلولیت",
-    "distance": "به فاصله {{distance}} کیلومتر",
+    "notAccessible": "نامناسب برای افراد دارای معلولیت",
     "error": {
       "notFound": "این مکان پیدا نشد.",
       "nothingFound": "هیچ مکانی یافت نشد."
     },
-    "filter": {
-      "adjust": "فیلتر کردن مکان‌ها",
-      "alphabet": "الف-ی",
-      "categories": "دسته‌بندی‌ها",
-      "onlyOpen": "فقط مکان‌هایی که در حال حاضر باز هستند را نشان بده",
-      "placeCount_few": "{{count}} مکان",
-      "placeCount_many": "{{count}} مکان",
-      "placeCount_one": "۱ مکان",
-      "placeCount_other": "{{count}} مکان",
-      "placeCount_two": "{{count}} مکان",
-      "placeCount_zero": "۰ مکان",
-      "show_few": "نمایش {{count}} مکان",
-      "show_many": "نمایش {{count}} مکان",
-      "show_one": "نمایش ۱ مکان",
-      "show_other": "نمایش {{count}} مکان",
-      "show_two": "نمایش {{count}} مکان",
-      "show_zero": "۰ مکان یافت شد"
-    },
-    "hours": {
-      "allDay": "تمام روز",
-      "appointment": {
-        "make": {
-          "description": "از طریق <Link>وب‌سایت</Link> یا به صورت تلفنی یک وقت ملاقات تعیین کنید.",
-          "title": "تعیین وقت قبلی"
-        },
-        "required": "نیاز به وقت قبلی است"
-      },
-      "closed": "بسته",
-      "open": "باز",
-      "temporarilyClosed": "موقتاً بسته است",
-      "title": "ساعات کاری"
-    },
-    "notAccessible": "نامناسب برای افراد دارای معلولیت",
-    "title": "نقشه",
-    "weekdays": {
-      "dienstag": "سه‌شنبه",
-      "donnerstag": "پنج‌شنبه",
-      "freitag": "جمعه",
-      "mittwoch": "چهارشنبه",
-      "montag": "دوشنبه",
-      "samstag": "شنبه",
-      "sonntag": "یکشنبه"
-    },
+    "distance": "به فاصله {{distance}} کیلومتر",
     "zoom": {
       "in": "بزرگ‌نمایی",
       "out": "کوچک‌نمایی"
+    },
+    "filter": {
+      "adjust": "فیلتر کردن مکان‌ها",
+      "onlyOpen": "فقط مکان‌هایی که در حال حاضر باز هستند را نشان بده",
+      "categories": "دسته‌بندی‌ها",
+      "alphabet": "الف-ی",
+      "show_zero": "۰ مکان یافت شد",
+      "show_one": "نمایش ۱ مکان",
+      "show_two": "نمایش {{count}} مکان",
+      "show_few": "نمایش {{count}} مکان",
+      "show_many": "نمایش {{count}} مکان",
+      "show_other": "نمایش {{count}} مکان",
+      "placeCount_zero": "۰ مکان",
+      "placeCount_one": "۱ مکان",
+      "placeCount_two": "{{count}} مکان",
+      "placeCount_few": "{{count}} مکان",
+      "placeCount_many": "{{count}} مکان",
+      "placeCount_other": "{{count}} مکان"
+    },
+    "hours": {
+      "title": "ساعات کاری",
+      "allDay": "تمام روز",
+      "open": "باز",
+      "closed": "بسته",
+      "temporarilyClosed": "موقتاً بسته است",
+      "appointment": {
+        "required": "نیاز به وقت قبلی است",
+        "make": {
+          "title": "تعیین وقت قبلی",
+          "description": "از طریق <Link>وب‌سایت</Link> یا به صورت تلفنی یک وقت ملاقات تعیین کنید."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "دوشنبه",
+      "dienstag": "سه‌شنبه",
+      "mittwoch": "چهارشنبه",
+      "donnerstag": "پنج‌شنبه",
+      "freitag": "جمعه",
+      "samstag": "شنبه",
+      "sonntag": "یکشنبه"
     }
   },
   "regions": {
+    "title": "منطقه‌ها",
+    "welcome": {
+      "title": "به {{appName}} خوش آمدید.",
+      "description": "رهنمای دیجیتالی شما برای تمامی معلومات مورد نیازتان. لطفاً منطقه خود را انتخاب کنید."
+    },
     "change": "تغییر منطقه",
+    "notFound": "این منطقه پیدا نشد.",
+    "search": {
+      "region": "جستجوی منطقه",
+      "description": "منطقه یا نزدیک‌ترین شهر بزرگ به خود را انتخاب کنید، مثلاً {{exampleRegion}}"
+    },
     "nearby": {
       "nothingFound": "هیچ منطقه‌ای در این نزدیکی یافت نشد.",
       "refresh": "به‌روزرسانی مناطق نزدیک"
-    },
-    "notFound": "این منطقه پیدا نشد.",
-    "search": {
-      "description": "منطقه یا نزدیک‌ترین شهر بزرگ به خود را انتخاب کنید، مثلاً {{exampleRegion}}",
-      "region": "جستجوی منطقه"
-    },
-    "title": "منطقه‌ها",
-    "welcome": {
-      "description": "رهنمای دیجیتالی شما برای تمامی معلومات مورد نیازتان. لطفاً منطقه خود را انتخاب کنید.",
-      "title": "به {{appName}} خوش آمدید."
     }
   },
   "search": {
+    "title": "جستجو",
+    "searchContent": "جستجوی محتوا",
+    "viewResult": "باز کردن نتیجه جستجو",
+    "resultCount_zero": "۰ نتیجه جستجو",
+    "resultCount_one": "۱ نتیجه جستجو",
+    "resultCount_two": "{{count}} نتیجه جستجو",
     "resultCount_few": "{{count}} نتیجه جستجو",
     "resultCount_many": "{{count}} نتیجه جستجو",
-    "resultCount_one": "۱ نتیجه جستجو",
-    "resultCount_other": "{{count}} نتیجه جستجو",
-    "resultCount_two": "{{count}} نتیجه جستجو",
-    "resultCount_zero": "۰ نتیجه جستجو",
-    "searchContent": "جستجوی محتوا",
-    "title": "جستجو",
-    "viewResult": "باز کردن نتیجه جستجو"
+    "resultCount_other": "{{count}} نتیجه جستجو"
   },
   "settings": {
-    "contrast": {
-      "description": "حالت کنتراست (وضوح بالا) خوانایی را بهتر می‌سازد",
-      "title": "کنتراست بالا (آزمایشی)"
-    },
+    "title": "تنظیمات",
     "error": {
       "save": "تنظیمات ذخیره نشد"
     },
-    "externalSources": {
-      "allowed": "این بخش حاوی مطالبی از یک منبع خارجی است. شما می‌توانید چنین محتواهایی را در تنظیمات مسدود کنید.",
-      "blocked": "محتوای خارجی از این منبع مسدود شده است. در تنظیمات می‌توانید این منبع را مجاز بسازید.",
-      "description": "شما می‌توانید به نمایش محتوا از منابع خارجی به طور دائم رضایت دهید. شما می‌توانید رضایت خود را در هر زمان در اینجا لغو کنید.",
-      "descriptionShort": "مشخص کنید که کدام منابع خارجی مجاز باشند.",
-      "nothingFound": "هیچ منبع خارجی موجود نیست.",
-      "optIn": "من موافقم که محتوای این منبع خارجی به من نشان داده شود.",
-      "source": "اجازه دادن به محتوا از {{source}}",
-      "title": "منابع خارجی"
+    "sentry": {
+      "title": "پایداری برنامه",
+      "description": "بهبود {{appName}} با ارسال خودکار گزارش‌های توقف برنامه"
     },
     "pushNotifications": {
-      "description": "دریافت اعلان‌های لحظه‌ای برای جدیدترین اخبار محلی",
-      "title": "اعلان‌های لحظه‌ای"
+      "title": "اعلان‌های لحظه‌ای",
+      "description": "دریافت اعلان‌های لحظه‌ای برای جدیدترین اخبار محلی"
     },
-    "sentry": {
-      "description": "بهبود {{appName}} با ارسال خودکار گزارش‌های توقف برنامه",
-      "title": "پایداری برنامه"
+    "contrast": {
+      "title": "کنتراست بالا (آزمایشی)",
+      "description": "حالت کنتراست (وضوح بالا) خوانایی را بهتر می‌سازد"
     },
-    "title": "تنظیمات"
+    "externalSources": {
+      "title": "منابع خارجی",
+      "descriptionShort": "مشخص کنید که کدام منابع خارجی مجاز باشند.",
+      "description": "شما می‌توانید به نمایش محتوا از منابع خارجی به طور دائم رضایت دهید. شما می‌توانید رضایت خود را در هر زمان در اینجا لغو کنید.",
+      "source": "اجازه دادن به محتوا از {{source}}",
+      "optIn": "من موافقم که محتوای این منبع خارجی به من نشان داده شود.",
+      "allowed": "این بخش حاوی مطالبی از یک منبع خارجی است. شما می‌توانید چنین محتواهایی را در تنظیمات مسدود کنید.",
+      "blocked": "محتوای خارجی از این منبع مسدود شده است. در تنظیمات می‌توانید این منبع را مجاز بسازید.",
+      "nothingFound": "هیچ منبع خارجی موجود نیست."
+    }
   },
   "share": {
-    "copyLink": "کاپی کردن پیوند",
+    "title": "اشتراک‌گذاری",
     "message": "همین اکنون پیدا شد: {{message}}",
+    "copyLink": "کاپی کردن پیوند",
     "qr": {
-      "description": "این صفحه را به سادگی با اسکن کردن کد QR در یک دستگاه دیگر به اشتراک بگذارید.",
       "label": "کد QR",
-      "title": "اشتراک‌گذاری از طریق کد QR"
-    },
-    "title": "اشتراک‌گذاری"
+      "title": "اشتراک‌گذاری از طریق کد QR",
+      "description": "این صفحه را به سادگی با اسکن کردن کد QR در یک دستگاه دیگر به اشتراک بگذارید."
+    }
   },
   "suggestToRegion": {
+    "title": "پیشنهاد دادن {{appName}} به منطقه خود",
     "description": "آیا مفهوم برنامه Integreat توجه شما را جلب کرده و فکر می‌کنید که شهر، ولسوالی یا ناحیه شما نیز می‌تواند از این راه‌حل دیجیتال بهره‌مند شود؟ در این صورت می‌توانید به آسانی از اینجا دست به کار شوید.",
     "regionNotFoundCta": "منطقه خود را پیدا نکردید؟ همین اکنون دست به کار شوید!",
+    "whatToDo": "کارهایی که می‌توانید انجام دهید:",
     "steps": {
+      "getEmail": "آدرس ایمیل منطقه خود را پیدا کنید",
       "copyText": "این متن را کاپی کنید",
       "fillPlaceholders": "جاهای خالی [ ] را با مشخصات خود تکمیل کنید",
-      "getEmail": "آدرس ایمیل منطقه خود را پیدا کنید",
       "send": "ایمیل را به منطقه خود ارسال کنید"
-    },
-    "title": "پیشنهاد دادن {{appName}} به منطقه خود",
-    "whatToDo": "کارهایی که می‌توانید انجام دهید:"
+    }
   },
   "tour": {
-    "additionalFeatures": {
-      "description": "از قابلیت‌های دیگر مانند <strong>$t(categories:pdf.create)</strong>، <strong>$t(tts:title)</strong>، <strong>$t(share:title)</strong> و <strong>{{additionalFeature}}</strong> در اینجا استفاده کنید.",
-      "title": "قابلیت‌های بیشتر"
+    "title": "راهنمای برنامه",
+    "welcome": "این راهنمای کوتاه مهم‌ترین ویژگی‌های برنامه را به شما نشان می‌دهد.",
+    "start": "شروع راهنما",
+    "progress": "مرحله {{current}} از {{total}}",
+    "regionChange": {
+      "description": "برای یافتن اطلاعات محلی، <strong>منطقه</strong> خود را اینجا انتخاب کنید."
+    },
+    "navigation": {
+      "title": "ناوبری",
+      "description": "در اینجا بین <strong>$t(categories:title)</strong>، <strong>$t(places:title)</strong>، <strong>$t(news:title)</strong> و <strong>$t(events:title)</strong> جابه‌جا شوید."
     },
     "categories": {
-      "description": "اطلاعات مرتبط با موضوعاتی چون <strong>مسکن</strong>، <strong>آموزش</strong>، <strong>کار</strong> و موارد دیگر را کشف کنید.",
-      "title": "کشف موضوعات"
+      "title": "کشف موضوعات",
+      "description": "اطلاعات مرتبط با موضوعاتی چون <strong>مسکن</strong>، <strong>آموزش</strong>، <strong>کار</strong> و موارد دیگر را کشف کنید."
+    },
+    "searchAndLanguage": {
+      "title": "جستجو و زبان",
+      "description": "اطلاعات محلی، رویدادها و مکان‌ها را <strong>جستجو</strong> کنید یا <strong>زبان</strong> را تغییر دهید."
+    },
+    "menu": {
+      "title": "قابلیت‌های بیشتر",
+      "description": "از قابلیت‌های دیگر مانند <strong>$t(categories:pdf.create)</strong>، <strong>$t(tts:title)</strong>، <strong>$t(share:title)</strong> و <strong>{{additionalFeature}}</strong> در اینجا استفاده کنید."
     },
     "chat": {
       "description": "پرسش‌های خود را اینجا مطرح کنید و به سرعت پاسخ‌های مناسب دریافت نمایید."
     },
     "finish": {
-      "description": "حالا با مهم‌ترین قابلیت‌ها آشنا شدید. با {{appName}} تجربه خوبی داشته باشید!",
-      "title": "پایان!"
-    },
-    "navigation": {
-      "description": "در اینجا بین <strong>$t(categories:title)</strong>، <strong>$t(places:title)</strong>، <strong>$t(news:title)</strong> و <strong>$t(events:title)</strong> جابه‌جا شوید.",
-      "title": "ناوبری"
-    },
-    "progress": "مرحله {{current}} از {{total}}",
-    "regionChange": {
-      "description": "برای یافتن اطلاعات محلی، <strong>منطقه</strong> خود را اینجا انتخاب کنید."
-    },
-    "searchAndLanguage": {
-      "description": "اطلاعات محلی، رویدادها و مکان‌ها را <strong>جستجو</strong> کنید یا <strong>زبان</strong> را تغییر دهید.",
-      "title": "جستجو و زبان"
-    },
-    "start": "شروع راهنما",
-    "title": "راهنمای برنامه",
-    "welcome": "این راهنمای کوتاه مهم‌ترین ویژگی‌های برنامه را به شما نشان می‌دهد."
+      "title": "پایان!",
+      "description": "حالا با مهم‌ترین قابلیت‌ها آشنا شدید. با {{appName}} تجربه خوبی داشته باشید!"
+    }
   },
   "tts": {
-    "error": {
-      "languageNotSupported": "زبان پشتیبانی نمی‌شود.",
-      "noVoices": {
-        "description": "هیچ صدایی یافت نشد. برای استفاده از قابلیت خواندن با صدا، باید یک بسته صوتی نصب باشد. لطفاً دستورالعمل‌های زیر را برای سیستم‌عامل خود دنبال کنید.",
-        "title": "هیچ صدایی نصب نشده است"
-      },
-      "nothingToRead": {
-        "description": "چیزی برای خواندن در این صفحه وجود ندارد.",
-        "title": "چیزی برای خواندن نیست"
-      }
-    },
+    "title": "خواندن با صدا",
     "pause": "توقف موقت",
     "play": "پخش",
-    "title": "خواندن با صدا"
+    "error": {
+      "languageNotSupported": "زبان پشتیبانی نمی‌شود.",
+      "nothingToRead": {
+        "title": "چیزی برای خواندن نیست",
+        "description": "چیزی برای خواندن در این صفحه وجود ندارد."
+      },
+      "noVoices": {
+        "title": "هیچ صدایی نصب نشده است",
+        "description": "هیچ صدایی یافت نشد. برای استفاده از قابلیت خواندن با صدا، باید یک بسته صوتی نصب باشد. لطفاً دستورالعمل‌های زیر را برای سیستم‌عامل خود دنبال کنید."
+      }
+    }
   },
   "userLocation": {
+    "nearby": "در نزدیکی شما",
+    "show": "نمایش موقعیت مکانی من",
     "loading": "در حال تعیین موقعیت مکانی…",
     "locationAccessRequired": "برای نمایش مناطق نزدیک، دسترسی به موقعیت مکانی باید فعال باشد.",
-    "nearby": "در نزدیکی شما",
     "noPermission": "دسترسی به موقعیت مکانی لازم است",
     "notAvailable": "خدمات موقعیت مکانی غیرفعال است",
-    "show": "نمایش موقعیت مکانی من",
     "timeout": "موقعیت مکانی یافت نشد"
   }
 }

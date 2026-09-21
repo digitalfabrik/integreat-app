@@ -1,468 +1,468 @@
 {
   "about": {
-    "aboutUs": "Tietoa meistä",
-    "accessibility": "Saavutettavuus",
-    "imprint": "Julkaisijan tiedot",
     "legal": "Oikeudelliset tiedot",
+    "imprint": "Julkaisijan tiedot",
+    "accessibility": "Saavutettavuus",
+    "aboutUs": "Tietoa meistä",
     "licenses": {
-      "license": "Lisenssi: {{license}}",
       "title": "Avoimen lähdekoodin lisenssit",
-      "version": "Versio: {{version}}"
+      "version": "Versio: {{version}}",
+      "license": "Lisenssi: {{license}}"
     }
   },
   "categories": {
+    "title": "Paikalliset tiedot",
+    "titleShort": "Tiedot",
     "organization": {
-      "description": "Lisätietoja organisaatiosta {{organization}} löydät osoitteesta <Link>{{domain}}</Link>.",
-      "title": "Tämän sivuston sisällöstä vastaa {{organization}}."
+      "title": "Tämän sivuston sisällöstä vastaa {{organization}}.",
+      "description": "Lisätietoja organisaatiosta {{organization}} löydät osoitteesta <Link>{{domain}}</Link>."
     },
     "pdf": {
       "create": "Luo PDF",
       "disabled": "PDF-tiedoston luominen ei ole tällä kielellä tällä hetkellä mahdollista."
-    },
-    "title": "Paikalliset tiedot",
-    "titleShort": "Tiedot"
-  },
-  "chat": {
-    "bot": "Chatbot",
-    "consultant": "Neuvoja",
-    "initial": {
-      "description": "Voit kysyä paikallisista tiedoista tai omasta tilanteestasi.",
-      "title": "Kirjoita kysymyksesi tekstikenttään."
-    },
-    "inputPlaceholder": "Kirjoita kysymyksesi tähän…",
-    "startNew": {
-      "description": "Haluatko varmasti aloittaa uuden keskustelun? Nykyinen keskusteluhistoria poistetaan.",
-      "title": "Aloita uusi keskustelu"
-    },
-    "subtitle": "Digitaalinen hakuapurisi",
-    "typing": "Kirjoittaa…",
-    "unread_few": "{{count}} lukematonta chat-viestiä",
-    "unread_many": "{{count}} lukematonta chat-viestiä",
-    "unread_one": "1 lukematon chat-viesti",
-    "unread_other": "{{count}} lukematonta chat-viestiä",
-    "unread_two": "{{count}} lukematonta chat-viestiä",
-    "welcome": {
-      "description": "Olen <strong>{{name}}</strong>, digitaalinen hakuapurisi. Kysy minulta mitä vain!",
-      "title": "Hei!"
     }
   },
-  "common": {
-    "a11y": {
-      "skipToContent": "Siirry sisältöön"
+  "chat": {
+    "subtitle": "Digitaalinen hakuapurisi",
+    "bot": "Chatbot",
+    "consultant": "Neuvoja",
+    "typing": "Kirjoittaa…",
+    "inputPlaceholder": "Kirjoita kysymyksesi tähän…",
+    "initial": {
+      "title": "Kirjoita kysymyksesi tekstikenttään.",
+      "description": "Voit kysyä paikallisista tiedoista tai omasta tilanteestasi."
     },
+    "welcome": {
+      "title": "Hei!",
+      "description": "Olen <strong>{{name}}</strong>, digitaalinen hakuapurisi. Kysy minulta mitä vain!"
+    },
+    "startNew": {
+      "title": "Aloita uusi keskustelu",
+      "description": "Haluatko varmasti aloittaa uuden keskustelun? Nykyinen keskusteluhistoria poistetaan."
+    },
+    "unread_one": "1 lukematon chat-viesti",
+    "unread_two": "{{count}} lukematonta chat-viestiä",
+    "unread_few": "{{count}} lukematonta chat-viestiä",
+    "unread_many": "{{count}} lukematonta chat-viestiä",
+    "unread_other": "{{count}} lukematonta chat-viestiä"
+  },
+  "common": {
     "actions": {
       "back": "Takaisin",
       "cancel": "Peruuta",
       "clearInput": "Tyhjennä kenttä",
       "close": "Sulje",
       "copy": "Kopioi",
-      "goToPage": "Sivulle {{number}}",
-      "hideFilters": "Piilota suodattimet",
       "minimize": "Pienennä",
       "next": "Seuraava",
       "ok": "Selvä",
       "open": "Avaa",
-      "openExternal": "Avaa ulkoisesti",
       "previous": "Edellinen",
       "send": "Lähetä",
-      "showFilters": "Näytä suodattimet",
-      "showLess": "Näytä vähemmän",
-      "showMore": "Näytä enemmän",
       "skip": "Ohita",
-      "view": "Näytä"
+      "view": "Näytä",
+      "openExternal": "Avaa ulkoisesti",
+      "goToPage": "Sivulle {{number}}",
+      "showMore": "Näytä enemmän",
+      "showLess": "Näytä vähemmän",
+      "showFilters": "Näytä suodattimet",
+      "hideFilters": "Piilota suodattimet"
     },
-    "contacts": {
-      "address": {
-        "copy": "Kopioi osoite",
-        "title": "Osoite"
-      },
-      "email": "Sähköposti",
-      "phone": {
-        "mobile": "Matkapuhelinnumero",
-        "title": "Puhelinnumero"
-      },
-      "title": "Yhteystiedot",
-      "website": "Verkkosivusto"
+    "a11y": {
+      "skipToContent": "Siirry sisältöön"
+    },
+    "state": {
+      "copied": "Kopioitu",
+      "updatedAt": "Viimeksi päivitetty: {{date}}",
+      "loading": "Ladataan…",
+      "optional": "valinnainen",
+      "enabled": "käytössä",
+      "disabled": "poistettu käytöstä"
     },
     "labels": {
       "description": "Kuvaus",
-      "getOnPlayStore": "LATAA TÄSTÄ — Google Play -kaupasta",
-      "menu": "Valikko"
+      "menu": "Valikko",
+      "getOnPlayStore": "LATAA TÄSTÄ — Google Play -kaupasta"
     },
     "meta": {
       "description": "{{appName}} on digitaalinen oppaasi Saksassa. Löydä paikallisia tietoja, tapahtumia ja neuvontapalveluita – aina ajan tasalla ja omalla kielelläsi."
     },
     "privacy": {
+      "title": "Tietosuojaseloste",
       "confirmation": "Olen lukenut <Link>tietosuojaselosteen</Link> ja hyväksyn tietojeni käsittelyn ja tallentamisen.",
-      "required": "Hyväksy tietosuojaseloste.",
-      "title": "Tietosuojaseloste"
+      "required": "Hyväksy tietosuojaseloste."
     },
-    "state": {
-      "copied": "Kopioitu",
-      "disabled": "poistettu käytöstä",
-      "enabled": "käytössä",
-      "loading": "Ladataan…",
-      "optional": "valinnainen",
-      "updatedAt": "Viimeksi päivitetty: {{date}}"
+    "contacts": {
+      "title": "Yhteystiedot",
+      "address": {
+        "title": "Osoite",
+        "copy": "Kopioi osoite"
+      },
+      "phone": {
+        "title": "Puhelinnumero",
+        "mobile": "Matkapuhelinnumero"
+      },
+      "email": "Sähköposti",
+      "website": "Verkkosivusto"
     }
   },
   "error": {
+    "title": "Virhe",
+    "noSuitableAppInstalled": "Sopivaa sovellusta ei ole asennettu.",
     "forbidden": "Sinulla ei ole pääsyä tälle alueelle.",
     "networkConnectionFailed": "Yhteys palvelimeen epäonnistui.",
     "networkRequestFailed": "Pyyntöä ei voitu käsitellä.",
-    "noSuitableAppInstalled": "Sopivaa sovellusta ei ole asennettu.",
-    "nothingFound": "Tuloksia ei löytynyt.",
-    "pageNotFound": "Sivua ei löytynyt.",
-    "permissionRequired": "Käyttöoikeus vaaditaan",
-    "rateLimited": "Olet lähettänyt liian monta pyyntöä. Odota hetki.",
     "responseMappingFailed": "Palvelimen vastausta ei voitu käsitellä.",
-    "title": "Virhe",
-    "tryAgain": "Yritä uudelleen",
-    "unknownError": "Tapahtui tuntematon virhe."
+    "rateLimited": "Olet lähettänyt liian monta pyyntöä. Odota hetki.",
+    "pageNotFound": "Sivua ei löytynyt.",
+    "nothingFound": "Tuloksia ei löytynyt.",
+    "permissionRequired": "Käyttöoikeus vaaditaan",
+    "unknownError": "Tapahtui tuntematon virhe.",
+    "tryAgain": "Yritä uudelleen"
   },
   "events": {
-    "dateGroups": {
-      "further": "Lisää",
-      "nextDays": "Seuraavat {{days}} päivää",
-      "today": "Tänään",
-      "tomorrow": "Huomenna"
-    },
+    "title": "Tapahtumat",
+    "onlineMeeting": "Verkkokokous",
     "error": {
       "notFound": "Tätä tapahtumaa ei löytynyt.",
       "nothingFound": "Tapahtumia ei löytynyt."
     },
+    "recurrence": {
+      "recurring": "toistuva",
+      "furtherDates": "Lisää aikoja",
+      "untilDate": "saakka: {{date}}"
+    },
+    "dateGroups": {
+      "today": "Tänään",
+      "tomorrow": "Huomenna",
+      "nextDays": "Seuraavat {{days}} päivää",
+      "further": "Lisää"
+    },
     "export": {
+      "download": "Vie",
       "addToCalendar": "Lisää kalenteriin",
       "added": "Lisätty kalenteriin",
-      "allRecurrences": "Tämä ja kaikki tulevat tapahtumat",
       "calendar": "Kalenteri",
-      "download": "Vie",
+      "thisRecurrence": "Vain tämä tapahtuma",
+      "allRecurrences": "Tämä ja kaikki tulevat tapahtumat",
       "error": {
         "forbidden": "Pääsy kalenteriin on estetty.",
         "nothingFound": "Sopivaa kalenteria ei löytynyt"
-      },
-      "thisRecurrence": "Vain tämä tapahtuma"
+      }
     },
     "filter": {
-      "error": {
-        "endBeforeStart": "Alkamispäivän on oltava ennen päättymispäivää.",
-        "invalidDate": "Virheellinen päivämäärä"
-      },
-      "from": "alkaen",
-      "reset": "Nollaa suodatin: {{filter}}",
-      "selectEnd": "Valitse päättymispäivä kalenterista",
       "selectStart": "Valitse alkamispäivä kalenterista",
-      "to": "–"
-    },
-    "onlineMeeting": "Verkkokokous",
-    "recurrence": {
-      "furtherDates": "Lisää aikoja",
-      "recurring": "toistuva",
-      "untilDate": "saakka: {{date}}"
-    },
-    "title": "Tapahtumat"
+      "selectEnd": "Valitse päättymispäivä kalenterista",
+      "from": "alkaen",
+      "to": "–",
+      "reset": "Nollaa suodatin: {{filter}}",
+      "error": {
+        "invalidDate": "Virheellinen päivämäärä",
+        "endBeforeStart": "Alkamispäivän on oltava ennen päättymispäivää."
+      }
+    }
   },
   "feedback": {
+    "title": "Palaute",
+    "give": "Anna palautetta",
+    "description": "Anna arvio ja/tai kirjoita kommentti.",
     "comment": {
-      "description": "Kerro meille mielipiteesi! Arvostamme sekä ruusuja että risuja, sillä ne auttavat meitä tekemään sovelluksesta {{appName}} paremman.",
-      "title": "Kommentti"
+      "title": "Kommentti",
+      "description": "Kerro meille mielipiteesi! Arvostamme sekä ruusuja että risuja, sillä ne auttavat meitä tekemään sovelluksesta {{appName}} paremman."
     },
     "contactEmail": "Sähköpostiosoite lisäkysymyksiä varten",
-    "description": "Anna arvio ja/tai kirjoita kommentti.",
-    "give": "Anna palautetta",
-    "rating": {
-      "notUseful": "Ei hyödyllinen",
-      "useful": "Hyödyllinen"
-    },
     "required": "Valitse reaktio tai kirjoita kommentti voidaksesi lähettää palautteen.",
-    "search": {
-      "checkQuery": "Tarkista hakusanasi tai vaihda valittua kieltä.",
-      "informationMissing": "Puuttuuko täältä tietoja?",
-      "informationNotFound": "Etkö löytänyt etsimääsi?",
-      "noResultsInUserAndSourceLanguage": "Valitettavasti kielelläsi tai saksaksi ei löytynyt vastaavia tuloksia.",
-      "noResultsInUserLanguage": "Valitettavasti kielelläsi ei löytynyt vastaavia tuloksia.",
-      "searchTermDescription": "Seuraavalla hakusanalla ei löytynyt tuloksia:",
-      "wantedInformation": "Mitä tietoja puuttuu?"
+    "rating": {
+      "useful": "Hyödyllinen",
+      "notUseful": "Ei hyödyllinen"
     },
     "thanks": {
-      "description": "Palautteesi on lähetetty onnistuneesti.",
-      "title": "Kiitos palautteestasi."
+      "title": "Kiitos palautteestasi.",
+      "description": "Palautteesi on lähetetty onnistuneesti."
     },
-    "title": "Palaute"
+    "search": {
+      "informationNotFound": "Etkö löytänyt etsimääsi?",
+      "wantedInformation": "Mitä tietoja puuttuu?",
+      "informationMissing": "Puuttuuko täältä tietoja?",
+      "searchTermDescription": "Seuraavalla hakusanalla ei löytynyt tuloksia:",
+      "checkQuery": "Tarkista hakusanasi tai vaihda valittua kieltä.",
+      "noResultsInUserLanguage": "Valitettavasti kielelläsi ei löytynyt vastaavia tuloksia.",
+      "noResultsInUserAndSourceLanguage": "Valitettavasti kielelläsi tai saksaksi ei löytynyt vastaavia tuloksia."
+    }
   },
   "intro": {
+    "welcome": {
+      "title": "Tervetuloa sovellukseen {{appName}}",
+      "description": "Sovelluksesta {{appName}} löydät vastauksia ja vinkkejä omalla äidinkielelläsi. Esimerkiksi: Mistä saan apua? Milloin saan työskennellä?"
+    },
     "slides": {
+      "search": {
+        "title": "Helppo haku",
+        "description": "Löydät oikeat tiedot nopeasti oikeassa yläkulmassa olevan valikon haun kautta."
+      },
       "languageChange": {
         "description": "Voit vaihtaa sovelluksen {{appName}} kieltä ylävalikosta."
       },
-      "news": {
-        "description": "Mitä uutta lähialueellasi tapahtuu? Ota selvää {{appName}} -sovelluksessa.",
-        "title": "Ajankohtaista tietoa"
+      "places": {
+        "title": "Palveluja lähelläsi",
+        "description": "Kartalta löydät lähelläsi olevia paikkoja, esimerkiksi kielikursseja."
       },
       "offline": {
-        "description": "Eikö sinulla ole aina verkkoyhteyttä? Ei hätää. Voit käyttää sovellusta {{appName}} myös ilman internetyhteyttä.",
-        "title": "Toimii myös offline-tilassa"
+        "title": "Toimii myös offline-tilassa",
+        "description": "Eikö sinulla ole aina verkkoyhteyttä? Ei hätää. Voit käyttää sovellusta {{appName}} myös ilman internetyhteyttä."
       },
-      "places": {
-        "description": "Kartalta löydät lähelläsi olevia paikkoja, esimerkiksi kielikursseja.",
-        "title": "Palveluja lähelläsi"
-      },
-      "search": {
-        "description": "Löydät oikeat tiedot nopeasti oikeassa yläkulmassa olevan valikon haun kautta.",
-        "title": "Helppo haku"
+      "news": {
+        "title": "Ajankohtaista tietoa",
+        "description": "Mitä uutta lähialueellasi tapahtuu? Ota selvää {{appName}} -sovelluksessa."
       }
-    },
-    "welcome": {
-      "description": "Sovelluksesta {{appName}} löydät vastauksia ja vinkkejä omalla äidinkielelläsi. Esimerkiksi: Mistä saan apua? Milloin saan työskennellä?",
-      "title": "Tervetuloa sovellukseen {{appName}}"
     }
   },
   "ios": {
-    "NSCalendarsFullAccessUsageDescription": "{{appName}} haluaa käyttää kalenteriasi tapahtumien lisäämiseksi.",
-    "NSCalendarsUsageDescription": "{{appName}} haluaa käyttää kalenteriasi tapahtumien lisäämiseksi.",
-    "NSLocationAlwaysAndWhenInUseUsageDescription": "Lähellä olevien paikkojen löytämiseksi {{appName}} tarvitsee pääsyn sijaintitietoihisi.",
+    "NSPhotoLibraryAddUsageDescription": "Kuvien tallentamiseksi {{appName}} tarvitsee pääsyn galleriaan.",
     "NSLocationWhenInUseUsageDescription": "Lähellä olevien paikkojen löytämiseksi {{appName}} tarvitsee pääsyn sijaintitietoihisi.",
-    "NSPhotoLibraryAddUsageDescription": "Kuvien tallentamiseksi {{appName}} tarvitsee pääsyn galleriaan."
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Lähellä olevien paikkojen löytämiseksi {{appName}} tarvitsee pääsyn sijaintitietoihisi.",
+    "NSCalendarsUsageDescription": "{{appName}} haluaa käyttää kalenteriasi tapahtumien lisäämiseksi.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} haluaa käyttää kalenteriasi tapahtumien lisäämiseksi."
   },
   "languages": {
     "change": "Vaihda kieli",
     "changed": "Kieleksi on vaihdettu {{languageName}}",
+    "search": "Hae kieltä",
     "error": {
       "noTranslation": "Käännöstä ei ole saatavilla",
       "notFound": {
-        "description": "Tämä sivu ei ole vielä saatavilla kaikilla kielillä. Laajennamme kielivalikoimaamme jatkuvasti. Voit pyytää omaa kieltäsi <Link>Palaute</Link>-toiminnon kautta.",
+        "title": "Tätä kieltä ei löytynyt.",
         "question": "Etkö löydä etsimääsi kieltä?",
-        "title": "Tätä kieltä ei löytynyt."
+        "description": "Tämä sivu ei ole vielä saatavilla kaikilla kielillä. Laajennamme kielivalikoimaamme jatkuvasti. Voit pyytää omaa kieltäsi <Link>Palaute</Link>-toiminnon kautta."
       }
-    },
-    "search": "Hae kieltä"
+    }
   },
   "malteHelpForm": {
+    "supportNote": "Haluamme, että tunnet olosi turvalliseksi ja tuetuksi, jos sinulla on ongelmia tai kysymyksiä. Alla olevan yhteydenottolomakkeen kautta voit ottaa yhteyttä tukihenkilöihimme. Voit määrittää asiasi tyypin ja valita eri yhteydenottotavoista.",
+    "securityNote": "Turvallisuutesi on meille ensiarvoisen tärkeää. Käsittelemme tietojasi luottamuksellisesti, jotta yksityisyytesi säilyy aina turvattuna.",
+    "name": "Sukunimi, etunimi",
+    "roomNumber": "Huonenumero",
+    "howToBeContacted": "Haluan yhteydenoton seuraavasti:",
+    "eMail": "Sähköposti",
+    "telephone": "Puhelin",
+    "telephoneNumber": "Puh.nro",
+    "personally": "Henkilökohtaisesti",
     "contactPerson": "Yhteyshenkilö:",
     "contactPersonAnyGender": "Yhteyshenkilön sukupuolella ei ole väliä",
     "contactPersonGenderFemale": "Haluan, että minuun ottaa yhteyttä nainen",
     "contactPersonGenderMale": "Haluan, että minuun ottaa yhteyttä mies",
     "contactReason": "Asiasi:",
-    "eMail": "Sähköposti",
-    "howToBeContacted": "Haluan yhteydenoton seuraavasti:",
-    "invalidEmailAddress": "Annettu sähköpostiosoite on virheellinen.",
     "maxCharacters": "enintään {{numberOfCharacters}} merkkiä",
-    "name": "Sukunimi, etunimi",
-    "personally": "Henkilökohtaisesti",
     "responseHint": "Vastauksen saamisessa voi kestää muutama arkipäivä. Pyrimme käsittelemään asiasi mahdollisimman pian.",
-    "roomNumber": "Huonenumero",
-    "securityNote": "Turvallisuutesi on meille ensiarvoisen tärkeää. Käsittelemme tietojasi luottamuksellisesti, jotta yksityisyytesi säilyy aina turvattuna.",
     "submit": "Lähetä lomake",
+    "submitSuccessful": "Lomake lähetetty onnistuneesti",
     "submitFailed": "Lomakkeen lähetys epäonnistui",
     "submitFailedReasoning": "Varmista vakaa internetyhteys ja yritä uudelleen.",
-    "submitSuccessful": "Lomake lähetetty onnistuneesti",
-    "supportNote": "Haluamme, että tunnet olosi turvalliseksi ja tuetuksi, jos sinulla on ongelmia tai kysymyksiä. Alla olevan yhteydenottolomakkeen kautta voit ottaa yhteyttä tukihenkilöihimme. Voit määrittää asiasi tyypin ja valita eri yhteydenottotavoista.",
-    "telephone": "Puhelin",
-    "telephoneNumber": "Puh.nro"
+    "invalidEmailAddress": "Annettu sähköpostiosoite on virheellinen."
   },
   "news": {
+    "title": "Uutiset",
+    "sources": {
+      "all": "Kaikki uutiset",
+      "local": "Paikalliset uutiset",
+      "national": "Valtakunnalliset uutiset",
+      "allShort": "Kaikki",
+      "localShort": "Paikalliset",
+      "nationalShort": "Valtakunnalliset"
+    },
     "error": {
       "notFound": "Viestiä ei löytynyt.",
       "nothingFound": "Ei viestejä."
-    },
-    "sources": {
-      "all": "Kaikki uutiset",
-      "allShort": "Kaikki",
-      "local": "Paikalliset uutiset",
-      "localShort": "Paikalliset",
-      "national": "Valtakunnalliset uutiset",
-      "nationalShort": "Valtakunnalliset"
-    },
-    "title": "Uutiset"
+    }
   },
   "places": {
+    "title": "Kartta",
     "accessible": "Esteetön",
-    "distance": "{{distance}} km päässä",
+    "notAccessible": "Ei esteetön",
     "error": {
       "notFound": "Tätä paikkaa ei löytynyt.",
       "nothingFound": "Paikkoja ei löytynyt."
     },
-    "filter": {
-      "adjust": "Suodata paikkoja",
-      "alphabet": "A–Ö",
-      "categories": "Kategoriat",
-      "onlyOpen": "Näytä vain avoinna olevat paikat",
-      "placeCount_few": "{{count}} paikkaa",
-      "placeCount_many": "{{count}} paikkaa",
-      "placeCount_one": "1 paikka",
-      "placeCount_other": "{{count}} paikkaa",
-      "placeCount_two": "{{count}} paikkaa",
-      "placeCount_zero": "0 paikkaa",
-      "show_few": "Näytä {{count}} paikkaa",
-      "show_many": "Näytä {{count}} paikkaa",
-      "show_one": "Näytä 1 paikka",
-      "show_other": "Näytä {{count}} paikkaa",
-      "show_two": "Näytä {{count}} paikkaa",
-      "show_zero": "0 paikkaa löytyi"
-    },
-    "hours": {
-      "allDay": "koko päivän",
-      "appointment": {
-        "make": {
-          "description": "Varaa aika <Link>verkkosivustolta</Link> tai puhelimitse.",
-          "title": "Varaa aika"
-        },
-        "required": "Ajanvaraus vaaditaan"
-      },
-      "closed": "suljettu",
-      "open": "avoinna",
-      "temporarilyClosed": "Tilapäisesti suljettu",
-      "title": "Aukioloajat"
-    },
-    "notAccessible": "Ei esteetön",
-    "title": "Kartta",
-    "weekdays": {
-      "dienstag": "Tiistai",
-      "donnerstag": "Torstai",
-      "freitag": "Perjantai",
-      "mittwoch": "Keskiviikko",
-      "montag": "Maanantai",
-      "samstag": "Lauantai",
-      "sonntag": "Sunnuntai"
-    },
+    "distance": "{{distance}} km päässä",
     "zoom": {
       "in": "Lähennä",
       "out": "Loitonna"
+    },
+    "filter": {
+      "adjust": "Suodata paikkoja",
+      "onlyOpen": "Näytä vain avoinna olevat paikat",
+      "categories": "Kategoriat",
+      "alphabet": "A–Ö",
+      "show_zero": "0 paikkaa löytyi",
+      "show_one": "Näytä 1 paikka",
+      "show_two": "Näytä {{count}} paikkaa",
+      "show_few": "Näytä {{count}} paikkaa",
+      "show_many": "Näytä {{count}} paikkaa",
+      "show_other": "Näytä {{count}} paikkaa",
+      "placeCount_zero": "0 paikkaa",
+      "placeCount_one": "1 paikka",
+      "placeCount_two": "{{count}} paikkaa",
+      "placeCount_few": "{{count}} paikkaa",
+      "placeCount_many": "{{count}} paikkaa",
+      "placeCount_other": "{{count}} paikkaa"
+    },
+    "hours": {
+      "title": "Aukioloajat",
+      "allDay": "koko päivän",
+      "open": "avoinna",
+      "closed": "suljettu",
+      "temporarilyClosed": "Tilapäisesti suljettu",
+      "appointment": {
+        "required": "Ajanvaraus vaaditaan",
+        "make": {
+          "title": "Varaa aika",
+          "description": "Varaa aika <Link>verkkosivustolta</Link> tai puhelimitse."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Maanantai",
+      "dienstag": "Tiistai",
+      "mittwoch": "Keskiviikko",
+      "donnerstag": "Torstai",
+      "freitag": "Perjantai",
+      "samstag": "Lauantai",
+      "sonntag": "Sunnuntai"
     }
   },
   "regions": {
+    "title": "Alueet",
+    "welcome": {
+      "title": "Tervetuloa sovellukseen {{appName}}.",
+      "description": "Digitaalinen oppaasi kaikkiin tarvitsemiisi tietoihin. Valitse alueesi."
+    },
     "change": "Vaihda aluetta",
+    "notFound": "Tätä aluetta ei löytynyt.",
+    "search": {
+      "region": "Etsi aluetta",
+      "description": "Valitse alueesi tai lähin suurempi kaupunki, esim. {{exampleRegion}}"
+    },
     "nearby": {
       "nothingFound": "Lähistöllä ei ole aluetta.",
       "refresh": "Päivitä lähialueet"
-    },
-    "notFound": "Tätä aluetta ei löytynyt.",
-    "search": {
-      "description": "Valitse alueesi tai lähin suurempi kaupunki, esim. {{exampleRegion}}",
-      "region": "Etsi aluetta"
-    },
-    "title": "Alueet",
-    "welcome": {
-      "description": "Digitaalinen oppaasi kaikkiin tarvitsemiisi tietoihin. Valitse alueesi.",
-      "title": "Tervetuloa sovellukseen {{appName}}."
     }
   },
   "search": {
+    "title": "Haku",
+    "searchContent": "Etsi sisältöä",
+    "viewResult": "Avaa hakutulos",
+    "resultCount_zero": "0 hakutulosta",
+    "resultCount_one": "1 hakutulos",
+    "resultCount_two": "{{count}} hakutulosta",
     "resultCount_few": "{{count}} hakutulosta",
     "resultCount_many": "{{count}} hakutulosta",
-    "resultCount_one": "1 hakutulos",
-    "resultCount_other": "{{count}} hakutulosta",
-    "resultCount_two": "{{count}} hakutulosta",
-    "resultCount_zero": "0 hakutulosta",
-    "searchContent": "Etsi sisältöä",
-    "title": "Haku",
-    "viewResult": "Avaa hakutulos"
+    "resultCount_other": "{{count}} hakutulosta"
   },
   "settings": {
-    "contrast": {
-      "description": "Suuren kontrastin tila parantaa luettavuutta",
-      "title": "Suuri kontrasti (beta)"
-    },
+    "title": "Asetukset",
     "error": {
       "save": "Asetuksia ei voitu tallentaa"
     },
-    "externalSources": {
-      "allowed": "Tämä kohde sisältää sisältöä tästä ulkoisesta lähteestä. Voit estää tällaisen sisällön asetuksista.",
-      "blocked": "Ulkoinen sisältö tästä lähteestä on estetty. Voit sallia tämän lähteen asetuksista.",
-      "description": "Voit antaa pysyvän suostumuksen ulkoisista lähteistä peräisin olevan sisällön näyttämiseen. Voit peruuttaa suostumuksesi täällä milloin tahansa.",
-      "descriptionShort": "Määritä, mitkä ulkoiset lähteet sallitaan.",
-      "nothingFound": "Ulkoisia lähteitä ei ole saatavilla.",
-      "optIn": "Hyväksyn, että minulle näytetään sisältöä tästä ulkoisesta lähteestä.",
-      "source": "Salli sisältö lähteestä {{source}}",
-      "title": "Ulkoiset lähteet"
+    "sentry": {
+      "title": "Sovelluksen vakaus",
+      "description": "Auta parantamaan sovellusta {{appName}} lähettämällä kaatumisraportit automaattisesti"
     },
     "pushNotifications": {
-      "description": "Vastaanota push-ilmoituksia viimeisimmistä paikallisista uutisista",
-      "title": "Push-ilmoitukset"
+      "title": "Push-ilmoitukset",
+      "description": "Vastaanota push-ilmoituksia viimeisimmistä paikallisista uutisista"
     },
-    "sentry": {
-      "description": "Auta parantamaan sovellusta {{appName}} lähettämällä kaatumisraportit automaattisesti",
-      "title": "Sovelluksen vakaus"
+    "contrast": {
+      "title": "Suuri kontrasti (beta)",
+      "description": "Suuren kontrastin tila parantaa luettavuutta"
     },
-    "title": "Asetukset"
+    "externalSources": {
+      "title": "Ulkoiset lähteet",
+      "descriptionShort": "Määritä, mitkä ulkoiset lähteet sallitaan.",
+      "description": "Voit antaa pysyvän suostumuksen ulkoisista lähteistä peräisin olevan sisällön näyttämiseen. Voit peruuttaa suostumuksesi täällä milloin tahansa.",
+      "source": "Salli sisältö lähteestä {{source}}",
+      "optIn": "Hyväksyn, että minulle näytetään sisältöä tästä ulkoisesta lähteestä.",
+      "allowed": "Tämä kohde sisältää sisältöä tästä ulkoisesta lähteestä. Voit estää tällaisen sisällön asetuksista.",
+      "blocked": "Ulkoinen sisältö tästä lähteestä on estetty. Voit sallia tämän lähteen asetuksista.",
+      "nothingFound": "Ulkoisia lähteitä ei ole saatavilla."
+    }
   },
   "share": {
-    "copyLink": "Kopioi linkki",
+    "title": "Jaa",
     "message": "Löysin juuri tämän: {{message}}",
+    "copyLink": "Kopioi linkki",
     "qr": {
-      "description": "Jaa tämä sivu helposti skannaamalla QR-koodi toisella laitteella.",
       "label": "QR-koodi",
-      "title": "Jaa QR-koodilla"
-    },
-    "title": "Jaa"
+      "title": "Jaa QR-koodilla",
+      "description": "Jaa tämä sivu helposti skannaamalla QR-koodi toisella laitteella."
+    }
   },
   "suggestToRegion": {
+    "title": "Ehdota sovellusta {{appName}} alueellesi",
     "description": "Vakuuttiko Integreat-sovelluksen konsepti sinut ja uskotko, että myös oma kaupunkisi, kuntasi tai piirikuntasi voisi hyötyä tästä digitaalisesta ratkaisusta? Täällä voit helposti ryhtyä toimeen.",
     "regionNotFoundCta": "Etkö löytänyt omaa aluettasi? Ryhdy toimeen nyt!",
+    "whatToDo": "Voit toimia näin:",
     "steps": {
+      "getEmail": "Etsi alueesi sähköpostiosoite",
       "copyText": "Kopioi tämä teksti",
       "fillPlaceholders": "Täytä omat tietosi hakasulkeilla [ ] merkittyihin kohtiin",
-      "getEmail": "Etsi alueesi sähköpostiosoite",
       "send": "Lähetä sähköposti alueellesi"
-    },
-    "title": "Ehdota sovellusta {{appName}} alueellesi",
-    "whatToDo": "Voit toimia näin:"
+    }
   },
   "tour": {
-    "additionalFeatures": {
-      "description": "Käytä täällä lisätoimintoja, kuten <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> ja <strong>{{additionalFeature}}</strong>.",
-      "title": "Lisää toimintoja"
+    "title": "Sovellusesittely",
+    "welcome": "Tämä lyhyt esittely tutustuttaa sinut sovelluksen tärkeimpiin toimintoihin.",
+    "start": "Aloita esittelykierros",
+    "progress": "Vaihe {{current}} / {{total}}",
+    "regionChange": {
+      "description": "Valitse <strong>alueesi</strong> täältä löytääksesi paikallista tietoa."
+    },
+    "navigation": {
+      "title": "Navigointi",
+      "description": "Vaihda täällä osioiden <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> ja <strong>$t(events:title)</strong> välillä."
     },
     "categories": {
-      "description": "Löydä tietoa eri aiheista, kuten <strong>asumisesta</strong>, <strong>koulutuksesta</strong>, <strong>työstä</strong> ja muusta.",
-      "title": "Tutustu aiheisiin"
+      "title": "Tutustu aiheisiin",
+      "description": "Löydä tietoa eri aiheista, kuten <strong>asumisesta</strong>, <strong>koulutuksesta</strong>, <strong>työstä</strong> ja muusta."
+    },
+    "searchAndLanguage": {
+      "title": "Haku ja kieli",
+      "description": "<strong>Etsi</strong> paikallista tietoa, tapahtumia ja paikkoja tai vaihda <strong>kieltä</strong>."
+    },
+    "menu": {
+      "title": "Lisää toimintoja",
+      "description": "Käytä täällä lisätoimintoja, kuten <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> ja <strong>{{additionalFeature}}</strong>."
     },
     "chat": {
       "description": "Esitä kysymyksesi täällä ja saa nopeasti sopivia vastauksia."
     },
     "finish": {
-      "description": "Nyt tunnet tärkeimmät toiminnot. Onnea sovelluksen {{appName}} käyttöön!",
-      "title": "Valmis!"
-    },
-    "navigation": {
-      "description": "Vaihda täällä osioiden <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> ja <strong>$t(events:title)</strong> välillä.",
-      "title": "Navigointi"
-    },
-    "progress": "Vaihe {{current}} / {{total}}",
-    "regionChange": {
-      "description": "Valitse <strong>alueesi</strong> täältä löytääksesi paikallista tietoa."
-    },
-    "searchAndLanguage": {
-      "description": "<strong>Etsi</strong> paikallista tietoa, tapahtumia ja paikkoja tai vaihda <strong>kieltä</strong>.",
-      "title": "Haku ja kieli"
-    },
-    "start": "Aloita esittelykierros",
-    "title": "Sovellusesittely",
-    "welcome": "Tämä lyhyt esittely tutustuttaa sinut sovelluksen tärkeimpiin toimintoihin."
+      "title": "Valmis!",
+      "description": "Nyt tunnet tärkeimmät toiminnot. Onnea sovelluksen {{appName}} käyttöön!"
+    }
   },
   "tts": {
-    "error": {
-      "languageNotSupported": "Kieltä ei tueta.",
-      "noVoices": {
-        "description": "Ääntä ei löytynyt. Ääneenlukutoiminnon käyttäminen edellyttää asennettua puheääntä. Noudata käyttöjärjestelmäsi ohjeita.",
-        "title": "Puheääntä ei ole asennettu"
-      },
-      "nothingToRead": {
-        "description": "Tällä sivulla ei ole mitään luettavaa.",
-        "title": "Ei mitään luettavaa"
-      }
-    },
+    "title": "Lue ääneen",
     "pause": "Tauko",
     "play": "Toista",
-    "title": "Lue ääneen"
+    "error": {
+      "languageNotSupported": "Kieltä ei tueta.",
+      "nothingToRead": {
+        "title": "Ei mitään luettavaa",
+        "description": "Tällä sivulla ei ole mitään luettavaa."
+      },
+      "noVoices": {
+        "title": "Puheääntä ei ole asennettu",
+        "description": "Ääntä ei löytynyt. Ääneenlukutoiminnon käyttäminen edellyttää asennettua puheääntä. Noudata käyttöjärjestelmäsi ohjeita."
+      }
+    }
   },
   "userLocation": {
+    "nearby": "Lähistöllä",
+    "show": "Näytä oma sijainti",
     "loading": "Määritetään sijaintia…",
     "locationAccessRequired": "Lähialueiden näyttäminen edellyttää sijaintitietojen käyttöoikeuden sallimista.",
-    "nearby": "Lähistöllä",
     "noPermission": "Sijaintitietojen käyttöoikeus vaaditaan",
     "notAvailable": "Sijaintipalvelut poistettu käytöstä",
-    "show": "Näytä oma sijainti",
     "timeout": "Sijaintia ei löydy"
   }
 }
