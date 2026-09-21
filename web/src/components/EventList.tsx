@@ -16,11 +16,7 @@ type EventListProps = {
   languageCode: string
 }
 
-type EventGroupListProps = EventListProps & {
-  dateFilter: ReactElement
-}
-
-const EventGroupList = ({ events, languageCode, dateFilter }: EventGroupListProps): ReactElement | null => {
+const EventGroupList = ({ events, languageCode }: EventListProps): ReactElement | null => {
   const { t } = useTranslation()
 
   const dateGroups = useMemo(
@@ -40,12 +36,7 @@ const EventGroupList = ({ events, languageCode, dateFilter }: EventGroupListProp
     [events, languageCode, t],
   )
 
-  return (
-    <>
-      {dateFilter}
-      <List items={dateGroups} noItemsMessage={t($ => $.events.error.nothingFound)} showDividers={false} />
-    </>
-  )
+  return <List items={dateGroups} noItemsMessage={t($ => $.events.error.nothingFound)} showDividers={false} />
 }
 
 const EventList = ({ events, languageCode }: EventListProps): ReactElement | null => {
@@ -84,7 +75,12 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
     )
   }
 
-  return <EventGroupList events={events} languageCode={languageCode} dateFilter={dateFilter} />
+  return (
+    <>
+      {dateFilter}
+      <EventGroupList events={events} languageCode={languageCode} />
+    </>
+  )
 }
 
 export default EventList
