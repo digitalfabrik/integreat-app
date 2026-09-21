@@ -16,7 +16,6 @@ declare module '@mui/material/styles' {
     contentDirection: UiDirectionType
     isContrastTheme: boolean
     toggleTheme: () => void
-    dimensions: Dimensions
   }
 
   interface ThemeOptions {

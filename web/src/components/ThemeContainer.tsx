@@ -13,7 +13,6 @@ import { UiDirectionType } from 'translations'
 import buildConfig from '../constants/buildConfig'
 import { BREAKPOINTS } from '../constants/layout'
 import { prepareTypography } from '../constants/typography'
-import useDimensions from '../hooks/useDimensions'
 import useLocalStorage, { THEME_STORAGE_KEY } from '../hooks/useLocalStorage'
 import globalStyle from '../styles/global/GlobalStyle'
 import { muiShadowCreator } from '../utils/muiShadowCreator'
@@ -174,7 +173,6 @@ type ThemeContainerProps = {
 }
 
 const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
-  const dimensions = useDimensions()
   const url = new URL(window.location.href)
   const { theme: queryTheme } = parseQueryParams(url.searchParams)
   const [storageThemeType, setStorageThemeType] = useLocalStorage<ThemeType>({
@@ -186,9 +184,8 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
 
   const theme = useMemo(() => {
     const toggleTheme = () => setStorageThemeType(themeType === 'light' ? 'contrast' : 'light')
-    const theme = createTheme(themeType, contentDirection)
-    return { ...theme, toggleTheme, dimensions }
-  }, [themeType, setStorageThemeType, contentDirection, dimensions])
+    return { ...createTheme(themeType, contentDirection), toggleTheme }
+  }, [contentDirection, themeType, setStorageThemeType])
 
   return (
     <CacheProvider value={contentDirection === 'rtl' ? rtlCache : ltrCache}>
