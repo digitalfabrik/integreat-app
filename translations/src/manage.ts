@@ -12,6 +12,7 @@ import { validateTranslations } from './validate.ts'
 const { unflatten } = flat
 
 const CSV_KEY_COLUMN = 'key'
+const CSV_TARGET_COLUMN = 'target'
 const MAX_REPORTED_DIFFERENCES = 5
 
 type TranslationMap = { [key: string]: string | TranslationMap }
@@ -58,7 +59,7 @@ const exportTranslationsToCsv = (
       const output = fs.createWriteStream(csvPath)
       output.on('close', () => console.log(`Successfully written ${csvPath}`))
       output.on('error', error => console.log(`Failed to write ${csvPath}.csv: ${error}`))
-      stringify([[CSV_KEY_COLUMN, sourceLanguage, referenceLanguage, language], ...rows]).pipe(output)
+      stringify([[CSV_KEY_COLUMN, sourceLanguage, referenceLanguage, CSV_TARGET_COLUMN], ...rows]).pipe(output)
     })
 
   console.log(`Keys in source language ${sourceLanguage}: ${sourceEntries.length}`)
@@ -128,7 +129,7 @@ const importTranslationsFromCsv = (fromDir: string, toDir: string, sourceLanguag
     ...fromPairs(
       csvs.map(csv => {
         const language = path.basename(csv, '.csv')
-        return [language, loadColumn(csv, language)]
+        return [language, loadColumn(csv, CSV_TARGET_COLUMN)]
       }),
     ),
   } satisfies Record<string, LanguageTranslations>
