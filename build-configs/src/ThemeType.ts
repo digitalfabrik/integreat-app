@@ -24,7 +24,7 @@ export type CommonColors = {
   warning: SimplePaletteColor
   success: SimplePaletteColor
   info?: SimplePaletteColor
-  tuNews: SimplePaletteColor & { light: string }
+  tuNews: SimplePaletteColor
   amalNews: SimplePaletteColor
   divider: string
   link: string
@@ -44,21 +44,6 @@ export type TypeBackground = {
   accent: string
 }
 
-export type TypeTtsPlayer = {
-  background: string
-  playIconColor: string
-}
-
-export type TypeChat = {
-  background: string
-  headerBackground: string
-  answerMessageBackground: string
-  userMessageBackground: string
-  messageBorderColor: string
-  chatInputOutlineColor: string
-  chatInputPlaceholderColor: string
-}
-
 export type CommonColorPalette = CommonColors & {
   mode: PaletteMode
   primary: PaletteColor
@@ -66,7 +51,6 @@ export type CommonColorPalette = CommonColors & {
   background: TypeBackground
   text: TypeText
   action: ActionColor
-  ttsPlayer: TypeTtsPlayer
 }
 
 export type ThemeColorPalette = CommonColorPalette & {

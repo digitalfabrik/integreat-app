@@ -52,14 +52,9 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
       success: palette.success.main,
       tuNews: {
         main: palette.tuNews.main,
-        light: palette.tuNews.light,
       },
       amalNews: {
         main: palette.amalNews.main,
-      },
-      ttsPlayer: {
-        background: palette.ttsPlayer.background,
-        playIconColor: palette.ttsPlayer.playIconColor,
       },
       action: {
         disabled: palette.action.disabled,

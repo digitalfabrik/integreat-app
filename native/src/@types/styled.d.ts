@@ -41,14 +41,9 @@ type MD3Theme = {
     success: string
     tuNews: {
       main: string
-      light: string
     }
     amalNews: {
       main: string
-    }
-    ttsPlayer: {
-      background: string
-      playIconColor: string
     }
     action: {
       disabled: string

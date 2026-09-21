@@ -15,7 +15,6 @@ const commonColors: CommonColors = {
   },
   tuNews: {
     main: '#0079A6',
-    light: '#99CADC',
   },
   amalNews: {
     main: '#1A7579',
@@ -54,10 +53,6 @@ export const commonLightColors: CommonColorPalette = {
     disabled: '#C9C9C9',
     active: '#242D3B',
   },
-  ttsPlayer: {
-    background: '#dedede',
-    playIconColor: '#007aa8',
-  },
 }
 
 export const commonDarkColors: CommonColorPalette = {
@@ -89,9 +84,5 @@ export const commonDarkColors: CommonColorPalette = {
     disabledBackground: '#000000',
     disabled: '#364153',
     active: '#E6E0E9',
-  },
-  ttsPlayer: {
-    background: '#29354B',
-    playIconColor: '#007aa8',
   },
 }

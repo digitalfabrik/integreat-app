@@ -28,19 +28,13 @@ declare module '@mui/material/styles' {
   interface Palette {
     tertiary: PaletteColor
     amalNews: SimplePaletteColorOptions
-    tuNews: {
-      light: string
-      main: string
-    }
+    tuNews: SimplePaletteColorOptions
   }
 
   interface PaletteOptions {
     tertiary: PaletteColor
     amalNews: SimplePaletteColorOptions
-    tuNews: {
-      light: string
-      main: string
-    }
+    tuNews: SimplePaletteColorOptions
   }
 }
 
