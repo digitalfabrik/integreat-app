@@ -3,7 +3,7 @@ import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify'
 import flat from 'flat'
 import fs from 'fs'
-import { fromPairs, isEqual, sortBy, toPairs } from 'lodash-es'
+import { fromPairs, sortBy, toPairs, union } from 'lodash-es'
 import path from 'path'
 
 import config from '../src/config.js'
@@ -12,9 +12,7 @@ import { validateTranslations } from './validate.ts'
 const { unflatten } = flat
 
 const CSV_KEY_COLUMN = 'key'
-const CSV_SOURCE_LANGUAGE_COLUMN = 'source_language'
-const CSV_REFERENCE_LANGUAGE_COLUMN = 'reference_language'
-const CSV_TARGET_LANGUAGE_COLUMN = 'target_language'
+const MAX_REPORTED_DIFFERENCES = 5
 
 type TranslationMap = { [key: string]: string | TranslationMap }
 export type LanguageTranslations = { [namespace: string]: TranslationMap }
@@ -60,10 +58,7 @@ const exportTranslationsToCsv = (
       const output = fs.createWriteStream(csvPath)
       output.on('close', () => console.log(`Successfully written ${csvPath}`))
       output.on('error', error => console.log(`Failed to write ${csvPath}.csv: ${error}`))
-      stringify([
-        [CSV_KEY_COLUMN, CSV_SOURCE_LANGUAGE_COLUMN, CSV_REFERENCE_LANGUAGE_COLUMN, CSV_TARGET_LANGUAGE_COLUMN],
-        ...rows,
-      ]).pipe(output)
+      stringify([[CSV_KEY_COLUMN, sourceLanguage, referenceLanguage, language], ...rows]).pipe(output)
     })
 
   console.log(`Keys in source language ${sourceLanguage}: ${sourceEntries.length}`)
@@ -84,6 +79,35 @@ const loadColumn = (csvFile: string, columnName: string): LanguageTranslations =
   return unflatten(column)
 }
 
+const describeDifferences = (expected: LanguageTranslations, actual: LanguageTranslations): string[] => {
+  const expectedFlat = flat(expected) satisfies Record<string, string>
+  const actualFlat = flat(actual) satisfies Record<string, string>
+  return union(Object.keys(expectedFlat), Object.keys(actualFlat))
+    .sort()
+    .filter(key => expectedFlat[key] !== actualFlat[key])
+    .map(key => `${key}: expected '${expectedFlat[key] ?? ''}' but got '${actualFlat[key] ?? ''}'`)
+}
+
+// The source and reference language columns are only meant as translation aid and must not be modified by translators
+const loadSharedColumn = (csvs: string[], firstCsv: string, column: string): LanguageTranslations => {
+  const expected = loadColumn(firstCsv, column)
+  csvs.forEach(csv => {
+    const differences = describeDifferences(expected, loadColumn(csv, column))
+    if (differences.length > 0) {
+      const reported = differences.slice(0, MAX_REPORTED_DIFFERENCES).map(difference => `  ${difference}`)
+      const omitted = differences.length - reported.length
+      throw new Error(
+        `The column '${column}' must be the same in every CSV, but ${path.basename(csv)} differs from ` +
+          `${path.basename(firstCsv)} in ${differences.length} key(s). ` +
+          `Only the column of the language a CSV is named after may be modified.\n${reported.join('\n')}${
+            omitted > 0 ? `\n  ... and ${omitted} more` : ''
+          }`,
+      )
+    }
+  })
+  return expected
+}
+
 const importTranslationsFromCsv = (fromDir: string, toDir: string, sourceLanguage: string) => {
   const csvs = fs
     .readdirSync(fromDir)
@@ -95,19 +119,18 @@ const importTranslationsFromCsv = (fromDir: string, toDir: string, sourceLanguag
     throw new Error(`No CSVs in directory ${fromDir} found`)
   }
 
-  const sourceTranslations = loadColumn(firstCsv, CSV_SOURCE_LANGUAGE_COLUMN)
-  if (!csvs.every(csv => isEqual(loadColumn(csv, CSV_SOURCE_LANGUAGE_COLUMN), sourceTranslations))) {
-    throw new Error(`The column '${CSV_SOURCE_LANGUAGE_COLUMN}' must be the same in every CSV`)
-  }
-
-  const referenceTranslations = loadColumn(firstCsv, CSV_REFERENCE_LANGUAGE_COLUMN)
-  if (!csvs.every(csv => isEqual(loadColumn(csv, CSV_REFERENCE_LANGUAGE_COLUMN), referenceTranslations))) {
-    throw new Error(`The column '${CSV_REFERENCE_LANGUAGE_COLUMN}' must be the same in every CSV`)
-  }
+  const sourceTranslations = loadSharedColumn(csvs, firstCsv, sourceLanguage)
+  // The reference language is not imported, but it still must not have been modified
+  loadSharedColumn(csvs, firstCsv, config.referenceLanguage)
 
   const translations = {
     [sourceLanguage]: sourceTranslations,
-    ...fromPairs(csvs.map(csv => [path.basename(csv, '.csv'), loadColumn(csv, CSV_TARGET_LANGUAGE_COLUMN)])),
+    ...fromPairs(
+      csvs.map(csv => {
+        const language = path.basename(csv, '.csv')
+        return [language, loadColumn(csv, language)]
+      }),
+    ),
   } satisfies Record<string, LanguageTranslations>
 
   const importedLanguages = Object.keys(translations)
