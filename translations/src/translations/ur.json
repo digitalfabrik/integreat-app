@@ -1,0 +1,468 @@
+{
+  "about": {
+    "aboutUs": "ہمارے بارے میں",
+    "accessibility": "رسائی کی سہولت",
+    "imprint": "قانونی معلومات (امپریسم)",
+    "legal": "قانونی شرائط",
+    "licenses": {
+      "license": "لائسنس: {{license}}",
+      "title": "اوپن سورس لائسنسز",
+      "version": "ورژن: {{version}}"
+    }
+  },
+  "categories": {
+    "organization": {
+      "description": "{{organization}} کے بارے میں مزید معلومات آپ کو <Link>{{domain}}</Link> پر مل سکتی ہیں۔",
+      "title": "اس صفحے کے مندرجات {{organization}} کی جانب سے ہیں۔"
+    },
+    "pdf": {
+      "create": "PDF بنائیں",
+      "disabled": "فی الحال اس زبان میں PDF بنانا ممکن نہیں ہے۔"
+    },
+    "title": "مقامی معلومات",
+    "titleShort": "معلومات"
+  },
+  "chat": {
+    "bot": "چیٹ بوٹ",
+    "consultant": "مشیر / کونسلر",
+    "initial": {
+      "description": "آپ مقامی معلومات یا اپنی ذاتی صورتحال کے بارے میں پوچھ سکتے ہیں۔",
+      "title": "براہ کرم اپنا سوال ٹیکسٹ فیلڈ میں درج کریں۔"
+    },
+    "inputPlaceholder": "براہ کرم اپنا سوال درج کریں…",
+    "startNew": {
+      "description": "کیا آپ واقعی ایک نئی چیٹ شروع کرنا چاہتے ہیں؟ موجودہ چیٹ ہسٹری حذف کر دی جائے گی۔",
+      "title": "نئی چیٹ شروع کریں"
+    },
+    "subtitle": "آپ کا ڈیجیٹل تلاش کا معاون",
+    "typing": "ٹائپ کر رہا ہے…",
+    "unread_few": "{{count}} نہ پڑھے گئے چیٹ پیغامات",
+    "unread_many": "{{count}} نہ پڑھے گئے چیٹ پیغامات",
+    "unread_one": "1 نہ پڑھا گیا چیٹ پیغام",
+    "unread_other": "{{count}} نہ پڑھے گئے چیٹ پیغامات",
+    "unread_two": "{{count}} نہ پڑھے گئے چیٹ پیغامات",
+    "welcome": {
+      "description": "میں <strong>{{name}}</strong> ہوں، آپ کا ڈیجیٹل تلاش کا معاون۔ بلا جھجھک مجھ سے اپنا سوال پوچھیں۔",
+      "title": "ہیلو!"
+    }
+  },
+  "common": {
+    "a11y": {
+      "skipToContent": "براہ راست مواد پر جائیں"
+    },
+    "actions": {
+      "back": "واپس",
+      "cancel": "منسوخ کریں",
+      "clearInput": "اندراج صاف کریں",
+      "close": "بند کریں",
+      "copy": "کاپی کریں",
+      "goToPage": "صفحہ {{number}} پر جائیں",
+      "hideFilters": "فلٹرز چھپائیں",
+      "minimize": "چھوٹا کریں",
+      "next": "آگے بڑھیں",
+      "ok": "ٹھیک ہے",
+      "open": "کھولیں",
+      "openExternal": "بیرونی طور پر کھولیں",
+      "previous": "پچھلا",
+      "send": "بھیجیں",
+      "showFilters": "فلٹرز دکھائیں",
+      "showLess": "کم دکھائیں",
+      "showMore": "مزید دکھائیں",
+      "skip": "چھوڑ دیں",
+      "view": "دیکھیں"
+    },
+    "contacts": {
+      "address": {
+        "copy": "پتہ کاپی کریں",
+        "title": "پتہ"
+      },
+      "email": "ای میل",
+      "phone": {
+        "mobile": "موبائل نمبر",
+        "title": "فون نمبر"
+      },
+      "title": "رابطے",
+      "website": "ویب سائٹ"
+    },
+    "labels": {
+      "description": "تفصیل",
+      "getOnPlayStore": "ابھی حاصل کریں — گوگل پلے اسٹور پر",
+      "menu": "مینیو"
+    },
+    "meta": {
+      "description": "{{appName}} جرمنی کے لیے آپ کی ڈیجیٹل رہنما ہے۔ مقامی معلومات، تقریبات اور رہنمائی حاصل کریں۔ ہمیشہ اپ ٹو ڈیٹ اور آپ کی اپنی زبان میں۔"
+    },
+    "privacy": {
+      "confirmation": "میں نے <Link>رازداری کی پالیسی</Link> پڑھ لی ہے اور اپنے ڈیٹا کے استعمال اور محفوظ کیے جانے سے متفق ہوں۔",
+      "required": "براہ کرم رازداری کی پالیسی کو قبول کریں۔",
+      "title": "رازداری کی پالیسی"
+    },
+    "state": {
+      "copied": "کاپی ہو گیا",
+      "disabled": "غیر فعال",
+      "enabled": "فعال",
+      "loading": "لوڈ ہو رہا ہے…",
+      "optional": "اختیاری",
+      "updatedAt": "آخری اپ ڈیٹ: {{date}}"
+    }
+  },
+  "error": {
+    "forbidden": "آپ کو اس خطے تک رسائی حاصل نہیں ہے۔",
+    "networkConnectionFailed": "سرور سے رابطہ قائم نہیں ہو سکا۔",
+    "networkRequestFailed": "درخواست پر کارروائی نہیں کی جا سکی۔",
+    "noSuitableAppInstalled": "کوئی مناسب ایپ انسٹال نہیں ہے۔",
+    "nothingFound": "کوئی نتائج نہیں ملے۔",
+    "pageNotFound": "یہ صفحہ نہیں مل سکا۔",
+    "permissionRequired": "اجازت درکار ہے",
+    "rateLimited": "آپ نے بہت زیادہ درخواستیں بھیجی ہیں۔ براہ کرم کچھ دیر انتظار کریں۔",
+    "responseMappingFailed": "سرور کے جواب پر کارروائی نہیں کی جا سکی۔",
+    "title": "خرابی",
+    "tryAgain": "دوبارہ کوشش کریں",
+    "unknownError": "ایک نامعلوم خرابی پیش آگئی ہے۔"
+  },
+  "events": {
+    "dateGroups": {
+      "further": "مزید",
+      "nextDays": "اگلے {{days}} دن",
+      "today": "آج",
+      "tomorrow": "کل"
+    },
+    "error": {
+      "notFound": "یہ تقریب نہیں ملی۔",
+      "nothingFound": "کوئی تقریب نہیں ملی۔"
+    },
+    "export": {
+      "addToCalendar": "کیلنڈر میں شامل کریں",
+      "added": "کیلنڈر میں شامل کر دیا گیا",
+      "allRecurrences": "یہ اور مستقبل کی تمام تقریبات",
+      "calendar": "کیلنڈر",
+      "download": "ایکسپورٹ کریں",
+      "error": {
+        "forbidden": "کیلنڈر تک رسائی کی اجازت نہیں ہے۔",
+        "nothingFound": "کوئی مماثل کیلنڈر نہیں ملا"
+      },
+      "thisRecurrence": "صرف یہ تقریب"
+    },
+    "filter": {
+      "error": {
+        "endBeforeStart": "شروع کی تاریخ اختتامی تاریخ سے پہلے ہونی چاہیے۔",
+        "invalidDate": "غلط تاریخ"
+      },
+      "from": "از / منجانب",
+      "reset": "فلٹر دوبارہ ترتیب دیں: {{filter}}",
+      "selectEnd": "کیلنڈر سے اختتامی تاریخ منتخب کریں",
+      "selectStart": "کیلنڈر میں آغاز کی تاریخ منتخب کریں",
+      "to": "تا"
+    },
+    "onlineMeeting": "آن لائن میٹنگ",
+    "recurrence": {
+      "furtherDates": "دیگر تاریخیں",
+      "recurring": "تکرار ہونے والا",
+      "untilDate": "{{date}} تک"
+    },
+    "title": "تقریبات"
+  },
+  "feedback": {
+    "comment": {
+      "description": "ہمیں اپنی رائے سے آگاہ کریں! ہم مثبت اور منفی دونوں آراء کی قدر کرتے ہیں، کیونکہ یہ {{appName}} کو مزید بہتر بنانے میں ہماری مدد کرتی ہیں۔",
+      "title": "تبصرہ"
+    },
+    "contactEmail": "پوچھ گچھ کے لیے ای میل",
+    "description": "ریٹنگ منتخب کریں اور/یا تبصرہ لکھیں۔",
+    "give": "رائے دیں",
+    "rating": {
+      "notUseful": "مفید نہیں",
+      "useful": "مفید"
+    },
+    "required": "رائے بھیجنے کے لیے برائے مہربانی کوئی ری ایکشن منتخب کریں یا تبصرہ لکھیں۔",
+    "search": {
+      "checkQuery": "اپنے تلاش کے الفاظ چیک کریں یا منتخب کردہ زبان تبدیل کریں۔",
+      "informationMissing": "کیا یہاں معلومات کی کمی ہے؟",
+      "informationNotFound": "جو ڈھونڈ رہے تھے وہ نہیں ملا؟",
+      "noResultsInUserAndSourceLanguage": "معذرت، آپ کی زبان یا جرمن میں کوئی متعلقہ نتائج نہیں ملے۔",
+      "noResultsInUserLanguage": "معذرت، آپ کی زبان میں کوئی متعلقہ نتائج نہیں ملے۔",
+      "searchTermDescription": "درج ذیل تلاش کے لیے کوئی نتیجہ نہیں مل سکا:",
+      "wantedInformation": "کون سی معلومات موجود نہیں ہیں؟"
+    },
+    "thanks": {
+      "description": "آپ کی رائے کامیابی کے ساتھ بھیج دی گئی ہے۔",
+      "title": "آپ کے فیڈ بیک کا شکریہ۔"
+    },
+    "title": "رائے (فیڈ بیک)"
+  },
+  "intro": {
+    "slides": {
+      "languageChange": {
+        "description": "آپ اوپر مینو سے {{appName}} کی زبان تبدیل کر سکتے ہیں۔"
+      },
+      "news": {
+        "description": "آپ کے قرب و جوار میں کیا نیا ہے؟ {{appName}} میں جانیے۔",
+        "title": "تازہ ترین معلومات"
+      },
+      "offline": {
+        "description": "کیا آپ کے پاس ہر وقت انٹرنیٹ نہیں ہوتا؟ کوئی مسئلہ نہیں۔ آپ {{appName}} کو انٹرنیٹ کے بغیر بھی استعمال کر سکتے ہیں۔",
+        "title": "آف لائن بھی کام کرتا ہے"
+      },
+      "places": {
+        "description": "نقشے پر آپ اپنے قریبی مقامات تلاش کر سکتے ہیں، مثال کے طور پر زبان کے کورسز کے مراکز۔",
+        "title": "آپ کے قریب دستیاب سہولیات"
+      },
+      "search": {
+        "description": "آپ مینو میں اوپر دائیں جانب موجود سرچ کے ذریعے مطلوبہ معلومات آسانی سے تلاش کر سکتے ہیں۔",
+        "title": "آسان تلاش"
+      }
+    },
+    "welcome": {
+      "description": "{{appName}} میں آپ اپنی مادری زبان میں جوابات اور مفید معلومات حاصل کر سکتے ہیں۔ جیسے کہ: مجھے مدد کہاں مل سکتی ہے؟ میں کب کام کر سکتا/سکتی ہوں؟",
+      "title": "{{appName}} میں خوش آمدید"
+    }
+  },
+  "ios": {
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} تقاریب شامل کرنے کے لیے آپ کے کیلنڈر تک رسائی حاصل کرنا چاہتا ہے۔",
+    "NSCalendarsUsageDescription": "{{appName}} تقاریب شامل کرنے کے لیے آپ کے کیلنڈر تک رسائی حاصل کرنا چاہتا ہے۔",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لیے {{appName}} کو لوکیشن تک رسائی درکار ہے۔",
+    "NSLocationWhenInUseUsageDescription": "قریبی مقامات تلاش کرنے کے لیے {{appName}} کو لوکیشن تک رسائی درکار ہے۔",
+    "NSPhotoLibraryAddUsageDescription": "تصاویر محفوظ کرنے کے لیے، {{appName}} کو گیلری تک رسائی کی ضرورت ہے۔"
+  },
+  "languages": {
+    "change": "زبان تبدیل کریں",
+    "changed": "زبان تبدیل کر کے {{languageName}} کر دی گئی ہے",
+    "error": {
+      "noTranslation": "کوئی ترجمہ دستیاب نہیں ہے",
+      "notFound": {
+        "description": "یہ صفحہ ابھی تمام زبانوں میں دستیاب نہیں ہے۔ ہم مسلسل نئی زبانیں شامل کر رہے ہیں۔ آپ <Link>فیڈ بیک</Link> کے ذریعے اپنی زبان کی درخواست کر سکتے ہیں۔",
+        "question": "کیا مطلوبہ زبان نہیں ملی؟",
+        "title": "یہ زبان نہیں مل سکی۔"
+      }
+    },
+    "search": "زبان تلاش کریں"
+  },
+  "malteHelpForm": {
+    "contactPerson": "رابطہ کار شخص:",
+    "contactPersonAnyGender": "رابطہ کار شخص کی جنس سے کوئی فرق نہیں پڑتا",
+    "contactPersonGenderFemale": "میں چاہوں گا/گی کہ مجھ سے کوئی خاتون رابطہ کرے",
+    "contactPersonGenderMale": "میں چاہوں گا/گی کہ مجھ سے کوئی مرد رابطہ کرے",
+    "contactReason": "آپ کا مسئلہ / مدعا:",
+    "eMail": "ای میل",
+    "howToBeContacted": "مجھ سے اس طرح رابطہ کیا جائے:",
+    "invalidEmailAddress": "فراہم کردہ ای میل ایڈریس درست نہیں ہے۔",
+    "maxCharacters": "زیادہ سے زیادہ {{numberOfCharacters}} حروف",
+    "name": "خاندانی نام، ذاتی نام",
+    "personally": "ذاتی طور پر",
+    "responseHint": "جواب موصول ہونے میں چند کاروباری دن لگ سکتے ہیں۔ ہم آپ کی درخواست کو جلد از جلد نمٹانے کی پوری کوشش کریں گے۔",
+    "roomNumber": "کمرہ نمبر",
+    "securityNote": "آپ کا تحفظ ہماری اولین ترجیح ہے۔ آپ کے ڈیٹا کو انتہائی رازداری کے ساتھ برتا جاتا ہے تاکہ آپ کی پرائیویسی ہر وقت برقرار رہے۔",
+    "submit": "فارم جمع کروائیں",
+    "submitFailed": "فارم ارسال نہیں کیا جا سکا",
+    "submitFailedReasoning": "براہ کرم مستحکم انٹرنیٹ کنکشن یقینی بنائیں اور دوبارہ کوشش کریں۔",
+    "submitSuccessful": "فارم کامیابی کے ساتھ بھیج دیا گیا ہے",
+    "supportNote": "ہم چاہتے ہیں کہ جب بھی آپ کو کوئی مسئلہ یا سوال درپیش ہو تو آپ خود کو محفوظ اور پراعتماد محسوس کریں۔ درج ذیل رابطہ فارم کے ذریعے آپ ہمارے متعلقہ نمائندوں سے رابطہ کر سکتے ہیں۔ آپ اپنے معاملے کی نوعیت بتا سکتے ہیں اور رابطے کے مختلف ذرائع میں سے انتخاب کر سکتے ہیں۔",
+    "telephone": "ٹیلی فون",
+    "telephoneNumber": "فون نمبر"
+  },
+  "news": {
+    "error": {
+      "notFound": "یہ پیغام نہیں ملا۔",
+      "nothingFound": "کوئی پیغامات نہیں ملے۔"
+    },
+    "sources": {
+      "all": "تمام پیغامات",
+      "allShort": "سب",
+      "local": "مقامی خبریں",
+      "localShort": "مقامی",
+      "national": "قومی خبریں",
+      "nationalShort": "قومی"
+    },
+    "title": "پیغامات"
+  },
+  "places": {
+    "accessible": "معذور افراد کے لیے سازگار",
+    "distance": "{{distance}} کلومیٹر دور",
+    "error": {
+      "notFound": "یہ مقام نہیں ملا۔",
+      "nothingFound": "کوئی مقام نہیں ملا۔"
+    },
+    "filter": {
+      "adjust": "مقامات فلٹر کریں",
+      "alphabet": "A-Z",
+      "categories": "زمرہ جات",
+      "onlyOpen": "صرف وہ مقامات دکھائیں جو اس وقت کھلے ہیں",
+      "placeCount_few": "{{count}} مقامات",
+      "placeCount_many": "{{count}} مقامات",
+      "placeCount_one": "1 مقام",
+      "placeCount_other": "{{count}} مقامات",
+      "placeCount_two": "{{count}} مقامات",
+      "placeCount_zero": "0 مقامات",
+      "show_few": "{{count}} مقامات دکھائیں",
+      "show_many": "{{count}} مقامات دکھائیں",
+      "show_one": "1 مقام دکھائیں",
+      "show_other": "{{count}} مقامات دکھائیں",
+      "show_two": "{{count}} مقامات دکھائیں",
+      "show_zero": "0 مقامات ملے"
+    },
+    "hours": {
+      "allDay": "سارا دن",
+      "appointment": {
+        "make": {
+          "description": "<Link>ویب سائٹ</Link> کے ذریعے یا فون پر وقت طے کریں۔",
+          "title": "وقت طے کریں"
+        },
+        "required": "پیشگی وقت لینا ضروری ہے"
+      },
+      "closed": "بند ہے",
+      "open": "کھلا ہے",
+      "temporarilyClosed": "عارضی طور پر بند ہے",
+      "title": "کھلنے کے اوقات"
+    },
+    "notAccessible": "معذور افراد کے لیے قابل رسائی نہیں",
+    "title": "نقشہ",
+    "weekdays": {
+      "dienstag": "منگل",
+      "donnerstag": "جمعرات",
+      "freitag": "جمعہ",
+      "mittwoch": "بدھ",
+      "montag": "پیر",
+      "samstag": "ہفتہ",
+      "sonntag": "اتوار"
+    },
+    "zoom": {
+      "in": "بڑا کریں",
+      "out": "چھوٹا کریں"
+    }
+  },
+  "regions": {
+    "change": "علاقہ تبدیل کریں",
+    "nearby": {
+      "nothingFound": "قریب میں کوئی علاقہ موجود نہیں ہے۔",
+      "refresh": "قریبی علاقے ریفریش کریں"
+    },
+    "notFound": "یہ علاقہ نہیں ملا۔",
+    "search": {
+      "description": "اپنا علاقہ یا قریبی بڑا شہر منتخب کریں، مثلاً {{exampleRegion}}",
+      "region": "علاقہ تلاش کریں"
+    },
+    "title": "علاقے",
+    "welcome": {
+      "description": "آپ کی تمام تر درکار معلومات کے لیے آپ کا ڈیجیٹل رہنما۔ براہ کرم اپنا علاقہ منتخب کریں۔",
+      "title": "{{appName}} میں خوش آمدید۔"
+    }
+  },
+  "search": {
+    "resultCount_few": "{{count}} تلاش کے نتائج",
+    "resultCount_many": "{{count}} تلاش کے نتائج",
+    "resultCount_one": "1 تلاش کا نتیجہ",
+    "resultCount_other": "{{count}} تلاش کے نتائج",
+    "resultCount_two": "{{count}} تلاش کے نتائج",
+    "resultCount_zero": "0 تلاش کے نتائج",
+    "searchContent": "مواد تلاش کریں",
+    "title": "تلاش کریں",
+    "viewResult": "تلاش کا نتیجہ کھولیں"
+  },
+  "settings": {
+    "contrast": {
+      "description": "کنٹراسٹ موڈ سے پڑھنے میں آسانی ہوتی ہے",
+      "title": "ہائی کنٹراسٹ (بیٹا)"
+    },
+    "error": {
+      "save": "ترتیبات محفوظ نہیں کی جا سکیں"
+    },
+    "externalSources": {
+      "allowed": "اس عنصر میں بیرونی ذریعے کا مواد شامل ہے۔ آپ ترتیبات میں اس قسم کے مواد کو بلاک کر سکتے ہیں۔",
+      "blocked": "اس ذریعے سے بیرونی مواد کو بلاک کر دیا گیا ہے۔ آپ ترتیبات میں اس ذریعے کی اجازت دے سکتے ہیں۔",
+      "description": "آپ بیرونی ذرائع سے مواد دکھانے کی مستقل طور پر اجازت دے سکتے ہیں۔ آپ یہاں کسی بھی وقت اپنی رضامندی واپس لے سکتے ہیں۔",
+      "descriptionShort": "متعین کریں کہ کن بیرونی ذرائع کی اجازت دی جائے۔",
+      "nothingFound": "کوئی بیرونی ذرائع دستیاب نہیں ہیں۔",
+      "optIn": "میں اس بیرونی ذریعہ کا مواد دکھائے جانے پر رضامند ہوں۔",
+      "source": "{{source}} سے مواد کی اجازت دیں",
+      "title": "بیرونی ذرائع"
+    },
+    "pushNotifications": {
+      "description": "تازہ ترین مقامی خبروں کے لیے پش نوٹیفکیشنز حاصل کریں",
+      "title": "پش نوٹیفکیشنز"
+    },
+    "sentry": {
+      "description": "کریش رپورٹس خودکار طریقے سے بھیج کر {{appName}} کو بہتر بنائیں",
+      "title": "ایپ کا استحکام"
+    },
+    "title": "ترتیبات"
+  },
+  "share": {
+    "copyLink": "لنک کاپی کریں",
+    "message": "ابھی ملا: {{message}}",
+    "qr": {
+      "description": "کسی دوسرے آلے پر QR کوڈ اسکین کر کے آسانی سے یہ صفحہ شیئر کریں۔",
+      "label": "QR کوڈ",
+      "title": "QR کوڈ کے ذریعے شیئر کریں"
+    },
+    "title": "شیئر کریں"
+  },
+  "suggestToRegion": {
+    "description": "کیا آپ کو Integreat ایپ کا تصور پسند آیا اور آپ کا خیال ہے کہ آپ کا شہر، ضلع یا بلدیہ بھی اس ڈیجیٹل حل سے فائدہ اٹھا سکتی ہے؟ تو آپ یہاں آسانی سے عملی قدم اٹھا سکتے ہیں۔",
+    "regionNotFoundCta": "کیا آپ کا علاقہ نہیں ملا؟ ابھی عملی قدم اٹھائیں!",
+    "steps": {
+      "copyText": "یہ متن کاپی کریں",
+      "fillPlaceholders": "[ ] پلیس ہولڈرز میں اپنی تفصیلات درج کریں",
+      "getEmail": "اپنے علاقے کا ای میل پتہ معلوم کریں",
+      "send": "اپنے علاقے کو ای میل بھیجیں"
+    },
+    "title": "اپنے علاقے کے لیے {{appName}} تجویز کریں",
+    "whatToDo": "آپ یہ کر سکتے ہیں:"
+  },
+  "tour": {
+    "additionalFeatures": {
+      "description": "یہاں دیگر خصوصیات کا استعمال کریں جیسے <strong>$t(categories:pdf.create)</strong>، <strong>$t(tts:title)</strong>، <strong>$t(share:title)</strong> اور <strong>{{additionalFeature}}</strong>۔",
+      "title": "دیگر خصوصیات"
+    },
+    "categories": {
+      "description": "<strong>رہائش</strong>، <strong>تعلیم</strong>، <strong>روزگار</strong> اور دیگر موضوعات پر معلومات حاصل کریں۔",
+      "title": "موضوعات دریافت کریں"
+    },
+    "chat": {
+      "description": "یہاں اپنے سوالات پوچھیں اور جلد مناسب جوابات حاصل کریں۔"
+    },
+    "finish": {
+      "description": "اب آپ اہم خصوصیات سے واقف ہو چکے ہیں۔ {{appName}} کے ساتھ آپ کا وقت اچھا گزرے!",
+      "title": "مکمل ہو گیا!"
+    },
+    "navigation": {
+      "description": "یہاں <strong>$t(categories:title)</strong>، <strong>$t(places:title)</strong>، <strong>$t(news:title)</strong> اور <strong>$t(events:title)</strong> کے درمیان سوئچ کریں۔",
+      "title": "نیویگیشن"
+    },
+    "progress": "مرحلہ {{current}} از {{total}}",
+    "regionChange": {
+      "description": "مقامی معلومات حاصل کرنے کے لیے یہاں اپنا <strong>علاقہ</strong> منتخب کریں۔"
+    },
+    "searchAndLanguage": {
+      "description": "مقامی معلومات، تقریبات اور مقامات <strong>تلاش</strong> کریں یا <strong>زبان</strong> تبدیل کریں۔",
+      "title": "تلاش اور زبان"
+    },
+    "start": "ٹور شروع کریں",
+    "title": "ایپ ٹور",
+    "welcome": "یہ مختصر ٹور آپ کو ایپ کی اہم ترین خصوصیات سے متعارف کرائے گا۔"
+  },
+  "tts": {
+    "error": {
+      "languageNotSupported": "یہ زبان تعاون یافتہ نہیں ہے۔",
+      "noVoices": {
+        "description": "کوئی آواز نہیں ملی۔ ٹیکسٹ ٹو اسپیچ (پڑھ کر سنانے کی) سہولت استعمال کرنے کے لیے آواز انسٹال ہونا ضروری ہے۔ براہ کرم اپنے آپریٹنگ سسٹم کے لیے دی گئی ہدایات پر عمل کریں۔",
+        "title": "کوئی آواز انسٹال نہیں ہے"
+      },
+      "nothingToRead": {
+        "description": "اس صفحے پر پڑھنے کے لیے کچھ موجود نہیں ہے۔",
+        "title": "پڑھنے کے لیے کچھ نہیں ہے"
+      }
+    },
+    "pause": "روکیں",
+    "play": "چلائیں",
+    "title": "پڑھ کر سنائیں"
+  },
+  "userLocation": {
+    "loading": "مقام کا تعین کیا جا رہا ہے…",
+    "locationAccessRequired": "قریبی علاقے دیکھنے کے لیے مقام (لوکیشن) تک رسائی فعال ہونا ضروری ہے۔",
+    "nearby": "آپ کے قریب",
+    "noPermission": "مقام تک رسائی درکار ہے",
+    "notAvailable": "مقام کی خدمات (لوکیشن سروسز) غیر فعال ہیں",
+    "show": "اپنا مقام دکھائیں",
+    "timeout": "مقام نہیں ملا"
+  }
+}

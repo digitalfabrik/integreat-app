@@ -1,0 +1,468 @@
+{
+  "about": {
+    "aboutUs": "Om os",
+    "accessibility": "Tilgængelighed",
+    "imprint": "Kolofon",
+    "legal": "Juridiske oplysninger",
+    "licenses": {
+      "license": "Licens: {{license}}",
+      "title": "Open source-licenser",
+      "version": "Version: {{version}}"
+    }
+  },
+  "categories": {
+    "organization": {
+      "description": "Find mere information om {{organization}} på <Link>{{domain}}</Link>.",
+      "title": "Indholdet på denne side leveres af {{organization}}."
+    },
+    "pdf": {
+      "create": "Opret PDF",
+      "disabled": "Det er i øjeblikket ikke muligt at oprette en PDF på dette sprog."
+    },
+    "title": "Lokale oplysninger",
+    "titleShort": "Information"
+  },
+  "chat": {
+    "bot": "Chatbot",
+    "consultant": "Rådgiver",
+    "initial": {
+      "description": "Du kan spørge om lokale oplysninger eller din personlige situation.",
+      "title": "Indtast venligst dit spørgsmål i tekstfeltet."
+    },
+    "inputPlaceholder": "Indtast venligst dit spørgsmål…",
+    "startNew": {
+      "description": "Er du sikker på, at du vil starte en ny chat? Den aktuelle chathistorik slettes.",
+      "title": "Start ny chat"
+    },
+    "subtitle": "Din digitale søgeassistent",
+    "typing": "Skriver…",
+    "unread_few": "{{count}} ulæste chatbeskeder",
+    "unread_many": "{{count}} ulæste chatbeskeder",
+    "unread_one": "1 ulæst chatbesked",
+    "unread_other": "{{count}} ulæste chatbeskeder",
+    "unread_two": "{{count}} ulæste chatbeskeder",
+    "welcome": {
+      "description": "Jeg er <strong>{{name}}</strong>, din digitale søgeassistent. Du er velkommen til at stille mig et spørgsmål.",
+      "title": "Hej!"
+    }
+  },
+  "common": {
+    "a11y": {
+      "skipToContent": "Gå til indhold"
+    },
+    "actions": {
+      "back": "Tilbage",
+      "cancel": "Annuller",
+      "clearInput": "Ryd felt",
+      "close": "Luk",
+      "copy": "Kopiér",
+      "goToPage": "Til side {{number}}",
+      "hideFilters": "Skjul filtre",
+      "minimize": "Minimer",
+      "next": "Næste",
+      "ok": "OK",
+      "open": "Åbn",
+      "openExternal": "Åbn eksternt",
+      "previous": "Forrige",
+      "send": "Send",
+      "showFilters": "Vis filtre",
+      "showLess": "Vis færre",
+      "showMore": "Vis mere",
+      "skip": "Spring over",
+      "view": "Vis"
+    },
+    "contacts": {
+      "address": {
+        "copy": "Kopiér adresse",
+        "title": "Adresse"
+      },
+      "email": "E-mail",
+      "phone": {
+        "mobile": "Mobilnummer",
+        "title": "Telefonnummer"
+      },
+      "title": "Kontakter",
+      "website": "Hjemmeside"
+    },
+    "labels": {
+      "description": "Beskrivelse",
+      "getOnPlayStore": "HENT DEN I — Google Play Butik",
+      "menu": "Menu"
+    },
+    "meta": {
+      "description": "{{appName}} er din digitale guide til Tyskland. Find lokale oplysninger, arrangementer og rådgivning. Altid opdateret og på dit sprog."
+    },
+    "privacy": {
+      "confirmation": "Jeg har læst <Link>privatlivspolitikken</Link> og accepterer behandlingen og opbevaringen af mine data.",
+      "required": "Acceptér venligst privatlivspolitikken.",
+      "title": "Privatlivspolitik"
+    },
+    "state": {
+      "copied": "Kopieret",
+      "disabled": "deaktiveret",
+      "enabled": "aktiveret",
+      "loading": "Indlæser…",
+      "optional": "valgfri",
+      "updatedAt": "Sidst opdateret: {{date}}"
+    }
+  },
+  "error": {
+    "forbidden": "Du har ikke adgang til denne region.",
+    "networkConnectionFailed": "Forbindelsen til serveren mislykkedes.",
+    "networkRequestFailed": "Anmodningen kunne ikke behandles.",
+    "noSuitableAppInstalled": "Ingen passende app installeret.",
+    "nothingFound": "Ingen resultater fundet.",
+    "pageNotFound": "Denne side blev ikke fundet.",
+    "permissionRequired": "Tilladelse påkrævet",
+    "rateLimited": "Du har sendt for mange anmodninger. Vent et øjeblik.",
+    "responseMappingFailed": "Serverens svar kunne ikke behandles.",
+    "title": "Fejl",
+    "tryAgain": "Prøv igen",
+    "unknownError": "Der opstod en ukendt fejl."
+  },
+  "events": {
+    "dateGroups": {
+      "further": "Flere",
+      "nextDays": "Næste {{days}} dage",
+      "today": "I dag",
+      "tomorrow": "I morgen"
+    },
+    "error": {
+      "notFound": "Begivenheden blev ikke fundet.",
+      "nothingFound": "Ingen begivenheder fundet."
+    },
+    "export": {
+      "addToCalendar": "Føj til kalender",
+      "added": "Føjet til kalender",
+      "allRecurrences": "Denne og alle fremtidige begivenheder",
+      "calendar": "Kalender",
+      "download": "Eksportér",
+      "error": {
+        "forbidden": "Der er ikke adgang til kalenderen.",
+        "nothingFound": "Ingen matchende kalender"
+      },
+      "thisRecurrence": "Kun denne begivenhed"
+    },
+    "filter": {
+      "error": {
+        "endBeforeStart": "Startdatoen skal ligge før slutdatoen.",
+        "invalidDate": "Ugyldig dato"
+      },
+      "from": "af",
+      "reset": "Nulstil filter: {{filter}}",
+      "selectEnd": "Vælg slutdato i kalenderen",
+      "selectStart": "Vælg startdato i kalenderen",
+      "to": "til"
+    },
+    "onlineMeeting": "Onlinemøde",
+    "recurrence": {
+      "furtherDates": "Flere datoer",
+      "recurring": "gentages",
+      "untilDate": "til {{date}}"
+    },
+    "title": "Arrangementer"
+  },
+  "feedback": {
+    "comment": {
+      "description": "Giv os din feedback! Vi værdsætter både positiv og negativ feedback, da det hjælper os med at forbedre {{appName}}.",
+      "title": "Kommentar"
+    },
+    "contactEmail": "E-mail til opfølgende spørgsmål",
+    "description": "Vælg en vurdering og/eller skriv en kommentar.",
+    "give": "Giv feedback",
+    "rating": {
+      "notUseful": "Ikke nyttig",
+      "useful": "Nyttig"
+    },
+    "required": "Vælg en reaktion eller skriv en kommentar for at kunne sende feedbacken.",
+    "search": {
+      "checkQuery": "Tjek dit søgeord, eller skift det valgte sprog.",
+      "informationMissing": "Mangler der oplysninger her?",
+      "informationNotFound": "Fandt du ikke det, du ledte efter?",
+      "noResultsInUserAndSourceLanguage": "Der blev desværre ikke fundet nogen matchende resultater på dit sprog eller på tysk.",
+      "noResultsInUserLanguage": "Der blev desværre ikke fundet nogen matchende resultater på dit sprog.",
+      "searchTermDescription": "Der blev ikke fundet nogen resultater for følgende søgeord:",
+      "wantedInformation": "Hvilke oplysninger mangler du?"
+    },
+    "thanks": {
+      "description": "Din feedback er blevet sendt.",
+      "title": "Mange tak for din feedback."
+    },
+    "title": "Feedback"
+  },
+  "intro": {
+    "slides": {
+      "languageChange": {
+        "description": "Du kan ændre sproget i {{appName}} øverst i menuen."
+      },
+      "news": {
+        "description": "Hvad sker der i dit lokalområde? Find ud af det i {{appName}}.",
+        "title": "Aktuelle oplysninger"
+      },
+      "offline": {
+        "description": "Har du ikke altid internetadgang? Intet problem. Du kan også bruge {{appName}} offline.",
+        "title": "Fungerer også offline"
+      },
+      "places": {
+        "description": "På kortet kan du finde steder i nærheden af dig, for eksempel steder med sprogkurser.",
+        "title": "Tilbud i nærheden af dig"
+      },
+      "search": {
+        "description": "Du finder hurtigt de rigtige oplysninger via søgefunktionen øverst til højre i menuen.",
+        "title": "Enkel søgning"
+      }
+    },
+    "welcome": {
+      "description": "I {{appName}} finder du svar og gode råd på dit modersmål. For eksempel: Hvor kan jeg få hjælp? Hvornår må jeg arbejde?",
+      "title": "Velkommen til {{appName}}"
+    }
+  },
+  "ios": {
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} vil gerne have adgang til din kalender for at tilføje begivenheder.",
+    "NSCalendarsUsageDescription": "{{appName}} vil gerne have adgang til din kalender for at tilføje begivenheder.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "For at finde steder i nærheden skal {{appName}} have adgang til din placering.",
+    "NSLocationWhenInUseUsageDescription": "For at finde steder i nærheden skal {{appName}} have adgang til din placering.",
+    "NSPhotoLibraryAddUsageDescription": "For at gemme billeder skal {{appName}} have adgang til galleriet."
+  },
+  "languages": {
+    "change": "Skift sprog",
+    "changed": "Sproget er ændret til {{languageName}}",
+    "error": {
+      "noTranslation": "Ingen oversættelse tilgængelig",
+      "notFound": {
+        "description": "Denne side er endnu ikke tilgængelig på alle sprog. Vi arbejder løbende på at tilføje flere sprog. Du kan anmode om dit sprog via <Link>feedback</Link>-funktionen.",
+        "question": "Kan du ikke finde dit sprog?",
+        "title": "Dette sprog blev ikke fundet."
+      }
+    },
+    "search": "Søg efter sprog"
+  },
+  "malteHelpForm": {
+    "contactPerson": "Kontaktperson:",
+    "contactPersonAnyGender": "Kontaktpersonens køn er underordnet",
+    "contactPersonGenderFemale": "Jeg vil gerne kontaktes af en kvinde",
+    "contactPersonGenderMale": "Jeg vil gerne kontaktes af en mand",
+    "contactReason": "Din henvendelse:",
+    "eMail": "E-mail",
+    "howToBeContacted": "Jeg vil gerne kontaktes via:",
+    "invalidEmailAddress": "Den indtastede e-mailadresse er ugyldig.",
+    "maxCharacters": "maks. {{numberOfCharacters}} tegn",
+    "name": "Efternavn, fornavn",
+    "personally": "Personlig",
+    "responseHint": "Der kan gå et par hverdage, før du modtager et svar. Vi bestræber os på at behandle din henvendelse så hurtigt som muligt.",
+    "roomNumber": "Værelsesnummer",
+    "securityNote": "Din sikkerhed er vores højeste prioritet. Dine data behandles fortroligt, så dit privatliv til enhver tid er beskyttet.",
+    "submit": "Send formular",
+    "submitFailed": "Formularen kunne ikke sendes",
+    "submitFailedReasoning": "Sørg for en stabil internetforbindelse, og prøv igen.",
+    "submitSuccessful": "Formularen er sendt",
+    "supportNote": "Vi ønsker, at du føler dig tryg og støttet, hvis du har problemer eller spørgsmål. Via nedenstående kontaktformular har du mulighed for at komme i kontakt med en kontaktperson. Du kan angive, hvad din henvendelse drejer sig om, og vælge mellem forskellige kontaktmuligheder.",
+    "telephone": "Telefon",
+    "telephoneNumber": "Tlf.nr."
+  },
+  "news": {
+    "error": {
+      "notFound": "Denne besked blev ikke fundet.",
+      "nothingFound": "Ingen nyheder fundet."
+    },
+    "sources": {
+      "all": "Alle nyheder",
+      "allShort": "Alle",
+      "local": "Lokale nyheder",
+      "localShort": "Lokal",
+      "national": "Nationale nyheder",
+      "nationalShort": "National"
+    },
+    "title": "Nyheder"
+  },
+  "places": {
+    "accessible": "Handicapvenlig",
+    "distance": "{{distance}} km væk",
+    "error": {
+      "notFound": "Dette sted blev ikke fundet.",
+      "nothingFound": "Ingen steder fundet."
+    },
+    "filter": {
+      "adjust": "Filtrer steder",
+      "alphabet": "A-Å",
+      "categories": "Kategorier",
+      "onlyOpen": "vis kun steder, der har åbent nu",
+      "placeCount_few": "{{count}} steder",
+      "placeCount_many": "{{count}} steder",
+      "placeCount_one": "1 sted",
+      "placeCount_other": "{{count}} steder",
+      "placeCount_two": "{{count}} steder",
+      "placeCount_zero": "0 steder",
+      "show_few": "Vis {{count}} steder",
+      "show_many": "Vis {{count}} steder",
+      "show_one": "Vis 1 sted",
+      "show_other": "Vis {{count}} steder",
+      "show_two": "Vis {{count}} steder",
+      "show_zero": "0 steder fundet"
+    },
+    "hours": {
+      "allDay": "hele dagen",
+      "appointment": {
+        "make": {
+          "description": "Aftal en tid via <Link>hjemmesiden</Link> eller telefonisk.",
+          "title": "Bestil tid"
+        },
+        "required": "Tidsbestilling påkrævet"
+      },
+      "closed": "Lukket",
+      "open": "Åbent",
+      "temporarilyClosed": "Midlertidigt lukket",
+      "title": "Åbningstider"
+    },
+    "notAccessible": "Ikke handicapvenlig",
+    "title": "Kort",
+    "weekdays": {
+      "dienstag": "Tirsdag",
+      "donnerstag": "Torsdag",
+      "freitag": "Fredag",
+      "mittwoch": "Onsdag",
+      "montag": "Mandag",
+      "samstag": "Lørdag",
+      "sonntag": "Søndag"
+    },
+    "zoom": {
+      "in": "Zoom ind",
+      "out": "Zoom ud"
+    }
+  },
+  "regions": {
+    "change": "Skift region",
+    "nearby": {
+      "nothingFound": "Ingen regioner i nærheden.",
+      "refresh": "Opdater regioner i nærheden"
+    },
+    "notFound": "Denne region blev ikke fundet.",
+    "search": {
+      "description": "Vælg din region eller den nærmeste større by, f.eks. {{exampleRegion}}",
+      "region": "Søg efter region"
+    },
+    "title": "Regioner",
+    "welcome": {
+      "description": "Din digitale guide til alle de oplysninger, du har brug for. Vælg venligst din region.",
+      "title": "Velkommen til {{appName}}."
+    }
+  },
+  "search": {
+    "resultCount_few": "{{count}} søgeresultater",
+    "resultCount_many": "{{count}} søgeresultater",
+    "resultCount_one": "1 søgeresultat",
+    "resultCount_other": "{{count}} søgeresultater",
+    "resultCount_two": "{{count}} søgeresultater",
+    "resultCount_zero": "0 søgeresultater",
+    "searchContent": "Søg efter indhold",
+    "title": "Søg",
+    "viewResult": "Åbn søgeresultat"
+  },
+  "settings": {
+    "contrast": {
+      "description": "Kontrasttilstand forbedrer læsbarheden",
+      "title": "Høj kontrast (beta)"
+    },
+    "error": {
+      "save": "Indstillingerne kunne ikke gemmes"
+    },
+    "externalSources": {
+      "allowed": "Dette element indeholder indhold fra denne eksterne kilde. Du kan blokere den slags indhold under Indstillinger.",
+      "blocked": "Eksternt indhold fra denne kilde er blevet blokeret. Du kan tillade denne kilde under Indstillinger.",
+      "description": "Du kan give permanent tilladelse til visning af indhold fra eksterne kilder. Du kan til enhver tid tilbagekalde dit samtykke her.",
+      "descriptionShort": "Vælg, hvilke eksterne kilder der skal tillades.",
+      "nothingFound": "Ingen eksterne kilder tilgængelige.",
+      "optIn": "Jeg accepterer, at indhold fra denne eksterne kilde vises for mig.",
+      "source": "Tillad indhold fra {{source}}",
+      "title": "Eksterne kilder"
+    },
+    "pushNotifications": {
+      "description": "Modtag push-notifikationer om de seneste lokale nyheder",
+      "title": "Push-notifikationer"
+    },
+    "sentry": {
+      "description": "Gør {{appName}} bedre ved automatisk at sende fejlrapporter",
+      "title": "App-stabilitet"
+    },
+    "title": "Indstillinger"
+  },
+  "share": {
+    "copyLink": "Kopiér link",
+    "message": "Lige fundet: {{message}}",
+    "qr": {
+      "description": "Del nemt denne side ved at scanne QR-koden på en anden enhed.",
+      "label": "QR-kode",
+      "title": "Del via QR-kode"
+    },
+    "title": "Del"
+  },
+  "suggestToRegion": {
+    "description": "Har konceptet bag Integreat-appen overbevist dig, og tror du, at din by, kommune eller region også kunne have gavn af denne digitale løsning? Så kan du nemt gøre en forskel her.",
+    "regionNotFoundCta": "Fandt du ikke din region? Gør en forskel nu!",
+    "steps": {
+      "copyText": "Kopiér denne tekst",
+      "fillPlaceholders": "Udfyld [ ]-pladsholderne med dine oplysninger",
+      "getEmail": "Find e-mailadressen til din region",
+      "send": "Send e-mailen til din region"
+    },
+    "title": "Foreslå {{appName}} i din region",
+    "whatToDo": "Det kan du gøre:"
+  },
+  "tour": {
+    "additionalFeatures": {
+      "description": "Brug andre funktioner her såsom <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> og <strong>{{additionalFeature}}</strong>.",
+      "title": "Flere funktioner"
+    },
+    "categories": {
+      "description": "Find information om emner som <strong>bolig</strong>, <strong>uddannelse</strong>, <strong>arbejde</strong> og meget mere.",
+      "title": "Udforsk emner"
+    },
+    "chat": {
+      "description": "Stil dine spørgsmål her og få hurtigt relevante svar."
+    },
+    "finish": {
+      "description": "Nu kender du de vigtigste funktioner. God fornøjelse med {{appName}}!",
+      "title": "Færdig!"
+    },
+    "navigation": {
+      "description": "Skift her mellem <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> og <strong>$t(events:title)</strong>.",
+      "title": "Navigation"
+    },
+    "progress": "Trin {{current}} af {{total}}",
+    "regionChange": {
+      "description": "Vælg din <strong>region</strong> her for at finde lokale oplysninger."
+    },
+    "searchAndLanguage": {
+      "description": "<strong>Søg</strong> efter lokale oplysninger, begivenheder og steder, eller skift <strong>sprog</strong>.",
+      "title": "Søgning og sprog"
+    },
+    "start": "Start rundvisning",
+    "title": "App-rundvisning",
+    "welcome": "Denne korte introduktion viser dig appens vigtigste funktioner."
+  },
+  "tts": {
+    "error": {
+      "languageNotSupported": "Sproget understøttes ikke.",
+      "noVoices": {
+        "description": "Der blev ikke fundet nogen stemme. For at kunne bruge oplæsningsfunktionen skal der være installeret en stemme. Følg venligst vejledningen for dit styresystem.",
+        "title": "Ingen stemme installeret"
+      },
+      "nothingToRead": {
+        "description": "Der er ikke noget at læse på denne side.",
+        "title": "Intet at læse"
+      }
+    },
+    "pause": "Pause",
+    "play": "Afspil",
+    "title": "Læs op"
+  },
+  "userLocation": {
+    "loading": "Finder placering…",
+    "locationAccessRequired": "Lokalitetsadgang skal være aktiveret for at vise områder i nærheden.",
+    "nearby": "I nærheden af dig",
+    "noPermission": "Lokalitetsadgang påkrævet",
+    "notAvailable": "Lokalitetstjenester er slået fra",
+    "show": "Vis min placering",
+    "timeout": "Placering ikke fundet"
+  }
+}

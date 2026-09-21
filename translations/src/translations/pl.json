@@ -1,0 +1,468 @@
+{
+  "about": {
+    "aboutUs": "O nas",
+    "accessibility": "Dostępność",
+    "imprint": "Stopka redakcyjna",
+    "legal": "Informacje prawne",
+    "licenses": {
+      "license": "Licencja: {{license}}",
+      "title": "Licencje open source",
+      "version": "Wersja: {{version}}"
+    }
+  },
+  "categories": {
+    "organization": {
+      "description": "Więcej informacji o {{organization}} znajdziesz na <Link>{{domain}}</Link>.",
+      "title": "Treści na tej stronie pochodzą od {{organization}}."
+    },
+    "pdf": {
+      "create": "Utwórz plik PDF",
+      "disabled": "Tworzenie pliku PDF w tym języku jest obecnie niemożliwe."
+    },
+    "title": "Informacje lokalne",
+    "titleShort": "Informacje"
+  },
+  "chat": {
+    "bot": "Chatbot",
+    "consultant": "Doradca/Doradczyni",
+    "initial": {
+      "description": "Możesz zapytać o lokalne informacje lub swoją sytuację osobistą.",
+      "title": "Wpisz swoje pytanie w polu tekstowym."
+    },
+    "inputPlaceholder": "Wpisz swoje pytanie…",
+    "startNew": {
+      "description": "Czy na pewno chcesz rozpocząć nowy czat? Bieżąca historia czatu zostanie usunięta.",
+      "title": "Rozpocznij nowy czat"
+    },
+    "subtitle": "Twój cyfrowy asystent wyszukiwania",
+    "typing": "Pisze…",
+    "unread_few": "{{count}} nieprzeczytanych wiadomości na czacie",
+    "unread_many": "{{count}} nieprzeczytane wiadomości na czacie",
+    "unread_one": "1 nieprzeczytana wiadomość na czacie",
+    "unread_other": "{{count}} nieprzeczytanych wiadomości na czacie",
+    "unread_two": "{{count}} nieprzeczytane wiadomości na czacie",
+    "welcome": {
+      "description": "Nazywam się <strong>{{name}}</strong> i jestem Twoim cyfrowym asystentem wyszukiwania. Śmiało zadaj mi pytanie.",
+      "title": "Cześć!"
+    }
+  },
+  "common": {
+    "a11y": {
+      "skipToContent": "Przejdź do treści"
+    },
+    "actions": {
+      "back": "Wstecz",
+      "cancel": "Anuluj",
+      "clearInput": "Wyczyść pole",
+      "close": "Zamknij",
+      "copy": "Kopiuj",
+      "goToPage": "Do strony {{number}}",
+      "hideFilters": "Ukryj filtry",
+      "minimize": "Minimalizuj",
+      "next": "Dalej",
+      "ok": "OK",
+      "open": "Otwórz",
+      "openExternal": "Otwórz zewnętrznie",
+      "previous": "Poprzedni",
+      "send": "Wyślij",
+      "showFilters": "Pokaż filtry",
+      "showLess": "Pokaż mniej",
+      "showMore": "Pokaż więcej",
+      "skip": "Pomiń",
+      "view": "Pokaż"
+    },
+    "contacts": {
+      "address": {
+        "copy": "Kopiuj adres",
+        "title": "Adres"
+      },
+      "email": "E-mail",
+      "phone": {
+        "mobile": "Numer telefonu komórkowego",
+        "title": "Numer telefonu"
+      },
+      "title": "Kontakty",
+      "website": "Strona internetowa"
+    },
+    "labels": {
+      "description": "Opis",
+      "getOnPlayStore": "POBIERZ — ze sklepu Google Play",
+      "menu": "Menu"
+    },
+    "meta": {
+      "description": "{{appName}} to Twój cyfrowy przewodnik po Niemczech. Znajdź lokalne informacje, wydarzenia i poradnictwo. Zawsze na bieżąco i w Twoim języku."
+    },
+    "privacy": {
+      "confirmation": "Przeczytałem(-am) <Link>Politykę prywatności</Link> i wyrażam zgodę na przetwarzanie oraz przechowywanie moich danych.",
+      "required": "Zaakceptuj Politykę prywatności.",
+      "title": "Polityka prywatności"
+    },
+    "state": {
+      "copied": "Skopiowano",
+      "disabled": "wyłączone",
+      "enabled": "włączone",
+      "loading": "Ładowanie…",
+      "optional": "opcjonalnie",
+      "updatedAt": "Ostatnia aktualizacja: {{date}}"
+    }
+  },
+  "error": {
+    "forbidden": "Nie masz dostępu do tego regionu.",
+    "networkConnectionFailed": "Połączenie z serwerem nie powiodło się.",
+    "networkRequestFailed": "Nie udało się przetworzyć żądania.",
+    "noSuitableAppInstalled": "Brak zainstalowanej odpowiedniej aplikacji.",
+    "nothingFound": "Brak wyników.",
+    "pageNotFound": "Nie znaleziono tej strony.",
+    "permissionRequired": "Wymagane uprawnienia",
+    "rateLimited": "Wysłano zbyt wiele żądań. Odczekaj chwilę.",
+    "responseMappingFailed": "Nie udało się przetworzyć odpowiedzi serwera.",
+    "title": "Błąd",
+    "tryAgain": "Spróbuj ponownie",
+    "unknownError": "Wystąpił nieznany błąd."
+  },
+  "events": {
+    "dateGroups": {
+      "further": "Więcej",
+      "nextDays": "Następne {{days}} dni",
+      "today": "Dzisiaj",
+      "tomorrow": "Jutro"
+    },
+    "error": {
+      "notFound": "Nie znaleziono tego wydarzenia.",
+      "nothingFound": "Nie znaleziono żadnych wydarzeń."
+    },
+    "export": {
+      "addToCalendar": "Dodaj do kalendarza",
+      "added": "Dodano do kalendarza",
+      "allRecurrences": "To i wszystkie przyszłe wydarzenia",
+      "calendar": "Kalendarz",
+      "download": "Eksportuj",
+      "error": {
+        "forbidden": "Brak dostępu do kalendarza.",
+        "nothingFound": "Brak pasującego kalendarza"
+      },
+      "thisRecurrence": "Tylko to wydarzenie"
+    },
+    "filter": {
+      "error": {
+        "endBeforeStart": "Data rozpoczęcia powinna być wcześniejsza niż data zakończenia.",
+        "invalidDate": "Nieprawidłowa data"
+      },
+      "from": "od",
+      "reset": "Zresetuj filtr: {{filter}}",
+      "selectEnd": "Wybierz datę zakończenia w kalendarzu",
+      "selectStart": "Wybierz datę początkową z kalendarza",
+      "to": "do"
+    },
+    "onlineMeeting": "Spotkanie online",
+    "recurrence": {
+      "furtherDates": "Więcej terminów",
+      "recurring": "powtarzające się",
+      "untilDate": "do {{date}}"
+    },
+    "title": "Wydarzenia"
+  },
+  "feedback": {
+    "comment": {
+      "description": "Podziel się swoją opinią! Cenimy zarówno pozytywne, jak i negatywne uwagi – każda z nich pomaga nam ulepszać aplikację {{appName}}.",
+      "title": "Komentarz"
+    },
+    "contactEmail": "Adres e-mail do kontaktu",
+    "description": "Wybierz ocenę i/lub napisz komentarz.",
+    "give": "Prześlij opinię",
+    "rating": {
+      "notUseful": "Nieprzydatne",
+      "useful": "Przydatne"
+    },
+    "required": "Wybierz reakcję lub dodaj komentarz, aby wysłać opinię.",
+    "search": {
+      "checkQuery": "Sprawdź wpisaną frazę lub zmień wybrany język.",
+      "informationMissing": "Brakuje tutaj informacji?",
+      "informationNotFound": "Nie możesz znaleźć tego, czego szukasz?",
+      "noResultsInUserAndSourceLanguage": "Niestety nie znaleziono pasujących wyników w Twoim języku ani w języku niemieckim.",
+      "noResultsInUserLanguage": "Niestety nie znaleziono pasujących wyników w Twoim języku.",
+      "searchTermDescription": "Nie znaleziono wyników dla następującego hasła:",
+      "wantedInformation": "Jakich informacji brakuje?"
+    },
+    "thanks": {
+      "description": "Twoja opinia została pomyślnie wysłana.",
+      "title": "Dziękujemy za Twoją opinię."
+    },
+    "title": "Opinie"
+  },
+  "intro": {
+    "slides": {
+      "languageChange": {
+        "description": "Język aplikacji {{appName}} możesz zmienić u góry w menu."
+      },
+      "news": {
+        "description": "Co nowego dzieje się w Twojej okolicy? Sprawdź w {{appName}}.",
+        "title": "Aktualne informacje"
+      },
+      "offline": {
+        "description": "Nie zawsze masz dostęp do internetu? Żaden problem. Z {{appName}} możesz korzystać również offline.",
+        "title": "Działa także offline"
+      },
+      "places": {
+        "description": "Na mapie znajdziesz miejsca w Twojej okolicy, na przykład ośrodki oferujące kursy językowe.",
+        "title": "Oferty w Twojej okolicy"
+      },
+      "search": {
+        "description": "Szybko znajdziesz potrzebne informacje, korzystając z wyszukiwarki w prawym górnym rogu menu.",
+        "title": "Proste wyszukiwanie"
+      }
+    },
+    "welcome": {
+      "description": "W {{appName}} znajdziesz odpowiedzi i wskazówki w swoim ojczystym języku. Na przykład: Gdzie szukać pomocy? Kiedy wolno mi podjąć pracę?",
+      "title": "Witamy w {{appName}}"
+    }
+  },
+  "ios": {
+    "NSCalendarsFullAccessUsageDescription": "Aplikacja {{appName}} chce uzyskać dostęp do kalendarza, aby dodawać wydarzenia.",
+    "NSCalendarsUsageDescription": "Aplikacja {{appName}} chce uzyskać dostęp do kalendarza, aby dodawać wydarzenia.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Aby wyszukiwać miejsca w pobliżu, aplikacja {{appName}} potrzebuje dostępu do Twojej lokalizacji.",
+    "NSLocationWhenInUseUsageDescription": "Aby wyszukiwać miejsca w pobliżu, aplikacja {{appName}} potrzebuje dostępu do Twojej lokalizacji.",
+    "NSPhotoLibraryAddUsageDescription": "Aby zapisywać zdjęcia, aplikacja {{appName}} potrzebuje dostępu do galerii."
+  },
+  "languages": {
+    "change": "Zmień język",
+    "changed": "Język został zmieniony na {{languageName}}",
+    "error": {
+      "noTranslation": "Brak dostępnego tłumaczenia",
+      "notFound": {
+        "description": "Ta strona nie jest jeszcze dostępna we wszystkich językach. Stale rozszerzamy naszą ofertę językową. Możesz zgłosić zapotrzebowanie na swój język za pomocą funkcji <Link>Opinie</Link>.",
+        "question": "Nie znajdujesz swojego języka?",
+        "title": "Nie znaleziono takiego języka."
+      }
+    },
+    "search": "Szukaj języka"
+  },
+  "malteHelpForm": {
+    "contactPerson": "Osoba do kontaktu:",
+    "contactPersonAnyGender": "Płeć osoby do kontaktu nie ma znaczenia",
+    "contactPersonGenderFemale": "Preferuję kontakt z kobietą",
+    "contactPersonGenderMale": "Preferuję kontakt z mężczyzną",
+    "contactReason": "Twoja sprawa:",
+    "eMail": "E-mail",
+    "howToBeContacted": "Preferowana forma kontaktu:",
+    "invalidEmailAddress": "Podany adres e-mail jest nieprawidłowy.",
+    "maxCharacters": "maksymalnie {{numberOfCharacters}} znaków",
+    "name": "Nazwisko, imię",
+    "personally": "Osobiście",
+    "responseHint": "Odpowiedź może zająć kilka dni roboczych. Dokładamy wszelkich starań, aby zająć się Twoją sprawą jak najszybciej.",
+    "roomNumber": "Numer pokoju",
+    "securityNote": "Twoje bezpieczeństwo jest dla nas najwyższym priorytetem. Twoje dane są traktowane jako poufne, dzięki czemu Twoja prywatność jest zawsze chroniona.",
+    "submit": "Wyślij formularz",
+    "submitFailed": "Nie udało się wysłać formularza",
+    "submitFailedReasoning": "Upewnij się, że masz stabilne połączenie z internetem, i spróbuj ponownie.",
+    "submitSuccessful": "Formularz wysłany pomyślnie",
+    "supportNote": "Chcemy, aby w razie problemów lub pytań każdy czuł się bezpiecznie i miał zapewnione wsparcie. Za pomocą poniższego formularza kontaktowego możesz skontaktować się z odpowiednią osobą. Określ rodzaj sprawy i wybierz preferowany sposób kontaktu.",
+    "telephone": "Telefon",
+    "telephoneNumber": "Nr tel."
+  },
+  "news": {
+    "error": {
+      "notFound": "Nie znaleziono tej wiadomości.",
+      "nothingFound": "Nie znaleziono żadnych wiadomości."
+    },
+    "sources": {
+      "all": "Wszystkie wiadomości",
+      "allShort": "Wszystkie",
+      "local": "Wiadomości lokalne",
+      "localShort": "Lokalne",
+      "national": "Wiadomości krajowe",
+      "nationalShort": "Krajowe"
+    },
+    "title": "Wiadomości"
+  },
+  "places": {
+    "accessible": "Bez barier",
+    "distance": "{{distance}} km stąd",
+    "error": {
+      "notFound": "Nie znaleziono tego miejsca.",
+      "nothingFound": "Nie znaleziono żadnych miejsc."
+    },
+    "filter": {
+      "adjust": "Filtruj miejsca",
+      "alphabet": "A–Z",
+      "categories": "Kategorie",
+      "onlyOpen": "pokaż tylko miejsca aktualnie otwarte",
+      "placeCount_few": "{{count}} miejsc",
+      "placeCount_many": "{{count}} miejsca",
+      "placeCount_one": "1 miejsce",
+      "placeCount_other": "{{count}} miejsc",
+      "placeCount_two": "{{count}} miejsca",
+      "placeCount_zero": "0 miejsc",
+      "show_few": "Pokaż {{count}} miejsc",
+      "show_many": "Pokaż {{count}} miejsca",
+      "show_one": "Pokaż 1 miejsce",
+      "show_other": "Pokaż {{count}} miejsc",
+      "show_two": "Pokaż {{count}} miejsca",
+      "show_zero": "Znaleziono 0 miejsc"
+    },
+    "hours": {
+      "allDay": "całodobowo",
+      "appointment": {
+        "make": {
+          "description": "Umów się na wizytę przez <Link>stronę internetową</Link> lub telefonicznie.",
+          "title": "Umów wizytę"
+        },
+        "required": "Wymagana rezerwacja terminu"
+      },
+      "closed": "zamknięte",
+      "open": "otwarte",
+      "temporarilyClosed": "Tymczasowo zamknięte",
+      "title": "Godziny otwarcia"
+    },
+    "notAccessible": "Brak udogodnień dla osób z niepełnosprawnościami",
+    "title": "Mapa",
+    "weekdays": {
+      "dienstag": "Wtorek",
+      "donnerstag": "Czwartek",
+      "freitag": "Piątek",
+      "mittwoch": "Środa",
+      "montag": "Poniedziałek",
+      "samstag": "Sobota",
+      "sonntag": "Niedziela"
+    },
+    "zoom": {
+      "in": "Powiększ",
+      "out": "Pomniejsz"
+    }
+  },
+  "regions": {
+    "change": "Zmień region",
+    "nearby": {
+      "nothingFound": "Brak regionów w pobliżu.",
+      "refresh": "Odśwież regiony w pobliżu"
+    },
+    "notFound": "Nie znaleziono tego regionu.",
+    "search": {
+      "description": "Wybierz swój region lub najbliższe większe miasto, np. {{exampleRegion}}",
+      "region": "Szukaj regionu"
+    },
+    "title": "Regiony",
+    "welcome": {
+      "description": "Twój cyfrowy przewodnik po wszystkich potrzebnych informacjach. Wybierz swój region.",
+      "title": "Witaj w {{appName}}."
+    }
+  },
+  "search": {
+    "resultCount_few": "{{count}} wyników wyszukiwania",
+    "resultCount_many": "{{count}} wyniki wyszukiwania",
+    "resultCount_one": "1 wynik wyszukiwania",
+    "resultCount_other": "{{count}} wyników wyszukiwania",
+    "resultCount_two": "{{count}} wyników wyszukiwania",
+    "resultCount_zero": "0 wyników wyszukiwania",
+    "searchContent": "Szukaj treści",
+    "title": "Szukaj",
+    "viewResult": "Otwórz wynik wyszukiwania"
+  },
+  "settings": {
+    "contrast": {
+      "description": "Tryb wysokiego kontrastu poprawia czytelność",
+      "title": "Wysoki kontrast (beta)"
+    },
+    "error": {
+      "save": "Nie udało się zapisać ustawień"
+    },
+    "externalSources": {
+      "allowed": "Ten element zawiera treści z zewnętrznego źródła. Możesz zablokować takie treści w ustawieniach.",
+      "blocked": "Zewnętrzna treść z tego źródła została zablokowana. Możesz zezwolić na to źródło w ustawieniach.",
+      "description": "Możesz na stałe zezwolić na wyświetlanie treści z zewnętrznych źródeł. W każdej chwili możesz cofnąć tę zgodę w tym miejscu.",
+      "descriptionShort": "Określ, które zewnętrzne źródła są dozwolone.",
+      "nothingFound": "Brak dostępnych źródeł zewnętrznych.",
+      "optIn": "Wyrażam zgodę na wyświetlanie treści z tego zewnętrznego źródła.",
+      "source": "Zezwalaj na treści z: {{source}}",
+      "title": "Zewnętrzne źródła"
+    },
+    "pushNotifications": {
+      "description": "Otrzymuj powiadomienia push z najnowszymi wiadomościami lokalnymi",
+      "title": "Powiadomienia push"
+    },
+    "sentry": {
+      "description": "Pomóż ulepszać aplikację {{appName}}, automatycznie przesyłając raporty o awariach",
+      "title": "Stabilność aplikacji"
+    },
+    "title": "Ustawienia"
+  },
+  "share": {
+    "copyLink": "Kopiuj link",
+    "message": "Właśnie znalezione: {{message}}",
+    "qr": {
+      "description": "Udostępnij tę stronę w prosty sposób, skanując kod QR innym urządzeniem.",
+      "label": "Kod QR",
+      "title": "Udostępnij przez kod QR"
+    },
+    "title": "Udostępnij"
+  },
+  "suggestToRegion": {
+    "description": "Przekonuje Cię koncepcja aplikacji Integreat i uważasz, że Twoje miasto, powiat lub gmina również mogłyby skorzystać z tego cyfrowego rozwiązania? Możesz w łatwy sposób podjąć działanie tutaj.",
+    "regionNotFoundCta": "Nie znajdujesz swojego regionu? Zaangażuj się już teraz!",
+    "steps": {
+      "copyText": "Skopiuj ten tekst",
+      "fillPlaceholders": "Uzupełnij pola w nawiasach [ ] swoimi danymi",
+      "getEmail": "Znajdź adres e-mail dla swojego regionu",
+      "send": "Wyślij e-mail do swojego regionu"
+    },
+    "title": "Zaproponuj {{appName}} w swoim regionie",
+    "whatToDo": "Oto co możesz zrobić:"
+  },
+  "tour": {
+    "additionalFeatures": {
+      "description": "Korzystaj z dodatkowych funkcji, takich jak <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> oraz <strong>{{additionalFeature}}</strong>.",
+      "title": "Więcej funkcji"
+    },
+    "categories": {
+      "description": "Odkryj informacje na tematy takie jak <strong>Mieszkalnictwo</strong>, <strong>Edukacja</strong>, <strong>Praca</strong> i inne.",
+      "title": "Odkrywaj tematy"
+    },
+    "chat": {
+      "description": "Zadaj tutaj swoje pytania i szybko uzyskaj trafne odpowiedzi."
+    },
+    "finish": {
+      "description": "Znasz już najważniejsze funkcje. Powodzenia w korzystaniu z {{appName}}!",
+      "title": "Gotowe!"
+    },
+    "navigation": {
+      "description": "Przełączaj się tutaj między sekcjami: <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> i <strong>$t(events:title)</strong>.",
+      "title": "Nawigacja"
+    },
+    "progress": "Krok {{current}} z {{total}}",
+    "regionChange": {
+      "description": "Wybierz tutaj swój <strong>region</strong>, aby znaleźć informacje lokalne."
+    },
+    "searchAndLanguage": {
+      "description": "<strong>Wyszukuj</strong> informacje lokalne, wydarzenia i miejsca lub zmień <strong>język</strong>.",
+      "title": "Wyszukiwanie i język"
+    },
+    "start": "Rozpocznij przewodnik",
+    "title": "Przewodnik po aplikacji",
+    "welcome": "Ten krótki przewodnik pokaże Ci najważniejsze funkcje aplikacji."
+  },
+  "tts": {
+    "error": {
+      "languageNotSupported": "Język nie jest obsługiwany.",
+      "noVoices": {
+        "description": "Nie znaleziono głosu. Aby korzystać z funkcji czytania na głos, musisz mieć zainstalowany głos. Postępuj zgodnie z instrukcjami dla swojego systemu operacyjnego.",
+        "title": "Brak zainstalowanego głosu"
+      },
+      "nothingToRead": {
+        "description": "Na tej stronie nie ma nic do przeczytania.",
+        "title": "Brak tekstu do przeczytania"
+      }
+    },
+    "pause": "Pauza",
+    "play": "Odtwórz",
+    "title": "Czytaj na głos"
+  },
+  "userLocation": {
+    "loading": "Ustalanie lokalizacji…",
+    "locationAccessRequired": "Aby wyświetlić miejsca w pobliżu, musisz włączyć dostęp do lokalizacji.",
+    "nearby": "W pobliżu",
+    "noPermission": "Wymagany dostęp do lokalizacji",
+    "notAvailable": "Usługi lokalizacyjne są wyłączone",
+    "show": "Pokaż moją lokalizację",
+    "timeout": "Nie znaleziono lokalizacji"
+  }
+}

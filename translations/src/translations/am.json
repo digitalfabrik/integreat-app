@@ -1,0 +1,468 @@
+{
+  "about": {
+    "aboutUs": "ስለ እኛ",
+    "accessibility": "ተደራሽነት",
+    "imprint": "የድረ-ገጽ መረጃ (Impressum)",
+    "legal": "ህጋዊ መረጃዎች",
+    "licenses": {
+      "license": "ፈቃድ፦ {{license}}",
+      "title": "የክፍት ምንጭ (Open Source) ፈቃዶች",
+      "version": "ስሪት፦ {{version}}"
+    }
+  },
+  "categories": {
+    "organization": {
+      "description": "ስለ {{organization}} ተጨማሪ መረጃ በ<Link>{{domain}}</Link> ላይ ማግኘት ይችላሉ።",
+      "title": "የዚህ ድረ-ገጽ ይዘት በ{{organization}} የቀረበ ነው።"
+    },
+    "pdf": {
+      "create": "PDF ፍጠር",
+      "disabled": "በዚህ ቋንቋ የPDF ሰነድ ማዘጋጀት በአሁኑ ጊዜ አይቻልም።"
+    },
+    "title": "የአካባቢ መረጃ",
+    "titleShort": "መረጃ"
+  },
+  "chat": {
+    "bot": "ቻትቦት",
+    "consultant": "አማካሪ",
+    "initial": {
+      "description": "ስለ አካባቢው መረጃ ወይም ስለ ግል ሁኔታዎ መጠየቅ ይችላሉ።",
+      "title": "እባክዎ ጥያቄዎን በጽሁፍ ሳጥኑ ውስጥ ያስገቡ።"
+    },
+    "inputPlaceholder": "እባክዎ ጥያቄዎን ያስገቡ…",
+    "startNew": {
+      "description": "በእርግጥ አዲስ ውይይት መጀመር ይፈልጋሉ? የወቅቱ የውይይት ታሪክ ይሰረዛል።",
+      "title": "አዲስ ውይይት ጀምር"
+    },
+    "subtitle": "የእርስዎ ዲጂታል የፍለጋ ረዳት",
+    "typing": "በመጻፍ ላይ…",
+    "unread_few": "{{count}} ያልተነበቡ የውይይት መልዕክቶች",
+    "unread_many": "{{count}} ያልተነበቡ የውይይት መልዕክቶች",
+    "unread_one": "1 ያልተነበበ የውይይት መልዕክት",
+    "unread_other": "{{count}} ያልተነበቡ የውይይት መልዕክቶች",
+    "unread_two": "{{count}} ያልተነበቡ የውይይት መልዕክቶች",
+    "welcome": {
+      "description": "እኔ <strong>{{name}}</strong> ነኝ፣ የእርስዎ ዲጂታል የፍለጋ ረዳት። ጥያቄዎን በደስታ ማቅረብ ይችላሉ።",
+      "title": "ሰላም!"
+    }
+  },
+  "common": {
+    "a11y": {
+      "skipToContent": "ወደ ይዘቱ ዝለል"
+    },
+    "actions": {
+      "back": "ተመለስ",
+      "cancel": "ይቅር",
+      "clearInput": "ያስገቡትን አጽዳ",
+      "close": "ዝጋ",
+      "copy": "ቅዳ",
+      "goToPage": "ወደ ገጽ {{number}}",
+      "hideFilters": "ማጣሪያዎችን ደብቅ",
+      "minimize": "አሳንስ",
+      "next": "ቀጥል",
+      "ok": "እሺ",
+      "open": "ክፈት",
+      "openExternal": "ከመተግበሪያው ውጭ ክፈት",
+      "previous": "ቀዳሚ",
+      "send": "ላክ",
+      "showFilters": "ማጣሪያዎችን አሳይ",
+      "showLess": "በትንሹ አሳይ",
+      "showMore": "ተጨማሪ አሳይ",
+      "skip": "ዝለል",
+      "view": "አሳይ"
+    },
+    "contacts": {
+      "address": {
+        "copy": "አድራሻ ቅዳ",
+        "title": "አድራሻ"
+      },
+      "email": "ኢሜይል",
+      "phone": {
+        "mobile": "የሞባይል ስልክ ቁጥር",
+        "title": "የስልክ ቁጥር"
+      },
+      "title": "ዕውቂያዎች",
+      "website": "ድረ-ገጽ"
+    },
+    "labels": {
+      "description": "መግለጫ",
+      "getOnPlayStore": "አሁኑኑ ያግኙት — በGoogle Play መደብር ውስጥ",
+      "menu": "ምናሌ"
+    },
+    "meta": {
+      "description": "{{appName}} ለጀርመን አገር ዲጂታል መመሪያዎ ነው። አካባቢያዊ መረጃዎችን፣ ዝግጅቶችን እና የማማከር አገልግሎቶችን ያግኙ። ሁልጊዜም ወቅታዊ እና በእርስዎ ቋንቋ የቀረበ።"
+    },
+    "privacy": {
+      "confirmation": "የ<Link>ግላዊነት ፖሊሲውን</Link> አንብቤያለሁ፣ ውሂቤ እንዲሰራና እንዲቀመጥ ተስማምቻለሁ።",
+      "required": "እባክዎ የግላዊነት ፖሊሲውን ይቀበሉ።",
+      "title": "የግላዊነት ፖሊሲ"
+    },
+    "state": {
+      "copied": "ተቀድቷል",
+      "disabled": "ተሰናክሏል",
+      "enabled": "ነቅቷል",
+      "loading": "በመጫን ላይ…",
+      "optional": "አማራጭ",
+      "updatedAt": "የመጨረሻ ዝመና፦ {{date}}"
+    }
+  },
+  "error": {
+    "forbidden": "ወደዚህ ክልል ለመድረስ ፈቃድ የለዎትም።",
+    "networkConnectionFailed": "ከአገልጋዩ ጋር መገናኘት አልተቻለም።",
+    "networkRequestFailed": "ጥያቄውን ማስተናገድ አልተቻለም።",
+    "noSuitableAppInstalled": "ተስማሚ መተግበሪያ አልተጫነም።",
+    "nothingFound": "ምንም ውጤት አልተገኘም።",
+    "pageNotFound": "ይህ ገጽ አልተገኘም።",
+    "permissionRequired": "ፈቃድ ያስፈልጋል",
+    "rateLimited": "በጣም ብዙ ጥያቄዎችን ልከዋል። እባክዎ ትንሽ ይጠብቁ።",
+    "responseMappingFailed": "ከአገልጋዩ የተመለሰውን ምላሽ ማስተናገድ አልተቻለም።",
+    "title": "ስህተት",
+    "tryAgain": "እንደገና ይሞክሩ",
+    "unknownError": "ያልታወቀ ስህተት ተከስቷል።"
+  },
+  "events": {
+    "dateGroups": {
+      "further": "ተጨማሪ",
+      "nextDays": "ቀጣይ {{days}} ቀናት",
+      "today": "ዛሬ",
+      "tomorrow": "ነገ"
+    },
+    "error": {
+      "notFound": "ይህ ኩነት አልተገኘም።",
+      "nothingFound": "ምንም ኩነቶች አልተገኙም።"
+    },
+    "export": {
+      "addToCalendar": "ወደ ቀን መቁጠሪያ አክል",
+      "added": "ወደ ቀን መቁጠሪያ ታክሏል",
+      "allRecurrences": "ይህ እና ሁሉም መጪ ኩነቶች",
+      "calendar": "ቀን መቁጠሪያ",
+      "download": "ላክ",
+      "error": {
+        "forbidden": "ቀን መቁጠሪያውን የመጠቀም ፈቃድ አልተሰጠም።",
+        "nothingFound": "ተዛማጅ ቀን መቁጠሪያ የለም"
+      },
+      "thisRecurrence": "ይህንን ኩነት ብቻ"
+    },
+    "filter": {
+      "error": {
+        "endBeforeStart": "መጀመሪያው ቀን ከማለቂያው ቀን በፊት መሆን አለበት።",
+        "invalidDate": "ልክ ያልሆነ ቀን"
+      },
+      "from": "ከ",
+      "reset": "ማጣሪያን ዳግም አስጀምር፦ {{filter}}",
+      "selectEnd": "የማለቂያ ቀንን ከቀን መቁጠሪያ ይምረጡ",
+      "selectStart": "የመጀመሪያውን ቀን ከቀን መቁጠሪያው ይምረጡ",
+      "to": "እስከ"
+    },
+    "onlineMeeting": "የበይነመረብ ስብሰባ",
+    "recurrence": {
+      "furtherDates": "ተጨማሪ ቀጠሮዎች",
+      "recurring": "ተደጋጋሚ",
+      "untilDate": "እስከ {{date}}"
+    },
+    "title": "ዝግጅቶች"
+  },
+  "feedback": {
+    "comment": {
+      "description": "አስተያየትዎን ያጋሩን! {{appName}}ን ለማሻሻል ስለሚረዳን አዎንታዊም ሆነ አሉታዊ አስተያየትዎን ከፍ አድርገን እንመለከተዋለን።",
+      "title": "አስተያየት"
+    },
+    "contactEmail": "ለጥያቄዎች የሚሆን ኢሜይል",
+    "description": "ደረጃ ይስጡ እና/ወይም አስተያየት ይጻፉ።",
+    "give": "አስተያየት ይስጡ",
+    "rating": {
+      "notUseful": "ጠቃሚ አይደለም",
+      "useful": "ጠቃሚ"
+    },
+    "required": "አስተያየትዎን ለመላክ እባክዎ ምላሽ ይምረጡ ወይም አስተያየት ይጻፉ።",
+    "search": {
+      "checkQuery": "የፍለጋ ቃልዎን ያረጋግጡ ወይም የተመረጠውን ቋንቋ ይቀይሩ።",
+      "informationMissing": "እዚህ የጎደለ መረጃ አለ?",
+      "informationNotFound": "የሚፈልጉትን አላገኙም?",
+      "noResultsInUserAndSourceLanguage": "ያሳዝናል፣ በእርስዎ ቋንቋ ወይም በጀርመንኛ ምንም ተዛማጅ ውጤቶች አልተገኙም።",
+      "noResultsInUserLanguage": "ያሳዝናል፣ በእርስዎ ቋንቋ ምንም ተዛማጅ ውጤቶች አልተገኙም።",
+      "searchTermDescription": "ለሚከተለው ቃል ምንም ውጤት አልተገኘም፦",
+      "wantedInformation": "የጎደለው መረጃ ምንድን ነው?"
+    },
+    "thanks": {
+      "description": "አስተያየትዎ በተሳካ ሁኔታ ተልኳል።",
+      "title": "ስለ አስተያየትዎ በጣም እናመሰግናለን።"
+    },
+    "title": "አስተያየት"
+  },
+  "intro": {
+    "slides": {
+      "languageChange": {
+        "description": "ከላይ ካለው ዝርዝር ውስጥ የ{{appName}}ን ቋንቋ መቀየር ይችላሉ።"
+      },
+      "news": {
+        "description": "በአካባቢዎ ምን አዲስ ነገር አለ? በ{{appName}} ውስጥ ይወቁ።",
+        "title": "ወቅታዊ መረጃዎች"
+      },
+      "offline": {
+        "description": "ሁልጊዜ ኢንተርኔት የለዎትም? ምንም ችግር የለም። {{appName}}ን ያለ ኢንተርኔትም መጠቀም ይችላሉ።",
+        "title": "ያለ ኢንተርኔትም ይሰራል"
+      },
+      "places": {
+        "description": "በካርታው ላይ በአካባቢዎ ያሉ ቦታዎችን፣ ለምሳሌ የቋንቋ ትምህርት ቦታዎችን ማግኘት ይችላሉ።",
+        "title": "በአካባቢዎ ያሉ አገልግሎቶች"
+      },
+      "search": {
+        "description": "ከላይ በቀኝ በኩል ባለው መፈለጊያ አማካኝነት ትክክለኛውን መረጃ በፍጥነት ማግኘት ይችላሉ።",
+        "title": "ቀላል ፍለጋ"
+      }
+    },
+    "welcome": {
+      "description": "በ{{appName}} ውስጥ በአፍ መፍቻ ቋንቋዎ መልሶችን እና ጠቃሚ መረጃዎችን ያገኛሉ። ለምሳሌ፡ እርዳታ የት አገኛለሁ? መቼ መሥራት እችላለሁ?",
+      "title": "ወደ {{appName}} እንኳን በደህና መጡ"
+    }
+  },
+  "ios": {
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} ኩነቶችን ለመጨመር የቀን መቁጠሪያዎን የመጠቀም ፈቃድ ይፈልጋል።",
+    "NSCalendarsUsageDescription": "{{appName}} ኩነቶችን ለመጨመር የቀን መቁጠሪያዎን የመጠቀም ፈቃድ ይፈልጋል።",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "በአቅራቢያዎ ያሉ ቦታዎችን ለማግኘት {{appName}} የአካባቢ መገኛዎን (ሎኬሽን) የማግኘት ፈቃድ ይፈልጋል።",
+    "NSLocationWhenInUseUsageDescription": "በአቅራቢያዎ ያሉ ቦታዎችን ለማግኘት {{appName}} የአካባቢ መገኛዎን (ሎኬሽን) የማግኘት ፈቃድ ይፈልጋል።",
+    "NSPhotoLibraryAddUsageDescription": "ፎቶዎችን ለማስቀመጥ {{appName}} ወደ ጋለሪው የመግባት ፈቃድ ያስፈልገዋል።"
+  },
+  "languages": {
+    "change": "ቋንቋ ቀይር",
+    "changed": "ቋንቋው ወደ {{languageName}} ተቀይሯል",
+    "error": {
+      "noTranslation": "ምንም ትርጉም አልተገኘም",
+      "notFound": {
+        "description": "ይህ ገጽ ገና በሁሉም ቋንቋዎች አይገኝም። የቋንቋ ምርጫችንን በንቃት እያሰፋን ነው። የእርስዎን ቋንቋ በ<Link>አስተያየት</Link> ባህሪ በኩል መጠየቅ ይችላሉ።",
+        "question": "ቋንቋውን ማግኘት አልቻሉም?",
+        "title": "ይህ ቋንቋ አልተገኘም።"
+      }
+    },
+    "search": "ቋንቋ ፈልግ"
+  },
+  "malteHelpForm": {
+    "contactPerson": "አግኙን/የሚያነጋግሩት ሰው፦",
+    "contactPersonAnyGender": "የሚያነጋግሩን ሰው ጾታ ምንም ለውጥ አያመጣም",
+    "contactPersonGenderFemale": "በሴት እንድገናኝ እፈልጋለሁ",
+    "contactPersonGenderMale": "በወንድ እንድገናኝ እፈልጋለሁ",
+    "contactReason": "ጉዳይዎ፦",
+    "eMail": "ኢሜይል",
+    "howToBeContacted": "እንዲህ እንዲያገኙኝ እፈልጋለሁ፦",
+    "invalidEmailAddress": "ያስገቡት የኢሜይል አድራሻ ልክ አይደለም።",
+    "maxCharacters": "ከፍተኛው {{numberOfCharacters}} ቁምፊዎች",
+    "name": "የአባት ስም፣ ስም",
+    "personally": "በግል",
+    "responseHint": "ምላሽ ለማግኘት ጥቂት የስራ ቀናት ሊወስድ ይችላል። ጥያቄዎን በተቻለ ፍጥነት ለማስተናገድ እንጥራለን።",
+    "roomNumber": "የክፍል ቁጥር",
+    "securityNote": "ደህንነትዎ ቅድሚያ የምንሰጠው ጉዳይ ነው። የግል ሚስጥርዎ ምንጊዜም እንደተጠበቀ እንዲቆይ መረጃዎ በሚስጥር ይያዛል።",
+    "submit": "ቅጹን አስገባ",
+    "submitFailed": "ቅጹን መላክ አልተቻለም",
+    "submitFailedReasoning": "እባክዎ አስተማማኝ የበይነመረብ ግንኙነት መኖሩን ያረጋግጡ እና እንደገና ይሞክሩ።",
+    "submitSuccessful": "ቅጹ በተሳካ ሁኔታ ተልኳል",
+    "supportNote": "ማናቸውም ችግሮች ወይም ጥያቄዎች ሲኖሩዎት ደህንነት እና ድጋፍ እንዲሰማዎት እንፈልጋለን። ከዚህ በታች ባለው የግንኙነት ቅጽ አማካኝነት ከተጠሪ አካላት ጋር መገናኘት ይችላሉ። የጉዳይዎን አይነት መግለጽ እና ከተለያዩ የመገናኛ አማራጮች መካከል መምረጥ ይችላሉ።",
+    "telephone": "ስልክ",
+    "telephoneNumber": "ስልክ ቁጥር"
+  },
+  "news": {
+    "error": {
+      "notFound": "ይህ መልእክት አልተገኘም።",
+      "nothingFound": "ምንም መልእክቶች አልተገኙም።"
+    },
+    "sources": {
+      "all": "ሁሉም ዜናዎች",
+      "allShort": "ሁሉም",
+      "local": "የአካባቢ ዜናዎች",
+      "localShort": "አካባቢያዊ",
+      "national": "ሀገራዊ ዜናዎች",
+      "nationalShort": "ሀገራዊ"
+    },
+    "title": "ዜናዎች"
+  },
+  "places": {
+    "accessible": "ለሁሉም ተደራሽ",
+    "distance": "{{distance}} ኪ.ሜ ርቀት ላይ",
+    "error": {
+      "notFound": "ይህ ቦታ አልተገኘም።",
+      "nothingFound": "ምንም ቦታዎች አልተገኙም።"
+    },
+    "filter": {
+      "adjust": "ቦታዎችን አጣራ",
+      "alphabet": "ከA እስከ Z",
+      "categories": "ምድቦች",
+      "onlyOpen": "በአሁኑ ሰዓት ክፍት የሆኑ ቦታዎችን ብቻ አሳይ",
+      "placeCount_few": "{{count}} ቦታዎች",
+      "placeCount_many": "{{count}} ቦታዎች",
+      "placeCount_one": "1 ቦታ",
+      "placeCount_other": "{{count}} ቦታዎች",
+      "placeCount_two": "{{count}} ቦታዎች",
+      "placeCount_zero": "0 ቦታዎች",
+      "show_few": "{{count}} ቦታዎችን አሳይ",
+      "show_many": "{{count}} ቦታዎችን አሳይ",
+      "show_one": "1 ቦታ አሳይ",
+      "show_other": "{{count}} ቦታዎችን አሳይ",
+      "show_two": "{{count}} ቦታዎችን አሳይ",
+      "show_zero": "0 ቦታዎች ተገኝተዋል"
+    },
+    "hours": {
+      "allDay": "ሙሉ ቀን",
+      "appointment": {
+        "make": {
+          "description": "በ<Link>ድር ጣቢያው</Link> በኩል ወይም በስልክ ቀጠሮ ይያዙ።",
+          "title": "ቀጠሮ ይያዙ"
+        },
+        "required": "ቀጠሮ ያስፈልጋል"
+      },
+      "closed": "ዝግ ነው",
+      "open": "ክፍት ነው",
+      "temporarilyClosed": "ለጊዜው ተዘግቷል",
+      "title": "የስራ ሰዓታት"
+    },
+    "notAccessible": "ለአካል ጉዳተኞች ምቹ ያልሆነ",
+    "title": "ካርታ",
+    "weekdays": {
+      "dienstag": "ማክሰኞ",
+      "donnerstag": "ሐሙስ",
+      "freitag": "አርብ",
+      "mittwoch": "ረቡዕ",
+      "montag": "ሰኞ",
+      "samstag": "ቅዳሜ",
+      "sonntag": "እሑድ"
+    },
+    "zoom": {
+      "in": "አጉላ",
+      "out": "አሳንስ"
+    }
+  },
+  "regions": {
+    "change": "ክልል ይቀይሩ",
+    "nearby": {
+      "nothingFound": "በአቅራቢያ ምንም ክልል የለም።",
+      "refresh": "የአቅራቢያ ክልሎችን ያድሱ"
+    },
+    "notFound": "ይህ ክልል አልተገኘም።",
+    "search": {
+      "description": "ክልልዎን ወይም በአቅራቢያ የሚገኝ ትልቅ ከተማ ይምረጡ፣ ለምሳሌ {{exampleRegion}}",
+      "region": "ክልል ይፈልጉ"
+    },
+    "title": "ክልሎች",
+    "welcome": {
+      "description": "ለሚፈልጉት ማንኛውም መረጃ ዲጂታል መመሪያዎ። እባክዎ ክልልዎን ይምረጡ።",
+      "title": "ወደ {{appName}} እንኳን በደህና መጡ።"
+    }
+  },
+  "search": {
+    "resultCount_few": "{{count}} የፍለጋ ውጤቶች",
+    "resultCount_many": "{{count}} የፍለጋ ውጤቶች",
+    "resultCount_one": "1 የፍለጋ ውጤት",
+    "resultCount_other": "{{count}} የፍለጋ ውጤቶች",
+    "resultCount_two": "{{count}} የፍለጋ ውጤቶች",
+    "resultCount_zero": "0 የፍለጋ ውጤቶች",
+    "searchContent": "ይዘት ፈልግ",
+    "title": "ፈልግ",
+    "viewResult": "የፍለጋ ውጤቱን ክፈት"
+  },
+  "settings": {
+    "contrast": {
+      "description": "የንፅፅር ሁነታ የንባብ ግልፅነትን ያሻሽላል",
+      "title": "ከፍተኛ ንፅፅር (ቤታ)"
+    },
+    "error": {
+      "save": "ቅንብሮቹን ማስቀመጥ አልተቻለም"
+    },
+    "externalSources": {
+      "allowed": "ይህ ንጥል ከዚህ የውጭ ምንጭ የተገኘ ይዘት ይዟል። እንደነዚህ ያሉ ይዘቶችን በቅንብሮች ውስጥ ማገድ ይችላሉ።",
+      "blocked": "ከዚህ ምንጭ የተገኘ የውጭ ይዘት ታግዷል። በቅንብሮች ውስጥ ይህንን ምንጭ መፍቀድ ይችላሉ።",
+      "description": "ከውጭ ምንጮች የሚመጡ ይዘቶች ሁልጊዜ እንዲታዩ ፈቃድ መስጠት ይችላሉ። ይህን ስምምነት በማንኛውም ጊዜ እዚህ መሰረዝ ይችላሉ።",
+      "descriptionShort": "የትኞቹ የውጭ ምንጮች እንዲፈቀዱ እንደሚፈልጉ ይወስኑ።",
+      "nothingFound": "ምንም የሚገኙ የውጭ ምንጮች የሉም።",
+      "optIn": "የዚህ የውጭ ምንጭ ይዘት እንዲታየኝ እስማማለሁ።",
+      "source": "ከ{{source}} የሚመጡ ይዘቶችን ፍቀድ",
+      "title": "የውጭ ምንጮች"
+    },
+    "pushNotifications": {
+      "description": "ስለ ወቅታዊ የአካባቢ ዜናዎች ፈጣን የግፊት ማሳወቂያዎችን (Push-Notifications) ያግኙ",
+      "title": "ፈጣን ማሳወቂያዎች"
+    },
+    "sentry": {
+      "description": "የመተግበሪያ ብልሽት ሪፖርቶችን በራስ-ሰር በመላክ {{appName}} እንዲሻሻል ያግዙ",
+      "title": "የመተግበሪያው አስተማማኝነት"
+    },
+    "title": "ቅንብሮች"
+  },
+  "share": {
+    "copyLink": "ሊንኩን ቅዳ",
+    "message": "አሁን የተገኘ፦ {{message}}",
+    "qr": {
+      "description": "በሌላ መሳሪያ ላይ የQR ኮዱን በመቃኘት ይህንን ገጽ በቀላሉ ያጋሩ።",
+      "label": "የQR ኮድ",
+      "title": "በQR ኮድ ያጋሩ"
+    },
+    "title": "አጋራ"
+  },
+  "suggestToRegion": {
+    "description": "የIntegreat መተግበሪያ ጽንሰ-ሀሳብ አስደምሞዎታል? ከተማዎ፣ ወረዳዎ ወይም ማዘጋጃ ቤትዎ ከዚህ ዲጂታል መፍትሄ ተጠቃሚ ሊሆኑ ይችላሉ ብለው ያምናሉ? እንግዲያውስ በቀላሉ እዚህ ተሳትፎዎን መጀመር ይችላሉ።",
+    "regionNotFoundCta": "አካባቢዎን አላገኙትም? አሁኑኑ እርምጃ ይውሰዱ!",
+    "steps": {
+      "copyText": "ይህንን ጽሁፍ ቅዳ",
+      "fillPlaceholders": "የ [ ] ቦታዎችን በራስዎ መረጃ ይሙሉ",
+      "getEmail": "የክልልዎን የኢሜይል አድራሻ ይፈልጉ",
+      "send": "ኢሜይሉን ወደ ክልልዎ ይላኩ"
+    },
+    "title": "{{appName}} በክልልዎ ውስጥ እንዲካተት ይጠቁሙ",
+    "whatToDo": "እነዚህን ማድረግ ይችላሉ፦"
+  },
+  "tour": {
+    "additionalFeatures": {
+      "description": "እንደ <strong>$t(categories:pdf.create)</strong>፣ <strong>$t(tts:title)</strong>፣ <strong>$t(share:title)</strong> እና <strong>{{additionalFeature}}</strong> ያሉ ተጨማሪ ባህሪያትን እዚህ ይጠቀሙ።",
+      "title": "ተጨማሪ ባህሪያት"
+    },
+    "categories": {
+      "description": "እንደ <strong>መኖሪያ ቤት</strong>፣ <strong>ትምህርት</strong>፣ <strong>ሥራ</strong> እና ሌሎችም ባሉ ርዕሶች ዙሪያ መረጃዎችን ያግኙ።",
+      "title": "ርዕሶችን ያስሱ"
+    },
+    "chat": {
+      "description": "ጥያቄዎችዎን እዚህ ይጠይቁና በፍጥነት ተስማሚ መልሶችን ያግኙ።"
+    },
+    "finish": {
+      "description": "አሁን ዋና ዋና ባህሪያትን አውቀዋል። ከ{{appName}} ጋር መልካም ቆይታ!",
+      "title": "ተጠናቋል!"
+    },
+    "navigation": {
+      "description": "እዚህ በ<strong>$t(categories:title)</strong>፣ <strong>$t(places:title)</strong>፣ <strong>$t(news:title)</strong> እና <strong>$t(events:title)</strong> መካከል ይቀያይሩ።",
+      "title": "ዳሰሳ"
+    },
+    "progress": "ደረጃ {{current}} ከ {{total}}",
+    "regionChange": {
+      "description": "አካባቢያዊ መረጃዎችን ለማግኘት እዚህ <strong>ክልልዎን</strong> ይምረጡ።"
+    },
+    "searchAndLanguage": {
+      "description": "አካባቢያዊ መረጃዎችን፣ ሁነቶችን እና ቦታዎችን <strong>ይፈልጉ</strong> ወይም <strong>ቋንቋውን</strong> ይቀይሩ።",
+      "title": "ፍለጋ እና ቋንቋ"
+    },
+    "start": "ጉብኝቱን ጀምር",
+    "title": "የመተግበሪያ ጉብኝት",
+    "welcome": "ይህ አጭር ጉብኝት የመተግበሪያውን ዋና ዋና ገጽታዎች ያሳይዎታል።"
+  },
+  "tts": {
+    "error": {
+      "languageNotSupported": "ቋንቋው አይደገፍም።",
+      "noVoices": {
+        "description": "ምንም ድምፅ አልተገኘም። ጽሑፍን ጮክ ብሎ የማንበብ ባህሪውን ለመጠቀም ድምፅ መጫን አለበት። እባክዎ ለእርስዎ ኦፕሬቲንግ ሲስተም የሚከተሉትን መመሪያዎች ይከተሉ።",
+        "title": "የተጫነ ድምፅ የለም"
+      },
+      "nothingToRead": {
+        "description": "በዚህ ገጽ ላይ የሚነበብ ነገር የለም።",
+        "title": "የሚነበብ ነገር የለም"
+      }
+    },
+    "pause": "ለአፍታ አቁም",
+    "play": "አጫውት",
+    "title": "ጮክ ብለህ አንብብ"
+  },
+  "userLocation": {
+    "loading": "አካባቢን በመወሰን ላይ…",
+    "locationAccessRequired": "በአቅራቢያ ያሉ አካባቢዎችን ለማሳየት የአካባቢ መዳረሻ መንቃት አለበት።",
+    "nearby": "በእርስዎ አቅራቢያ",
+    "noPermission": "የአካባቢ መዳረሻ ያስፈልጋል",
+    "notAvailable": "የአካባቢ አገልግሎቶች ተሰናክለዋል",
+    "show": "የራስዎን አካባቢ አሳይ",
+    "timeout": "አካባቢ አልተገኘም"
+  }
+}

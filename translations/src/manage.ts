@@ -3,7 +3,7 @@ import { parse } from 'csv-parse/sync'
 import { stringify } from 'csv-stringify'
 import flat from 'flat'
 import fs from 'fs'
-import { fromPairs, sortBy, toPairs, union } from 'lodash-es'
+import { fromPairs, toPairs, union } from 'lodash-es'
 import path from 'path'
 
 import config from '../src/config.js'
@@ -41,7 +41,7 @@ const exportTranslationsToCsv = (
     throw new Error(`Missing source language (${sourceLanguage}) translations file`)
   }
   const flatSource = flat(sourceTranslations) satisfies Record<string, string>
-  const sourceEntries = sortBy(toPairs(flatSource), ([key]) => key)
+  const sourceEntries = toPairs(flatSource)
   const flatReference = flat(readLanguageFile(fromDir, referenceLanguage) ?? {}) satisfies Record<string, string>
 
   supportedLanguages
@@ -84,7 +84,6 @@ const describeDifferences = (expected: LanguageTranslations, actual: LanguageTra
   const expectedFlat = flat(expected) satisfies Record<string, string>
   const actualFlat = flat(actual) satisfies Record<string, string>
   return union(Object.keys(expectedFlat), Object.keys(actualFlat))
-    .sort()
     .filter(key => expectedFlat[key] !== actualFlat[key])
     .map(key => `${key}: expected '${expectedFlat[key] ?? ''}' but got '${actualFlat[key] ?? ''}'`)
 }
@@ -121,11 +120,11 @@ const importTranslationsFromCsv = (fromDir: string, toDir: string, sourceLanguag
   }
 
   const sourceTranslations = loadSharedColumn(csvs, firstCsv, sourceLanguage)
-  // The reference language is not imported, but it still must not have been modified
-  loadSharedColumn(csvs, firstCsv, config.referenceLanguage)
+  const referenceTranslations = loadSharedColumn(csvs, firstCsv, config.referenceLanguage)
 
   const translations = {
     [sourceLanguage]: sourceTranslations,
+    [config.referenceLanguage]: referenceTranslations,
     ...fromPairs(
       csvs.map(csv => {
         const language = path.basename(csv, '.csv')
@@ -135,9 +134,7 @@ const importTranslationsFromCsv = (fromDir: string, toDir: string, sourceLanguag
   } satisfies Record<string, LanguageTranslations>
 
   const importedLanguages = Object.keys(translations)
-  const supportedLanguages = Object.keys(config.supportedLanguages).filter(
-    language => language !== config.referenceLanguage,
-  )
+  const supportedLanguages = Object.keys(config.supportedLanguages)
   const unsupportedLanguages = importedLanguages.filter(language => !supportedLanguages.includes(language))
   const missingLanguages = supportedLanguages.filter(language => !importedLanguages.includes(language))
   if (unsupportedLanguages.length > 0) {
@@ -165,8 +162,7 @@ const importTranslationsFromCsv = (fromDir: string, toDir: string, sourceLanguag
       )
     }
 
-    const sortedNamespaces = fromPairs(sortBy(toPairs(languageTranslations), ([namespace]) => namespace))
-    const json = JSON.stringify(sortedNamespaces, null, 2)
+    const json = JSON.stringify(languageTranslations, null, 2)
     fs.writeFileSync(languageFilePath(toDir, language), `${json}\n`, 'utf-8')
   })
 }

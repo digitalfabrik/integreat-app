@@ -1,0 +1,468 @@
+{
+  "about": {
+    "aboutUs": "من نحن",
+    "accessibility": "إمكانية الوصول",
+    "imprint": "بيانات النشر والمسؤولية القانونية",
+    "legal": "معلومات قانونية",
+    "licenses": {
+      "license": "الترخيص: {{license}}",
+      "title": "تراخيص البرمجيات مفتوحة المصدر",
+      "version": "الإصدار: {{version}}"
+    }
+  },
+  "categories": {
+    "organization": {
+      "description": "يمكنك العثور على مزيد من المعلومات حول {{organization}} عبر <Link>{{domain}}</Link>.",
+      "title": "محتويات هذه الصفحة مقدمة من {{organization}}."
+    },
+    "pdf": {
+      "create": "إنشاء ملف PDF",
+      "disabled": "إنشاء ملف PDF غير متاح حاليًا بهذه اللغة."
+    },
+    "title": "معلومات محلية",
+    "titleShort": "معلومات"
+  },
+  "chat": {
+    "bot": "المساعد الآلي (شات بوت)",
+    "consultant": "المستشار / المستشارة",
+    "initial": {
+      "description": "يمكنك الاستفسار عن معلومات محلية أو عن وضعك الشخصي.",
+      "title": "يرجى كتابة سؤالك في حقل النص."
+    },
+    "inputPlaceholder": "يرجى إدخال سؤالك هنا...",
+    "startNew": {
+      "description": "هل تريد حقًا بدء محادثة جديدة؟ سيتم حذف سجل المحادثة الحالية.",
+      "title": "بدء محادثة جديدة"
+    },
+    "subtitle": "مساعد البحث الرقمي الخاص بك",
+    "typing": "يكتب…",
+    "unread_few": "{{count}} رسائل دردشة غير مقروءة",
+    "unread_many": "{{count}} رسائل دردشة غير مقروءة",
+    "unread_one": "رسالة دردشة واحدة غير مقروءة",
+    "unread_other": "{{count}} رسائل دردشة غير مقروءة",
+    "unread_two": "{{count}} رسائل دردشة غير مقروءة",
+    "welcome": {
+      "description": "أنا <strong>{{name}}</strong>، مساعد البحث الرقمي الخاص بك. تفضل بطرح سؤالك.",
+      "title": "مرحباً!"
+    }
+  },
+  "common": {
+    "a11y": {
+      "skipToContent": "الانتقال إلى المحتوى"
+    },
+    "actions": {
+      "back": "رجوع",
+      "cancel": "إلغاء",
+      "clearInput": "مسح الإدخال",
+      "close": "إغلاق",
+      "copy": "نسخ",
+      "goToPage": "الانتقال إلى الصفحة {{number}}",
+      "hideFilters": "إخفاء عوامل التصفية",
+      "minimize": "تصغير",
+      "next": "التالي",
+      "ok": "موافق",
+      "open": "فتح",
+      "openExternal": "فتح في تطبيق خارجي",
+      "previous": "السابق",
+      "send": "إرسال",
+      "showFilters": "عرض عوامل التصفية",
+      "showLess": "عرض أقل",
+      "showMore": "عرض المزيد",
+      "skip": "تخطي",
+      "view": "عرض"
+    },
+    "contacts": {
+      "address": {
+        "copy": "نسخ العنوان",
+        "title": "العنوان"
+      },
+      "email": "البريد الإلكتروني",
+      "phone": {
+        "mobile": "رقم الهاتف المحمول",
+        "title": "رقم الهاتف"
+      },
+      "title": "جهات الاتصال",
+      "website": "الموقع الإلكتروني"
+    },
+    "labels": {
+      "description": "الوصف",
+      "getOnPlayStore": "احصل عليه الآن — عبر متجر Google Play",
+      "menu": "القائمة"
+    },
+    "meta": {
+      "description": "{{appName}} هو دليلك الرقمي في ألمانيا. اعثر على معلومات وفعاليات واستشارات محلية. محدثة دائمًا وبلغتك."
+    },
+    "privacy": {
+      "confirmation": "لقد قرأتُ <Link>سياسة الخصوصية</Link> وأوافق على معالجة بياناتي وتخزينها.",
+      "required": "يُرجى الموافقة على سياسة الخصوصية.",
+      "title": "سياسة الخصوصية"
+    },
+    "state": {
+      "copied": "تم النسخ",
+      "disabled": "معطّل",
+      "enabled": "مُفعّل",
+      "loading": "جارٍ التحميل…",
+      "optional": "اختياري",
+      "updatedAt": "آخر تحديث: {{date}}"
+    }
+  },
+  "error": {
+    "forbidden": "ليس لديك إذن بالوصول إلى هذه المنطقة.",
+    "networkConnectionFailed": "فشل الاتصال بالخادم.",
+    "networkRequestFailed": "تعذر معالجة الطلب.",
+    "noSuitableAppInstalled": "لا يوجد تطبيق متوافق مُثبَّت.",
+    "nothingFound": "لم يتم العثور على نتائج.",
+    "pageNotFound": "الصفحة غير موجودة.",
+    "permissionRequired": "مطلوب إذن",
+    "rateLimited": "لقد أرسلتَ الكثير من الطلبات. يُرجى الانتظار قليلاً.",
+    "responseMappingFailed": "تعذرت معالجة استجابة الخادم.",
+    "title": "خطأ",
+    "tryAgain": "إعادة المحاولة",
+    "unknownError": "حدث خطأ غير معروف."
+  },
+  "events": {
+    "dateGroups": {
+      "further": "المزيد",
+      "nextDays": "خلال الـ {{days}} يومًا القادمة",
+      "today": "اليوم",
+      "tomorrow": "غدًا"
+    },
+    "error": {
+      "notFound": "لم يتم العثور على هذه الفعالية.",
+      "nothingFound": "لم يتم العثور على أي فعاليات."
+    },
+    "export": {
+      "addToCalendar": "إضافة إلى التقويم",
+      "added": "تمت الإضافة إلى التقويم",
+      "allRecurrences": "هذه الفعالية وجميع الفعاليات القادمة",
+      "calendar": "التقويم",
+      "download": "تصدير",
+      "error": {
+        "forbidden": "الوصول إلى التقويم غير مسموح به.",
+        "nothingFound": "لا يوجد تقويم مطابق"
+      },
+      "thisRecurrence": "هذه الفعالية فقط"
+    },
+    "filter": {
+      "error": {
+        "endBeforeStart": "يجب أن يكون تاريخ البدء قبل تاريخ الانتهاء.",
+        "invalidDate": "تاريخ غير صالح"
+      },
+      "from": "من",
+      "reset": "إعادة ضبط التصفية: {{filter}}",
+      "selectEnd": "تحديد تاريخ الانتهاء في التقويم",
+      "selectStart": "تحديد تاريخ البدء من التقويم",
+      "to": "إلى"
+    },
+    "onlineMeeting": "اجتماع عبر الإنترنت",
+    "recurrence": {
+      "furtherDates": "مواعيد أخرى",
+      "recurring": "متكرر",
+      "untilDate": "حتى {{date}}"
+    },
+    "title": "الفعاليات"
+  },
+  "feedback": {
+    "comment": {
+      "description": "شاركنا رأيك وملاحظاتك! نحن نقدّر الملاحظات الإيجابية والسلبية على حد سواء، لأنها تساعدنا في تحسين {{appName}}.",
+      "title": "تعليق"
+    },
+    "contactEmail": "البريد الإلكتروني للاستفسارات",
+    "description": "اختر تقييماً و/أو اكتب تعليقاً.",
+    "give": "إرسال الملاحظات",
+    "rating": {
+      "notUseful": "غير مفيد",
+      "useful": "مفيد"
+    },
+    "required": "يرجى تحديد تفاعل أو كتابة تعليق لتتمكن من إرسال ملاحظاتك.",
+    "search": {
+      "checkQuery": "تحقق من عبارة البحث أو غيّر اللغة المحددة.",
+      "informationMissing": "هل هناك معلومات ناقصة هنا؟",
+      "informationNotFound": "ألم تجد ما تبحث عنه؟",
+      "noResultsInUserAndSourceLanguage": "للأسف، لم يتم العثور على أي نتائج مطابقة بلغتك أو باللغة الألمانية.",
+      "noResultsInUserLanguage": "للأسف، لم يتم العثور على أي نتائج مطابقة بلغتك.",
+      "searchTermDescription": "تعذّر العثور على أي نتائج لمصطلح البحث التالي:",
+      "wantedInformation": "ما المعلومات الناقصة؟"
+    },
+    "thanks": {
+      "description": "تم إرسال ملاحظاتك بنجاح.",
+      "title": "شكراً جزيلاً على ملاحظاتك."
+    },
+    "title": "ملاحظات"
+  },
+  "intro": {
+    "slides": {
+      "languageChange": {
+        "description": "يمكنك تغيير لغة تطبيق {{appName}} من القائمة في الأعلى."
+      },
+      "news": {
+        "description": "ما الجديد بالقرب منك؟ اكتشف ذلك عبر تطبيق {{appName}}.",
+        "title": "معلومات محدّثة"
+      },
+      "offline": {
+        "description": "لا يتوفر لديك إنترنت دائماً؟ لا مشكلة، يمكنك استخدام تطبيق {{appName}} دون اتصال بالإنترنت أيضاً.",
+        "title": "يعمل دون اتصال بالإنترنت أيضاً"
+      },
+      "places": {
+        "description": "يمكنك عبر الخريطة العثور على أماكن بالقرب منك، مثل أماكن دورات تعليم اللغة.",
+        "title": "عروض بالقرب منك"
+      },
+      "search": {
+        "description": "يمكنك العثور على المعلومات المناسبة سريعاً عبر البحث في أعلى يمين القائمة.",
+        "title": "بحث سهل"
+      }
+    },
+    "welcome": {
+      "description": "ستجد في تطبيق {{appName}} إجابات ونصائح بلغتك الأم، مثل: أين أجد المساعدة؟ متى يحق لي العمل؟",
+      "title": "مرحباً بك في {{appName}}"
+    }
+  },
+  "ios": {
+    "NSCalendarsFullAccessUsageDescription": "يرغب تطبيق {{appName}} في الوصول إلى التقويم لإضافة الفعاليات.",
+    "NSCalendarsUsageDescription": "يرغب تطبيق {{appName}} في الوصول إلى التقويم لإضافة الفعاليات.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "يحتاج تطبيق {{appName}} إلى إذن الوصول إلى الموقع للعثور على الأماكن المجاورة.",
+    "NSLocationWhenInUseUsageDescription": "يحتاج تطبيق {{appName}} إلى إذن الوصول إلى الموقع للعثور على الأماكن المجاورة.",
+    "NSPhotoLibraryAddUsageDescription": "لحفظ الصور، يحتاج {{appName}} إلى إذن الوصول إلى معرض الصور."
+  },
+  "languages": {
+    "change": "تغيير اللغة",
+    "changed": "تم تغيير اللغة إلى {{languageName}}",
+    "error": {
+      "noTranslation": "لا توجد ترجمة متاحة",
+      "notFound": {
+        "description": "هذه الصفحة غير متوفرة بجميع اللغات بعد. نحن نعمل باستمرار على إضافة لغات جديدة. يمكنك طلب لغتك عبر ميزة <Link>إرسال الملاحظات</Link>.",
+        "question": "ألم تجد لغتك؟",
+        "title": "لم يتم العثور على هذه اللغة."
+      }
+    },
+    "search": "البحث عن لغة"
+  },
+  "malteHelpForm": {
+    "contactPerson": "الشخص المسؤول للتواصل:",
+    "contactPersonAnyGender": "لا يهم جنس الشخص المسؤول للتواصل",
+    "contactPersonGenderFemale": "أفضل أن تتواصل معي أنثى",
+    "contactPersonGenderMale": "أفضل أن يتواصل معي رجل",
+    "contactReason": "استفسارك:",
+    "eMail": "البريد الإلكتروني",
+    "howToBeContacted": "أفضل التواصل عبر:",
+    "invalidEmailAddress": "عنوان البريد الإلكتروني المدخل غير صالح.",
+    "maxCharacters": "الحد الأقصى {{numberOfCharacters}} حرفًا",
+    "name": "اسم العائلة، الاسم الأول",
+    "personally": "شخصي",
+    "responseHint": "قد يستغرق الرد بضعة أيام عمل. نحن نبذل قصارى جهدنا لمعالجة طلبك في أقرب وقت ممكن.",
+    "roomNumber": "رقم الغرفة",
+    "securityNote": "أمانكم هو أولويتنا القصوى. يتم التعامل مع بياناتكم بسرية تامة لضمان حماية خصوصيتكم في جميع الأوقات.",
+    "submit": "إرسال النموذج",
+    "submitFailed": "تعذر إرسال النموذج",
+    "submitFailedReasoning": "يرجى التأكد من استقرار الاتصال بالإنترنت والمحاولة مجددًا.",
+    "submitSuccessful": "تم إرسال النموذج بنجاح",
+    "supportNote": "نحرص على أن تشعروا بالأمان والدعم عند مواجهة أي مشكلات أو استفسارات. يتيح لكم نموذج التواصل أدناه إمكانية التواصل مع مسؤولي الاتصال المختصين؛ حيث يمكنكم تحديد طبيعة استفساركم والاختيار من بين خيارات التواصل المتنوعة.",
+    "telephone": "الهاتف",
+    "telephoneNumber": "رقم الهاتف"
+  },
+  "news": {
+    "error": {
+      "notFound": "لم يتم العثور على هذه الرسالة.",
+      "nothingFound": "لم يتم العثور على أي رسائل."
+    },
+    "sources": {
+      "all": "جميع الأخبار",
+      "allShort": "الكل",
+      "local": "أخبار محلية",
+      "localShort": "محلي",
+      "national": "أخبار وطنية",
+      "nationalShort": "وطني"
+    },
+    "title": "الأخبار"
+  },
+  "places": {
+    "accessible": "مناسب لذوي الاحتياجات الخاصة",
+    "distance": "على بُعد {{distance}} كم",
+    "error": {
+      "notFound": "لم يتم العثور على هذا المكان.",
+      "nothingFound": "لم يتم العثور على أي أماكن."
+    },
+    "filter": {
+      "adjust": "تصفية الأماكن",
+      "alphabet": "أ - ي",
+      "categories": "الفئات",
+      "onlyOpen": "إظهار الأماكن المفتوحة حالياً فقط",
+      "placeCount_few": "{{count}} مكان",
+      "placeCount_many": "{{count}} أماكن",
+      "placeCount_one": "مكان واحد",
+      "placeCount_other": "{{count}} مكان",
+      "placeCount_two": "{{count}} مكان",
+      "placeCount_zero": "0 مكان",
+      "show_few": "عرض {{count}} مكان",
+      "show_many": "عرض {{count}} أماكن",
+      "show_one": "عرض مكان واحد",
+      "show_other": "عرض {{count}} مكان",
+      "show_two": "عرض {{count}} مكان",
+      "show_zero": "تم العثور على 0 مكان"
+    },
+    "hours": {
+      "allDay": "طوال اليوم",
+      "appointment": {
+        "make": {
+          "description": "احجز موعداً عبر <Link>الموقع الإلكتروني</Link> أو عبر الهاتف.",
+          "title": "حجز موعد"
+        },
+        "required": "يلزم حجز موعد"
+      },
+      "closed": "مغلق",
+      "open": "مفتوح",
+      "temporarilyClosed": "مغلق مؤقتاً",
+      "title": "ساعات العمل"
+    },
+    "notAccessible": "غير مجهز لذوي الاحتياجات الخاصة",
+    "title": "الخريطة",
+    "weekdays": {
+      "dienstag": "الثلاثاء",
+      "donnerstag": "الخميس",
+      "freitag": "الجمعة",
+      "mittwoch": "الأربعاء",
+      "montag": "الاثنين",
+      "samstag": "السبت",
+      "sonntag": "الأحد"
+    },
+    "zoom": {
+      "in": "تكبير",
+      "out": "تصغير"
+    }
+  },
+  "regions": {
+    "change": "تغيير المنطقة",
+    "nearby": {
+      "nothingFound": "لا توجد مناطق قريبة.",
+      "refresh": "تحديث المناطق القريبة"
+    },
+    "notFound": "لم يتم العثور على هذه المنطقة.",
+    "search": {
+      "description": "اختر منطقتك أو أقرب مدينة رئيسية، مثل {{exampleRegion}}",
+      "region": "البحث عن منطقة"
+    },
+    "title": "المناطق",
+    "welcome": {
+      "description": "دليلك الرقمي لكل المعلومات التي تحتاجها. يُرجى اختيار منطقتك.",
+      "title": "مرحبًا بك في {{appName}}."
+    }
+  },
+  "search": {
+    "resultCount_few": "{{count}} من نتائج البحث",
+    "resultCount_many": "{{count}} من نتائج البحث",
+    "resultCount_one": "نتيجة بحث واحدة",
+    "resultCount_other": "{{count}} من نتائج البحث",
+    "resultCount_two": "{{count}} من نتائج البحث",
+    "resultCount_zero": "0 نتيجة بحث",
+    "searchContent": "البحث في المحتوى",
+    "title": "بحث",
+    "viewResult": "فتح نتيجة البحث"
+  },
+  "settings": {
+    "contrast": {
+      "description": "يُحسّن وضع التباين العالي من سهولة القراءة",
+      "title": "تباين عالٍ (تجريبي)"
+    },
+    "error": {
+      "save": "تعذّر حفظ الإعدادات"
+    },
+    "externalSources": {
+      "allowed": "يحتوي هذا العنصر على محتوى من هذا المصدر الخارجي. يمكنك حظر مثل هذا المحتوى في الإعدادات.",
+      "blocked": "تم حظر المحتوى الخارجي من هذا المصدر. يمكنك السماح بهذا المصدر من خلال الإعدادات.",
+      "description": "يمكنك الموافقة الدائمة على عرض المحتوى من المصادر الخارجية، كما يمكنك إلغاء هذه الموافقة من هنا في أي وقت.",
+      "descriptionShort": "حدد المصادر الخارجية المسموح بها.",
+      "nothingFound": "لا توجد مصادر خارجية متاحة.",
+      "optIn": "أوافق على عرض محتوى هذا المصدر الخارجي.",
+      "source": "السماح بالمحتوى من {{source}}",
+      "title": "مصادر خارجية"
+    },
+    "pushNotifications": {
+      "description": "تلقي إشعارات فورية لآخر الأخبار المحلية",
+      "title": "الإشعارات الفورية"
+    },
+    "sentry": {
+      "description": "المساعدة في تحسين {{appName}} من خلال إرسال تقارير الأعطال تلقائيًا",
+      "title": "استقرار التطبيق"
+    },
+    "title": "الإعدادات"
+  },
+  "share": {
+    "copyLink": "نسخ الرابط",
+    "message": "عثرتُ للتو على: {{message}}",
+    "qr": {
+      "description": "شارك هذه الصفحة بسهولة عبر مسح رمز الاستجابة السريعة (QR) باستخدام جهاز آخر.",
+      "label": "رمز الاستجابة السريعة (QR)",
+      "title": "مشاركة عبر رمز الاستجابة السريعة (QR)"
+    },
+    "title": "مشاركة"
+  },
+  "suggestToRegion": {
+    "description": "هل نالت فكرة تطبيق Integreat إعجابك وتعتقد أن مدينتك أو مقاطعتك أو بلديتك يمكن أن تستفيد من هذا الحل الرقمي؟ يمكنك اتخاذ المبادرة والمساهمة بكل سهولة من هنا.",
+    "regionNotFoundCta": "لم تجد منطقتك؟ بادر بالتحرك الآن!",
+    "steps": {
+      "copyText": "نسخ هذا النص",
+      "fillPlaceholders": "املأ الخانات بين القوسين [ ] ببياناتك",
+      "getEmail": "معرفة عنوان البريد الإلكتروني لمنطقتك",
+      "send": "أرسل البريد الإلكتروني إلى منطقتك"
+    },
+    "title": "اقترح {{appName}} في منطقتك",
+    "whatToDo": "إليك ما يمكنك فعله:"
+  },
+  "tour": {
+    "additionalFeatures": {
+      "description": "استخدم ميزات إضافية هنا مثل <strong>$t(categories:pdf.create)</strong> و<strong>$t(tts:title)</strong> و<strong>$t(share:title)</strong> و<strong>{{additionalFeature}}</strong>.",
+      "title": "ميزات إضافية"
+    },
+    "categories": {
+      "description": "اكتشف معلومات حول موضوعات مثل <strong>السكن</strong> و<strong>التعليم</strong> و<strong>العمل</strong> والمزيد.",
+      "title": "استكشاف الموضوعات"
+    },
+    "chat": {
+      "description": "اطرح أسئلتك هنا واحصل على إجابات مناسبة بسرعة."
+    },
+    "finish": {
+      "description": "أنت الآن تعرف أهم الميزات. نتمنى لك تجربة ممتعة وموفقة مع {{appName}}!",
+      "title": "تم!"
+    },
+    "navigation": {
+      "description": "بدّل هنا بين <strong>$t(categories:title)</strong> و<strong>$t(places:title)</strong> و<strong>$t(news:title)</strong> و<strong>$t(events:title)</strong>.",
+      "title": "التنقل"
+    },
+    "progress": "الخطوة {{current}} من {{total}}",
+    "regionChange": {
+      "description": "اختر <strong>منطقتك</strong> هنا للعثور على المعلومات المحلية."
+    },
+    "searchAndLanguage": {
+      "description": "<strong>ابحث</strong> عن معلومات وفعاليات وأماكن محلية، أو غيّر <strong>اللغة</strong>.",
+      "title": "البحث واللغة"
+    },
+    "start": "بدء الجولة",
+    "title": "جولة في التطبيق",
+    "welcome": "ستأخذك هذه الجولة القصيرة في أهم ميزات التطبيق."
+  },
+  "tts": {
+    "error": {
+      "languageNotSupported": "اللغة غير مدعومة.",
+      "noVoices": {
+        "description": "لم يتم العثور على أي صوت. لاستخدام ميزة القراءة الصوتية، يجب تثبيت صوت متوافق. يُرجى اتباع الإرشادات الخاصة بنظام التشغيل لديك.",
+        "title": "لا يوجد صوت مثبّت"
+      },
+      "nothingToRead": {
+        "description": "لا يوجد محتوى لقراءته في هذه الصفحة.",
+        "title": "لا يوجد محتوى للقراءة"
+      }
+    },
+    "pause": "إيقاف مؤقت",
+    "play": "تشغيل",
+    "title": "قراءة بصوت عالٍ"
+  },
+  "userLocation": {
+    "loading": "جارٍ تحديد الموقع…",
+    "locationAccessRequired": "لعرض المناطق القريبة منك، يجب تفعيل إذن الوصول إلى الموقع الجغرافي.",
+    "nearby": "بالقرب منك",
+    "noPermission": "مطلوب الإذن بالوصول إلى الموقع",
+    "notAvailable": "خدمات الموقع معطّلة",
+    "show": "إظهار موقعي الحالي",
+    "timeout": "تعذّر العثور على الموقع"
+  }
+}

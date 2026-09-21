@@ -1,0 +1,468 @@
+{
+  "about": {
+    "aboutUs": "关于我们",
+    "accessibility": "无障碍访问",
+    "imprint": "版权声明与法律信息",
+    "legal": "法律条款",
+    "licenses": {
+      "license": "许可证：{{license}}",
+      "title": "开源许可证",
+      "version": "版本：{{version}}"
+    }
+  },
+  "categories": {
+    "organization": {
+      "description": "如需了解有关 {{organization}} 的更多信息，请访问 <Link>{{domain}}</Link>。",
+      "title": "本页内容由 {{organization}} 提供。"
+    },
+    "pdf": {
+      "create": "生成 PDF",
+      "disabled": "当前语言暂不支持生成 PDF。"
+    },
+    "title": "本地资讯",
+    "titleShort": "信息资讯"
+  },
+  "chat": {
+    "bot": "聊天机器人",
+    "consultant": "顾问",
+    "initial": {
+      "description": "你可以咨询本地资讯或针对个人情况提问。",
+      "title": "请在文本框中输入你的问题。"
+    },
+    "inputPlaceholder": "请输入你的问题…",
+    "startNew": {
+      "description": "确定要开启新对话吗？当前的聊天记录将被清除。",
+      "title": "开启新对话"
+    },
+    "subtitle": "你的智能搜索助手",
+    "typing": "正在输入…",
+    "unread_few": "{{count}} 条未读聊天消息",
+    "unread_many": "{{count}} 条未读聊天消息",
+    "unread_one": "1 条未读聊天消息",
+    "unread_other": "{{count}} 条未读聊天消息",
+    "unread_two": "{{count}} 条未读聊天消息",
+    "welcome": {
+      "description": "我是 <strong>{{name}}</strong>，你的智能搜索助手。有什么问题尽管问我吧。",
+      "title": "你好！"
+    }
+  },
+  "common": {
+    "a11y": {
+      "skipToContent": "跳转到主要内容"
+    },
+    "actions": {
+      "back": "返回",
+      "cancel": "取消",
+      "clearInput": "清除输入",
+      "close": "关闭",
+      "copy": "复制",
+      "goToPage": "跳转到第 {{number}} 页",
+      "hideFilters": "隐藏筛选器",
+      "minimize": "最小化",
+      "next": "下一步",
+      "ok": "确定",
+      "open": "打开",
+      "openExternal": "在外部打开",
+      "previous": "上一个",
+      "send": "发送",
+      "showFilters": "显示筛选",
+      "showLess": "收起",
+      "showMore": "查看更多",
+      "skip": "跳过",
+      "view": "查看"
+    },
+    "contacts": {
+      "address": {
+        "copy": "复制地址",
+        "title": "地址"
+      },
+      "email": "电子邮箱",
+      "phone": {
+        "mobile": "手机号码",
+        "title": "电话号码"
+      },
+      "title": "联系人",
+      "website": "网站"
+    },
+    "labels": {
+      "description": "描述",
+      "getOnPlayStore": "立即下载 — 尽在 Google Play 商店",
+      "menu": "菜单"
+    },
+    "meta": {
+      "description": "{{appName}} 是你的德国数字化指南。获取本地资讯、活动及咨询服务，内容实时更新，并支持你的语言。"
+    },
+    "privacy": {
+      "confirmation": "我已阅读<Link>隐私政策</Link>，并同意对我个人数据的处理和存储。",
+      "required": "请同意隐私政策。",
+      "title": "隐私政策"
+    },
+    "state": {
+      "copied": "已复制",
+      "disabled": "已停用",
+      "enabled": "已启用",
+      "loading": "加载中…",
+      "optional": "选填",
+      "updatedAt": "最后更新：{{date}}"
+    }
+  },
+  "error": {
+    "forbidden": "你无权访问该地区。",
+    "networkConnectionFailed": "连接服务器失败。",
+    "networkRequestFailed": "无法处理该请求。",
+    "noSuitableAppInstalled": "未安装相关应用。",
+    "nothingFound": "未找到相关结果。",
+    "pageNotFound": "未找到该页面。",
+    "permissionRequired": "需要授权",
+    "rateLimited": "请求过于频繁，请稍后再试。",
+    "responseMappingFailed": "无法解析服务器响应。",
+    "title": "错误",
+    "tryAgain": "重试",
+    "unknownError": "发生未知错误。"
+  },
+  "events": {
+    "dateGroups": {
+      "further": "更多",
+      "nextDays": "未来 {{days}} 天",
+      "today": "今天",
+      "tomorrow": "明天"
+    },
+    "error": {
+      "notFound": "未找到该活动。",
+      "nothingFound": "未找到任何活动。"
+    },
+    "export": {
+      "addToCalendar": "添加到日历",
+      "added": "已添加到日历",
+      "allRecurrences": "此活动及所有后续活动",
+      "calendar": "日历",
+      "download": "导出",
+      "error": {
+        "forbidden": "无权访问日历。",
+        "nothingFound": "未找到匹配的日历"
+      },
+      "thisRecurrence": "仅限此活动"
+    },
+    "filter": {
+      "error": {
+        "endBeforeStart": "开始日期应早于结束日期。",
+        "invalidDate": "无效日期"
+      },
+      "from": "从",
+      "reset": "重置筛选条件：{{filter}}",
+      "selectEnd": "在日历中选择结束日期",
+      "selectStart": "在日历中选择开始日期",
+      "to": "至"
+    },
+    "onlineMeeting": "在线会议",
+    "recurrence": {
+      "furtherDates": "更多时间",
+      "recurring": "循环",
+      "untilDate": "至 {{date}}"
+    },
+    "title": "活动"
+  },
+  "feedback": {
+    "comment": {
+      "description": "请告诉我们您的反馈！无论是肯定还是批评，我们都非常重视，这有助于我们改进 {{appName}}。",
+      "title": "评论"
+    },
+    "contactEmail": "用于后续沟通的电子邮箱",
+    "description": "请选择评分和/或填写评论。",
+    "give": "提交反馈",
+    "rating": {
+      "notUseful": "没有帮助",
+      "useful": "有帮助"
+    },
+    "required": "请选择一项评价或填写评论后再提交反馈。",
+    "search": {
+      "checkQuery": "请检查您的搜索词或更改所选语言。",
+      "informationMissing": "这里缺少信息？",
+      "informationNotFound": "没有找到想要的内容？",
+      "noResultsInUserAndSourceLanguage": "很抱歉，未找到以您所选语言或德语显示的相关结果。",
+      "noResultsInUserLanguage": "很抱歉，未找到以您所选语言显示的相关结果。",
+      "searchTermDescription": "未找到与以下关键词相关的结果：",
+      "wantedInformation": "缺少了哪些信息？"
+    },
+    "thanks": {
+      "description": "你的反馈已成功发送。",
+      "title": "感谢你的反馈。"
+    },
+    "title": "意见反馈"
+  },
+  "intro": {
+    "slides": {
+      "languageChange": {
+        "description": "你可以在上方菜单中更改 {{appName}} 的语言。"
+      },
+      "news": {
+        "description": "你附近有什么最新资讯？快在 {{appName}} 中探索吧。",
+        "title": "最新资讯"
+      },
+      "offline": {
+        "description": "不能随时上网？没关系。没有网络时，你依然可以使用 {{appName}}。",
+        "title": "支持离线使用"
+      },
+      "places": {
+        "description": "你可以在地图上查找周边的地点，例如语言培训班所在地。",
+        "title": "周边便民服务"
+      },
+      "search": {
+        "description": "通过右上角菜单中的搜索功能，你可以快速找到所需信息。",
+        "title": "便捷搜索"
+      }
+    },
+    "welcome": {
+      "description": "在 {{appName}} 中，你可以用母语获取各类解答和实用建议。例如：去哪里寻求帮助？我什么时候可以工作？",
+      "title": "欢迎使用 {{appName}}"
+    }
+  },
+  "ios": {
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} 申请访问你的日历，以便添加活动安排。",
+    "NSCalendarsUsageDescription": "{{appName}} 申请访问你的日历，以便添加活动安排。",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "为了查找附近地点，{{appName}} 需要获取你的位置权限。",
+    "NSLocationWhenInUseUsageDescription": "为了查找附近地点，{{appName}} 需要获取你的位置权限。",
+    "NSPhotoLibraryAddUsageDescription": "要保存图片，{{appName}} 需要访问相册的权限。"
+  },
+  "languages": {
+    "change": "切换语言",
+    "changed": "语言已更改为{{languageName}}",
+    "error": {
+      "noTranslation": "暂无翻译",
+      "notFound": {
+        "description": "该页面目前尚未支持所有语言。我们正在积极扩展支持的语种。你可以通过<Link>意见反馈</Link>功能申请添加所需语言。",
+        "question": "没找到你想用的语言？",
+        "title": "未找到该语言。"
+      }
+    },
+    "search": "搜索语言"
+  },
+  "malteHelpForm": {
+    "contactPerson": "联系人：",
+    "contactPersonAnyGender": "联系人性别不限",
+    "contactPersonGenderFemale": "希望由女性联系人与我联系",
+    "contactPersonGenderMale": "希望由男性联系人与我联系",
+    "contactReason": "咨询事项：",
+    "eMail": "电子邮箱",
+    "howToBeContacted": "首选联系方式：",
+    "invalidEmailAddress": "输入的电子邮箱地址无效。",
+    "maxCharacters": "最多 {{numberOfCharacters}} 个字符",
+    "name": "姓、名",
+    "personally": "当面/亲自",
+    "responseHint": "我们可能需要几个工作日来给您回复。我们会尽快处理您的请求。",
+    "roomNumber": "房间号",
+    "securityNote": "您的安全是我们的重中之重。我们将严格保密您的数据，始终维护您的隐私。",
+    "submit": "提交表单",
+    "submitFailed": "表单未能发送",
+    "submitFailedReasoning": "请确保网络连接稳定后重试。",
+    "submitSuccessful": "表单发送成功",
+    "supportNote": "无论您遇到任何问题或疑问，我们都致力于为您提供安心且有力的支持。您可以通过下方联系表单与相关联系人取得联系，填写您的诉求类型并选择适合的联络方式。",
+    "telephone": "电话",
+    "telephoneNumber": "电话号码"
+  },
+  "news": {
+    "error": {
+      "notFound": "未找到该消息。",
+      "nothingFound": "未找到消息。"
+    },
+    "sources": {
+      "all": "所有消息",
+      "allShort": "全部",
+      "local": "本地消息",
+      "localShort": "本地",
+      "national": "全国消息",
+      "nationalShort": "全国"
+    },
+    "title": "消息"
+  },
+  "places": {
+    "accessible": "无障碍",
+    "distance": "距离 {{distance}} 公里",
+    "error": {
+      "notFound": "未找到该地点。",
+      "nothingFound": "未找到任何地点。"
+    },
+    "filter": {
+      "adjust": "筛选地点",
+      "alphabet": "A-Z",
+      "categories": "分类",
+      "onlyOpen": "仅显示当前营业的地点",
+      "placeCount_few": "{{count}} 个地点",
+      "placeCount_many": "{{count}} 个地点",
+      "placeCount_one": "1 个地点",
+      "placeCount_other": "{{count}} 个地点",
+      "placeCount_two": "{{count}} 个地点",
+      "placeCount_zero": "0 个地点",
+      "show_few": "显示 {{count}} 个地点",
+      "show_many": "显示 {{count}} 个地点",
+      "show_one": "显示 1 个地点",
+      "show_other": "显示 {{count}} 个地点",
+      "show_two": "显示 {{count}} 个地点",
+      "show_zero": "找到 0 个地点"
+    },
+    "hours": {
+      "allDay": "全天",
+      "appointment": {
+        "make": {
+          "description": "通过<Link>网站</Link>或致电预约。",
+          "title": "预约"
+        },
+        "required": "需要预约"
+      },
+      "closed": "已关闭",
+      "open": "营业中",
+      "temporarilyClosed": "暂停营业",
+      "title": "营业时间"
+    },
+    "notAccessible": "无无障碍设施",
+    "title": "地图",
+    "weekdays": {
+      "dienstag": "星期二",
+      "donnerstag": "星期四",
+      "freitag": "星期五",
+      "mittwoch": "星期三",
+      "montag": "星期一",
+      "samstag": "星期六",
+      "sonntag": "星期日"
+    },
+    "zoom": {
+      "in": "放大",
+      "out": "缩小"
+    }
+  },
+  "regions": {
+    "change": "更改地区",
+    "nearby": {
+      "nothingFound": "附近没有地区。",
+      "refresh": "刷新附近地区"
+    },
+    "notFound": "未找到该地区。",
+    "search": {
+      "description": "选择你的所在地区或附近的较大城市，例如 {{exampleRegion}}",
+      "region": "搜索地区"
+    },
+    "title": "地区",
+    "welcome": {
+      "description": "你的随身数字指南，所需信息一应俱全。请选择你的地区。",
+      "title": "欢迎使用 {{appName}}。"
+    }
+  },
+  "search": {
+    "resultCount_few": "{{count}} 条搜索结果",
+    "resultCount_many": "{{count}} 条搜索结果",
+    "resultCount_one": "1 条搜索结果",
+    "resultCount_other": "{{count}} 条搜索结果",
+    "resultCount_two": "{{count}} 条搜索结果",
+    "resultCount_zero": "0 条搜索结果",
+    "searchContent": "搜索内容",
+    "title": "搜索",
+    "viewResult": "打开搜索结果"
+  },
+  "settings": {
+    "contrast": {
+      "description": "开启高对比度模式以提升可读性",
+      "title": "高对比度（测试版）"
+    },
+    "error": {
+      "save": "无法保存设置"
+    },
+    "externalSources": {
+      "allowed": "此项目包含来自该外部来源的内容。你可以在设置中屏蔽此类内容。",
+      "blocked": "来自该来源的外部内容已被屏蔽。你可以在设置中允许加载该来源。",
+      "description": "你可以永久同意显示来自外部来源的内容。你也可以随时在此撤回该同意。",
+      "descriptionShort": "设置允许哪些外部来源。",
+      "nothingFound": "暂无外部来源可用。",
+      "optIn": "我同意显示来自此外部来源的内容。",
+      "source": "允许来自 {{source}} 的内容",
+      "title": "外部来源"
+    },
+    "pushNotifications": {
+      "description": "接收最新本地资讯的推送通知",
+      "title": "推送通知"
+    },
+    "sentry": {
+      "description": "通过自动发送崩溃报告来帮助改进 {{appName}}",
+      "title": "应用稳定性"
+    },
+    "title": "设置"
+  },
+  "share": {
+    "copyLink": "复制链接",
+    "message": "刚刚发现：{{message}}",
+    "qr": {
+      "description": "只需使用其他设备扫描二维码，即可轻松分享此页面。",
+      "label": "二维码",
+      "title": "通过二维码分享"
+    },
+    "title": "分享"
+  },
+  "suggestToRegion": {
+    "description": "你是否认同 Integreat 应用的理念，并认为你的城市、县或社区也能从这款数字化方案中受益？如果是，你可以在这里轻松参与行动。",
+    "regionNotFoundCta": "没有找到你所在的地区？立即参与行动！",
+    "steps": {
+      "copyText": "复制此文本",
+      "fillPlaceholders": "请在 [ ] 占位符中填入你的个人信息",
+      "getEmail": "查找你所在地区的电子邮箱地址",
+      "send": "向你所在的地区发送邮件"
+    },
+    "title": "在你所在地区推荐 {{appName}}",
+    "whatToDo": "你可以采取以下操作："
+  },
+  "tour": {
+    "additionalFeatures": {
+      "description": "在此使用更多功能，例如 <strong>$t(categories:pdf.create)</strong>、<strong>$t(tts:title)</strong>、<strong>$t(share:title)</strong> 和 <strong>{{additionalFeature}}</strong>。",
+      "title": "更多功能"
+    },
+    "categories": {
+      "description": "探索涵盖<strong>住房</strong>、<strong>教育</strong>、<strong>工作</strong>等丰富主题的信息。",
+      "title": "探索主题"
+    },
+    "chat": {
+      "description": "在此提出你的疑问，快速获取精准解答。"
+    },
+    "finish": {
+      "description": "现在你已掌握核心功能。祝你使用 {{appName}} 体验愉快！",
+      "title": "完成！"
+    },
+    "navigation": {
+      "description": "在此可在 <strong>$t(categories:title)</strong>、<strong>$t(places:title)</strong>、<strong>$t(news:title)</strong> 和 <strong>$t(events:title)</strong> 之间切换。",
+      "title": "导航"
+    },
+    "progress": "第 {{current}} 步，共 {{total}} 步",
+    "regionChange": {
+      "description": "在此选择你的<strong>地区</strong>，获取本地资讯。"
+    },
+    "searchAndLanguage": {
+      "description": "<strong>搜索</strong>本地信息、活动与地点，或更改<strong>语言</strong>。",
+      "title": "搜索与语言"
+    },
+    "start": "开始导览",
+    "title": "应用导览",
+    "welcome": "这段简短导览将带你了解此应用的主要功能。"
+  },
+  "tts": {
+    "error": {
+      "languageNotSupported": "不支持该语言。",
+      "noVoices": {
+        "description": "未找到语音。若要使用朗读功能，必须先安装语音。请参考适用于你操作系统的以下说明。",
+        "title": "未安装语音"
+      },
+      "nothingToRead": {
+        "description": "此页面没有可朗读的内容。",
+        "title": "无可朗读内容"
+      }
+    },
+    "pause": "暂停",
+    "play": "播放",
+    "title": "朗读"
+  },
+  "userLocation": {
+    "loading": "正在确定位置…",
+    "locationAccessRequired": "若要显示附近地区，必须开启位置访问权限。",
+    "nearby": "附近",
+    "noPermission": "需要位置权限",
+    "notAvailable": "定位服务已停用",
+    "show": "显示我的位置",
+    "timeout": "未找到位置"
+  }
+}

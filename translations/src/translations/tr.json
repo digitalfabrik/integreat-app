@@ -1,0 +1,468 @@
+{
+  "about": {
+    "aboutUs": "Hakkımızda",
+    "accessibility": "Erişilebilirlik",
+    "imprint": "Künye",
+    "legal": "Yasal Bilgiler",
+    "licenses": {
+      "license": "Lisans: {{license}}",
+      "title": "Açık Kaynak Lisansları",
+      "version": "Sürüm: {{version}}"
+    }
+  },
+  "categories": {
+    "organization": {
+      "description": "{{organization}} hakkında daha fazla bilgiye <Link>{{domain}}</Link> adresinden ulaşabilirsin.",
+      "title": "Bu sayfadaki içerikler {{organization}} tarafından sağlanmıştır."
+    },
+    "pdf": {
+      "create": "PDF oluştur",
+      "disabled": "Bu dilde PDF oluşturma şu anda mümkün değil."
+    },
+    "title": "Yerel bilgiler",
+    "titleShort": "Bilgiler"
+  },
+  "chat": {
+    "bot": "Sohbet robotu",
+    "consultant": "Danışman",
+    "initial": {
+      "description": "Yerel bilgiler veya kişisel durumun hakkında sorular sorabilirsin.",
+      "title": "Lütfen sorunu metin alanına yaz."
+    },
+    "inputPlaceholder": "Lütfen sorunu buraya yaz…",
+    "startNew": {
+      "description": "Gerçekten yeni bir sohbet başlatmak istiyor musun? Mevcut sohbet geçmişi silinecektir.",
+      "title": "Yeni sohbet başlat"
+    },
+    "subtitle": "Dijital Arama Asistanın",
+    "typing": "Yazıyor…",
+    "unread_few": "{{count}} okunmamış sohbet mesajı",
+    "unread_many": "{{count}} okunmamış sohbet mesajı",
+    "unread_one": "1 okunmamış sohbet mesajı",
+    "unread_other": "{{count}} okunmamış sohbet mesajı",
+    "unread_two": "{{count}} okunmamış sohbet mesajı",
+    "welcome": {
+      "description": "Ben <strong>{{name}}</strong>, dijital arama asistanın. Sorunu sormaktan çekinme.",
+      "title": "Merhaba!"
+    }
+  },
+  "common": {
+    "a11y": {
+      "skipToContent": "İçeriğe atla"
+    },
+    "actions": {
+      "back": "Geri",
+      "cancel": "İptal",
+      "clearInput": "Girişi temizle",
+      "close": "Kapat",
+      "copy": "Kopyala",
+      "goToPage": "{{number}}. sayfaya git",
+      "hideFilters": "Filtreleri gizle",
+      "minimize": "Küçült",
+      "next": "İleri",
+      "ok": "Tamam",
+      "open": "Aç",
+      "openExternal": "Harici olarak aç",
+      "previous": "Önceki",
+      "send": "Gönder",
+      "showFilters": "Filtreleri göster",
+      "showLess": "Daha az göster",
+      "showMore": "Daha fazla göster",
+      "skip": "Atla",
+      "view": "Görüntüle"
+    },
+    "contacts": {
+      "address": {
+        "copy": "Adresi kopyala",
+        "title": "Adres"
+      },
+      "email": "E-posta",
+      "phone": {
+        "mobile": "Cep telefonu numarası",
+        "title": "Telefon numarası"
+      },
+      "title": "Kişiler",
+      "website": "Web sitesi"
+    },
+    "labels": {
+      "description": "Açıklama",
+      "getOnPlayStore": "HEMEN İNDİRİN — Google Play Store'da",
+      "menu": "Menü"
+    },
+    "meta": {
+      "description": "{{appName}}, Almanya için dijital rehberindir. Yerel bilgileri, etkinlikleri ve danışmanlık hizmetlerini keşfet. Her zaman güncel ve senin dilinde."
+    },
+    "privacy": {
+      "confirmation": "<Link>Gizlilik Politikasını</Link> okudum; verilerimin işlenmesini ve saklanmasını kabul ediyorum.",
+      "required": "Lütfen Gizlilik Politikasını kabul edin.",
+      "title": "Gizlilik Politikası"
+    },
+    "state": {
+      "copied": "Kopyalandı",
+      "disabled": "devre dışı",
+      "enabled": "etkin",
+      "loading": "Yükleniyor…",
+      "optional": "isteğe bağlı",
+      "updatedAt": "Son güncelleme: {{date}}"
+    }
+  },
+  "error": {
+    "forbidden": "Bu bölgeye erişim yetkiniz yok.",
+    "networkConnectionFailed": "Sunucuya bağlanılamadı.",
+    "networkRequestFailed": "İstek işlenemedi.",
+    "noSuitableAppInstalled": "Uygun bir uygulama yüklü değil.",
+    "nothingFound": "Sonuç bulunamadı.",
+    "pageNotFound": "Bu sayfa bulunamadı.",
+    "permissionRequired": "İzin gerekiyor",
+    "rateLimited": "Çok fazla istek gönderdiniz. Lütfen biraz bekleyin.",
+    "responseMappingFailed": "Sunucudan gelen yanıt işlenemedi.",
+    "title": "Hata",
+    "tryAgain": "Tekrar dene",
+    "unknownError": "Bilinmeyen bir hata oluştu."
+  },
+  "events": {
+    "dateGroups": {
+      "further": "Daha Fazla",
+      "nextDays": "Sonraki {{days}} gün",
+      "today": "Bugün",
+      "tomorrow": "Yarın"
+    },
+    "error": {
+      "notFound": "Bu etkinlik bulunamadı.",
+      "nothingFound": "Etkinlik bulunamadı."
+    },
+    "export": {
+      "addToCalendar": "Takvime ekle",
+      "added": "Takvime eklendi",
+      "allRecurrences": "Bu ve sonraki tüm etkinlikler",
+      "calendar": "Takvim",
+      "download": "Dışa aktar",
+      "error": {
+        "forbidden": "Takvime erişim izni yok.",
+        "nothingFound": "Uygun takvim bulunamadı"
+      },
+      "thisRecurrence": "Yalnızca bu etkinlik"
+    },
+    "filter": {
+      "error": {
+        "endBeforeStart": "Başlangıç tarihi bitiş tarihinden önce olmalıdır.",
+        "invalidDate": "Geçersiz tarih"
+      },
+      "from": "başlangıç:",
+      "reset": "Filtreyi sıfırla: {{filter}}",
+      "selectEnd": "Takvimden bitiş tarihini seçin",
+      "selectStart": "Takvimden başlangıç tarihini seçin",
+      "to": "tarihine kadar"
+    },
+    "onlineMeeting": "Çevrim içi toplantı",
+    "recurrence": {
+      "furtherDates": "Diğer tarihler",
+      "recurring": "tekrarlanan",
+      "untilDate": "{{date}} tarihine kadar"
+    },
+    "title": "Etkinlikler"
+  },
+  "feedback": {
+    "comment": {
+      "description": "Görüşlerinizi bizimle paylaşın! {{appName}} uygulamasını geliştirmemize yardımcı olduğu için hem olumlu hem de olumsuz geri bildirimlerinize değer veriyoruz.",
+      "title": "Yorum"
+    },
+    "contactEmail": "Sorular için e-posta adresi",
+    "description": "Bir değerlendirme seçin ve/veya bir yorum yazın.",
+    "give": "Geri bildirim gönder",
+    "rating": {
+      "notUseful": "Faydalı değil",
+      "useful": "Faydalı"
+    },
+    "required": "Geri bildiriminizi gönderebilmek için lütfen bir tepki seçin veya bir yorum yazın.",
+    "search": {
+      "checkQuery": "Arama teriminizi kontrol edin veya seçili dili değiştirin.",
+      "informationMissing": "Burada eksik bilgi mi var?",
+      "informationNotFound": "Aradığınızı bulamadınız mı?",
+      "noResultsInUserAndSourceLanguage": "Maalesef seçtiğiniz dilde veya Almanca uygun bir sonuç bulunamadı.",
+      "noResultsInUserLanguage": "Maalesef seçtiğiniz dilde uygun bir sonuç bulunamadı.",
+      "searchTermDescription": "Şu arama terimi için hiçbir sonuç bulunamadı:",
+      "wantedInformation": "Hangi bilgiler eksik?"
+    },
+    "thanks": {
+      "description": "Geri bildiriminiz başarıyla gönderildi.",
+      "title": "Geri bildiriminiz için teşekkür ederiz."
+    },
+    "title": "Geri Bildirim"
+  },
+  "intro": {
+    "slides": {
+      "languageChange": {
+        "description": "{{appName}} uygulamasının dilini yukarıdaki menüden değiştirebilirsiniz."
+      },
+      "news": {
+        "description": "Çevrenizde neler olup bittiğini {{appName}} ile keşfedin.",
+        "title": "Güncel Bilgiler"
+      },
+      "offline": {
+        "description": "Her zaman internetiniz yok mu? Sorun değil. {{appName}} uygulamasını internetsiz de kullanabilirsiniz.",
+        "title": "Çevrim dışı da çalışır"
+      },
+      "places": {
+        "description": "Harita üzerinden yakınınızdaki yerleri, örneğin dil kurslarını kolayca bulabilirsiniz.",
+        "title": "Yakınınızdaki Hizmetler"
+      },
+      "search": {
+        "description": "Menünün sağ üst köşesindeki arama özelliğini kullanarak aradığınız bilgiye hızla ulaşabilirsiniz.",
+        "title": "Kolay Arama"
+      }
+    },
+    "welcome": {
+      "description": "{{appName}} içinde ana dilinizde yanıtlar ve ipuçları bulabilirsiniz. Örneğin: Nereden yardım alabilirim? Ne zaman çalışabilirim?",
+      "title": "{{appName}} uygulamasına hoş geldiniz"
+    }
+  },
+  "ios": {
+    "NSCalendarsFullAccessUsageDescription": "{{appName}}, etkinlikleri ekleyebilmek için takviminize erişmek istiyor.",
+    "NSCalendarsUsageDescription": "{{appName}}, etkinlikleri ekleyebilmek için takviminize erişmek istiyor.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}}, yakınınızdaki yerleri bulabilmek için konumunuza erişmek istiyor.",
+    "NSLocationWhenInUseUsageDescription": "{{appName}}, yakınınızdaki yerleri bulabilmek için konumunuza erişmek istiyor.",
+    "NSPhotoLibraryAddUsageDescription": "{{appName}} uygulamasının fotoğrafları kaydedebilmesi için galeri erişim iznine ihtiyacı var."
+  },
+  "languages": {
+    "change": "Dili değiştir",
+    "changed": "Dil {{languageName}} olarak değiştirildi",
+    "error": {
+      "noTranslation": "Çeviri mevcut değil",
+      "notFound": {
+        "description": "Bu sayfa henüz tüm dillerde kullanılamıyor. Dil seçeneklerimizi sürekli olarak genişletiyoruz. Dilediğin dili <Link>Geri Bildirim</Link> özelliği üzerinden talep edebilirsin.",
+        "question": "Dilinizi bulamadınız mı?",
+        "title": "Bu dil bulunamadı."
+      }
+    },
+    "search": "Dil ara"
+  },
+  "malteHelpForm": {
+    "contactPerson": "İlgili kişi:",
+    "contactPersonAnyGender": "İletişime geçilecek kişinin cinsiyeti fark etmez",
+    "contactPersonGenderFemale": "Benimle bir kadının iletişime geçmesini istiyorum",
+    "contactPersonGenderMale": "Benimle bir erkeğin iletişime geçmesini istiyorum",
+    "contactReason": "Talebiniz:",
+    "eMail": "E-posta",
+    "howToBeContacted": "Tercih ettiğim iletişim yöntemi:",
+    "invalidEmailAddress": "Girilen e-posta adresi geçersiz.",
+    "maxCharacters": "En fazla {{numberOfCharacters}} karakter",
+    "name": "Soyadı, Adı",
+    "personally": "Yüz yüze",
+    "responseHint": "Geri dönüş almanız birkaç iş günü sürebilir. Talebinizi en kısa sürede işleme almak için gayret gösteriyoruz.",
+    "roomNumber": "Oda Numarası",
+    "securityNote": "Güvenliğiniz bizim için en önemli önceliktir. Gizliliğinizin her zaman korunması adına verileriniz gizlilik esasına göre işlenir.",
+    "submit": "Formu Gönder",
+    "submitFailed": "Form gönderilemedi",
+    "submitFailedReasoning": "Lütfen internet bağlantınızın kararlı olduğundan emin olun ve tekrar deneyin.",
+    "submitSuccessful": "Form başarıyla gönderildi",
+    "supportNote": "Herhangi bir sorun veya sorunuz olduğunda kendinizi güvende ve desteklenmiş hissetmenizi istiyoruz. Aşağıdaki iletişim formu aracılığıyla ilgili kişilerle iletişime geçebilirsiniz. Talebinizin türünü belirtebilir ve farklı iletişim seçenekleri arasından tercih yapabilirsiniz.",
+    "telephone": "Telefon",
+    "telephoneNumber": "Tel. No."
+  },
+  "news": {
+    "error": {
+      "notFound": "Bu mesaj bulunamadı.",
+      "nothingFound": "Mesaj bulunamadı."
+    },
+    "sources": {
+      "all": "Tüm Haberler",
+      "allShort": "Tümü",
+      "local": "Yerel Haberler",
+      "localShort": "Yerel",
+      "national": "Ulusal Haberler",
+      "nationalShort": "Ulusal"
+    },
+    "title": "Haberler"
+  },
+  "places": {
+    "accessible": "Engelsiz",
+    "distance": "{{distance}} km mesafede",
+    "error": {
+      "notFound": "Bu konum bulunamadı.",
+      "nothingFound": "Konum bulunamadı."
+    },
+    "filter": {
+      "adjust": "Konumları filtrele",
+      "alphabet": "A-Z",
+      "categories": "Kategoriler",
+      "onlyOpen": "Yalnızca şu an açık olan konumları göster",
+      "placeCount_few": "{{count}} konum",
+      "placeCount_many": "{{count}} konum",
+      "placeCount_one": "1 konum",
+      "placeCount_other": "{{count}} konum",
+      "placeCount_two": "{{count}} konum",
+      "placeCount_zero": "0 konum",
+      "show_few": "{{count}} konumu göster",
+      "show_many": "{{count}} konumu göster",
+      "show_one": "1 konumu göster",
+      "show_other": "{{count}} konumu göster",
+      "show_two": "{{count}} konumu göster",
+      "show_zero": "0 konum bulundu"
+    },
+    "hours": {
+      "allDay": "tüm gün",
+      "appointment": {
+        "make": {
+          "description": "<Link>Web sitesi</Link> üzerinden veya telefonla randevu al.",
+          "title": "Randevu al"
+        },
+        "required": "Randevu gereklidir"
+      },
+      "closed": "kapalı",
+      "open": "açık",
+      "temporarilyClosed": "Geçici olarak kapalı",
+      "title": "Çalışma saatleri"
+    },
+    "notAccessible": "Engelli erişimine uygun değil",
+    "title": "Harita",
+    "weekdays": {
+      "dienstag": "Salı",
+      "donnerstag": "Perşembe",
+      "freitag": "Cuma",
+      "mittwoch": "Çarşamba",
+      "montag": "Pazartesi",
+      "samstag": "Cumartesi",
+      "sonntag": "Pazar"
+    },
+    "zoom": {
+      "in": "Yakınlaştır",
+      "out": "Uzaklaştır"
+    }
+  },
+  "regions": {
+    "change": "Bölgeyi değiştir",
+    "nearby": {
+      "nothingFound": "Yakınlarda bölge bulunamadı.",
+      "refresh": "Yakındaki bölgeleri güncelle"
+    },
+    "notFound": "Bu bölge bulunamadı.",
+    "search": {
+      "description": "Bölgeni veya en yakın büyük şehri seç, örn. {{exampleRegion}}",
+      "region": "Bölge ara"
+    },
+    "title": "Bölgeler",
+    "welcome": {
+      "description": "İhtiyacın olan tüm bilgiler için dijital rehberin. Lütfen bölgeni seç.",
+      "title": "{{appName}} uygulamasına hoş geldin."
+    }
+  },
+  "search": {
+    "resultCount_few": "{{count}} arama sonucu",
+    "resultCount_many": "{{count}} arama sonucu",
+    "resultCount_one": "1 arama sonucu",
+    "resultCount_other": "{{count}} arama sonucu",
+    "resultCount_two": "{{count}} arama sonucu",
+    "resultCount_zero": "0 arama sonucu",
+    "searchContent": "İçerik ara",
+    "title": "Ara",
+    "viewResult": "Arama sonucunu aç"
+  },
+  "settings": {
+    "contrast": {
+      "description": "Kontrast modu okunabilirliği artırır",
+      "title": "Yüksek kontrast (beta)"
+    },
+    "error": {
+      "save": "Ayarlar kaydedilemedi"
+    },
+    "externalSources": {
+      "allowed": "Bu öge harici bir kaynaktan içerik barındırıyor. Bu tür içerikleri Ayarlar bölümünden engelleyebilirsin.",
+      "blocked": "Bu kaynaktan gelen harici içerik engellendi. Ayarlar bölümünden bu kaynağa izin verebilirsin.",
+      "description": "Harici kaynaklardan gelen içeriklerin gösterilmesine kalıcı olarak izin verebilirsin. Bu izni buradan dilediğin zaman geri çekebilirsin.",
+      "descriptionShort": "Hangi harici kaynaklara izin verileceğini belirle.",
+      "nothingFound": "Kullanılabilir harici kaynak yok.",
+      "optIn": "Bu harici kaynaktan gelen içeriklerin tarafıma gösterilmesini onaylıyorum.",
+      "source": "{{source}} kaynağından gelen içeriklere izin ver",
+      "title": "Harici kaynaklar"
+    },
+    "pushNotifications": {
+      "description": "En güncel yerel haberler için anlık bildirimler al",
+      "title": "Anlık bildirimler"
+    },
+    "sentry": {
+      "description": "Çökme raporlarını otomatik olarak göndererek {{appName}} uygulamasının geliştirilmesine yardımcı ol",
+      "title": "Uygulama kararlılığı"
+    },
+    "title": "Ayarlar"
+  },
+  "share": {
+    "copyLink": "Bağlantıyı kopyala",
+    "message": "Az önce keşfettim: {{message}}",
+    "qr": {
+      "description": "Bu sayfayı başka bir cihazdan QR kodunu tarayarak kolayca paylaşabilirsin.",
+      "label": "QR kodu",
+      "title": "QR kodu ile paylaş"
+    },
+    "title": "Paylaş"
+  },
+  "suggestToRegion": {
+    "description": "Integreat uygulamasının konsepti seni etkiledi mi ve şehrinin, ilçenin veya belediyenin de bu dijital çözümden faydalanabileceğini mi düşünüyorsun? O zaman buradan kolayca harekete geçebilirsin.",
+    "regionNotFoundCta": "Bölgene ulaşamadın mı? Şimdi harekete geç!",
+    "steps": {
+      "copyText": "Bu metni kopyala",
+      "fillPlaceholders": "[ ] yer tutucularını kendi bilgilerinle doldur",
+      "getEmail": "Bölgene ait e-posta adresini öğren",
+      "send": "E-postayı bölgesel yönetimine gönder"
+    },
+    "title": "Bölgene {{appName}} uygulamasını öner",
+    "whatToDo": "Şunları yapabilirsin:"
+  },
+  "tour": {
+    "additionalFeatures": {
+      "description": "Buradan <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> ve <strong>{{additionalFeature}}</strong> gibi diğer işlevleri kullanabilirsin.",
+      "title": "Diğer işlevler"
+    },
+    "categories": {
+      "description": "<strong>Barınma</strong>, <strong>eğitim</strong>, <strong>çalışma hayatı</strong> ve daha birçok konudaki bilgileri keşfet.",
+      "title": "Konuları keşfet"
+    },
+    "chat": {
+      "description": "Sorularını buradan sor ve hemen uygun yanıtlar al."
+    },
+    "finish": {
+      "description": "Artık en önemli özellikleri öğrendin. {{appName}} ile sana başarılar dileriz!",
+      "title": "Hazır!"
+    },
+    "navigation": {
+      "description": "Buradan <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> ve <strong>$t(events:title)</strong> sekmeleri arasında geçiş yapabilirsin.",
+      "title": "Gezinme"
+    },
+    "progress": "Adım {{current}} / {{total}}",
+    "regionChange": {
+      "description": "Yerel bilgilere ulaşmak için buradan <strong>bölgini</strong> seç."
+    },
+    "searchAndLanguage": {
+      "description": "Yerel bilgileri, etkinlikleri ve yerleri <strong>ara</strong> ya da <strong>dili</strong> değiştir.",
+      "title": "Arama ve dil"
+    },
+    "start": "Turu başlat",
+    "title": "Uygulama turu",
+    "welcome": "Bu kısa tur, uygulamanın en önemli özelliklerini gösterecektir."
+  },
+  "tts": {
+    "error": {
+      "languageNotSupported": "Dil desteklenmiyor.",
+      "noVoices": {
+        "description": "Herhangi bir ses bulunamadı. Sesli okuma özelliğini kullanabilmek için bir ses paketi yüklenmelidir. Lütfen işletim sisteminizle ilgili aşağıdaki talimatları izleyin.",
+        "title": "Yüklü ses yok"
+      },
+      "nothingToRead": {
+        "description": "Bu sayfada okunacak bir içerik yok.",
+        "title": "Okunacak bir şey yok"
+      }
+    },
+    "pause": "Duraklat",
+    "play": "Oynat",
+    "title": "Sesli Oku"
+  },
+  "userLocation": {
+    "loading": "Konum belirleniyor…",
+    "locationAccessRequired": "Yakındaki bölgeleri görüntülemek için konum erişiminin etkinleştirilmesi gerekir.",
+    "nearby": "Yakınında",
+    "noPermission": "Konum erişimi gerekli",
+    "notAvailable": "Konum servisleri devre dışı",
+    "show": "Mevcut konumu göster",
+    "timeout": "Konum bulunamadı"
+  }
+}

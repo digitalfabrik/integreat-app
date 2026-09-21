@@ -1,0 +1,468 @@
+{
+  "about": {
+    "aboutUs": "Nagu saabsan",
+    "accessibility": "Helitaanka dadka naafada ah",
+    "imprint": "Xogta sharciga ah",
+    "legal": "Shuruucda",
+    "licenses": {
+      "license": "Shatiga: {{license}}",
+      "title": "Shatiyada il-furan (Open Source)",
+      "version": "Nuqulka: {{version}}"
+    }
+  },
+  "categories": {
+    "organization": {
+      "description": "Macluumaad dheeraad ah oo ku saabsan {{organization}} waxaad ka heli kartaa <Link>{{domain}}</Link>.",
+      "title": "Xogta ku jirta boggan waxaa iska leh {{organization}}."
+    },
+    "pdf": {
+      "create": "Abuur PDF",
+      "disabled": "Sameynta PDF luuqaddan hadda suurtagal ma aha."
+    },
+    "title": "Xogta deegaanka",
+    "titleShort": "Macluumaad"
+  },
+  "chat": {
+    "bot": "Chatbot",
+    "consultant": "La-taliye",
+    "initial": {
+      "description": "Waxaad weydiin kartaa xogta deegaanka ama xaaladdaada gaarka ah.",
+      "title": "Fadlan su'aashaada ku qor sanduuqa qoraalka."
+    },
+    "inputPlaceholder": "Fadlan qor su'aashaada…",
+    "startNew": {
+      "description": "Ma hubtaa inaad rabto inaad bilowdo wada-sheekaysi cusub? Taariikhda wada-sheekaysiga hadda way tirtirmi doontaa.",
+      "title": "Bilow wada-sheekaysi cusub"
+    },
+    "subtitle": "Kaaliyahaaga raadinta dhijitaalka ah",
+    "typing": "Wuu qorayaa…",
+    "unread_few": "{{count}} farriimaha wada sheekaysiga ee aan la akhriyin",
+    "unread_many": "{{count}} farriimaha wada sheekaysiga ee aan la akhriyin",
+    "unread_one": "1 farriin wada sheekaysi oo aan la akhriyin",
+    "unread_other": "{{count}} farriimaha wada sheekaysiga ee aan la akhriyin",
+    "unread_two": "{{count}} farriimaha wada sheekaysiga ee aan la akhriyin",
+    "welcome": {
+      "description": "Waxaan ahay <strong>{{name}}</strong>, Kaaliyahaaga Raadinta Dhijitaalka ah. Xor u noqo inaad i weydiiso su'aashaada.",
+      "title": "Hayye!"
+    }
+  },
+  "common": {
+    "a11y": {
+      "skipToContent": "U gudub nuxurka"
+    },
+    "actions": {
+      "back": "Dib u noqo",
+      "cancel": "Ka noqo",
+      "clearInput": "Tirtir qoraalka la galiyay",
+      "close": "Xir",
+      "copy": "Nuqul ka qaad",
+      "goToPage": "Tag bogga {{number}}",
+      "hideFilters": "Qari shaandhada",
+      "minimize": "Yaree",
+      "next": "Sii wad",
+      "ok": "Hagaag",
+      "open": "Fur",
+      "openExternal": "Dibadda ka fur",
+      "previous": "Kii hore",
+      "send": "Dir",
+      "showFilters": "Muuji kala-shaandheynta",
+      "showLess": "Muuji wax yar",
+      "showMore": "Muuji wax dheeraad ah",
+      "skip": "Ka gudub",
+      "view": "Muuji"
+    },
+    "contacts": {
+      "address": {
+        "copy": "Koobiyeey cinwaanka",
+        "title": "Cinwaanka"
+      },
+      "email": "Iimaylka",
+      "phone": {
+        "mobile": "Lambarka taleefanka gacanta",
+        "title": "Lambarka taleefanka"
+      },
+      "title": "Xiriirrada",
+      "website": "Websaydhka"
+    },
+    "labels": {
+      "description": "Sharaxaadda",
+      "getOnPlayStore": "KA SOO DEJISO — Google Play Store",
+      "menu": "Liiska"
+    },
+    "meta": {
+      "description": "{{appName}} waa hagehaaga dhijitaalka ah ee Jarmalka. Ka hel macluumaad maxalli ah, dhacdooyin iyo talobixin. Had iyo jeer waa mid cusub oo ku qoran luqaddaada."
+    },
+    "privacy": {
+      "confirmation": "Waxaan akhriyay <Link>Xeerka Arrimaha Khaaska ah</Link> waxaanan oggolaaday farsamaynta iyo kaydinta xogtayda.",
+      "required": "Fadlan oggolow Xeerka Arrimaha Khaaska ah.",
+      "title": "Xeerka Arrimaha Khaaska ah"
+    },
+    "state": {
+      "copied": "Waa la koobiyay",
+      "disabled": "waa la damiyay",
+      "enabled": "waa la shiday",
+      "loading": "Wuu furmayaa…",
+      "optional": "ikhtiyaari",
+      "updatedAt": "Cusboonaysiintii ugu dambaysay: {{date}}"
+    }
+  },
+  "error": {
+    "forbidden": "Ma haysatid ogolaansho aad ku gasho gobolkan.",
+    "networkConnectionFailed": "Isku xirka adeegaha (server-ka) wuu fashilmay.",
+    "networkRequestFailed": "Codsiga lama baari karo mana la fulin karo.",
+    "noSuitableAppInstalled": "Lama hayo barnaamij ku habboon oo rakiban.",
+    "nothingFound": "Wax natiijo ah lama helin.",
+    "pageNotFound": "Boggan lama helin.",
+    "permissionRequired": "Fasax baa loo baahan yahay",
+    "rateLimited": "Codsi aad u badan ayaad dirtay. Fadlan wax yar sug.",
+    "responseMappingFailed": "Jawaabta adeegaha (server-ka) lama farsamayn karin.",
+    "title": "Khalad",
+    "tryAgain": "Isku day mar kale",
+    "unknownError": "Khalad aan la garanayn ayaa dhacay."
+  },
+  "events": {
+    "dateGroups": {
+      "further": "Dheeraad",
+      "nextDays": "{{days}} maalmood ee soo socda",
+      "today": "Maanta",
+      "tomorrow": "Berri"
+    },
+    "error": {
+      "notFound": "Dhacdadan lama helin.",
+      "nothingFound": "Wax dhacdooyin ah lama helin."
+    },
+    "export": {
+      "addToCalendar": "Ku dar kalandarka",
+      "added": "Waxaa lagu daray kalandarka",
+      "allRecurrences": "Tani iyo dhammaan dhacdooyinka mustaqbalka",
+      "calendar": "Kalandar",
+      "download": "Dhoofi",
+      "error": {
+        "forbidden": "Oggolaansho looma haysto gelitaanka kalandarka.",
+        "nothingFound": "Kalandar ku habboon lama helin"
+      },
+      "thisRecurrence": "Kaliya dhacdadan"
+    },
+    "filter": {
+      "error": {
+        "endBeforeStart": "Taariikhda billowga waa inay ka horreysaa taariikhda dhammaadka.",
+        "invalidDate": "Taariikh aan shaqaynayn"
+      },
+      "from": "ka timid",
+      "reset": "Dib u deji shaandhada: {{filter}}",
+      "selectEnd": "Ka dooro taariikhda dhammaadka kalandarka",
+      "selectStart": "Ka dooro taariikhda billowga jadwalka",
+      "to": "ilaa"
+    },
+    "onlineMeeting": "Kulan online ah",
+    "recurrence": {
+      "furtherDates": "Ballamo kale",
+      "recurring": "soo noqnoqda",
+      "untilDate": "ilaa {{date}}"
+    },
+    "title": "Dhacdooyinka"
+  },
+  "feedback": {
+    "comment": {
+      "description": "Nala wadaag ra'yigaaga! Waxaan qaddarineynaa ra'yiga togan iyo midka tabanba, maadaama ay naga caawinayaan horumarinta {{appName}}.",
+      "title": "Faallo"
+    },
+    "contactEmail": "Iimaylka su'aalaha dabagalka",
+    "description": "Dooro qiimeyn iyo/ama qor faallo.",
+    "give": "Dhiibo ra'yigaaga",
+    "rating": {
+      "notUseful": "Maan caawin",
+      "useful": "Wuu caawiyay"
+    },
+    "required": "Fadlan dooro falcelin ama qor faallo si aad u gudbiso ra'yigaaga.",
+    "search": {
+      "checkQuery": "Hubi ereyga aad raadinayso ama beddel luuqadda la doortay.",
+      "informationMissing": "Ma jiraan xog halkan ka maqan?",
+      "informationNotFound": "Ma weyday waxaad raadinaysay?",
+      "noResultsInUserAndSourceLanguage": "Nasiib-darro, wax natiijooyin ku habboon ah lagama helin luuqaddaada ama af Jarmal.",
+      "noResultsInUserLanguage": "Nasiib-darro, wax natiijooyin ku habboon ah lagama helin luuqaddaada.",
+      "searchTermDescription": "Wax natiijo ah looma helin ereygan soo socda:",
+      "wantedInformation": "Waa maxay macluumaadka maqan?"
+    },
+    "thanks": {
+      "description": "Fikrad-celintaada si guul leh ayaa loo diray.",
+      "title": "Waad ku mahadsan tahay fikrad-celintaada."
+    },
+    "title": "Fikrad-celin"
+  },
+  "intro": {
+    "slides": {
+      "languageChange": {
+        "description": "Waxaad luuqadda {{appName}} ka beddeli kartaa xagga sare ee liiska dookhyada."
+      },
+      "news": {
+        "description": "Maxaa ku cusub deegaankaaga? Ka ogow barnaamijka {{appName}}.",
+        "title": "Wararkii ugu dambeeyay"
+      },
+      "offline": {
+        "description": "Mar walba ma heshid khadka internetka? Dhib ma leh. Waxaad isticmaali kartaa {{appName}} xitaa haddii aadan internet haysan.",
+        "title": "Waxay sidoo kale shaqaysaa khad la'aan"
+      },
+      "places": {
+        "description": "Khariidadda dhexdeeda waxaad ka heli kartaa meelo kuu dhow, tusaale ahaan meelaha lagu barto luuqadaha.",
+        "title": "Adeegyada kuu dhow"
+      },
+      "search": {
+        "description": "Waxaad si degdeg ah ku heli kartaa macluumaadka saxda ah adigoo isticmaalaya goobta raadinta ee dhinaca midig ee sare ee liiska dookhyada.",
+        "title": "Raadin fudud"
+      }
+    },
+    "welcome": {
+      "description": "Barnaamijka {{appName}} waxaad ka helaysaa jawaabo iyo talooyin ku qoran luuqaddaada hooyo. Tusaale ahaan: Xaggee ka heli karaa caawimaad? Goormaan shaqaysan karaa?",
+      "title": "Ku soo dhowow {{appName}}"
+    }
+  },
+  "ios": {
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} waxay doonaysaa inay gasho jadwalkaaga si ay ugu darto munaasabadaha.",
+    "NSCalendarsUsageDescription": "{{appName}} waxay doonaysaa inay gasho jadwalkaaga si ay ugu darto munaasabadaha.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Si aad u hesho meelaha kuu dhow, {{appName}} waxay u baahan tahay fasaxa goobtaada.",
+    "NSLocationWhenInUseUsageDescription": "Si aad u hesho meelaha kuu dhow, {{appName}} waxay u baahan tahay fasaxa goobtaada.",
+    "NSPhotoLibraryAddUsageDescription": "Si sawirrada loo kaydiyo, {{appName}} waxay u baahan tahay fasaxa gelitaanka sawirrada (gallery-ga)."
+  },
+  "languages": {
+    "change": "Beddel luqadda",
+    "changed": "Luqadda waxaa loo beddelay {{languageName}}",
+    "error": {
+      "noTranslation": "Lama hayo wax turjumaad ah",
+      "notFound": {
+        "description": "Boggan weli laguma heli karo dhammaan luqadaha. Waxaan si firfircoon u ballaarinaynaa xulashada luqadahayaga. Waxaad luqaddaada ku codsan kartaa qaybta <Link>Ra'yi-celinta</Link>.",
+        "question": "Ma weyday luqaddaada?",
+        "title": "Luqaddan lama helin."
+      }
+    },
+    "search": "Raadi luqad"
+  },
+  "malteHelpForm": {
+    "contactPerson": "Qofka lagala xiriirayo:",
+    "contactPersonAnyGender": "Muhiim ma aha lab ama dheddig qofka ila soo xiriirayaa",
+    "contactPersonGenderFemale": "Waxaan rabaa in qof dumar ahi ila soo xiriirto",
+    "contactPersonGenderMale": "Waxaan rabaa in qof lab ahi ila soo xiriiro",
+    "contactReason": "Ujeeddadaada/Arintaada:",
+    "eMail": "Iimeyl",
+    "howToBeContacted": "Sida aan doorbidayo in laygula soo xiriiro:",
+    "invalidEmailAddress": "Cinwaanka iimeylka ee la galiyay ma shaqeynayo.",
+    "maxCharacters": "Ugu badnaan {{numberOfCharacters}} xaraf",
+    "name": "Magaca qoyska, Magaca hore",
+    "personally": "Qof ahaan",
+    "responseHint": "Waxay qaadan kartaa maalmo shaqo oo kooban ka hor inta aadan jawaab helin. Waxaan ku dadaalaynaa inaan arintaada wax kaga qabanno sida ugu dhakhsaha badan.",
+    "roomNumber": "Lambarka qolka",
+    "securityNote": "Amnigaagu waa mudnaantayada koowaad. Xogtaada waxaa loo maamulaa si qarsoodi ah, si sirtaadu mar walba u ahaato mid dhowrsan.",
+    "submit": "Dir foomka",
+    "submitFailed": "Foomka lama diri karin",
+    "submitFailedReasoning": "Fadlan hubi inaad haysato khad internet oo xasilloon, ka dibna mar kale isku day.",
+    "submitSuccessful": "Foomka si guul leh ayaa loo diray",
+    "supportNote": "Waxaan rabnaa inaad dareento ammaan iyo taageero marka aad qabto dhibaatooyin ama su'aalo. Foomkan xiriirka ee hoose, waxaad fursad ugu haysataa inaad la xiriirto qofka ay khusayso. Waxaad sheegi kartaa nooca arrintaada waxaanad ka dooran kartaa siyaabo kala duwan oo lagula xiriiro.",
+    "telephone": "Taleefan",
+    "telephoneNumber": "Tel. Lam."
+  },
+  "news": {
+    "error": {
+      "notFound": "Fariintan lama helin.",
+      "nothingFound": "Wax fariimo ah lama helin."
+    },
+    "sources": {
+      "all": "Dhammaan fariimaha",
+      "allShort": "Dhammaan",
+      "local": "Fariimaha maxalliga ah",
+      "localShort": "Maxalli",
+      "national": "Fariimaha heer qaran",
+      "nationalShort": "Qaran"
+    },
+    "title": "Fariimaha"
+  },
+  "places": {
+    "accessible": "U sahlan dadka naafada ah",
+    "distance": "{{distance}} km u jira",
+    "error": {
+      "notFound": "Goobtan lama helin.",
+      "nothingFound": "Wax goobo ah lama helin."
+    },
+    "filter": {
+      "adjust": "Kala shaandhee goobaha",
+      "alphabet": "A-Z",
+      "categories": "Qaybaha",
+      "onlyOpen": "kaliya muuji goobaha hadda furan",
+      "placeCount_few": "{{count}} goobood",
+      "placeCount_many": "{{count}} goobood",
+      "placeCount_one": "1 goob",
+      "placeCount_other": "{{count}} goobood",
+      "placeCount_two": "{{count}} goobood",
+      "placeCount_zero": "0 goobood",
+      "show_few": "Muuji {{count}} goobood",
+      "show_many": "Muuji {{count}} goobood",
+      "show_one": "Muuji 1 goob",
+      "show_other": "Muuji {{count}} goobood",
+      "show_two": "Muuji {{count}} goobood",
+      "show_zero": "0 goobood ayaa la helay"
+    },
+    "hours": {
+      "allDay": "maalintii oo dhan",
+      "appointment": {
+        "make": {
+          "description": "Ballan ku qabso <Link>bogga internetka</Link> ama taleefan.",
+          "title": "Ballan qabso"
+        },
+        "required": "Ballan baa loo baahan yahay"
+      },
+      "closed": "Xidhan",
+      "open": "Furan",
+      "temporarilyClosed": "Si ku-meel-gaadh ah u xidhan",
+      "title": "Saacadaha shaqada"
+    },
+    "notAccessible": "Kuma habboona dadka baahiyaha gaarka ah qaba",
+    "title": "Khariidad",
+    "weekdays": {
+      "dienstag": "Talaado",
+      "donnerstag": "Khamiis",
+      "freitag": "Jimce",
+      "mittwoch": "Arbaco",
+      "montag": "Isniin",
+      "samstag": "Sabti",
+      "sonntag": "Axad"
+    },
+    "zoom": {
+      "in": "Weynee",
+      "out": "Yaree"
+    }
+  },
+  "regions": {
+    "change": "Beddel gobolka",
+    "nearby": {
+      "nothingFound": "Ma jiro gobol dhow.",
+      "refresh": "Cusbooneysii gobollada dhow"
+    },
+    "notFound": "Gobolkan lama helin.",
+    "search": {
+      "description": "Dooro gobolkaaga ama magaalada kuugu dhow ee weyn, tusaale ahaan {{exampleRegion}}",
+      "region": "Raadi gobol"
+    },
+    "title": "Gobollada",
+    "welcome": {
+      "description": "Hhagahaaga dhijitaalka ah ee dhammaan xogta aad u baahan tahay. Fadlan dooro gobolkaaga.",
+      "title": "Ku soo dhawoow {{appName}}."
+    }
+  },
+  "search": {
+    "resultCount_few": "{{count}} natiijooyin raadinta ah",
+    "resultCount_many": "{{count}} natiijooyin raadinta ah",
+    "resultCount_one": "1 natiijo raadin ah",
+    "resultCount_other": "{{count}} natiijooyin raadinta ah",
+    "resultCount_two": "{{count}} natiijooyin raadinta ah",
+    "resultCount_zero": "0 natiijooyin raadin ah",
+    "searchContent": "Raadi nuxur",
+    "title": "Raadi",
+    "viewResult": "Fur natiijada raadinta"
+  },
+  "settings": {
+    "contrast": {
+      "description": "Habka kala-sooca midabada wuxuu hagaajiyaa akhrinta",
+      "title": "Kala-sooc midab oo sarreeya (tijaabo)"
+    },
+    "error": {
+      "save": "Lama guuleysan in la keydiyo goobaha doorashada"
+    },
+    "externalSources": {
+      "allowed": "Qaybtani waxay ka kooban tahay nuxur ka yimid il dibadeed. Waxaad nuxurka noocan ah ka xannibi kartaa goobaha doorashada.",
+      "blocked": "Nuxurka dibadda ee ka yimid isha xogtan waa la xannibay. Waxaad ishan ka oggolaan kartaa goobaha doorashada.",
+      "description": "Waxaad si rasmi ah u oggolaan kartaa in la muujiyo waxyaabaha ka imanaya ilo dibadda ah. Oggolaanshahan waad ka noqon kartaa halkan wakhti kasta.",
+      "descriptionShort": "Go'aami ilaha dibadda ah ee la oggol yahay.",
+      "nothingFound": "Ma jiraan ilo dibadda ah oo la heli karo.",
+      "optIn": "Waan oggolahay in la ii muujiyo nuxurka ka imanaya isha dibadda ah.",
+      "source": "Oggolow nuxurka ka imanaya {{source}}",
+      "title": "Ilo dibadda ah"
+    },
+    "pushNotifications": {
+      "description": "Hel ogeysiisyada tooska ah ee wararka deegaanka ugu dambeeyay",
+      "title": "Ogeysiisyada tooska ah"
+    },
+    "sentry": {
+      "description": "Horumari {{appName}} adigoo si toos ah u diraya warbixinnada cilladaha",
+      "title": "Deganaanshaha abka"
+    },
+    "title": "Dejinta"
+  },
+  "share": {
+    "copyLink": "Nuqul ka qaad xiriiriyaha",
+    "message": "Hadda la helay: {{message}}",
+    "qr": {
+      "description": "Si fudud u wadaag boggan adiga oo ku sawiraya koodka QR qalab kale.",
+      "label": "Koodka QR",
+      "title": "Ku wadaag koodka QR"
+    },
+    "title": "Wadaag"
+  },
+  "suggestToRegion": {
+    "description": "Fikradda barnaamijka Integreat ma ku qancisay oo ma aaminsan tahay in magaaladaada, degmadaada, ama deegaankaagu uu ka faa'iideysan karo xalkan dhijitaalka ah? Haddaba waxaad si fudud halkan uga qaadi kartaa tallaabo.",
+    "regionNotFoundCta": "Miyaadan helin gobolkaaga? Hadda tallaabo qaad!",
+    "steps": {
+      "copyText": "Nuqul ka qaad qoraalkan",
+      "fillPlaceholders": "Ku buuxi meelaha bannaan ee [ ] macluumaadkaaga",
+      "getEmail": "Raadi cinwaanka iimaylka ee gobolkaaga",
+      "send": "U dir iimaylka gobolkaaga"
+    },
+    "title": "U soo jeedi {{appName}} gobolkaaga",
+    "whatToDo": "Waxaad samayn karto:"
+  },
+  "tour": {
+    "additionalFeatures": {
+      "description": "Halkan kaga faa'iidayso shaqooyin dheeraad ah sida <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> iyo <strong>{{additionalFeature}}</strong>.",
+      "title": "Adeegyo dheeraad ah"
+    },
+    "categories": {
+      "description": "Baadh xogo ku saabsan mawduucyo ay ka mid yihiin <strong>Guryaha</strong>, <strong>Waxbarashada</strong>, <strong>Shaqada</strong> iyo kuwo kale.",
+      "title": "Baadh mowduucyada"
+    },
+    "chat": {
+      "description": "Halkan ku weydii su'aalahaaga oo si degdeg ah uga hel jawaabo ku habboon."
+    },
+    "finish": {
+      "description": "Hadda waxaad baratay shaqooyinka ugu muhiimsan. Guul ayaan kuu rajaynaynaa adeegsiga {{appName}}!",
+      "title": "Waa dhammaatay!"
+    },
+    "navigation": {
+      "description": "Halkan kaga kala gudub <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> iyo <strong>$t(events:title)</strong>.",
+      "title": "Hagid"
+    },
+    "progress": "Tallaabada {{current}} ee {{total}}",
+    "regionChange": {
+      "description": "Dooro <strong>gobolkaaga</strong> halkan si aad u hesho xogta maxalliga ah."
+    },
+    "searchAndLanguage": {
+      "description": "<strong>Raadi</strong> macluumaad maxalli ah, dhacdooyin iyo goobo ama beddel <strong>luqadda</strong>.",
+      "title": "Raadinta iyo luqadda"
+    },
+    "start": "Bilow barashada",
+    "title": "Barashada abka",
+    "welcome": "Booqashadan gaaban waxay ku tusinaysaa shaqooyinka ugu muhiimsan ee abkan."
+  },
+  "tts": {
+    "error": {
+      "languageNotSupported": "Luuqaddan lama taageero.",
+      "noVoices": {
+        "description": "Codna lama helin. Si aad u isticmaasho qaabka akhrinta, waa inuu cod ku rakiban yahay. Fadlan raac tilmaamahan ku habboon habkaaga hawlgalka.",
+        "title": "Codna kuma rakibana"
+      },
+      "nothingToRead": {
+        "description": "Waxba lama akhrin karo boggan.",
+        "title": "Wax la akhriyo ma jiraan"
+      }
+    },
+    "pause": "Jooji xoogaa",
+    "play": "Daar",
+    "title": "Kor u akhri"
+  },
+  "userLocation": {
+    "loading": "Goobta ayaa la raadinayaa…",
+    "locationAccessRequired": "Si loo muujiyo meelaha kuu dhow, waa in la oggolaadaa helitaanka goobtaada.",
+    "nearby": "Kuu dhow",
+    "noPermission": "Waa in la oggolaadaa goobta",
+    "notAvailable": "Adeegyada goobta waa la damiyay",
+    "show": "Muuji goobtayda",
+    "timeout": "Goobta lama helin"
+  }
+}

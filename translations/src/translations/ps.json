@@ -1,0 +1,468 @@
+{
+  "about": {
+    "aboutUs": "زموږ په اړه",
+    "accessibility": "لاسرسی",
+    "imprint": "حقوقي پېژندنه",
+    "legal": "حقوقي معلومات",
+    "licenses": {
+      "license": "جواز: {{license}}",
+      "title": "د خلاصې سرچینې (Open Source) جوازونه",
+      "version": "نسخه: {{version}}"
+    }
+  },
+  "categories": {
+    "organization": {
+      "description": "د {{organization}} په اړه نور معلومات په <Link>{{domain}}</Link> کې موندلی شئ.",
+      "title": "د دې پاڼې منځپانګه د {{organization}} له خوا چمتو شوې ده."
+    },
+    "pdf": {
+      "create": "پي ډي اېف (PDF) جوړول",
+      "disabled": "په دې ژبه د پي ډي اېف (PDF) جوړول اوس مهال شوني نه دي."
+    },
+    "title": "سیمه ییز معلومات",
+    "titleShort": "معلومات"
+  },
+  "chat": {
+    "bot": "چټ باټ",
+    "consultant": "مشاور / سلاکار",
+    "initial": {
+      "description": "تاسو کولی شئ د سیمه ییزو معلوماتو یا د خپل شخصي وضعیت په اړه پوښتنه وکړئ.",
+      "title": "مهرباني وکړئ خپله پوښتنه د متن په بکس کې ولیکئ."
+    },
+    "inputPlaceholder": "مهرباني وکړئ خپله پوښتنه ولیکئ...",
+    "startNew": {
+      "description": "ایا تاسو په رښتیا غواړئ یو نوی چټ پیل کړئ؟ د اوسني چټ تاریخچه به حذف شي.",
+      "title": "نوی چټ پیل کول"
+    },
+    "subtitle": "ستاسو ډیجیټل د لټون مرستیال",
+    "typing": "لیکل کیږي…",
+    "unread_few": "{{count}} نا لوستل شوي چټ پیغامونه",
+    "unread_many": "{{count}} نا لوستل شوي چټ پیغامونه",
+    "unread_one": "۱ نا لوستل شوی چټ پیغام",
+    "unread_other": "{{count}} نا لوستل شوي چټ پیغامونه",
+    "unread_two": "{{count}} نا لوستل شوي چټ پیغامونه",
+    "welcome": {
+      "description": "زه <strong>{{name}}</strong> یم، ستاسو ډیجیټل د لټون مرستیال. وړیا احساس وکړئ او خپله پوښتنه وپوښتئ.",
+      "title": "سلام!"
+    }
+  },
+  "common": {
+    "a11y": {
+      "skipToContent": "منځپانګې ته لاړ شئ"
+    },
+    "actions": {
+      "back": "شاته",
+      "cancel": "لغوه کول",
+      "clearInput": "داخل شوي معلومات پاکول",
+      "close": "بندول",
+      "copy": "کاپی کول",
+      "goToPage": "{{number}} مخ ته لاړ شئ",
+      "hideFilters": "فلټرونه پټول",
+      "minimize": "کوچنی کول",
+      "next": "بل",
+      "ok": "سمه ده",
+      "open": "پرانیستل",
+      "openExternal": "په بهرني ډول پرانیستل",
+      "previous": "مخکینی",
+      "send": "لېږل",
+      "showFilters": "فلټر ښودل",
+      "showLess": "لږ ښودل",
+      "showMore": "نور ښودل",
+      "skip": "پریښودل",
+      "view": "ښودل"
+    },
+    "contacts": {
+      "address": {
+        "copy": "پته کاپي کول",
+        "title": "پته"
+      },
+      "email": "برېښنالیک",
+      "phone": {
+        "mobile": "د موبایل شمېره",
+        "title": "د ټلیفون شمېره"
+      },
+      "title": "اړیکې",
+      "website": "وېبپاڼه"
+    },
+    "labels": {
+      "description": "توضیحات",
+      "getOnPlayStore": "ترلاسه یې کړئ — په Google Play سټور کې",
+      "menu": "مینو"
+    },
+    "meta": {
+      "description": "{{appName}} د جرمني لپاره ستاسو ډیجیټل لارښود دی. سیمه ییز معلومات، غونډې او مشورې ترلاسه کړئ. تل تازه او ستاسو په خپله ژبه کې."
+    },
+    "privacy": {
+      "confirmation": "ما د <Link>محرمیت تګلاره</Link> لوستې او د خپلو معلوماتو له پروسس او خوندي کولو سره موافق یم.",
+      "required": "مهرباني وکړئ د محرمیت تګلاره ومنئ.",
+      "title": "د محرمیت تګلاره"
+    },
+    "state": {
+      "copied": "کاپي شو",
+      "disabled": "غیر فعال شوی",
+      "enabled": "فعال شوی",
+      "loading": "د پورته کېدو په حال کې…",
+      "optional": "اختیاري",
+      "updatedAt": "وروستی تازه والی: {{date}}"
+    }
+  },
+  "error": {
+    "forbidden": "تاسو دې سیمې ته لاسرسی نه لرئ.",
+    "networkConnectionFailed": "له سرور سره نښلول ناکام شول.",
+    "networkRequestFailed": "غوښتنه ونه توانېده چې پروسس شي.",
+    "noSuitableAppInstalled": "مناسب اېپ نه دی لګول شوی.",
+    "nothingFound": "هیڅ پایله ونه موندل شوه.",
+    "pageNotFound": "دا پاڼه ونه موندل شوه.",
+    "permissionRequired": "اجازې ته اړتیا ده",
+    "rateLimited": "تاسو ډېرې زیاتې غوښتنې لېږلې دي. مهرباني وکړئ لږ انتظار وکړئ.",
+    "responseMappingFailed": "د سرور ځواب ونه توانېد چې پروسس شي.",
+    "title": "تېروتنه",
+    "tryAgain": "بیا هڅه وکړئ",
+    "unknownError": "یوه نامعلومه تېروتنه رامنځته شوه."
+  },
+  "events": {
+    "dateGroups": {
+      "further": "نور",
+      "nextDays": "راتلونکې {{days}} ورځې",
+      "today": "نن",
+      "tomorrow": "سبا"
+    },
+    "error": {
+      "notFound": "دا پېښه ونه موندل شوه.",
+      "nothingFound": "هیڅ پېښه ونه موندل شوه."
+    },
+    "export": {
+      "addToCalendar": "کلیز ته ورزیاتول",
+      "added": "کلیز ته ورزیات شو",
+      "allRecurrences": "دا او راتلونکې ټولې پېښې",
+      "calendar": "کلیز",
+      "download": "صادرول",
+      "error": {
+        "forbidden": "کلیز ته د لاسرسي اجازه نشته.",
+        "nothingFound": "هیڅ مناسب کلیز ونه موندل شو"
+      },
+      "thisRecurrence": "یوازې دا پېښه"
+    },
+    "filter": {
+      "error": {
+        "endBeforeStart": "د پیل نېټه باید د پای تر نېټې مخکې وي.",
+        "invalidDate": "ناسمه نېټه"
+      },
+      "from": "له",
+      "reset": "د فلټر بیا تنظیمول: {{filter}}",
+      "selectEnd": "په کلیز کې د پای نېټه غوره کړئ",
+      "selectStart": "په جنترۍ کې د پیل نېټه وټاکئ",
+      "to": "تر"
+    },
+    "onlineMeeting": "آنلاین غونډه",
+    "recurrence": {
+      "furtherDates": "نورې لیدنې",
+      "recurring": "تکرارېدونکی",
+      "untilDate": "تر {{date}} پورې"
+    },
+    "title": "پېښې او پروګرامونه"
+  },
+  "feedback": {
+    "comment": {
+      "description": "خپل نظر موږ سره شریک کړئ! موږ د مثبت او منفي دواړو نظرونو قدر کوو، ځکه چې دا زموږ سره د {{appName}} په ښه کولو کې مرسته کوي.",
+      "title": "تبصره"
+    },
+    "contactEmail": "د پوښتنو لپاره برېښنالیک",
+    "description": "یو امتیاز وټاکئ او/یا یوه تبصره ولیکئ.",
+    "give": "نظر ورکول",
+    "rating": {
+      "notUseful": "ګټور نه و",
+      "useful": "ګټور و"
+    },
+    "required": "مهرباني وکړئ د نظر لېږلو لپاره یو غبرګون وټاکئ یا تبصره ولیکئ.",
+    "search": {
+      "checkQuery": "خپله د لټون کلیمه وګورئ یا خپله ټاکلې ژبه بدله کړئ.",
+      "informationMissing": "دلته معلومات کم دي؟",
+      "informationNotFound": "هغه څه چې غوښتل مو ونه موندل شول؟",
+      "noResultsInUserAndSourceLanguage": "له بده مرغه، ستاسو په ژبه یا په الماني ژبه کومه اړونده پایله ونه موندل شوه.",
+      "noResultsInUserLanguage": "له بده مرغه، ستاسو په ژبه کومه اړونده پایله ونه موندل شوه.",
+      "searchTermDescription": "د لاندې کلمې لپاره هېڅ پایله ونه موندل شوه:",
+      "wantedInformation": "کوم معلومات کم دي؟"
+    },
+    "thanks": {
+      "description": "ستاسو نظر په برياليتوب سره واستول شو.",
+      "title": "ستاسو له نظر څخه ډېره مننه."
+    },
+    "title": "نظرونه"
+  },
+  "intro": {
+    "slides": {
+      "languageChange": {
+        "description": "تاسو کولی شئ په پورتني مینو کې د {{appName}} ژبه بدله کړئ."
+      },
+      "news": {
+        "description": "ستاسو په شاوخوا کې څه نوي دي؟ په {{appName}} کې یې ومومئ.",
+        "title": "تازه معلومات"
+      },
+      "offline": {
+        "description": "هر وخت انټرنېټ نه لرئ؟ کومه ستونزه نشته. تاسو کولی شئ {{appName}} له انټرنېټ پرته هم وکاروئ.",
+        "title": "افلاین هم کار کوي"
+      },
+      "places": {
+        "description": "په نقشه کې تاسو کولی شئ خپل شاوخوا ځایونه ومومئ، د بېلګې په توګه د ژبې کورسونو ځایونه.",
+        "title": "ستاسو په شاوخوا کې وړاندیزونه"
+      },
+      "search": {
+        "description": "تاسو کولی شئ د پورتنۍ ښۍ خوا مینو د لټون له لارې سم معلومات په چټکۍ سره ومومئ.",
+        "title": "اسانه لټون"
+      }
+    },
+    "welcome": {
+      "description": "په {{appName}} کې تاسو په خپله مورنۍ ژبه ځوابونه او لارښوونې موندلی شئ. د بېلګې په توګه: زه چېرته مرسته ترلاسه کولی شم؟ کله د کار کولو اجازه لرم؟",
+      "title": "{{appName}} ته ښه راغلاست"
+    }
+  },
+  "ios": {
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} غواړي ستاسو تقویم ته لاسرسی ومومي ترڅو پېښې ورزیاتې کړي.",
+    "NSCalendarsUsageDescription": "{{appName}} غواړي ستاسو تقویم ته لاسرسی ومومي ترڅو پېښې ورزیاتې کړي.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "د نږدې ځایونو موندلو لپاره، {{appName}} د ځای ځایګي (لوکیشن) لاسرسي ته اړتیا لري.",
+    "NSLocationWhenInUseUsageDescription": "د نږدې ځایونو موندلو لپاره، {{appName}} د ځای ځایګي (لوکیشن) لاسرسي ته اړتیا لري.",
+    "NSPhotoLibraryAddUsageDescription": "د انځورونو خوندي کولو لپاره، {{appName}} ګالري ته لاسرسي ته اړتیا لري."
+  },
+  "languages": {
+    "change": "ژبه بدلول",
+    "changed": "ژبه {{languageName}} ته واړول شوه",
+    "error": {
+      "noTranslation": "هیڅ ژباړه شتون نلري",
+      "notFound": {
+        "description": "دا پاڼه تر اوسه په ټولو ژبو کې شتون نلري. موږ په فعاله توګه د ژبو انتخاب پراخوو. تاسې کولی شئ د <Link>نظر شریکولو</Link> له لارې د خپلې ژبې غوښتنه وکړئ.",
+        "question": "خپله ژبه مو ونه موندله؟",
+        "title": "دا ژبه ونه موندل شوه."
+      }
+    },
+    "search": "ژبه وپلټئ"
+  },
+  "malteHelpForm": {
+    "contactPerson": "د اړیکې کس:",
+    "contactPersonAnyGender": "د اړیکې نیوونکي کس جنسیت مهم نه دی",
+    "contactPersonGenderFemale": "زه غواړم له ما سره د یوې ښځینه لخوا اړیکه ونیول شي",
+    "contactPersonGenderMale": "زه غواړم له ما سره د یو نارینه لخوا اړیکه ونیول شي",
+    "contactReason": "ستاسې موضوع یا غوښتنه:",
+    "eMail": "برېښنالیک",
+    "howToBeContacted": "زه غواړم له ما سره په دې ډول اړیکه ونیول شي:",
+    "invalidEmailAddress": "ورکړل شوی برېښنالیک ناسم دی.",
+    "maxCharacters": "تر ټولو زیات {{numberOfCharacters}} توري",
+    "name": "تخلص، نوم",
+    "personally": "شخصي",
+    "responseHint": "کیدای شي د ځواب ترلاسه کولو لپاره څو کاري ورځې وخت ونیسي. موږ هڅه کوو چې ژر تر ژره ستاسې غوښتنې ته رسیدګي وکړو.",
+    "roomNumber": "د خونې شمېره",
+    "securityNote": "ستاسو خوندیتوب زموږ لومړیتوب دی. ستاسو معلومات په بشپړ رازدارۍ سره ساتل کېږي ترڅو ستاسو حریم تل خوندي پاتې شي.",
+    "submit": "فورمه لېږل",
+    "submitFailed": "فورمه ونه لېږل شوه",
+    "submitFailedReasoning": "مهرباني وکړئ د انټرنټ د باثباته پیوستون ډاډ ترلاسه کړئ او بیا هڅه وکړئ.",
+    "submitSuccessful": "فورمه په بریا سره ولېږل شوه",
+    "supportNote": "موږ غواړو چې د ستونزو یا پوښتنو پر مهال تاسو د خوندیتوب او ملاتړ احساس وکړئ. د لاندې اړیکې فورمې له لارې، تاسو کولی شئ له مسؤلو کسانو سره اړیکه ونیسئ. تاسو کولی شئ د خپلې مسلې ډول مشخص کړئ او د اړیکې نیولو له مختلفو لارو څخه یو وټاکئ.",
+    "telephone": "تلیفون",
+    "telephoneNumber": "د تلیفون شمېره"
+  },
+  "news": {
+    "error": {
+      "notFound": "دا پیغام ونه موندل شو.",
+      "nothingFound": "هیڅ پیغام ونه موندل شو."
+    },
+    "sources": {
+      "all": "ټول خبرونه",
+      "allShort": "ټول",
+      "local": "سیمه ییز خبرونه",
+      "localShort": "سیمه ییز",
+      "national": "ملي خبرونه",
+      "nationalShort": "ملي"
+    },
+    "title": "خبرونه"
+  },
+  "places": {
+    "accessible": "د لاسرسي وړ",
+    "distance": "{{distance}} کیلومتره لرې",
+    "error": {
+      "notFound": "دا ځای ونه موندل شو.",
+      "nothingFound": "هیڅ ځای ونه موندل شو."
+    },
+    "filter": {
+      "adjust": "ځایونه فلټر کړئ",
+      "alphabet": "الف-ی",
+      "categories": "کټګورۍ",
+      "onlyOpen": "یوازې هغه ځایونه وښایاست چې اوس مهال خلاص دي",
+      "placeCount_few": "{{count}} ځایونه",
+      "placeCount_many": "{{count}} ځایونه",
+      "placeCount_one": "۱ ځای",
+      "placeCount_other": "{{count}} ځایونه",
+      "placeCount_two": "{{count}} ځایونه",
+      "placeCount_zero": "۰ ځایونه",
+      "show_few": "{{count}} ځایونه وښایاست",
+      "show_many": "{{count}} ځایونه وښایاست",
+      "show_one": "۱ ځای وښایاست",
+      "show_other": "{{count}} ځایونه وښایاست",
+      "show_two": "{{count}} ځایونه وښایاست",
+      "show_zero": "۰ ځایونه وموندل شول"
+    },
+    "hours": {
+      "allDay": "ټوله ورځ",
+      "appointment": {
+        "make": {
+          "description": "د <Link>وېبپاڼې</Link> له لارې یا د ټلیفون په مرسته وخت وټاکئ.",
+          "title": "وخت ټاکل"
+        },
+        "required": "وخت نیول اړین دی"
+      },
+      "closed": "تړلی",
+      "open": "خلاص",
+      "temporarilyClosed": "په موقتي توګه تړل شوی",
+      "title": "د کاري ساعتونو وخت"
+    },
+    "notAccessible": "د لاسرسي وړ نه دی",
+    "title": "نقشه",
+    "weekdays": {
+      "dienstag": "سه شنبه",
+      "donnerstag": "پنجشنبه",
+      "freitag": "جمعه",
+      "mittwoch": "څلورنښته",
+      "montag": "دوشنبه",
+      "samstag": "شنبه",
+      "sonntag": "یکشنبه"
+    },
+    "zoom": {
+      "in": "لویول",
+      "out": "کوچني کول"
+    }
+  },
+  "regions": {
+    "change": "سیمه بدلول",
+    "nearby": {
+      "nothingFound": "نږدې کومه سیمه نشته.",
+      "refresh": "نږدې سیمې تازه کول"
+    },
+    "notFound": "دا سیمه ونه موندل شوه.",
+    "search": {
+      "description": "خپله سیمه یا نږدې لوی ښار وټاکئ، لکه {{exampleRegion}}",
+      "region": "سیمه ولټوئ"
+    },
+    "title": "سیمې",
+    "welcome": {
+      "description": "ستاسو ډیجیټل لارښود د هغو ټولو معلوماتو لپاره چې تاسو ورته اړتیا لرئ. مهرباني وکړئ خپله سیمه وټاکئ.",
+      "title": "{{appName}} ته ښه راغلاست."
+    }
+  },
+  "search": {
+    "resultCount_few": "{{count}} د لټون پایلې",
+    "resultCount_many": "{{count}} د لټون پایلې",
+    "resultCount_one": "۱ د لټون پایله",
+    "resultCount_other": "{{count}} د لټون پایلې",
+    "resultCount_two": "{{count}} د لټون پایلې",
+    "resultCount_zero": "۰ د لټون پایلې",
+    "searchContent": "منځپانګه وپلټئ",
+    "title": "لټون",
+    "viewResult": "د لټون پایله پرانیزئ"
+  },
+  "settings": {
+    "contrast": {
+      "description": "د لوړ تضاد حالت لوستل اسانه کوي",
+      "title": "لوړ تضاد (ازمایښتي)"
+    },
+    "error": {
+      "save": "تنظیمات خوندي نشول"
+    },
+    "externalSources": {
+      "allowed": "دا برخه د یوې بهرنۍ سرچینې منځپانګه لري. تاسو کولی شئ دا ډول منځپانګې په تنظیماتو کې بندې کړئ.",
+      "blocked": "د دې سرچینې بهرنۍ منځپانګه بنده شوې ده. تاسو کولی شئ په تنظیماتو کې دې سرچینې ته اجازه ورکړئ.",
+      "description": "تاسو کولی شئ د بهرنیو سرچینو د منځپانګې ښودلو سره د تل لپاره موافقه وکړئ. تاسو کولی شئ دلته په هر وخت کې خپله موافقه بېرته واخلئ.",
+      "descriptionShort": "وټاکئ چې کومې بهرنۍ سرچینې اجازه لري.",
+      "nothingFound": "بهرنۍ سرچینې شتون نلري.",
+      "optIn": "زه موافق یم چې د دې بهرنۍ سرچینې منځپانګه ماته وښودل شي.",
+      "source": "د {{source}} څخه منځپانګې ته اجازه ورکول",
+      "title": "بهرنۍ سرچینې"
+    },
+    "pushNotifications": {
+      "description": "د تازه محلي خبرونو لپاره پش خبرتیاوې (نوټیفکېشنونه) ترلاسه کړئ",
+      "title": "پش خبرتیاوې"
+    },
+    "sentry": {
+      "description": "د اتوماتيک ډول د ستونزو راپورونو په لېږلو سره د {{appName}} په ښه کولو کې مرسته وکړئ",
+      "title": "د اپلیکیشن پیاوړتیا او ثبات"
+    },
+    "title": "تنظیمات"
+  },
+  "share": {
+    "copyLink": "لینک کاپي کړئ",
+    "message": "همدا اوس وموندل شو: {{message}}",
+    "qr": {
+      "description": "په بل وسیله د QR کوډ سکین کولو سره په اسانۍ سره دا پاڼه شریکه کړئ.",
+      "label": "QR کوډ",
+      "title": "د QR کوډ له لارې شریکول"
+    },
+    "title": "شریکول"
+  },
+  "suggestToRegion": {
+    "description": "ایا د Integreat اپلیکیشن مفکورې تاسو قانع کړي یاست او فکر کوئ چې ستاسو ښار، ولسوالۍ یا ټولنه هم له دې ډیجیټلي حل څخه ګټه پورته کولی شي؟ نو تاسو دلته په اسانۍ سره لاس په کار کېدای شئ.",
+    "regionNotFoundCta": "خپله سیمه مو ونه موندله؟ همدا اوس لاس په کار شئ!",
+    "steps": {
+      "copyText": "دا متن کاپي کړئ",
+      "fillPlaceholders": "د خپلو معلوماتو سره د [ ] ځایونه ډک کړئ",
+      "getEmail": "د خپلې سیمې برېښنالیک پته ومومئ",
+      "send": "خپلې سیمې ته برېښنالیک واستوئ"
+    },
+    "title": "خپلې سیمې ته {{appName}} وړاندیز کړئ",
+    "whatToDo": "تاسو دا کارونه کولی شئ:"
+  },
+  "tour": {
+    "additionalFeatures": {
+      "description": "دلته نورې اسانتیاوې وکاروئ لکه <strong>$t(categories:pdf.create)</strong>، <strong>$t(tts:title)</strong>، <strong>$t(share:title)</strong> او <strong>{{additionalFeature}}</strong>.",
+      "title": "نورې ځانګړنې"
+    },
+    "categories": {
+      "description": "د <strong>استوګنې</strong>، <strong>زده کړې</strong>، <strong>کار</strong> او نورو موضوعاتو په اړه معلومات ومومئ.",
+      "title": "موضوعات وپلټئ"
+    },
+    "chat": {
+      "description": "دلته خپلې پوښتنې وپوښتئ او ژر تر ژره مناسب ځوابونه ترلاسه کړئ."
+    },
+    "finish": {
+      "description": "اوس تاسو له خورا مهمو ځانګړنو خبر یاست. په {{appName}} کې بريالي اوسئ!",
+      "title": "بشپړ شو!"
+    },
+    "navigation": {
+      "description": "دلته د <strong>$t(categories:title)</strong>، <strong>$t(places:title)</strong>، <strong>$t(news:title)</strong> او <strong>$t(events:title)</strong> ترمنځ بدلون راولئ.",
+      "title": "لارښود (نیویګیشن)"
+    },
+    "progress": "له {{total}} څخه {{current}} ګام",
+    "regionChange": {
+      "description": "د سیمه ایزو معلوماتو موندلو لپاره دلته خپله <strong>سیمه</strong> وټاکئ."
+    },
+    "searchAndLanguage": {
+      "description": "د سیمه ایزو معلوماتو، پېښو او ځایونو لپاره <strong>لټون وکړئ</strong> یا <strong>ژبه</strong> بدله کړئ.",
+      "title": "لټون او ژبه"
+    },
+    "start": "لارښود سفر پیل کړئ",
+    "title": "د اپلیکیشن پېژندنه",
+    "welcome": "دا لنډه لارښوونه تاسو ته د دې اپلیکېشن خورا مهمې اسانتیاوې او ځانګړنې درپېژني."
+  },
+  "tts": {
+    "error": {
+      "languageNotSupported": "دا ژبه نه ملاتړ کیږي.",
+      "noVoices": {
+        "description": "هیڅ غږ ونه موندل شو. د لوستلو د اسانتیا کارولو لپاره، باید یو غږ انسټال شوی وي. مهرباني وکړئ د خپل عملیاتي سیسټم لپاره لاندې لارښوونې تعقیب کړئ.",
+        "title": "هیڅ غږ ندی لګول شوی"
+      },
+      "nothingToRead": {
+        "description": "په دې پاڼه کې د لوستلو لپاره هیڅ نشته.",
+        "title": "د لوستلو لپاره هیڅ نشته"
+      }
+    },
+    "pause": "ځنډول",
+    "play": "غږول",
+    "title": "په لوړ غږ لوستل"
+  },
+  "userLocation": {
+    "loading": "د ځای تثبیت روان دی…",
+    "locationAccessRequired": "د نږدې سیمو ښودلو لپاره، اړینه ده چې د موقعیت موندلو لاسرسی فعال وي.",
+    "nearby": "ستاسو شاوخوا",
+    "noPermission": "موقعیت ته لاسرسی اړین دی",
+    "notAvailable": "د موقعیت خدمتونه غیر فعال دي",
+    "show": "زما خپل موقعیت وښایاست",
+    "timeout": "موقعیت ونه موندل شو"
+  }
+}

@@ -1,0 +1,468 @@
+{
+  "about": {
+    "aboutUs": "O nama",
+    "accessibility": "Pristupačnost",
+    "imprint": "Impresum",
+    "legal": "Pravne napomene",
+    "licenses": {
+      "license": "Licenca: {{license}}",
+      "title": "Licence otvorenog koda",
+      "version": "Verzija: {{version}}"
+    }
+  },
+  "categories": {
+    "organization": {
+      "description": "Više informacija o organizaciji {{organization}} možeš pronaći na <Link>{{domain}}</Link>.",
+      "title": "Sadržaj ove stranice omogućuje {{organization}}."
+    },
+    "pdf": {
+      "create": "Izradi PDF",
+      "disabled": "Stvaranje PDF-a trenutačno nije moguće na ovom jeziku."
+    },
+    "title": "Lokalne informacije",
+    "titleShort": "Informacije"
+  },
+  "chat": {
+    "bot": "Chatbot",
+    "consultant": "Savjetnik/savjetnica",
+    "initial": {
+      "description": "Možeš postaviti pitanje o lokalnim informacijama ili svojoj osobnoj situaciji.",
+      "title": "Upiši svoje pitanje u polje za unos teksta."
+    },
+    "inputPlaceholder": "Upiši svoje pitanje…",
+    "startNew": {
+      "description": "Želiš li doista pokrenuti novi razgovor? Trenutačna povijest razgovora bit će izbrisana.",
+      "title": "Započni novi razgovor"
+    },
+    "subtitle": "Tvoj digitalni asistent za pretraživanje",
+    "typing": "Piše…",
+    "unread_few": "{{count}} nepročitanih chat poruka",
+    "unread_many": "{{count}} nepročitane chat poruke",
+    "unread_one": "1 nepročitana chat poruka",
+    "unread_other": "{{count}} nepročitanih chat poruka",
+    "unread_two": "{{count}} nepročitanih chat poruka",
+    "welcome": {
+      "description": "Ja sam <strong>{{name}}</strong>, tvoj digitalni asistent za pretraživanje. Slobodno mi postavi pitanje.",
+      "title": "Bok!"
+    }
+  },
+  "common": {
+    "a11y": {
+      "skipToContent": "Preskoči na sadržaj"
+    },
+    "actions": {
+      "back": "Natrag",
+      "cancel": "Odustani",
+      "clearInput": "Izbriši unos",
+      "close": "Zatvori",
+      "copy": "Kopiraj",
+      "goToPage": "Na stranicu {{number}}",
+      "hideFilters": "Sakrij filtre",
+      "minimize": "Smanji",
+      "next": "Dalje",
+      "ok": "U redu",
+      "open": "Otvori",
+      "openExternal": "Otvori vanjsku poveznicu",
+      "previous": "prethodni",
+      "send": "Pošalji",
+      "showFilters": "Prikaži filtre",
+      "showLess": "Prikaži manje",
+      "showMore": "Prikaži više",
+      "skip": "Preskoči",
+      "view": "Prikaži"
+    },
+    "contacts": {
+      "address": {
+        "copy": "Kopiraj adresu",
+        "title": "Adresa"
+      },
+      "email": "E-pošta",
+      "phone": {
+        "mobile": "Broj mobitela",
+        "title": "Broj telefona"
+      },
+      "title": "Kontakti",
+      "website": "Web-stranica"
+    },
+    "labels": {
+      "description": "Opis",
+      "getOnPlayStore": "PREUZMI — U trgovini Google Play",
+      "menu": "Izbornik"
+    },
+    "meta": {
+      "description": "{{appName}} je tvoj digitalni vodič za Njemačku. Pronađi lokalne informacije, događaje i savjetovanja. Uvijek ažurno i na tvom jeziku."
+    },
+    "privacy": {
+      "confirmation": "Pročitao/la sam <Link>Pravila privatnosti</Link> i pristajem na obradu i pohranu svojih podataka.",
+      "required": "Molimo prihvatite Pravila privatnosti.",
+      "title": "Pravila privatnosti"
+    },
+    "state": {
+      "copied": "Kopirano",
+      "disabled": "onemogućeno",
+      "enabled": "omogućeno",
+      "loading": "Učitavanje…",
+      "optional": "neobavezno",
+      "updatedAt": "Zadnje ažuriranje: {{date}}"
+    }
+  },
+  "error": {
+    "forbidden": "Nemate pristup ovoj regiji.",
+    "networkConnectionFailed": "Povezivanje s poslužiteljem nije uspjelo.",
+    "networkRequestFailed": "Zahtjev se nije mogao obraditi.",
+    "noSuitableAppInstalled": "Nema instalirane odgovarajuće aplikacije.",
+    "nothingFound": "Nema pronađenih rezultata.",
+    "pageNotFound": "Ova stranica nije pronađena.",
+    "permissionRequired": "Potrebno je dopuštenje",
+    "rateLimited": "Poslali ste previše zahtjeva. Pričekajte trenutak.",
+    "responseMappingFailed": "Odgovor poslužitelja nije se mogao obraditi.",
+    "title": "Pogreška",
+    "tryAgain": "Pokušaj ponovno",
+    "unknownError": "Došlo je do nepoznate pogreške."
+  },
+  "events": {
+    "dateGroups": {
+      "further": "Više",
+      "nextDays": "Sljedećih {{days}} dana",
+      "today": "Danas",
+      "tomorrow": "Sutra"
+    },
+    "error": {
+      "notFound": "Ovaj događaj nije pronađen.",
+      "nothingFound": "Nije pronađen nijedan događaj."
+    },
+    "export": {
+      "addToCalendar": "Dodaj u kalendar",
+      "added": "Dodano u kalendar",
+      "allRecurrences": "Ovaj i svi budući događaji",
+      "calendar": "Kalendar",
+      "download": "Izvezi",
+      "error": {
+        "forbidden": "Pristup kalendaru nije dopušten.",
+        "nothingFound": "Nema odgovarajućeg kalendara"
+      },
+      "thisRecurrence": "Samo ovaj događaj"
+    },
+    "filter": {
+      "error": {
+        "endBeforeStart": "Datum početka trebao bi biti prije datuma završetka.",
+        "invalidDate": "Nevažeći datum"
+      },
+      "from": "od",
+      "reset": "Poništi filtar: {{filter}}",
+      "selectEnd": "Odaberite datum završetka u kalendaru",
+      "selectStart": "Odaberite početni datum u kalendaru",
+      "to": "do"
+    },
+    "onlineMeeting": "Mrežni sastanak",
+    "recurrence": {
+      "furtherDates": "Dodatni termini",
+      "recurring": "ponavljajući",
+      "untilDate": "do {{date}}"
+    },
+    "title": "Događaji"
+  },
+  "feedback": {
+    "comment": {
+      "description": "Podijelite svoje povratne informacije s nama! Cijenimo i pozitivne i negativne komentare jer nam pomažu poboljšati {{appName}}.",
+      "title": "Komentar"
+    },
+    "contactEmail": "E-adresa za dodatne upite",
+    "description": "Odaberite ocjenu i/ili napišite komentar.",
+    "give": "Pošaljite povratne informacije",
+    "rating": {
+      "notUseful": "Nije korisno",
+      "useful": "Korisno"
+    },
+    "required": "Odaberite reakciju ili napišite komentar kako biste mogli poslati povratne informacije.",
+    "search": {
+      "checkQuery": "Provjerite pojam za pretraživanje ili promijenite postavljeni jezik.",
+      "informationMissing": "Ovdje nedostaju informacije?",
+      "informationNotFound": "Niste pronašli ono što tražite?",
+      "noResultsInUserAndSourceLanguage": "Nažalost, nisu pronađeni odgovarajući rezultati na vašem jeziku ili na njemačkom.",
+      "noResultsInUserLanguage": "Nažalost, nisu pronađeni odgovarajući rezultati na vašem jeziku.",
+      "searchTermDescription": "Nije pronađen nijedan rezultat za sljedeći pojam:",
+      "wantedInformation": "Koje informacije nedostaju?"
+    },
+    "thanks": {
+      "description": "Tvoje su povratne informacije uspješno poslane.",
+      "title": "Hvala ti na povratnim informacijama."
+    },
+    "title": "Povratne informacije"
+  },
+  "intro": {
+    "slides": {
+      "languageChange": {
+        "description": "Jezik aplikacije {{appName}} možeš promijeniti pri vrhu izbornika."
+      },
+      "news": {
+        "description": "Što je novo u tvojoj blizini? Saznaj u aplikaciji {{appName}}.",
+        "title": "Aktualne informacije"
+      },
+      "offline": {
+        "description": "Nemaš uvijek pristup internetu? Nema problema. Aplikaciju {{appName}} možeš upotrebljavati i bez interneta.",
+        "title": "Radi i izvan mreže"
+      },
+      "places": {
+        "description": "Na karti možeš pronaći lokacije u svojoj blizini, primjerice mjesta za tečajeve jezika.",
+        "title": "Ponuda u tvojoj blizini"
+      },
+      "search": {
+        "description": "Prave informacije možeš brzo pronaći putem pretraživanja gore desno u izborniku.",
+        "title": "Jednostavno pretraživanje"
+      }
+    },
+    "welcome": {
+      "description": "U aplikaciji {{appName}} možeš pronaći odgovore i savjete na svojem materinskom jeziku. Na primjer: Gdje mogu pronaći pomoć? Kada smijem raditi?",
+      "title": "Dobro došli u {{appName}}"
+    }
+  },
+  "ios": {
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} želi pristupiti kalendaru radi dodavanja događaja.",
+    "NSCalendarsUsageDescription": "{{appName}} želi pristupiti kalendaru radi dodavanja događaja.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Kako bi se pronašle lokacije u blizini, aplikaciji {{appName}} potreban je pristup lokaciji uređaja.",
+    "NSLocationWhenInUseUsageDescription": "Kako bi se pronašle lokacije u blizini, aplikaciji {{appName}} potreban je pristup lokaciji uređaja.",
+    "NSPhotoLibraryAddUsageDescription": "Za spremanje slika aplikacija {{appName}} treba pristup galeriji."
+  },
+  "languages": {
+    "change": "Promijeni jezik",
+    "changed": "Jezik je promijenjen na {{languageName}}",
+    "error": {
+      "noTranslation": "Prijevod nije dostupan",
+      "notFound": {
+        "description": "Ova stranica još nije dostupna na svim jezicima. Stalno proširujemo ponudu jezika. Svoj jezik možete zatražiti putem funkcije za <Link>povratne informacije</Link>.",
+        "question": "Niste pronašli jezik?",
+        "title": "Ovaj jezik nije pronađen."
+      }
+    },
+    "search": "Pretraži jezike"
+  },
+  "malteHelpForm": {
+    "contactPerson": "Kontaktna osoba:",
+    "contactPersonAnyGender": "Spol kontaktne osobe nije važan",
+    "contactPersonGenderFemale": "Želim da me kontaktira ženska osoba",
+    "contactPersonGenderMale": "Želim da me kontaktira muška osoba",
+    "contactReason": "Vaš upit:",
+    "eMail": "E-pošta",
+    "howToBeContacted": "Željeni način kontakta:",
+    "invalidEmailAddress": "Navedena adresa e-pošte nije valjana.",
+    "maxCharacters": "najviše {{numberOfCharacters}} znakova",
+    "name": "Prezime, ime",
+    "personally": "Osobno",
+    "responseHint": "Odgovor možete očekivati u roku od nekoliko radnih dana. Trudimo se obraditi vaš upit u najkraćem mogućem roku.",
+    "roomNumber": "Broj sobe",
+    "securityNote": "Vaša nam je sigurnost na prvome mjestu. Vašim podacima pristupamo povjerljivo kako bi vaša privatnost u svakom trenutku bila zaštićena.",
+    "submit": "Pošalji obrazac",
+    "submitFailed": "Slanje obrasca nije uspjelo",
+    "submitFailedReasoning": "Provjerite stabilnost internetske veze i pokušajte ponovno.",
+    "submitSuccessful": "Obrazac je uspješno poslan",
+    "supportNote": "Želimo da se osjećate sigurno i podržano ako naiđete na poteškoće ili imate pitanja. Putem ovog obrasca za kontakt možete se obratiti našim kontakt-osobama. Navedite vrstu svog upita i odaberite željeni način kontakta.",
+    "telephone": "Telefon",
+    "telephoneNumber": "Tel."
+  },
+  "news": {
+    "error": {
+      "notFound": "Ova poruka nije pronađena.",
+      "nothingFound": "Nema pronađenih poruka."
+    },
+    "sources": {
+      "all": "Sve vijesti",
+      "allShort": "Sve",
+      "local": "Lokalne vijesti",
+      "localShort": "Lokalno",
+      "national": "Nacionalne vijesti",
+      "nationalShort": "Nacionalno"
+    },
+    "title": "Vijesti"
+  },
+  "places": {
+    "accessible": "Pristupačno za osobe s invaliditetom",
+    "distance": "{{distance}} km udaljeno",
+    "error": {
+      "notFound": "Ova lokacija nije pronađena.",
+      "nothingFound": "Nema pronađenih lokacija."
+    },
+    "filter": {
+      "adjust": "Filtriraj lokacije",
+      "alphabet": "A – Ž",
+      "categories": "Kategorije",
+      "onlyOpen": "Prikaži samo trenutno otvorene lokacije",
+      "placeCount_few": "{{count}} lokacija",
+      "placeCount_many": "{{count}} lokacije",
+      "placeCount_one": "1 lokacija",
+      "placeCount_other": "{{count}} lokacija",
+      "placeCount_two": "{{count}} lokacija",
+      "placeCount_zero": "0 lokacija",
+      "show_few": "Prikaži {{count}} lokacija",
+      "show_many": "Prikaži {{count}} lokacije",
+      "show_one": "Prikaži 1 lokaciju",
+      "show_other": "Prikaži {{count}} lokacija",
+      "show_two": "Prikaži {{count}} lokacija",
+      "show_zero": "Pronađeno je 0 lokacija"
+    },
+    "hours": {
+      "allDay": "Cijeli dan",
+      "appointment": {
+        "make": {
+          "description": "Dogovorite termin putem <Link>mrežne stranice</Link> ili telefonom.",
+          "title": "Ugovorite termin"
+        },
+        "required": "Potrebno je ugovoriti termin"
+      },
+      "closed": "zatvoreno",
+      "open": "otvoreno",
+      "temporarilyClosed": "Privremeno zatvoreno",
+      "title": "Radno vrijeme"
+    },
+    "notAccessible": "Nema pristupa za osobe s invaliditetom",
+    "title": "Karta",
+    "weekdays": {
+      "dienstag": "Utorak",
+      "donnerstag": "Četvrtak",
+      "freitag": "Petak",
+      "mittwoch": "Srijeda",
+      "montag": "Ponedjeljak",
+      "samstag": "Subota",
+      "sonntag": "Nedjelja"
+    },
+    "zoom": {
+      "in": "Povećaj",
+      "out": "Smanji"
+    }
+  },
+  "regions": {
+    "change": "Promijeni regiju",
+    "nearby": {
+      "nothingFound": "Nema regija u blizini.",
+      "refresh": "Ažuriraj obližnje regije"
+    },
+    "notFound": "Ova regija nije pronađena.",
+    "search": {
+      "description": "Odaberite svoju regiju ili najbliži veći grad, npr. {{exampleRegion}}",
+      "region": "Pretraži regiju"
+    },
+    "title": "Regije",
+    "welcome": {
+      "description": "Vaš digitalni vodič za sve informacije koje trebate. Odaberite svoju regiju.",
+      "title": "Dobro došli u {{appName}}."
+    }
+  },
+  "search": {
+    "resultCount_few": "{{count}} rezultata pretraživanja",
+    "resultCount_many": "{{count}} rezultata pretraživanja",
+    "resultCount_one": "1 rezultat pretraživanja",
+    "resultCount_other": "{{count}} rezultata pretraživanja",
+    "resultCount_two": "{{count}} rezultata pretraživanja",
+    "resultCount_zero": "0 rezultata pretraživanja",
+    "searchContent": "Pretraži sadržaj",
+    "title": "Pretraživanje",
+    "viewResult": "Otvori rezultat pretraživanja"
+  },
+  "settings": {
+    "contrast": {
+      "description": "Način visokog kontrasta poboljšava čitljivost",
+      "title": "Visoki kontrast (beta)"
+    },
+    "error": {
+      "save": "Postavke se nisu mogle spremiti"
+    },
+    "externalSources": {
+      "allowed": "Ovaj element sadrži sadržaj s ovog vanjskog izvora. Takav sadržaj možete blokirati u postavkama.",
+      "blocked": "Vanjski sadržaj s ovog izvora je blokiran. Taj izvor možete dopustiti u postavkama.",
+      "description": "Možeš trajno pristati na prikaz sadržaja iz vanjskih izvora. Pristanak možeš opozvati ovdje u bilo kojem trenutku.",
+      "descriptionShort": "Odredi koji su vanjski izvori dopušteni.",
+      "nothingFound": "Nema dostupnih vanjskih izvora.",
+      "optIn": "Pristajem na prikaz sadržaja iz ovog vanjskog izvora.",
+      "source": "Dopusti sadržaj s izvora {{source}}",
+      "title": "Vanjski izvori"
+    },
+    "pushNotifications": {
+      "description": "Primajte automatske obavijesti za najnovije lokalne vijesti",
+      "title": "Push obavijesti"
+    },
+    "sentry": {
+      "description": "Poboljšajte aplikaciju {{appName}} automatskim slanjem izvješća o rušenju",
+      "title": "Stabilnost aplikacije"
+    },
+    "title": "Postavke"
+  },
+  "share": {
+    "copyLink": "Kopiraj poveznicu",
+    "message": "Upravo pronađeno: {{message}}",
+    "qr": {
+      "description": "Jednostavno podijeli ovu stranicu skeniranjem QR koda drugim uređajem.",
+      "label": "QR kod",
+      "title": "Podijeli putem QR koda"
+    },
+    "title": "Podijeli"
+  },
+  "suggestToRegion": {
+    "description": "Oduševio te koncept aplikacije Integreat i smatraš da bi tvoj grad, općina ili županija također mogli imati koristi od ovog digitalnog rješenja? Ovdje se možeš vrlo jednostavno aktivirati.",
+    "regionNotFoundCta": "Nisi pronašao/la svoju regiju? Uključi se sada!",
+    "steps": {
+      "copyText": "Kopiraj ovaj tekst",
+      "fillPlaceholders": "Popuni rezervirana mjesta u zagradama [ ] svojim podacima",
+      "getEmail": "Pronađi adresu e-pošte za svoju regiju",
+      "send": "Pošalji e-poruku svojoj regiji"
+    },
+    "title": "Predloži {{appName}} u svojoj regiji",
+    "whatToDo": "Evo što možeš učiniti:"
+  },
+  "tour": {
+    "additionalFeatures": {
+      "description": "Ovdje koristi dodatne značajke poput <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> i <strong>{{additionalFeature}}</strong>.",
+      "title": "Dodatne funkcije"
+    },
+    "categories": {
+      "description": "Otkrij informacije o temama kao što su <strong>stanovanje</strong>, <strong>obrazovanje</strong>, <strong>posao</strong> i još mnogo toga.",
+      "title": "Istraži teme"
+    },
+    "chat": {
+      "description": "Ovdje postavi svoja pitanja i brzo pronađi odgovarajuće odgovore."
+    },
+    "finish": {
+      "description": "Sada poznaješ najvažnije funkcije. Želimo ti puno uspjeha uz {{appName}}!",
+      "title": "Gotovo!"
+    },
+    "navigation": {
+      "description": "Ovdje prebacuj između stavki <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> i <strong>$t(events:title)</strong>.",
+      "title": "Navigacija"
+    },
+    "progress": "Korak {{current}} od {{total}}",
+    "regionChange": {
+      "description": "Ovdje odaberi svoju <strong>regiju</strong> kako bi pronašao lokalne informacije."
+    },
+    "searchAndLanguage": {
+      "description": "<strong>Pretražuj</strong> lokalne informacije, događaje i mjesta ili promijeni <strong>jezik</strong>.",
+      "title": "Pretraživanje i jezik"
+    },
+    "start": "Pokreni obilazak",
+    "title": "Vodič kroz aplikaciju",
+    "welcome": "Ovaj kratki vodič prikazat će ti najvažnije značajke aplikacije."
+  },
+  "tts": {
+    "error": {
+      "languageNotSupported": "Jezik nije podržan.",
+      "noVoices": {
+        "description": "Glas nije pronađen. Kako bi se koristila funkcija čitanja naglas, potrebno je instalirati glas. Prati upute za svoj operacijski sustav.",
+        "title": "Glas nije instaliran"
+      },
+      "nothingToRead": {
+        "description": "Na ovoj stranici nema teksta za čitanje.",
+        "title": "Nema teksta za čitanje"
+      }
+    },
+    "pause": "Pauza",
+    "play": "Reproduciraj",
+    "title": "Čitaj naglas"
+  },
+  "userLocation": {
+    "loading": "Određivanje lokacije…",
+    "locationAccessRequired": "Za prikaz regija u blizini potrebno je omogućiti pristup lokaciji.",
+    "nearby": "U tvojoj blizini",
+    "noPermission": "Potreban je pristup lokaciji",
+    "notAvailable": "Lokacijske usluge su isključene",
+    "show": "Prikaži moju lokaciju",
+    "timeout": "Lokacija nije pronađena"
+  }
+}
