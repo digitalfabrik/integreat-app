@@ -46,7 +46,7 @@ const tourStepsDesktop = (props: TourStepsProps): TourStepType[] => {
       arrowAlignment: atEnd,
     },
     {
-      id: 'additionalFeatures',
+      id: 'menu',
       ...headerMenuStep,
       offset: { horizontal: 4, vertical: 24 },
       position: positionBelowElement(atEnd),

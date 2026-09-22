@@ -32,7 +32,7 @@ const tourStepsMobile = (props: TourStepsProps): TourStepType[] => {
       padding: { mask: TOUR_MASK_PADDING, popover: [0, TOUR_POPOVER_PADDING] },
     },
     {
-      id: 'additionalFeatures',
+      id: 'menu',
       ...headerMenuStep,
       position: positionBelowElement(atEnd),
       arrowAlignment: atEnd,

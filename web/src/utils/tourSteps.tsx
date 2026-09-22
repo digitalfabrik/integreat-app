@@ -24,8 +24,7 @@ export type TourStepsProps = {
   languageCode: string
 }
 
-type TourStepId =
-  'regionChange' | 'searchAndLanguage' | 'additionalFeatures' | 'categories' | 'navigation' | 'chat' | 'feedback'
+type TourStepId = 'regionChange' | 'searchAndLanguage' | 'menu' | 'categories' | 'navigation' | 'chat' | 'feedback'
 
 type TourStepDefinition = {
   title: string
@@ -83,9 +82,9 @@ const getTourStepDefinitions = ({
       title: t($ => $.tour.searchAndLanguage.title),
       descriptionKey: $ => $.tour.searchAndLanguage.description,
     },
-    additionalFeatures: {
-      title: t($ => $.tour.additionalFeatures.title),
-      descriptionKey: $ => $.tour.additionalFeatures.description,
+    menu: {
+      title: t($ => $.tour.menu.title),
+      descriptionKey: $ => $.tour.menu.description,
     },
     categories: {
       title: t($ => $.tour.categories.title),
