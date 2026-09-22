@@ -51,7 +51,8 @@ If there are enough untranslated strings, they can be submitted to professionals
   - `yarn export:malte`
   - `yarn export:aschaffenburg`
   - `yarn export:obdach`
-- Now you can edit the ODS files (e.g. send them to an external translation service). Exporting plain CSVs is currently not supported.
+- Now you can edit the CSV files (e.g. send them to an external translation service).
+- Use `yarn csv-to-ods <source> <target>` and `yarn ods-to-csv <source> <target>` to convert the files to ODS.
 
 Note: The exported files also contain a reference language column (`en`) next to the source language column (`de`) as
 additional context for the translators. Only the column of the language a CSV is named after may be modified,
