@@ -119,11 +119,8 @@ const Categories = ({
       renderSectionHeader={({ section }) => (
         <CategoryListItem category={section.category} language={language} onItemPress={navigateToCategory} />
       )}
-      renderItem={({ item, section, index }) => (
-        <>
-          <SubCategoryListItem subCategory={item} onItemPress={navigateToCategory} language={language} />
-          {index < section.data.length - 1 && <Divider />}
-        </>
+      renderItem={({ item }) => (
+        <SubCategoryListItem subCategory={item} onItemPress={navigateToCategory} language={language} />
       )}
       onRefresh={refresh}
       refreshing={false}
