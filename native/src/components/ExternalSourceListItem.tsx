@@ -34,9 +34,7 @@ const ExternalSourceListItem = ({
       onPress={() => onPress(!allowed)}
       accessible
       accessibilityRole='switch'
-      accessibilityState={{ checked: allowed }}
-      accessibilityLabel={title}
-      accessibilityHint={description}>
+      accessibilityState={{ checked: allowed }}>
       <Container>
         <TextContainer>
           <Text>{title}</Text>

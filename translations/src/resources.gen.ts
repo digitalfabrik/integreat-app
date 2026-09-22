@@ -71,8 +71,7 @@ const resources = {
       "hideFilters": "Hide filters"
     },
     "a11y": {
-      "skipToContent": "Skip to content",
-      "languageChanged": "Language changed to {{languageName}}"
+      "skipToContent": "Skip to content"
     },
     "state": {
       "copied": "Copied",
