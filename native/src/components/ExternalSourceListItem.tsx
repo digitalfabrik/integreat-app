@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { View } from 'react-native'
+import { TouchableRipple } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import Switch from './base/Switch'
@@ -29,13 +30,26 @@ const ExternalSourceListItem = ({
 }: ExternalSourceListItemProps): ReactElement => {
   const theme = useTheme()
   return (
-    <Container>
-      <TextContainer>
-        <Text>{title}</Text>
-        <Text style={{ color: theme.colors.onSurfaceVariant }}>{description}</Text>
-      </TextContainer>
-      <Switch onValueChange={onPress} value={allowed} />
-    </Container>
+    <TouchableRipple
+      onPress={() => onPress(!allowed)}
+      accessible
+      accessibilityRole='switch'
+      accessibilityState={{ checked: allowed }}
+      accessibilityLabel={title}
+      accessibilityHint={description}>
+      <Container>
+        <TextContainer>
+          <Text>{title}</Text>
+          <Text style={{ color: theme.colors.onSurfaceVariant }}>{description}</Text>
+        </TextContainer>
+        <Switch
+          value={allowed}
+          onValueChange={onPress}
+          accessible={false}
+          importantForAccessibility='no-hide-descendants'
+        />
+      </Container>
+    </TouchableRipple>
   )
 }
 
