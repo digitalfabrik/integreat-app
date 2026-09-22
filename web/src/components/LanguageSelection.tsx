@@ -30,6 +30,7 @@ const StyledTextField = styled(TextField)({
 })
 
 const StyledLanguageNotFondButton = styled(Button)({
+  alignSelf: 'center',
   margin: '2px 8px',
   textTransform: 'none',
 })

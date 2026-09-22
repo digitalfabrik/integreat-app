@@ -56,4 +56,18 @@ describe('LanguageSelection', () => {
     expect(getByText('Arabic').closest('a')).toHaveAttribute('href', '/augsburg/ar/events')
     expect(getByText('Español').closest('a')).toBeNull()
   })
+
+  it('should center the language not found button', () => {
+    const { getByRole } = renderRoute(
+      <LanguageSelection
+        languageChangePaths={languageChangePaths}
+        languageCode='ar'
+        asList
+        openAlertDialog={jest.fn()}
+      />,
+      { pathname, routePattern },
+    )
+
+    expect(getByRole('button', { name: 'languages:error.notFound.question' })).toHaveStyle('align-self: center')
+  })
 })
