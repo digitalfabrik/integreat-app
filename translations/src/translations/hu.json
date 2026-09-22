@@ -1,0 +1,468 @@
+{
+  "about": {
+    "legal": "Jogi információk",
+    "imprint": "Impresszum",
+    "accessibility": "Akadálymentesítés",
+    "aboutUs": "Rólunk",
+    "licenses": {
+      "title": "Nyílt forráskódú licencek",
+      "version": "Verzió: {{version}}",
+      "license": "Licenc: {{license}}"
+    }
+  },
+  "categories": {
+    "title": "Helyi információk",
+    "titleShort": "Információk",
+    "organization": {
+      "title": "Az oldal tartalmát a(z) {{organization}} biztosítja.",
+      "description": "További információt a(z) {{organization}} szervezetről itt találsz: <Link>{{domain}}</Link>."
+    },
+    "pdf": {
+      "create": "PDF létrehozása",
+      "disabled": "A PDF-fájl létrehozása ezen a nyelven jelenleg nem érhető el."
+    }
+  },
+  "chat": {
+    "subtitle": "A digitális keresési asszisztensed",
+    "bot": "Csetbot",
+    "consultant": "Tanácsadó",
+    "typing": "Gépel…",
+    "inputPlaceholder": "Írd be a kérdésedet…",
+    "initial": {
+      "title": "Kérjük, írd be a kérdésedet a szövegmezőbe.",
+      "description": "Kérdezhetsz helyi információkról vagy a személyes helyzetedről is."
+    },
+    "welcome": {
+      "title": "Helló!",
+      "description": "<strong>{{name}}</strong> vagyok, a digitális keresési asszisztensed. Tedd fel bátran a kérdésed!"
+    },
+    "startNew": {
+      "title": "Új beszélgetés indítása",
+      "description": "Biztosan új beszélgetést szeretnél kezdeni? A jelenlegi csevegési előzmények törlődnek."
+    },
+    "unread_one": "1 olvasatlan csevegési üzenet",
+    "unread_two": "{{count}} olvasatlan csevegési üzenet",
+    "unread_few": "{{count}} olvasatlan csevegési üzenet",
+    "unread_many": "{{count}} olvasatlan csevegési üzenet",
+    "unread_other": "{{count}} olvasatlan csevegési üzenet"
+  },
+  "common": {
+    "actions": {
+      "back": "Vissza",
+      "cancel": "Mégse",
+      "clearInput": "Mező törlése",
+      "close": "Bezárás",
+      "copy": "Másolás",
+      "minimize": "Kis méret",
+      "next": "Tovább",
+      "ok": "Rendben",
+      "open": "Megnyitás",
+      "previous": "Előző",
+      "send": "Küldés",
+      "skip": "Kihagyás",
+      "view": "Megtekintés",
+      "openExternal": "Megnyitás külső alkalmazásban",
+      "goToPage": "Ugrás a(z) {{number}}. oldalra",
+      "showMore": "Több",
+      "showLess": "Kevesebb",
+      "showFilters": "Szűrők megjelenítése",
+      "hideFilters": "Szűrők elrejtése"
+    },
+    "a11y": {
+      "skipToContent": "Ugrás a tartalomra"
+    },
+    "state": {
+      "copied": "Másolva",
+      "updatedAt": "Utolsó frissítés: {{date}}",
+      "loading": "Betöltés…",
+      "optional": "opcionális",
+      "enabled": "bekapcsolva",
+      "disabled": "kikapcsolva"
+    },
+    "labels": {
+      "description": "Leírás",
+      "menu": "Menü",
+      "getOnPlayStore": "SZEREZD MEG – A Google Play Áruházból"
+    },
+    "meta": {
+      "description": "A(z) {{appName}} a Te digitális útmutatód Németországban. Találj helyi információkat, eseményeket és tanácsadást. Mindig naprakészen és a saját nyelveden."
+    },
+    "privacy": {
+      "title": "Adatvédelmi tájékoztató",
+      "confirmation": "Elolvastam az <Link>Adatvédelmi tájékoztatót</Link>, és hozzájárulok az adataim kezeléséhez és tárolásához.",
+      "required": "Kérjük, fogadd el az adatvédelmi tájékoztatót."
+    },
+    "contacts": {
+      "title": "Kapcsolatok",
+      "address": {
+        "title": "Cím",
+        "copy": "Cím másolása"
+      },
+      "phone": {
+        "title": "Telefonszám",
+        "mobile": "Mobilszám"
+      },
+      "email": "E-mail",
+      "website": "Weboldal"
+    }
+  },
+  "error": {
+    "title": "Hiba",
+    "noSuitableAppInstalled": "Nincs megfelelő alkalmazás telepítve.",
+    "forbidden": "Nincs hozzáférésed ehhez a régióhoz.",
+    "networkConnectionFailed": "Nem sikerült kapcsolódni a szerverhez.",
+    "networkRequestFailed": "A kérést nem sikerült feldolgozni.",
+    "responseMappingFailed": "A szerver válaszát nem sikerült feldolgozni.",
+    "rateLimited": "Túl sok kérést küldtél. Kérjük, várj egy pillanatot.",
+    "pageNotFound": "Az oldal nem található.",
+    "nothingFound": "Nincs találat.",
+    "permissionRequired": "Engedély szükséges",
+    "unknownError": "Ismeretlen hiba történt.",
+    "tryAgain": "Újra"
+  },
+  "events": {
+    "title": "Események",
+    "onlineMeeting": "Online megbeszélés",
+    "error": {
+      "notFound": "Ez az esemény nem található.",
+      "nothingFound": "Nem találhatók események."
+    },
+    "recurrence": {
+      "recurring": "ismétlődő",
+      "furtherDates": "További időpontok",
+      "untilDate": "{{date}} napig"
+    },
+    "dateGroups": {
+      "today": "Ma",
+      "tomorrow": "Holnap",
+      "nextDays": "Következő {{days}} nap",
+      "further": "Továbbiak"
+    },
+    "export": {
+      "download": "Exportálás",
+      "addToCalendar": "Hozzáadás a naptárhoz",
+      "added": "Hozzáadva a naptárhoz",
+      "calendar": "Naptár",
+      "thisRecurrence": "Csak ez az esemény",
+      "allRecurrences": "Ez és az összes jövőbeli esemény",
+      "error": {
+        "forbidden": "A naptárhoz való hozzáférés nem engedélyezett.",
+        "nothingFound": "Nincs megfelelő naptár"
+      }
+    },
+    "filter": {
+      "selectStart": "Kezdő dátum kiválasztása a naptárban",
+      "selectEnd": "Befejezési dátum kiválasztása a naptárból",
+      "from": "ettől:",
+      "to": "-ig",
+      "reset": "Szűrő visszaállítása: {{filter}}",
+      "error": {
+        "invalidDate": "Érvénytelen dátum",
+        "endBeforeStart": "A kezdési dátumnak a befejezési dátum előtt kell lennie."
+      }
+    }
+  },
+  "feedback": {
+    "title": "Visszajelzés",
+    "give": "Visszajelzés küldése",
+    "description": "Válassz egy értékelést és/vagy írj egy megjegyzést.",
+    "comment": {
+      "title": "Megjegyzés",
+      "description": "Oszd meg velünk a véleményedet! A pozitív és a negatív visszajelzéseket egyaránt szívesen fogadjuk, hiszen ezek segítenek a(z) {{appName}} fejlesztésében."
+    },
+    "contactEmail": "E-mail-cím az esetleges kérdésekhez",
+    "required": "A visszajelzés elküldéséhez kérjük, válassz egy reakciót vagy írj egy megjegyzést.",
+    "rating": {
+      "useful": "Hasznos volt",
+      "notUseful": "Nem volt hasznos"
+    },
+    "thanks": {
+      "title": "Köszönjük a visszajelzésedet!",
+      "description": "A visszajelzésedet sikeresen elküldtük."
+    },
+    "search": {
+      "informationNotFound": "Nem találtad meg, amit kerestél?",
+      "wantedInformation": "Milyen információk hiányoznak?",
+      "informationMissing": "Hiányolod az információkat?",
+      "searchTermDescription": "A következő keresőkifejezésre nincs találat:",
+      "checkQuery": "Ellenőrizd a keresett kifejezést, vagy módosítsd a beállított nyelvet.",
+      "noResultsInUserLanguage": "Sajnos nem találtunk megfelelő találatot a kiválasztott nyelven.",
+      "noResultsInUserAndSourceLanguage": "Sajnos nem találtunk megfelelő találatot a saját nyelveden vagy németül."
+    }
+  },
+  "intro": {
+    "welcome": {
+      "title": "Üdvözöl a(z) {{appName}}!",
+      "description": "A(z) {{appName}} alkalmazásban az anyanyelveden találsz válaszokat és hasznos tippeket. Például: Hol kaphatok segítséget? Mikor állhatok munkába?"
+    },
+    "slides": {
+      "search": {
+        "title": "Egyszerű keresés",
+        "description": "A megfelelő információkat gyorsan megtalálod a jobb felső menüben lévő keresővel."
+      },
+      "languageChange": {
+        "description": "A fenti menüben módosíthatod a(z) {{appName}} nyelvét."
+      },
+      "places": {
+        "title": "Lehetőségek a közeledben",
+        "description": "A térképen felfedezhetsz a közeledben lévő helyeket, például nyelviskolákat vagy tanfolyami helyszíneket."
+      },
+      "offline": {
+        "title": "Offline is működik",
+        "description": "Nincs mindig interneted? Semmi gond! A(z) {{appName}} alkalmazást internetkapcsolat nélkül is használhatod."
+      },
+      "news": {
+        "title": "Friss információk",
+        "description": "Mi újság a környékeden? Tudd meg a(z) {{appName}} alkalmazásban!"
+      }
+    }
+  },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "A képek mentéséhez a(z) {{appName}} alkalmazásnak hozzá kell férnie a galériához.",
+    "NSLocationWhenInUseUsageDescription": "A közeli helyek megjelenítéséhez a(z) {{appName}} alkalmazásnak hozzá kell férnie a helyadataidhoz.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "A közeli helyek megjelenítéséhez a(z) {{appName}} alkalmazásnak hozzá kell férnie a helyadataidhoz.",
+    "NSCalendarsUsageDescription": "A(z) {{appName}} hozzá szeretne férni a naptáradhoz az események hozzáadásához.",
+    "NSCalendarsFullAccessUsageDescription": "A(z) {{appName}} hozzá szeretne férni a naptáradhoz az események hozzáadásához."
+  },
+  "languages": {
+    "change": "Nyelvváltás",
+    "changed": "A nyelv a következőre módosult: {{languageName}}",
+    "search": "Nyelv keresése",
+    "error": {
+      "noTranslation": "Nincs elérhető fordítás",
+      "notFound": {
+        "title": "Ez a nyelv nem található.",
+        "question": "Nem találod a nyelvet?",
+        "description": "Ez az oldal még nem érhető el minden nyelven. Folyamatosan bővítjük a nyelvkínálatot. A kívánt nyelvet a <Link>Visszajelzés</Link> funkción keresztül jelezheted felénk."
+      }
+    }
+  },
+  "malteHelpForm": {
+    "supportNote": "Szeretnénk, ha kérdés vagy probléma esetén is biztonságban érezné magát és számíthatna ránk. Az alábbi kapcsolatfelvételi űrlapon keresztül kapcsolatba léphet munkatársainkkal. Megadhatja megkeresése jellegét, és több elérhetőségi mód közül is választhat.",
+    "securityNote": "Az Ön biztonsága a legfontosabb számunkra. Adatait bizalmasan kezeljük, így magánélete védelme mindvégig biztosított.",
+    "name": "Vezetéknév, keresztnév",
+    "roomNumber": "Szobaszám",
+    "howToBeContacted": "Kapcsolatfelvétel kívánt módja:",
+    "eMail": "E-mail",
+    "telephone": "Telefon",
+    "telephoneNumber": "Tel.",
+    "personally": "Személyesen",
+    "contactPerson": "Kapcsolattartó személy:",
+    "contactPersonAnyGender": "A kapcsolattartó neme nem számít",
+    "contactPersonGenderFemale": "Női kapcsolattartót szeretnék",
+    "contactPersonGenderMale": "Férfi kapcsolattartót szeretnék",
+    "contactReason": "Üzenet tárgya:",
+    "maxCharacters": "legfeljebb {{numberOfCharacters}} karakter",
+    "responseHint": "A válaszadás néhány munkanapot igénybe vehet. Igyekszünk a lehető leghamarabb feldolgozni megkeresését.",
+    "submit": "Űrlap elküldése",
+    "submitSuccessful": "Űrlap sikeresen elküldve",
+    "submitFailed": "Az űrlap elküldése nem sikerült",
+    "submitFailedReasoning": "Kérjük, ellenőrizze az internetkapcsolat stabilitását, majd próbálja újra.",
+    "invalidEmailAddress": "A megadott e-mail-cím érvénytelen."
+  },
+  "news": {
+    "title": "Hírek",
+    "sources": {
+      "all": "Minden hír",
+      "local": "Helyi hírek",
+      "national": "Országos hírek",
+      "allShort": "Összes",
+      "localShort": "Helyi",
+      "nationalShort": "Országos"
+    },
+    "error": {
+      "notFound": "Ez az üzenet nem található.",
+      "nothingFound": "Nem találhatók hírek."
+    }
+  },
+  "places": {
+    "title": "Térkép",
+    "accessible": "Akadálymentes",
+    "notAccessible": "Nem akadálymentesített",
+    "error": {
+      "notFound": "A hely nem található.",
+      "nothingFound": "Nem találhatók helyek."
+    },
+    "distance": "{{distance}} km távolságra",
+    "zoom": {
+      "in": "Nagyítás",
+      "out": "Kicsinyítés"
+    },
+    "filter": {
+      "adjust": "Helyek szűrése",
+      "onlyOpen": "Csak a jelenleg nyitva tartó helyek megjelenítése",
+      "categories": "Kategóriák",
+      "alphabet": "A–Z",
+      "show_zero": "0 hely található",
+      "show_one": "1 hely megjelenítése",
+      "show_two": "{{count}} hely megjelenítése",
+      "show_few": "{{count}} hely megjelenítése",
+      "show_many": "{{count}} hely megjelenítése",
+      "show_other": "{{count}} hely megjelenítése",
+      "placeCount_zero": "0 hely",
+      "placeCount_one": "1 hely",
+      "placeCount_two": "{{count}} hely",
+      "placeCount_few": "{{count}} hely",
+      "placeCount_many": "{{count}} hely",
+      "placeCount_other": "{{count}} hely"
+    },
+    "hours": {
+      "title": "Nyitvatartási idő",
+      "allDay": "egész nap",
+      "open": "nyitva",
+      "closed": "zárva",
+      "temporarilyClosed": "Ideiglenesen zárva",
+      "appointment": {
+        "required": "Időpontfoglalás szükséges",
+        "make": {
+          "title": "Időpontfoglalás",
+          "description": "Foglalj időpontot a <Link>weboldalon</Link> vagy telefonon."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Hétfő",
+      "dienstag": "Kedd",
+      "mittwoch": "Szerda",
+      "donnerstag": "Csütörtök",
+      "freitag": "Péntek",
+      "samstag": "Szombat",
+      "sonntag": "Vasárnap"
+    }
+  },
+  "regions": {
+    "title": "Régiók",
+    "welcome": {
+      "title": "Üdvözöl a(z) {{appName}}!",
+      "description": "Digitális útmutatód a számodra fontos információkhoz. Kérjük, válaszd ki a régiódat."
+    },
+    "change": "Régió módosítása",
+    "notFound": "Ez a régió nem található.",
+    "search": {
+      "region": "Régió keresése",
+      "description": "Válaszd ki a régiódat vagy a legközelebbi nagyobb várost, pl. {{exampleRegion}}"
+    },
+    "nearby": {
+      "nothingFound": "Nincs régió a közelben.",
+      "refresh": "Közeli régiók frissítése"
+    }
+  },
+  "search": {
+    "title": "Keresés",
+    "searchContent": "Tartalom keresése",
+    "viewResult": "Találat megnyitása",
+    "resultCount_zero": "0 találat",
+    "resultCount_one": "1 találat",
+    "resultCount_two": "{{count}} találat",
+    "resultCount_few": "{{count}} találat",
+    "resultCount_many": "{{count}} találat",
+    "resultCount_other": "{{count}} találat"
+  },
+  "settings": {
+    "title": "Beállítások",
+    "error": {
+      "save": "Nem sikerült menteni a beállításokat"
+    },
+    "sentry": {
+      "title": "Alkalmazás stabilitása",
+      "description": "Segíts a(z) {{appName}} fejlesztésében az összeomlási jelentések automatikus küldésével"
+    },
+    "pushNotifications": {
+      "title": "Push-értesítések",
+      "description": "Push-értesítések fogadása a legfrissebb helyi hírekről"
+    },
+    "contrast": {
+      "title": "Nagy kontraszt (béta)",
+      "description": "A kontrasztos mód javítja az olvashatóságot"
+    },
+    "externalSources": {
+      "title": "Külső források",
+      "descriptionShort": "Határozd meg, mely külső források legyenek engedélyezve.",
+      "description": "Itt tartósan engedélyezheted a külső forrásokból származó tartalmak megjelenítését. Hozzájárulásodat bármikor visszavonhatod.",
+      "source": "{{source}} tartalmainak engedélyezése",
+      "optIn": "Hozzájárulok a külső forrásból származó tartalmak megjelenítéséhez.",
+      "allowed": "Ez az elem külső forrásból származó tartalmat tartalmaz. Az ilyen tartalmakat a Beállításokban tilthatod le.",
+      "blocked": "A külső forrásból származó tartalom le lett tiltva. A forrást a Beállításokban engedélyezheted.",
+      "nothingFound": "Nincsenek elérhető külső források."
+    }
+  },
+  "share": {
+    "title": "Megosztás",
+    "message": "Nemrég találtam: {{message}}",
+    "copyLink": "Hivatkozás másolása",
+    "qr": {
+      "label": "QR-kód",
+      "title": "Megosztás QR-kóddal",
+      "description": "Oszd meg egyszerűen ezt az oldalt a QR-kód beolvasásával egy másik eszközön."
+    }
+  },
+  "suggestToRegion": {
+    "title": "{{appName}} javaslása a régiódban",
+    "description": "Meggyőzött az Integreat app koncepciója, és úgy gondolod, hogy a te városod, járásod vagy településed is profitálhatna ebből a digitális megoldásból? Akkor itt most könnyedén cselekedhetsz.",
+    "regionNotFoundCta": "Nem találod a régiódat? Cselekedj most!",
+    "whatToDo": "Ezt teheted:",
+    "steps": {
+      "getEmail": "Keresd meg a régiód e-mail-címét",
+      "copyText": "Szöveg másolása",
+      "fillPlaceholders": "Töltsd ki a [ ] helyőrzőket az adataiddal",
+      "send": "Küldd el az e-mailt a régiódnak"
+    }
+  },
+  "tour": {
+    "title": "Alkalmazás-bemutató",
+    "welcome": "Ez a rövid ismertető bemutatja az alkalmazás legfontosabb funkcióit.",
+    "start": "Bemutató indítása",
+    "progress": "{{current}} / {{total}} lépés",
+    "regionChange": {
+      "description": "Válaszd ki a <strong>régiódat</strong> itt a helyi információk eléréséhez."
+    },
+    "navigation": {
+      "title": "Navigáció",
+      "description": "Válts itt a következő kategóriák között: <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> és <strong>$t(events:title)</strong>."
+    },
+    "categories": {
+      "title": "Témák felfedezése",
+      "description": "Fedezz fel információkat olyan témákban, mint a <strong>lakhatás</strong>, az <strong>oktatás</strong>, a <strong>munka</strong> és egyebek."
+    },
+    "searchAndLanguage": {
+      "title": "Keresés és nyelv",
+      "description": "<strong>Keress</strong> helyi információkat, eseményeket és helyszíneket, vagy módosítsd a <strong>nyelvet</strong>."
+    },
+    "menu": {
+      "title": "További funkciók",
+      "description": "Használj további funkciókat itt, mint a(z) <strong>$t(categories:pdf.create)</strong>, a(z) <strong>$t(tts:title)</strong>, a(z) <strong>$t(share:title)</strong> és a(z) <strong>{{additionalFeature}}</strong>."
+    },
+    "chat": {
+      "description": "Tedd fel a kérdéseidet itt, és kapj gyorsan megfelelő válaszokat."
+    },
+    "finish": {
+      "title": "Kész!",
+      "description": "Most már ismered a legfontosabb funkciókat. Sok sikert a(z) {{appName}} használatához!"
+    }
+  },
+  "tts": {
+    "title": "Felolvasás",
+    "pause": "Szünet",
+    "play": "Lejátszás",
+    "error": {
+      "languageNotSupported": "A nyelv nem támogatott.",
+      "nothingToRead": {
+        "title": "Nincs mit felolvasni",
+        "description": "Ezen az oldalon nincs mit felolvasni."
+      },
+      "noVoices": {
+        "title": "Nincs hang telepítve",
+        "description": "Nem található hang. A felolvasás funkció használatához telepítened kell egy hangot. Kérjük, kövesd az operációs rendszeredhez tartozó utasításokat."
+      }
+    }
+  },
+  "userLocation": {
+    "nearby": "A közeledben",
+    "show": "Saját helyzet megjelenítése",
+    "loading": "Helymeghatározás folyamatban…",
+    "locationAccessRequired": "A közeli helyek megjelenítéséhez engedélyezned kell a helyhozzáférést.",
+    "noPermission": "Helyhozzáférés szükséges",
+    "notAvailable": "A helymeghatározás ki van kapcsolva",
+    "timeout": "A hely nem található"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} on Malteser-järjestön digitaalinen avustajasi. Täältä löydät paikallistietoa, tapahtumia ja neuvoja omalta toimipisteeltäsi. Aina ajan tasalla ja omalla kielelläsi!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Tätä tapahtumaa ei löytynyt.",
+      "nothingFound": "Tapahtumia ei löytynyt."
+    },
+    "export": {
+      "allRecurrences": "Tämä ja kaikki tulevat tapahtumat",
+      "thisRecurrence": "Vain tämä tapahtuma"
+    },
+    "title": "Tapahtumat"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} si tiro digitalno ažutitor katar o Maltesers. Kathe ka arakhes thaneske informacie, eventurǎ thaj dume katar tiri institucia. Sakana nevo thaj pe tiri ćhib!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Kado evento chi sas arakhlo.",
+      "nothingFound": "Chi sas arakhlo khanyi evento."
+    },
+    "export": {
+      "allRecurrences": "Kado thaj sa le aver avela-eventurǎ",
+      "thisRecurrence": "Numaj kado evento"
+    },
+    "title": "Eventurǎ"
+  }
+}

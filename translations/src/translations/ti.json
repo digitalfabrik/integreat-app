@@ -1,0 +1,468 @@
+{
+  "about": {
+    "legal": "ሕጋዊ ሓበሬታ",
+    "imprint": "ሕጋዊ መግለጺ",
+    "accessibility": "ተበጻሕነት",
+    "aboutUs": "ብዛዕባና",
+    "licenses": {
+      "title": "ናይ ክፉት ምንጪ ፍቓዳት",
+      "version": "ሕታም፦ {{version}}",
+      "license": "ፍቓድ፦ {{license}}"
+    }
+  },
+  "categories": {
+    "title": "ናይ ከባቢ ሓበሬታ",
+    "titleShort": "ሓበሬታ",
+    "organization": {
+      "title": "ትሕዝቶ እዚ ገጽ ብ {{organization}} ዝተዳለወ እዩ።",
+      "description": "ብዛዕባ {{organization}} ዝያዳ ሓበሬታ ኣብዚ ክትረክብ ትኽእል፦ <Link>{{domain}}</Link>።"
+    },
+    "pdf": {
+      "create": "PDF ኣዳልው",
+      "disabled": "ብእዚ ቋንቋ PDF ምድላው ኣብዚ እዋን'ዚ ኣይከኣልን እዩ።"
+    }
+  },
+  "chat": {
+    "subtitle": "ናይ ዲጂታል ምድላይ ሓጋዚኻ",
+    "bot": "ቻትቦት (Chatbot)",
+    "consultant": "ኣማኻሪ/ት",
+    "typing": "ይጽሕፍ ኣሎ…",
+    "inputPlaceholder": "ብኽብረትካ/ኺ ሕቶኻ/ኺ ኣእቱ/ዊ…",
+    "initial": {
+      "title": "ብኽብረትካ/ኺ ሕቶኻ/ኺ ኣብቲ ናይ ጽሑፍ ሳጹን ኣእቱ/ዊ።",
+      "description": "ብዛዕባ ከባብያዊ ሓበሬታ ወይ ብዛዕባ ውልቃዊ ኩነታትካ/ኺ ክትሓትት/ቲ ትኽእል/ሊ ኢኻ/ኺ።"
+    },
+    "welcome": {
+      "title": "ሰላም!",
+      "description": "ኣነ <strong>{{name}}</strong> እየ፡ ናይ ዲጂታል ምድላይ ሓጋዚኻ። ሕቶኻ ብሓጎስ ሕተተኒ።"
+    },
+    "startNew": {
+      "title": "ሓድሽ ዕላል ጀምር",
+      "description": "ብሓቂ ሓድሽ ዕላል ክትጅምር/ሪ ትደሊ/ልዪ ዲኻ/ኺ? እቲ ናይ ሕጂ ዕላል ታሪኽ ክድምሰስ እዩ።"
+    },
+    "unread_one": "1 ዘይተነበበ ናይ ዕላል መልእኽቲ",
+    "unread_two": "{{count}} ዘይተነበቡ ናይ ዕላል መልእኽትታት",
+    "unread_few": "{{count}} ዘይተነበቡ ናይ ዕላል መልእኽትታት",
+    "unread_many": "{{count}} ዘይተነበቡ ናይ ዕላል መልእኽትታት",
+    "unread_other": "{{count}} ዘይተነበቡ ናይ ዕላል መልእኽትታት"
+  },
+  "common": {
+    "actions": {
+      "back": "ተመለስ",
+      "cancel": "ሰርዝ",
+      "clearInput": "እተጻሕፈ ደምስስ",
+      "close": "ዕጾ",
+      "copy": "ቅዳሕ",
+      "minimize": "ኣንእስ",
+      "next": "ቀጽል",
+      "ok": "ሕራይ",
+      "open": "ክፈት",
+      "previous": "ዝሓለፈ",
+      "send": "ስደድ",
+      "skip": "ሕለፎ",
+      "view": "ኣርኢ",
+      "openExternal": "ብደገ ክፈት",
+      "goToPage": "ናብ ገጽ {{number}}",
+      "showMore": "ተወሳኺ ኣርኢ",
+      "showLess": "ሒደት ኣርኢ",
+      "showFilters": "መጽረዪታት ኣርኢ",
+      "hideFilters": "መጽረዪ ሓብእ"
+    },
+    "a11y": {
+      "skipToContent": "ናብቲ ትሕዝቶ ቀጥታ ኺድ"
+    },
+    "state": {
+      "copied": "ተቐዲሑ",
+      "updatedAt": "ናይ መወዳእታ ምምሕያሽ፡ {{date}}",
+      "loading": "ይጽዕን ኣሎ…",
+      "optional": "ምርጫዊ",
+      "enabled": "ተኸፊቱ",
+      "disabled": "ተሰናኺሉ"
+    },
+    "labels": {
+      "description": "መግለጺ",
+      "menu": "ሜኑ",
+      "getOnPlayStore": "ኣብ Google Play Store ኣውርዶ"
+    },
+    "meta": {
+      "description": "{{appName}} ንጀርመን ዲጂታዊ መምርሒኻ እዩ። ከባብያዊ ሓበሬታታት፣ መደባትን ምኽርን ርከብ። ኩሉ ግዜ እዋናውን ብቛንቛኻን።"
+    },
+    "privacy": {
+      "title": "ፖሊሲ ስቱርነት",
+      "confirmation": "ነቲ <Link>ፖሊሲ ስቱርነት</Link> ኣንቢበዮ እየ፡ ከምኡ'ውን ኣብ ምምዕርራይን ምዕቃብን ዳታይ ይሰማማዕ እየ።",
+      "required": "ብክብረትካ ኣብ ፖሊሲ ስቱርነት ተሰማማዕ።"
+    },
+    "contacts": {
+      "title": "ርክባት",
+      "address": {
+        "title": "ኣድራሻ",
+        "copy": "ኣድራሻ ቅዳሕ"
+      },
+      "phone": {
+        "title": "ቁጽሪ ተሌፎን",
+        "mobile": "ቁጽሪ ሞባይል"
+      },
+      "email": "ኢመይል",
+      "website": "መርበብ ሓበሬታ"
+    }
+  },
+  "error": {
+    "title": "ጌጋ",
+    "noSuitableAppInstalled": "ዝሰማማዕ ኣፕሊኬሽን ኣይተተኽለን።",
+    "forbidden": "ናብዚ ዞባ ናይ ምእታው ፍቓድ የብልካን።",
+    "networkConnectionFailed": "ምስ ሰርቨር ምትእስሳር ኣይተኻእለን።",
+    "networkRequestFailed": "ሕቶኻ ክካየድ ኣይተኻእለን።",
+    "responseMappingFailed": "መልሲ ናይቲ ሰርቨር ክካየድ ኣይተኻእለን።",
+    "rateLimited": "ብዙሕ ሕቶታት ልኢኽካ ኣለኻ። ብክብረትካ ንሓጺር ግዜ ተጸበ።",
+    "pageNotFound": "እዚ ገጽ ኣይተረኽበን።",
+    "nothingFound": "ምንም ውጽኢት ኣይተረኽበን።",
+    "permissionRequired": "ፍቓድ የድሊ",
+    "unknownError": "ዘይተፈልጠ ጌጋ ኣጋጢሙ ኣሎ።",
+    "tryAgain": "ደጊምካ ፈትን"
+  },
+  "events": {
+    "title": "ተኸታታሊ ንጥፈታት ወይ ፍጻመታት",
+    "onlineMeeting": "ናይ ኢንተርነት ኣኼባ",
+    "error": {
+      "notFound": "እዚ ፍጻመ ኣይተረኽበን።",
+      "nothingFound": "ዝኾነ ፍጻመታት ኣይተረኽበን።"
+    },
+    "recurrence": {
+      "recurring": "ተደጋጋሚ",
+      "furtherDates": "ተወሳኺ ቖጸራታት",
+      "untilDate": "ክሳብ {{date}}"
+    },
+    "dateGroups": {
+      "today": "ሎሚ",
+      "tomorrow": "ጽባሕ",
+      "nextDays": "ዝቕጽሉ {{days}} መዓልታት",
+      "further": "ተወሳኺ"
+    },
+    "export": {
+      "download": "ሰደድ",
+      "addToCalendar": "ናብ ዓውደ-ኣዋርሕ ወስኽ",
+      "added": "ናብ ዓውደ-ኣዋርሕ ተወሲኹ",
+      "calendar": "ዓውደ-ኣዋርሕ",
+      "thisRecurrence": "እዚ ፍጻመ ጥራይ",
+      "allRecurrences": "እዝን ኩሎም ዝመጹ ፍጻመታትን",
+      "error": {
+        "forbidden": "ናብ ዓውደ-ኣዋርሕ ምእታው ኣይተፈቕደን።",
+        "nothingFound": "ዝሰማማዕ ዓውደ-ኣዋርሕ የለን"
+      }
+    },
+    "filter": {
+      "selectStart": "ካብ ዓውደ-ኣዋርሕ መጀመሪ ዕለት ምረጽ",
+      "selectEnd": "መዛዘሚ ዕለት ካብ ዓውደ-ኣዋርሕ ምረጽ",
+      "from": "ካብ",
+      "to": "ክሳብ",
+      "reset": "መጽረዪ ዳግማይ ኣዳልው: {{filter}}",
+      "error": {
+        "invalidDate": "ዘይቕቡል ዕለት",
+        "endBeforeStart": "መበገሲ ዕለት ካብ መዛዘሚ ዕለት ቅድሚኡ ክኸውን ኣለዎ።"
+      }
+    }
+  },
+  "feedback": {
+    "title": "ርእይቶ",
+    "give": "ርእይቶ ሃብ",
+    "description": "ገምጋም ምረጽ/ጺ ወይ ድማ ርእይቶ ጸሓፍ/ፊ።",
+    "comment": {
+      "title": "ርእይቶ",
+      "description": "ርእይቶኻ ኣካፍለና! ን{{appName}} ንከነመሓይሾ ስለ ዝሕግዘና፡ ኣወንታውን ኣሉታውን ርእይቶታትካ ብኽብሪ ንቕበሎ ኢና።"
+    },
+    "contactEmail": "ንተወሳኺ ሕቶታት ዝኸውን ኢመይል",
+    "required": "ርእይቶኻ ንምስዳድ፡ በጃኻ መልሲ ምረጽ ወይ ድማ ርእይቶ ጸሓፍ።",
+    "rating": {
+      "useful": "ጠቓሚ",
+      "notUseful": "ኣይጠቅምን"
+    },
+    "thanks": {
+      "title": "ብዛዕባ ርእይቶኻ የቐንየልና።",
+      "description": "ርእይቶኻ ብዓወት ተላኢኹ ኣሎ።"
+    },
+    "search": {
+      "informationNotFound": "ዝደለኻዮ ኣይረኸብካን?",
+      "wantedInformation": "እንታይ ሓበሬታ ጎዲሉ?",
+      "informationMissing": "ኣብዚ ጎዲሉ ዘሎ ሓበሬታ ኣሎ ድዩ?",
+      "searchTermDescription": "ነዚ ዝስዕብ ቃል ዝኾነ ውጽኢት ኣይተረኽበን፦",
+      "checkQuery": "ዝደለኻዮ ቓል መርምር ወይ ድማ እተመርጸት ቋንቋ ቀይር።",
+      "noResultsInUserLanguage": "ይቕሬታ፡ ብቋንቋኻ ዝተረኽበ ዝሰማማዕ ውጽኢት የለን።",
+      "noResultsInUserAndSourceLanguage": "ይቕሬታ፡ ብቋንቋኻ ወይ ብጀርመንኛ ዝተረኽበ ዝሰማማዕ ውጽኢት የለን።"
+    }
+  },
+  "intro": {
+    "welcome": {
+      "title": "እንቋዕ ናብ {{appName}} ብደሓን መጻእካ/ኺ",
+      "description": "ኣብ {{appName}} ብቛንቋ ኣዴኻ መልስታትን ምኽርታትን ክትረክብ ትኽእል ኢኻ። ንኣብነት፦ ኣበይ ሓገዝ ክረክብ እኽእል? መዓስ ክሰርሕ ይፍቀደለይ?"
+    },
+    "slides": {
+      "search": {
+        "title": "ቀሊል ድለያ",
+        "description": "ኣብ ላዕሊ ብየማን ዘሎ መእተዊ ሜኑ ተጠቒምካ ብቐሊሉን ብቕልጡፍን ትኽክለኛ ሓበሬታ ክትረክብ ትኽእል ኢኻ።"
+      },
+      "languageChange": {
+        "description": "ኣብ ላዕሊ ካብ ዘሎ ሜኑ ቋንቋ {{appName}} ክትቅይር ትኽእል ኢኻ።"
+      },
+      "places": {
+        "title": "ኣብ ከባቢኻ ዘለዉ ኣገልግሎታት",
+        "description": "ኣብቲ ካርታ ኣብ ከባቢኻ ዘለዉ ቦታታት፣ ንኣብነት ናይ ቋንቋ ትምህርቲ ዝወሃበሎም ቦታታት ክትረክብ ትኽእል ኢኻ።"
+      },
+      "offline": {
+        "title": "ብዘይ ኢንተርነት (ኦፍላይን) እውን ይሰርሕ",
+        "description": "ኩሉ ሳዕ ኢንተርነት የብልካን ዶ? ጸገም የለን። ን{{appName}} ብዘይ ኢንተርነት እውን ክትጥቀመሉ ትኽእል ኢኻ።"
+      },
+      "news": {
+        "title": "እዋናዊ ሓበሬታ",
+        "description": "ኣብ ከባቢኻ እንታይ ሓድሽ ነገር ኣሎ? ኣብ {{appName}} ኣቲኻ ፈልጥ።"
+      }
+    }
+  },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "ስእልታት ንምዕቃብ፣ {{appName}} ናብ ጋለሪ ናይ ምእታው ፍቓድ የድልዮ።",
+    "NSLocationWhenInUseUsageDescription": "ኣብ ቀረባ ዘለዉ ቦታታት ንምርካብ፣ {{appName}} ናብቲ ዘለኻዮ ቦታ (location) ናይ ምብጻሕ ፍቓድ የድልዮ።",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "ኣብ ቀረባ ዘለዉ ቦታታት ንምርካብ፣ {{appName}} ናብቲ ዘለኻዮ ቦታ (location) ናይ ምብጻሕ ፍቓድ የድልዮ።",
+    "NSCalendarsUsageDescription": "{{appName}} መደባት/ፍጻመታት ንምውሳኽ ናብ ዓውደ-ኣዋርሕ (ካሌንዳር) ክኣቱ ፍቓድ ይሓትት ኣሎ።",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} መደባት/ፍጻመታት ንምውሳኽ ናብ ዓውደ-ኣዋርሕ (ካሌንዳር) ክኣቱ ፍቓድ ይሓትት ኣሎ።"
+  },
+  "languages": {
+    "change": "ቋንቋ ምቕያር",
+    "changed": "ቋንቋ ናብ {{languageName}} ተቐይሩ ኣሎ",
+    "search": "ቋንቋ ድለ",
+    "error": {
+      "noTranslation": "ትርጉም ኣይተረኽበን",
+      "notFound": {
+        "title": "እዚ ቋንቋ ኣይተረኽበን።",
+        "question": "ቋንቋ ኣይተረኽበን?",
+        "description": "እዚ ገጽ ገና ብኹሉ ቋንቋታት ኣይተዳለወን። ዝርዝር ቋንቋታትና ንምስፋሕ ብንጥፈት ንሰርሕ ኣለና። ነቲ ናትካ ቋንቋ ብመንገዲ <Link>ርእይቶ</Link> ክትሓትት ትኽእል ኢኻ።"
+      }
+    }
+  },
+  "malteHelpForm": {
+    "supportNote": "ጸገማት ወይ ሕቶታት ምስ ዘጋጥመኩም ድሕንነትን ሓገዝን ክስምዓኩም ንደሊ። በዚ ዝስዕብ ናይ ርክብ ፎርም ኣቢልኩም ምስ ሓለፍቲ ናይ ምዝርራብ ዕድል ኣለኩም። ዓይነት ጉዳይኩም ብምግላጽ ካብ ዝተፈላለዩ ኣማራጺታት ርክብ ክትመርጹ ትኽእሉ ኢኹም።",
+    "securityNote": "ድሕንነትኩም ቀዳምነትና እዩ። ብሕትውናኹም ኵሉ ሳዕ ውሑስ ምእንቲ ኪኸውን፡ ሓበሬታኹም ብምስጢር ይተሓዝ።",
+    "name": "ስም፣ ስም ኣቦ",
+    "roomNumber": "ቍጽሪ ክፍሊ",
+    "howToBeContacted": "በዚ መንገዲ ክትውከሱኒ እደሊ፦",
+    "eMail": "ኢመይል",
+    "telephone": "ተሌፎን",
+    "telephoneNumber": "ቍ.ተሌ.",
+    "personally": "ብኣካል",
+    "contactPerson": "ርክብ ዝግበረሉ ሰብ፦",
+    "contactPersonAnyGender": "ጾታ ናይቲ ርክብ ዝግበረሉ ሰብ ኣገዳሲ ኣይኮነን",
+    "contactPersonGenderFemale": "ብኣንስታይ ጾታ ርክብ ክግበረለይ እደሊ",
+    "contactPersonGenderMale": "ብተባዕታይ ጾታ ርክብ ክግበረለይ እደሊ",
+    "contactReason": "ጉዳይኩም፦",
+    "maxCharacters": "ብዝበዝሐ {{numberOfCharacters}} ፊደላት",
+    "responseHint": "ምላሽ ንምርካብ ገለ ናይ ስራሕ መዓልታት ክወስድ ይኽእል እዩ። ንጉዳይኩም ብዝተኻእለ መጠን ብቕልጡፍ ንምምላእ ንጽዕር ኣለና።",
+    "submit": "ፎርም ስደድ",
+    "submitSuccessful": "ፎርም ብዓወት ተላኢኹ",
+    "submitFailed": "ፎርም ክስደድ ኣይተኻእለን",
+    "submitFailedReasoning": "ብኽብረትኩም ጽኑዕ ናይ ኢንተርነት ርክብ ምህላዉ ኣረጋጊጽኩም ደጊምኩም ፈትኑ።",
+    "invalidEmailAddress": "እቲ እተመልከተ ናይ ኢመይል ኣድራሻ ትኽክል ኣይኮነን።"
+  },
+  "news": {
+    "title": "ዜናታት",
+    "sources": {
+      "all": "ኵሎም መልእኽትታት",
+      "local": "ናይ ከባቢ ዜናታት",
+      "national": "ሃገራዊ ዜናታት",
+      "allShort": "ኵሉ",
+      "localShort": "ናይ ከባቢ",
+      "nationalShort": "ሃገራዊ"
+    },
+    "error": {
+      "notFound": "እዚ መልእኽቲ ኣይተረኽበን።",
+      "nothingFound": "ዝዀነ መልእኽቲ ኣይተረኽበን።"
+    }
+  },
+  "places": {
+    "title": "ካርታ",
+    "accessible": "ንኣካለ-ጽጉማን ምቹእ",
+    "notAccessible": "ንኣካለ-ጽጉማን ዘይምችእ",
+    "error": {
+      "notFound": "እዚ ቦታ ኣይተረኽበን።",
+      "nothingFound": "ዝኾነ ቦታ ኣይተረኽበን።"
+    },
+    "distance": "{{distance}} ኪ.ሜ. ርሒቑ",
+    "zoom": {
+      "in": "ኣዕብይ",
+      "out": "ኣንእስ"
+    },
+    "filter": {
+      "adjust": "ቦታታት ኣጽሪኻ ድለ",
+      "onlyOpen": "ሕጂ ክፍቲ ዝኾኑ ቦታታት ጥራይ ኣርእይ",
+      "categories": "ምድባት",
+      "alphabet": "ሀ-ፐ",
+      "show_zero": "0 ቦታታት ተረኺቦም",
+      "show_one": "1 ቦታ ኣርእይ",
+      "show_two": "{{count}} ቦታታት ኣርእይ",
+      "show_few": "{{count}} ቦታታት ኣርእይ",
+      "show_many": "{{count}} ቦታታት ኣርእይ",
+      "show_other": "{{count}} ቦታታት ኣርእይ",
+      "placeCount_zero": "0 ቦታ",
+      "placeCount_one": "1 ቦታ",
+      "placeCount_two": "{{count}} ቦታታት",
+      "placeCount_few": "{{count}} ቦታታት",
+      "placeCount_many": "{{count}} ቦታታት",
+      "placeCount_other": "{{count}} ቦታታት"
+    },
+    "hours": {
+      "title": "ናይ ስራሕ ሰዓታት",
+      "allDay": "ምሉእ መዓልቲ",
+      "open": "ክፉት",
+      "closed": "ዕፁው",
+      "temporarilyClosed": "ንጊዜኡ ዝተዓጽወ",
+      "appointment": {
+        "required": "ቆፀሮ የድሊ",
+        "make": {
+          "title": "ቆፀሮ ምሓዝ",
+          "description": "ብመንገዲ <Link>እቲ መርበብ ሓበሬታ</Link> ወይ ብተሌፎን ቆጸራ ሓዝ።"
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "ሰኑይ",
+      "dienstag": "ሰሉስ",
+      "mittwoch": "ረቡዕ",
+      "donnerstag": "ሓሙስ",
+      "freitag": "ዓርቢ",
+      "samstag": "ቀዳም",
+      "sonntag": "ሰንበት"
+    }
+  },
+  "regions": {
+    "title": "ዞባታት",
+    "welcome": {
+      "title": "ናብ {{appName}} ብደሓን መጻእኩም።",
+      "description": "ንኹሉ ዘድልየካ ሓበሬታታት ዝኸውን ዲጂታላዊ መምርሒኻ። በጃኹም ዞባኹም ምረጹ።"
+    },
+    "change": "ዞባ ምቕያር",
+    "notFound": "እዚ ዞባ ኣይተረኽበን።",
+    "search": {
+      "region": "ዞባ ድለ",
+      "description": "ዞባኻ ወይ ድማ እታ ዝቐረበት ዓባይ ከተማ ምረጽ፣ ንኣብነት {{exampleRegion}}"
+    },
+    "nearby": {
+      "nothingFound": "ኣብዚ ቀረባ ዝኾነ ዞባ የለን።",
+      "refresh": "ኣብ ቀረባ ዝርከቡ ዞባታት ኣሐድስ"
+    }
+  },
+  "search": {
+    "title": "ድለ",
+    "searchContent": "ትሕዝቶ ድለ",
+    "viewResult": "ውጽኢት ፍለሻ ክፈት",
+    "resultCount_zero": "0 ውጽኢት ፍለሻ",
+    "resultCount_one": "1 ውጽኢት ፍለሻ",
+    "resultCount_two": "{{count}} ውጽኢታት ፍለሻ",
+    "resultCount_few": "{{count}} ውጽኢታት ፍለሻ",
+    "resultCount_many": "{{count}} ውጽኢታት ፍለሻ",
+    "resultCount_other": "{{count}} ውጽኢታት ፍለሻ"
+  },
+  "settings": {
+    "title": "ቅጥዕታት",
+    "error": {
+      "save": "ምምዕርራያት ምዕቃብ ኣይተኻእለን"
+    },
+    "sentry": {
+      "title": "ጽንዓት ናይቲ ኣፕሊኬሽን",
+      "description": "ናይ ምብልሻው ጸብጻባት ብቐጥታ ብምስዳድ ን{{appName}} ምምሕያሽ"
+    },
+    "pushNotifications": {
+      "title": "ናይ ምስትውዓል መልእኽትታት (Push notifications)",
+      "description": "ናይ እዋናዊ ከባብያዊ ዜናታት ናይ ምስትውዓል መልእኽቲ (push notifications) ተቐበል"
+    },
+    "contrast": {
+      "title": "ልዑል ንጽጽር (beta)",
+      "description": "ብሞድ ንጽጽር (contrast) ምንባብ ዝቐለለ ይኸውን"
+    },
+    "externalSources": {
+      "title": "ደጋዊ ምንጭታት",
+      "descriptionShort": "ኣየኖት ደጋዊ ምንጭታት ከም ዝፍቀዱ ወስን።",
+      "description": "ካብ ደጋዊ ምንጭታት ዝመጹ ትሕዝቶታት ብቀጻሊ ክርኣዩ ክትፈቅድ ትኽእል ኢኻ። ነዚ ፍቓድ እዚ ድማ ኣብዚ ዝኾነ እዋን ክትስርዞ ትኽእል ኢኻ።",
+      "source": "ትሕዝቶ ካብ {{source}} ፍቐድ",
+      "optIn": "ትሕዝቶ ናይዚ ደጋዊ ምንጪ ክረኣየኒ ይሰማማዕ እየ።",
+      "allowed": "እዚ ኣካል እዚ ካብዚ ናይ ደገ ምንጪ ዝመጸ ትሕዝቶ ዝሓዘ እዩ። ኣብ ምምዕርራያት ከምዚኦም ዝበሉ ትሕዝቶታት ክትዓግቶም ትኽእል ኢኻ።",
+      "blocked": "ካብዚ ምንጪ ዝመጸ ናይ ደገ ትሕዝቶ ተዓጽዩ እዩ። ኣብ ምምዕርራያት ነዚ ምንጪ ክትፈቕዶ ትኽእል ኢኻ።",
+      "nothingFound": "ዝኾነ ደጋዊ ምንጪ የለን።"
+    }
+  },
+  "share": {
+    "title": "ኣካፍል",
+    "message": "ሕጂ ዝተረኽበ፦ {{message}}",
+    "copyLink": "መላግቦ ቅዳሕ",
+    "qr": {
+      "label": "QR ኮድ",
+      "title": "ብ QR ኮድ ኣቢልካ ኣካፍል",
+      "description": "ነዚ QR ኮድ ኣብ ካልእ መሳርሒ ብምስካን ነዚ ገጽ ብቐሊሉ ኣካፍል።"
+    }
+  },
+  "suggestToRegion": {
+    "title": "{{appName}} ኣብ ዞባኻ ኽኣቱ ሓሳብ ኣቕርብ",
+    "description": "ናይ Integreat-App ኣተሓሳስባ ኣዕጊቡካ ድዩ፡ ከተማኻ፡ ዞባኻ ወይ ምምሕዳርካ ድማ ካብዚ ዲጂታላዊ መፍትሒ ክጥቀሙ ይኽእሉ እዮም ኢልካ ትኣምን ዲኻ? እምበኣር ኣብዚ ብቐሊሉ ክትነጥፍ ትኽእል ኢኻ።",
+    "regionNotFoundCta": "ከባቢኻ ኣይተረኽበን ድዩ? ሕጂ ተበግሶ ውሰድ!",
+    "whatToDo": "እዚ ኽትገብር ትኽእል ኢኻ፦",
+    "steps": {
+      "getEmail": "ናይ ዞባኻ ኢመይል ኣድራሻ ርኸብ",
+      "copyText": "ነዚ ጽሑፍ ቅዳሕ",
+      "fillPlaceholders": "ነቶም ኣብ ውሽጢ [ ] ዘለዉ ቦታታት ብናይ ብሕትኻ ሓበሬታ ምልኣዮም",
+      "send": "ነቲ ኢመይል ናብ ዞባኻ ስደዶ"
+    }
+  },
+  "tour": {
+    "title": "ናይ ኣፕ መላለዪ ዑደት",
+    "welcome": "እዚ ሓጺር መብርሂ እቲ መተግበሪ ዘለዎ ኣገደስቲ ተግባራት የርእየካ።",
+    "start": "መላለዪ ዑደት ጀምር",
+    "progress": "ስጉምቲ {{current}} ካብ {{total}}",
+    "regionChange": {
+      "description": "ከባብያዊ ሓበሬታ ንምርካብ፡ ኣብዚ <strong>ዞባኻ</strong> ምረጽ።"
+    },
+    "navigation": {
+      "title": "መሪሕ መስመር (Navigation)",
+      "description": "ኣብ መንጎ <strong>$t(categories:title)</strong>፣ <strong>$t(places:title)</strong>፣ <strong>$t(news:title)</strong> ከምኡ'ውን <strong>$t(events:title)</strong> ኣብዚ ቐያይር።"
+    },
+    "categories": {
+      "title": "ኣርእስታት ድለ",
+      "description": "ብዛዕባ ከም <strong>መንበሪ ገዛ</strong>፣ <strong>ትምህርቲ</strong>፣ <strong>ስራሕ</strong>ን ካልእን ዝኣመሰሉ ኣርእስታት ሓበሬታ ድለ።"
+    },
+    "searchAndLanguage": {
+      "title": "ምድላይን ቋንቋን",
+      "description": "ከባብያዊ ሓበሬታታት፣ ፍጻመታትን ቦታታትን <strong>ድለ</strong> ወይ ከኣ <strong>ቋንቋ</strong> ቐይር።"
+    },
+    "menu": {
+      "title": "ተወሳኺ ኣገልግሎታት",
+      "description": "ኣብዚ ተወሳኺ ኣገልግሎታት ተጠቐም፡ ከም <strong>$t(categories:pdf.create)</strong>፣ <strong>$t(tts:title)</strong>፣ <strong>$t(share:title)</strong> ከምኡ'ውን <strong>{{additionalFeature}}</strong>።"
+    },
+    "chat": {
+      "description": "ኣብዚ ሕቶታትካ ሕተት፡ ብቕልጡፍ ድማ ግቡእ መልሲ ርኸብ።"
+    },
+    "finish": {
+      "title": "ተወዲኡ!",
+      "description": "ሕጂ ነቶም ኣገደስቲ ኣገልግሎታት ፈሊጥካዮም ኣለኻ። ብ{{appName}} ሰናይ ዕድል!"
+    }
+  },
+  "tts": {
+    "title": "ኣንብብ",
+    "pause": "ኣዕርፍ",
+    "play": "ወልዕ",
+    "error": {
+      "languageNotSupported": "እዚ ቋንቋ’ዚ ኣይድገፍን እዩ።",
+      "nothingToRead": {
+        "title": "ዝንበብ የለን",
+        "description": "ኣብዚ ገጽ’ዚ ዝንበብ ነገር የለን።"
+      },
+      "noVoices": {
+        "title": "ዝተሰርሐ ድምጺ የለን",
+        "description": "ድምጺ ኣይተረኽበን። ነቲ ናይ ምንባብ ኣገልግሎት ንምጥቃም፡ ድምጺ ክስራሕ (install) ኣለዎ። በጃኹም ነዚ ንስርዓተ-ምምሕዳርኩም ዝምልከት መምርሒ ተኸተሉ።"
+      }
+    }
+  },
+  "userLocation": {
+    "nearby": "ኣብ ከባቢኻ",
+    "show": "ዘለኹዎ ቦታ ኣርእየኒ",
+    "loading": "ቦታ ይልለ ኣሎ…",
+    "locationAccessRequired": "ኣብ ከባቢኻ ዘለዉ ዞባታት ንምርኣይ፡ ናይ ቦታ ፍቓድ (location access) ክፉት ክኸውን ኣለዎ።",
+    "noPermission": "ናይ ቦታ ፍቓድ የድሊ",
+    "notAvailable": "ናይ ቦታ ኣገልግሎት ጠፊኡ ኣሎ",
+    "timeout": "ቦታ ኣይተረኽበን"
+  }
+}

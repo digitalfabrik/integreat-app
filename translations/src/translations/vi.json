@@ -1,0 +1,468 @@
+{
+  "about": {
+    "legal": "Điều khoản pháp lý",
+    "imprint": "Thông tin pháp lý",
+    "accessibility": "Khả năng tiếp cận",
+    "aboutUs": "Về chúng tôi",
+    "licenses": {
+      "title": "Giấy phép mã nguồn mở",
+      "version": "Phiên bản: {{version}}",
+      "license": "Giấy phép: {{license}}"
+    }
+  },
+  "categories": {
+    "title": "Thông tin địa phương",
+    "titleShort": "Thông tin",
+    "organization": {
+      "title": "Nội dung của trang này được cung cấp bởi {{organization}}.",
+      "description": "Tìm hiểu thêm thông tin về {{organization}} tại <Link>{{domain}}</Link>."
+    },
+    "pdf": {
+      "create": "Tạo tệp PDF",
+      "disabled": "Hiện tại không thể tạo tệp PDF bằng ngôn ngữ này."
+    }
+  },
+  "chat": {
+    "subtitle": "Trợ lý tìm kiếm kỹ thuật số của bạn",
+    "bot": "Chatbot",
+    "consultant": "Chuyên viên tư vấn",
+    "typing": "Đang nhập…",
+    "inputPlaceholder": "Vui lòng nhập câu hỏi của bạn…",
+    "initial": {
+      "title": "Vui lòng nhập câu hỏi của bạn vào khung văn bản.",
+      "description": "Bạn có thể hỏi về thông tin địa phương hoặc trường hợp cụ thể của mình."
+    },
+    "welcome": {
+      "title": "Xin chào!",
+      "description": "Tôi là <strong>{{name}}</strong>, trợ lý tìm kiếm kỹ thuật số của bạn. Hãy thoải mái đặt câu hỏi cho tôi nhé."
+    },
+    "startNew": {
+      "title": "Bắt đầu cuộc trò chuyện mới",
+      "description": "Bạn có chắc chắn muốn bắt đầu cuộc trò chuyện mới? Lịch sử trò chuyện hiện tại sẽ bị xóa."
+    },
+    "unread_one": "1 tin nhắn trò chuyện chưa đọc",
+    "unread_two": "{{count}} tin nhắn trò chuyện chưa đọc",
+    "unread_few": "{{count}} tin nhắn trò chuyện chưa đọc",
+    "unread_many": "{{count}} tin nhắn trò chuyện chưa đọc",
+    "unread_other": "{{count}} tin nhắn trò chuyện chưa đọc"
+  },
+  "common": {
+    "actions": {
+      "back": "Quay lại",
+      "cancel": "Hủy",
+      "clearInput": "Xóa nội dung nhập",
+      "close": "Đóng",
+      "copy": "Sao chép",
+      "minimize": "Thu nhỏ",
+      "next": "Tiếp tục",
+      "ok": "OK",
+      "open": "Mở",
+      "previous": "Trước",
+      "send": "Gửi",
+      "skip": "Bỏ qua",
+      "view": "Hiển thị",
+      "openExternal": "Mở bên ngoài",
+      "goToPage": "Đến trang {{number}}",
+      "showMore": "Xem thêm",
+      "showLess": "Thu gọn",
+      "showFilters": "Hiển thị bộ lọc",
+      "hideFilters": "Ẩn bộ lọc"
+    },
+    "a11y": {
+      "skipToContent": "Chuyển đến nội dung chính"
+    },
+    "state": {
+      "copied": "Đã sao chép",
+      "updatedAt": "Cập nhật lần cuối: {{date}}",
+      "loading": "Đang tải…",
+      "optional": "Tùy chọn",
+      "enabled": "Đã bật",
+      "disabled": "Đã tắt"
+    },
+    "labels": {
+      "description": "Mô tả",
+      "menu": "Menu",
+      "getOnPlayStore": "TẢI NGAY — Trên Google Play"
+    },
+    "meta": {
+      "description": "{{appName}} là cẩm nang kỹ thuật số dành cho bạn tại Đức. Dễ dàng tìm kiếm thông tin địa phương, sự kiện và dịch vụ tư vấn. Luôn được cập nhật và hỗ trợ ngôn ngữ của bạn."
+    },
+    "privacy": {
+      "title": "Chính sách bảo mật",
+      "confirmation": "Tôi đã đọc <Link>Chính sách bảo mật</Link> và đồng ý với việc xử lý cũng như lưu trữ dữ liệu của mình.",
+      "required": "Vui lòng đồng ý với Chính sách bảo mật."
+    },
+    "contacts": {
+      "title": "Liên hệ",
+      "address": {
+        "title": "Địa chỉ",
+        "copy": "Sao chép địa chỉ"
+      },
+      "phone": {
+        "title": "Số điện thoại",
+        "mobile": "Số điện thoại di động"
+      },
+      "email": "Email",
+      "website": "Trang web"
+    }
+  },
+  "error": {
+    "title": "Lỗi",
+    "noSuitableAppInstalled": "Chưa cài đặt ứng dụng phù hợp.",
+    "forbidden": "Bạn không có quyền truy cập vào khu vực này.",
+    "networkConnectionFailed": "Không thể kết nối với máy chủ.",
+    "networkRequestFailed": "Không thể xử lý yêu cầu.",
+    "responseMappingFailed": "Không thể xử lý phản hồi từ máy chủ.",
+    "rateLimited": "Bạn đã gửi quá nhiều yêu cầu. Vui lòng đợi trong giây lát.",
+    "pageNotFound": "Không tìm thấy trang này.",
+    "nothingFound": "Không tìm thấy kết quả nào.",
+    "permissionRequired": "Yêu cầu cấp quyền",
+    "unknownError": "Đã xảy ra lỗi không xác định.",
+    "tryAgain": "Thử lại"
+  },
+  "events": {
+    "title": "Sự kiện",
+    "onlineMeeting": "Cuộc họp trực tuyến",
+    "error": {
+      "notFound": "Không tìm thấy sự kiện này.",
+      "nothingFound": "Không tìm thấy sự kiện nào."
+    },
+    "recurrence": {
+      "recurring": "lặp lại",
+      "furtherDates": "Các lịch hẹn khác",
+      "untilDate": "đến {{date}}"
+    },
+    "dateGroups": {
+      "today": "Hôm nay",
+      "tomorrow": "Ngày mai",
+      "nextDays": "{{days}} ngày tới",
+      "further": "Khác"
+    },
+    "export": {
+      "download": "Xuất",
+      "addToCalendar": "Thêm vào lịch",
+      "added": "Đã thêm vào lịch",
+      "calendar": "Lịch",
+      "thisRecurrence": "Chỉ sự kiện này",
+      "allRecurrences": "Sự kiện này và tất cả sự kiện trong tương lai",
+      "error": {
+        "forbidden": "Không được phép truy cập vào lịch.",
+        "nothingFound": "Không có lịch phù hợp"
+      }
+    },
+    "filter": {
+      "selectStart": "Chọn ngày bắt đầu trên lịch",
+      "selectEnd": "Chọn ngày kết thúc trên lịch",
+      "from": "của",
+      "to": "đến",
+      "reset": "Đặt lại bộ lọc: {{filter}}",
+      "error": {
+        "invalidDate": "Ngày không hợp lệ",
+        "endBeforeStart": "Ngày bắt đầu phải trước ngày kết thúc."
+      }
+    }
+  },
+  "feedback": {
+    "title": "Ý kiến đóng góp",
+    "give": "Gửi phản hồi",
+    "description": "Hãy chọn mức đánh giá và/hoặc viết bình luận.",
+    "comment": {
+      "title": "Bình luận",
+      "description": "Hãy chia sẻ ý kiến phản hồi của bạn! Chúng tôi luôn trân trọng mọi góp ý, dù khen hay chê, để không ngừng cải thiện {{appName}}."
+    },
+    "contactEmail": "Email để liên hệ lại khi cần",
+    "required": "Vui lòng chọn phản ứng hoặc viết bình luận để có thể gửi phản hồi.",
+    "rating": {
+      "useful": "Hữu ích",
+      "notUseful": "Không hữu ích"
+    },
+    "thanks": {
+      "title": "Cảm ơn bạn đã đóng góp ý kiến.",
+      "description": "Ý kiến đóng góp của bạn đã được gửi thành công."
+    },
+    "search": {
+      "informationNotFound": "Bạn chưa tìm được nội dung mong muốn?",
+      "wantedInformation": "Bạn thấy thiếu những thông tin gì?",
+      "informationMissing": "Nội dung ở đây bị thiếu thông tin?",
+      "searchTermDescription": "Không tìm thấy kết quả nào cho từ khóa sau:",
+      "checkQuery": "Hãy kiểm tra lại từ khóa tìm kiếm hoặc thay đổi ngôn ngữ đã cài đặt.",
+      "noResultsInUserLanguage": "Rất tiếc, không tìm thấy kết quả phù hợp bằng ngôn ngữ của bạn.",
+      "noResultsInUserAndSourceLanguage": "Rất tiếc, không tìm thấy kết quả phù hợp bằng ngôn ngữ của bạn hoặc bằng tiếng Đức."
+    }
+  },
+  "intro": {
+    "welcome": {
+      "title": "Chào mừng bạn đến với {{appName}}",
+      "description": "{{appName}} cung cấp câu trả lời và thông tin hữu ích bằng tiếng mẹ đẻ của bạn. Ví dụ: Tìm sự trợ giúp ở đâu? Khi nào tôi được phép đi làm?"
+    },
+    "slides": {
+      "search": {
+        "title": "Tìm kiếm dễ dàng",
+        "description": "Bạn có thể nhanh chóng tìm thấy thông tin phù hợp qua ô tìm kiếm ở góc trên bên phải thanh menu."
+      },
+      "languageChange": {
+        "description": "Bạn có thể đổi ngôn ngữ của {{appName}} ở thanh menu phía trên."
+      },
+      "places": {
+        "title": "Tiện ích và dịch vụ gần bạn",
+        "description": "Bạn có thể tìm các địa điểm ở gần mình trên bản đồ, ví dụ như các lớp học ngôn ngữ."
+      },
+      "offline": {
+        "title": "Hoạt động cả khi ngoại tuyến",
+        "description": "Không có kết nối mạng? Đừng lo. Bạn vẫn có thể sử dụng {{appName}} khi không có internet."
+      },
+      "news": {
+        "title": "Thông tin mới nhất",
+        "description": "Có gì mới ở gần bạn? Hãy khám phá ngay trên {{appName}}."
+      }
+    }
+  },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "Để lưu hình ảnh, {{appName}} cần được cấp quyền truy cập vào thư viện ảnh.",
+    "NSLocationWhenInUseUsageDescription": "Để tìm các địa điểm lân cận, {{appName}} cần quyền truy cập vị trí của bạn.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Để tìm các địa điểm lân cận, {{appName}} cần quyền truy cập vị trí của bạn.",
+    "NSCalendarsUsageDescription": "{{appName}} muốn truy cập vào lịch để thêm các sự kiện.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} muốn truy cập vào lịch để thêm các sự kiện."
+  },
+  "languages": {
+    "change": "Đổi ngôn ngữ",
+    "changed": "Đã đổi ngôn ngữ sang {{languageName}}",
+    "search": "Tìm kiếm ngôn ngữ",
+    "error": {
+      "noTranslation": "Chưa có bản dịch",
+      "notFound": {
+        "title": "Không tìm thấy ngôn ngữ này.",
+        "question": "Không tìm thấy ngôn ngữ của bạn?",
+        "description": "Trang này hiện chưa có sẵn bằng mọi ngôn ngữ. Chúng tôi đang tích cực bổ sung thêm ngôn ngữ mới. Bạn có thể yêu cầu ngôn ngữ của mình thông qua tính năng <Link>Góp ý</Link>."
+      }
+    }
+  },
+  "malteHelpForm": {
+    "supportNote": "Chúng tôi mong muốn bạn luôn cảm thấy an tâm và được hỗ trợ mỗi khi gặp khó khăn hoặc có thắc mắc. Qua biểu mẫu liên hệ dưới đây, bạn có thể kết nối với người phụ trách hỗ trợ. Bạn có thể chọn loại vấn đề mình gặp phải và lựa chọn phương thức liên hệ phù hợp.",
+    "securityNote": "Sự an toàn của bạn là ưu tiên hàng đầu của chúng tôi. Dữ liệu của bạn sẽ được bảo mật tuyệt đối nhằm luôn đảm bảo quyền riêng tư của bạn.",
+    "name": "Họ, Tên",
+    "roomNumber": "Số phòng",
+    "howToBeContacted": "Hình thức liên hệ mong muốn:",
+    "eMail": "Email",
+    "telephone": "Điện thoại",
+    "telephoneNumber": "Số ĐT",
+    "personally": "Trực tiếp",
+    "contactPerson": "Người liên hệ:",
+    "contactPersonAnyGender": "Không yêu cầu giới tính của người liên hệ",
+    "contactPersonGenderFemale": "Tôi muốn người liên hệ là nữ",
+    "contactPersonGenderMale": "Tôi muốn người liên hệ là nam",
+    "contactReason": "Yêu cầu của bạn:",
+    "maxCharacters": "Tối đa {{numberOfCharacters}} ký tự",
+    "responseHint": "Có thể mất vài ngày làm việc để nhận được phản hồi. Chúng tôi luôn cố gắng xử lý yêu cầu của bạn trong thời gian sớm nhất.",
+    "submit": "Gửi biểu mẫu",
+    "submitSuccessful": "Đã gửi biểu mẫu thành công",
+    "submitFailed": "Không thể gửi biểu mẫu",
+    "submitFailedReasoning": "Vui lòng kiểm tra lại kết nối mạng ổn định và thử lại.",
+    "invalidEmailAddress": "Địa chỉ email đã nhập không hợp lệ."
+  },
+  "news": {
+    "title": "Tin tức",
+    "sources": {
+      "all": "Tất cả tin tức",
+      "local": "Tin địa phương",
+      "national": "Tin trong nước",
+      "allShort": "Tất cả",
+      "localShort": "Địa phương",
+      "nationalShort": "Trong nước"
+    },
+    "error": {
+      "notFound": "Không tìm thấy tin nhắn này.",
+      "nothingFound": "Không tìm thấy tin tức nào."
+    }
+  },
+  "places": {
+    "title": "Bản đồ",
+    "accessible": "Hỗ trợ người khuyết tật",
+    "notAccessible": "Không hỗ trợ xe lăn",
+    "error": {
+      "notFound": "Không tìm thấy địa điểm này.",
+      "nothingFound": "Không tìm thấy địa điểm nào."
+    },
+    "distance": "Cách {{distance}} km",
+    "zoom": {
+      "in": "Phóng to",
+      "out": "Thu nhỏ"
+    },
+    "filter": {
+      "adjust": "Lọc địa điểm",
+      "onlyOpen": "Chỉ hiển thị các địa điểm đang mở cửa",
+      "categories": "Danh mục",
+      "alphabet": "A-Z",
+      "show_zero": "Tìm thấy 0 địa điểm",
+      "show_one": "Hiển thị 1 địa điểm",
+      "show_two": "Hiển thị {{count}} địa điểm",
+      "show_few": "Hiển thị {{count}} địa điểm",
+      "show_many": "Hiển thị {{count}} địa điểm",
+      "show_other": "Hiển thị {{count}} địa điểm",
+      "placeCount_zero": "0 địa điểm",
+      "placeCount_one": "1 địa điểm",
+      "placeCount_two": "{{count}} địa điểm",
+      "placeCount_few": "{{count}} địa điểm",
+      "placeCount_many": "{{count}} địa điểm",
+      "placeCount_other": "{{count}} địa điểm"
+    },
+    "hours": {
+      "title": "Giờ mở cửa",
+      "allDay": "Cả ngày",
+      "open": "Đang mở cửa",
+      "closed": "Đã đóng cửa",
+      "temporarilyClosed": "Tạm thời đóng cửa",
+      "appointment": {
+        "required": "Cần đặt lịch trước",
+        "make": {
+          "title": "Đặt lịch hẹn",
+          "description": "Đặt lịch hẹn qua <Link>trang web</Link> hoặc qua điện thoại."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Thứ Hai",
+      "dienstag": "Thứ Ba",
+      "mittwoch": "Thứ Tư",
+      "donnerstag": "Thứ Năm",
+      "freitag": "Thứ Sáu",
+      "samstag": "Thứ Bảy",
+      "sonntag": "Chủ Nhật"
+    }
+  },
+  "regions": {
+    "title": "Các khu vực",
+    "welcome": {
+      "title": "Chào mừng bạn đến với {{appName}}.",
+      "description": "Cẩm nang số cung cấp mọi thông tin bạn cần. Vui lòng chọn khu vực của bạn."
+    },
+    "change": "Đổi khu vực",
+    "notFound": "Không tìm thấy khu vực này.",
+    "search": {
+      "region": "Tìm kiếm khu vực",
+      "description": "Chọn khu vực của bạn hoặc thành phố lớn gần nhất, ví dụ: {{exampleRegion}}"
+    },
+    "nearby": {
+      "nothingFound": "Không có khu vực lân cận.",
+      "refresh": "Cập nhật các khu vực lân cận"
+    }
+  },
+  "search": {
+    "title": "Tìm kiếm",
+    "searchContent": "Tìm kiếm nội dung",
+    "viewResult": "Mở kết quả tìm kiếm",
+    "resultCount_zero": "0 kết quả tìm kiếm",
+    "resultCount_one": "1 kết quả tìm kiếm",
+    "resultCount_two": "{{count}} kết quả tìm kiếm",
+    "resultCount_few": "{{count}} kết quả tìm kiếm",
+    "resultCount_many": "{{count}} kết quả tìm kiếm",
+    "resultCount_other": "{{count}} kết quả tìm kiếm"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "error": {
+      "save": "Không thể lưu cài đặt"
+    },
+    "sentry": {
+      "title": "Độ ổn định của ứng dụng",
+      "description": "Cải thiện {{appName}} bằng cách tự động gửi báo cáo sự cố"
+    },
+    "pushNotifications": {
+      "title": "Thông báo đẩy",
+      "description": "Nhận thông báo đẩy về các tin tức mới nhất tại địa phương"
+    },
+    "contrast": {
+      "title": "Độ tương phản cao (thử nghiệm)",
+      "description": "Chế độ tương phản cao giúp cải thiện khả năng đọc"
+    },
+    "externalSources": {
+      "title": "Nguồn bên ngoài",
+      "descriptionShort": "Chọn nguồn bên ngoài được phép hiển thị.",
+      "description": "Bạn có thể chấp thuận vĩnh viễn việc hiển thị nội dung từ các nguồn bên ngoài. Bạn có thể thu hồi chấp thuận này tại đây bất cứ lúc nào.",
+      "source": "Cho phép nội dung từ {{source}}",
+      "optIn": "Tôi đồng ý hiển thị nội dung từ nguồn bên ngoài này.",
+      "allowed": "Mục này chứa nội dung từ nguồn bên ngoài. Bạn có thể chặn những nội dung như vậy trong phần cài đặt.",
+      "blocked": "Nội dung bên ngoài từ nguồn này đã bị chặn. Bạn có thể cho phép nguồn này trong phần cài đặt.",
+      "nothingFound": "Không có nguồn bên ngoài nào khả dụng."
+    }
+  },
+  "share": {
+    "title": "Chia sẻ",
+    "message": "Vừa tìm thấy: {{message}}",
+    "copyLink": "Sao chép liên kết",
+    "qr": {
+      "label": "Mã QR",
+      "title": "Chia sẻ qua mã QR",
+      "description": "Dễ dàng chia sẻ trang này bằng cách quét mã QR trên một thiết bị khác."
+    }
+  },
+  "suggestToRegion": {
+    "title": "Đề xuất {{appName}} tại khu vực của bạn",
+    "description": "Bạn thấy mô hình ứng dụng Integreat hữu ích và tin rằng thành phố, huyện hoặc xã của bạn cũng có thể hưởng lợi từ giải pháp kỹ thuật số này? Bạn hoàn toàn có thể chủ động hành động ngay tại đây.",
+    "regionNotFoundCta": "Không tìm thấy khu vực của bạn? Hãy hành động ngay!",
+    "whatToDo": "Bạn có thể làm những điều sau:",
+    "steps": {
+      "getEmail": "Tìm địa chỉ email của khu vực bạn sống",
+      "copyText": "Sao chép đoạn văn bản này",
+      "fillPlaceholders": "Điền thông tin của bạn vào các ô giữ chỗ [ ]",
+      "send": "Gửi email đến khu vực của bạn"
+    }
+  },
+  "tour": {
+    "title": "Hướng dẫn ứng dụng",
+    "welcome": "Chuyến tham quan ngắn này sẽ giới thiệu cho bạn các tính năng quan trọng nhất của ứng dụng.",
+    "start": "Bắt đầu khám phá",
+    "progress": "Bước {{current}} trên {{total}}",
+    "regionChange": {
+      "description": "Chọn <strong>khu vực</strong> của bạn tại đây để tìm thông tin địa phương."
+    },
+    "navigation": {
+      "title": "Điều hướng",
+      "description": "Chuyển đổi linh hoạt giữa <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> và <strong>$t(events:title)</strong> tại đây."
+    },
+    "categories": {
+      "title": "Khám phá chủ đề",
+      "description": "Khám phá thông tin về các chủ đề như <strong>Nhà ở</strong>, <strong>Giáo dục</strong>, <strong>Việc làm</strong> và nhiều hơn nữa."
+    },
+    "searchAndLanguage": {
+      "title": "Tìm kiếm và ngôn ngữ",
+      "description": "<strong>Tìm kiếm</strong> thông tin địa phương, sự kiện, địa điểm hoặc thay đổi <strong>ngôn ngữ</strong>."
+    },
+    "menu": {
+      "title": "Chức năng khác",
+      "description": "Sử dụng thêm các chức năng khác tại đây như <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> và <strong>{{additionalFeature}}</strong>."
+    },
+    "chat": {
+      "description": "Đặt câu hỏi tại đây để nhanh chóng nhận được câu trả lời phù hợp."
+    },
+    "finish": {
+      "title": "Hoàn tất!",
+      "description": "Giờ bạn đã nắm được các tính năng quan trọng nhất. Chúc bạn có trải nghiệm tuyệt vời cùng {{appName}}!"
+    }
+  },
+  "tts": {
+    "title": "Đọc to",
+    "pause": "Tạm dừng",
+    "play": "Phát",
+    "error": {
+      "languageNotSupported": "Ngôn ngữ không được hỗ trợ.",
+      "nothingToRead": {
+        "title": "Không có nội dung để đọc",
+        "description": "Không có nội dung nào để đọc trên trang này."
+      },
+      "noVoices": {
+        "title": "Chưa cài đặt giọng đọc",
+        "description": "Không tìm thấy giọng đọc nào. Để sử dụng tính năng đọc văn bản, bạn cần cài đặt một giọng đọc. Vui lòng làm theo hướng dẫn dưới đây cho hệ điều hành của bạn."
+      }
+    }
+  },
+  "userLocation": {
+    "nearby": "Gần bạn",
+    "show": "Hiển thị vị trí của tôi",
+    "loading": "Đang xác định vị trí…",
+    "locationAccessRequired": "Để hiển thị các khu vực lân cận, bạn cần bật quyền truy cập vị trí.",
+    "noPermission": "Yêu cầu quyền truy cập vị trí",
+    "notAvailable": "Dịch vụ định vị đã bị tắt",
+    "timeout": "Không tìm thấy vị trí"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "O {{appName}} é o seu assistente digital da Malteser. Aqui você encontra informações locais, eventos e orientações da sua instituição. Sempre atualizado e no seu idioma!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Este evento não foi encontrado.",
+      "nothingFound": "Nenhum evento encontrado."
+    },
+    "export": {
+      "allRecurrences": "Este e todos os eventos futuros",
+      "thisRecurrence": "Apenas este evento"
+    },
+    "title": "Eventos"
+  }
+}

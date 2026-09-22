@@ -1,0 +1,468 @@
+{
+  "about": {
+    "legal": "Informasi hukum",
+    "imprint": "Impresum",
+    "accessibility": "Aksesibilitas",
+    "aboutUs": "Tentang kami",
+    "licenses": {
+      "title": "Lisensi sumber terbuka",
+      "version": "Versi: {{version}}",
+      "license": "Lisensi: {{license}}"
+    }
+  },
+  "categories": {
+    "title": "Informasi lokal",
+    "titleShort": "Informasi",
+    "organization": {
+      "title": "Konten halaman ini disediakan oleh {{organization}}.",
+      "description": "Informasi lebih lanjut tentang {{organization}} dapat ditemukan di <Link>{{domain}}</Link>."
+    },
+    "pdf": {
+      "create": "Buat PDF",
+      "disabled": "Pembuatan PDF saat ini tidak tersedia dalam bahasa ini."
+    }
+  },
+  "chat": {
+    "subtitle": "Asisten pencarian digital Anda",
+    "bot": "Chatbot",
+    "consultant": "Konselor",
+    "typing": "Sedang mengetik…",
+    "inputPlaceholder": "Silakan masukkan pertanyaan Anda…",
+    "initial": {
+      "title": "Silakan masukkan pertanyaan Anda ke dalam kolom teks.",
+      "description": "Anda dapat menanyakan tentang informasi lokal atau situasi pribadi Anda."
+    },
+    "welcome": {
+      "title": "Halo!",
+      "description": "Saya <strong>{{name}}</strong>, asisten pencarian digital Anda. Silakan ajukan pertanyaan Anda."
+    },
+    "startNew": {
+      "title": "Mulai obrolan baru",
+      "description": "Apakah Anda yakin ingin memulai obrolan baru? Riwayat obrolan saat ini akan dihapus."
+    },
+    "unread_one": "1 pesan obrolan belum dibaca",
+    "unread_two": "{{count}} pesan obrolan belum dibaca",
+    "unread_few": "{{count}} pesan obrolan belum dibaca",
+    "unread_many": "{{count}} pesan obrolan belum dibaca",
+    "unread_other": "{{count}} pesan obrolan belum dibaca"
+  },
+  "common": {
+    "actions": {
+      "back": "Kembali",
+      "cancel": "Batal",
+      "clearInput": "Hapus input",
+      "close": "Tutup",
+      "copy": "Salin",
+      "minimize": "Minimalkan",
+      "next": "Lanjut",
+      "ok": "Oke",
+      "open": "Buka",
+      "previous": "Sebelumnya",
+      "send": "Kirim",
+      "skip": "Lewati",
+      "view": "Tampilkan",
+      "openExternal": "Buka di aplikasi eksternal",
+      "goToPage": "Ke halaman {{number}}",
+      "showMore": "Tampilkan lebih banyak",
+      "showLess": "Tampilkan lebih sedikit",
+      "showFilters": "Tampilkan filter",
+      "hideFilters": "Sembunyikan filter"
+    },
+    "a11y": {
+      "skipToContent": "Beralih ke konten"
+    },
+    "state": {
+      "copied": "Disalin",
+      "updatedAt": "Pembaruan terakhir: {{date}}",
+      "loading": "Memuat…",
+      "optional": "opsional",
+      "enabled": "diaktifkan",
+      "disabled": "dinonaktifkan"
+    },
+    "labels": {
+      "description": "Deskripsi",
+      "menu": "Menu",
+      "getOnPlayStore": "DAPATKAN SEKARANG — Di Google Play Store"
+    },
+    "meta": {
+      "description": "{{appName}} adalah panduan digital Anda untuk Jerman. Temukan informasi lokal, acara, dan layanan konsultasi. Selalu terkini dan dalam bahasa Anda."
+    },
+    "privacy": {
+      "title": "Kebijakan Privasi",
+      "confirmation": "Saya telah membaca <Link>Kebijakan Privasi</Link> dan menyetujui pemrosesan serta penyimpanan data saya.",
+      "required": "Harap setujui Kebijakan Privasi."
+    },
+    "contacts": {
+      "title": "Kontak",
+      "address": {
+        "title": "Alamat",
+        "copy": "Salin alamat"
+      },
+      "phone": {
+        "title": "Nomor telepon",
+        "mobile": "Nomor ponsel"
+      },
+      "email": "Email",
+      "website": "Situs web"
+    }
+  },
+  "error": {
+    "title": "Kesalahan",
+    "noSuitableAppInstalled": "Tidak ada aplikasi yang cocok terinstal.",
+    "forbidden": "Anda tidak memiliki akses ke wilayah ini.",
+    "networkConnectionFailed": "Koneksi ke server gagal.",
+    "networkRequestFailed": "Permintaan tidak dapat diproses.",
+    "responseMappingFailed": "Respons dari server tidak dapat diproses.",
+    "rateLimited": "Terlalu banyak permintaan. Silakan tunggu sebentar.",
+    "pageNotFound": "Halaman tidak ditemukan.",
+    "nothingFound": "Hasil tidak ditemukan.",
+    "permissionRequired": "Izin diperlukan",
+    "unknownError": "Terjadi kesalahan yang tidak diketahui.",
+    "tryAgain": "Coba lagi"
+  },
+  "events": {
+    "title": "Acara",
+    "onlineMeeting": "Pertemuan daring",
+    "error": {
+      "notFound": "Acara ini tidak ditemukan.",
+      "nothingFound": "Acara tidak ditemukan."
+    },
+    "recurrence": {
+      "recurring": "berulang",
+      "furtherDates": "Jadwal lainnya",
+      "untilDate": "hingga {{date}}"
+    },
+    "dateGroups": {
+      "today": "Hari ini",
+      "tomorrow": "Besok",
+      "nextDays": "{{days}} hari ke depan",
+      "further": "Lainnya"
+    },
+    "export": {
+      "download": "Ekspor",
+      "addToCalendar": "Tambahkan ke Kalender",
+      "added": "Ditambahkan ke Kalender",
+      "calendar": "Kalender",
+      "thisRecurrence": "Hanya acara ini",
+      "allRecurrences": "Acara ini dan semua acara berikutnya",
+      "error": {
+        "forbidden": "Akses ke kalender tidak diizinkan.",
+        "nothingFound": "Tidak ada kalender yang cocok"
+      }
+    },
+    "filter": {
+      "selectStart": "Pilih tanggal mulai di kalender",
+      "selectEnd": "Pilih tanggal berakhir di kalender",
+      "from": "dari",
+      "to": "hingga",
+      "reset": "Atur ulang filter: {{filter}}",
+      "error": {
+        "invalidDate": "Tanggal tidak valid",
+        "endBeforeStart": "Tanggal mulai harus sebelum tanggal berakhir."
+      }
+    }
+  },
+  "feedback": {
+    "title": "Masukan",
+    "give": "Beri masukan",
+    "description": "Pilih penilaian dan/atau tulis komentar.",
+    "comment": {
+      "title": "Komentar",
+      "description": "Beri tahu kami masukan Anda! Kami sangat menghargai masukan positif maupun negatif karena dapat membantu kami meningkatkan {{appName}}."
+    },
+    "contactEmail": "Email untuk pertanyaan lanjutan",
+    "required": "Silakan pilih reaksi atau tulis komentar untuk mengirimkan masukan.",
+    "rating": {
+      "useful": "Membantu",
+      "notUseful": "Tidak membantu"
+    },
+    "thanks": {
+      "title": "Terima kasih atas masukan Anda.",
+      "description": "Masukan Anda berhasil dikirim."
+    },
+    "search": {
+      "informationNotFound": "Belum menemukan yang Anda cari?",
+      "wantedInformation": "Informasi apa yang belum tersedia?",
+      "informationMissing": "Ada informasi yang kurang di sini?",
+      "searchTermDescription": "Tidak ada hasil yang ditemukan untuk istilah berikut:",
+      "checkQuery": "Periksa kata kunci pencarian Anda atau ubah pengaturan bahasa.",
+      "noResultsInUserLanguage": "Sayangnya, tidak ada hasil yang cocok dalam bahasa Anda.",
+      "noResultsInUserAndSourceLanguage": "Sayangnya, tidak ada hasil yang cocok dalam bahasa Anda atau dalam bahasa Jerman."
+    }
+  },
+  "intro": {
+    "welcome": {
+      "title": "Selamat datang di {{appName}}",
+      "description": "Di {{appName}}, temukan jawaban dan tips dalam bahasa ibu Anda. Misalnya: Di mana saya bisa mencari bantuan? Kapan saya boleh mulai bekerja?"
+    },
+    "slides": {
+      "search": {
+        "title": "Pencarian Mudah",
+        "description": "Temukan informasi yang tepat dengan cepat melalui fitur pencarian di kanan atas menu."
+      },
+      "languageChange": {
+        "description": "Anda dapat mengubah bahasa {{appName}} pada menu di bagian atas."
+      },
+      "places": {
+        "title": "Layanan di sekitar Anda",
+        "description": "Di peta, Anda dapat menemukan lokasi di sekitar Anda, misalnya tempat kursus bahasa."
+      },
+      "offline": {
+        "title": "Bisa digunakan secara luring",
+        "description": "Tidak selalu terhubung ke internet? Tidak masalah. Anda tetap dapat menggunakan {{appName}} secara luring."
+      },
+      "news": {
+        "title": "Informasi Terkini",
+        "description": "Ada kabar terbaru apa di sekitar Anda? Cari tahu di {{appName}}."
+      }
+    }
+  },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "Untuk menyimpan gambar, {{appName}} memerlukan akses ke galeri.",
+    "NSLocationWhenInUseUsageDescription": "Untuk menemukan lokasi di sekitar, {{appName}} memerlukan izin akses lokasi.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Untuk menemukan lokasi di sekitar, {{appName}} memerlukan izin akses lokasi.",
+    "NSCalendarsUsageDescription": "{{appName}} ingin mengakses kalender untuk menambahkan acara.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} ingin mengakses kalender untuk menambahkan acara."
+  },
+  "languages": {
+    "change": "Ubah bahasa",
+    "changed": "Bahasa telah diubah ke {{languageName}}",
+    "search": "Cari bahasa",
+    "error": {
+      "noTranslation": "Terjemahan tidak tersedia",
+      "notFound": {
+        "title": "Bahasa ini tidak ditemukan.",
+        "question": "Bahasa tidak ditemukan?",
+        "description": "Halaman ini belum tersedia dalam semua bahasa. Kami sedang berupaya menambahkan lebih banyak pilihan bahasa. Anda dapat meminta bahasa Anda melalui fitur <Link>Masukan</Link>."
+      }
+    }
+  },
+  "malteHelpForm": {
+    "supportNote": "Kami ingin Anda merasa aman dan terbantu saat menghadapi masalah atau memiliki pertanyaan. Melalui formulir kontak berikut, Anda dapat terhubung dengan narahubung kami. Anda dapat menentukan jenis kendala Anda dan memilih dari berbagai opsi kontak yang tersedia.",
+    "securityNote": "Keamanan Anda adalah prioritas utama kami. Data Anda akan dijaga kerahasiaannya agar privasi Anda senantiasa terlindungi.",
+    "name": "Nama belakang, nama depan",
+    "roomNumber": "Nomor kamar",
+    "howToBeContacted": "Metode kontak pilihan saya:",
+    "eMail": "Email",
+    "telephone": "Telepon",
+    "telephoneNumber": "No. Telp",
+    "personally": "Secara langsung",
+    "contactPerson": "Narahubung:",
+    "contactPersonAnyGender": "Jenis kelamin narahubung tidak dipermasalahkan",
+    "contactPersonGenderFemale": "Saya ingin dihubungi oleh staf perempuan",
+    "contactPersonGenderMale": "Saya ingin dihubungi oleh staf laki-laki",
+    "contactReason": "Keperluan Anda:",
+    "maxCharacters": "maksimal {{numberOfCharacters}} karakter",
+    "responseHint": "Dibutuhkan beberapa hari kerja sampai Anda menerima respons. Kami berusaha sebaik mungkin untuk memproses permintaan Anda secepatnya.",
+    "submit": "Kirim formulir",
+    "submitSuccessful": "Formulir berhasil dikirim",
+    "submitFailed": "Formulir gagal dikirim",
+    "submitFailedReasoning": "Pastikan koneksi internet Anda stabil dan silakan coba lagi.",
+    "invalidEmailAddress": "Alamat email yang dimasukkan tidak valid."
+  },
+  "news": {
+    "title": "Berita",
+    "sources": {
+      "all": "Semua berita",
+      "local": "Berita lokal",
+      "national": "Berita nasional",
+      "allShort": "Semua",
+      "localShort": "Lokal",
+      "nationalShort": "Nasional"
+    },
+    "error": {
+      "notFound": "Pesan ini tidak ditemukan.",
+      "nothingFound": "Tidak ada pesan yang ditemukan."
+    }
+  },
+  "places": {
+    "title": "Peta",
+    "accessible": "Aksesibel",
+    "notAccessible": "Tidak ramah kursi roda",
+    "error": {
+      "notFound": "Lokasi ini tidak ditemukan.",
+      "nothingFound": "Tidak ada lokasi yang ditemukan."
+    },
+    "distance": "Berjarak {{distance}} km",
+    "zoom": {
+      "in": "Perbesar",
+      "out": "Perkecil"
+    },
+    "filter": {
+      "adjust": "Filter lokasi",
+      "onlyOpen": "hanya tampilkan lokasi yang buka sekarang",
+      "categories": "Kategori",
+      "alphabet": "A-Z",
+      "show_zero": "0 lokasi ditemukan",
+      "show_one": "Tampilkan 1 lokasi",
+      "show_two": "Tampilkan {{count}} lokasi",
+      "show_few": "Tampilkan {{count}} lokasi",
+      "show_many": "Tampilkan {{count}} lokasi",
+      "show_other": "Tampilkan {{count}} lokasi",
+      "placeCount_zero": "0 lokasi",
+      "placeCount_one": "1 lokasi",
+      "placeCount_two": "{{count}} lokasi",
+      "placeCount_few": "{{count}} lokasi",
+      "placeCount_many": "{{count}} lokasi",
+      "placeCount_other": "{{count}} lokasi"
+    },
+    "hours": {
+      "title": "Jam buka",
+      "allDay": "sepanjang hari",
+      "open": "Buka",
+      "closed": "Tutup",
+      "temporarilyClosed": "Tutup sementara",
+      "appointment": {
+        "required": "Wajib membuat janji temu",
+        "make": {
+          "title": "Buat janji temu",
+          "description": "Buat janji temu melalui <Link>situs web</Link> atau telepon."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Senin",
+      "dienstag": "Selasa",
+      "mittwoch": "Rabu",
+      "donnerstag": "Kamis",
+      "freitag": "Jumat",
+      "samstag": "Sabtu",
+      "sonntag": "Minggu"
+    }
+  },
+  "regions": {
+    "title": "Wilayah",
+    "welcome": {
+      "title": "Selamat datang di {{appName}}.",
+      "description": "Panduan digitalmu untuk semua informasi yang kamu butuhkan. Silakan pilih wilayahmu."
+    },
+    "change": "Ubah wilayah",
+    "notFound": "Wilayah ini tidak ditemukan.",
+    "search": {
+      "region": "Cari wilayah",
+      "description": "Pilih wilayahmu atau kota besar terdekat, misalnya {{exampleRegion}}"
+    },
+    "nearby": {
+      "nothingFound": "Tidak ada wilayah di sekitar.",
+      "refresh": "Perbarui wilayah di sekitar"
+    }
+  },
+  "search": {
+    "title": "Cari",
+    "searchContent": "Cari konten",
+    "viewResult": "Buka hasil pencarian",
+    "resultCount_zero": "0 hasil pencarian",
+    "resultCount_one": "1 hasil pencarian",
+    "resultCount_two": "{{count}} hasil pencarian",
+    "resultCount_few": "{{count}} hasil pencarian",
+    "resultCount_many": "{{count}} hasil pencarian",
+    "resultCount_other": "{{count}} hasil pencarian"
+  },
+  "settings": {
+    "title": "Pengaturan",
+    "error": {
+      "save": "Pengaturan tidak dapat disimpan"
+    },
+    "sentry": {
+      "title": "Stabilitas aplikasi",
+      "description": "Bantu tingkatkan {{appName}} dengan mengirim laporan kerusakan secara otomatis"
+    },
+    "pushNotifications": {
+      "title": "Notifikasi push",
+      "description": "Terima notifikasi push untuk berita lokal terbaru"
+    },
+    "contrast": {
+      "title": "Kontras tinggi (beta)",
+      "description": "Mode kontras meningkatkan keterbacaan"
+    },
+    "externalSources": {
+      "title": "Sumber eksternal",
+      "descriptionShort": "Tentukan sumber eksternal mana yang diizinkan.",
+      "description": "Anda dapat mengizinkan penayangan konten dari sumber eksternal secara permanen. Anda dapat mencabut persetujuan ini kapan saja di sini.",
+      "source": "Izinkan konten dari {{source}}",
+      "optIn": "Saya setuju untuk melihat konten dari sumber eksternal ini.",
+      "allowed": "Elemen ini memuat konten dari sumber eksternal ini. Kamu dapat memblokir konten tersebut di pengaturan.",
+      "blocked": "Konten eksternal dari sumber ini telah diblokir. Kamu dapat mengizinkan sumber ini di pengaturan.",
+      "nothingFound": "Tidak ada sumber eksternal yang tersedia."
+    }
+  },
+  "share": {
+    "title": "Bagikan",
+    "message": "Baru saja ditemukan: {{message}}",
+    "copyLink": "Salin tautan",
+    "qr": {
+      "label": "Kode QR",
+      "title": "Bagikan melalui kode QR",
+      "description": "Bagikan halaman ini dengan mudah dengan memindai kode QR di perangkat lain."
+    }
+  },
+  "suggestToRegion": {
+    "title": "Sarankan {{appName}} di wilayah Anda",
+    "description": "Tertarik dengan konsep aplikasi Integreat dan yakin bahwa kota, kabupaten, atau wilayah Anda juga dapat merasakan manfaat solusi digital ini? Anda dapat mengambil tindakan dengan mudah di sini.",
+    "regionNotFoundCta": "Tidak menemukan wilayah Anda? Ambil tindakan sekarang!",
+    "whatToDo": "Yang dapat Anda lakukan:",
+    "steps": {
+      "getEmail": "Temukan alamat email untuk wilayah Anda",
+      "copyText": "Salin teks ini",
+      "fillPlaceholders": "Isi bagian placeholder [ ] dengan data Anda",
+      "send": "Kirim email ke wilayah Anda"
+    }
+  },
+  "tour": {
+    "title": "Tur aplikasi",
+    "welcome": "Tur singkat ini akan menunjukkan fitur-fitur terpenting dari aplikasi ini.",
+    "start": "Mulai tur",
+    "progress": "Langkah {{current}} dari {{total}}",
+    "regionChange": {
+      "description": "Pilih <strong>wilayah</strong> Anda di sini untuk menemukan informasi lokal."
+    },
+    "navigation": {
+      "title": "Navigasi",
+      "description": "Beralih di antara <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong>, dan <strong>$t(events:title)</strong> di sini."
+    },
+    "categories": {
+      "title": "Jelajahi topik",
+      "description": "Temukan informasi seputar topik seperti <strong>Tempat Tinggal</strong>, <strong>Pendidikan</strong>, <strong>Pekerjaan</strong>, dan lainnya."
+    },
+    "searchAndLanguage": {
+      "title": "Pencarian dan bahasa",
+      "description": "<strong>Cari</strong> informasi lokal, acara, dan lokasi atau ubah <strong>bahasa</strong>."
+    },
+    "menu": {
+      "title": "Fitur lainnya",
+      "description": "Gunakan fitur lainnya di sini seperti <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong>, dan <strong>{{additionalFeature}}</strong>."
+    },
+    "chat": {
+      "description": "Ajukan pertanyaan Anda di sini dan dapatkan jawaban yang tepat dengan cepat."
+    },
+    "finish": {
+      "title": "Selesai!",
+      "description": "Sekarang Anda telah mengetahui fitur-fitur terpenting. Selamat menggunakan {{appName}}!"
+    }
+  },
+  "tts": {
+    "title": "Bacakan",
+    "pause": "Jeda",
+    "play": "Putar",
+    "error": {
+      "languageNotSupported": "Bahasa tidak didukung.",
+      "nothingToRead": {
+        "title": "Tidak ada yang dapat dibaca",
+        "description": "Tidak ada yang dapat dibaca di halaman ini."
+      },
+      "noVoices": {
+        "title": "Tidak ada suara yang terinstal",
+        "description": "Tidak ada suara yang ditemukan. Agar dapat menggunakan fungsi pembacaan teks, suara harus diinstal terlebih dahulu. Silakan ikuti petunjuk berikut untuk sistem operasi Anda."
+      }
+    }
+  },
+  "userLocation": {
+    "nearby": "Di sekitar Anda",
+    "show": "Tampilkan lokasi saat ini",
+    "loading": "Menentukan lokasi…",
+    "locationAccessRequired": "Akses lokasi harus diaktifkan untuk menampilkan wilayah terdekat.",
+    "noPermission": "Akses lokasi diperlukan",
+    "notAvailable": "Layanan lokasi dinonaktifkan",
+    "timeout": "Lokasi tidak ditemukan"
+  }
+}

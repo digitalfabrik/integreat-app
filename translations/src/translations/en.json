@@ -1,4 +1,15 @@
 {
+  "about": {
+    "legal": "Legal",
+    "imprint": "Imprint",
+    "accessibility": "Accessibility",
+    "aboutUs": "About us",
+    "licenses": {
+      "title": "Open source licenses",
+      "version": "Version: {{version}}",
+      "license": "License: {{license}}"
+    }
+  },
   "categories": {
     "title": "Local information",
     "titleShort": "Information",
@@ -206,8 +217,16 @@
       }
     }
   },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "{{appName}} wants to save photos to your library.",
+    "NSLocationWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby regions.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby regions.",
+    "NSCalendarsUsageDescription": "{{appName}} wants to access the calendar to add events.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} wants to access the calendar to add events."
+  },
   "languages": {
     "change": "Change language",
+    "changed": "Language changed to {{languageName}}",
     "search": "Search language",
     "error": {
       "noTranslation": "No translation available",
@@ -240,13 +259,6 @@
     "submitFailed": "Form could not be submitted",
     "submitFailedReasoning": "Please ensure a stable internet connection and try again.",
     "invalidEmailAddress": "The e-mail address you entered is invalid."
-  },
-  "ios": {
-    "NSPhotoLibraryAddUsageDescription": "{{appName}} wants to save photos to your library.",
-    "NSLocationWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby regions.",
-    "NSLocationAlwaysAndWhenInUseUsageDescription": "{{appName}} wants to use your location to find nearby regions.",
-    "NSCalendarsUsageDescription": "{{appName}} wants to access the calendar to add events.",
-    "NSCalendarsFullAccessUsageDescription": "{{appName}} wants to access the calendar to add events."
   },
   "news": {
     "title": "News",
@@ -346,17 +358,6 @@
     "resultCount_many": "{{count}} search results",
     "resultCount_other": "{{count}} search results"
   },
-  "about": {
-    "legal": "Legal",
-    "imprint": "Imprint",
-    "accessibility": "Accessibility",
-    "aboutUs": "About us",
-    "licenses": {
-      "title": "Open source licenses",
-      "version": "Version: {{version}}",
-      "license": "License: {{license}}"
-    }
-  },
   "settings": {
     "title": "Settings",
     "error": {
@@ -407,14 +408,37 @@
       "send": "Send the email to your region"
     }
   },
-  "userLocation": {
-    "nearby": "Near you",
-    "show": "Show your own location",
-    "loading": "Determining location…",
-    "locationAccessRequired": "To display nearby regions, location access must be enabled.",
-    "noPermission": "Location access required",
-    "notAvailable": "Location services are disabled",
-    "timeout": "Location not found"
+  "tour": {
+    "title": "App tour",
+    "welcome": "This short tour shows you the most important features of the app.",
+    "start": "Start tour",
+    "progress": "Step {{current}} of {{total}}",
+    "regionChange": {
+      "description": "Select your <strong>region</strong> here to find local information."
+    },
+    "navigation": {
+      "title": "Navigation",
+      "description": "Switch between <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> and <strong>$t(events:title)</strong> here."
+    },
+    "categories": {
+      "title": "Discover topics",
+      "description": "Discover information on topics such as <strong>Housing</strong>, <strong>Education</strong>, <strong>Work</strong> and more."
+    },
+    "searchAndLanguage": {
+      "title": "Search and language",
+      "description": "<strong>Search</strong> for local information, events and places or change the <strong>language</strong>."
+    },
+    "menu": {
+      "title": "Additional features",
+      "description": "Use further features here such as <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> and <strong>{{additionalFeature}}</strong>."
+    },
+    "chat": {
+      "description": "Ask your questions here and quickly get suitable answers."
+    },
+    "finish": {
+      "title": "Done!",
+      "description": "Now you know the most important features. Good luck with {{appName}}!"
+    }
   },
   "tts": {
     "title": "Read aloud",
@@ -431,5 +455,14 @@
         "description": "No voice found. In order to use the read aloud functionality, a voice has to be installed. Please refer to the instructions for your operating system below."
       }
     }
+  },
+  "userLocation": {
+    "nearby": "Near you",
+    "show": "Show your own location",
+    "loading": "Determining location…",
+    "locationAccessRequired": "To display nearby regions, location access must be enabled.",
+    "noPermission": "Location access required",
+    "notAvailable": "Location services are disabled",
+    "timeout": "Location not found"
   }
 }

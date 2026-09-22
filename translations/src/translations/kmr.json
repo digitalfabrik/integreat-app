@@ -1,0 +1,468 @@
+{
+  "about": {
+    "legal": "Agahiyên qanûnî",
+    "imprint": "Agahiyên fermî",
+    "accessibility": "Gihîştinbarî",
+    "aboutUs": "Der barê me de",
+    "licenses": {
+      "title": "Lîsansên çavkaniya vekirî",
+      "version": "Guherto: {{version}}",
+      "license": "Lîsans: {{license}}"
+    }
+  },
+  "categories": {
+    "title": "Agahiyên herêmî",
+    "titleShort": "Agahî",
+    "organization": {
+      "title": "Naveroka vê malperê ji aliyê {{organization}} ve hatiye amadekirin.",
+      "description": "Zêdetir agahî li ser {{organization}} dikarî li vir bibînî: <Link>{{domain}}</Link>."
+    },
+    "pdf": {
+      "create": "PDF çêbike",
+      "disabled": "Çêkirina belgeya PDFê niha bi vê zimanî ne pêkan e."
+    }
+  },
+  "chat": {
+    "subtitle": "Alîkarê te yê lêgerînê yê dîjîtal",
+    "bot": "Chatbot",
+    "consultant": "Şêwirmend",
+    "typing": "Dinivîse…",
+    "inputPlaceholder": "Ji kerema xwe pirsa xwe binivîse…",
+    "initial": {
+      "title": "Ji kerema xwe pirsa xwe di qada nivîsê de binivîse.",
+      "description": "Tu dikarî li ser agahiyên herêmî an rewşa xwe ya kesane pirsan bikî."
+    },
+    "welcome": {
+      "title": "Silav!",
+      "description": "Ez <strong>{{name}}</strong> im, alîkarê te yê lêgerînê yê dîjîtal. Tu dikarî pirsa xwe ji min bipirsî."
+    },
+    "startNew": {
+      "title": "Sohbeteke nû bide destpêkirin",
+      "description": "Ma tu bi rastî dixwazî sohbeteke nû bidî destpêkirin? Dîroka sohbetê ya heyî dê were jêbirin."
+    },
+    "unread_one": "1 peyama nexwendî ya sohbetê",
+    "unread_two": "{{count}} peyamên nexwendî yên sohbetê",
+    "unread_few": "{{count}} peyamên nebihîstî/nexwendî yên sohbetê",
+    "unread_many": "{{count}} peyamên nexwendî yên sohbetê",
+    "unread_other": "{{count}} peyamên nexwendî yên sohbetê"
+  },
+  "common": {
+    "actions": {
+      "back": "Vegere",
+      "cancel": "Betal bike",
+      "clearInput": "Nivîsê jê bibe",
+      "close": "Bigire",
+      "copy": "Kopî bike",
+      "minimize": "Biçûk bike",
+      "next": "Pêşve",
+      "ok": "Temam",
+      "open": "Vekirin",
+      "previous": "ya berê",
+      "send": "Bişîne",
+      "skip": "Derbas bike",
+      "view": "Nîşan bide",
+      "openExternal": "Li derve veke",
+      "goToPage": "Here rûpela {{number}}",
+      "showMore": "Zêdetir nîşan bide",
+      "showLess": "Kêmtir nîşan bide",
+      "showFilters": "Parzûnan nîşan bide",
+      "hideFilters": "Fîlterê veşêre"
+    },
+    "a11y": {
+      "skipToContent": "Here ser naverokê"
+    },
+    "state": {
+      "copied": "Hat kopîkirin",
+      "updatedAt": "Nûvekirina dawî: {{date}}",
+      "loading": "Tê barkirin…",
+      "optional": "vebijarkî",
+      "enabled": "çalak e",
+      "disabled": "neçalak e"
+    },
+    "labels": {
+      "description": "Danasîn",
+      "menu": "Menu",
+      "getOnPlayStore": "DAXE — Li Google Play Store"
+    },
+    "meta": {
+      "description": "{{appName}} rêberê te yê dîjîtal ê bo Almanyayê ye. Agahiyên herêmî, çalakî û şêwirmendiyê bibîne. Her dem nûjen û bi zimanê te."
+    },
+    "privacy": {
+      "title": "Polîtîkaya Nepaniyê",
+      "confirmation": "Min <Link>Polîtîkaya Nepaniyê</Link> xwend û ez hilgirtin û pêvajokirina daneyên xwe dipejirînim.",
+      "required": "Ji kerema xwe Polîtîkaya Nepaniyê bipejirîne."
+    },
+    "contacts": {
+      "title": "Têkilî",
+      "address": {
+        "title": "Navnîşan",
+        "copy": "Navnîşanê kopî bike"
+      },
+      "phone": {
+        "title": "Hejmara telefonê",
+        "mobile": "Hejmara mobîlê"
+      },
+      "email": "E-peyam",
+      "website": "Malper"
+    }
+  },
+  "error": {
+    "title": "Çewtî",
+    "noSuitableAppInstalled": "Sepana guncaw nehatiye sazkirin.",
+    "forbidden": "Destûra te ji bo vê herêmê nîne.",
+    "networkConnectionFailed": "Girêdana bi rajekarê re bi ser neket.",
+    "networkRequestFailed": "Daxwaz nehate pêvajokirin.",
+    "responseMappingFailed": "Bersiva rajekarê nehate pêvajokirin.",
+    "rateLimited": "Te pir zêde daxwaz şandin. Ji kerema xwe hinekî bisekine.",
+    "pageNotFound": "Ev rûpel nehat dîtin.",
+    "nothingFound": "Encam nehat dîtin.",
+    "permissionRequired": "Destûr hewce ye",
+    "unknownError": "Çewtiyeke nenas rû da.",
+    "tryAgain": "Dîsa biceribîne"
+  },
+  "events": {
+    "title": "Çalakî",
+    "onlineMeeting": "Civîna serhêl",
+    "error": {
+      "notFound": "Ev çalakî nehate dîtin.",
+      "nothingFound": "Tu çalakî nehatin dîtin."
+    },
+    "recurrence": {
+      "recurring": "dubarebûyî",
+      "furtherDates": "Randevûyên din",
+      "untilDate": "heta {{date}}"
+    },
+    "dateGroups": {
+      "today": "Îro",
+      "tomorrow": "Sibe",
+      "nextDays": "{{days}} rojên pêş",
+      "further": "Yên din"
+    },
+    "export": {
+      "download": "Derxistin",
+      "addToCalendar": "Li salnameyê zêde bike",
+      "added": "Li salnameyê hate zêdekirin",
+      "calendar": "Salname",
+      "thisRecurrence": "Tenê ev çalakî",
+      "allRecurrences": "Ev çalakî û hemû yên bê",
+      "error": {
+        "forbidden": "Destûra gihîştina salnameyê tune ye.",
+        "nothingFound": "Salnameyeke guncan nîne"
+      }
+    },
+    "filter": {
+      "selectStart": "Dîroka destpêkê di salnameyê de hilbijêre",
+      "selectEnd": "Dîroka bidawîbûnê di salnameyê de hilbijêre",
+      "from": "ji",
+      "to": "heta",
+      "reset": "Parzûnê sifir bike: {{filter}}",
+      "error": {
+        "invalidDate": "Dîroka nederbasdar",
+        "endBeforeStart": "Divê dîroka destpêkê beriya dîroka bidawîbûnê be."
+      }
+    }
+  },
+  "feedback": {
+    "title": "Nêrîn",
+    "give": "Nêrîna xwe parve bike",
+    "description": "Nirxandinekê hilbijêre û/an jî şîroveyekê binivîse.",
+    "comment": {
+      "title": "Şîrove",
+      "description": "Nêrîna xwe bi me re parve bike! Çi erênî çi neyînî be em qîmetê didin nerîna te, ji ber ku alîkariya me dike ku em {{appName}} baştir bikin."
+    },
+    "contactEmail": "E-peyama ji bo pirsan",
+    "required": "Ji kerema xwe bertekekê hilbijêre an şîroveyekê binivîse da ku bikaribî nêrîna xwe bişînî.",
+    "rating": {
+      "useful": "Bikêr e",
+      "notUseful": "Ne bikêr e"
+    },
+    "thanks": {
+      "title": "Gelek spas ji bo nêrîna te.",
+      "description": "Nêrîna te bi serkeftî hat şandin."
+    },
+    "search": {
+      "informationNotFound": "Te tiştê rast nedît?",
+      "wantedInformation": "Kîjan agahî kêm in?",
+      "informationMissing": "Li vir agahî kêm in?",
+      "searchTermDescription": "Ji bo vê peyva lêgerînê ti encam nehat dîtin:",
+      "checkQuery": "Peyva lêgerînê kontrol bike an jî zimanê hilbijartî biguherîne.",
+      "noResultsInUserLanguage": "Mixabin bi zimanê te ti encamên guncaw nehatin dîtin.",
+      "noResultsInUserAndSourceLanguage": "Mixabin bi zimanê te an bi almanî ti encamên guncaw nehatin dîtin."
+    }
+  },
+  "intro": {
+    "welcome": {
+      "title": "Bi xêr hatî {{appName}}",
+      "description": "Di {{appName}} de tu dikarî bi zimanê xwe yê zikmakî bersiv û şîretan bibînî. Bo nimûne: Ez dikarim li ku derê alîkariyê bibînim? Ez kengî dikarim bixebitim?"
+    },
+    "slides": {
+      "search": {
+        "title": "Lêgerîna hêsan",
+        "description": "Bi riya lêgerîna li aliyê rastê yê jorê di menuyê de, tu dikarî agahiyên rast zû bibînî."
+      },
+      "languageChange": {
+        "description": "Tu dikarî ji beşa jorîn a menuyê zimanê {{appName}} biguhêrî."
+      },
+      "places": {
+        "title": "Derfetên li nêzî te",
+        "description": "Li ser nexşeyê tu dikarî cihên nêzî xwe bibînî, mînak cihên ji bo qursên ziman."
+      },
+      "offline": {
+        "title": "Bê înternet (offline) jî dixebite",
+        "description": "Înterneta te hertim nîne? Pirsgirêk nîne. Tu dikarî {{appName}} bê înternet jî bi kar bînî."
+      },
+      "news": {
+        "title": "Agahiyên rojane",
+        "description": "Li nêzî te çi nûçe hene? Wan di {{appName}} de bibîne."
+      }
+    }
+  },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "Ji bo tomarkirina wêneyan, pêwîstiya {{appName}} bi destûra gihîştina galeryayê heye.",
+    "NSLocationWhenInUseUsageDescription": "Ji bo dîtina cihên nêzîk, pêdiviya {{appName}} bi destûra cihê heye.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Ji bo dîtina cihên nêzîk, pêdiviya {{appName}} bi destûra cihê heye.",
+    "NSCalendarsUsageDescription": "{{appName}} dixwaze xwe bigihîne salnameyê da ku çalakiyan lê zêde bike.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} dixwaze xwe bigihîne salnameyê da ku çalakiyan lê zêde bike."
+  },
+  "languages": {
+    "change": "Ziman biguhere",
+    "changed": "Ziman li {{languageName}} hate guhertin",
+    "search": "Li ziman bigere",
+    "error": {
+      "noTranslation": "Werger tune ye",
+      "notFound": {
+        "title": "Ev ziman nehat dîtin.",
+        "question": "Ziman nehat dîtin?",
+        "description": "Ev rûpel hêj bi hemû zimanan nîne. Em bi berdewamî vebijarkên zimanên xwe zêde dikin. Tu dikarî bi rêya taybetmendiya <Link>Bersivdayînê</Link> zimanê xwe bixwazî."
+      }
+    }
+  },
+  "malteHelpForm": {
+    "supportNote": "Em dixwazin ku dema pirsgirêk an pirsên we hebin hûn xwe ewle û piştgirîkirî hîs bikin. Bi rêya vê forma têkiliyê hûn dikarin bi kesên têkildar re têkiliyê deynin. Hûn dikarin babeta daxwaza xwe diyar bikin û ji vebijarkên cûrbecûr yên têkiliyê hilbijêrin.",
+    "securityNote": "Ewlehiya we ji bo me di pêşiyê de ye. Agahiyên we bi nepenî têne parastin da ku nehêniya we her tim parastî bimîne.",
+    "name": "Paşnav, Nav",
+    "roomNumber": "Hejmara odeyê",
+    "howToBeContacted": "Rêbaza têkiliyê ya ku ez tercîh dikim:",
+    "eMail": "E-name",
+    "telephone": "Telefon",
+    "telephoneNumber": "Hejmara tel.",
+    "personally": "Şexsî",
+    "contactPerson": "Kesê/a têkiliyê:",
+    "contactPersonAnyGender": "Zayenda kesê/a têkiliyê ne girîng e",
+    "contactPersonGenderFemale": "Ez dixwazim jinek bi min re têkiliyê deyne",
+    "contactPersonGenderMale": "Ez dixwazim zilamek bi min re têkiliyê deyne",
+    "contactReason": "Mijara/Daxwaza we:",
+    "maxCharacters": "herî zêde {{numberOfCharacters}} tîp",
+    "responseHint": "Dibe ku bersivdana we çend rojên xebatê bikişîne. Em hewl didin ku di zûtirîn dem de serlêdana we binirxînin.",
+    "submit": "Formê bişîne",
+    "submitSuccessful": "Form bi serkeftî hate şandin",
+    "submitFailed": "Form nehate şandin",
+    "submitFailedReasoning": "Ji kerema xwe piştrast bikin ku girêdana we ya înternetê aram e û dîsa biceribînin.",
+    "invalidEmailAddress": "Navnîşana e-nameyê ya hatî nivîsandin nederbasdar e."
+  },
+  "news": {
+    "title": "Nûçe",
+    "sources": {
+      "all": "Hemû nûçe",
+      "local": "Nûçeyên herêmî",
+      "national": "Nûçeyên neteweyî",
+      "allShort": "Hemû",
+      "localShort": "Herêmî",
+      "nationalShort": "Neteweyî"
+    },
+    "error": {
+      "notFound": "Ev peyam nehate dîtin.",
+      "nothingFound": "Tu peyam nehatin dîtin."
+    }
+  },
+  "places": {
+    "title": "Nexşe",
+    "accessible": "Bê astengî",
+    "notAccessible": "Ji bo astengdaran ne guncaw e",
+    "error": {
+      "notFound": "Ev der nehat dîtin.",
+      "nothingFound": "Tu cîh nehatin dîtin."
+    },
+    "distance": "{{distance}} km dûr",
+    "zoom": {
+      "in": "Mezin bike",
+      "out": "Biçûk bike"
+    },
+    "filter": {
+      "adjust": "Cihên fîltre bike",
+      "onlyOpen": "Tenê cihên ku niha vekirî ne nîşan bide",
+      "categories": "Kategorî",
+      "alphabet": "A-Z",
+      "show_zero": "0 cîh hatin dîtin",
+      "show_one": "1 cihî nîşan bide",
+      "show_two": "{{count}} cihan nîşan bide",
+      "show_few": "{{count}} cihan nîşan bide",
+      "show_many": "{{count}} cihan nîşan bide",
+      "show_other": "{{count}} cihan nîşan bide",
+      "placeCount_zero": "0 cîh",
+      "placeCount_one": "1 cîh",
+      "placeCount_two": "{{count}} cîh",
+      "placeCount_few": "{{count}} cîh",
+      "placeCount_many": "{{count}} cîh",
+      "placeCount_other": "{{count}} cîh"
+    },
+    "hours": {
+      "title": "Demên vekirîbûnê",
+      "allDay": "tevahiya rojê",
+      "open": "Vekirî ye",
+      "closed": "Girtî ye",
+      "temporarilyClosed": "Demkî girtî ye",
+      "appointment": {
+        "required": "Wext girtin pêwîst e",
+        "make": {
+          "title": "Wext bigire",
+          "description": "Bi rêya <Link>malperê</Link> an jî bi telefonê hevdîtinekê çêbikin."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Duşem",
+      "dienstag": "Sêşem",
+      "mittwoch": "Çarşem",
+      "donnerstag": "Pêncşem",
+      "freitag": "În",
+      "samstag": "Şemî",
+      "sonntag": "Yekşem"
+    }
+  },
+  "regions": {
+    "title": "Herêm",
+    "welcome": {
+      "title": "Bi xêr hatî {{appName}}.",
+      "description": "Rêberê te yê dîjîtal ji bo hemû agahiyên ku pêwîstiya te pê heye. Ji kerema xwe herêma xwe hilbijêre."
+    },
+    "change": "Herêmê biguhêre",
+    "notFound": "Ev herêm nehat dîtin.",
+    "search": {
+      "region": "Li herêmê bigere",
+      "description": "Herêma xwe an jî bajarê herî nêzîk hilbijêre, mînak: {{exampleRegion}}"
+    },
+    "nearby": {
+      "nothingFound": "Li nêzîkê tu herêm tune ye.",
+      "refresh": "Herêmên li nêzîk nû bike"
+    }
+  },
+  "search": {
+    "title": "Lêgerîn",
+    "searchContent": "Li naverokê bigere",
+    "viewResult": "Encama lêgerînê veke",
+    "resultCount_zero": "0 encamên lêgerînê",
+    "resultCount_one": "1 encama lêgerînê",
+    "resultCount_two": "{{count}} encamên lêgerînê",
+    "resultCount_few": "{{count}} encamên lêgerînê",
+    "resultCount_many": "{{count}} encamên lêgerînê",
+    "resultCount_other": "{{count}} encamên lêgerînê"
+  },
+  "settings": {
+    "title": "Mîheng",
+    "error": {
+      "save": "Mîheng nehatin tomarkirin"
+    },
+    "sentry": {
+      "title": "Îstiqrara sepanê",
+      "description": "Bi şandina otomatîk a raporên xirabûnê, {{appName}} baştir bike"
+    },
+    "pushNotifications": {
+      "title": "Agahdariyên push",
+      "description": "Ji bo nûçeyên herêmî yên herî dawî agahdariyên push bistîne"
+    },
+    "contrast": {
+      "title": "Kontrasta bilind (beta)",
+      "description": "Bi moda kontrastê re xwendin hêsantir dibe"
+    },
+    "externalSources": {
+      "title": "Çavkaniyên derve",
+      "descriptionShort": "Diyar bike ka dê kîjan çavkaniyên derve werin pejirandin.",
+      "description": "Tu dikarî nîşandana naverokên ji çavkaniyên derve bi awayekî mayinde bipejirînî. Tu dikarî pejirandina xwe li vir her dem betal bikî.",
+      "source": "Destûr bide naveroka ji {{source}}",
+      "optIn": "Ez dipejirînim ku naveroka vê çavkaniya derve ji min re were nîşandan.",
+      "allowed": "Di vê beşê de naveroka ji vê çavkaniya derve heye. Tu dikarî naverokên wiha di mîhengan de asteng bikî.",
+      "blocked": "Naveroka derve ya ji vê çavkaniyê hat astengkirin. Di mîhengan de tu dikarî destûrê bidî vê çavkaniyê.",
+      "nothingFound": "Tu çavkaniyên derve tune ne."
+    }
+  },
+  "share": {
+    "title": "Parve bike",
+    "message": "Nû hat dîtin: {{message}}",
+    "copyLink": "Girêdanê kopî bike",
+    "qr": {
+      "label": "Koda QR",
+      "title": "Bi rêya koda QR parve bike",
+      "description": "Bi tenê bi xwendina koda QR li ser amûreke din, vê rûpelê parve bike."
+    }
+  },
+  "suggestToRegion": {
+    "title": "{{appName}} ji bo herêma xwe pêşniyar bike",
+    "description": "Heke plana sepana Integreat bala te kişandibe û tu bawer dikî ku bajar, navçe an şaredariya te jî dikare sûdê ji vê çareseriya dîjîtal wergire, wê demê tu dikarî li vir bi hêsanî gav bavêjî.",
+    "regionNotFoundCta": "Herêma te nehat dîtin? Niha bikeve tevgerê!",
+    "whatToDo": "Tiştên ku tu dikarî bikî:",
+    "steps": {
+      "getEmail": "Navnîşana e-peyama herêma xwe bibîne",
+      "copyText": "Vê nivîsê kopî bike",
+      "fillPlaceholders": "Cihgirên [ ] bi zanyariyên xwe tijî bike",
+      "send": "E-peyamê ji herêma xwe re bişîne"
+    }
+  },
+  "tour": {
+    "title": "Geşta sepanê",
+    "welcome": "Ev gera kurt taybetmendiyên herî girîng ên sepanê nîşanî te dide.",
+    "start": "Geştê bide destpêkirin",
+    "progress": "Pêngava {{current}} ji {{total}}",
+    "regionChange": {
+      "description": "Ji bo dîtina agahiyên herêmî li vir <strong>herêma</strong> xwe hilbijêre."
+    },
+    "navigation": {
+      "title": "Rêvedan",
+      "description": "Li vir di navbera <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> û <strong>$t(events:title)</strong> de derbas bibe."
+    },
+    "categories": {
+      "title": "Mijaran bibîne",
+      "description": "Agahiyên li ser mijarên wekî <strong>Xanîberî</strong>, <strong>Perwerde</strong>, <strong>Kar</strong> û hîn bêtir bibîne."
+    },
+    "searchAndLanguage": {
+      "title": "Lêgerîn û ziman",
+      "description": "Agahiyên herêmî, çalakî û cihan <strong>bigerîne</strong> an jî <strong>ziman</strong> biguherîne."
+    },
+    "menu": {
+      "title": "Taybetmendiyên din",
+      "description": "Li vir taybetmendiyên zêdetir ên mîna <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> û <strong>{{additionalFeature}}</strong> bi kar bîne."
+    },
+    "chat": {
+      "description": "Pirsên xwe li vir bipirse û zû bersivên guncaw wergire."
+    },
+    "finish": {
+      "title": "Qediya!",
+      "description": "Êdî tu taybetmendiyên herî girîng dizanî. Bi {{appName}} serkeftinê ji te re dixwazin!"
+    }
+  },
+  "tts": {
+    "title": "Bi deng bixwîne",
+    "pause": "Bisekinîne",
+    "play": "Lê bide",
+    "error": {
+      "languageNotSupported": "Ev ziman nayê piştgirîkirin.",
+      "nothingToRead": {
+        "title": "Tiştekî xwendinê tune ye",
+        "description": "Li ser vê rûpelê tiştekî xwendinê tune ye."
+      },
+      "noVoices": {
+        "title": "Tu deng nehatiye sazkirin",
+        "description": "Tu deng nehat dîtin. Ji bo bikaranîna taybetmendiya xwendina bi deng, divê dengek were sazkirin. Ji kerema xwe rêwerzên ji bo pergala xebitandinê ya xwe bişopîne."
+      }
+    }
+  },
+  "userLocation": {
+    "nearby": "Nêzîkî te",
+    "show": "Cihê min nîşan bide",
+    "loading": "Cih tê tesbîtkirin…",
+    "locationAccessRequired": "Ji bo nîşandana herêmên nêzîk, divê destûra cihê çalak be.",
+    "noPermission": "Gihîştina cihê pêwîst e",
+    "notAvailable": "Xizmetên cihê neçalak in",
+    "timeout": "Cih nehat dîtin"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} je váš digitálny asistent od Maltézskej pomoci. Nájdete tu miestne informácie, podujatia a rady od vašej inštitúcie. Vždy aktuálne a vo vašom jazyku!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Toto podujatie sa nenašlo.",
+      "nothingFound": "Nenašli sa žiadne podujatia."
+    },
+    "export": {
+      "allRecurrences": "Toto a všetky budúce podujatia",
+      "thisRecurrence": "Iba toto podujatie"
+    },
+    "title": "Podujatia"
+  }
+}

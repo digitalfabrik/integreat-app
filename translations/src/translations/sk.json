@@ -1,0 +1,468 @@
+{
+  "about": {
+    "legal": "Právne upozornenia",
+    "imprint": "Právne informácie",
+    "accessibility": "Prístupnosť",
+    "aboutUs": "O nás",
+    "licenses": {
+      "title": "Licencie open source",
+      "version": "Verzia: {{version}}",
+      "license": "Licencia: {{license}}"
+    }
+  },
+  "categories": {
+    "title": "Miestne informácie",
+    "titleShort": "Informácie",
+    "organization": {
+      "title": "Obsah tejto stránky poskytuje {{organization}}.",
+      "description": "Viac informácií o organizácii {{organization}} nájdeš na <Link>{{domain}}</Link>."
+    },
+    "pdf": {
+      "create": "Vytvoriť PDF",
+      "disabled": "Vytvorenie PDF v tomto jazyku momentálne nie je možné."
+    }
+  },
+  "chat": {
+    "subtitle": "Tvoj digitálny asistent vyhľadávania",
+    "bot": "Chatbot",
+    "consultant": "Poradca / poradkyňa",
+    "typing": "Píše…",
+    "inputPlaceholder": "Sem zadaj svoju otázku…",
+    "initial": {
+      "title": "Zadaj svoju otázku do textového poľa, prosím.",
+      "description": "Môžeš sa spýtať na miestne informácie alebo svoju osobnú situáciu."
+    },
+    "welcome": {
+      "title": "Ahoj!",
+      "description": "Som <strong>{{name}}</strong>, tvoj digitálny asistent vyhľadávania. Pokojne sa ma čokoľvek opýtaj."
+    },
+    "startNew": {
+      "title": "Začať nový čet",
+      "description": "Naozaj chceš začať nový čet? Aktuálna história konverzácie sa vymaže."
+    },
+    "unread_one": "1 neprečítaná správa",
+    "unread_two": "{{count}} neprečítaných správ",
+    "unread_few": "{{count}} neprečítaných správ",
+    "unread_many": "{{count}} neprečítané správy",
+    "unread_other": "{{count}} neprečítaných správ"
+  },
+  "common": {
+    "actions": {
+      "back": "Späť",
+      "cancel": "Zrušiť",
+      "clearInput": "Vymazať zadaný text",
+      "close": "Zavrieť",
+      "copy": "Kopírovať",
+      "minimize": "Minimalizovať",
+      "next": "Ďalej",
+      "ok": "OK",
+      "open": "Otvoriť",
+      "previous": "predchádzajúci",
+      "send": "Odoslať",
+      "skip": "Preskočiť",
+      "view": "Zobraziť",
+      "openExternal": "Otvoriť externe",
+      "goToPage": "Na stranu {{number}}",
+      "showMore": "Zobraziť viac",
+      "showLess": "Zobraziť menej",
+      "showFilters": "Zobraziť filtre",
+      "hideFilters": "Skryť filtre"
+    },
+    "a11y": {
+      "skipToContent": "Prejsť na obsah"
+    },
+    "state": {
+      "copied": "Skopírované",
+      "updatedAt": "Posledná aktualizácia: {{date}}",
+      "loading": "Načítava sa…",
+      "optional": "voliteľné",
+      "enabled": "aktivované",
+      "disabled": "deaktivované"
+    },
+    "labels": {
+      "description": "Popis",
+      "menu": "Ponuka",
+      "getOnPlayStore": "STIAHNUŤ — V obchode Google Play"
+    },
+    "meta": {
+      "description": "{{appName}} je tvoj digitálny sprievodca po Nemecku. Nájdi si miestne informácie, podujatia a poradenstvo. Vždy aktuálne a v tvojom jazyku."
+    },
+    "privacy": {
+      "title": "Zásady ochrany osobných údajov",
+      "confirmation": "Prečítal(a) som si <Link>zásady ochrany osobných údajov</Link> a súhlasím so spracovaním a uchovávaním mojich údajov.",
+      "required": "Vyjadrite prosím súhlas so zásadami ochrany osobných údajov."
+    },
+    "contacts": {
+      "title": "Kontakty",
+      "address": {
+        "title": "Adresa",
+        "copy": "Kopírovať adresu"
+      },
+      "phone": {
+        "title": "Telefónne číslo",
+        "mobile": "Mobilné číslo"
+      },
+      "email": "E-mail",
+      "website": "Webová stránka"
+    }
+  },
+  "error": {
+    "title": "Chyba",
+    "noSuitableAppInstalled": "Nie je nainštalovaná žiadna vhodná aplikácia.",
+    "forbidden": "K tomuto regiónu nemáš prístup.",
+    "networkConnectionFailed": "Pripojenie k serveru zlyhalo.",
+    "networkRequestFailed": "Požiadavku sa nepodarilo spracovať.",
+    "responseMappingFailed": "Odpoveď servera sa nepodarilo spracovať.",
+    "rateLimited": "Odoslal(a) si príliš veľa požiadaviek. Chvíľu počkaj.",
+    "pageNotFound": "Táto stránka sa nenašla.",
+    "nothingFound": "Nenašli sa žiadne výsledky.",
+    "permissionRequired": "Vyžaduje sa povolenie",
+    "unknownError": "Vyskytla sa neznáma chyba.",
+    "tryAgain": "Skúsiť znova"
+  },
+  "events": {
+    "title": "Podujatia",
+    "onlineMeeting": "Online stretnutie",
+    "error": {
+      "notFound": "Toto podujatie sa nenašlo.",
+      "nothingFound": "Nenašli sa žiadne podujatia."
+    },
+    "recurrence": {
+      "recurring": "opakujúce sa",
+      "furtherDates": "Ďalšie termíny",
+      "untilDate": "do {{date}}"
+    },
+    "dateGroups": {
+      "today": "Dnes",
+      "tomorrow": "Zajtra",
+      "nextDays": "Nasledujúcich {{days}} dní",
+      "further": "Ďalšie"
+    },
+    "export": {
+      "download": "Exportovať",
+      "addToCalendar": "Pridať do kalendára",
+      "added": "Pridané do kalendára",
+      "calendar": "Kalendár",
+      "thisRecurrence": "Iba toto podujatie",
+      "allRecurrences": "Toto a všetky nasledujúce podujatia",
+      "error": {
+        "forbidden": "Prístup ku kalendáru nie je povolený.",
+        "nothingFound": "Žiadny zodpovedajúci kalendár"
+      }
+    },
+    "filter": {
+      "selectStart": "Vyberte počiatočný dátum v kalendári",
+      "selectEnd": "Vyberte dátum ukončenia v kalendári",
+      "from": "od",
+      "to": "do",
+      "reset": "Obnoviť filter: {{filter}}",
+      "error": {
+        "invalidDate": "Neplatný dátum",
+        "endBeforeStart": "Dátum začiatku by mal predchádzať dátumu konca."
+      }
+    }
+  },
+  "feedback": {
+    "title": "Spätná väzba",
+    "give": "Odoslať spätnú väzbu",
+    "description": "Vyberte hodnotenie a/alebo napíšte komentár.",
+    "comment": {
+      "title": "Komentár",
+      "description": "Podeľte sa s nami o svoju spätnú väzbu! Vážime si pozitívne aj negatívne ohlasy, pretože nám pomáhajú zlepšovať {{appName}}."
+    },
+    "contactEmail": "E-mail pre prípadné otázky",
+    "required": "Ak chcete spätnú väzbu odoslať, vyberte reakciu alebo napíšte komentár.",
+    "rating": {
+      "useful": "Užitočné",
+      "notUseful": "Neužitočné"
+    },
+    "thanks": {
+      "title": "Ďakujeme za vašu spätnú väzbu.",
+      "description": "Vaša spätná väzba bola úspešne odoslaná."
+    },
+    "search": {
+      "informationNotFound": "Nenašli ste to, čo hľadáte?",
+      "wantedInformation": "Aké informácie vám chýbajú?",
+      "informationMissing": "Chýbajú tu nejaké informácie?",
+      "searchTermDescription": "Pre zadaný výraz sa nenašli žiadne výsledky:",
+      "checkQuery": "Skontrolujte hľadaný výraz alebo zmeňte nastavený jazyk.",
+      "noResultsInUserLanguage": "Ľutujeme, ale vo vašom jazyku sa nenašli žiadne zodpovedajúce výsledky.",
+      "noResultsInUserAndSourceLanguage": "Ľutujeme, ale vo vašom jazyku ani v nemčine sa nenašli žiadne zodpovedajúce výsledky."
+    }
+  },
+  "intro": {
+    "welcome": {
+      "title": "Vitajte v {{appName}}",
+      "description": "V aplikácii {{appName}} nájdete odpovede a tipy vo svojom rodnom jazyku. Napríklad: Kde nájdem pomoc? Kedy môžem pracovať?"
+    },
+    "slides": {
+      "search": {
+        "title": "Jednoduché vyhľadávanie",
+        "description": "Potrebné informácie rýchlo vyhľadáte pomocou lupy vpravo hore v menu."
+      },
+      "languageChange": {
+        "description": "V hornom menu si môžete zmeniť jazyk aplikácie {{appName}}."
+      },
+      "places": {
+        "title": "Ponuky vo vašom okolí",
+        "description": "Na mape môžete nájsť miesta vo vašom okolí, napríklad miesta konania jazykových kurzov."
+      },
+      "offline": {
+        "title": "Funguje aj offline",
+        "description": "Nemáte stále internetové pripojenie? Žiadny problém. {{appName}} môžete používať aj offline."
+      },
+      "news": {
+        "title": "Aktuálne informácie",
+        "description": "Čo je nové vo vašom okolí? Zistite to v aplikácii {{appName}}."
+      }
+    }
+  },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "Na ukladanie obrázkov potrebuje {{appName}} prístup do galérie.",
+    "NSLocationWhenInUseUsageDescription": "Na vyhľadanie miest v okolí potrebuje aplikácia {{appName}} prístup k vašej polohe.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Na vyhľadanie miest v okolí potrebuje aplikácia {{appName}} prístup k vašej polohe.",
+    "NSCalendarsUsageDescription": "{{appName}} žiada o prístup ku kalendáru, aby mohla pridávať udalosti.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} žiada o prístup ku kalendáru, aby mohla pridávať udalosti."
+  },
+  "languages": {
+    "change": "Zmeniť jazyk",
+    "changed": "Jazyk bol zmenený na {{languageName}}",
+    "search": "Hľadať jazyk",
+    "error": {
+      "noTranslation": "Preklad nie je k dispozícii",
+      "notFound": {
+        "title": "Tento jazyk sa nenašiel.",
+        "question": "Nenašli ste svoj jazyk?",
+        "description": "Táto stránka zatiaľ nie je dostupná vo všetkých jazykoch. Našu ponuku jazykov neustále rozširujeme. Svoj jazyk môžete navrhnúť prostredníctvom funkcie <Link>Spätná väzba</Link>."
+      }
+    }
+  },
+  "malteHelpForm": {
+    "supportNote": "Chceme, aby ste sa v prípade akýchkoľvek problémov či otázok cítili bezpečne a mali našu plnú podporu. Prostredníctvom nasledujúceho kontaktného formulára sa môžete spojiť s kompetentnými osobami. Môžete zadať typ vašej požiadavky a vybrať si z rôznych možností kontaktu.",
+    "securityNote": "Vaša bezpečnosť je pre nás najvyššou prioritou. S vašimi údajmi zaobchádzame dôverne, aby bolo vaše súkromie vždy chránené.",
+    "name": "Priezvisko, meno",
+    "roomNumber": "Číslo izby",
+    "howToBeContacted": "Spôsob kontaktu:",
+    "eMail": "E-mail",
+    "telephone": "Telefón",
+    "telephoneNumber": "Tel. č.",
+    "personally": "Osobne",
+    "contactPerson": "Kontaktná osoba:",
+    "contactPersonAnyGender": "Na pohlaví kontaktnej osoby nezáleží",
+    "contactPersonGenderFemale": "Želám si, aby ma kontaktovala žena",
+    "contactPersonGenderMale": "Želám si, aby ma kontaktoval muž",
+    "contactReason": "Vaša požiadavka:",
+    "maxCharacters": "maximálne {{numberOfCharacters}} znakov",
+    "responseHint": "Môže trvať niekoľko pracovných dní, kým dostanete odpoveď. Snažíme sa vašu požiadavku vybaviť čo najskôr.",
+    "submit": "Odoslať formulár",
+    "submitSuccessful": "Formulár bol úspešne odoslaný",
+    "submitFailed": "Formulár sa nepodarilo odoslať",
+    "submitFailedReasoning": "Uistite sa, že máte stabilné internetové pripojenie, a skúste to znova.",
+    "invalidEmailAddress": "Zadaná e-mailová adresa je neplatná."
+  },
+  "news": {
+    "title": "Správy",
+    "sources": {
+      "all": "Všetky správy",
+      "local": "Lokálne správy",
+      "national": "Celoštátne správy",
+      "allShort": "Všetky",
+      "localShort": "Lokálne",
+      "nationalShort": "Celoštátne"
+    },
+    "error": {
+      "notFound": "Táto správa sa nenašla.",
+      "nothingFound": "Nenašli sa žiadne správy."
+    }
+  },
+  "places": {
+    "title": "Mapa",
+    "accessible": "Bezbariérový prístup",
+    "notAccessible": "Bariérový prístup",
+    "error": {
+      "notFound": "Toto miesto sa nenašlo.",
+      "nothingFound": "Nenašli sa žiadne miesta."
+    },
+    "distance": "{{distance}} km ďaleko",
+    "zoom": {
+      "in": "Priblížiť",
+      "out": "Oddialiť"
+    },
+    "filter": {
+      "adjust": "Filtrovať miesta",
+      "onlyOpen": "Zobraziť len aktuálne otvorené miesta",
+      "categories": "Kategórie",
+      "alphabet": "A – Z",
+      "show_zero": "0 nájdených miest",
+      "show_one": "Zobraziť 1 miesto",
+      "show_two": "Zobraziť {{count}} miesta",
+      "show_few": "Zobraziť {{count}} miest",
+      "show_many": "Zobraziť {{count}} miesta",
+      "show_other": "Zobraziť {{count}} miest",
+      "placeCount_zero": "0 miest",
+      "placeCount_one": "1 miesto",
+      "placeCount_two": "{{count}} miesta",
+      "placeCount_few": "{{count}} miest",
+      "placeCount_many": "{{count}} miesta",
+      "placeCount_other": "{{count}} miest"
+    },
+    "hours": {
+      "title": "Otváracie hodiny",
+      "allDay": "celý deň",
+      "open": "otvorené",
+      "closed": "zatvorené",
+      "temporarilyClosed": "Dočasne zatvorené",
+      "appointment": {
+        "required": "Vyžaduje sa termín",
+        "make": {
+          "title": "Dohodnúť stretnutie",
+          "description": "Dohodnite si termín cez <Link>webovú stránku</Link> alebo telefonicky."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Pondelok",
+      "dienstag": "Utorok",
+      "mittwoch": "Streda",
+      "donnerstag": "Štvrtok",
+      "freitag": "Piatok",
+      "samstag": "Sobota",
+      "sonntag": "Nedeľa"
+    }
+  },
+  "regions": {
+    "title": "Regióny",
+    "welcome": {
+      "title": "Vitajte v aplikácii {{appName}}.",
+      "description": "Váš digitálny sprievodca všetkými informáciami, ktoré potrebujete. Vyberte si svoj región."
+    },
+    "change": "Zmeniť región",
+    "notFound": "Tento región sa nenašiel.",
+    "search": {
+      "region": "Hľadať región",
+      "description": "Vyberte si svoj región alebo najbližšie väčšie mesto, napr. {{exampleRegion}}"
+    },
+    "nearby": {
+      "nothingFound": "V okolí sa nenachádza žiadny región.",
+      "refresh": "Aktualizovať regióny v okolí"
+    }
+  },
+  "search": {
+    "title": "Hľadať",
+    "searchContent": "Hľadať obsah",
+    "viewResult": "Otvoriť výsledok vyhľadávania",
+    "resultCount_zero": "0 výsledkov vyhľadávania",
+    "resultCount_one": "1 výsledok vyhľadávania",
+    "resultCount_two": "{{count}} výsledkov vyhľadávania",
+    "resultCount_few": "{{count}} výsledkov vyhľadávania",
+    "resultCount_many": "{{count}} výsledkov vyhľadávania",
+    "resultCount_other": "{{count}} výsledkov vyhľadávania"
+  },
+  "settings": {
+    "title": "Nastavenia",
+    "error": {
+      "save": "Nastavenia sa nepodarilo uložiť"
+    },
+    "sentry": {
+      "title": "Stabilita aplikácie",
+      "description": "Pomôžte vylepšiť aplikáciu {{appName}} automatickým odosielaním hlásení o pádoch"
+    },
+    "pushNotifications": {
+      "title": "Push notifikácie",
+      "description": "Prijímať push notifikácie o najnovších miestnych správach"
+    },
+    "contrast": {
+      "title": "Vysoký kontrast (beta)",
+      "description": "Režim vysokého kontrastu zlepšuje čitateľnosť"
+    },
+    "externalSources": {
+      "title": "Externé zdroje",
+      "descriptionShort": "Určite, ktoré externé zdroje sú povolené.",
+      "description": "Zobrazovanie obsahu z externých zdrojov môžete povoliť natrvalo. Svoj súhlas tu môžete kedykoľvek odvolať.",
+      "source": "Povoliť obsah z {{source}}",
+      "optIn": "Súhlasím so zobrazovaním obsahu z tohto externého zdroja.",
+      "allowed": "Tento prvok obsahuje obsah z externého zdroja. Takýto obsah môžete zablokovať v nastaveniach.",
+      "blocked": "Externý obsah z tohto zdroja bol zablokovaný. Tento zdroj môžete povoliť v nastaveniach.",
+      "nothingFound": "Nie sú k dispozícii žiadne externé zdroje."
+    }
+  },
+  "share": {
+    "title": "Zdieľať",
+    "message": "Práve nájdené: {{message}}",
+    "copyLink": "Kopírovať odkaz",
+    "qr": {
+      "label": "QR kód",
+      "title": "Zdieľať cez QR kód",
+      "description": "Zdieľajte túto stránku jednoducho naskenovaním QR kódu na inom zariadení."
+    }
+  },
+  "suggestToRegion": {
+    "title": "Navrhni aplikáciu {{appName}} vo svojom regióne",
+    "description": "Presvedčil vás koncept aplikácie Integreat a myslíte si, že by z tohto digitálneho riešenia mohlo profitovať aj vaše mesto, okres či obec? Tu sa môžete jednoducho zapojiť.",
+    "regionNotFoundCta": "Nenašli ste svoj región? Zapojte sa hneď teraz!",
+    "whatToDo": "Čo môžeš urobiť:",
+    "steps": {
+      "getEmail": "Zisti e-mailovú adresu pre svoj región",
+      "copyText": "Skopírovať tento text",
+      "fillPlaceholders": "Nahraď zástupné symboly [ ] svojimi údajmi",
+      "send": "Pošli e-mail do svojho regiónu"
+    }
+  },
+  "tour": {
+    "title": "Prehliadka aplikácie",
+    "welcome": "Táto krátka prehliadka vám ukáže najdôležitejšie funkcie aplikácie.",
+    "start": "Spustiť prehliadku",
+    "progress": "Krok {{current}} z {{total}}",
+    "regionChange": {
+      "description": "Vyber si tu svoj <strong>región</strong> a nájdi miestne informácie."
+    },
+    "navigation": {
+      "title": "Navigácia",
+      "description": "Prepínaj tu medzi položkami <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> a <strong>$t(events:title)</strong>."
+    },
+    "categories": {
+      "title": "Objavovať témy",
+      "description": "Objav informácie o témach ako <strong>Bývanie</strong>, <strong>Vzdelávanie</strong>, <strong>Práca</strong> a ďalšie."
+    },
+    "searchAndLanguage": {
+      "title": "Vyhľadávanie a jazyk",
+      "description": "<strong>Vyhľadávaj</strong> miestne informácie, podujatia a miesta alebo zmeň <strong>jazyk</strong>."
+    },
+    "menu": {
+      "title": "Ďalšie funkcie",
+      "description": "Využi tu ďalšie funkcie ako <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> a <strong>{{additionalFeature}}</strong>."
+    },
+    "chat": {
+      "description": "Polož tu svoje otázky a rýchlo získaj vhodné odpovede."
+    },
+    "finish": {
+      "title": "Hotovo!",
+      "description": "Teraz už poznáš najdôležitejšie funkcie. Želáme veľa úspechov s aplikáciou {{appName}}!"
+    }
+  },
+  "tts": {
+    "title": "Predčítať",
+    "pause": "Pozastaviť",
+    "play": "Prehrať",
+    "error": {
+      "languageNotSupported": "Jazyk nie je podporovaný.",
+      "nothingToRead": {
+        "title": "Nič na čítanie",
+        "description": "Na tejto stránke nie je nič na čítanie."
+      },
+      "noVoices": {
+        "title": "Nie je nainštalovaný žiadny hlas",
+        "description": "Nenašiel sa žiadny hlas. Ak chcete používať funkciu predčítania, musí byť nainštalovaný hlas. Postupujte podľa nasledujúcich pokynov pre váš operačný systém."
+      }
+    }
+  },
+  "userLocation": {
+    "nearby": "Vo vašom okolí",
+    "show": "Zobraziť moju polohu",
+    "loading": "Zisťuje sa poloha…",
+    "locationAccessRequired": "Ak chcete zobraziť oblasti vo svojom okolí, musíte povoliť prístup k polohe.",
+    "noPermission": "Vyžaduje sa prístup k polohe",
+    "notAvailable": "Lokalizačné služby sú vypnuté",
+    "timeout": "Poloha sa nenašla"
+  }
+}
