@@ -4,6 +4,7 @@ export type DimensionsType = {
   headerHeight: number
   modalHeaderHeight: number
   ttsPlayerHeight: number
+  bottomNavigationHeight: number
   categoryListItem: {
     iconSize: number
     margin: number
@@ -27,6 +28,7 @@ const dimensions: DimensionsType = {
   headerHeight: 60,
   modalHeaderHeight: 40,
   ttsPlayerHeight: 100,
+  bottomNavigationHeight: 60,
   categoryListItem: {
     iconSize: 40,
     margin: 5,

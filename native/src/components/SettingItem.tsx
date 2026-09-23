@@ -58,7 +58,9 @@ const SettingsItemValue = ({ value, hasBadge, onPress }: SettingItemValueProps):
       </BadgeContainer>
     )
   }
-  return <Switch onValueChange={onPress} value={value} />
+  return (
+    <Switch accessible={false} importantForAccessibility='no-hide-descendants' onValueChange={onPress} value={value} />
+  )
 }
 
 type SettingItemProps = {
@@ -94,7 +96,12 @@ const SettingItem = ({
   })
 
   return (
-    <TouchableRipple borderless onPress={onPress} role={role ?? 'none'} accessible>
+    <TouchableRipple
+      borderless
+      onPress={onPress}
+      accessible
+      role={role ?? 'none'}
+      accessibilityState={value !== null ? { checked: value } : undefined}>
       <PadView>
         <ContentContainer>
           <View>
