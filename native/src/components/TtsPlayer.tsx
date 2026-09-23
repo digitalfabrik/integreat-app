@@ -108,7 +108,7 @@ const TtsPlayer = ({
           accessibilityLabel={t($ => $.common.actions.previous)}
           onPress={playPrevious}
           style={styles.TouchableRippleStyle}>
-          <Icon size={28} source='rewind' />
+          <Icon size={28} source='rewind' directionDependent />
         </TouchableRipple>
         <StyledPlayIconButton
           disabled={disabled}
@@ -122,7 +122,7 @@ const TtsPlayer = ({
           accessibilityLabel={t($ => $.common.actions.next)}
           onPress={playNext}
           style={styles.TouchableRippleStyle}>
-          <Icon size={28} source='fast-forward' />
+          <Icon size={28} source='fast-forward' directionDependent />
         </TouchableRipple>
       </StyledPanel>
     </StyledTtsPlayer>
