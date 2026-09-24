@@ -1,6 +1,7 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import { RefreshControl, ScrollView, SectionList } from 'react-native'
 import { Divider } from 'react-native-paper'
+import styled from 'styled-components/native'
 
 import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared'
 import { CategoriesMapModel, CategoryModel, RegionModel } from 'shared/api'
@@ -16,6 +17,14 @@ import RemoteContent from './RemoteContent'
 import SubCategoryListItem from './SubCategoryListItem'
 import Tiles from './Tiles'
 import TimeStamp from './TimeStamp'
+
+const IndentedDivider = styled(Divider)`
+  margin-left: 56px;
+  margin-right: 56px;
+`
+
+const SectionSeparator = ({ leadingItem, trailingSection }: { leadingItem?: object; trailingSection?: object }) =>
+  leadingItem && !trailingSection ? null : <Divider />
 
 export type CategoriesProps = {
   regionModel: RegionModel
@@ -116,17 +125,25 @@ const Categories = ({
       accessibilityRole='list'
       ListHeaderComponent={renderPageHeader}
       ListFooterComponent={<SpaceForTts $ttsPlayerVisible={ttsPlayerVisible} />}
-      renderSectionHeader={({ section }) => (
-        <CategoryListItem category={section.category} language={language} onItemPress={navigateToCategory} />
-      )}
+      renderSectionHeader={({ section }) => {
+        const isLastListItem = sections[sections.length - 1]?.category.path === section.category.path
+        return (
+          <CategoryListItem
+            category={section.category}
+            language={language}
+            onItemPress={navigateToCategory}
+            isLastListItem={isLastListItem}
+          />
+        )
+      }}
       renderItem={({ item }) => (
         <SubCategoryListItem subCategory={item} onItemPress={navigateToCategory} language={language} />
       )}
       onRefresh={refresh}
       refreshing={false}
       stickySectionHeadersEnabled={false}
-      SectionSeparatorComponent={Divider}
-      ItemSeparatorComponent={Divider}
+      SectionSeparatorComponent={SectionSeparator}
+      ItemSeparatorComponent={IndentedDivider}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps='handled'
       contentContainerStyle={{

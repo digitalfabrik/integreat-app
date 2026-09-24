@@ -25,9 +25,10 @@ type CategoryListItemProps = {
   category: CategoryModel
   onItemPress: (item: { path: string }) => void
   language: string
+  isLastListItem?: boolean
 }
 
-const CategoryListItem = ({ language, category, onItemPress }: CategoryListItemProps): ReactElement => {
+const CategoryListItem = ({ language, category, onItemPress, isLastListItem }: CategoryListItemProps): ReactElement => {
   const theme = useTheme()
   const renderLeft = useCallback(() => {
     if (!category.thumbnail) {
@@ -53,7 +54,7 @@ const CategoryListItem = ({ language, category, onItemPress }: CategoryListItemP
         onPress={() => onItemPress({ path: category.path })}
         accessibilityLanguage={language}
       />
-      <Divider />
+      {!isLastListItem && <Divider />}
     </>
   )
 }

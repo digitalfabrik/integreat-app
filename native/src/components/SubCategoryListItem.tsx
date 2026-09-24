@@ -15,7 +15,7 @@ type SubCategoryListItemProps = {
 const SubCategoryListItem = ({ subCategory, onItemPress, language }: SubCategoryListItemProps): ReactElement => (
   <PaperList.Item
     titleNumberOfLines={0}
-    containerStyle={{ minHeight: 40, paddingLeft: 54 }}
+    containerStyle={{ minHeight: 40, paddingLeft: 56, paddingRight: 56 }}
     title={
       <Text variant='body2' style={{ flexShrink: 1, textAlign: contentAlignmentRTLText(subCategory.title) }}>
         {subCategory.title}
