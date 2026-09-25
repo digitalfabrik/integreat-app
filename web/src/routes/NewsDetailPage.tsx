@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
-import { NEWS_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { NEWS_ROUTE, pathnameFromRouteInformation, replaceLinks } from 'shared'
 import { AMAL_NEWS_SOURCE, createNewsElementEndpoint, getNewsSourceLabel, LOCAL_NEWS_SOURCE } from 'shared/api'
 
 import { AmalNewsLogo, TuNewsLogo } from '../assets'
@@ -84,7 +84,7 @@ const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRo
       {news ? (
         <Page
           title={news.title}
-          content={news.content}
+          content={news.source === LOCAL_NEWS_SOURCE ? replaceLinks(news.content) : news.content}
           lastUpdate={news.lastUpdate}
           showLastUpdateText={false}
           footer={
