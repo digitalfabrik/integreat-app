@@ -44,7 +44,8 @@ const Snackbar = ({ open, onClose, severity, message, title, action }: SnackbarP
         <StyledAlert
           severity={severity}
           onClose={onClose}
-          role={severity === 'error' ? 'alert' : 'status'}variant={severity === 'error' ? 'filled' : 'standard'}
+          role={severity === 'error' ? 'alert' : 'status'}
+          variant={severity === 'error' ? 'filled' : 'standard'}
           action={action}>
           {!!title && <AlertTitle>{title}</AlertTitle>}
           {message}

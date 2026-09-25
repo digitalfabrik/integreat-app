@@ -46,11 +46,6 @@ export type Dimensions = {
 }
 
 export type ScrollDimensions = Dimensions & {
-  window: WindowDimensions & {
-    scrollX: number
-    scrollY: number
-  }
-
   stickyTop: number
   visibleFooterHeight: number
 }
@@ -65,8 +60,6 @@ type Metrics = {
 }
 
 type ScrollMetrics = {
-  scrollX: number
-  scrollY: number
   stickyTop: number
   visibleFooterHeight: number
 }
@@ -81,14 +74,12 @@ const measureMetrics = (): Metrics => ({
 })
 
 const measureScrollMetrics = (): ScrollMetrics => {
-  const { innerHeight: height, scrollX, scrollY } = window
+  const { innerHeight: height, scrollY } = window
   const footerHeight = document.querySelector('footer')?.offsetHeight ?? 0
   const documentHeight = document.body.offsetHeight
   const stickyTop = Math.max(0, document.querySelector('header')?.getBoundingClientRect().bottom ?? 0)
 
   return {
-    scrollX,
-    scrollY,
     stickyTop,
     visibleFooterHeight: Math.max(0, height + scrollY + footerHeight - documentHeight),
   }
@@ -129,7 +120,6 @@ const toDimensions = (metrics: Metrics): Dimensions => {
 
 const toScrollDimensions = (dimensions: Dimensions, scrollMetrics: ScrollMetrics): ScrollDimensions => ({
   ...dimensions,
-  window: { ...dimensions.window, scrollX: scrollMetrics.scrollX, scrollY: scrollMetrics.scrollY },
   stickyTop: scrollMetrics.stickyTop,
   visibleFooterHeight: scrollMetrics.visibleFooterHeight,
 })
@@ -186,14 +176,12 @@ const subscribe = (listener: Listener): (() => void) => {
   }
 }
 
-const useDimensionsSnapshot = <T>(getSnapshot: () => T): T => useSyncExternalStore(subscribe, getSnapshot)
-
 const getMetrics = (): Metrics => metricsSnapshot
 const getScrollMetrics = (): ScrollMetrics => scrollMetricsSnapshot
 
 /** Dimensions without the scroll position, therefore not rerendering the consuming component while scrolling. */
 const useDimensions = (): Dimensions => {
-  const metrics = useDimensionsSnapshot(getMetrics)
+  const metrics = useSyncExternalStore(subscribe, getMetrics)
   return useMemo(() => toDimensions(metrics), [metrics])
 }
 
@@ -203,7 +191,7 @@ const useDimensions = (): Dimensions => {
  */
 export const useScrollDimensions = (): ScrollDimensions => {
   const dimensions = useDimensions()
-  const scrollMetrics = useDimensionsSnapshot(getScrollMetrics)
+  const scrollMetrics = useSyncExternalStore(subscribe, getScrollMetrics)
   const { visible } = useContext(TtsContext)
 
   useEffect(measure, [visible])
