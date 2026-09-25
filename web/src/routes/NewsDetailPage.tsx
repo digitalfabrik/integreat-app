@@ -26,13 +26,6 @@ const CenteredLink = styled(Link)({
   paddingBlock: 32,
 })
 
-const TuNewsImage = styled('img')({
-  objectFit: 'contain',
-  width: 200,
-  height: 64,
-  borderRadius: 8,
-})
-
 const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
   const { data: news, error } = useQueryFromEndpoint(createNewsElementEndpoint, cmsApiBaseUrl, {
     region: regionCode,
@@ -90,11 +83,7 @@ const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRo
           footer={
             news.source !== LOCAL_NEWS_SOURCE && (
               <CenteredLink to={news.externalUrl} aria-label={getNewsSourceLabel({ source: news.source, t })}>
-                {news.source === AMAL_NEWS_SOURCE ? (
-                  <Svg src={AmalNewsLogo} height={64} width='100%' />
-                ) : (
-                  <TuNewsImage src={TuNewsLogo} alt='' />
-                )}
+                <Svg src={news.source === AMAL_NEWS_SOURCE ? AmalNewsLogo : TuNewsLogo} height={64} width='100%' />
               </CenteredLink>
             )
           }
