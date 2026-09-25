@@ -1,5 +1,6 @@
 import { styled, useTheme } from '@mui/material/styles'
 import * as maplibregl from 'maplibre-gl'
+import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import React, {
   ForwardedRef,
@@ -26,6 +27,8 @@ import {
 import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useDimensions from '../hooks/useDimensions'
 import { captureError } from '../utils/sentry'
+
+maplibregl.setWorkerUrl(maplibreWorkerUrl)
 
 const MapContainer = styled('div')`
   height: 100%;
