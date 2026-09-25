@@ -128,7 +128,7 @@ const LanguageSelection = ({
           {index === filteredLanguageChangePaths.length - 1 && languageNotFoundButton}
         </Fragment>
       )}
-      noOptionsText={languageNotFoundButton}
+      noOptionsText={<Stack sx={{ alignItems: 'center' }}>{languageNotFoundButton}</Stack>}
       disablePortal
       slotProps={{
         listbox: {
