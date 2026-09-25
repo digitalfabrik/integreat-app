@@ -29,6 +29,8 @@ const config: JestConfigWithTsJest = {
       '<rootDir>/src/__mocks__/fileMock.ts',
     '\\.(css|less)$': '<rootDir>/src/__mocks__/styleMock.ts',
     '^maplibre-gl$': '<rootDir>/src/__mocks__/maplibre-gl.ts',
+    // vite resolves worker imports to urls, which jest knows nothing about.
+    '\\?worker&url$': '<rootDir>/src/__mocks__/fileMock.ts',
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   maxWorkers: '50%',
