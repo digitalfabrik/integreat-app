@@ -131,6 +131,12 @@ const LanguageSelection = ({
       noOptionsText={languageNotFoundButton}
       disablePortal
       slotProps={{
+        listbox: {
+          sx: {
+            display: 'flex',
+            flexDirection: 'column',
+          },
+        },
         popper: {
           placement: 'bottom',
           modifiers: [
