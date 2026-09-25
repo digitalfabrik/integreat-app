@@ -5,6 +5,7 @@ import { bottomSheetHandleHeight } from '../../hooks/useDimensions'
 
 const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
   body {
+    background-color: ${theme.palette.background.default};
     margin: 0;
     position: relative;
 

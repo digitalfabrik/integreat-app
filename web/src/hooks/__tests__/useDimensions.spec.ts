@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react'
 
-import useDimensions from '../useDimensions'
+import { useScrollDimensions } from '../useDimensions'
 
 describe('useDimensions', () => {
   const { innerWidth, innerHeight } = window
@@ -18,7 +18,7 @@ describe('useDimensions', () => {
 
     const {
       result: { current },
-    } = renderHook(useDimensions)
+    } = renderHook(useScrollDimensions)
 
     expect(current.window.width).toBe(841)
     expect(current.window.height).toBe(800)
@@ -58,7 +58,7 @@ describe('useDimensions', () => {
 
     const {
       result: { current },
-    } = renderHook(useDimensions)
+    } = renderHook(useScrollDimensions)
 
     expect(current.window.width).toBe(450)
     expect(current.window.height).toBe(800)
@@ -79,7 +79,7 @@ describe('useDimensions', () => {
 
     const {
       result: { current },
-    } = renderHook(useDimensions)
+    } = renderHook(useScrollDimensions)
 
     expect(current.window.width).toBe(601)
     expect(current.window.height).toBe(800)
@@ -100,7 +100,7 @@ describe('useDimensions', () => {
 
     const {
       result: { current },
-    } = renderHook(useDimensions)
+    } = renderHook(useScrollDimensions)
 
     expect(current.window.width).toBe(1920)
     expect(current.window.height).toBe(800)

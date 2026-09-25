@@ -18,13 +18,13 @@ import { PlaceCategoryModel, PlaceModel, RegionModel } from 'shared/api'
 import PlaceFilters from '../components/PlaceFilters'
 import PlacesDesktop from '../components/PlacesDesktop'
 import PlacesMobile from '../components/PlacesMobile'
-import useDimensions from '../hooks/useDimensions'
+import useDimensions, { Dimensions } from '../hooks/useDimensions'
 import moveViewportToRegion from '../utils/moveViewportToRegion'
 import PlaceFiltersOverlayButtons from './PlaceFiltersOverlayButtons'
 
-const Container = styled('div')`
+const Container = styled('div')<{ dimensions: Dimensions }>`
   display: flex;
-  height: calc(100vh - ${props => props.theme.dimensions.headerHeight}px);
+  height: calc(100vh - ${props => props.dimensions.headerHeight}px);
 `
 
 type PlaceProps = {
@@ -42,7 +42,7 @@ const Places = ({ places: allPlaces, userLocation, region, loading }: PlaceProps
   const [mapViewport, setMapViewport] = useState<MapViewViewport>(moveViewportToRegion(region, zoom))
   const params = useParams()
   const navigate = useNavigate()
-  const { mobile } = useDimensions()
+  const dimensions = useDimensions()
 
   const slug = params.slug ? normalizePath(params.slug) : undefined
 
@@ -115,8 +115,8 @@ const Places = ({ places: allPlaces, userLocation, region, loading }: PlaceProps
   }
 
   return (
-    <Container>
-      {mobile ? <PlacesMobile {...sharedPlaceProps} /> : <PlacesDesktop {...sharedPlaceProps} />}
+    <Container dimensions={dimensions}>
+      {dimensions.mobile ? <PlacesMobile {...sharedPlaceProps} /> : <PlacesDesktop {...sharedPlaceProps} />}
       {showFilterSelection && (
         <PlaceFilters
           close={() => setShowFilterSelection(false)}

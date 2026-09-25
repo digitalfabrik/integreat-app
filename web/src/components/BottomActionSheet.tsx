@@ -9,9 +9,10 @@ import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { SpringEvent } from 'react-spring-bottom-sheet/dist/types'
 
+import useDimensions, { Dimensions } from '../hooks/useDimensions'
 import { RichLayout } from './Layout'
 
-const StyledBottomSheet = styled(BottomSheet)`
+const StyledBottomSheet = styled(BottomSheet)<{ dimensions: Dimensions }>`
   direction: ${props => props.theme.contentDirection};
 
   /* Position bottom sheet above content */
@@ -22,15 +23,15 @@ const StyledBottomSheet = styled(BottomSheet)`
   }
 
   [data-rsbs-scroll] {
-    margin-bottom: ${props => props.theme.dimensions.bottomNavigationHeight ?? 0}px;
+    margin-bottom: ${props => props.dimensions.bottomNavigationHeight ?? 0}px;
   }
 `
 
-const StyledLayout = styled(RichLayout)`
+const StyledLayout = styled(RichLayout)<{ dimensions: Dimensions }>`
   justify-content: flex-start;
   width: 100%;
   min-height: unset;
-  padding-bottom: ${props => props.theme.dimensions.ttsPlayerHeight}px;
+  padding-bottom: ${props => props.dimensions.ttsPlayerHeight}px;
 `
 
 const HeaderButton = styled(ButtonBase)`
@@ -58,7 +59,8 @@ const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetP
   const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const bottomSheetRef = useRef<BottomSheetRef>(null)
-  const { dimensions, contentDirection } = useTheme()
+  const { contentDirection } = useTheme()
+  const dimensions = useDimensions()
   const { t } = useTranslation()
   const { max, medium } = dimensions.bottomSheet.snapPoints
   const HandleIcon = isFullscreen ? KeyboardArrowDownIcon : KeyboardArrowUpIcon
@@ -89,6 +91,7 @@ const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetP
 
   return (
     <StyledBottomSheet
+      dimensions={dimensions}
       ref={bottomSheetRef}
       open
       header={
@@ -113,7 +116,9 @@ const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetP
       onSpringEnd={updateFullscreen}
       snapPoints={() => dimensions.bottomSheet.snapPoints.all}
       defaultSnap={() => medium}>
-      <StyledLayout dir={contentDirection}>{children}</StyledLayout>
+      <StyledLayout dimensions={dimensions} dir={contentDirection}>
+        {children}
+      </StyledLayout>
     </StyledBottomSheet>
   )
 }
