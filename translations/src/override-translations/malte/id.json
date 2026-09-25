@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} adalah asisten digital Anda dari Malteser. Di sini Anda akan menemukan informasi lokal, acara, dan saran dari institusi Anda. Selalu terkini dan dalam bahasa Anda!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Acara ini tidak ditemukan.",
+      "nothingFound": "Tidak ada acara yang ditemukan."
+    },
+    "export": {
+      "allRecurrences": "Acara ini dan semua acara mendatang",
+      "thisRecurrence": "Hanya acara ini"
+    },
+    "title": "Acara"
+  }
+}

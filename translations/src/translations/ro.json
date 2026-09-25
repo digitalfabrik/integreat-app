@@ -1,0 +1,468 @@
+{
+  "about": {
+    "legal": "Mențiuni legale",
+    "imprint": "Informații legale",
+    "accessibility": "Accesibilitate",
+    "aboutUs": "Despre noi",
+    "licenses": {
+      "title": "Licențe open-source",
+      "version": "Versiune: {{version}}",
+      "license": "Licență: {{license}}"
+    }
+  },
+  "categories": {
+    "title": "Informații locale",
+    "titleShort": "Informații",
+    "organization": {
+      "title": "Conținutul acestei pagini este furnizat de {{organization}}.",
+      "description": "Mai multe informații despre {{organization}} găsești pe <Link>{{domain}}</Link>."
+    },
+    "pdf": {
+      "create": "Generare PDF",
+      "disabled": "Generarea unui PDF nu este posibilă în această limbă pentru moment."
+    }
+  },
+  "chat": {
+    "subtitle": "Asistentul tău digital de căutare",
+    "bot": "Chatbot",
+    "consultant": "Consilier(ă)",
+    "typing": "Scrie…",
+    "inputPlaceholder": "Te rugăm să introduci întrebarea…",
+    "initial": {
+      "title": "Te rugăm să introduci întrebarea în câmpul de text.",
+      "description": "Poți întreba despre informații locale sau despre situația ta personală."
+    },
+    "welcome": {
+      "title": "Bună!",
+      "description": "Sunt <strong>{{name}}</strong>, asistentul tău digital de căutare. Te rog, adresează-mi întrebarea ta."
+    },
+    "startNew": {
+      "title": "Începe o conversație nouă",
+      "description": "Sigur dorești să începi o conversație nouă? Istoricul conversației actuale va fi șters."
+    },
+    "unread_one": "1 mesaj de chat necitit",
+    "unread_two": "{{count}} mesaje de chat necitite",
+    "unread_few": "{{count}} mesaje de chat necitite",
+    "unread_many": "{{count}} mesaje de chat necitite",
+    "unread_other": "{{count}} mesaje de chat necitite"
+  },
+  "common": {
+    "actions": {
+      "back": "Înapoi",
+      "cancel": "Anulare",
+      "clearInput": "Șterge textul",
+      "close": "Închide",
+      "copy": "Copiază",
+      "minimize": "Minimizează",
+      "next": "Înainte",
+      "ok": "OK",
+      "open": "Deschide",
+      "previous": "anterior",
+      "send": "Trimite",
+      "skip": "Omite",
+      "view": "Afișează",
+      "openExternal": "Deschide extern",
+      "goToPage": "La pagina {{number}}",
+      "showMore": "Afișează mai mult",
+      "showLess": "Afișează mai puțin",
+      "showFilters": "Afișează filtrele",
+      "hideFilters": "Ascunde filtrele"
+    },
+    "a11y": {
+      "skipToContent": "Sari la conținut"
+    },
+    "state": {
+      "copied": "Copiat",
+      "updatedAt": "Ultima actualizare: {{date}}",
+      "loading": "Se încarcă…",
+      "optional": "opțional",
+      "enabled": "activat",
+      "disabled": "dezactivat"
+    },
+    "labels": {
+      "description": "Descriere",
+      "menu": "Meniu",
+      "getOnPlayStore": "DESCARCĂ ACUM — Din Google Play Store"
+    },
+    "meta": {
+      "description": "{{appName}} este ghidul tău digital pentru Germania. Găsește informații locale, evenimente și servicii de consiliere. Mereu actualizat și în limba ta."
+    },
+    "privacy": {
+      "title": "Politică de confidențialitate",
+      "confirmation": "Am citit <Link>Politica de confidențialitate</Link> și sunt de acord cu prelucrarea și stocarea datelor mele.",
+      "required": "Te rugăm să accepți Politica de confidențialitate."
+    },
+    "contacts": {
+      "title": "Contacte",
+      "address": {
+        "title": "Adresă",
+        "copy": "Copiază adresa"
+      },
+      "phone": {
+        "title": "Număr de telefon",
+        "mobile": "Număr de mobil"
+      },
+      "email": "E-mail",
+      "website": "Site web"
+    }
+  },
+  "error": {
+    "title": "Eroare",
+    "noSuitableAppInstalled": "Nu este instalată nicio aplicație compatibilă.",
+    "forbidden": "Nu ai acces la această regiune.",
+    "networkConnectionFailed": "Conexiunea la server a eșuat.",
+    "networkRequestFailed": "Solicitarea nu a putut fi procesată.",
+    "responseMappingFailed": "Răspunsul serverului nu a putut fi procesat.",
+    "rateLimited": "Ai trimis prea multe solicitări. Te rugăm să aștepți un moment.",
+    "pageNotFound": "Această pagină nu a fost găsită.",
+    "nothingFound": "Nu au fost găsite rezultate.",
+    "permissionRequired": "Permisiune necesară",
+    "unknownError": "A apărut o eroare necunoscută.",
+    "tryAgain": "Încearcă din nou"
+  },
+  "events": {
+    "title": "Evenimente",
+    "onlineMeeting": "Întâlnire online",
+    "error": {
+      "notFound": "Acest eveniment nu a fost găsit.",
+      "nothingFound": "Nu s-a găsit niciun eveniment."
+    },
+    "recurrence": {
+      "recurring": "recurent",
+      "furtherDates": "Alte date",
+      "untilDate": "până la {{date}}"
+    },
+    "dateGroups": {
+      "today": "Astăzi",
+      "tomorrow": "Mâine",
+      "nextDays": "Următoarele {{days}} zile",
+      "further": "Mai multe"
+    },
+    "export": {
+      "download": "Exportă",
+      "addToCalendar": "Adaugă în calendar",
+      "added": "Adăugat în calendar",
+      "calendar": "Calendar",
+      "thisRecurrence": "Doar acest eveniment",
+      "allRecurrences": "Acesta și toate evenimentele viitoare",
+      "error": {
+        "forbidden": "Accesul la calendar nu este permis.",
+        "nothingFound": "Niciun calendar potrivit"
+      }
+    },
+    "filter": {
+      "selectStart": "Selectează data de început din calendar",
+      "selectEnd": "Selectează data de sfârșit din calendar",
+      "from": "din",
+      "to": "până la",
+      "reset": "Resetează filtrul: {{filter}}",
+      "error": {
+        "invalidDate": "Dată nevalidă",
+        "endBeforeStart": "Data de început trebuie să fie anterioară datei de sfârșit."
+      }
+    }
+  },
+  "feedback": {
+    "title": "Feedback",
+    "give": "Trimite feedback",
+    "description": "Alege o evaluare și/sau scrie un comentariu.",
+    "comment": {
+      "title": "Comentariu",
+      "description": "Spune-ne părerea ta! Apreciem atât feedbackul pozitiv, cât și pe cel negativ, deoarece ne ajută să îmbunătățim {{appName}}."
+    },
+    "contactEmail": "E-mail pentru întrebări suplimentare",
+    "required": "Selectează o reacție sau scrie un comentariu pentru a putea trimite feedbackul.",
+    "rating": {
+      "useful": "Util",
+      "notUseful": "Nu a fost util"
+    },
+    "thanks": {
+      "title": "Îți mulțumim pentru feedback.",
+      "description": "Feedbackul tău a fost trimis cu succes."
+    },
+    "search": {
+      "informationNotFound": "Nu ai găsit ce căutai?",
+      "wantedInformation": "Ce informații lipsesc?",
+      "informationMissing": "Lipsesc informații de aici?",
+      "searchTermDescription": "Nu s-a găsit niciun rezultat pentru termenul căutat:",
+      "checkQuery": "Verifică termenul de căutare sau schimbă limba selectată.",
+      "noResultsInUserLanguage": "Din păcate, nu s-au găsit rezultate relevante în limba ta.",
+      "noResultsInUserAndSourceLanguage": "Din păcate, nu s-au găsit rezultate relevante în limba ta sau în germană."
+    }
+  },
+  "intro": {
+    "welcome": {
+      "title": "Bun venit la {{appName}}",
+      "description": "În {{appName}} găsești răspunsuri și sfaturi în limba ta maternă. De exemplu: Unde pot găsi ajutor? Când am dreptul să muncesc?"
+    },
+    "slides": {
+      "search": {
+        "title": "Căutare simplă",
+        "description": "Găsești rapid informațiile necesare folosind funcția de căutare din dreapta sus a meniului."
+      },
+      "languageChange": {
+        "description": "Poți schimba limba aplicației {{appName}} din meniul de sus."
+      },
+      "places": {
+        "title": "Servicii și oferte în apropiere",
+        "description": "Pe hartă poți găsi locații din apropierea ta, de exemplu cursuri de limbi străine."
+      },
+      "offline": {
+        "title": "Funcționează și offline",
+        "description": "Nu ai mereu acces la internet? Nicio problemă. Poți folosi {{appName}} și offline."
+      },
+      "news": {
+        "title": "Informații actualizate",
+        "description": "Ce este nou în apropierea ta? Află folosind {{appName}}."
+      }
+    }
+  },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "Pentru a salva imagini, {{appName}} are nevoie de acces la galerie.",
+    "NSLocationWhenInUseUsageDescription": "Pentru a găsi locații din apropiere, {{appName}} are nevoie de acces la locația ta.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Pentru a găsi locații din apropiere, {{appName}} are nevoie de acces la locația ta.",
+    "NSCalendarsUsageDescription": "{{appName}} dorește să acceseze calendarul pentru a adăuga evenimente.",
+    "NSCalendarsFullAccessUsageDescription": "{{appName}} dorește să acceseze calendarul pentru a adăuga evenimente."
+  },
+  "languages": {
+    "change": "Schimbă limba",
+    "changed": "Limba a fost schimbată în {{languageName}}",
+    "search": "Caută o limbă",
+    "error": {
+      "noTranslation": "Nicio traducere disponibilă",
+      "notFound": {
+        "title": "Această limbă nu a fost găsită.",
+        "question": "Nu găsești limba?",
+        "description": "Această pagină nu este încă disponibilă în toate limbile. Ne extindem în mod activ oferta lingvistică. Poți solicita limba dorită prin funcția de <Link>Feedback</Link>."
+      }
+    }
+  },
+  "malteHelpForm": {
+    "supportNote": "Ne dorim să vă simțiți în siguranță și sprijinit(ă) oricând aveți întrebări sau întâmpinați probleme. Prin intermediul formularului de contact de mai jos, aveți posibilitatea de a lua legătura cu persoanele noastre de contact. Puteți specifica tipul solicitării și puteți alege dintre mai multe modalități de contact.",
+    "securityNote": "Securitatea dumneavoastră este prioritatea noastră absolută. Datele dumneavoastră sunt tratate cu confidențialitate, astfel încât viața privată să vă fie protejată în permanență.",
+    "name": "Nume, prenume",
+    "roomNumber": "Numărul camerei",
+    "howToBeContacted": "Cum doresc să fiu contactat(ă):",
+    "eMail": "E-mail",
+    "telephone": "Telefon",
+    "telephoneNumber": "Nr. tel.",
+    "personally": "Personal",
+    "contactPerson": "Persoană de contact:",
+    "contactPersonAnyGender": "Genul persoanei de contact nu contează",
+    "contactPersonGenderFemale": "Doresc să fiu contactat(ă) de o femeie",
+    "contactPersonGenderMale": "Doresc să fiu contactat(ă) de un bărbat",
+    "contactReason": "Solicitarea dumneavoastră:",
+    "maxCharacters": "maximum {{numberOfCharacters}} caractere",
+    "responseHint": "Poate dura câteva zile lucrătoare până când veți primi un răspuns. Ne străduim să vă procesăm solicitarea cât mai repede posibil.",
+    "submit": "Trimite formularul",
+    "submitSuccessful": "Formular trimis cu succes",
+    "submitFailed": "Formularul nu a putut fi trimis",
+    "submitFailedReasoning": "Vă rugăm să vă asigurați că aveți o conexiune stabilă la internet și să încercați din nou.",
+    "invalidEmailAddress": "Adresa de e-mail introdusă este nevalidă."
+  },
+  "news": {
+    "title": "Știri",
+    "sources": {
+      "all": "Toate știrile",
+      "local": "Știri locale",
+      "national": "Știri naționale",
+      "allShort": "Toate",
+      "localShort": "Local",
+      "nationalShort": "Național"
+    },
+    "error": {
+      "notFound": "Acest mesaj nu a fost găsit.",
+      "nothingFound": "Nu a fost găsit niciun mesaj."
+    }
+  },
+  "places": {
+    "title": "Hartă",
+    "accessible": "Accesibil pentru persoane cu dizabilități",
+    "notAccessible": "Fără acces pentru persoane cu dizabilități",
+    "error": {
+      "notFound": "Această locație nu a fost găsită.",
+      "nothingFound": "Nu s-au găsit locații."
+    },
+    "distance": "la {{distance}} km distanță",
+    "zoom": {
+      "in": "Mărește",
+      "out": "Micșorează"
+    },
+    "filter": {
+      "adjust": "Filtrează locațiile",
+      "onlyOpen": "arată doar locațiile deschise în prezent",
+      "categories": "Categorii",
+      "alphabet": "A-Z",
+      "show_zero": "0 locații găsite",
+      "show_one": "Afișează 1 locație",
+      "show_two": "Afișează {{count}} locații",
+      "show_few": "Afișează {{count}} locații",
+      "show_many": "Afișează {{count}} locații",
+      "show_other": "Afișează {{count}} locații",
+      "placeCount_zero": "0 locații",
+      "placeCount_one": "1 locație",
+      "placeCount_two": "{{count}} locații",
+      "placeCount_few": "{{count}} locații",
+      "placeCount_many": "{{count}} locații",
+      "placeCount_other": "{{count}} locații"
+    },
+    "hours": {
+      "title": "Program de funcționare",
+      "allDay": "toată ziua",
+      "open": "deschis",
+      "closed": "închis",
+      "temporarilyClosed": "Închis temporar",
+      "appointment": {
+        "required": "Necesită programare",
+        "make": {
+          "title": "Programează o întâlnire",
+          "description": "Programează o întâlnire prin intermediul <Link>site-ului web</Link> sau telefonic."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Luni",
+      "dienstag": "Marți",
+      "mittwoch": "Miercuri",
+      "donnerstag": "Joi",
+      "freitag": "Vineri",
+      "samstag": "Sâmbătă",
+      "sonntag": "Duminică"
+    }
+  },
+  "regions": {
+    "title": "Regiuni",
+    "welcome": {
+      "title": "Bun venit la {{appName}}.",
+      "description": "Ghidul tău digital pentru toate informațiile de care ai nevoie. Te rugăm să îți selectezi regiunea."
+    },
+    "change": "Schimbă regiunea",
+    "notFound": "Această regiune nu a fost găsită.",
+    "search": {
+      "region": "Caută regiune",
+      "description": "Alege regiunea ta sau cel mai apropiat oraș mare, de ex. {{exampleRegion}}"
+    },
+    "nearby": {
+      "nothingFound": "Nicio regiune în apropiere.",
+      "refresh": "Actualizează regiunile din apropiere"
+    }
+  },
+  "search": {
+    "title": "Căutare",
+    "searchContent": "Caută conținut",
+    "viewResult": "Deschide rezultatul căutării",
+    "resultCount_zero": "0 rezultate ale căutării",
+    "resultCount_one": "1 rezultat al căutării",
+    "resultCount_two": "{{count}} rezultate ale căutării",
+    "resultCount_few": "{{count}} rezultate ale căutării",
+    "resultCount_many": "{{count}} rezultate ale căutării",
+    "resultCount_other": "{{count}} de rezultate ale căutării"
+  },
+  "settings": {
+    "title": "Setări",
+    "error": {
+      "save": "Setările nu au putut fi salvate"
+    },
+    "sentry": {
+      "title": "Stabilitatea aplicației",
+      "description": "Ajută la îmbunătățirea {{appName}} trimițând automat rapoarte de eroare"
+    },
+    "pushNotifications": {
+      "title": "Notificări push",
+      "description": "Primește notificări push pentru cele mai recente știri locale"
+    },
+    "contrast": {
+      "title": "Contrast ridicat (beta)",
+      "description": "Modul de contrast îmbunătățește lizibilitatea"
+    },
+    "externalSources": {
+      "title": "Surse externe",
+      "descriptionShort": "Alege ce surse externe sunt permise.",
+      "description": "Poți accepta permanent afișarea conținutului din surse externe. Îți poți retrage oricând consimțământul de aici.",
+      "source": "Permite conținutul de la {{source}}",
+      "optIn": "Sunt de acord cu afișarea conținutului din această sursă externă.",
+      "allowed": "Acest element include conținut de la o sursă externă. Poți bloca acest tip de conținut din setări.",
+      "blocked": "Conținutul extern de la această sursă a fost blocat. Poți permite această sursă din setări.",
+      "nothingFound": "Nu există surse externe disponibile."
+    }
+  },
+  "share": {
+    "title": "Distribuie",
+    "message": "Tocmai am găsit: {{message}}",
+    "copyLink": "Copiază linkul",
+    "qr": {
+      "label": "Cod QR",
+      "title": "Distribuie prin cod QR",
+      "description": "Distribuie ușor această pagină scanând codul QR pe un alt dispozitiv."
+    }
+  },
+  "suggestToRegion": {
+    "title": "Propune {{appName}} în regiunea ta",
+    "description": "Te-a convins conceptul aplicației Integreat și crezi că și orașul, districtul sau comunitatea ta ar putea beneficia de această soluție digitală? Poți trece la acțiune foarte ușor chiar de aici.",
+    "regionNotFoundCta": "Nu ți-ai găsit regiunea? Implică-te acum!",
+    "whatToDo": "Iată ce poți face:",
+    "steps": {
+      "getEmail": "Află adresa de e-mail a regiunii tale",
+      "copyText": "Copiază acest text",
+      "fillPlaceholders": "Completează parantezele pătrate [ ] cu datele tale",
+      "send": "Trimite e-mailul către regiunea ta"
+    }
+  },
+  "tour": {
+    "title": "Turul aplicației",
+    "welcome": "Acest tur scurt îți prezintă cele mai importante funcții ale aplicației.",
+    "start": "Pornește turul",
+    "progress": "Pasul {{current}} din {{total}}",
+    "regionChange": {
+      "description": "Selectează-ți <strong>regiunea</strong> aici pentru a găsi informații locale."
+    },
+    "navigation": {
+      "title": "Navigare",
+      "description": "Comută aici între <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> și <strong>$t(events:title)</strong>."
+    },
+    "categories": {
+      "title": "Descoperă teme",
+      "description": "Descoperă informații despre subiecte precum <strong>Locuințe</strong>, <strong>Educație</strong>, <strong>Muncă</strong> și multe altele."
+    },
+    "searchAndLanguage": {
+      "title": "Căutare și limbă",
+      "description": "<strong>Caută</strong> informații locale, evenimente și locații sau schimbă <strong>limba</strong>."
+    },
+    "menu": {
+      "title": "Alte funcții",
+      "description": "Folosește aici funcții suplimentare precum <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> și <strong>{{additionalFeature}}</strong>."
+    },
+    "chat": {
+      "description": "Adresează întrebările tale aici și primești rapid răspunsurile potrivite."
+    },
+    "finish": {
+      "title": "Gata!",
+      "description": "Acum cunoști cele mai importante funcții. Mult succes cu {{appName}}!"
+    }
+  },
+  "tts": {
+    "title": "Citește cu voce tare",
+    "pause": "Pauză",
+    "play": "Redare",
+    "error": {
+      "languageNotSupported": "Limba nu este acceptată.",
+      "nothingToRead": {
+        "title": "Nimic de citit",
+        "description": "Nu există conținut de citit pe această pagină."
+      },
+      "noVoices": {
+        "title": "Nicio voce instalată",
+        "description": "Nu a fost găsită nicio voce. Pentru a putea utiliza funcția de citire cu voce tare, trebuie să fie instalată o voce. Te rugăm să urmezi instrucțiunile de mai jos pentru sistemul tău de operare."
+      }
+    }
+  },
+  "userLocation": {
+    "nearby": "În apropierea ta",
+    "show": "Arată locația mea",
+    "loading": "Se determină locația…",
+    "locationAccessRequired": "Pentru a afișa regiunile din apropiere, accesul la locație trebuie să fie activat.",
+    "noPermission": "Este necesar accesul la locație",
+    "notAvailable": "Serviciile de localizare sunt dezactivate",
+    "timeout": "Locația nu a fost găsită"
+  }
+}

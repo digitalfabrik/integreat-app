@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} to Twój cyfrowy asystent od Zakonu Maltańskiego. Znajdziesz tu lokalne informacje, wydarzenia i porady przygotowane przez Twoją placówkę. Zawsze aktualne i w Twoim języku!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Nie znaleziono tego wydarzenia.",
+      "nothingFound": "Nie znaleziono żadnych wydarzeń."
+    },
+    "export": {
+      "allRecurrences": "To i wszystkie przyszłe wydarzenia",
+      "thisRecurrence": "Tylko to wydarzenie"
+    },
+    "title": "Wydarzenia"
+  }
+}

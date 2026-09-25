@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} gargaaraa dijitaalaa keessan kan Maltesers irraati. Asitti odeeffannoo naannoo, sagantaalee fi gorsa dhaabbata keessan irraa argattu. Yeroo hunda kan haaraffamee fi afaan keessaniin!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Qophiin kun hin argamne.",
+      "nothingFound": "Qophiileen tokkollee hin argamne."
+    },
+    "export": {
+      "allRecurrences": "Kanas ta'ee qophiilee gara fuulduraa hunda",
+      "thisRecurrence": "Qophii kana qofa"
+    },
+    "title": "Qophiilee"
+  }
+}

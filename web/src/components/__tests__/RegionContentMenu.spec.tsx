@@ -6,6 +6,7 @@ import { CategoriesMapModelBuilder } from 'shared/api'
 import { mockDimensions } from '../../__mocks__/useDimensions'
 import { TtsContext } from '../../contexts/TtsContext'
 import useDimensions from '../../hooks/useDimensions'
+import { TOUR_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { renderAllRoutes } from '../../testing/render'
 import RegionContentMenu from '../RegionContentMenu'
 
@@ -45,10 +46,32 @@ describe('RegionContentMenu', () => {
     expect(getByText('feedback:title')).toBeTruthy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
+    expect(getByText('tour:title')).toBeTruthy()
 
     fireEvent.click(getByText('tts:title'))
 
     expect(showTtsPlayer).toHaveBeenCalledTimes(1)
+  })
+
+  it('should close the menu when the open button is clicked again', () => {
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
+    const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de', {
+      RegionContentElement: (
+        <TtsContext.Provider value={defaultTtsContext}>
+          <RegionContentMenu category={category} pageTitle='Test Page' />,
+        </TtsContext.Provider>
+      ),
+    })
+    const menuButton = getByLabelText('common:labels.menu')
+
+    fireEvent.click(menuButton)
+
+    expect(getByText('settings:contrast.title')).toBeTruthy()
+    expect(menuButton).toHaveAttribute('aria-expanded', 'true')
+
+    fireEvent.click(menuButton)
+
+    expect(menuButton).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('should hide pdf for other routes', () => {
@@ -66,6 +89,7 @@ describe('RegionContentMenu', () => {
     expect(getByText('feedback:title')).toBeTruthy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
+    expect(getByText('tour:title')).toBeTruthy()
   })
 
   it('should hide feedback for news routes', () => {
@@ -83,6 +107,7 @@ describe('RegionContentMenu', () => {
     expect(queryByText('feedback:title')).toBeFalsy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
+    expect(getByText('tour:title')).toBeTruthy()
   })
 
   it('tts toolbar item should be disabled if there is nothing to read', () => {
@@ -114,5 +139,23 @@ describe('RegionContentMenu', () => {
     expect(queryByText('feedback:title')).toBeFalsy()
     expect(getByText('tts:title')).toBeTruthy()
     expect(getByText('settings:contrast.title')).toBeTruthy()
+    expect(getByText('tour:title')).toBeTruthy()
+  })
+
+  it('should offer the tour again and navigate to the home screen', () => {
+    localStorage.setItem(TOUR_VISIBLE_STORAGE_KEY, 'false')
+    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: true }))
+    const { getByText, getByLabelText } = renderAllRoutes('/augsburg/de/events', {
+      RegionContentElement: (
+        <TtsContext.Provider value={defaultTtsContext}>
+          <RegionContentMenu pageTitle='Test Page' />
+        </TtsContext.Provider>
+      ),
+    })
+
+    fireEvent.click(getByLabelText('common:labels.menu'))
+    fireEvent.click(getByText('tour:title'))
+
+    expect(localStorage.getItem(TOUR_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 })

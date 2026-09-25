@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} waa kaaliyahaaga dhijitaalka ah ee ka socda Malteser-ka. Halkan waxaad ka heli doontaa macluumaad maxalli ah, munaasabado iyo talooyin ka socda hay'addaada. Had iyo jeer waqtiyeysan oo ku qoran luqaddaada!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Munaasabadan lama helin.",
+      "nothingFound": "Lama helin wax munaasabado ah."
+    },
+    "export": {
+      "allRecurrences": "Munaasabadan iyo dhammaan munaasabadaha mustaqbalka",
+      "thisRecurrence": "Munaasabadan kaliya"
+    },
+    "title": "Munaasabado"
+  }
+}

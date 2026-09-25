@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} este asistentul tău digital oferit de Serviciul de Ajutor Maltez. Aici vei găsi informații locale, evenimente și sfaturi din partea instituției tale. Mereu actualizat și în limba ta!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Acest eveniment nu a fost găsit.",
+      "nothingFound": "Nu a fost găsit niciun eveniment."
+    },
+    "export": {
+      "allRecurrences": "Acesta și toate evenimentele viitoare",
+      "thisRecurrence": "Doar acest eveniment"
+    },
+    "title": "Evenimente"
+  }
+}

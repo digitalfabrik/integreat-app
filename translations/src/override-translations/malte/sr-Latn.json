@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} je vaš digitalni asistent Malteškog reda. Ovde ćete pronaći lokalne informacije, događaje i savete vaše ustanove. Uvek ažurno i na vašem jeziku!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Ovaj događaj nije pronađen.",
+      "nothingFound": "Nema pronađenih događaja."
+    },
+    "export": {
+      "allRecurrences": "Ovaj i svi budući događaji",
+      "thisRecurrence": "Samo ovaj događaj"
+    },
+    "title": "Događaji"
+  }
+}

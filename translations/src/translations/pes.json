@@ -1,0 +1,468 @@
+{
+  "about": {
+    "legal": "مسائل حقوقی",
+    "imprint": "اطلاعات حقوقی و تماس",
+    "accessibility": "دسترسی‌پذیری",
+    "aboutUs": "درباره ما",
+    "licenses": {
+      "title": "مجوزهای متن‌باز",
+      "version": "نسخه: {{version}}",
+      "license": "مجوز: {{license}}"
+    }
+  },
+  "categories": {
+    "title": "اطلاعات محلی",
+    "titleShort": "اطلاعات",
+    "organization": {
+      "title": "محتوای این صفحه متعلق به {{organization}} است.",
+      "description": "اطلاعات بیشتر درباره {{organization}} را می‌توانی در <Link>{{domain}}</Link> بیابی."
+    },
+    "pdf": {
+      "create": "ایجاد فایل PDF",
+      "disabled": "امکان ایجاد فایل PDF در حال حاضر برای این زبان وجود ندارد."
+    }
+  },
+  "chat": {
+    "subtitle": "دستیار دیجیتال جستجوی شما",
+    "bot": "چت‌بات",
+    "consultant": "مشاور",
+    "typing": "در حال نوشتن…",
+    "inputPlaceholder": "لطفاً سؤال خود را وارد کن…",
+    "initial": {
+      "title": "لطفاً سؤال خود را در کادر متن وارد کن.",
+      "description": "می‌توانی درباره اطلاعات محلی یا شرایط شخصی خود سؤال کنی."
+    },
+    "welcome": {
+      "title": "سلام!",
+      "description": "من <strong>{{name}}</strong> هستم، دستیار دیجیتال جستجوی شما. خوشحال می‌شوم سؤالتان را بپرسید."
+    },
+    "startNew": {
+      "title": "شروع گفتگوی جدید",
+      "description": "آیا واقعاً می‌خواهی گفتگوی جدیدی را آغاز کنی؟ تاریخچه گفتگوی کنونی حذف خواهد شد."
+    },
+    "unread_one": "۱ پیام خوانده‌نشده در چت",
+    "unread_two": "{{count}} پیام خوانده‌نشده در چت",
+    "unread_few": "{{count}} پیام خوانده‌نشده در چت",
+    "unread_many": "{{count}} پیام خوانده‌نشده در چت",
+    "unread_other": "{{count}} پیام خوانده‌نشده در چت"
+  },
+  "common": {
+    "actions": {
+      "back": "بازگشت",
+      "cancel": "لغو",
+      "clearInput": "پاک کردن ورودی",
+      "close": "بستن",
+      "copy": "کپی",
+      "minimize": "کوچک کردن",
+      "next": "ادامه",
+      "ok": "تأیید",
+      "open": "باز کردن",
+      "previous": "قبلی",
+      "send": "ارسال",
+      "skip": "رد شدن",
+      "view": "نمایش",
+      "openExternal": "باز کردن در برنامه دیگر",
+      "goToPage": "به صفحه {{number}}",
+      "showMore": "نمایش بیشتر",
+      "showLess": "نمایش کمتر",
+      "showFilters": "نمایش فیلترها",
+      "hideFilters": "پنهان کردن فیلترها"
+    },
+    "a11y": {
+      "skipToContent": "پرش به محتوا"
+    },
+    "state": {
+      "copied": "کپی شد",
+      "updatedAt": "آخرین به‌روزرسانی: {{date}}",
+      "loading": "در حال بارگذاری…",
+      "optional": "اختیاری",
+      "enabled": "فعال",
+      "disabled": "غیرفعال"
+    },
+    "labels": {
+      "description": "توضیحات",
+      "menu": "منو",
+      "getOnPlayStore": "دریافت کنید — در Google Play Store"
+    },
+    "meta": {
+      "description": "{{appName}} راهنمای دیجیتال شما برای زندگی در آلمان است. اطلاعات محلی، رویدادها و مشاوره‌ها را پیدا کنید؛ همیشه به‌روز و به زبان خودتان."
+    },
+    "privacy": {
+      "title": "سیاست حفظ حریم خصوصی",
+      "confirmation": "<Link>سیاست حفظ حریم خصوصی</Link> را خوانده‌ام و با پردازش و ذخیره داده‌های خود موافقم.",
+      "required": "لطفاً با سیاست حفظ حریم خصوصی موافقت کنید."
+    },
+    "contacts": {
+      "title": "راه‌های ارتباطی",
+      "address": {
+        "title": "نشانی",
+        "copy": "کپی نشانی"
+      },
+      "phone": {
+        "title": "شماره تلفن",
+        "mobile": "شماره تلفن همراه"
+      },
+      "email": "ایمیل",
+      "website": "وب‌سایت"
+    }
+  },
+  "error": {
+    "title": "خطا",
+    "noSuitableAppInstalled": "برنامه مناسبی نصب نشده است.",
+    "forbidden": "شما به این منطقه دسترسی ندارید.",
+    "networkConnectionFailed": "ارتباط با سرور برقرار نشد.",
+    "networkRequestFailed": "پردازش درخواست امکان‌پذیر نبود.",
+    "responseMappingFailed": "پاسخ دریافتی از سرور قابل پردازش نبود.",
+    "rateLimited": "تعداد درخواست‌های ارسالی شما بیش از حد مجاز است. لطفاً کمی صبر کنید.",
+    "pageNotFound": "این صفحه پیدا نشد.",
+    "nothingFound": "نتیجه‌ای یافت نشد.",
+    "permissionRequired": "نیاز به مجوز است",
+    "unknownError": "خطای ناشناخته‌ای رخ داد.",
+    "tryAgain": "تلاش مجدد"
+  },
+  "events": {
+    "title": "رویدادها",
+    "onlineMeeting": "جلسه آنلاین",
+    "error": {
+      "notFound": "این رویداد پیدا نشد.",
+      "nothingFound": "هیچ رویدادی پیدا نشد."
+    },
+    "recurrence": {
+      "recurring": "تکرارشونده",
+      "furtherDates": "سایر قرارها",
+      "untilDate": "تا {{date}}"
+    },
+    "dateGroups": {
+      "today": "امروز",
+      "tomorrow": "فردا",
+      "nextDays": "{{days}} روز آینده",
+      "further": "بیشتر"
+    },
+    "export": {
+      "download": "خروجی گرفتن",
+      "addToCalendar": "افزودن به تقویم",
+      "added": "به تقویم اضافه شد",
+      "calendar": "تقویم",
+      "thisRecurrence": "فقط همین رویداد",
+      "allRecurrences": "این رویداد و تمام رویدادهای آینده",
+      "error": {
+        "forbidden": "دسترسی به تقویم مجاز نیست.",
+        "nothingFound": "تقویم منطبقی پیدا نشد"
+      }
+    },
+    "filter": {
+      "selectStart": "انتخاب تاریخ شروع از تقویم",
+      "selectEnd": "انتخاب تاریخ پایان از تقویم",
+      "from": "از",
+      "to": "تا",
+      "reset": "بازنشانی فیلتر: {{filter}}",
+      "error": {
+        "invalidDate": "تاریخ نامعتبر است",
+        "endBeforeStart": "تاریخ شروع باید قبل از تاریخ پایان باشد."
+      }
+    }
+  },
+  "feedback": {
+    "title": "بازخورد",
+    "give": "ارسال بازخورد",
+    "description": "امتیاز دهید و/یا دیدگاه خود را بنویسید.",
+    "comment": {
+      "title": "دیدگاه",
+      "description": "نظر خود را با ما در میان بگذارید! ما از هر دو بازخورد مثبت و منفی استقبال می‌کنیم، زیرا به ما در بهبود {{appName}} کمک می‌کند."
+    },
+    "contactEmail": "ایمیل برای پاسخ به سؤالات",
+    "required": "لطفاً برای ارسال بازخورد، یک واکنش انتخاب کنید یا دیدگاهی بنویسید.",
+    "rating": {
+      "useful": "مفید بود",
+      "notUseful": "مفید نبود"
+    },
+    "thanks": {
+      "title": "از بازخورد شما بسیار سپاسگزاریم.",
+      "description": "بازخورد شما با موفقیت ارسال شد."
+    },
+    "search": {
+      "informationNotFound": "مورد مورد نظرتان را پیدا نکردید؟",
+      "wantedInformation": "چه اطلاعاتی وجود ندارد؟",
+      "informationMissing": "اطلاعاتی در اینجا ناقص است؟",
+      "searchTermDescription": "برای این عبارت هیچ نتیجه‌ای یافت نشد:",
+      "checkQuery": "عبارت جستجوی خود را بررسی کنید یا زبان انتخابی را تغییر دهید.",
+      "noResultsInUserLanguage": "متأسفانه هیچ نتیجه مناسبی به زبان شما یافت نشد.",
+      "noResultsInUserAndSourceLanguage": "متأسفانه هیچ نتیجه مناسبی به زبان شما یا به زبان آلمانی یافت نشد."
+    }
+  },
+  "intro": {
+    "welcome": {
+      "title": "به {{appName}} خوش آمدید",
+      "description": "در {{appName}} پاسخ‌ها و نکاتی را به زبان مادری خود پیدا می‌کنید. به عنوان مثال: از کجا می‌توانم کمک بگیرم؟ چه زمانی اجازه کار دارم؟"
+    },
+    "slides": {
+      "search": {
+        "title": "جستجوی آسان",
+        "description": "با جستجو در بالای منو سمت راست، می‌توانید اطلاعات مورد نظرتان را سریع پیدا کنید."
+      },
+      "languageChange": {
+        "description": "می‌توانید از منوی بالا، زبان {{appName}} را تغییر دهید."
+      },
+      "places": {
+        "title": "خدمات و امکانات نزدیک شما",
+        "description": "روی نقشه می‌توانید مکان‌های نزدیک خود را پیدا کنید؛ مثلاً محل برگزاری دوره‌های زبان."
+      },
+      "offline": {
+        "title": "قابل استفاده به‌صورت آفلاین",
+        "description": "همیشه به اینترنت دسترسی ندارید؟ مشکلی نیست. می‌توانید از {{appName}} بدون اینترنت هم استفاده کنید."
+      },
+      "news": {
+        "title": "اطلاعات به‌روز",
+        "description": "در نزدیکی شما چه خبر است؟ با {{appName}} باخبر شوید."
+      }
+    }
+  },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "برای ذخیره تصاویر، {{appName}} به گالری نیاز به دسترسی دارد.",
+    "NSLocationWhenInUseUsageDescription": "برنامه {{appName}} برای پیدا کردن مکان‌های نزدیک، نیاز به دسترسی به موقعیت مکانی دارد.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "برنامه {{appName}} برای پیدا کردن مکان‌های نزدیک، نیاز به دسترسی به موقعیت مکانی دارد.",
+    "NSCalendarsUsageDescription": "برنامه {{appName}} برای افزودن رویدادها، نیاز به دسترسی به تقویم دارد.",
+    "NSCalendarsFullAccessUsageDescription": "برنامه {{appName}} برای افزودن رویدادها، نیاز به دسترسی به تقویم دارد."
+  },
+  "languages": {
+    "change": "تغییر زبان",
+    "changed": "زبان به {{languageName}} تغییر یافت",
+    "search": "جستجوی زبان",
+    "error": {
+      "noTranslation": "ترجمه‌ای در دسترس نیست",
+      "notFound": {
+        "title": "این زبان یافت نشد.",
+        "question": "زبان مورد نظرتان را پیدا نمی‌کنید؟",
+        "description": "این صفحه هنوز به همه زبان‌ها در دسترس نیست. ما به‌طور مداوم در حال گسترش زبان‌های پشتیبانی‌شده هستیم. می‌توانید زبان مدنظر خود را از طریق بخش <Link>بازخورد</Link> درخواست کنید."
+      }
+    }
+  },
+  "malteHelpForm": {
+    "supportNote": "می‌خواهیم در صورت بروز هرگونه مشکل یا سوال، احساس امنیت و پشتیبانی داشته باشید. از طریق فرم تماس زیر می‌توانید با کارشناسان مربوطه ارتباط برقرار کنید. شما می‌توانید نوع درخواست خود را مشخص کرده و از میان روش‌های ارتباطی مختلف انتخاب نمایید.",
+    "securityNote": "امنیت شما بالاترین اولویت ماست. اطلاعات شما کاملاً محرمانه تلقی می‌شود تا حریم خصوصی‌تان همواره محفوظ بماند.",
+    "name": "نام خانوادگی، نام",
+    "roomNumber": "شماره اتاق",
+    "howToBeContacted": "روش تماس ترجیحی من:",
+    "eMail": "ایمیل",
+    "telephone": "تلفن",
+    "telephoneNumber": "شماره تلفن",
+    "personally": "حضوری",
+    "contactPerson": "شخص پاسخگو:",
+    "contactPersonAnyGender": "جنسیت کارشناس پاسخگو اهمیتی ندارد",
+    "contactPersonGenderFemale": "ترجیح می‌دهم یک خانم با من تماس بگیرد",
+    "contactPersonGenderMale": "ترجیح می‌دهم یک آقا با من تماس بگیرد",
+    "contactReason": "موضوع یا درخواست شما:",
+    "maxCharacters": "حداکثر {{numberOfCharacters}} کاراکتر",
+    "responseHint": "دریافت پاسخ ممکن است چند روز کاری طول بکشد. تلاش می‌کنیم درخواست شما را در اسرع وقت بررسی کنیم.",
+    "submit": "ارسال فرم",
+    "submitSuccessful": "فرم با موفقیت ارسال شد",
+    "submitFailed": "ارسال فرم با خطا مواجه شد",
+    "submitFailedReasoning": "لطفاً از اتصال پایدار اینترنت خود مطمئن شوید و دوباره تلاش کنید.",
+    "invalidEmailAddress": "آدرس ایمیل واردشده نامعتبر است."
+  },
+  "news": {
+    "title": "پیام‌ها",
+    "sources": {
+      "all": "همه پیام‌ها",
+      "local": "اخبار محلی",
+      "national": "اخبار سراسری",
+      "allShort": "همه",
+      "localShort": "محلی",
+      "nationalShort": "سراسری"
+    },
+    "error": {
+      "notFound": "این پیام یافت نشد.",
+      "nothingFound": "هیچ پیامی یافت نشد."
+    }
+  },
+  "places": {
+    "title": "نقشه",
+    "accessible": "مناسب‌سازی‌شده برای توان‌یابان",
+    "notAccessible": "نامناسب برای افراد دارای معلولیت",
+    "error": {
+      "notFound": "این مکان پیدا نشد.",
+      "nothingFound": "هیچ مکانی یافت نشد."
+    },
+    "distance": "{{distance}} کیلومتر فاصله",
+    "zoom": {
+      "in": "بزرگ‌نمایی",
+      "out": "کوچک‌نمایی"
+    },
+    "filter": {
+      "adjust": "فیلتر مکان‌ها",
+      "onlyOpen": "فقط نمایش مکان‌های اکنون باز",
+      "categories": "دسته‌بندی‌ها",
+      "alphabet": "الف-ی",
+      "show_zero": "۰ مکان یافت شد",
+      "show_one": "نمایش ۱ مکان",
+      "show_two": "نمایش {{count}} مکان",
+      "show_few": "نمایش {{count}} مکان",
+      "show_many": "نمایش {{count}} مکان",
+      "show_other": "نمایش {{count}} مکان",
+      "placeCount_zero": "۰ مکان",
+      "placeCount_one": "۱ مکان",
+      "placeCount_two": "{{count}} مکان",
+      "placeCount_few": "{{count}} مکان",
+      "placeCount_many": "{{count}} مکان",
+      "placeCount_other": "{{count}} مکان"
+    },
+    "hours": {
+      "title": "ساعت‌های کاری",
+      "allDay": "تمام‌وقت",
+      "open": "باز",
+      "closed": "بسته",
+      "temporarilyClosed": "موقتأ تعطیل",
+      "appointment": {
+        "required": "نیاز به تعیین وقت قبلی",
+        "make": {
+          "title": "رزرو وقت ملاقات",
+          "description": "از طریق <Link>وب‌سایت</Link> یا به‌صورت تلفنی وقت رزرو کنید."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "دوشنبه",
+      "dienstag": "سه‌شنبه",
+      "mittwoch": "چهارشنبه",
+      "donnerstag": "پنج‌شنبه",
+      "freitag": "جمعه",
+      "samstag": "شنبه",
+      "sonntag": "یکشنبه"
+    }
+  },
+  "regions": {
+    "title": "منطقه‌ها",
+    "welcome": {
+      "title": "به {{appName}} خوش آمدید.",
+      "description": "راهنمای دیجیتال شما برای تمام اطلاعاتی که نیاز دارید. لطفاً منطقه خود را انتخاب کنید."
+    },
+    "change": "تغییر منطقه",
+    "notFound": "این منطقه پیدا نشد.",
+    "search": {
+      "region": "جستجوی منطقه",
+      "description": "منطقه خود یا نزدیک‌ترین شهر بزرگ را انتخاب کنید، برای مثال: {{exampleRegion}}"
+    },
+    "nearby": {
+      "nothingFound": "منطقه‌ای در این نزدیکی یافت نشد.",
+      "refresh": "به‌روزرسانی مناطق اطراف"
+    }
+  },
+  "search": {
+    "title": "جستجو",
+    "searchContent": "جستجوی محتوا",
+    "viewResult": "باز کردن نتیجه جستجو",
+    "resultCount_zero": "۰ نتیجه جستجو",
+    "resultCount_one": "۱ نتیجه جستجو",
+    "resultCount_two": "{{count}} نتیجه جستجو",
+    "resultCount_few": "{{count}} نتیجه جستجو",
+    "resultCount_many": "{{count}} نتیجه جستجو",
+    "resultCount_other": "{{count}} نتیجه جستجو"
+  },
+  "settings": {
+    "title": "تنظیمات",
+    "error": {
+      "save": "تنظیمات ذخیره نشد"
+    },
+    "sentry": {
+      "title": "پایداری برنامه",
+      "description": "کمک به بهبود {{appName}} با ارسال خودکار گزارش‌های خرابی"
+    },
+    "pushNotifications": {
+      "title": "اعلان‌ها",
+      "description": "دریافت اعلان‌های لحظه‌ای برای جدیدترین اخبار محلی"
+    },
+    "contrast": {
+      "title": "کنتراست بالا (بتا)",
+      "description": "حالت کنتراست بالا خوانایی متن را بهتر می‌کند"
+    },
+    "externalSources": {
+      "title": "منابع خارجی",
+      "descriptionShort": "مشخص کنید کدام منابع خارجی مجاز باشند.",
+      "description": "می‌توانید با نمایش دائمی محتوا از منابع خارجی موافقت کنید. هر زمان که بخواهید می‌توانید موافقت خود را در اینجا لغو کنید.",
+      "source": "مجاز کردن محتوا از {{source}}",
+      "optIn": "موافقم که محتوای این منبع خارجی به من نشان داده شود.",
+      "allowed": "این بخش شامل محتوایی از این منبع خارجی است. می‌توانید این‌گونه محتواها را در تنظیمات مسدود کنید.",
+      "blocked": "محتوای خارجی از این منبع مسدود شده است. می‌توانید در تنظیمات اجازه دسترسی به این منبع را بدهید.",
+      "nothingFound": "هیچ منبع خارجی در دسترس نیست."
+    }
+  },
+  "share": {
+    "title": "اشتراک‌گذاری",
+    "message": "تازه پیدا شده: {{message}}",
+    "copyLink": "کپی پیوند",
+    "qr": {
+      "label": "کد QR",
+      "title": "اشتراک‌گذاری از طریق کد QR",
+      "description": "به‌راحتی با اسکن کد QR روی دستگاهی دیگر، این صفحه را به اشتراک بگذارید."
+    }
+  },
+  "suggestToRegion": {
+    "title": "پیشنهاد {{appName}} در منطقه خود",
+    "description": "آیا ایده برنامه Integreat توجهت را جلب کرده و فکر می‌کنی شهر، شهرستان یا شهرداری تو هم می‌تواند از این راهکار دیجیتال بهره‌مند شود؟ پس می‌توانی به‌راحتی از اینجا اقدام کنی.",
+    "regionNotFoundCta": "منطقه خود را پیدا نکردید؟ همین حالا دست به کار شوید!",
+    "whatToDo": "اقداماتی که می‌توانید انجام دهید:",
+    "steps": {
+      "getEmail": "یافتن نشانی ایمیل منطقه خود",
+      "copyText": "این متن را کپی کنید",
+      "fillPlaceholders": "جاهای خالی [ ] را با اطلاعات خود پر کنید",
+      "send": "ارسال ایمیل به منطقه خود"
+    }
+  },
+  "tour": {
+    "title": "تور آشنایی با برنامه",
+    "welcome": "این راهنمای کوتاه مهم‌ترین ویژگی‌های برنامه را به شما نشان می‌دهد.",
+    "start": "شروع تور",
+    "progress": "مرحله {{current}} از {{total}}",
+    "regionChange": {
+      "description": "برای دسترسی به اطلاعات محلی، <strong>منطقه</strong> خود را در اینجا انتخاب کنید."
+    },
+    "navigation": {
+      "title": "ناوبری",
+      "description": "در اینجا بین <strong>$t(categories:title)</strong>، <strong>$t(places:title)</strong>، <strong>$t(news:title)</strong> و <strong>$t(events:title)</strong> جابه‌جا شوید."
+    },
+    "categories": {
+      "title": "کاوش موضوعات",
+      "description": "اطلاعات مرتبط با موضوعاتی چون <strong>مسکن</strong>، <strong>آموزش</strong>، <strong>کار</strong> و موارد دیگر را کاوش کنید."
+    },
+    "searchAndLanguage": {
+      "title": "جستجو و زبان",
+      "description": "اطلاعات محلی، رویدادها و مکان‌ها را <strong>جستجو</strong> کنید یا <strong>زبان</strong> را تغییر دهید."
+    },
+    "menu": {
+      "title": "قابلیت‌های بیشتر",
+      "description": "از قابلیت‌های دیگری مانند <strong>$t(categories:pdf.create)</strong>، <strong>$t(tts:title)</strong>، <strong>$t(share:title)</strong> و <strong>{{additionalFeature}}</strong> در اینجا استفاده کنید."
+    },
+    "chat": {
+      "description": "پرسش‌های خود را اینجا مطرح کنید و به‌سرعت پاسخ‌های مناسب بگیرید."
+    },
+    "finish": {
+      "title": "پایان!",
+      "description": "اکنون با مهم‌ترین قابلیت‌ها آشنا شدید. با {{appName}} تجربه موفقی داشته باشید!"
+    }
+  },
+  "tts": {
+    "title": "بلند بخوان",
+    "pause": "توقف موقت",
+    "play": "پخش",
+    "error": {
+      "languageNotSupported": "این زبان پشتیبانی نمی‌شود.",
+      "nothingToRead": {
+        "title": "چیزی برای خواندن نیست",
+        "description": "متنی برای خواندن در این صفحه وجود ندارد."
+      },
+      "noVoices": {
+        "title": "هیچ صدایی نصب نشده است",
+        "description": "هیچ صدایی پیدا نشد. برای استفاده از قابلیت متن‌خوان، باید یک صدا نصب شده باشد. لطفاً دستورالعمل‌های زیر را برای سیستم‌عامل خود دنبال کنید."
+      }
+    }
+  },
+  "userLocation": {
+    "nearby": "در نزدیکی شما",
+    "show": "نمایش موقعیت مکانی من",
+    "loading": "در حال تعیین موقعیت مکانی…",
+    "locationAccessRequired": "برای نمایش مناطق اطراف، دسترسی به موقعیت مکانی باید فعال باشد.",
+    "noPermission": "دسترسی به موقعیت مکانی لازم است",
+    "notAvailable": "خدمات موقعیت مکانی غیرفعال است",
+    "timeout": "موقعیت مکانی پیدا نشد"
+  }
+}

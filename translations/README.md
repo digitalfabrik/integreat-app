@@ -51,10 +51,13 @@ If there are enough untranslated strings, they can be submitted to professionals
   - `yarn export:malte`
   - `yarn export:aschaffenburg`
   - `yarn export:obdach`
-- Now you can edit the ODS files (e.g. send them to an external translation service). Exporting plain CSVs is currently not supported.
+- Now you can edit the CSV files (e.g. send them to an external translation service).
+- Use `yarn csv-to-ods <source> <target>` and `yarn ods-to-csv <source> <target>` to convert the files to ODS.
 
-Note: If the translators only work with English source translations, simply change `source_language` in [config.ts](src/config.ts) to `en`.
-Make sure to revert this after exporting.
+Note: The exported files also contain a reference language column (`en`) next to the source language column (`de`) as
+additional context for the translators. Only the column of the language a CSV is named after may be modified,
+the other columns have to stay untouched in every CSV. If the translators only work with English source translations,
+simply change `sourceLanguage` in [config.ts](src/config.ts) to `en`. Make sure to revert this after exporting.
 
 ### Receiving finished translations
 
@@ -95,7 +98,9 @@ Example: `yarn manage import translations-csv ./src/translations`
 
 Notes:
 
-- Every CSV must carry the same `source_language` column; a mismatch aborts the import
+- The source (`de`) and reference (`en`) language columns must be identical in every CSV; a mismatch aborts the import
+  and reports the differing CSV together with the first differing keys and values
+- Only the column of the language a CSV is named after is imported; the reference language column is a translation aid only
 - Namespaces inside each per-language JSON are sorted
 - Languages present in the CSVs but missing from [config.ts](src/config.ts) abort the import
 - Languages present in [config.ts](src/config.ts) but missing from the CSVs are logged as warnings
@@ -124,7 +129,9 @@ Example: `./tools/ods-to-csv translations-ods translation-csv`
 ### CSV
 
 - Comma Separated Values
-- Each CSV contains exactly one language
+- Each CSV contains exactly one target language
+- Columns: `key`, the source language we translate from (e.g. `de`), the reference language as additional context
+  (e.g. `en`) and the target language the CSV is named after (e.g. `es`)
 - Structured via dot-delimited keys. Keys for translations are created using module names and nested keys.
 - UTF-8 encoded
 

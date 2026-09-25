@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} est votre assistant numérique proposé par l'Ordre de Malte. Vous y trouverez des informations locales, des événements et des conseils de votre établissement. Toujours à jour et dans votre langue !"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Cet événement est introuvable.",
+      "nothingFound": "Aucun événement trouvé."
+    },
+    "export": {
+      "allRecurrences": "Cet événement et tous les suivants",
+      "thisRecurrence": "Uniquement cet événement"
+    },
+    "title": "Événements"
+  }
+}

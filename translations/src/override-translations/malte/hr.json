@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} vaš je digitalni asistent Malteške službe. Ovdje ćete pronaći lokalne informacije, događaje i savjete svoje ustanove. Uvijek ažurno i na vašem jeziku!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Ovaj događaj nije pronađen.",
+      "nothingFound": "Nema pronađenih događaja."
+    },
+    "export": {
+      "allRecurrences": "Ovaj i svi budući događaji",
+      "thisRecurrence": "Samo ovaj događaj"
+    },
+    "title": "Događaji"
+  }
+}

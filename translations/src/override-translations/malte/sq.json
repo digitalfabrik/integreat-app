@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} është asistenti juaj digjital nga Urdhri i Maltës. Këtu do të gjeni informacione lokale, aktivitete dhe këshilla nga institucioni juaj. Gjithmonë të përditësuara dhe në gjuhën tuaj!"
+    }
+  },
+  "events": {
+    "error": {
+      "notFound": "Ky aktivitet nuk u gjet.",
+      "nothingFound": "Nuk u gjet asnjë aktivitet."
+    },
+    "export": {
+      "allRecurrences": "Ky dhe të gjitha aktivitetet e ardhshme",
+      "thisRecurrence": "Vetëm ky aktivitet"
+    },
+    "title": "Aktivitetet"
+  }
+}
