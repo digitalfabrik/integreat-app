@@ -41,10 +41,10 @@
       "description": "هل تريد حقًا بدء محادثة جديدة؟ سيتم حذف سجل المحادثة الحالية."
     },
     "unread_one": "رسالة دردشة واحدة غير مقروءة",
-    "unread_two": "{{count}} رسائل دردشة غير مقروءة",
+    "unread_two": "{{count}} رسالة دردشة غير مقروءة",
     "unread_few": "{{count}} رسائل دردشة غير مقروءة",
-    "unread_many": "{{count}} رسائل دردشة غير مقروءة",
-    "unread_other": "{{count}} رسائل دردشة غير مقروءة"
+    "unread_many": "{{count}} رسالة دردشة غير مقروءة",
+    "unread_other": "{{count}} رسالة دردشة غير مقروءة"
   },
   "common": {
     "actions": {
@@ -114,7 +114,7 @@
     "networkRequestFailed": "تعذر معالجة الطلب.",
     "responseMappingFailed": "تعذرت معالجة استجابة الخادم.",
     "rateLimited": "لقد أرسلتَ الكثير من الطلبات. يُرجى الانتظار قليلاً.",
-    "pageNotFound": "الصفحة غير موجودة.",
+    "pageNotFound": "تعذر العثور على هذه الصفحة.",
     "nothingFound": "لم يتم العثور على نتائج.",
     "permissionRequired": "مطلوب إذن",
     "unknownError": "حدث خطأ غير معروف.",
@@ -129,7 +129,7 @@
     },
     "recurrence": {
       "recurring": "متكرر",
-      "furtherDates": "مواعيد أخرى",
+      "furtherDates": "المواعيد اللاحقة",
       "untilDate": "حتى {{date}}"
     },
     "dateGroups": {
@@ -151,14 +151,14 @@
       }
     },
     "filter": {
-      "selectStart": "تحديد تاريخ البدء من التقويم",
-      "selectEnd": "تحديد تاريخ الانتهاء في التقويم",
+      "selectStart": "تحديد تاريخ البداية في التقويم",
+      "selectEnd": "تحديد تاريخ النهاية في التقويم",
       "from": "من",
       "to": "إلى",
       "reset": "إعادة ضبط التصفية: {{filter}}",
       "error": {
         "invalidDate": "تاريخ غير صالح",
-        "endBeforeStart": "يجب أن يكون تاريخ البدء قبل تاريخ الانتهاء."
+        "endBeforeStart": "يجب أن يكون تاريخ البداية قبل تاريخ النهاية."
       }
     }
   },
@@ -193,7 +193,7 @@
   "intro": {
     "welcome": {
       "title": "مرحباً بك في {{appName}}",
-      "description": "ستجد في تطبيق {{appName}} إجابات ونصائح بلغتك الأم، مثل: أين أجد المساعدة؟ متى يحق لي العمل؟"
+      "description": "ستجد في تطبيق {{appName}} إجابات ونصائح بلغتك الأم، مثل: أين أجد المساعدة؟ متى يُسمح لي بالعمل؟"
     },
     "slides": {
       "search": {
@@ -271,8 +271,8 @@
       "nationalShort": "وطني"
     },
     "error": {
-      "notFound": "لم يتم العثور على هذه الرسالة.",
-      "nothingFound": "لم يتم العثور على أي رسائل."
+      "notFound": "لم يتم العثور على هذا الخبر.",
+      "nothingFound": "لم يتم العثور على أي أخبار."
     }
   },
   "places": {
@@ -293,17 +293,17 @@
       "onlyOpen": "إظهار الأماكن المفتوحة حالياً فقط",
       "categories": "الفئات",
       "alphabet": "أ - ي",
-      "show_zero": "تم العثور على 0 مكان",
+      "show_zero": "عرض 0 مكان",
       "show_one": "عرض مكان واحد",
-      "show_two": "عرض {{count}} مكان",
-      "show_few": "عرض {{count}} مكان",
-      "show_many": "عرض {{count}} أماكن",
+      "show_two": "عرض {{count}} من الأماكن",
+      "show_few": "عرض {{count}} أماكن",
+      "show_many": "عرض {{count}} مكاناً",
       "show_other": "عرض {{count}} مكان",
       "placeCount_zero": "0 مكان",
       "placeCount_one": "مكان واحد",
-      "placeCount_two": "{{count}} مكان",
-      "placeCount_few": "{{count}} مكان",
-      "placeCount_many": "{{count}} أماكن",
+      "placeCount_two": "{{count}} من الأماكن",
+      "placeCount_few": "{{count}} أماكن",
+      "placeCount_many": "{{count}} مكاناً",
       "placeCount_other": "{{count}} مكان"
     },
     "hours": {
@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "التنقل",
-      "description": "بدّل هنا بين <strong>$t(categories:title)</strong> و<strong>$t(places:title)</strong> و<strong>$t(news:title)</strong> و<strong>$t(events:title)</strong>."
+      "description": "تنقّل هنا بين <strong>$t(categories:title)</strong> و<strong>$t(places:title)</strong> و<strong>$t(news:title)</strong> و<strong>$t(events:title)</strong>."
     },
     "categories": {
       "title": "استكشاف الموضوعات",
@@ -433,10 +433,10 @@
       "description": "استخدم ميزات إضافية هنا مثل <strong>$t(categories:pdf.create)</strong> و<strong>$t(tts:title)</strong> و<strong>$t(share:title)</strong> و<strong>{{additionalFeature}}</strong>."
     },
     "chat": {
-      "description": "اطرح أسئلتك هنا واحصل على إجابات مناسبة بسرعة."
+      "description": "اطرح أسئلتك هنا واحصل بسرعة على الإجابات التي تحتاجها."
     },
     "finish": {
-      "title": "تم!",
+      "title": "انتهت الجولة!",
       "description": "أنت الآن تعرف أهم الميزات. نتمنى لك تجربة ممتعة وموفقة مع {{appName}}!"
     }
   },
