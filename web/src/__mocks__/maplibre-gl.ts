@@ -4,6 +4,7 @@ class GeolocateControl {
 
 const getRTLTextPluginStatus = (): string => 'unavailable'
 const setRTLTextPlugin = (): Promise<void> => Promise.resolve()
+const setWorkerUrl = (): void => undefined
 
-export { GeolocateControl, getRTLTextPluginStatus, setRTLTextPlugin }
-export default { GeolocateControl, getRTLTextPluginStatus, setRTLTextPlugin }
+export { GeolocateControl, getRTLTextPluginStatus, setRTLTextPlugin, setWorkerUrl }
+export default { GeolocateControl, getRTLTextPluginStatus, setRTLTextPlugin, setWorkerUrl }
