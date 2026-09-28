@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
-import { Keyboard, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 
 import { LANGUAGES_ROUTE, LanguagesRouteType } from 'shared'
 import { LanguageModelBuilder } from 'shared/api'
@@ -78,13 +78,9 @@ describe('LanguageSelection', () => {
     expect(scrollView.props.keyboardShouldPersistTaps).toBe('handled')
   })
 
-  it('should dismiss the keyboard when selecting a language', () => {
-    const dismiss = jest.spyOn(Keyboard, 'dismiss')
-    const { getByText } = renderLanguageSelection()
+  it('should not focus the search input automatically', () => {
+    const { getByRole } = renderLanguageSelection()
 
-    fireEvent.press(getByText(availableLanguage.name))
-
-    expect(dismiss).toHaveBeenCalledTimes(1)
-    expect(changeLanguageCode).toHaveBeenCalledWith(availableLanguage.code)
+    expect(getByRole('searchbox').props.autoFocus).toBe(false)
   })
 })
