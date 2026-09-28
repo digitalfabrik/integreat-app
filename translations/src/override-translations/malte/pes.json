@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "رویدادها",
     "error": {
       "notFound": "این رویداد پیدا نشد.",
       "nothingFound": "هیچ رویدادی یافت نشد."
     },
     "export": {
-      "allRecurrences": "این رویداد و تمام رویدادهای آینده",
-      "thisRecurrence": "فقط این رویداد"
-    },
-    "title": "رویدادها"
+      "thisRecurrence": "فقط این رویداد",
+      "allRecurrences": "این رویداد و تمام رویدادهای آینده"
+    }
   }
 }

@@ -1,0 +1,468 @@
+{
+  "about": {
+    "legal": "Dlíthiúil",
+    "imprint": "Imprint",
+    "accessibility": "Inrochtaineacht",
+    "aboutUs": "Fúinn",
+    "licenses": {
+      "title": "Ceadúnais foinse oscailte",
+      "version": "Leagan: {{version}}",
+      "license": "Ceadúnas: {{license}}"
+    }
+  },
+  "categories": {
+    "title": "Eolas áitiúil",
+    "titleShort": "Eolas",
+    "organization": {
+      "title": "Is ó {{organization}} inneachar an leathanaigh seo.",
+      "description": "Is féidir teacht ar thuilleadh eolais faoi {{organization}} ar <Link>{{domain}}</Link>."
+    },
+    "pdf": {
+      "create": "Cruthaigh PDF",
+      "disabled": "Ní féidir PDF a chruthú sa teanga seo faoi láthair."
+    }
+  },
+  "chat": {
+    "subtitle": "Do chúntóir cuardaigh digiteach",
+    "bot": "Comhrá-bhót",
+    "consultant": "Comhairleoir",
+    "typing": "Ag clóscríobh…",
+    "inputPlaceholder": "Iontráil do cheist, le do thoil…",
+    "initial": {
+      "title": "Cuir do cheist isteach sa réimse téacs, le do thoil.",
+      "description": "Is féidir leat ceist a chur faoi eolas áitiúil nó faoi do chás pearsanta."
+    },
+    "welcome": {
+      "title": "Dia duit!",
+      "description": "Is mise <strong>{{name}}</strong>, do chúntóir cuardaigh digiteach. Ná bíodh drogall ort do cheist a chur orm."
+    },
+    "startNew": {
+      "title": "Tosaigh comhrá nua",
+      "description": "An bhfuil tú cinnte gur mian leat comhrá nua a thosú? Caillfear an stair chomhrá reatha."
+    },
+    "unread_one": "1 teachtaireacht chomhrá neamhléite",
+    "unread_two": "{{count}} theachtaireacht chomhrá neamhléite",
+    "unread_few": "{{count}} theachtaireacht chomhrá neamhléite",
+    "unread_many": "{{count}} dteachtaireacht chomhrá neamhléite",
+    "unread_other": "{{count}} teachtaireacht chomhrá neamhléite"
+  },
+  "common": {
+    "actions": {
+      "back": "Téigh ar ais",
+      "cancel": "Cealaigh",
+      "clearInput": "Glan an t-ionchur",
+      "close": "Dún",
+      "copy": "Cóipeáil",
+      "minimize": "Íoslaghdaigh",
+      "next": "Ar aghaidh",
+      "ok": "Ceart go leor",
+      "open": "Oscail",
+      "previous": "Siar",
+      "send": "Seol",
+      "skip": "Léim thart",
+      "view": "Amharc",
+      "openExternal": "Oscail go seachtrach",
+      "goToPage": "Téigh go leathanach {{number}}",
+      "showMore": "Taispeáin níos mó",
+      "showLess": "Taispeáin níos lú",
+      "showFilters": "Taispeáin scagairí",
+      "hideFilters": "Folaigh scagairí"
+    },
+    "a11y": {
+      "skipToContent": "Léim chuig an ábhar"
+    },
+    "state": {
+      "copied": "Cóipeáilte",
+      "updatedAt": "Nuashonrú is déanaí: {{date}}",
+      "loading": "Á lódáil…",
+      "optional": "roghnach",
+      "enabled": "cumasaithe",
+      "disabled": "díchumasaithe"
+    },
+    "labels": {
+      "description": "Cur síos",
+      "menu": "Roghchlár",
+      "getOnPlayStore": "FAIGH — Ar Google Play Store"
+    },
+    "meta": {
+      "description": "Is é {{appName}} do threoir dhigiteach ar an saol sa Ghearmáin. Faigh eolas áitiúil, imeachtaí agus comhairle. I gcónaí cothrom le dáta agus ar fáil i do theanga féin."
+    },
+    "privacy": {
+      "title": "Polasaí príobháideachais",
+      "confirmation": "Léigh mé an <Link>polasaí príobháideachais</Link> agus aontaím le próiseáil agus stóráil mo chuid sonraí.",
+      "required": "Glac leis an bpolasaí príobháideachais, le do thoil."
+    },
+    "contacts": {
+      "title": "Teagmhálacha",
+      "address": {
+        "title": "Seoladh",
+        "copy": "Cóipeáil an seoladh"
+      },
+      "phone": {
+        "title": "Uimhir theileafóin",
+        "mobile": "Uimhir ghutháin phóca"
+      },
+      "email": "Ríomhphost",
+      "website": "Suíomh gréasáin"
+    }
+  },
+  "error": {
+    "title": "Earráid",
+    "noSuitableAppInstalled": "Níl aon aip oiriúnach suiteáilte.",
+    "forbidden": "Níl rochtain agat ar an réigiún seo.",
+    "networkConnectionFailed": "Theip ar an nasc leis an bhfreastalaí.",
+    "networkRequestFailed": "Níorbh fhéidir an t-iarratas a phróiseáil.",
+    "responseMappingFailed": "Tharla earráid agus freagra an fhreastalaí á phróiseáil.",
+    "rateLimited": "Sheol tú an iomarca iarratas. Déan moill, le do thoil.",
+    "pageNotFound": "Níor aimsíodh an leathanach seo",
+    "nothingFound": "Níor aimsíodh aon toradh.",
+    "permissionRequired": "Cead ag teastáil",
+    "unknownError": "Tharla earráid anaithnid.",
+    "tryAgain": "Bain triail eile as"
+  },
+  "events": {
+    "title": "Imeachtaí",
+    "onlineMeeting": "Cruinniú ar líne",
+    "error": {
+      "notFound": "Níor aimsíodh an t-imeacht seo.",
+      "nothingFound": "Níor aimsíodh aon imeachtaí."
+    },
+    "recurrence": {
+      "recurring": "athfhillteach",
+      "furtherDates": "Dátaí eile",
+      "untilDate": "go dtí {{date}}"
+    },
+    "dateGroups": {
+      "today": "Inniu",
+      "tomorrow": "Amárach",
+      "nextDays": "An chéad {{days}} lá eile",
+      "further": "Tuilleadh"
+    },
+    "export": {
+      "download": "Easpórtáil",
+      "addToCalendar": "Cuir leis an bhféilire",
+      "added": "Curtha leis an bhféilire",
+      "calendar": "Féilire",
+      "thisRecurrence": "An t-imeacht seo amháin",
+      "allRecurrences": "An ceann seo agus gach imeacht amach anseo",
+      "error": {
+        "forbidden": "Níl cead rochtana ar an bhféilire.",
+        "nothingFound": "Níl aon fhéilire oiriúnach ann"
+      }
+    },
+    "filter": {
+      "selectStart": "Roghnaigh an dáta tosaigh san fhéilire",
+      "selectEnd": "Roghnaigh an dáta deiridh san fhéilire",
+      "from": "ó",
+      "to": "go",
+      "reset": "Athshocraigh an scagaire: {{filter}}",
+      "error": {
+        "invalidDate": "Dáta neamhbhailí",
+        "endBeforeStart": "Ba cheart go mbeadh an dáta tosaigh roimh an dáta deiridh."
+      }
+    }
+  },
+  "feedback": {
+    "title": "Aiseolas",
+    "give": "Tabhair aiseolas",
+    "description": "Roghnaigh rátáil agus/nó scríobh trácht.",
+    "comment": {
+      "title": "Nóta tráchta",
+      "description": "Roinn do chuid aiseolais linn! Cuirimid fáilte roimh aiseolas dearfach agus diúltach araon, mar go gcabhraíonn sé linn {{appName}} a fheabhsú."
+    },
+    "contactEmail": "Ríomhphost le haghaidh tuilleadh ceisteanna",
+    "required": "Roghnaigh imoibriú nó scríobh trácht chun aiseolas a sheoladh.",
+    "rating": {
+      "useful": "Úsáideach",
+      "notUseful": "Gan úsáid"
+    },
+    "thanks": {
+      "title": "Go raibh míle maith agat as do chuid aiseolais.",
+      "description": "Seoladh d'aiseolas go rathúil."
+    },
+    "search": {
+      "informationNotFound": "Nach bhfuair tú an rud a bhí á lorg agat?",
+      "wantedInformation": "Cén fhaisnéis atá ar iarraidh?",
+      "informationMissing": "An bhfuil faisnéis ar iarraidh?",
+      "searchTermDescription": "Níor aimsíodh aon toradh don téarma seo a leanas:",
+      "checkQuery": "Seiceáil do théarma cuardaigh nó roghnaigh teanga eile.",
+      "noResultsInUserLanguage": "Tá brón orainn, níorbh fhéidir teacht ar aon torthaí comhoiriúnacha i do theanga.",
+      "noResultsInUserAndSourceLanguage": "Tá brón orainn, níorbh fhéidir teacht ar aon torthaí comhoiriúnacha i do theanga ná sa Ghearmáinis."
+    }
+  },
+  "intro": {
+    "welcome": {
+      "title": "Fáilte go {{appName}}",
+      "description": "Gheobhaidh tú freagraí agus comhairle i do theanga dhúchais in {{appName}}. Mar shampla: Cá bhfaighidh mé cabhair? Cathain a cheadaítear dom oibriú?"
+    },
+    "slides": {
+      "search": {
+        "title": "Cuardach Simplí",
+        "description": "Is féidir leat an t-eolas cuí a fháil go tapa tríd an gcuardach ar bharr an roghchláir ar dheis."
+      },
+      "languageChange": {
+        "description": "Is féidir teanga {{appName}} a athrú sa roghchlár barr."
+      },
+      "places": {
+        "title": "Tairiscintí Gar Duit",
+        "description": "Gheobhaidh tú áiteanna gar duit ar an léarscáil, mar shampla ionaid le haghaidh cúrsaí teanga."
+      },
+      "offline": {
+        "title": "Oibríonn sé As Líne Freisin",
+        "description": "Gan rochtain leanúnach ar an idirlíon? Ná bíodh imní ort. Is féidir {{appName}} a úsáid fiú gan idirlíon."
+      },
+      "news": {
+        "title": "Nuacht Reatha",
+        "description": "Céard atá nua i do cheantar? Faigh amach in {{appName}} é."
+      }
+    }
+  },
+  "ios": {
+    "NSPhotoLibraryAddUsageDescription": "Ba mhaith le {{appName}} grianghraif a shábháil i do leabharlann.",
+    "NSLocationWhenInUseUsageDescription": "Ba mhaith le {{appName}} do shuíomh a úsáid chun réigiúin in aice leat a aimsiú.",
+    "NSLocationAlwaysAndWhenInUseUsageDescription": "Ba mhaith le {{appName}} do shuíomh a úsáid chun réigiúin in aice leat a aimsiú.",
+    "NSCalendarsUsageDescription": "Ba mhaith le {{appName}} rochtain a fháil ar an bhféilire chun imeachtaí a chur leis.",
+    "NSCalendarsFullAccessUsageDescription": "Ba mhaith le {{appName}} rochtain a fháil ar an bhféilire chun imeachtaí a chur leis."
+  },
+  "languages": {
+    "change": "Athraigh teanga",
+    "changed": "Athraíodh an teanga go {{languageName}}",
+    "search": "Cuardaigh teanga",
+    "error": {
+      "noTranslation": "Níl aon aistriúchán ar fáil",
+      "notFound": {
+        "title": "Níor aimsíodh an teanga",
+        "question": "Níor aimsíodh an teanga?",
+        "description": "Níl an leathanach seo ar fáil i ngach teanga go fóill. Táimid ag cur leis na roghanna teanga de réir a chéile. Is féidir leat do theanga a iarraidh tríd an bhfeidhm <Link>aiseolais</Link>."
+      }
+    }
+  },
+  "malteHelpForm": {
+    "supportNote": "Is mian linn go mbraithfeá sábháilte agus tacaithe má bhíonn aon deacracht nó ceist agat. Tugann an fhoirm theagmhála thíos deis duit teagmháil a dhéanamh le duine teagmhála. Is féidir leat cineál d'iarratais a shonrú agus rogha a dhéanamh as bealaí éagsúla teagmhála.",
+    "securityNote": "Tá do shlándáil thar a bheith tábhachtach dúinn. Déileáiltear le do chuid sonraí go rúnda ionas go gcosnaítear do phríobháideachas i gcónaí.",
+    "name": "Sloinne, céadainm",
+    "roomNumber": "Uimhir an tseomra",
+    "howToBeContacted": "Seo mar ba mhaith liom go ndéanfaí teagmháil liom:",
+    "eMail": "trí ríomhphost",
+    "telephone": "ar an bhfón",
+    "telephoneNumber": "Uimhir theileafóin",
+    "personally": "Go pearsanta",
+    "contactPerson": "Duine teagmhála:",
+    "contactPersonAnyGender": "Is cuma cén t-inscne atá ag an duine teagmhála",
+    "contactPersonGenderFemale": "Ba mhaith liom go ndéanfadh bean teagmháil liom",
+    "contactPersonGenderMale": "Ba mhaith liom go ndéanfadh fear teagmháil liom",
+    "contactReason": "D'iarratas:",
+    "maxCharacters": "uasmhéid {{numberOfCharacters}} carachtar",
+    "responseHint": "D'fhéadfadh cúpla lá oibre a bheith i gceist sula bhfaighidh tú freagra. Déanfaimid ár ndícheall d'iarratas a phróiseáil chomh tapa agus is féidir.",
+    "submit": "Cuir an fhoirm isteach",
+    "submitSuccessful": "Foirm seolta go rathúil",
+    "submitFailed": "Níorbh fhéidir an fhoirm a sheoladh",
+    "submitFailedReasoning": "Cinntigh go bhfuil ceangal idirlín cobhsaí agat agus bain triail eile as.",
+    "invalidEmailAddress": "Tá an seoladh ríomhphoist a chuir tú isteach neamhbhailí."
+  },
+  "news": {
+    "title": "Nuacht",
+    "sources": {
+      "all": "Gach nuacht",
+      "local": "Nuacht áitiúil",
+      "national": "Nuacht náisiúnta",
+      "allShort": "Gach ceann",
+      "localShort": "Áitiúil",
+      "nationalShort": "Náisiúnta"
+    },
+    "error": {
+      "notFound": "Níorbh fhéidir an scéal nuachta seo a aimsiú.",
+      "nothingFound": "Níor aimsíodh aon nuacht."
+    }
+  },
+  "places": {
+    "title": "Léarscáil",
+    "accessible": "Inrochtana",
+    "notAccessible": "Níl fáil air",
+    "error": {
+      "notFound": "Níor aimsíodh an áit seo.",
+      "nothingFound": "Níor aimsíodh aon áit."
+    },
+    "distance": "{{distance}} km ar shiúl",
+    "zoom": {
+      "in": "Súmáil isteach",
+      "out": "Súmáil amach"
+    },
+    "filter": {
+      "adjust": "Scag áiteanna",
+      "onlyOpen": "Ná taispeáin ach áiteanna atá oscailte faoi láthair",
+      "categories": "Catagóirí",
+      "alphabet": "A-Z",
+      "show_zero": "Taispeáin 0 áit",
+      "show_one": "Taispeáin 1 áit",
+      "show_two": "Taispeáin {{count}} áit",
+      "show_few": "Taispeáin {{count}} áit",
+      "show_many": "Taispeáin {{count}} áit",
+      "show_other": "Taispeáin {{count}} n-áit",
+      "placeCount_zero": "0 áit",
+      "placeCount_one": "1 áit",
+      "placeCount_two": "{{count}} áit",
+      "placeCount_few": "{{count}} n-áit",
+      "placeCount_many": "{{count}} áit",
+      "placeCount_other": "{{count}} n-áit"
+    },
+    "hours": {
+      "title": "Uaireanta oscailte",
+      "allDay": "ar feadh an lae",
+      "open": "oscailte",
+      "closed": "dúnta",
+      "temporarilyClosed": "dúnta go sealadach",
+      "appointment": {
+        "required": "Coinne ag teastáil",
+        "make": {
+          "title": "Déan coinne",
+          "description": "Déan coinne tríd <Link>an suíomh gréasáin</Link> nó ar an bhfón."
+        }
+      }
+    },
+    "weekdays": {
+      "montag": "Dé Luain",
+      "dienstag": "Dé Máirt",
+      "mittwoch": "Dé Céadaoin",
+      "donnerstag": "Déardaoin",
+      "freitag": "Dé hAoine",
+      "samstag": "Dé Sathairn",
+      "sonntag": "Dé Domhnaigh"
+    }
+  },
+  "regions": {
+    "title": "Réigiúin",
+    "welcome": {
+      "title": "Fáilte go {{appName}}.",
+      "description": "Do threoir dhigiteach don eolas ar fad a theastaíonn uait. Roghnaigh do réigiún, le do thoil."
+    },
+    "change": "Athraigh do réigiún",
+    "notFound": "Níor aimsíodh an réigiún seo.",
+    "search": {
+      "region": "Cuardaigh réigiún",
+      "description": "Roghnaigh do réigiún féin nó an chéad réigiún eile is mó, m.sh. {{exampleRegion}}"
+    },
+    "nearby": {
+      "nothingFound": "Níl aon réigiún in aice láimhe.",
+      "refresh": "Aisghabh réigiúin in aice láimhe"
+    }
+  },
+  "search": {
+    "title": "Cuardaigh",
+    "searchContent": "Cuardaigh ábhar",
+    "viewResult": "Féach ar thoradh an chuardaigh",
+    "resultCount_zero": "0 toradh cuardaigh",
+    "resultCount_one": "1 toradh cuardaigh",
+    "resultCount_two": "{{count}} thoradh cuardaigh",
+    "resultCount_few": "{{count}} thorthaí cuardaigh",
+    "resultCount_many": "{{count}} dtoradh cuardaigh",
+    "resultCount_other": "{{count}} toradh cuardaigh"
+  },
+  "settings": {
+    "title": "Socruithe",
+    "error": {
+      "save": "Theip ar shábháil na socruithe"
+    },
+    "sentry": {
+      "title": "Cobhsaíocht an aip",
+      "description": "Cuidigh le feabhas a chur ar {{appName}} trí thuairiscí ar theipeanna a sheoladh go huathoibríoch"
+    },
+    "pushNotifications": {
+      "title": "Fógraí brú",
+      "description": "Faigh fógraí brú maidir leis na nuachtáin áitiúla is déanaí"
+    },
+    "contrast": {
+      "title": "Ardchodarsnacht (béite)",
+      "description": "Feabhsaíonn an mód codarsnachta inléiteacht an téacs"
+    },
+    "externalSources": {
+      "title": "Foinsí seachtracha",
+      "descriptionShort": "Sonraigh cé na foinsí seachtracha a cheadaítear.",
+      "description": "Féadfaidh tú toiliú buan a thabhairt maidir le hábhar leabaithe ó thríú páirtithe a thaispeáint. Féadfaidh tú do thoiliú a tharraingt siar anseo tráth ar bith.",
+      "source": "Ceadaigh ábhar ó {{source}}",
+      "optIn": "Aontaím go dtaispeánfar ábhar ón bhfoinse sheachtrach seo dom.",
+      "allowed": "Tá ábhar ón bhfoinse sheachtrach seo sa mhír seo. Féadfaidh tú ábhar dá leithéid a bhlocáil sna socruithe.",
+      "blocked": "Cuireadh bac ar ábhar seachtrach ón bhfoinse seo. Is féidir leat an fhoinse seo a cheadú sna socruithe.",
+      "nothingFound": "Níl aon fhoinse sheachtrach ar fáil."
+    }
+  },
+  "share": {
+    "title": "Comhroinn",
+    "message": "Aimsithe díreach anois: {{message}}",
+    "copyLink": "Cóipeáil an nasc",
+    "qr": {
+      "label": "Cód QR",
+      "title": "Comhroinn trí chód QR",
+      "description": "Comhroinn an leathanach seo go héasca trí an cód QR a scanadh ar ghléas eile."
+    }
+  },
+  "suggestToRegion": {
+    "title": "Mol {{appName}} do do réigiún féin",
+    "description": "An bhfuil tú sásta le coincheap Integreat-App agus an gceapann tú go rachadh an réiteach digiteach seo chun tairbhe do do bhaile, do do cheantar nó do do phobal féin? Más ea, is féidir leat beart a dhéanamh anseo anois.",
+    "regionNotFoundCta": "Níor aimsíodh do réigiún? Téigh i mbun gnímh anois!",
+    "whatToDo": "Seo an méid is féidir leat a dhéanamh:",
+    "steps": {
+      "getEmail": "Faigh seoladh ríomhphoist do réigiúin",
+      "copyText": "Cóipeáil an téacs seo",
+      "fillPlaceholders": "Líon isteach na sealbhóirí áite [ ] le do chuid sonraí",
+      "send": "Seol an ríomhphost chuig do réigiún"
+    }
+  },
+  "tour": {
+    "title": "Turas an aip",
+    "welcome": "Taispeánann an turas gairid seo príomhghnéithe na haipe duit.",
+    "start": "Tosaigh an turas",
+    "progress": "Céim {{current}} as {{total}}",
+    "regionChange": {
+      "description": "Roghnaigh do <strong>réigiún</strong> anseo chun eolas áitiúil a aimsiú."
+    },
+    "navigation": {
+      "title": "Nascleanúint",
+      "description": "Aistrigh idir <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> agus <strong>$t(events:title)</strong> anseo."
+    },
+    "categories": {
+      "title": "Déan iniúchadh ar ábhair",
+      "description": "Faigh eolas faoi ábhair cosúil le <strong>Tithíocht</strong>, <strong>Oideachas</strong>, <strong>Obair</strong> agus eile."
+    },
+    "searchAndLanguage": {
+      "title": "Cuardach agus teanga",
+      "description": "<strong>Déan cuardach</strong> ar eolas áitiúil, imeachtaí agus áiteanna nó athraigh an <strong>teanga</strong>."
+    },
+    "menu": {
+      "title": "Gnéithe breise",
+      "description": "Bain úsáid as gnéithe breise anseo, ar nós <strong>$t(categories:pdf.create)</strong>, <strong>$t(tts:title)</strong>, <strong>$t(share:title)</strong> agus <strong>{{additionalFeature}}</strong>."
+    },
+    "chat": {
+      "description": "Cuir do chuid ceisteanna anseo agus faigh freagraí oiriúnacha go tapa."
+    },
+    "finish": {
+      "title": "Déanta!",
+      "description": "Tá eolas agat anois ar na príomhghnéithe. Go n-éirí leat le {{appName}}!"
+    }
+  },
+  "tts": {
+    "title": "Léigh os ard",
+    "pause": "Cuir ar sos",
+    "play": "Seinn",
+    "error": {
+      "languageNotSupported": "Ní thacaítear leis an teanga.",
+      "nothingToRead": {
+        "title": "Níl aon rud le léamh",
+        "description": "Níl aon rud le léamh ar an leathanach seo."
+      },
+      "noVoices": {
+        "title": "Níl aon ghuth suiteáilte",
+        "description": "Ní bhfuarthas aon ghuth. Chun an fheidhm léite os ard a úsáid, ní mór guth a shuiteáil. Féach na treoracha thíos do do chóras oibriúcháin."
+      }
+    }
+  },
+  "userLocation": {
+    "nearby": "In aice leat",
+    "show": "Taispeáin do shuíomh féin",
+    "loading": "Suíomh á aimsiú…",
+    "locationAccessRequired": "Chun réigiúin in aice láimhe a thaispeáint, ní mór rochtain ar shuíomh a chumasú.",
+    "noPermission": "Rochtain ar shuíomh ag teastáil",
+    "notAvailable": "Tá seirbhísí suímh díchumasaithe",
+    "timeout": "Ní bhfuarthas an suíomh"
+  }
+}

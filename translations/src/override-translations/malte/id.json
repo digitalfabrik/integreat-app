@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Acara",
     "error": {
       "notFound": "Acara ini tidak ditemukan.",
       "nothingFound": "Tidak ada acara yang ditemukan."
     },
     "export": {
-      "allRecurrences": "Acara ini dan semua acara mendatang",
-      "thisRecurrence": "Hanya acara ini"
-    },
-    "title": "Acara"
+      "thisRecurrence": "Hanya acara ini",
+      "allRecurrences": "Acara ini dan semua acara mendatang"
+    }
   }
 }

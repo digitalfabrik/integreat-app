@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "بۆنەکان",
     "error": {
       "notFound": "ئەم بۆنەیە نەدۆزرایەوە.",
       "nothingFound": "هیچ بۆنەیەک نەدۆزرایەوە."
     },
     "export": {
-      "allRecurrences": "ئەم بۆنەیە و هەموو بۆنەکانی داهاتوو",
-      "thisRecurrence": "تەنها ئەم بۆنەیە"
-    },
-    "title": "بۆنەکان"
+      "thisRecurrence": "تەنها ئەم بۆنەیە",
+      "allRecurrences": "ئەم بۆنەیە و هەموو بۆنەکانی داهاتوو"
+    }
   }
 }

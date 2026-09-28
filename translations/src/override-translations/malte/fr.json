@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Événements",
     "error": {
       "notFound": "Cet événement est introuvable.",
       "nothingFound": "Aucun événement trouvé."
     },
     "export": {
-      "allRecurrences": "Cet événement et tous les suivants",
-      "thisRecurrence": "Uniquement cet événement"
-    },
-    "title": "Événements"
+      "thisRecurrence": "Uniquement cet événement",
+      "allRecurrences": "Cet événement et tous les suivants"
+    }
   }
 }

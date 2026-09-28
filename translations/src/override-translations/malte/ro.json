@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Evenimente",
     "error": {
       "notFound": "Acest eveniment nu a fost găsit.",
       "nothingFound": "Nu a fost găsit niciun eveniment."
     },
     "export": {
-      "allRecurrences": "Acesta și toate evenimentele viitoare",
-      "thisRecurrence": "Doar acest eveniment"
-    },
-    "title": "Evenimente"
+      "thisRecurrence": "Doar acest eveniment",
+      "allRecurrences": "Acesta și toate evenimentele viitoare"
+    }
   }
 }

@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Eventurǎ",
     "error": {
       "notFound": "Kado evento chi sas arakhlo.",
       "nothingFound": "Chi sas arakhlo khanyi evento."
     },
     "export": {
-      "allRecurrences": "Kado thaj sa le aver avela-eventurǎ",
-      "thisRecurrence": "Numaj kado evento"
-    },
-    "title": "Eventurǎ"
+      "thisRecurrence": "Numaj kado evento",
+      "allRecurrences": "Kado thaj sa le aver avela-eventurǎ"
+    }
   }
 }

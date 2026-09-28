@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Události",
     "error": {
       "notFound": "Tato událost nebyla nalezena.",
       "nothingFound": "Nebyly nalezeny žádné události."
     },
     "export": {
-      "allRecurrences": "Tato a všechny budoucí události",
-      "thisRecurrence": "Pouze tato událost"
-    },
-    "title": "Události"
+      "thisRecurrence": "Pouze tato událost",
+      "allRecurrences": "Tato a všechny budoucí události"
+    }
   }
 }

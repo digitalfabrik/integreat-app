@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Настани",
     "error": {
       "notFound": "Овој настан не е пронајден.",
       "nothingFound": "Не се пронајдени настани."
     },
     "export": {
-      "allRecurrences": "Овој и сите идни настани",
-      "thisRecurrence": "Само овој настан"
-    },
-    "title": "Настани"
+      "thisRecurrence": "Само овој настан",
+      "allRecurrences": "Овој и сите идни настани"
+    }
   }
 }

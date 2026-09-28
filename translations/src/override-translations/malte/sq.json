@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Aktivitetet",
     "error": {
       "notFound": "Ky aktivitet nuk u gjet.",
       "nothingFound": "Nuk u gjet asnjë aktivitet."
     },
     "export": {
-      "allRecurrences": "Ky dhe të gjitha aktivitetet e ardhshme",
-      "thisRecurrence": "Vetëm ky aktivitet"
-    },
-    "title": "Aktivitetet"
+      "thisRecurrence": "Vetëm ky aktivitet",
+      "allRecurrences": "Ky dhe të gjitha aktivitetet e ardhshme"
+    }
   }
 }

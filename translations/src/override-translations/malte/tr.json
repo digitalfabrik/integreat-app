@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Etkinlikler",
     "error": {
       "notFound": "Bu etkinlik bulunamadı.",
       "nothingFound": "Etkinlik bulunamadı."
     },
     "export": {
-      "allRecurrences": "Bu ve sonraki tüm etkinlikler",
-      "thisRecurrence": "Yalnızca bu etkinlik"
-    },
-    "title": "Etkinlikler"
+      "thisRecurrence": "Yalnızca bu etkinlik",
+      "allRecurrences": "Bu ve sonraki tüm etkinlikler"
+    }
   }
 }

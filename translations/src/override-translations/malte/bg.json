@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Събития",
     "error": {
       "notFound": "Това събитие не беше намерено.",
       "nothingFound": "Няма намерени събития."
     },
     "export": {
-      "allRecurrences": "Това и всички бъдещи събития",
-      "thisRecurrence": "Само това събитие"
-    },
-    "title": "Събития"
+      "thisRecurrence": "Само това събитие",
+      "allRecurrences": "Това и всички бъдещи събития"
+    }
   }
 }

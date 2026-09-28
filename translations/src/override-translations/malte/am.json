@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "ኩነቶች",
     "error": {
       "notFound": "ይህ ኩነት አልተገኘም።",
       "nothingFound": "ምንም የተገኙ ኩነቶች የሉም።"
     },
     "export": {
-      "allRecurrences": "ይህ እና ወደፊት የሚካሄዱ ሁሉም ኩነቶች",
-      "thisRecurrence": "ይህ ኩነት ብቻ"
-    },
-    "title": "ኩነቶች"
+      "thisRecurrence": "ይህ ኩነት ብቻ",
+      "allRecurrences": "ይህ እና ወደፊት የሚካሄዱ ሁሉም ኩነቶች"
+    }
   }
 }

@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Sự kiện",
     "error": {
       "notFound": "Không tìm thấy sự kiện này.",
       "nothingFound": "Không tìm thấy sự kiện nào."
     },
     "export": {
-      "allRecurrences": "Sự kiện này và tất cả các sự kiện trong tương lai",
-      "thisRecurrence": "Chỉ sự kiện này"
-    },
-    "title": "Sự kiện"
+      "thisRecurrence": "Chỉ sự kiện này",
+      "allRecurrences": "Sự kiện này và tất cả các sự kiện trong tương lai"
+    }
   }
 }

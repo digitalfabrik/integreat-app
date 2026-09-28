@@ -11,6 +11,7 @@ import en from './en.json' with { type: 'json' }
 import es from './es.json' with { type: 'json' }
 import fi from './fi.json' with { type: 'json' }
 import fr from './fr.json' with { type: 'json' }
+import ga from './ga.json' with { type: 'json' }
 import hi from './hi.json' with { type: 'json' }
 import hr from './hr.json' with { type: 'json' }
 import hu from './hu.json' with { type: 'json' }
@@ -56,6 +57,7 @@ const translations = {
   es,
   fi,
   fr,
+  ga,
   hi,
   hr,
   hu,
