@@ -1,0 +1,7 @@
+issue_key: 4397
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The forward and backward icons of the read aloud player now point in the correct direction for right-to-left languages.
+de: Die Vor- und Zurück-Symbole des Vorlese-Players zeigen bei Sprachen mit Rechts-nach-links-Schreibrichtung nun in die richtige Richtung.
