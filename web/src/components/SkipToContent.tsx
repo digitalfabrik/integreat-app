@@ -11,15 +11,14 @@ import { MAIN_ELEMENT_ID } from '../constants/layout'
 const StyledButton = styled(Button)`
   position: fixed;
   left: 16px;
-  top: 48px;
+  top: -100px;
   gap: 8px;
   background-color: ${props => props.theme.palette.background.paper};
-  z-index: -1;
+  z-index: 10000;
   transition: top 0.2s;
 
   :focus {
     top: 20px;
-    z-index: 10000;
     outline: 2px solid ${props => props.theme.palette.primary.main} !important;
   }
 `
