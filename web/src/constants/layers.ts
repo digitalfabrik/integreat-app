@@ -34,6 +34,7 @@ export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
   id: featureLayerId,
   type: 'symbol',
   source: 'point',
+  filter: ['!', ['has', 'point_count']],
   layout: {
     'icon-allow-overlap': true,
     'text-allow-overlap': true,
