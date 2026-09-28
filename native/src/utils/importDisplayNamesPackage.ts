@@ -39,6 +39,9 @@ const importDisplayNamesPackage = async (languageCode: string): Promise<void> =>
     case 'fr':
       await import('@formatjs/intl-displaynames/locale-data/fr')
       break
+    case 'ga':
+      await import('@formatjs/intl-displaynames/locale-data/ga')
+      break
     case 'hi':
       await import('@formatjs/intl-displaynames/locale-data/hi')
       break

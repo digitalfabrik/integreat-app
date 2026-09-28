@@ -72,6 +72,10 @@ class Config {
       name: 'Français',
       rtl: false,
     },
+    ga: {
+      name: 'Gaeilge',
+      rtl: false,
+    },
     hi: {
       name: '(हिन्दी)',
       rtl: false,
