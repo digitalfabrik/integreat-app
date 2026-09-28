@@ -13,7 +13,6 @@ import { UiDirectionType } from 'translations'
 import buildConfig from '../constants/buildConfig'
 import { BREAKPOINTS } from '../constants/layout'
 import { prepareTypography } from '../constants/typography'
-import useDimensions from '../hooks/useDimensions'
 import useLocalStorage, { THEME_STORAGE_KEY } from '../hooks/useLocalStorage'
 import globalStyle from '../styles/global/GlobalStyle'
 import { muiShadowCreator } from '../utils/muiShadowCreator'
@@ -174,7 +173,6 @@ type ThemeContainerProps = {
 }
 
 const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): ReactElement => {
-  const dimensions = useDimensions()
   const url = new URL(window.location.href)
   const { theme: queryTheme } = parseQueryParams(url.searchParams)
   const [storageThemeType, setStorageThemeType] = useLocalStorage<ThemeType>({
@@ -184,20 +182,14 @@ const ThemeContainer = ({ children, contentDirection }: ThemeContainerProps): Re
 
   const themeType = queryTheme ?? storageThemeType
 
-  const theme: Theme = useMemo(() => {
-    const toggleTheme = () => {
-      const currentTheme = themeType === 'light' ? 'contrast' : 'light'
-      setStorageThemeType(currentTheme)
-    }
-
-    const theme = createTheme(themeType, contentDirection)
-    document.body.style.backgroundColor = theme.palette.background.accent
-    return { ...theme, toggleTheme }
-  }, [themeType, setStorageThemeType, contentDirection])
+  const theme = useMemo(() => {
+    const toggleTheme = () => setStorageThemeType(themeType === 'light' ? 'contrast' : 'light')
+    return { ...createTheme(themeType, contentDirection), toggleTheme }
+  }, [contentDirection, themeType, setStorageThemeType])
 
   return (
     <CacheProvider value={contentDirection === 'rtl' ? rtlCache : ltrCache}>
-      <ThemeProvider theme={{ ...theme, dimensions }}>
+      <ThemeProvider theme={theme}>
         <Global styles={globalStyle({ theme })} />
         {children}
       </ThemeProvider>

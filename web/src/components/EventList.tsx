@@ -1,5 +1,5 @@
 import Stack from '@mui/material/Stack'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { groupEventsByDate, eventGroupTitle } from 'shared'
@@ -8,31 +8,35 @@ import { EventModel } from 'shared/api'
 import EventListItem from '../components/EventListItem'
 import EventsDateFilter from '../components/EventsDateFilter'
 import useDateFilter from '../hooks/useDateFilter'
-import useDimensions from '../hooks/useDimensions'
 import { withDividers } from '../utils'
 import List, { StickyListSubheader } from './base/List'
-
-type EventListGroupProps = {
-  title: string
-  events: EventModel[]
-  languageCode: string
-}
-
-const EventListGroup = ({ title, events, languageCode }: EventListGroupProps): ReactElement => {
-  const { stickyTop } = useDimensions()
-  return (
-    <Stack sx={{ paddingBlock: 1 }}>
-      <StickyListSubheader component='h2' stickyTop={stickyTop}>
-        {title}
-      </StickyListSubheader>
-      {withDividers(events.map(event => <EventListItem event={event} languageCode={languageCode} key={event.path} />))}
-    </Stack>
-  )
-}
 
 type EventListProps = {
   events: EventModel[]
   languageCode: string
+}
+
+const EventGroupList = ({ events, languageCode }: EventListProps): ReactElement | null => {
+  const { t } = useTranslation()
+
+  const dateGroups = useMemo(
+    () =>
+      groupEventsByDate(events).map(([key, groupedEvents]) => {
+        const [titleKey, params] = eventGroupTitle(key)
+        const title = t($ => $.events.dateGroups[titleKey], params)
+        return (
+          <Stack key={key} sx={{ paddingBlock: 1 }}>
+            <StickyListSubheader component='h2'>{title}</StickyListSubheader>
+            {withDividers(
+              groupedEvents.map(event => <EventListItem event={event} languageCode={languageCode} key={event.path} />),
+            )}
+          </Stack>
+        )
+      }),
+    [events, languageCode, t],
+  )
+
+  return <List items={dateGroups} noItemsMessage={t($ => $.events.error.nothingFound)} showDividers={false} />
 }
 
 const EventList = ({ events, languageCode }: EventListProps): ReactElement | null => {
@@ -71,22 +75,10 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
     )
   }
 
-  const dateGroups = groupEventsByDate(events).map(([key, events]) => {
-    const [titleKey, params] = eventGroupTitle(key)
-    return (
-      <EventListGroup
-        key={key}
-        title={t($ => $.events.dateGroups[titleKey], params)}
-        events={events}
-        languageCode={languageCode}
-      />
-    )
-  })
-
   return (
     <>
       {dateFilter}
-      <List items={dateGroups} noItemsMessage={t($ => $.events.error.nothingFound)} showDividers={false} />
+      <EventGroupList events={events} languageCode={languageCode} />
     </>
   )
 }

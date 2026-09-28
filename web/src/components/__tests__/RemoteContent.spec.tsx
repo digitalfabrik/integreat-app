@@ -1,7 +1,6 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { mockDimensions } from '../../__mocks__/useDimensions'
 import { renderWithTheme } from '../../testing/render'
 import RemoteContent from '../RemoteContent'
 
@@ -11,7 +10,7 @@ jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
   useNavigate: () => navigate,
 }))
-jest.mock('../../hooks/useDimensions', () => jest.fn(() => mockDimensions))
+jest.mock('../../hooks/useDimensions')
 
 describe('RemoteContent', () => {
   window.open = jest.fn()

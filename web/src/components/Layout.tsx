@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
 
 import { LAYOUT_ELEMENT_ID, MAIN_ELEMENT_ID } from '../constants/layout'
-import useDimensions from '../hooks/useDimensions'
+import useDimensions, { Dimensions } from '../hooks/useDimensions'
 import MobileBanner from './MobileBanner'
 import SkipToContent from './SkipToContent'
 
@@ -27,7 +27,7 @@ export const RichLayout = styled('div')`
   }
 `
 
-const Body = styled('div')<{ fitScreen: boolean }>`
+const Body = styled('div')<{ fitScreen: boolean; dimensions: Dimensions }>`
   width: 100%;
   box-sizing: border-box;
   margin: 0 auto;
@@ -44,7 +44,7 @@ const Body = styled('div')<{ fitScreen: boolean }>`
           @supports (-webkit-touch-callout: none) {
             /* CSS specific to iOS safari devices */
             position: fixed;
-            top: ${props.theme.dimensions.headerHeight}px;
+            top: ${props.dimensions.headerHeight}px;
             overflow: hidden;
           }
         `
@@ -99,7 +99,8 @@ type LayoutProps = {
 }
 
 const Layout = ({ footer, header, toolbar, children, fitScreen = false }: LayoutProps): ReactElement => {
-  const { ttsPlayerHeight, bottomNavigationHeight } = useDimensions()
+  const dimensions = useDimensions()
+  const { ttsPlayerHeight, bottomNavigationHeight } = dimensions
   const extraChatButtonPadding = 16
   const extraBottomSpace = ttsPlayerHeight + (bottomNavigationHeight ?? 0) + extraChatButtonPadding
 
@@ -108,7 +109,7 @@ const Layout = ({ footer, header, toolbar, children, fitScreen = false }: Layout
       <SkipToContent />
       {!fitScreen && <MobileBanner />}
       {header}
-      <Body fitScreen={fitScreen}>
+      <Body dimensions={dimensions} fitScreen={fitScreen}>
         {toolbar && <Aside>{toolbar}</Aside>}
         <Main id={MAIN_ELEMENT_ID} fitScreen={fitScreen}>
           {children}

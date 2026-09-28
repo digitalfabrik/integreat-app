@@ -7,8 +7,10 @@ import React, { ReactElement, ReactNode } from 'react'
 
 import { SNACKBAR_AUTO_HIDE_DURATION } from 'shared'
 
-const StyledMuiSnackbar = styled(MUISnackbar)(({ theme }) => ({
-  marginBottom: theme.dimensions.bottomNavigationHeight,
+import useDimensions, { Dimensions } from '../../hooks/useDimensions'
+
+const StyledMuiSnackbar = styled(MUISnackbar)<{ dimensions: Dimensions }>(({ dimensions }) => ({
+  marginBottom: dimensions.bottomNavigationHeight,
 }))
 
 const StyledAlert = styled(Alert)`
@@ -29,24 +31,28 @@ export type SnackbarProps = {
   action: ReactNode
 }
 
-const Snackbar = ({ open, onClose, severity, message, title, action }: SnackbarProps): ReactElement => (
-  <Portal>
-    <StyledMuiSnackbar
-      open={open}
-      onClose={onClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-      autoHideDuration={severity === 'success' ? SNACKBAR_AUTO_HIDE_DURATION : null}>
-      <StyledAlert
-        severity={severity}
+const Snackbar = ({ open, onClose, severity, message, title, action }: SnackbarProps): ReactElement => {
+  const dimensions = useDimensions()
+  return (
+    <Portal>
+      <StyledMuiSnackbar
+        dimensions={dimensions}
+        open={open}
         onClose={onClose}
-        role={severity === 'error' ? 'alert' : 'status'}
-        variant={severity === 'error' ? 'filled' : 'standard'}
-        action={action}>
-        {!!title && <AlertTitle>{title}</AlertTitle>}
-        {message}
-      </StyledAlert>
-    </StyledMuiSnackbar>
-  </Portal>
-)
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        autoHideDuration={severity === 'success' ? SNACKBAR_AUTO_HIDE_DURATION : null}>
+        <StyledAlert
+          severity={severity}
+          onClose={onClose}
+          role={severity === 'error' ? 'alert' : 'status'}
+          variant={severity === 'error' ? 'filled' : 'standard'}
+          action={action}>
+          {!!title && <AlertTitle>{title}</AlertTitle>}
+          {message}
+        </StyledAlert>
+      </StyledMuiSnackbar>
+    </Portal>
+  )
+}
 
 export default Snackbar

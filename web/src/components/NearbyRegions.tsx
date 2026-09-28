@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next'
 import { getNearbyRegions } from 'shared'
 import { RegionModel } from 'shared/api'
 
-import useDimensions from '../hooks/useDimensions'
 import useUserLocation from '../hooks/useUserLocation'
 import RegionListGroup from './RegionListGroup'
 import { StickyListSubheader } from './base/List'
@@ -21,7 +20,6 @@ type NearbyRegionsProps = {
 
 const NearbyRegions = ({ regions, language, filterText }: NearbyRegionsProps): ReactElement => {
   const { data: userLocation, refresh } = useUserLocation()
-  const { stickyTop } = useDimensions()
   const { t } = useTranslation()
 
   const liveRegions = regions.filter(region => region.live)
@@ -30,7 +28,7 @@ const NearbyRegions = ({ regions, language, filterText }: NearbyRegionsProps): R
   if (nearbyRegions.length === 0) {
     return (
       <Stack sx={{ paddingBlock: 1 }}>
-        <StickyListSubheader stickyTop={stickyTop}>{t($ => $.userLocation.nearby)}</StickyListSubheader>
+        <StickyListSubheader>{t($ => $.userLocation.nearby)}</StickyListSubheader>
         <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between', paddingInline: 2 }}>
           <ListItemText
             primary={t($ => (userLocation ? $.regions.nearby.nothingFound : $.userLocation.locationAccessRequired))}

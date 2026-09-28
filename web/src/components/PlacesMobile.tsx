@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn } from 'shared'
 import { PlaceModel } from 'shared/api'
 
-import useDimensions from '../hooks/useDimensions'
+import useDimensions, { Dimensions } from '../hooks/useDimensions'
 import BottomActionSheet, { ScrollableBottomSheetRef } from './BottomActionSheet'
 import MapAttribution from './MapAttribution'
 import MapView, { MapViewRef } from './MapView'
@@ -26,10 +26,10 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   },
 }))
 
-const AttributionContainer = styled('div')`
+const AttributionContainer = styled('div')<{ dimensions: Dimensions }>`
   position: fixed;
   right: 0;
-  bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.theme.dimensions.bottomSheet.snapPoints.medium}px));
+  bottom: calc(min(var(--rsbs-overlay-h, 0), ${props => props.dimensions.bottomSheet.snapPoints.medium}px));
 `
 
 const MapControlsContainer = styled(AttributionContainer)`
@@ -155,11 +155,11 @@ const PlacesMobile = ({
         title={canDeselect || loading ? undefined : t($ => $.userLocation.nearby)}
         sibling={
           <>
-            <MapControlsContainer>
+            <MapControlsContainer dimensions={dimensions}>
               {mapViewRef && <MapZoomControls mapViewRef={mapViewRef} />}
               <div ref={geocontrolPosition} />
             </MapControlsContainer>
-            <AttributionContainer>
+            <AttributionContainer dimensions={dimensions}>
               <MapAttribution />
             </AttributionContainer>
           </>

@@ -5,7 +5,7 @@ import { rrulestr } from 'rrule'
 
 import { DateModel, EventModelBuilder } from 'shared/api'
 
-import { mockDimensions } from '../../__mocks__/useDimensions'
+import { mockDimensions } from '../../hooks/__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
 import { renderWithTheme } from '../../testing/render'
 import EventDates from '../EventDates'

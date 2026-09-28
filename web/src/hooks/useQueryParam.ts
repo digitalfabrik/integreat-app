@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { NavigateOptions, useSearchParams } from 'react-router'
 
 import { parseQueryParams, QueryParams, toQueryParams } from 'shared'
@@ -12,7 +13,7 @@ const useQueryParam = <T extends keyof QueryParams>(
   navigateOptions?: NavigateOptions,
 ): UseQueryParamReturn<T> => {
   const [queryParams, setQueryParams] = useSearchParams()
-  const value = parseQueryParams(queryParams)[key]
+  const value = useMemo(() => parseQueryParams(queryParams)[key], [queryParams, key])
 
   const setValue = (value: QueryParams[T] | undefined) => {
     const newQueryParams = new URLSearchParams(queryParams)

@@ -5,7 +5,7 @@ import React from 'react'
 import { NEWS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { NewsModel, RegionModelBuilder } from 'shared/api'
 
-import { mockDimensions } from '../../__mocks__/useDimensions'
+import { mockDimensions } from '../../hooks/__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
 import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../../testing/render'

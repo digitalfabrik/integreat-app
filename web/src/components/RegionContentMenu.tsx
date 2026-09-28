@@ -11,6 +11,7 @@ import { CategoryModel } from 'shared/api'
 
 import { ReadAloudIcon } from '../assets'
 import { TtsContext } from '../contexts/TtsContext'
+import useDimensions from '../hooks/useDimensions'
 import useLocalStorage, { TOUR_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useQueryParam from '../hooks/useQueryParam'
 import useRegionContentParams from '../hooks/useRegionContentParams'
@@ -33,7 +34,8 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
   })
   const { route, regionCode, languageCode } = useRegionContentParams()
   const { showTtsPlayer, canRead } = useContext(TtsContext)
-  const { toggleTheme, dimensions } = useTheme()
+  const { toggleTheme } = useTheme()
+  const dimensions = useDimensions()
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { pathname } = useLocation()
