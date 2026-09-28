@@ -1,5 +1,6 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
+import { Keyboard, ScrollView } from 'react-native'
 
 import { LANGUAGES_ROUTE, LanguagesRouteType } from 'shared'
 import { LanguageModelBuilder } from 'shared/api'
@@ -69,5 +70,21 @@ describe('LanguageSelection', () => {
     expect(navigation.goBack).not.toHaveBeenCalled()
     expect(changeLanguageCode).not.toHaveBeenCalled()
     expect(getByText('languages:error.noTranslation')).toBeTruthy()
+  })
+
+  it('should handle taps on languages while the keyboard is open', () => {
+    const scrollView = renderLanguageSelection().UNSAFE_getByType(ScrollView)
+
+    expect(scrollView.props.keyboardShouldPersistTaps).toBe('handled')
+  })
+
+  it('should dismiss the keyboard when selecting a language', () => {
+    const dismiss = jest.spyOn(Keyboard, 'dismiss')
+    const { getByText } = renderLanguageSelection()
+
+    fireEvent.press(getByText(availableLanguage.name))
+
+    expect(dismiss).toHaveBeenCalledTimes(1)
+    expect(changeLanguageCode).toHaveBeenCalledWith(availableLanguage.code)
   })
 })

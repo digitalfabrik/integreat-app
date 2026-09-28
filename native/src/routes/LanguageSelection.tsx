@@ -2,7 +2,7 @@ import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill'
 import '@formatjs/intl-locale/polyfill'
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AccessibilityInfo, KeyboardAvoidingView, StyleSheet } from 'react-native'
+import { AccessibilityInfo, Keyboard, KeyboardAvoidingView, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
@@ -77,6 +77,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
       accessibilityLabel: userLanguageNames?.of(code),
       onPress: isLanguageAvailable
         ? () => {
+            Keyboard.dismiss()
             if (code !== languageCode) {
               changeLanguageCode(code)
             }
@@ -85,7 +86,10 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
             )
             navigation.goBack()
           }
-        : () => setAlertDialogTitle(t($ => $.languages.error.noTranslation)),
+        : () => {
+            Keyboard.dismiss()
+            setAlertDialogTitle(t($ => $.languages.error.noTranslation))
+          },
     })
   })
 
@@ -94,7 +98,9 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
   return (
     <>
       <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={insets.top + insets.bottom} style={{ flex: 1 }}>
-        <Wrapper contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}>
+        <Wrapper
+          contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}
+          keyboardShouldPersistTaps='handled'>
           <SearchInput
             ariaLabel={t($ => $.languages.search)}
             setValue={setQuery}
