@@ -94,9 +94,7 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
   return (
     <>
       <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={insets.top + insets.bottom} style={{ flex: 1 }}>
-        <Wrapper
-          contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}
-          keyboardShouldPersistTaps='handled'>
+        <Wrapper contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}>
           <SearchInput
             ariaLabel={t($ => $.languages.search)}
             setValue={setQuery}
