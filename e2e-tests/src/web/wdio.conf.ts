@@ -44,5 +44,8 @@ export const config: WebdriverIO.Config = {
 
   before: async (): Promise<void> => {
     await browser.setTimeout({ implicit: 80_000, pageLoad: 60_000 })
+    // Disable the tour, as its dialog overlays the dashboard
+    await browser.url('/')
+    await browser.execute(() => localStorage.setItem('Tour-Visible', 'false'))
   },
 }

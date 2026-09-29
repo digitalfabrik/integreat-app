@@ -11,7 +11,7 @@ class DashboardPage extends CategoriesPage {
   }
 
   get locationIcon(): ReturnType<typeof $> {
-    return $("//header//a[@aria-label='Change location']")
+    return $("//header//a[@aria-label='Change your region']")
   }
 
   async hasHeadline(headline: string) {
