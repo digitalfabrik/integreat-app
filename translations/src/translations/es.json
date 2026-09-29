@@ -398,7 +398,7 @@
   },
   "suggestToRegion": {
     "title": "Proponer {{appName}} en tu región",
-    "description": "¿Te convence el concepto de la app Integreat y crees que tu ciudad, comarca o municipio también podría beneficiarse de esta solución digital? Puedes pasar a la acción muy fácilmente desde aquí.",
+    "description": "¿Te convence el concepto de la app Integreat y crees que tu ciudad, distrito o comunidad también podría beneficiarse de esta solución digital? Puedes pasar a la acción muy fácilmente desde aquí.",
     "regionNotFoundCta": "¿No encuentras tu región? ¡Pasa a la acción ahora!",
     "whatToDo": "Esto es lo que puedes hacer:",
     "steps": {
