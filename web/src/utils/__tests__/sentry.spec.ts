@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/react'
-import { waitFor } from '@testing-library/react'
 
 import { FetchError, NotFoundError, ResponseError } from 'shared/api'
 
@@ -12,6 +11,8 @@ jest.mock('@sentry/react', () => ({
   addBreadcrumb: jest.fn(),
   init: jest.fn(),
 }))
+
+const { mocked } = jest
 
 const previousConfig = buildConfig()
 let config = previousConfig
@@ -39,7 +40,18 @@ describe('initSentry', () => {
   it('should call init if enabled in build config', async () => {
     mockBuildConfig(true)
     await initSentry()
-    waitFor(() => expect(Sentry.init).toHaveBeenCalledTimes(1))
+    expect(Sentry.init).toHaveBeenCalledTimes(1)
+  })
+
+  it('should disable session tracking', async () => {
+    mockBuildConfig(true)
+    await initSentry()
+    expect(Sentry.init).toHaveBeenCalledTimes(1)
+    const { integrations } = mocked(Sentry.init).mock.calls[0]![0]!
+    const defaultIntegrations = [Sentry.browserSessionIntegration(), Sentry.breadcrumbsIntegration()]
+    expect(typeof integrations === 'function' && integrations(defaultIntegrations).map(it => it.name)).toEqual([
+      'Breadcrumbs',
+    ])
   })
 })
 
