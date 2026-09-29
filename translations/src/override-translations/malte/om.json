@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Qophiilee",
     "error": {
       "notFound": "Qophiin kun hin argamne.",
       "nothingFound": "Qophiileen tokkollee hin argamne."
     },
     "export": {
-      "allRecurrences": "Kanas ta'ee qophiilee gara fuulduraa hunda",
-      "thisRecurrence": "Qophii kana qofa"
-    },
-    "title": "Qophiilee"
+      "thisRecurrence": "Qophii kana qofa",
+      "allRecurrences": "Kanas ta'ee qophiilee gara fuulduraa hunda"
+    }
   }
 }

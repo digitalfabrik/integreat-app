@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Çalakî",
     "error": {
       "notFound": "Ev çalakî nehate dîtin.",
       "nothingFound": "Tu çalakî nehatin dîtin."
     },
     "export": {
-      "allRecurrences": "Ev û hemû çalakiyên pêşerojê",
-      "thisRecurrence": "Tenê ev çalakî"
-    },
-    "title": "Çalakî"
+      "thisRecurrence": "Tenê ev çalakî",
+      "allRecurrences": "Ev û hemû çalakiyên pêşerojê"
+    }
   }
 }

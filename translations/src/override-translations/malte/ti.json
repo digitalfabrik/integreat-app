@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "ፍጻመታት",
     "error": {
       "notFound": "እዚ ፍጻመ ኣይተረኽበን።",
       "nothingFound": "ዝኾነ ፍጻመታት ኣይተረኽበን።"
     },
     "export": {
-      "allRecurrences": "እዝን ኩሎም ዝመጹ ፍጻመታትን",
-      "thisRecurrence": "እዚ ፍጻመ ጥራይ"
-    },
-    "title": "ፍጻመታት"
+      "thisRecurrence": "እዚ ፍጻመ ጥራይ",
+      "allRecurrences": "እዝን ኩሎም ዝመጹ ፍጻመታትን"
+    }
   }
 }

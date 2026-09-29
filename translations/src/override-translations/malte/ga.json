@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "Is é {{appName}} do chúntóir digiteach ó Ord Mhálta. Gheobhaidh tú eolas áitiúil, coinní agus comhairle ó d'eagraíocht anseo. Suas chun dáta i gcónaí agus i do theanga féin!"
+    }
+  },
+  "events": {
+    "title": "Coinní",
+    "error": {
+      "notFound": "Níor aimsíodh an coinne seo.",
+      "nothingFound": "Níor aimsíodh aon choinne."
+    },
+    "export": {
+      "thisRecurrence": "An coinne seo amháin",
+      "allRecurrences": "An coinne seo agus gach coinne amach anseo"
+    }
+  }
+}

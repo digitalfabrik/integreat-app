@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "تقریبات",
     "error": {
       "notFound": "یہ تقریب نہیں مل سکی۔",
       "nothingFound": "کوئی تقریب نہیں ملی۔"
     },
     "export": {
-      "allRecurrences": "یہ اور مستقبل کی تمام تقریبات",
-      "thisRecurrence": "صرف یہ تقریب"
-    },
-    "title": "تقریبات"
+      "thisRecurrence": "صرف یہ تقریب",
+      "allRecurrences": "یہ اور مستقبل کی تمام تقریبات"
+    }
   }
 }

@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Tapahtumat",
     "error": {
       "notFound": "Tätä tapahtumaa ei löytynyt.",
       "nothingFound": "Tapahtumia ei löytynyt."
     },
     "export": {
-      "allRecurrences": "Tämä ja kaikki tulevat tapahtumat",
-      "thisRecurrence": "Vain tämä tapahtuma"
-    },
-    "title": "Tapahtumat"
+      "thisRecurrence": "Vain tämä tapahtuma",
+      "allRecurrences": "Tämä ja kaikki tulevat tapahtumat"
+    }
   }
 }

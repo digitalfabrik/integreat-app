@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "活动",
     "error": {
       "notFound": "未找到此活动。",
       "nothingFound": "未找到任何活动。"
     },
     "export": {
-      "allRecurrences": "此活动及所有后续活动",
-      "thisRecurrence": "仅此活动"
-    },
-    "title": "活动"
+      "thisRecurrence": "仅此活动",
+      "allRecurrences": "此活动及所有后续活动"
+    }
   }
 }

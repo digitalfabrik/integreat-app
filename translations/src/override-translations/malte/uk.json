@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Події",
     "error": {
       "notFound": "Цю подію не знайдено.",
       "nothingFound": "Подій не знайдено."
     },
     "export": {
-      "allRecurrences": "Цю та всі наступні події",
-      "thisRecurrence": "Лише цю подію"
-    },
-    "title": "Події"
+      "thisRecurrence": "Лише цю подію",
+      "allRecurrences": "Цю та всі наступні події"
+    }
   }
 }

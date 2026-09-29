@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Munaasabado",
     "error": {
       "notFound": "Munaasabadan lama helin.",
       "nothingFound": "Lama helin wax munaasabado ah."
     },
     "export": {
-      "allRecurrences": "Munaasabadan iyo dhammaan munaasabadaha mustaqbalka",
-      "thisRecurrence": "Munaasabadan kaliya"
-    },
-    "title": "Munaasabado"
+      "thisRecurrence": "Munaasabadan kaliya",
+      "allRecurrences": "Munaasabadan iyo dhammaan munaasabadaha mustaqbalka"
+    }
   }
 }

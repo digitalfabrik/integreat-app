@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Események",
     "error": {
       "notFound": "Ez az esemény nem található.",
       "nothingFound": "Nem találhatók események."
     },
     "export": {
-      "allRecurrences": "Ez és az összes jövőbeli esemény",
-      "thisRecurrence": "Csak ez az esemény"
-    },
-    "title": "Események"
+      "thisRecurrence": "Csak ez az esemény",
+      "allRecurrences": "Ez és az összes jövőbeli esemény"
+    }
   }
 }

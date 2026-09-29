@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "پیښې",
     "error": {
       "notFound": "دا پیښه ونه موندل شوه.",
       "nothingFound": "هیڅ پیښه ونه موندل شوه."
     },
     "export": {
-      "allRecurrences": "دا او ټولې راتلونکې پیښې",
-      "thisRecurrence": "یوازې دا پیښه"
-    },
-    "title": "پیښې"
+      "thisRecurrence": "یوازې دا پیښه",
+      "allRecurrences": "دا او ټولې راتلونکې پیښې"
+    }
   }
 }

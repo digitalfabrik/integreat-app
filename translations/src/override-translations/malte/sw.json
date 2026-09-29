@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Matukio",
     "error": {
       "notFound": "Tukio hili halijapatikana.",
       "nothingFound": "Hakuna matukio yaliyopatikana."
     },
     "export": {
-      "allRecurrences": "Tukio hili na matukio yote yajayo",
-      "thisRecurrence": "Tukio hili pekee"
-    },
-    "title": "Matukio"
+      "thisRecurrence": "Tukio hili pekee",
+      "allRecurrences": "Tukio hili na matukio yote yajayo"
+    }
   }
 }

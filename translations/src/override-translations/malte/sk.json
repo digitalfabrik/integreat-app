@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Podujatia",
     "error": {
       "notFound": "Toto podujatie sa nenašlo.",
       "nothingFound": "Nenašli sa žiadne podujatia."
     },
     "export": {
-      "allRecurrences": "Toto a všetky budúce podujatia",
-      "thisRecurrence": "Iba toto podujatie"
-    },
-    "title": "Podujatia"
+      "thisRecurrence": "Iba toto podujatie",
+      "allRecurrences": "Toto a všetky budúce podujatia"
+    }
   }
 }

@@ -5,14 +5,14 @@
     }
   },
   "events": {
+    "title": "Događaji",
     "error": {
       "notFound": "Ovaj događaj nije pronađen.",
       "nothingFound": "Nema pronađenih događaja."
     },
     "export": {
-      "allRecurrences": "Ovaj i svi budući događaji",
-      "thisRecurrence": "Samo ovaj događaj"
-    },
-    "title": "Događaji"
+      "thisRecurrence": "Samo ovaj događaj",
+      "allRecurrences": "Ovaj i svi budući događaji"
+    }
   }
 }
