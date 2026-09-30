@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react-native'
+import { DateTime } from 'luxon'
 import React from 'react'
 
 import { CATEGORIES_ROUTE, CategoriesRouteType } from 'shared'
@@ -75,6 +76,7 @@ const buildCategoryWithSlugHistory = (slugHistory: string[]): CategoryModel =>
     order: 0,
     availableLanguages: { en: `/${regionCode}/en/current-slug-en` },
     lastUpdate: categories.toArray()[0]!.lastUpdate,
+    publishedAt: DateTime.fromISO('2016-01-07T10:36:24+02:00'),
     organization: null,
     embeddedOffers: [],
     slugHistory,

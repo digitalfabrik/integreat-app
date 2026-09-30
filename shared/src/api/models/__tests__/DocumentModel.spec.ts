@@ -9,6 +9,7 @@ describe('DocumentModel', () => {
     title: 'Welcome',
     content: '',
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
+    publishedAt: DateTime.fromISO('2016-01-07 10:36:24'),
   })
 
   it('should normalize path', () => {

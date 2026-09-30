@@ -29,6 +29,7 @@ describe('categories', () => {
     },
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     last_updated: '2017-01-01T05:10:05+02:00',
+    published_at: '2017-01-01T05:10:05+02:00',
     organization: null,
     embedded_offers: [],
     slug_history: ['anlaufstellen-old', 'anlaufstellen'],
@@ -39,6 +40,7 @@ describe('categories', () => {
     path: '/augsburg/fa/erste-schritte/%d9%86%d9%82%d8%b4%d9%87-%d8%b4%d9%87%d8%b1/',
     title: 'نقشه شهر',
     last_updated: '2016-01-07T10:36:24+02:00',
+    published_at: '2016-01-07T10:36:24+02:00',
     content: '',
     excerpt: 'excerpt',
     parent: {
@@ -120,6 +122,7 @@ describe('categories', () => {
     availableLanguages: { en: '/augsburg/en/anlaufstellen' },
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     lastUpdate: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
+    publishedAt: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
     organization: null,
     embeddedOffers: [],
     slugHistory: ['anlaufstellen-old', 'anlaufstellen'],
@@ -135,6 +138,7 @@ describe('categories', () => {
     order: 3,
     thumbnail: 'https://example.com/thumbnail',
     lastUpdate: DateTime.fromISO('2016-01-07T10:36:24+02:00'),
+    publishedAt: DateTime.fromISO('2016-01-07T10:36:24+02:00'),
     organization: new OrganizationModel({
       name: 'Tür an Tür',
       logo: 'https://example.com/my-icon',

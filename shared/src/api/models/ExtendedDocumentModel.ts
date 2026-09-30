@@ -15,6 +15,7 @@ class ExtendedDocumentModel extends DocumentModel {
     content: string
     thumbnail: string | null
     lastUpdate: DateTime
+    publishedAt: DateTime
     availableLanguages: Record<string, string>
   }) {
     const { thumbnail, availableLanguages, ...other } = params

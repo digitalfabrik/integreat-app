@@ -50,6 +50,7 @@ type ContentCategoryJsonType = {
   title: string
   content: string
   lastUpdate: string
+  publishedAt: string
   thumbnail: string | null
   availableLanguages: Record<string, string>
   parentPath: string
@@ -98,6 +99,7 @@ type ContentEventJsonType = {
   title: string
   content: string
   lastUpdate: string
+  publishedAt: string
   thumbnail: string | null
   availableLanguages: Record<string, string>
   excerpt: string
@@ -166,6 +168,7 @@ type ContentPlaceJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
+  publishedAt: string
   category: { id: number; name: string; color: string; icon: string; iconName: string }
   openingHours:
     | {
@@ -184,6 +187,7 @@ type ContentPlaceJsonType = {
 type ContentNewsJsonType = {
   id: string
   lastUpdate: string
+  publishedAt: string
   title: string
   content: string
   source: NewsSource
@@ -436,29 +440,30 @@ class DatabaseConnector {
     const categoryModels = categoriesMap.toArray()
     const jsonModels = categoryModels.map((category: CategoryModel): ContentCategoryJsonType => ({
       id: category.id,
-        root: category.isRoot(),
-        path: category.path,
-        title: category.title,
-        content: category.content,
-        lastUpdate: category.lastUpdate.toISO(),
-        thumbnail: category.thumbnail,
-        availableLanguages: category.availableLanguages,
-        parentPath: category.parentPath,
-        children: categoriesMap.getChildren(category).map(category => category.path),
-        order: category.order,
-        organization: category.organization
-          ? {
-              name: category.organization.name,
-              logo: category.organization.logo,
-              url: category.organization.url,
-            }
-          : null,
-        embeddedOffers: category.embeddedOffers.map(offer => ({
-          title: offer.title,
-          alias: offer.alias,
-          thumbnail: offer.thumbnail,
-          path: offer.path,
-        })),
+      root: category.isRoot(),
+      path: category.path,
+      title: category.title,
+      content: category.content,
+      lastUpdate: category.lastUpdate.toISO(),
+      publishedAt: category.publishedAt.toISO(),
+      thumbnail: category.thumbnail,
+      availableLanguages: category.availableLanguages,
+      parentPath: category.parentPath,
+      children: categoriesMap.getChildren(category).map(category => category.path),
+      order: category.order,
+      organization: category.organization
+        ? {
+            name: category.organization.name,
+            logo: category.organization.logo,
+            url: category.organization.url,
+          }
+        : null,
+      embeddedOffers: category.embeddedOffers.map(offer => ({
+        title: offer.title,
+        alias: offer.alias,
+        thumbnail: offer.thumbnail,
+        path: offer.path,
+      })),
       slugHistory: category.slugHistory,
     }))
     await this.writeFile(this.getContentPath('categories', context), JSON.stringify(jsonModels))
@@ -481,6 +486,7 @@ class DatabaseConnector {
               order: jsonObject.order,
               availableLanguages: jsonObject.availableLanguages,
               lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
+              publishedAt: DateTime.fromISO(jsonObject.publishedAt),
               organization:
                 jsonObject.organization !== null
                   ? new OrganizationModel({
@@ -509,52 +515,53 @@ class DatabaseConnector {
   async storePlaces(places: PlaceModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = places.map((place: PlaceModel): ContentPlaceJsonType => ({
       id: place.id,
-        path: place.path,
-        title: place.title,
-        content: place.content,
-        thumbnail: place.thumbnail,
-        availableLanguages: place.availableLanguages,
-        excerpt: place.excerpt,
-        contacts: place.contacts.map(contact => ({
-          name: contact.name,
-          areaOfResponsibility: contact.areaOfResponsibility,
-          email: contact.email,
-          phoneNumber: contact.phoneNumber,
-          website: contact.website,
-          mobileNumber: contact.mobileNumber,
-          officeHours: contact.officeHours?.map(mapOpeningHoursToJson) ?? null,
-        })),
-        location: {
-          id: place.location.id,
-          address: place.location.address,
-          town: place.location.town,
-          postcode: place.location.postcode,
-          latitude: place.location.latitude,
-          longitude: place.location.longitude,
-          country: place.location.country,
-          name: place.location.name,
-        },
-        lastUpdate: place.lastUpdate.toISO(),
-        category: {
-          id: place.category.id,
-          name: place.category.name,
-          icon: place.category.icon,
-          iconName: place.category.iconName,
-          color: place.category.color,
-        },
-        openingHours: place.openingHours?.map(mapOpeningHoursToJson) ?? null,
-        temporarilyClosed: place.temporarilyClosed,
-        appointmentUrl: place.appointmentUrl,
-        organization:
-          place.organization !== null
-            ? {
-                name: place.organization.name,
-                logo: place.organization.logo,
-                url: place.organization.url,
-              }
-            : null,
-        barrierFree: place.barrierFree ?? null,
-      }))
+      path: place.path,
+      title: place.title,
+      content: place.content,
+      thumbnail: place.thumbnail,
+      availableLanguages: place.availableLanguages,
+      excerpt: place.excerpt,
+      contacts: place.contacts.map(contact => ({
+        name: contact.name,
+        areaOfResponsibility: contact.areaOfResponsibility,
+        email: contact.email,
+        phoneNumber: contact.phoneNumber,
+        website: contact.website,
+        mobileNumber: contact.mobileNumber,
+        officeHours: contact.officeHours?.map(mapOpeningHoursToJson) ?? null,
+      })),
+      location: {
+        id: place.location.id,
+        address: place.location.address,
+        town: place.location.town,
+        postcode: place.location.postcode,
+        latitude: place.location.latitude,
+        longitude: place.location.longitude,
+        country: place.location.country,
+        name: place.location.name,
+      },
+      lastUpdate: place.lastUpdate.toISO(),
+      publishedAt: place.publishedAt.toISO(),
+      category: {
+        id: place.category.id,
+        name: place.category.name,
+        icon: place.category.icon,
+        iconName: place.category.iconName,
+        color: place.category.color,
+      },
+      openingHours: place.openingHours?.map(mapOpeningHoursToJson) ?? null,
+      temporarilyClosed: place.temporarilyClosed,
+      appointmentUrl: place.appointmentUrl,
+      organization:
+        place.organization !== null
+          ? {
+              name: place.organization.name,
+              logo: place.organization.logo,
+              url: place.organization.url,
+            }
+          : null,
+      barrierFree: place.barrierFree ?? null,
+    }))
     await this.writeFile(this.getContentPath('places', context), JSON.stringify(jsonModels))
   }
 
@@ -595,6 +602,7 @@ class DatabaseConnector {
             town: jsonLocation.town,
           }),
           lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
+          publishedAt: DateTime.fromISO(jsonObject.publishedAt),
           category: new PlaceCategoryModel({
             id: jsonObject.category.id,
             name: jsonObject.category.name,
@@ -624,6 +632,7 @@ class DatabaseConnector {
     const jsonModels = news.map((it: NewsModel): ContentNewsJsonType => ({
       id: it.id,
       lastUpdate: it.lastUpdate.toISO(),
+      publishedAt: it.publishedAt.toISO(),
       title: it.title,
       content: it.content,
       availableLanguages: it.availableLanguages,
@@ -641,6 +650,7 @@ class DatabaseConnector {
           new NewsModel({
             id: jsonObject.id,
             lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
+            publishedAt: DateTime.fromISO(jsonObject.publishedAt),
             source: jsonObject.source,
             title: jsonObject.title,
             content: jsonObject.content,
@@ -705,44 +715,45 @@ class DatabaseConnector {
   async storeEvents(events: EventModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = events.map((event: EventModel): ContentEventJsonType => ({
       id: event.id,
-        path: event.path,
-        title: event.title,
-        content: event.content,
-        lastUpdate: event.lastUpdate.toISO(),
-        thumbnail: event.thumbnail,
-        availableLanguages: event.availableLanguages,
-        excerpt: event.excerpt,
-        date: {
-          start: event.date.startDate.toISO(),
-          end: event.date.endDate ? event.date.endDate.toISO() : null,
-          allDay: event.date.allDay,
-          recurrenceRule: event.date.recurrenceRule?.toString() ?? null,
-          onlyWeekdays: event.date.onlyWeekdays,
-        },
-        location: event.location
-          ? {
-              id: event.location.id,
-              address: event.location.address,
-              town: event.location.town,
-              postcode: event.location.postcode,
-              latitude: event.location.latitude,
-              longitude: event.location.longitude,
-              country: event.location.country,
-              name: event.location.name,
-            }
-          : null,
-        featuredImage: event.featuredImage
-          ? {
-              description: event.featuredImage.description,
-              thumbnail: event.featuredImage.thumbnail,
-              medium: event.featuredImage.medium,
-              large: event.featuredImage.large,
-              full: event.featuredImage.full,
-            }
-          : null,
-        placePath: event.placePath,
-        meetingUrl: event.meetingUrl,
-      }))
+      path: event.path,
+      title: event.title,
+      content: event.content,
+      lastUpdate: event.lastUpdate.toISO(),
+      publishedAt: event.publishedAt.toISO(),
+      thumbnail: event.thumbnail,
+      availableLanguages: event.availableLanguages,
+      excerpt: event.excerpt,
+      date: {
+        start: event.date.startDate.toISO(),
+        end: event.date.endDate ? event.date.endDate.toISO() : null,
+        allDay: event.date.allDay,
+        recurrenceRule: event.date.recurrenceRule?.toString() ?? null,
+        onlyWeekdays: event.date.onlyWeekdays,
+      },
+      location: event.location
+        ? {
+            id: event.location.id,
+            address: event.location.address,
+            town: event.location.town,
+            postcode: event.location.postcode,
+            latitude: event.location.latitude,
+            longitude: event.location.longitude,
+            country: event.location.country,
+            name: event.location.name,
+          }
+        : null,
+      featuredImage: event.featuredImage
+        ? {
+            description: event.featuredImage.description,
+            thumbnail: event.featuredImage.thumbnail,
+            medium: event.featuredImage.medium,
+            large: event.featuredImage.large,
+            full: event.featuredImage.full,
+          }
+        : null,
+      placePath: event.placePath,
+      meetingUrl: event.meetingUrl,
+    }))
     await this.writeFile(this.getContentPath('events', context), JSON.stringify(jsonModels))
   }
 
@@ -768,6 +779,7 @@ class DatabaseConnector {
             : null,
           availableLanguages: jsonObject.availableLanguages,
           lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
+          publishedAt: DateTime.fromISO(jsonObject.publishedAt),
           excerpt: jsonObject.excerpt,
           date: new DateModel({
             startDate: DateTime.fromISO(jsonDate.start),

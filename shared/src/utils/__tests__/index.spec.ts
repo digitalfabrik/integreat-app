@@ -58,6 +58,7 @@ describe('getCategoryTiles', () => {
     thumbnail: 'my thumbnail',
     parentPath: '',
     lastUpdate: DateTime.fromISO('2023-10-09T07:00:00.000+02:00'),
+    publishedAt: DateTime.fromISO('2023-01-01T00:00:00.000Z'),
     organization: null,
     embeddedOffers: [
       new OfferModel({

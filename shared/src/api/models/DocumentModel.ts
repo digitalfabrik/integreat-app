@@ -11,6 +11,7 @@ class DocumentModel {
   _title: string
   _content: string
   _lastUpdate: DateTime
+  _publishedAt: DateTime
 
   constructor({
     id,
@@ -18,18 +19,21 @@ class DocumentModel {
     title,
     content,
     lastUpdate,
+    publishedAt,
   }: {
     id: number
     path: string
     title: string
     content: string
     lastUpdate: DateTime
+    publishedAt: DateTime
   }) {
     this._id = id
     this._path = normalizePath(path)
     this._title = decodeHTML(title)
     this._content = content
     this._lastUpdate = lastUpdate
+    this._publishedAt = publishedAt
   }
 
   get id(): number {
@@ -56,9 +60,12 @@ class DocumentModel {
     return this._lastUpdate
   }
 
+  get publishedAt(): DateTime {
+    return this._publishedAt
+  }
+
   get isNew(): boolean {
-    // TODO: Use published date instead of last update
-    return DateTime.now().diff(this._lastUpdate).as('days') < MAX_DAYS_NEW
+    return DateTime.now().diff(this._publishedAt).as('days') < MAX_DAYS_NEW
   }
 
   isEqual(other: DocumentModel): boolean {

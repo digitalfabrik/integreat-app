@@ -35,6 +35,7 @@ describe('createJsonLdEvent', () => {
       excerpt: 'This is a sample event. Have fun sampling.',
       availableLanguages: {},
       lastUpdate: DateTime.fromISO('2017-11-18T09:30:00.000Z'),
+      publishedAt: DateTime.fromISO('2017-11-18T09:30:00.000Z'),
       featuredImage: new FeaturedImageModel({
         description: 'whoohoo',
         thumbnail: {

@@ -34,6 +34,7 @@ class PlaceModel extends ExtendedDocumentModel {
     excerpt: string
     location: LocationModel<number>
     lastUpdate: DateTime
+    publishedAt: DateTime
     temporarilyClosed: boolean
     openingHours: OpeningHoursModel[] | null
     category: PlaceCategoryModel

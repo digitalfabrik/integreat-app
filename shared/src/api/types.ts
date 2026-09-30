@@ -70,6 +70,7 @@ export type JsonCategoryType = {
   path: string
   title: string
   last_updated: string
+  published_at: string
   excerpt: string
   content: string
   available_languages: JsonAvailableLanguagesType
@@ -117,6 +118,7 @@ export type JsonPlaceType = {
   path: string
   title: string
   last_updated: string
+  published_at: string
   excerpt: string
   meta_description: string | null
   content: string
@@ -138,6 +140,7 @@ export type JsonEventType = {
   path: string
   title: string
   last_updated: string
+  published_at: string
   excerpt: string
   content: string
   available_languages: JsonAvailableLanguagesType
@@ -155,6 +158,7 @@ export type JsonNewsType = {
   title: string
   content: string
   display_date: string
+  published_at: string
   source: NewsSource
   externalUrl: string
   available_languages: Record<string, { id: string }> | null

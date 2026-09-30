@@ -28,6 +28,7 @@ class EventModel extends ExtendedDocumentModel {
     excerpt: string
     availableLanguages: Record<string, string>
     lastUpdate: DateTime
+    publishedAt: DateTime
     featuredImage: FeaturedImageModel | null
     placePath: string | null
   }) {

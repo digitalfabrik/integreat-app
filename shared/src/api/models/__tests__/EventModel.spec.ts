@@ -36,6 +36,7 @@ describe('EventModel', () => {
     excerpt: 'bal bla bla text',
     availableLanguages: {},
     lastUpdate: DateTime.fromISO('2022-06-05T17:50:00+02:00'),
+    publishedAt: DateTime.fromISO('2023-01-01T00:00:00.000Z'),
     featuredImage: null,
     placePath: '/testumgebung/de/places/testort/',
   }

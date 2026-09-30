@@ -33,6 +33,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
           order: -1,
           availableLanguages: {},
           lastUpdate: DateTime.fromMillis(0),
+          publishedAt: DateTime.fromMillis(0),
           organization: null,
           embeddedOffers: [],
           slugHistory: [],
