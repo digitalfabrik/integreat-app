@@ -5,10 +5,14 @@ import { MAX_DAYS_NEW } from '../../constants/index.ts'
 import { NewsSource } from '../constants/index.ts'
 
 class NewsModel {
+  _id: string
   _title: string
   _content: string
   _source: NewsSource
   _lastUpdate: DateTime
+  _publishedAt: DateTime
+  _externalUrl: string
+
   constructor(params: {
     id: string
     title: string
@@ -28,11 +32,6 @@ class NewsModel {
     this._availableLanguages = params.availableLanguages
     this._externalUrl = params.externalUrl
   }
-  _externalUrl: string
-
-  _publishedAt: DateTime
-
-  _id: string
 
   get id(): string {
     return this._id

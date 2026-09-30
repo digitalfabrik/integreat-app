@@ -17,7 +17,8 @@ import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
-import useLocalStorage, { EVENTS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
+import { EVENTS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
+import useVisitedIds from '../hooks/useVisitedIds'
 import EventDates from './EventDates'
 import NewChip from './NewChip'
 import Link from './base/Link'
@@ -60,6 +61,7 @@ const Excerpt = styled('p')`
 type EventListItemProps = {
   event: EventModel
   languageCode: string
+  regionCode: string
   filterStartDate?: DateTime | null
   filterEndDate?: DateTime | null
 }
@@ -74,13 +76,11 @@ const getEventPlaceholder = (path: string): string => {
 const EventListItem = ({
   event,
   languageCode,
+  regionCode,
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
-  const [visitedEventsIds] = useLocalStorage<number[]>({
-    key: EVENTS_VISITED_IDS_STORAGE_KEY,
-    initialValue: [],
-  })
+  const [visitedEventIds] = useVisitedIds({ key: EVENTS_VISITED_IDS_STORAGE_KEY, regionCode })
   const { t } = useTranslation()
   const { contentDirection } = useTheme()
 
@@ -90,7 +90,7 @@ const EventListItem = ({
     </Tooltip>
   ) : undefined
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
-  const isNew = !visitedEventsIds.includes(event.id) && event.isNew
+  const isNew = !visitedEventIds.includes(event.id.toString()) && event.isNew
 
   return (
     <StyledListItem dir='auto' disablePadding secondaryAction={recurringDateIcon}>

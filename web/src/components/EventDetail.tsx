@@ -7,12 +7,13 @@ import { useTranslation } from 'react-i18next'
 
 import { EventModel } from 'shared/api'
 
-import useLocalStorage, { EVENTS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
+import { EVENTS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
+import useVisitedIds from '../hooks/useVisitedIds'
 import featuredImageToSrcSet from '../utils/featuredImageToSrcSet'
+import EventDates from './EventDates'
 import ExportEventButton from './ExportEventButton'
 import Page, { THUMBNAIL_WIDTH } from './Page'
 import PageDetail from './PageDetail'
-import EventDates from './EventDates'
 
 const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
   display: flex;
@@ -25,18 +26,16 @@ const Spacing = styled('div')<{ content: string; lastUpdate?: DateTime }>`
 type EventDetailProps = {
   event: EventModel
   languageCode: string
+  regionCode: string
 }
 
-const EventDetail = ({ event, languageCode }: EventDetailProps): ReactElement => {
-  const [_, updateVisitedEventIds] = useLocalStorage<number[]>({
-    key: EVENTS_VISITED_IDS_STORAGE_KEY,
-    initialValue: [],
-  })
+const EventDetail = ({ event, languageCode, regionCode }: EventDetailProps): ReactElement => {
+  const [, addVisitedEventId] = useVisitedIds({ key: EVENTS_VISITED_IDS_STORAGE_KEY, regionCode })
   const { t } = useTranslation()
 
   useEffect(() => {
-    updateVisitedEventIds(oldValue => (oldValue.includes(event.id) ? oldValue : [...oldValue, event.id]))
-  }, [event, updateVisitedEventIds])
+    addVisitedEventId(event.id.toString())
+  }, [event, addVisitedEventId])
 
   return (
     <Page
