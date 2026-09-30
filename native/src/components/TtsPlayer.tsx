@@ -33,6 +33,7 @@ const StyledTtsPlayer = styled.View<{ insetBottom: number }>`
 const StyledPanel = styled.View`
   display: flex;
   flex-direction: row;
+  direction: ltr;
   align-items: center;
   gap: 20px;
 `
@@ -108,7 +109,7 @@ const TtsPlayer = ({
           accessibilityLabel={t($ => $.common.actions.previous)}
           onPress={playPrevious}
           style={styles.TouchableRippleStyle}>
-          <Icon size={28} source='rewind' directionDependent />
+          <Icon size={28} source='rewind' />
         </TouchableRipple>
         <StyledPlayIconButton
           disabled={disabled}
@@ -122,7 +123,7 @@ const TtsPlayer = ({
           accessibilityLabel={t($ => $.common.actions.next)}
           onPress={playNext}
           style={styles.TouchableRippleStyle}>
-          <Icon size={28} source='fast-forward' directionDependent />
+          <Icon size={28} source='fast-forward' />
         </TouchableRipple>
       </StyledPanel>
     </StyledTtsPlayer>
