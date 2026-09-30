@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import * as Sentry from '@sentry/react-native'
 
-import { FetchError, NotFoundError } from 'shared/api'
+import { ErrorCodes, FetchError, fromError, NotFoundError } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 
@@ -67,7 +67,8 @@ export const captureError = (error: unknown, { data }: { data?: unknown } = {}):
   const isNotFoundError = error instanceof NotFoundError
   const isNoInternetError = error instanceof FetchError
   const isExpectedError = error instanceof Error && expectedErrors.some(message => error.message.includes(message))
-  const ignoreError = isNotFoundError || isNoInternetError || isExpectedError
+  const isRateLimitedError = fromError(error) === ErrorCodes.RateLimited
+  const ignoreError = isNotFoundError || isNoInternetError || isExpectedError || isRateLimitedError
 
   if (ignoreError) {
     return
