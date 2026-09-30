@@ -1,10 +1,11 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
 import { EVENTS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import { createEventsEndpoint, NotFoundError } from 'shared/api'
 
+import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
 import { Icon } from '../components/EventListItem'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
@@ -16,32 +17,19 @@ import SkeletonPage from '../components/SkeletonPage'
 import H1 from '../components/base/H1'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useJsonLd from '../hooks/useJsonLd'
-import useLocalStorage, { EVENTS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import createJsonLdEvent from '../utils/createJsonLdEvent'
 import { RegionRouteProps } from './index'
-import EventDetail from '../components/EventDetail'
 
 const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteProps): ReactElement | null => {
   const { eventId } = useParams()
   const { t } = useTranslation()
 
-  const [_, updateVisitedEventIds] = useLocalStorage<number[]>({
-    key: EVENTS_VISITED_IDS_STORAGE_KEY,
-    initialValue: [],
-  })
-
   const { data: events, error } = useQueryFromEndpoint(createEventsEndpoint, cmsApiBaseUrl, {
     region: regionCode,
     language: languageCode,
   })
-
-  useEffect(() => {
-    if (events) {
-      updateVisitedEventIds(oldIds => oldIds.filter(id => events.find(event => event.id === id)))
-    }
-  }, [events, updateVisitedEventIds])
 
   // Support legacy slugs of old recurring events with one event per recurrence
   const pathnameWithoutDate = pathname.split('$')[0]
@@ -109,7 +97,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     return (
       <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
-        <EventDetail event={event} languageCode={languageCode} />
+        <EventDetail event={event} languageCode={languageCode} regionCode={regionCode} />
       </RegionContentLayout>
     )
   }
@@ -119,7 +107,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
       <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
       <H1>{t($ => $.events.title)}</H1>
       {events ? (
-        <EventList events={events} languageCode={languageCode} />
+        <EventList events={events} languageCode={languageCode} regionCode={regionCode} />
       ) : (
         <SkeletonList listItemHeight={80} listItemIcon={<Icon />} />
       )}
