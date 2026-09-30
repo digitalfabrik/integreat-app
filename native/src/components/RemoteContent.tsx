@@ -18,8 +18,8 @@ import WebView from './WebView'
 type RemoteContentProps = {
   content: string
   language: string
-  onLoad: () => void
-  loading: boolean
+  onLoad?: () => void
+  loading?: boolean
 }
 
 // If the app crashes without an error message while using RemoteContent, consider wrapping it in a ScrollView or setting a manual height

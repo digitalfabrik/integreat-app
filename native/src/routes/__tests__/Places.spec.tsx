@@ -1,5 +1,6 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
+import { Text } from 'react-native'
 
 import { RegionModelBuilder, PlaceModelBuilder } from 'shared/api'
 
@@ -9,7 +10,7 @@ import renderWithTheme from '../../testing/render'
 import Places, { PlaceHistory } from '../Places'
 
 jest.mock('../../components/MapView')
-jest.mock('../../components/Page')
+jest.mock('../../components/RemoteContent', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 jest.mock('styled-components')
 jest.mock('@react-native-community/geolocation')
 jest.mock('@gorhom/bottom-sheet', () => ({
