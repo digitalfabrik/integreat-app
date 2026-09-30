@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/react'
 import { waitFor } from '@testing-library/react'
 
-import { FetchError, NotFoundError } from 'shared/api'
+import { FetchError, NotFoundError, ResponseError } from 'shared/api'
 
 import buildConfig from '../../constants/buildConfig'
 import { initSentry, log, captureError } from '../sentry'
@@ -72,6 +72,18 @@ describe('capture error', () => {
     mockBuildConfig(true)
     const notFoundError = new NotFoundError({ type: 'category', id: 'id', region: 'region', language: 'language' })
     await captureError(notFoundError)
+    expect(Sentry.captureException).not.toHaveBeenCalled()
+  })
+
+  it('should not report rate limited errors to sentry', async () => {
+    mockBuildConfig(true)
+    const error = new ResponseError({
+      endpointName: 'chat',
+      response: { status: 429 } as Response,
+      url: 'https://example.com',
+      requestOptions: { method: 'GET' },
+    })
+    await captureError(error)
     expect(Sentry.captureException).not.toHaveBeenCalled()
   })
 

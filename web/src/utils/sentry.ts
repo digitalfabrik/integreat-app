@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { SeverityLevel } from '@sentry/react'
 
-import { FetchError, NotFoundError } from 'shared/api'
+import { ErrorCodes, FetchError, fromError, NotFoundError } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 
@@ -71,7 +71,8 @@ export const captureError = async (error: unknown): Promise<void> => {
   const isNotFoundError = error instanceof NotFoundError
   const isNoInternetError = error instanceof FetchError
   const isExpectedError = error instanceof Error && expectedErrors.some(message => error.message.includes(message))
-  const ignoreError = isNotFoundError || isNoInternetError || isExpectedError
+  const isRateLimitedError = fromError(error) === ErrorCodes.RateLimited
+  const ignoreError = isNotFoundError || isNoInternetError || isExpectedError || isRateLimitedError
 
   if (ignoreError) {
     return
