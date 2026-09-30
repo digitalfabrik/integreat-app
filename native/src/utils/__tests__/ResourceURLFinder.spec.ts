@@ -53,6 +53,7 @@ describe('ResourceURLFinder', () => {
         availableLanguages: {},
         title: 'test',
         lastUpdate: DateTime.now(),
+        publishedAt: DateTime.fromISO('2016-01-07 10:36:24'),
       }),
       new ExtendedDocumentModel({
         id: 2,
@@ -62,6 +63,7 @@ describe('ResourceURLFinder', () => {
         availableLanguages: {},
         title: 'test',
         lastUpdate: DateTime.now(),
+        publishedAt: DateTime.fromISO('2016-01-07 10:36:24'),
       }),
     ]
     const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`, [])
@@ -83,6 +85,7 @@ describe('ResourceURLFinder', () => {
         availableLanguages: {},
         title: 'test',
         lastUpdate: DateTime.now(),
+        publishedAt: DateTime.fromISO('2016-01-07 10:36:24'),
       }),
       new ExtendedDocumentModel({
         id: 2,
@@ -92,6 +95,7 @@ describe('ResourceURLFinder', () => {
         availableLanguages: {},
         title: 'test',
         lastUpdate: DateTime.now(),
+        publishedAt: DateTime.fromISO('2016-01-07 10:36:24'),
       }),
     ]
     const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`, [

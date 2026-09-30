@@ -84,6 +84,7 @@ class CategoriesMapModelBuilder {
         thumbnail,
         parentPath: category.path,
         lastUpdate,
+        publishedAt: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
         organization: new OrganizationModel({
           name: 'Tür an Tür',
           logo: 'https://example.com/my-icon',
@@ -147,6 +148,7 @@ class CategoriesMapModelBuilder {
         thumbnail: '',
         parentPath: '',
         lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
+        publishedAt: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
         organization: null,
         embeddedOffers: [],
         slugHistory: [],

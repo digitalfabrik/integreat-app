@@ -115,6 +115,7 @@ class EventModelBuilder {
             meetingUrl: 'meeting-url',
             excerpt: 'excerpt',
             lastUpdate,
+            publishedAt: lastUpdate,
             content: `<h1>This is a sample event</h1>
                     <img src='${resourceUrl1}'/>
                     <p>This is a sample event</p>

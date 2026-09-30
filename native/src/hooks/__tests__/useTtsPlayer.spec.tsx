@@ -25,6 +25,7 @@ describe('useTtsPlayer', () => {
     title: 'Test title',
     content: `<div></div><div>${newSentences[0]} ${newSentences[1]}</p></div>`,
     lastUpdate: DateTime.now(),
+    publishedAt: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   })
 
   beforeEach(jest.clearAllMocks)

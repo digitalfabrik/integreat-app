@@ -38,6 +38,7 @@ const places = [
       name: 'Test Title',
     }),
     lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
+    publishedAt: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
     temporarilyClosed: false,
     openingHours: [
       new OpeningHoursModel({
@@ -95,6 +96,7 @@ const places = [
       name: 'name 2',
     }),
     lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
+    publishedAt: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
     temporarilyClosed: false,
     openingHours: [
       new OpeningHoursModel({
@@ -139,6 +141,7 @@ const places = [
       name: 'another name',
     }),
     lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
+    publishedAt: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
     temporarilyClosed: false,
     openingHours: null,
     appointmentUrl: null,

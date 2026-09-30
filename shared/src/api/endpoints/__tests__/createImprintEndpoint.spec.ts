@@ -13,6 +13,7 @@ describe('imprint', () => {
     title: 'Feedback, Kontakt und mögliches Engagement',
     type: 'imprint',
     last_updated: '2022-06-29T09:19:57.443+02:00',
+    published_at: '2022-06-29T09:19:57.443+02:00',
     content: '<div>Some imprint test content :)</div>',
   }
   const params = {
@@ -37,6 +38,7 @@ describe('imprint', () => {
         title: pageJson.title,
         content: '<div>Some imprint test content :)</div>',
         lastUpdate: DateTime.fromISO('2022-06-29T09:19:57.443+02:00'),
+        publishedAt: DateTime.fromISO('2022-06-29T09:19:57.443+02:00'),
       }),
     )
   })

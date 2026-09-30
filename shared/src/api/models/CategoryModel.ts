@@ -23,6 +23,7 @@ class CategoryModel extends ExtendedDocumentModel {
     order: number
     availableLanguages: Record<string, string>
     lastUpdate: DateTime
+    publishedAt: DateTime
     organization: OrganizationModel | null
     embeddedOffers: OfferModel[]
     slugHistory: string[]

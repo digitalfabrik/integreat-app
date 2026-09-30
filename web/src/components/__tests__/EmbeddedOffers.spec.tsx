@@ -28,6 +28,7 @@ describe('EmbeddedOffers', () => {
       availableLanguages: {},
       thumbnail: '',
       lastUpdate: DateTime.fromISO('2024-08-15T10:47:34+02:00'),
+      publishedAt: DateTime.fromISO('2024-08-15T10:47:34+02:00'),
       organization: null,
       embeddedOffers: [offer],
       slugHistory: [],

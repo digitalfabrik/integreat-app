@@ -28,6 +28,7 @@ export default (baseUrl: string): Endpoint<ParamsType, DocumentModel> =>
         title: json.title,
         content: json.content,
         lastUpdate: DateTime.fromISO(json.last_updated),
+        publishedAt: DateTime.fromISO(json.published_at),
       })
     })
     .build()
