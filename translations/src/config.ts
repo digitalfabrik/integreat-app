@@ -88,6 +88,10 @@ class Config {
       name: 'Magyar',
       rtl: false,
     },
+    hy: {
+      name: 'հայերեն',
+      rtl: false,
+    },
     id: {
       name: 'Bahasa Indonesia',
       rtl: false,

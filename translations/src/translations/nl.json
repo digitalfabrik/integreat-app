@@ -151,7 +151,7 @@
       }
     },
     "filter": {
-      "selectStart": "Begindatum kiezen in agenda",
+      "selectStart": "Begindatum selecteren in agenda",
       "selectEnd": "Einddatum selecteren in agenda",
       "from": "van",
       "to": "tot",
