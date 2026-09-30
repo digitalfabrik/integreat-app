@@ -16,8 +16,13 @@ const SpaceForTts = styled.View<{ $ttsPlayerVisible: boolean }>`
   height: ${props => (props.$ttsPlayerVisible ? dimensions.ttsPlayerHeight + dimensions.bottomNavigationHeight : 0)}px;
 `
 
+const BeforeTitleContainer = styled.View`
+  padding-top: 16px;
+`
+
 type PageProps = {
-  title?: string
+  title: string
+  beforeTitle?: ReactElement
   content: string
   beforeContent?: ReactNode
   afterContent?: ReactNode
@@ -29,6 +34,7 @@ type PageProps = {
 
 const Page = ({
   title,
+  beforeTitle,
   content,
   beforeContent,
   afterContent,
@@ -46,7 +52,8 @@ const Page = ({
 
   return (
     <Container $padding={padding} $paddingHorizontal={paddingHorizontal}>
-      {!loading && title ? <Caption title={title} language={language} /> : null}
+      {!loading && beforeTitle && <BeforeTitleContainer>{beforeTitle}</BeforeTitleContainer>}
+      {!loading && <Caption title={title} language={language} style={beforeTitle ? { paddingTop: 8 } : undefined} />}
       {!loading && beforeContent}
       <RemoteContent content={content} onLoad={onLoad} loading={loading} language={language} />
       {!loading && afterContent}

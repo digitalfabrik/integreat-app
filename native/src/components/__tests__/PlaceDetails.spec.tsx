@@ -1,6 +1,7 @@
 import Clipboard from '@react-native-clipboard/clipboard'
 import { fireEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
+import { Text } from 'react-native'
 
 import { PlaceModelBuilder } from 'shared/api'
 
@@ -15,7 +16,7 @@ jest.mock('@react-native-clipboard/clipboard', () => ({
 }))
 jest.mock('../../hooks/useSnackbar')
 jest.mock('styled-components')
-jest.mock('../Page')
+jest.mock('../../components/RemoteContent', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 
 describe('PlaceDetails', () => {
   beforeEach(() => {

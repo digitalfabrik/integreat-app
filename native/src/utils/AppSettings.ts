@@ -1,7 +1,7 @@
 import LegacyAsyncStorage, { AsyncStorage, createAsyncStorage } from '@react-native-async-storage/async-storage'
 import { mapValues } from 'lodash'
 
-import { ExternalSourcePermissions, ThemeType } from 'shared'
+import { ExternalSourcePermissions, ThemeType, VisitedIdsType } from 'shared'
 
 import { log, captureError } from './sentry'
 
@@ -25,6 +25,7 @@ export type SettingsType = {
   selectedTheme: ThemeType
   chat: ChatSettings
   chatHighlightPopupDismissed: boolean
+  visitedEventIds: VisitedIdsType
 }
 
 export const defaultSettings: SettingsType = {
@@ -39,6 +40,7 @@ export const defaultSettings: SettingsType = {
   selectedTheme: 'light',
   chat: {},
   chatHighlightPopupDismissed: false,
+  visitedEventIds: {},
 }
 
 export const settingsStorage = createAsyncStorage('settings')

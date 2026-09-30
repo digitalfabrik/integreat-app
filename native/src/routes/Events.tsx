@@ -1,23 +1,14 @@
 import React, { ReactElement } from 'react'
-import { useTranslation } from 'react-i18next'
 import { RefreshControl } from 'react-native'
-import styled from 'styled-components/native'
 
 import { RouteInformationType } from 'shared'
 import { EventModel, fromError, NotFoundError, RegionModel } from 'shared/api'
 
-import EventDates from '../components/EventDates'
+import EventDetail from '../components/EventDetail'
 import EventList from '../components/EventList'
-import ExportEventButton from '../components/ExportEventButton'
 import Failure from '../components/Failure'
 import LayoutedScrollView from '../components/LayoutedScrollView'
-import Page from '../components/Page'
-import PageDetail from '../components/PageDetail'
 import useTtsPlayer from '../hooks/useTtsPlayer'
-
-const PageDetailsContainer = styled.View`
-  gap: 8px;
-`
 
 type EventsProps = {
   slug?: string
@@ -29,7 +20,6 @@ type EventsProps = {
 }
 
 const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: EventsProps): ReactElement => {
-  const { t } = useTranslation()
   const event = events.find(it => it.slug === slug)
   useTtsPlayer(event)
 
@@ -51,37 +41,7 @@ const Events = ({ regionModel, language, navigateTo, events, slug, refresh }: Ev
     if (event) {
       return (
         <LayoutedScrollView refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
-          <Page
-            content={event.content}
-            title={event.title}
-            lastUpdate={event.lastUpdate}
-            language={language}
-            beforeContent={
-              <PageDetailsContainer>
-                <EventDates event={event} language={language} />
-                {event.location && (
-                  <PageDetail
-                    icon='map-marker-outline'
-                    information={event.location.fullAddress}
-                    language={language}
-                    path={event.placePath}
-                    accessibilityLabel={t($ => $.common.contacts.address.title)}
-                  />
-                )}
-                {event.meetingUrl !== null && (
-                  <PageDetail
-                    icon='link-outline'
-                    isExternalUrl
-                    information={event.meetingUrl}
-                    language={language}
-                    path={event.meetingUrl}
-                    accessibilityLabel={t($ => $.events.onlineMeeting)}
-                  />
-                )}
-              </PageDetailsContainer>
-            }
-            footer={<ExportEventButton event={event} />}
-          />
+          <EventDetail key={event.id} event={event} language={language} regionCode={regionModel.code} />
         </LayoutedScrollView>
       )
     }
