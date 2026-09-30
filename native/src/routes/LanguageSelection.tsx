@@ -94,13 +94,16 @@ const LanguageSelection = ({ navigation, route }: LanguageSelectionProps): React
   return (
     <>
       <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={insets.top + insets.bottom} style={{ flex: 1 }}>
-        <Wrapper contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}>
+        <Wrapper
+          contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}
+          keyboardShouldPersistTaps='handled'>
           <SearchInput
             ariaLabel={t($ => $.languages.search)}
             setValue={setQuery}
             value={query}
             placeholderText={currentLanguage?.name}
             style={styles.horizontalMargin}
+            autoFocus={false}
           />
           <Selector selectedItemCode={languageCode} items={selectorItems} />
           <Button

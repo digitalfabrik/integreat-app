@@ -21,6 +21,7 @@ type SearchInputProps = {
   description?: string
   style?: StyleProp<ViewStyle>
   ariaLabel: string
+  autoFocus?: boolean
 }
 
 const SearchInput = ({
@@ -30,6 +31,7 @@ const SearchInput = ({
   description,
   style,
   ariaLabel,
+  autoFocus = true,
 }: SearchInputProps): ReactElement => {
   const { t } = useTranslation()
   const theme = useTheme()
@@ -39,7 +41,7 @@ const SearchInput = ({
       <InputWrapper>
         <TextInput
           multiline={false}
-          autoFocus
+          autoFocus={autoFocus}
           onBlur={Keyboard.dismiss}
           placeholderTextColor={theme.colors.onSurfaceVariant}
           placeholder={placeholderText}
