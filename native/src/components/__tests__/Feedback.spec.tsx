@@ -1,5 +1,6 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 
@@ -31,6 +32,14 @@ describe('Feedback', () => {
     onSubmit,
     setRating,
     setSearchTerm,
+  })
+
+  it('should handle taps while the keyboard is open', () => {
+    const scrollView = render(<Feedback {...buildProps(RATING_POSITIVE, 'comment')} />).UNSAFE_getByType(
+      KeyboardAwareScrollView,
+    )
+
+    expect(scrollView.props.keyboardShouldPersistTaps).toBe('handled')
   })
 
   it('button should be disabled if privacy policy is not accepted', async () => {

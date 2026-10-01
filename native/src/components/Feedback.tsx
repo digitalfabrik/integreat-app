@@ -72,7 +72,7 @@ const Feedback = ({
   }
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView keyboardShouldPersistTaps='handled'>
       <Wrapper>
         {isSearchFeedback ? (
           <InputSection
