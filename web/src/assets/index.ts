@@ -4,6 +4,7 @@ import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placehol
 import AmalNewsLogo from '../../../assets/icons/amal-news.svg'
 import BookIcon from '../../../assets/icons/book.svg'
 import ExternalLinkIcon from '../../../assets/icons/external-link.svg'
+import FeedbackHintIcon from '../../../assets/icons/feedback-hint.svg'
 import PersonLightIcon from '../../../assets/icons/person-light.svg'
 import PersonIcon from '../../../assets/icons/person.svg'
 import ReadAloudIcon from '../../../assets/icons/readAloud.svg'
@@ -17,6 +18,7 @@ export {
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
   ExternalLinkIcon,
+  FeedbackHintIcon,
   PersonIcon,
   PersonLightIcon,
   ReadAloudIcon,
