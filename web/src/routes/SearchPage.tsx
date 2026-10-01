@@ -33,9 +33,10 @@ type SearchProps = {
   query: string
   loading: boolean
   results: ExtendedDocumentModel[]
+  onClearSearch: () => void
 }
 
-const SearchResults = ({ query, loading, results }: SearchProps): ReactElement | null => {
+const SearchResults = ({ query, loading, results, onClearSearch }: SearchProps): ReactElement | null => {
   const { t } = useTranslation()
 
   if (query.length === 0) {
@@ -56,7 +57,7 @@ const SearchResults = ({ query, loading, results }: SearchProps): ReactElement |
         {t($ => $.search.resultCount, { count: results.length })}
       </Typography>
       <List items={items} noItemsMessage={<span />} />
-      <SearchFeedback noResults={results.length === 0} />
+      <SearchFeedback noResults={results.length === 0} onClearSearch={onClearSearch} />
     </>
   )
 }
@@ -151,7 +152,12 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
           onFilterTextChange={setQuery}
           autoFocus
         />
-        <SearchResults results={searchResults} query={debouncedQuery} loading={documentsLoading || loading} />
+        <SearchResults
+          results={searchResults}
+          query={debouncedQuery}
+          loading={documentsLoading || loading}
+          onClearSearch={() => setQuery('')}
+        />
       </Stack>
     </RegionContentLayout>
   )
