@@ -1,16 +1,30 @@
-import React, { ReactElement } from 'react'
-import { View } from 'react-native'
+import React, { ReactElement, useCallback, useState } from 'react'
+import { RefreshControl, ScrollView, SectionList } from 'react-native'
+import { Divider } from 'react-native-paper'
+import styled from 'styled-components/native'
 
 import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared'
 import { CategoriesMapModel, CategoryModel, RegionModel } from 'shared/api'
 
+import dimensions from '../constants/dimensions'
 import useTtsPlayer from '../hooks/useTtsPlayer'
+import Caption from './Caption'
 import CategoryListItem from './CategoryListItem'
 import EmbeddedOffers from './EmbeddedOffers'
-import List from './List'
 import OrganizationContentInfo from './OrganizationContentInfo'
-import Page from './Page'
+import { SpaceForTts } from './Page'
+import RemoteContent from './RemoteContent'
+import SubCategoryListItem from './SubCategoryListItem'
 import Tiles from './Tiles'
+import TimeStamp from './TimeStamp'
+
+const IndentedDivider = styled(Divider)`
+  margin-left: 56px;
+  margin-right: 56px;
+`
+
+const SectionSeparator = ({ leadingItem, trailingSection }: { leadingItem?: object; trailingSection?: object }) =>
+  leadingItem && !trailingSection ? null : <Divider />
 
 export type CategoriesProps = {
   regionModel: RegionModel
@@ -19,6 +33,12 @@ export type CategoriesProps = {
   category: CategoryModel
   navigateTo: (routeInformation: RouteInformationType) => void
   goBack: () => void
+  refresh?: () => void
+}
+
+type CategorySection = {
+  category: CategoryModel
+  data: CategoryModel[]
 }
 
 const Categories = ({
@@ -28,10 +48,14 @@ const Categories = ({
   categories,
   category,
   goBack,
+  refresh,
 }: CategoriesProps): ReactElement => {
   const children = categories.getChildren(category)
   const regionCode = regionModel.code
-  useTtsPlayer(category)
+  const { visible: ttsPlayerVisible } = useTtsPlayer(category)
+
+  const [loading, setLoading] = useState(category.content.length !== 0)
+  const onLoad = useCallback(() => setLoading(false), [])
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
@@ -43,41 +67,89 @@ const Categories = ({
 
   if (category.isRoot()) {
     return (
-      <View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={<RefreshControl onRefresh={refresh} refreshing={false} />}>
         <Tiles
           tiles={getCategoryTiles({ categories: children, regionCode })}
           language={language}
           onTilePress={navigateToCategory}
         />
-      </View>
+      </ScrollView>
     )
   }
-  return (
-    <Page
-      title={category.title}
-      content={category.content}
-      lastUpdate={category.lastUpdate}
-      language={language}
-      afterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
-      footer={
-        children.length ? (
-          <List
-            items={children}
-            renderItem={({ item: it }) => (
-              <CategoryListItem
-                key={it.path}
-                category={it}
-                subCategories={categories.getChildren(it)}
-                language={language}
-                onItemPress={navigateToCategory}
-              />
+
+  const renderPageHeader = (
+    <>
+      {!loading && category.title ? <Caption title={category.title} language={language} /> : null}
+      <RemoteContent content={category.content} onLoad={onLoad} loading={loading} language={language} />
+      {!loading && category.organization && <OrganizationContentInfo organization={category.organization} />}
+      {!loading && !!category.content && <TimeStamp lastUpdate={category.lastUpdate} />}
+    </>
+  )
+
+  if (!children.length) {
+    return (
+      <SectionList
+        sections={[]}
+        keyExtractor={item => item.path}
+        renderItem={() => null}
+        ListHeaderComponent={renderPageHeader}
+        ListFooterComponent={
+          <>
+            {!loading && (
+              <EmbeddedOffers category={category} regionCode={regionCode} languageCode={language} goBack={goBack} />
             )}
-            scrollEnabled={false}
+            <SpaceForTts $ttsPlayerVisible={ttsPlayerVisible} />
+          </>
+        }
+        onRefresh={refresh}
+        refreshing={false}
+        contentContainerStyle={{
+          paddingHorizontal: dimensions.pageContainerPaddingHorizontal,
+          paddingBottom: 8,
+        }}
+      />
+    )
+  }
+
+  const sections: CategorySection[] = children.map(child => ({
+    category: child,
+    data: categories.getChildren(child),
+  }))
+
+  return (
+    <SectionList
+      sections={loading ? [] : sections}
+      keyExtractor={item => item.path}
+      accessibilityRole='list'
+      ListHeaderComponent={renderPageHeader}
+      ListFooterComponent={<SpaceForTts $ttsPlayerVisible={ttsPlayerVisible} />}
+      renderSectionHeader={({ section }) => {
+        const isLastListItem = sections[sections.length - 1]?.category.path === section.category.path
+        return (
+          <CategoryListItem
+            category={section.category}
+            language={language}
+            onItemPress={navigateToCategory}
+            isLastListItem={isLastListItem}
           />
-        ) : (
-          <EmbeddedOffers category={category} regionCode={regionModel.code} languageCode={language} goBack={goBack} />
         )
-      }
+      }}
+      renderItem={({ item }) => (
+        <SubCategoryListItem subCategory={item} onItemPress={navigateToCategory} language={language} />
+      )}
+      onRefresh={refresh}
+      refreshing={false}
+      stickySectionHeadersEnabled={false}
+      SectionSeparatorComponent={SectionSeparator}
+      ItemSeparatorComponent={IndentedDivider}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps='handled'
+      contentContainerStyle={{
+        paddingHorizontal: dimensions.pageContainerPaddingHorizontal,
+        paddingBottom: 8,
+      }}
     />
   )
 }

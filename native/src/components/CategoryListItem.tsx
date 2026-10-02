@@ -4,12 +4,10 @@ import styled, { useTheme } from 'styled-components/native'
 
 import { CategoryModel } from 'shared/api'
 
-import { contentAlignmentRTLText, isContentDirectionReversalRequired, isRTLText } from '../constants/contentDirection'
+import { contentAlignmentRTLText, isContentDirectionReversalRequired } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import ContrastImage from './ContrastImage'
-import List from './List'
 import SimpleImage from './SimpleImage'
-import SubCategoryListItem from './SubCategoryListItem'
 import Text from './base/Text'
 
 export const CategoryThumbnail = styled(SimpleImage)<{ language: string }>`
@@ -25,12 +23,12 @@ export const CategoryThumbnail = styled(SimpleImage)<{ language: string }>`
 
 type CategoryListItemProps = {
   category: CategoryModel
-  subCategories: CategoryModel[]
   onItemPress: (item: { path: string }) => void
   language: string
+  isLastListItem?: boolean
 }
 
-const CategoryListItem = ({ language, category, subCategories, onItemPress }: CategoryListItemProps): ReactElement => {
+const CategoryListItem = ({ language, category, onItemPress, isLastListItem }: CategoryListItemProps): ReactElement => {
   const theme = useTheme()
   const renderLeft = useCallback(() => {
     if (!category.thumbnail) {
@@ -56,24 +54,7 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
         onPress={() => onItemPress({ path: category.path })}
         accessibilityLanguage={language}
       />
-      {subCategories.length > 0 && (
-        <>
-          <Divider />
-          <List
-            items={subCategories}
-            style={isRTLText(subCategories[0]?.title ?? category.title) ? { marginRight: 56 } : { marginLeft: 56 }}
-            renderItem={({ item: subCategory }) => (
-              <SubCategoryListItem
-                key={subCategory.path}
-                subCategory={subCategory}
-                onItemPress={onItemPress}
-                language={language}
-              />
-            )}
-            scrollEnabled={false}
-          />
-        </>
-      )}
+      {!isLastListItem && <Divider />}
     </>
   )
 }

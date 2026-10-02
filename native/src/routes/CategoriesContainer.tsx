@@ -61,7 +61,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     data?.categories && !category && previousLanguageCode === languageCode ? ErrorCodes.PageNotFound : response.error
 
   return (
-    <LoadingErrorHandler refresh={response.refresh} loading={response.loading} error={error} scrollView>
+    <LoadingErrorHandler refresh={response.refresh} loading={response.loading} error={error}>
       {data && category && (
         <Categories
           navigateTo={navigateTo}
@@ -70,6 +70,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
           categories={data.categories}
           category={category}
           goBack={navigation.goBack}
+          refresh={response.refresh}
         />
       )}
     </LoadingErrorHandler>
