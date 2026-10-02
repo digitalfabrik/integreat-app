@@ -35,6 +35,10 @@ class Config {
       name: 'Български',
       rtl: false,
     },
+    bs: {
+      name: 'bosanski',
+      rtl: false,
+    },
     ckb: {
       name: 'سۆرانی',
       rtl: true,
