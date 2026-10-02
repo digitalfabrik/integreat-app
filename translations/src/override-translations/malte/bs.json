@@ -1,0 +1,18 @@
+{
+  "common": {
+    "meta": {
+      "description": "{{appName}} je vaš digitalni asistent Malteškog reda. Ovdje možete pronaći lokalne informacije, termine i savjetovanja iz vaše ustanove. Uvijek ažurno i na vašem jeziku!"
+    }
+  },
+  "events": {
+    "title": "Termini",
+    "error": {
+      "notFound": "Ovaj termin nije pronađen.",
+      "nothingFound": "Nema pronađenih termina."
+    },
+    "export": {
+      "thisRecurrence": "Samo ovaj termin",
+      "allRecurrences": "Ovaj i svi budući termini"
+    }
+  }
+}
