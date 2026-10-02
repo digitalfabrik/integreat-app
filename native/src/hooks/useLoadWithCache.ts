@@ -69,15 +69,23 @@ const loadWithCache = async <T extends object>({
   return cachedData
 }
 
-const useLoadWithCache = <T extends object>(params: Omit<Load<T>, 't'>): ReturnType<T> => {
+type UseLoadWithCacheParams<T extends object> = Omit<Load<T>, 't'> & {
+  enabled?: boolean
+}
+
+const useLoadWithCache = <T extends object>({
+  enabled = true,
+  ...params
+}: UseLoadWithCacheParams<T>): ReturnType<T> => {
   const { t } = useTranslation()
 
   return useLoadAsync<T>(
     useCallback(
-      forceUpdate => loadWithCache<T>({ ...params, forceUpdate: params.forceUpdate || forceUpdate, t }),
+      async forceUpdate =>
+        enabled ? loadWithCache<T>({ ...params, forceUpdate: params.forceUpdate || forceUpdate, t }) : null,
       // Normally using params as dependency triggers infinite re-renders
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [JSON.stringify(params), t],
+      [JSON.stringify(params), enabled, t],
     ),
   )
 }
