@@ -75,12 +75,16 @@ const useLoadRegionContent = ({
     getFromDataContainer: dataContainer.getCategoriesMap,
     setToDataContainer: dataContainer.setCategoriesMap,
   })
+
+  const isMinimalContentReady = !!regionsReturn.data && !!categoriesReturn.data
+
   const eventsReturn = useLoadWithCache({
     ...params,
     isAvailable: dataContainer.eventsAvailable,
     createEndpoint: createEventsEndpoint,
     getFromDataContainer: dataContainer.getEvents,
     setToDataContainer: dataContainer.setEvents,
+    enabled: isMinimalContentReady,
   })
   const placesReturn = useLoadWithCache({
     ...params,
@@ -88,6 +92,7 @@ const useLoadRegionContent = ({
     createEndpoint: createPlacesEndpoint,
     getFromDataContainer: dataContainer.getPlaces,
     setToDataContainer: dataContainer.setPlaces,
+    enabled: isMinimalContentReady,
   })
   const newsReturn = useLoadWithCache({
     ...params,
@@ -95,6 +100,7 @@ const useLoadRegionContent = ({
     createEndpoint: createNewsEndpoint,
     getFromDataContainer: dataContainer.getNews,
     setToDataContainer: dataContainer.setNews,
+    enabled: isMinimalContentReady,
     forceUpdate: refreshNews,
   })
 
