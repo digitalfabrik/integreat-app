@@ -71,6 +71,7 @@ class CategoriesMapModelBuilder {
       const resourceUrl2 = `https://cms.integreat-app.de/category_${id}-300x300.png`
       const thumbnail = `https://cms.integreat-app.de/thumbnails/category_${id}.png`
       const newChild = new CategoryModel({
+        id,
         root: false,
         path,
         title: `Category with id ${id}`,
@@ -83,6 +84,7 @@ class CategoriesMapModelBuilder {
         thumbnail,
         parentPath: category.path,
         lastUpdate,
+        publishedAt: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
         organization: new OrganizationModel({
           name: 'Tür an Tür',
           logo: 'https://example.com/my-icon',
@@ -136,6 +138,7 @@ class CategoriesMapModelBuilder {
 
     this._addChildren(
       new CategoryModel({
+        id: -1,
         root: true,
         path,
         title: this._region,
@@ -145,6 +148,7 @@ class CategoriesMapModelBuilder {
         thumbnail: '',
         parentPath: '',
         lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
+        publishedAt: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
         organization: null,
         embeddedOffers: [],
         slugHistory: [],

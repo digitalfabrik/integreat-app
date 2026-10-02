@@ -23,6 +23,7 @@ describe('createCategoriesEndpoint', () => {
   }
   const basePath = `/${params.region}/${params.language}`
   const rootCategory = new CategoryModel({
+    id: -1,
     root: true,
     path: basePath,
     title: params.region,
@@ -32,6 +33,7 @@ describe('createCategoriesEndpoint', () => {
     order: -1,
     availableLanguages: {},
     lastUpdate: DateTime.fromMillis(0),
+    publishedAt: DateTime.fromMillis(0),
     organization: null,
     embeddedOffers: [],
     slugHistory: [],

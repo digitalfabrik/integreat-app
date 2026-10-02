@@ -7,6 +7,7 @@ import { renderWithRouterAndTheme } from '../../testing/render'
 import CategoryListItem from '../CategoryListItem'
 
 const categoryParams = {
+  id: 1,
   root: false,
   path: '/augsburg/de/lorem-ipsum',
   title: 'Duis aute',
@@ -20,6 +21,7 @@ const categoryParams = {
   },
   thumbnail: '',
   lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
+  publishedAt: DateTime.fromISO('2024-08-15T10:47:34+02:00'),
   organization: null,
   embeddedOffers: [],
   slugHistory: [],

@@ -20,10 +20,12 @@ describe('useTtsPlayer', () => {
   const newSentences = ['new sentence 1.', 'new sentence 2.']
 
   const dummyDocument = new DocumentModel({
+    id: 1,
     path: '/test-path',
     title: 'Test title',
     content: `<div></div><div>${newSentences[0]} ${newSentences[1]}</p></div>`,
     lastUpdate: DateTime.now(),
+    publishedAt: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   })
 
   beforeEach(jest.clearAllMocks)

@@ -40,6 +40,7 @@ describe('NewsDetailPage', () => {
       content: '<p>News body</p>',
       source,
       lastUpdate: DateTime.fromISO('2023-03-20T17:50:00.000Z'),
+      publishedAt: DateTime.fromISO('2023-01-01T00:00:00.000Z'),
       availableLanguages: { de: newsId, en: 'local-42' },
       externalUrl: 'https://external.example.com',
     })

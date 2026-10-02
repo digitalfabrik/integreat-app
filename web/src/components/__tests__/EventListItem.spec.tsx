@@ -2,12 +2,13 @@ import { DateTime } from 'luxon'
 import React from 'react'
 import { rrulestr } from 'rrule'
 
-import { getExcerpt } from 'shared'
+import { getExcerpt, MAX_DAYS_NEW } from 'shared'
 import { DateModel, EventModelBuilder } from 'shared/api'
 import { mockT } from 'shared/testing'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../../assets'
 import { EXCERPT_MAX_CHARS } from '../../constants'
+import { EVENTS_VISITED_IDS_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import EventListItem from '../EventListItem'
 
@@ -19,7 +20,9 @@ describe('EventListItem', () => {
   const excerpt = getExcerpt(event.excerpt, { maxChars: EXCERPT_MAX_CHARS })
 
   it('should show event list item with specific thumbnail', () => {
-    const { getByText, getByRole } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
+    const { getByText, getByRole } = renderWithRouterAndTheme(
+      <EventListItem event={event} languageCode={language} regionCode='augsburg' />,
+    )
 
     expect(getByText(event.title)).toBeTruthy()
     expect(getByText(event.date.formatDateInterval(language), { exact: false })).toBeTruthy()
@@ -33,7 +36,7 @@ describe('EventListItem', () => {
     const eventWithoutThumbnail = Object.assign(event, { _thumbnail: undefined })
 
     const { getByText, getByRole } = renderWithRouterAndTheme(
-      <EventListItem event={eventWithoutThumbnail} languageCode={language} />,
+      <EventListItem event={eventWithoutThumbnail} languageCode={language} regionCode='augsburg' />,
     )
 
     expect(getByText(event.title)).toBeTruthy()
@@ -63,7 +66,9 @@ describe('EventListItem', () => {
     it('should show no icon for for one time event', () => {
       const event = createEvent()
 
-      const { queryByLabelText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
+      const { queryByLabelText } = renderWithRouterAndTheme(
+        <EventListItem event={event} languageCode={language} regionCode='augsburg' />,
+      )
 
       expect(queryByLabelText('events:recurrence.recurring')).toBeFalsy()
     })
@@ -71,9 +76,67 @@ describe('EventListItem', () => {
     it('should show icon if recurring event', () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231029T050000')
 
-      const { queryByLabelText } = renderWithRouterAndTheme(<EventListItem event={event} languageCode={language} />)
+      const { queryByLabelText } = renderWithRouterAndTheme(
+        <EventListItem event={event} languageCode={language} regionCode='augsburg' />,
+      )
 
       expect(queryByLabelText('events:recurrence.recurring')).toBeTruthy()
+    })
+  })
+
+  describe('new chip', () => {
+    const newEvent = Object.assign(new EventModelBuilder('seed', 1, 'augsburg', language).build()[0]!, {
+      _publishedAt: DateTime.now().minus({ days: MAX_DAYS_NEW - 1 }),
+    })
+
+    beforeEach(() => {
+      localStorage.clear()
+    })
+
+    it('should show chip for new event which was not visited yet', () => {
+      const { getByText } = renderWithRouterAndTheme(
+        <EventListItem event={newEvent} languageCode={language} regionCode='augsburg' />,
+      )
+
+      expect(getByText('common:state.new')).toBeTruthy()
+    })
+
+    it('should not show chip for new event which was already visited', () => {
+      localStorage.setItem(
+        EVENTS_VISITED_IDS_STORAGE_KEY,
+        JSON.stringify({ augsburg: { [newEvent.id]: DateTime.now().toISO() } }),
+      )
+
+      const { queryByText } = renderWithRouterAndTheme(
+        <EventListItem event={newEvent} languageCode={language} regionCode='augsburg' />,
+      )
+
+      expect(queryByText('common:state.new')).toBeFalsy()
+    })
+
+    it('should show chip for new event which was only visited in another region', () => {
+      localStorage.setItem(
+        EVENTS_VISITED_IDS_STORAGE_KEY,
+        JSON.stringify({ muenchen: { [newEvent.id]: DateTime.now().toISO() } }),
+      )
+
+      const { getByText } = renderWithRouterAndTheme(
+        <EventListItem event={newEvent} languageCode={language} regionCode='augsburg' />,
+      )
+
+      expect(getByText('common:state.new')).toBeTruthy()
+    })
+
+    it('should not show chip for old event', () => {
+      const oldEvent = Object.assign(new EventModelBuilder('seed', 1, 'augsburg', language).build()[0]!, {
+        _publishedAt: DateTime.now().minus({ days: MAX_DAYS_NEW + 1 }),
+      })
+
+      const { queryByText } = renderWithRouterAndTheme(
+        <EventListItem event={oldEvent} languageCode={language} regionCode='augsburg' />,
+      )
+
+      expect(queryByText('common:state.new')).toBeFalsy()
     })
   })
 })

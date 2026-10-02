@@ -24,6 +24,7 @@ class PlaceModel extends ExtendedDocumentModel {
   _barrierFree: boolean | null
 
   constructor(params: {
+    id: number
     path: string
     title: string
     content: string
@@ -33,6 +34,7 @@ class PlaceModel extends ExtendedDocumentModel {
     excerpt: string
     location: LocationModel<number>
     lastUpdate: DateTime
+    publishedAt: DateTime
     temporarilyClosed: boolean
     openingHours: OpeningHoursModel[] | null
     category: PlaceCategoryModel

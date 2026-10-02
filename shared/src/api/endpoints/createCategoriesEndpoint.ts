@@ -23,6 +23,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
       const categories = json.map(category => mapCategoryJson(category, basePath))
       categories.push(
         new CategoryModel({
+          id: -1,
           root: true,
           path: basePath,
           title: params.region,
@@ -32,6 +33,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoriesMapModel> =>
           order: -1,
           availableLanguages: {},
           lastUpdate: DateTime.fromMillis(0),
+          publishedAt: DateTime.fromMillis(0),
           organization: null,
           embeddedOffers: [],
           slugHistory: [],

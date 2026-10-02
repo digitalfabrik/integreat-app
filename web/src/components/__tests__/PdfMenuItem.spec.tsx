@@ -12,6 +12,7 @@ import PdfMenuItem from '../PdfMenuItem'
 const renderInMenu = (ui: ReactElement) => renderWithRouterAndTheme(<MenuList>{ui}</MenuList>)
 
 const rootCategory = new CategoryModel({
+  id: -1,
   root: true,
   path: '/augsburg/de',
   title: 'augsburg',
@@ -21,12 +22,14 @@ const rootCategory = new CategoryModel({
   order: -1,
   availableLanguages: {},
   lastUpdate: DateTime.fromMillis(0),
+  publishedAt: DateTime.fromMillis(0),
   organization: null,
   embeddedOffers: [],
   slugHistory: [],
 })
 
 const childCategory = new CategoryModel({
+  id: 1,
   root: false,
   path: '/augsburg/de/anlaufstellen',
   title: 'Anlaufstellen zu sonstigen Themen',
@@ -36,6 +39,7 @@ const childCategory = new CategoryModel({
   availableLanguages: { en: '/augsburg/en/anlaufstellen' },
   thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
   lastUpdate: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
+  publishedAt: DateTime.fromISO('2017-01-01T05:10:05+02:00'),
   organization: null,
   embeddedOffers: [],
   slugHistory: [],

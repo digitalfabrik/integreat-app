@@ -9,11 +9,13 @@ class ExtendedDocumentModel extends DocumentModel {
   _availableLanguages: Record<string, string>
 
   constructor(params: {
+    id: number
     path: string
     title: string
     content: string
     thumbnail: string | null
     lastUpdate: DateTime
+    publishedAt: DateTime
     availableLanguages: Record<string, string>
   }) {
     const { thumbnail, availableLanguages, ...other } = params

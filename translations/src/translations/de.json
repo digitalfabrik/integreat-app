@@ -77,7 +77,8 @@
       "loading": "Lade…",
       "optional": "optional",
       "enabled": "aktiviert",
-      "disabled": "deaktiviert"
+      "disabled": "deaktiviert",
+      "new": "neu"
     },
     "labels": {
       "description": "Beschreibung",

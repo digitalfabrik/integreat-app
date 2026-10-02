@@ -10,8 +10,8 @@ import AddressInfo from './AddressInfo'
 import Contact from './Contact'
 import CustomThumbnail from './CustomThumbnail'
 import OpeningHours from './OpeningHours'
-import Page from './Page'
 import PlaceChips from './PlaceChips'
+import RemoteContent from './RemoteContent'
 import Text from './base/Text'
 
 const PlaceDetailsContainer = styled.View`
@@ -55,7 +55,7 @@ const PlaceDetails = ({ place, language, distance, onFocus }: PlaceDetailsProps)
       {content.length > 0 && (
         <>
           <Accordion headerContent={t($ => $.common.labels.description)}>
-            <Page content={content} language={language} padding={false} />
+            <RemoteContent content={content} language={language} />
           </Accordion>
           <StyledDivider />
         </>

@@ -39,6 +39,7 @@ describe('events', () => {
     },
     meeting_url: 'meeting-url',
     last_updated: '2022-06-29T09:19:57.443+02:00',
+    published_at: '2022-06-29T09:19:57.443+02:00',
     featured_image: {
       description: 'I am an image showing beer',
       mimetype: 'image/png',
@@ -77,6 +78,7 @@ describe('events', () => {
 
   const createEventModel = (allDay: boolean, startDate: DateTime, endDate: DateTime, rrule?: string): EventModel =>
     new EventModel({
+      id: 6349,
       path: '/augsburg/de/events/asylpolitischer_fruehschoppen',
       title: 'Asylpolitischer Frühschoppen',
       excerpt: 'Asylpolitischer Frühschoppen',
@@ -102,6 +104,7 @@ describe('events', () => {
       }),
       meetingUrl: 'meeting-url',
       lastUpdate: DateTime.fromISO('2022-06-29T09:19:57.443+02:00'),
+      publishedAt: DateTime.fromISO('2022-06-29T09:19:57.443+02:00'),
       featuredImage: new FeaturedImageModel({
         description: 'I am an image showing beer',
         thumbnail: {

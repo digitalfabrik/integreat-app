@@ -24,10 +24,12 @@ describe('TtsContainer', () => {
   mocked(EasySpeech.status).mockImplementation(() => ({ status: 'init: complete' }))
 
   const dummyDocument = new DocumentModel({
+    id: 1,
     path: '/test-path',
     title: 'test',
     content: '<p>This is a test.</p>',
     lastUpdate: DateTime.now(),
+    publishedAt: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   })
 
   const testTtsObject = (text: string) => ({
