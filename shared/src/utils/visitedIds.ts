@@ -7,7 +7,7 @@ export type VisitedIdsType = { [regionCode: string]: { [id: string]: string } }
 // Content visited more than MAX_DAYS_NEW days ago cannot be new anymore, so there is no need to remember it
 export const removeExpiredVisitedIds = (visitedIds: VisitedIdsType): VisitedIdsType => {
   const now = DateTime.now()
-  const isExpired = (visitedAt: string) => now.diff(DateTime.fromISO(visitedAt)).as('days') >= MAX_DAYS_NEW
+  const isExpired = (visitedAt: string) => now.diff(DateTime.fromISO(visitedAt)).as('days') > MAX_DAYS_NEW + 1
   return Object.fromEntries(
     Object.entries(visitedIds)
       .map(
