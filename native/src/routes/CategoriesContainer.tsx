@@ -25,8 +25,12 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const { navigateTo } = useNavigate()
 
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
-  // Preload search results for fallback language
-  useLoadRegionContent({ regionCode, languageCode: config.sourceLanguage })
+  // Preload search results for fallback language once the content of the current language is loaded
+  useLoadRegionContent({
+    regionCode,
+    languageCode: config.sourceLanguage,
+    enabled: !!data && languageCode !== config.sourceLanguage,
+  })
 
   const path = route.params.path ?? regionContentPath({ regionCode, languageCode })
   const category = useMemo(
