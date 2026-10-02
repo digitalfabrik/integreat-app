@@ -26,8 +26,8 @@ const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement 
   })
 
   const newsSources = newsFilterToSources(sourceFilter)
-  const news = data?.news.filter(news => !newsSources || newsSources.includes(news.source))
-  const currentNews = id != null ? data?.news.find(it => it.id === id) : undefined
+  const news = data?.news?.filter(news => !newsSources || newsSources.includes(news.source))
+  const currentNews = id != null ? data?.news?.find(it => it.id === id) : undefined
   const availableLanguages = currentNews
     ? Object.keys(currentNews.availableLanguages ?? {})
     : data?.languages.map(it => it.code)
