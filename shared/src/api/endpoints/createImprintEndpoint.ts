@@ -28,7 +28,8 @@ export default (baseUrl: string): Endpoint<ParamsType, DocumentModel> =>
         title: json.title,
         content: json.content,
         lastUpdate: DateTime.fromISO(json.last_updated),
-        publishedAt: DateTime.fromISO(json.published_at),
+        // There is no published_at for imprints, so we just reuse last_update
+        publishedAt: DateTime.fromISO(json.last_updated),
       })
     })
     .build()
