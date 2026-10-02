@@ -57,7 +57,7 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
     [navigation, localHistory],
   )
 
-  const currentPlace = slug ? data?.places.find(it => it.slug === slug) : undefined
+  const currentPlace = slug ? data?.places?.find(it => it.slug === slug) : undefined
   const availableLanguages = currentPlace
     ? Object.keys(currentPlace.availableLanguageSlugs)
     : data?.languages.map(it => it.code)
@@ -87,7 +87,7 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
     (newLanguage: string) => {
       localHistory.reset(
         localHistory.history.map(history => {
-          const place = history.slug ? data?.places.find(it => it.slug === history.slug) : undefined
+          const place = history.slug ? data?.places?.find(it => it.slug === history.slug) : undefined
           const newSlug = place?.availableLanguageSlugs[newLanguage]
           return { ...history, slug: newSlug }
         }),
@@ -99,7 +99,7 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
 
   return (
     <LoadingErrorHandler {...response}>
-      {data && (
+      {data?.places && (
         <Places
           refresh={response.refresh}
           localHistory={localHistory}

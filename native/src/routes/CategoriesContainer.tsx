@@ -29,7 +29,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   useLoadRegionContent({
     regionCode,
     languageCode: config.sourceLanguage,
-    enabled: !!data && languageCode !== config.sourceLanguage,
+    enabled: !!data && !response.loading && languageCode !== config.sourceLanguage,
   })
 
   const path = route.params.path ?? regionContentPath({ regionCode, languageCode })

@@ -27,7 +27,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
 
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
 
-  const currentEvent = slug ? data?.events.find(it => it.slug === slug) : undefined
+  const currentEvent = slug ? data?.events?.find(it => it.slug === slug) : undefined
   const availableLanguages = currentEvent
     ? Object.keys(currentEvent.availableLanguageSlugs)
     : data?.languages.map(it => it.code)
@@ -54,7 +54,7 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
 
   return (
     <LoadingErrorHandler {...response}>
-      {data && (
+      {data?.events && (
         <Events
           slug={slug}
           events={data.events}
