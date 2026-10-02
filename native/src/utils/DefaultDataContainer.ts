@@ -78,6 +78,7 @@ class DefaultDataContainer implements DataContainer {
 
   deleteRegion = async (region: string): Promise<void> => {
     await this._databaseConnector.deleteRegions([region])
+    Object.keys(this.caches).forEach(cache => this.caches[cache as keyof CacheType].evictRegion(region))
   }
 
   // WARNING: Be careful using this method, it deletes ALL offline content, including metadata which may lead to inconsistent app states and break our offline functionality.
