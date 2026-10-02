@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { render, RenderAPI } from '@testing-library/react-native'
 import React, { ReactElement } from 'react'
 
@@ -25,7 +25,7 @@ export const renderWithNavigator = <T extends RoutesType, P>(
   props: P,
   initialParams?: Partial<RoutesParamsType[T]>,
 ): RenderAPI => {
-  const { Screen, Navigator } = createStackNavigator<RoutesParamsType>()
+  const { Screen, Navigator } = createNativeStackNavigator<RoutesParamsType>()
 
   const Render = ({ route, navigation }: { route: RouteProps<T>; navigation: NavigationProps<T> }) => (
     <Component route={route} navigation={navigation} {...props} />
