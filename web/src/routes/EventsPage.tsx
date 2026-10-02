@@ -97,7 +97,7 @@ const EventsPage = ({ region, pathname, languageCode, regionCode }: RegionRouteP
     return (
       <RegionContentLayout isLoading={false} {...locationLayoutParams}>
         <Helmet pageTitle={pageTitle} languageChangePaths={languageChangePaths} regionModel={region} />
-        <EventDetail event={event} languageCode={languageCode} regionCode={regionCode} />
+        <EventDetail key={event.id} event={event} languageCode={languageCode} regionCode={regionCode} />
       </RegionContentLayout>
     )
   }
