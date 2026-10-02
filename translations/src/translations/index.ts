@@ -2,6 +2,7 @@ import type { TranslationsType } from '../types.ts'
 import am from './am.json' with { type: 'json' }
 import ar from './ar.json' with { type: 'json' }
 import bg from './bg.json' with { type: 'json' }
+import bs from './bs.json' with { type: 'json' }
 import ckb from './ckb.json' with { type: 'json' }
 import cs from './cs.json' with { type: 'json' }
 import da from './da.json' with { type: 'json' }
@@ -49,6 +50,7 @@ const translations = {
   am,
   ar,
   bg,
+  bs,
   ckb,
   cs,
   da,
