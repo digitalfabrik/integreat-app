@@ -38,9 +38,9 @@ export type RegionContentData = {
   region: RegionModel
   language: LanguageModel
   categories: CategoriesMapModel
-  events: EventModel[]
-  news: NewsModel[]
-  places: PlaceModel[]
+  events: EventModel[] | null
+  news: NewsModel[] | null
+  places: PlaceModel[] | null
 }
 
 export type RegionContentReturn = Omit<Omit<ReturnType<RegionContentData>, 'error'>, 'setData'> & {
@@ -159,13 +159,7 @@ const useLoadRegionContent = ({
   }
 
   const data =
-    region &&
-    language &&
-    regionsReturn.data &&
-    categoriesReturn.data &&
-    eventsReturn.data &&
-    placesReturn.data &&
-    newsReturn.data
+    region && language && regionsReturn.data && categoriesReturn.data
       ? {
           region,
           language,
