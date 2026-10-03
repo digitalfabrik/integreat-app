@@ -1,10 +1,10 @@
 import { PopoverContentProps } from '@reactour/tour'
-import { fireEvent } from '@testing-library/react'
-import React from 'react'
+import { fireEvent, render } from '@testing-library/react'
+import React, { ReactNode } from 'react'
 
 import { TOUR_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
-import { renderWithTheme } from '../../testing/render'
 import { TourStepType } from '../../utils/tourSteps'
+import ThemeContainer from '../ThemeContainer'
 import TourPopover from '../TourPopover'
 
 describe('TourPopover', () => {
@@ -21,10 +21,20 @@ describe('TourPopover', () => {
     localStorage.clear()
   })
 
-  const renderPopover = (currentStep: number) =>
-    renderWithTheme(
-      <TourPopover {...({ steps, currentStep, setCurrentStep, setIsOpen } as unknown as PopoverContentProps)} />,
-    )
+  const createPopover = (currentStep: number) => (
+    <TourPopover {...({ steps, currentStep, setCurrentStep, setIsOpen } as unknown as PopoverContentProps)} />
+  )
+
+  const renderPopover = (currentStep: number) => {
+    const result = render(createPopover(currentStep), {
+      wrapper: ({ children }: { children: ReactNode }) => (
+        <ThemeContainer contentDirection='ltr'>{children}</ThemeContainer>
+      ),
+    })
+    // The wrapper is kept on rerendering, so the popover stays mounted while switching steps
+    const rerenderStep = (step: number) => result.rerender(createPopover(step))
+    return { ...result, rerenderStep }
+  }
 
   it('should render the content and the progress of the current step', () => {
     const { getByText, getByLabelText } = renderPopover(0)
@@ -71,5 +81,35 @@ describe('TourPopover', () => {
 
     expect(setIsOpen).toHaveBeenCalledWith(false)
     expect(localStorage.getItem(TOUR_VISIBLE_STORAGE_KEY)).toBe('false')
+  })
+
+  it('should move the focus into the popover when the tour starts', () => {
+    const { getByRole } = renderPopover(0)
+
+    const dialog = getByRole('dialog', { name: 'tour:title' })
+    expect(dialog).toHaveFocus()
+    expect(dialog).toHaveAccessibleDescription('First step')
+    expect(getByRole('status')).toHaveTextContent('')
+  })
+
+  it('should announce the content of the next step to screen readers', () => {
+    const { getByRole, getByText, rerenderStep } = renderPopover(0)
+
+    const nextButton = getByText('common:actions.next')
+    nextButton.focus()
+    rerenderStep(1)
+
+    expect(getByRole('status')).toHaveTextContent('tour:progress [2,2]: Second step')
+    expect(nextButton).toHaveFocus()
+  })
+
+  it('should move the focus back into the popover if the focused button disappears', () => {
+    const { getByRole, getByText, rerenderStep } = renderPopover(1)
+
+    getByText('common:actions.previous').focus()
+    rerenderStep(0)
+
+    expect(getByRole('dialog')).toHaveFocus()
+    expect(getByRole('status')).toHaveTextContent('tour:progress [1,2]: First step')
   })
 })

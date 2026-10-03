@@ -1,0 +1,6 @@
+issue_key: 4399
+show_in_stores: false
+platforms:
+  - web
+en: The app tour can now be used with screen readers.
+de: Die App-Tour kann jetzt mit Screenreadern verwendet werden.
