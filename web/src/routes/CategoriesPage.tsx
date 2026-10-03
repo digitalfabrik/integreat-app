@@ -132,7 +132,17 @@ const CategoriesPage = ({ region, pathname, regionCode, languageCode }: RegionRo
   )
 
   const currentCategory = categories?.find(it => it.path === pathname)
-  useTtsPlayer(currentCategory, languageCode)
+  const childTitles = useMemo(
+    () =>
+      categories && currentCategory
+        ? new CategoriesMapModel(categories).getChildren(currentCategory).map(it => it.title)
+        : [],
+    [categories, currentCategory],
+  )
+  useTtsPlayer(currentCategory, languageCode, {
+    title: currentCategory?.isRoot() ? region?.name : undefined,
+    childTitles,
+  })
 
   const isLeafPage = categories && currentCategory ? new CategoriesMapModel(categories).isLeaf(currentCategory) : null
 

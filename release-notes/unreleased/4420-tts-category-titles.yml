@@ -1,0 +1,8 @@
+issue_key: 4420
+show_in_stores: true
+platforms:
+  - android
+  - ios
+  - web
+en: Read aloud now also reads the titles of the topics on the start screen and on overview pages.
+de: Die Vorlesefunktion liest jetzt auch die Titel der Themen auf der Startseite und auf Übersichtsseiten vor.

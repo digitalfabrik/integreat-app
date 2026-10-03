@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import { View } from 'react-native'
 
 import { CATEGORIES_ROUTE, getCategoryTiles, RouteInformationType } from 'shared'
@@ -29,9 +29,10 @@ const Categories = ({
   category,
   goBack,
 }: CategoriesProps): ReactElement => {
-  const children = categories.getChildren(category)
+  const children = useMemo(() => categories.getChildren(category), [categories, category])
+  const childTitles = useMemo(() => children.map(it => it.title), [children])
   const regionCode = regionModel.code
-  useTtsPlayer(category)
+  useTtsPlayer(category, { title: category.isRoot() ? regionModel.name : undefined, childTitles })
 
   const navigateToCategory = ({ path }: { path: string }) =>
     navigateTo({
