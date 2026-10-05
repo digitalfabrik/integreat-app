@@ -1,0 +1,7 @@
+issue_key: 4396
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The appointment info icon in the opening hours is now aligned correctly.
+de: Das Info-Symbol für Termine in den Öffnungszeiten ist nun richtig ausgerichtet.
