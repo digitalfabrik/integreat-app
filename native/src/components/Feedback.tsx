@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
@@ -10,6 +11,7 @@ import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
+import FeedbackStatusBanner from './FeedbackStatusBanner'
 import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
@@ -61,13 +63,9 @@ const Feedback = ({
 
   if (sendingStatus === 'successful') {
     return (
-      <Wrapper accessible accessibilityRole='alert' accessibilityLiveRegion='assertive'>
-        <Caption title={t($ => $.feedback.thanks.title)} />
-        <Text>{t($ => $.feedback.thanks.description)}</Text>
-        <Button onPress={navigation.goBack} mode='contained' style={{ marginTop: 16 }}>
-          {t($ => $.common.actions.close)}
-        </Button>
-      </Wrapper>
+      <View>
+        <FeedbackStatusBanner successful onClose={navigation.goBack} />
+      </View>
     )
   }
 

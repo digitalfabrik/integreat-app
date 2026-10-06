@@ -21,8 +21,10 @@ import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useCaptureError from '../hooks/useCaptureError'
+import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import { FeedbackContainer } from './FeedbackContainer'
 
 export type SearchProps = {
@@ -58,6 +60,9 @@ const Search = ({
 
   useCaptureError(error)
   useAnnounceSearchResultsIOS(searchResults)
+
+  const { data: regionContent } = useLoadRegionContent({ regionCode, languageCode })
+  const isChatEnabled = buildConfig().featureFlags.chat && regionContent?.region.chatEnabled
 
   const renderItem = ({ item }: { item: ExtendedDocumentModel }) => (
     <SearchListItem
@@ -95,6 +100,9 @@ const Search = ({
                   regionCode={regionCode}
                   rating={searchResults.length === 0 ? RATING_NEGATIVE : undefined}
                   query={debouncedQuery}
+                  noResults={searchResults.length === 0}
+                  isChatEnabled={isChatEnabled}
+                  onClearSearch={() => setQuery('')}
                 />
               }
             />

@@ -49,7 +49,10 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
       onBackground: palette.text.primary,
       outline: palette.primary.main,
       outlineVariant: palette.text.primary,
-      success: palette.success.main,
+      success: {
+        main: palette.success.main,
+        light: palette.success.light,
+      },
       tuNews: {
         main: palette.tuNews.main,
         light: palette.tuNews.light,

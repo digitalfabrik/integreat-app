@@ -3,6 +3,7 @@ import EventThumbnailPlaceholder2 from '../../../assets/event-thumbnail-placehol
 import EventThumbnailPlaceholder3 from '../../../assets/event-thumbnail-placeholder-3.jpg'
 import AmalNewsLogo from '../../../assets/icons/amal-news.svg'
 import EditLocationIcon from '../../../assets/icons/edit-location.svg'
+import FeedbackHintIcon from '../../../assets/icons/feedback-hint.svg'
 import NotAccessibleIcon from '../../../assets/icons/not-accessible.svg'
 import SprungbrettIcon from '../../../assets/icons/sprungbrett.svg'
 import TuNewsLogo from '../../../assets/icons/tu-news.svg'
@@ -19,6 +20,7 @@ export {
   EventThumbnailPlaceholder1,
   EventThumbnailPlaceholder2,
   EventThumbnailPlaceholder3,
+  FeedbackHintIcon,
   IntroLanguageIcon,
   IntroNewsIcon,
   IntroOfflineIcon,
