@@ -92,20 +92,23 @@ const EventListItem = ({
     })
   }, [navigateTo, regionCode, language, event.slug])
 
+  // PaperList.Item wraps non-function titles in <Text> which causes the chip to get cut off on iOS
+  const title = () => (
+    <TitleRow language={language}>
+      <Text variant='h5' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
+        {event.title}
+      </Text>
+      {isNew && <NewChip />}
+    </TitleRow>
+  )
+
   return (
     <PaperList.Item
       borderless
       titleNumberOfLines={0}
       descriptionNumberOfLines={0}
       descriptionStyle={{ marginTop: 8 }}
-      title={
-        <TitleRow language={language}>
-          <Text variant='h5' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
-            {event.title}
-          </Text>
-          {isNew && <NewChip />}
-        </TitleRow>
-      }
+      title={title}
       description={
         <View style={{ gap: 8, width: '100%' }}>
           <EventDates

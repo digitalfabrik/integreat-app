@@ -33,6 +33,7 @@ export const Description = styled.View`
 const NewsListItem = ({ newsItem, navigateToNews }: NewsListItemProps): ReactElement => {
   const { languageCode } = useAppContext()
 
+  // PaperList.Item wraps non-function titles in <Text> which causes the chip to get cut off on iOS
   const title = () => (
     <View style={[Styles.titleRow, { flexDirection: contentDirection(languageCode) }]}>
       <Text variant='h5' style={{ textAlign: contentAlignmentRTLText(newsItem.title), flex: 1 }}>
