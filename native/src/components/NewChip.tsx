@@ -12,9 +12,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   label: {
-    lineHeight: 16,
     marginVertical: 4,
-    marginHorizontal: 8,
+    marginLeft: 8,
+    marginRight: 8,
   },
 })
 
@@ -28,7 +28,7 @@ const NewChip = ({ style }: NewChipProps): ReactElement => {
 
   return (
     <Chip style={[styles.chip, { backgroundColor: theme.colors.primary }, style]} textStyle={styles.label} compact>
-      <Text variant='body2' style={{ color: theme.colors.onPrimary }}>
+      <Text variant='body3' style={{ color: theme.colors.onPrimary }}>
         {t($ => $.common.state.new)}
       </Text>
     </Chip>

@@ -34,7 +34,9 @@ const LocationRow = styled.View<{ language: string }>`
 
 const TitleRow = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
+  justify-content: space-between;
   align-items: center;
+  width: 100%;
   gap: 8px;
 `
 

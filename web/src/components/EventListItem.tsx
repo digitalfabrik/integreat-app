@@ -101,7 +101,7 @@ const EventListItem = ({
         <ListItemText
           disableTypography
           primary={
-            <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
+            <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
               <Typography component='h3' variant='subtitle1'>
                 {event.title}
               </Typography>
