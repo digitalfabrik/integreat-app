@@ -45,9 +45,9 @@ export type CommonColorPalette = CommonColors & {
   text: TypeText
   action: ActionColor
   error: PaletteColor
-  success: SimplePaletteColor
-  warning: SimplePaletteColor
-  info: SimplePaletteColor
+  success: PaletteColor
+  warning: PaletteColor
+  info: PaletteColor
   divider: string
 }
 

@@ -48,15 +48,21 @@ export const commonLightColors: CommonColorPalette = {
     contrastText: '#FFFFFF',
   },
   success: {
+    light: '#188335',
     main: '#15742F',
+    dark: '#126128',
     contrastText: '#E6E0E9',
   },
   warning: {
+    light: '#A26307',
     main: '#8F5806',
+    dark: '#794B05',
     contrastText: '#FFFFFF',
   },
   info: {
+    light: '#0970D8',
     main: '#0863BF',
+    dark: '#0753A1',
     contrastText: '#FFFFFF',
   },
   divider: '#767676',
@@ -99,15 +105,21 @@ export const commonDarkColors: CommonColorPalette = {
     contrastText: '#1D1B20',
   },
   success: {
+    light: '#B6E3C4',
     main: '#67C584',
+    dark: '#41A961',
     contrastText: '#1D1B20',
   },
   warning: {
+    light: '#FBD396',
     main: '#F69F1D',
+    dark: '#D68309',
     contrastText: '#1D1B20',
   },
   info: {
+    light: '#BBDCFC',
     main: '#74B7F9',
+    dark: '#3B9AF7',
     contrastText: '#1D1B20',
   },
   divider: '#C9C9C9',
