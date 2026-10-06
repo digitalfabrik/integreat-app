@@ -73,7 +73,7 @@ export const Header = ({ actionItems = [], logoHref, regionName, language, tabBa
 
   return (
     <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2}>
-      <StyledPaper>
+      <StyledPaper elevation={0}>
         <HeaderContainer ref={ref}>
           <Row>
             <Stack direction='row-reverse' sx={{ alignItems: 'center', gap: 1 }}>
