@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import styled from 'styled-components/native'
 
@@ -25,9 +25,12 @@ const Timeslot = styled.View`
   flex-direction: column;
 `
 
-const AppointmentOnlyContainer = styled.View`
-  padding: 0 4px;
-`
+const styles = StyleSheet.create({
+  entryRow: {
+    alignItems: 'center',
+    gap: 4,
+  },
+})
 
 type OpeningEntryProps = {
   openingHours: OpeningHoursModel
@@ -44,7 +47,7 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
   return (
     <EntryContainer language={i18n.language} accessible>
       <Text variant={isCurrentDay ? 'h6' : 'body2'}>{weekday}</Text>
-      <View style={{ flexDirection: contentDirection(i18n.language), alignItems: 'center' }}>
+      <View style={[styles.entryRow, { flexDirection: contentDirection(i18n.language) }]}>
         {(openingHours.openAllDay as boolean) && (
           <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t($ => $.places.hours.allDay)}</Text>
         )}
@@ -66,7 +69,7 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
             </Timeslot>
           )}
         {openingHours.appointmentOnly && (
-          <AppointmentOnlyContainer>
+          <View>
             <TouchableRipple borderless role='button' hitSlop={8} onPress={() => setOverlayOpen(true)}>
               <Icon size={18} source='alert-circle-outline' label={t($ => $.places.hours.appointment.required)} />
             </TouchableRipple>
@@ -76,7 +79,7 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
               closeOverlay={() => setOverlayOpen(false)}
               appointmentUrl={appointmentUrl}
             />
-          </AppointmentOnlyContainer>
+          </View>
         )}
       </View>
     </EntryContainer>
