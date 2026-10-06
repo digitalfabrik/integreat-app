@@ -66,7 +66,7 @@ const SendButton = styled(IconButton)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
   },
   [`&.${buttonBaseClasses.disabled}`]: {
-    color: theme.palette.text.disabled,
+    color: theme.palette.action.disabled,
   },
   [theme.breakpoints.up('md')]: {
     borderRadius: 12,

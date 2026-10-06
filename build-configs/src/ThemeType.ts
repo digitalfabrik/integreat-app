@@ -1,12 +1,11 @@
 export type SimplePaletteColor = {
   main: string
-  light?: string
+  contrastText: string
 }
 
 export type PaletteColor = SimplePaletteColor & {
   light: string
   dark: string
-  contrastText: string
 }
 
 export type ActionColor = {
@@ -20,14 +19,8 @@ export type ActionColor = {
 }
 
 export type CommonColors = {
-  error: PaletteColor
-  warning: SimplePaletteColor
-  success: SimplePaletteColor
-  info?: SimplePaletteColor
   tuNews: SimplePaletteColor
   amalNews: SimplePaletteColor
-  divider: string
-  link: string
 }
 
 export type PaletteMode = 'light' | 'dark'
@@ -51,6 +44,11 @@ export type CommonColorPalette = CommonColors & {
   background: TypeBackground
   text: TypeText
   action: ActionColor
+  error: PaletteColor
+  success: SimplePaletteColor
+  warning: SimplePaletteColor
+  info: SimplePaletteColor
+  divider: string
 }
 
 export type ThemeColorPalette = CommonColorPalette & {

@@ -27,14 +27,14 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     tertiary: PaletteColor
-    amalNews: SimplePaletteColorOptions
-    tuNews: SimplePaletteColorOptions
+    amalNews: SimplePaletteColorOptions & { contrastText: string }
+    tuNews: SimplePaletteColorOptions & { contrastText: string }
   }
 
   interface PaletteOptions {
     tertiary: PaletteColor
-    amalNews: SimplePaletteColorOptions
-    tuNews: SimplePaletteColorOptions
+    amalNews: SimplePaletteColorOptions & { contrastText: string }
+    tuNews: SimplePaletteColorOptions & { contrastText: string }
   }
 }
 

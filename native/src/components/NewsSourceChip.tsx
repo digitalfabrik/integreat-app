@@ -24,14 +24,16 @@ const NewsSourceChip = ({ source }: NewsSourceChipProps): ReactElement => {
   const theme = useTheme()
 
   const label = getNewsSourceLabel({ source, t })
-  const borderColor = getNewsColor({
-    palette: { ...theme.colors, secondary: { main: theme.colors.secondary } },
+  const [color, contrastColor] = getNewsColor({
+    palette: { ...theme.colors, secondary: { main: theme.colors.secondary, contrastText: theme.colors.onSecondary } },
     source,
   })
 
   return (
-    <Chip mode='outlined' style={[styles.chip, { borderColor, backgroundColor: theme.colors.background }]} compact>
-      <Text variant='body2'>{label}</Text>
+    <Chip mode='outlined' style={[styles.chip, { borderColor: color, backgroundColor: color }]} compact>
+      <Text variant='body2' style={{ color: contrastColor }}>
+        {label}
+      </Text>
     </Chip>
   )
 }

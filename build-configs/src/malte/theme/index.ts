@@ -4,10 +4,10 @@ import { commonDarkColors, commonLightColors } from '../../common/theme/colors.t
 const customColors = {
   secondary: {
     // TODO we do not yet have light/dark colors for malte (also the main color might have to be changed to the similarity to the error color)
-    light: '#ff0000',
-    main: '#ff0000',
-    dark: '#ff0000',
-    contrastText: '#E6E0E9',
+    light: '#FF0000',
+    main: '#FF0000',
+    dark: '#FF0000',
+    contrastText: '#000000',
   },
 }
 

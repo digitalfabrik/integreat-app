@@ -41,9 +41,11 @@ type MD3Theme = {
     success: string
     tuNews: {
       main: string
+      contrastText: string
     }
     amalNews: {
       main: string
+      contrastText: string
     }
     action: {
       disabled: string
