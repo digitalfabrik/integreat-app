@@ -1,31 +1,5 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react'
 
-export const loadAsync = async <T>(
-  request: () => Promise<T | null>,
-  {
-    setData,
-    setError = () => undefined,
-    setLoading = () => undefined,
-  }: {
-    setData: (data: T | null) => void
-    setError?: (error: Error | null) => void
-    setLoading?: (loading: boolean) => void
-  },
-): Promise<void> => {
-  setLoading(true)
-
-  try {
-    const response = await request()
-    setData(response)
-    setError(null)
-  } catch (e: unknown) {
-    setError(e instanceof Error ? e : new Error())
-    setData(null)
-  } finally {
-    setLoading(false)
-  }
-}
-
 type Request<T> = (refresh: boolean) => Promise<T | null>
 
 export type Return<T> = {

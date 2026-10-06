@@ -68,7 +68,7 @@ export {
   SPRUNGBRETT_JOBS_ENDPOINT_NAME,
 } from './endpoints/createSprungbrettJobsEndpoint.ts'
 export { default as useLoadFromEndpoint, loadFromEndpoint } from './endpoints/hooks/useLoadFromEndpoint.ts'
-export { default as useLoadAsync, loadAsync } from './endpoints/hooks/useLoadAsync.ts'
+export { default as useLoadAsync } from './endpoints/hooks/useLoadAsync.ts'
 export { default as CategoriesMapModel } from './models/CategoriesMapModel.ts'
 export { default as CategoryModel } from './models/CategoryModel.ts'
 export { default as RegionModel } from './models/RegionModel.ts'
