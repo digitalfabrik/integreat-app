@@ -38,7 +38,7 @@ const OpeningHoursTitle = ({ isCurrentlyOpen, label, language }: OpeningHoursTit
       <Text
         variant='h6'
         style={{
-          color: isCurrentlyOpen ? theme.colors.success : theme.colors.error,
+          color: isCurrentlyOpen ? theme.colors.success.main : theme.colors.error,
           alignSelf: 'center',
           ...(contentDirection(language) === 'row-reverse' ? { paddingLeft: 12 } : { paddingRight: 12 }),
         }}>
