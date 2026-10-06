@@ -27,7 +27,11 @@ const NewChip = ({ style }: NewChipProps): ReactElement => {
   const theme = useTheme()
 
   return (
-    <Chip style={[styles.chip, { backgroundColor: theme.colors.primary }, style]} textStyle={styles.label} compact>
+    <Chip
+      style={[styles.chip, { backgroundColor: theme.colors.primary }, style]}
+      textStyle={styles.label}
+      compact
+      accessibilityRole='text'>
       <Text variant='body3' style={{ color: theme.colors.onPrimary }}>
         {t($ => $.common.state.new)}
       </Text>
