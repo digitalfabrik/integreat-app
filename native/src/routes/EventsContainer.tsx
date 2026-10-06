@@ -41,14 +41,16 @@ const EventsContainer = ({ navigation, route }: EventsContainerProps): ReactElem
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
   useSetRouteTitle(currentEvent?.title ?? t($ => $.events.title))
 
+  // The content of the old language is already gone in the render the language changes in
+  const previousEvent = usePreviousProp({ prop: currentEvent })
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
-      if (currentEvent) {
-        const newSlug = currentEvent.availableLanguageSlugs[newLanguage]
+      if (previousEvent) {
+        const newSlug = previousEvent.availableLanguageSlugs[newLanguage]
         navigation.setParams({ slug: newSlug })
       }
     },
-    [currentEvent, navigation],
+    [previousEvent, navigation],
   )
   usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
