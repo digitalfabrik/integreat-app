@@ -51,13 +51,15 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
   useSetRouteTitle(category?.isRoot() ? data?.region.name : category?.title)
 
+  // The content of the old language is already gone in the render the language changes in
+  const previousCategory = usePreviousProp({ prop: category })
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
-      if (category) {
-        navigation.setParams({ path: category.availableLanguages[newLanguage] })
+      if (previousCategory) {
+        navigation.setParams({ path: previousCategory.availableLanguages[newLanguage] })
       }
     },
-    [category, navigation],
+    [previousCategory, navigation],
   )
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 

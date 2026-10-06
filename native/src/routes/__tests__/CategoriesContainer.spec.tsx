@@ -199,12 +199,12 @@ describe('CategoriesContainer', () => {
   it('should update the route path via navigation.setParams when the language changes', () => {
     const renamedCategory = buildCategoryWithSlugHistory([])
     const categoriesWithLanguages = new CategoriesMapModel([categories.toArray()[0]!, renamedCategory])
-    mocked(useLoadRegionContent).mockReturnValue({
-      data: buildData(categoriesWithLanguages),
-      loading: false,
-      error: null,
-      refresh: jest.fn(),
-    })
+    // The content of the new language is not loaded yet
+    mocked(useLoadRegionContent).mockImplementation(params =>
+      params.languageCode === 'de'
+        ? { data: buildData(categoriesWithLanguages), loading: false, error: null, refresh: jest.fn() }
+        : { data: null, loading: true, error: null, refresh: jest.fn() },
+    )
 
     const fixedRoute = createRoute({ path: renamedCategory.path })
     const { rerender } = render(

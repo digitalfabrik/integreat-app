@@ -40,14 +40,16 @@ const NewsContainer = ({ navigation, route }: NewsContainerProps): ReactElement 
   })
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
 
+  // The content of the old language is already gone in the render the language changes in
+  const previousNews = usePreviousProp({ prop: currentNews })
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
-      if (currentNews) {
-        const newId = currentNews.availableLanguages?.[newLanguage]
+      if (previousNews) {
+        const newId = previousNews.availableLanguages?.[newLanguage]
         navigation.setParams({ id: newId })
       }
     },
-    [currentNews, navigation],
+    [previousNews, navigation],
   )
   usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
