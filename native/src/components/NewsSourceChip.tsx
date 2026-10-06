@@ -30,7 +30,7 @@ const NewsSourceChip = ({ source }: NewsSourceChipProps): ReactElement => {
   })
 
   return (
-    <Chip mode='outlined' style={[styles.chip, { borderColor: color, backgroundColor: color }]} compact>
+    <Chip style={[styles.chip, { borderColor: color, backgroundColor: color }]} compact>
       <Text variant='body2' style={{ color: contrastColor }}>
         {label}
       </Text>

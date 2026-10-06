@@ -8,7 +8,7 @@ import { getNewsColor, getNewsSourceLabel, NewsSource } from 'shared/api'
 const SourceChip = styled(Chip)<{ source: NewsSource }>(({ source, theme }) => {
   const [color, contrastColor] = getNewsColor({ palette: theme.palette, source })
   return {
-    [`&.${chipClasses.outlined}`]: {
+    [`&.${chipClasses.root}`]: {
       color: contrastColor,
       borderColor: color,
       backgroundColor: color,
@@ -23,7 +23,7 @@ type NewsSourceChipProps = {
 const NewsSourceChip = ({ source }: NewsSourceChipProps): ReactElement => {
   const { t } = useTranslation()
   const label = getNewsSourceLabel({ source, t })
-  return <SourceChip label={label} source={source} variant='outlined' size='small' />
+  return <SourceChip label={label} source={source} size='small' />
 }
 
 export default NewsSourceChip
