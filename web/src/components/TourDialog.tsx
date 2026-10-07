@@ -60,7 +60,7 @@ const TourDialog = (): ReactElement | null => {
   const startTour = () => {
     window.scrollTo({ top: 0 })
     setIsDialogOpen(false)
-    setIsOpen(true)
+    requestAnimationFrame(() => setIsOpen(true))
   }
 
   const finished = isOpen && currentStep >= steps.length
