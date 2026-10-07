@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleProp, StyleSheet, ViewStyle } from 'react-native'
-import { Chip } from 'react-native-paper'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import Text from './base/Text'
@@ -10,11 +9,8 @@ const styles = StyleSheet.create({
   chip: {
     borderRadius: 16,
     alignSelf: 'center',
-  },
-  label: {
-    marginVertical: 4,
-    marginLeft: 8,
-    marginRight: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
   },
 })
 
@@ -27,15 +23,14 @@ const NewChip = ({ style }: NewChipProps): ReactElement => {
   const theme = useTheme()
 
   return (
-    <Chip
-      style={[styles.chip, { backgroundColor: theme.colors.primary }, style]}
-      textStyle={styles.label}
-      compact
-      accessibilityRole='text'>
+    // react-native-paper's Chip component uses the TouchableRipple under the hood
+    // Therefore, the a11y disabled state is set to true if no handler is passed
+    // https://github.com/callstack/react-native-paper/issues/5070
+    <View style={[styles.chip, { backgroundColor: theme.colors.primary }, style]}>
       <Text variant='body3' style={{ color: theme.colors.onPrimary }}>
         {t($ => $.common.state.new)}
       </Text>
-    </Chip>
+    </View>
   )
 }
 
