@@ -47,7 +47,7 @@ const EventDetail = ({ event, languageCode, regionCode }: EventDetailProps): Rea
 
   useEffect(() => {
     addVisitedEventId(event.id.toString())
-  }, [event, addVisitedEventId])
+  }, [event.id, addVisitedEventId])
 
   return (
     <Page

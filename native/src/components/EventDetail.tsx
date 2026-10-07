@@ -31,7 +31,7 @@ const EventDetail = ({ event, language, regionCode }: EventDetailProps): ReactEl
 
   useEffect(() => {
     addVisitedEventId(event.id.toString())
-  }, [event, addVisitedEventId])
+  }, [event.id, addVisitedEventId])
 
   return (
     <Page
