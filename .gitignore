@@ -133,3 +133,5 @@ runConfigurations.xml
 .DS_Store
 
 reports/
+
+.scratch/

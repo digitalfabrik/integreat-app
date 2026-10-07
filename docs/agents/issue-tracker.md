@@ -14,6 +14,23 @@ Issues and specs for this repo live as markdown files in `.scratch/`.
 
 Create a new file under `.scratch/<feature-slug>/` (creating the directory if needed).
 
+## Use our GitHub issue templates for per-ticket issues
+
+This repo has real issue templates at `.github/ISSUE_TEMPLATE/`. Every per-ticket file under `.scratch/<feature-slug>/issues/` must be structured using the matching template's sections, even though it's stored locally as markdown rather than filed on GitHub:
+
+- User-facing feature work → `story.md` (User Story / Problem Description / Acceptance Criteria / Technical Notes / Additional Context)
+- Non-user-facing/technical work → `task.md` (Describe the Problem / Describe Your Preferred Solution / Describe Possible Alternatives / Additional Information)
+- Defects → `bug_report.md` (Describe the Bug / Steps to Reproduce / Expected Behavior / Environment / Additional Information)
+- Time-boxed investigations → `research.md` (Research Question(s) / Background & Motivation / Time Box / Results / Additional Context)
+
+Keep the tracker's own metadata lines (`Status:`, `Type:`, `Blocked by:`, etc., per the Wayfinding conventions above) at the top of the file, above the template's content.
+
+This does **not** apply to the top-level `spec.md` for a feature — there's no spec template in `.github/ISSUE_TEMPLATE/`, so `spec.md` keeps whatever format the producing skill (e.g. `to-spec`) specifies.
+
+## Avoid quoting concrete UI labels in specs and tickets
+
+Describe UI elements by what they do (e.g. "the submit action", "an action to start a new analysis"), not by quoting the literal button/label text, since exact copy tends to change during implementation, translation, or UX polish and a quoted string reads as more final than it is. The one exception is when the product owner has explicitly dictated an exact required string as a firm requirement (e.g. a specific German term); in that case state it once, clearly flagged as required copy (e.g. `required label, per the product ask: "Bescheid prüfen"`), rather than using it repeatedly as an informal handle for the element.
+
 ## When a skill says "fetch the relevant ticket"
 
 Read the file at the referenced path. The user will normally pass the path or the issue number directly.
