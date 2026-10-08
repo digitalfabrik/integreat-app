@@ -176,4 +176,9 @@ describe('News', () => {
     const { queryByRole } = renderNews({ id: defaultNews[1].id })
     expect(queryByRole('link')).toBeNull()
   })
+
+  it('should replace bare urls as link for local news detail', () => {
+    const { getByText } = renderNews({ id: 'local-2' })
+    expect(getByText(/<a href='https:\/\/example\.com'>/)).toBeTruthy()
+  })
 })
