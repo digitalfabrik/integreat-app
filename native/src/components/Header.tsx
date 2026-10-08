@@ -37,7 +37,7 @@ const Horizontal = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: ${props => (props.theme.dark ? props.theme.colors.surfaceVariant : props.theme.colors.surface)};
+  background-color: ${props => props.theme.colors.surfaceVariant};
 `
 
 const BoxShadow = styled(HighlightBox)`
