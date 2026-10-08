@@ -1,6 +1,5 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
@@ -62,11 +61,7 @@ const Feedback = ({
   }
 
   if (sendingStatus === 'successful') {
-    return (
-      <View>
-        <FeedbackStatusBanner successful onClose={navigation.goBack} />
-      </View>
-    )
+    return <FeedbackStatusBanner successful onClose={navigation.goBack} />
   }
 
   return (

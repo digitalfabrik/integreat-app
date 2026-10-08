@@ -20,14 +20,13 @@ jest.mock('../../hooks/useQueryFromEndpoint', () => ({
 }))
 
 const searchText = 'test'
-const onClearSearch = jest.fn()
 
-const renderSearchFeedback = (noResults: boolean) => {
+const renderSearchFeedback = (noResults: boolean, isChatEnabled: boolean) => {
   const router = createMemoryRouter(
     [
       {
         path: '/:regionCode/:languageCode',
-        element: <SearchFeedback noResults={noResults} onClearSearch={onClearSearch} />,
+        element: <SearchFeedback noResults={noResults} isChatEnabled={isChatEnabled} />,
       },
     ],
     { initialEntries: [`/augsburg/de?query=${searchText}`] },
@@ -43,34 +42,34 @@ describe('SearchFeedback', () => {
 
   describe('with results', () => {
     it('should set feedback query param on button click', () => {
-      const { getByText, router } = renderSearchFeedback(false)
+      const { getByText, router } = renderSearchFeedback(false, false)
 
       expect(router.state.location.search).toBe(`?query=${searchText}`)
-      fireEvent.click(getByText('feedback:search.informationNotFound'))
-      expect(router.state.location.search).toContain('feedback=negative')
+      fireEvent.click(getByText('feedback:search.informUs'))
+      expect(router.state.location.search).toContain(`?query=${searchText}`)
     })
   })
 
   describe('without results', () => {
     it('should render search hints and the chat option if chat is enabled', () => {
-      const { getByText, queryByText } = renderSearchFeedback(true)
+      const { getByText, queryByText } = renderSearchFeedback(true, true)
 
       expect(getByText('feedback:search.tryOptions')).toBeTruthy()
       expect(getByText('feedback:search.options.useSearchTerm')).toBeTruthy()
-      expect(getByText('feedback:search.options.useShortWord')).toBeTruthy()
+      expect(getByText('feedback:search.options.useSingleWord')).toBeTruthy()
       expect(queryByText(/feedback:search\.options\.askChat/)).toBeTruthy()
     })
 
     it('should hide the chat option if chat is disabled for the region', () => {
       mockRegion.chatEnabled = false
-      const { queryByText } = renderSearchFeedback(true)
+      const { queryByText } = renderSearchFeedback(true, false)
 
       expect(queryByText('feedback:search.options.askChat')).toBeNull()
     })
 
     it('should submit negative feedback and show the success alert', async () => {
       mockRequest.mockResolvedValueOnce(null)
-      const { getByText, router } = renderSearchFeedback(true)
+      const { getByText, router } = renderSearchFeedback(true, true)
 
       fireEvent.click(getByText('feedback:search.informUs'))
 
@@ -90,7 +89,7 @@ describe('SearchFeedback', () => {
 
     it('should show the error alert if the request fails', async () => {
       mockRequest.mockRejectedValueOnce(new Error('network'))
-      const { getByText, queryByText } = renderSearchFeedback(true)
+      const { getByText, queryByText } = renderSearchFeedback(true, true)
 
       fireEvent.click(getByText('feedback:search.informUs'))
 
@@ -100,7 +99,7 @@ describe('SearchFeedback', () => {
 
     it('should close the alert on dismiss', async () => {
       mockRequest.mockResolvedValueOnce(null)
-      const { getByText, queryByText, getByLabelText } = renderSearchFeedback(true)
+      const { getByText, queryByText, getByLabelText } = renderSearchFeedback(true, true)
 
       fireEvent.click(getByText('feedback:search.informUs'))
       await waitFor(() => expect(getByText('feedback:thanks.title')).toBeTruthy())

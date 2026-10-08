@@ -92,16 +92,15 @@ const Search = ({
               renderItem={renderItem}
               style={{ flex: 1 }}
               keyboardShouldPersistTaps='handled'
-              noItemsMessage={
+              footer={
                 <FeedbackContainer
                   routeType={SEARCH_ROUTE}
                   language={languageCode}
                   regionCode={regionCode}
                   rating={searchResults.length === 0 ? RATING_NEGATIVE : undefined}
                   query={debouncedQuery}
-                  noResults={searchResults.length === 0}
+                  hasResults={searchResults.length > 0}
                   isChatEnabled={isChatEnabled}
-                  onClearSearch={() => setQuery('')}
                 />
               }
             />

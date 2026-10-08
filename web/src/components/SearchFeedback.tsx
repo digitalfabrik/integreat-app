@@ -33,16 +33,18 @@ import { captureError } from '../utils/sentry'
 import Link from './base/Link'
 import Svg from './base/Svg'
 
-const MuiContainer = styled(Container)`
+const MuiContainer = styled(Container)<{ centered?: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: ${props => (props.centered ? 'center' : 'flex-start')};
 `
 
 const Wrapper = styled(Box)(({ theme }) => ({
   width: '70%',
   gap: 2,
+  display: 'flex',
+  flexDirection: 'column',
 
   [theme.breakpoints.down('md')]: {
     width: '100%',
@@ -68,6 +70,7 @@ const HighlightedCard = styled(Card)(({ theme }) => ({
 
   [theme.breakpoints.down('md')]: {
     width: '100%',
+    alignSelf: 'center',
   },
 }))
 
@@ -138,7 +141,7 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
     : t($ => $.feedback.search.informationNotFound)
 
   return (
-    <MuiContainer>
+    <MuiContainer centered={noResults}>
       <Wrapper>
         <Typography variant='subtitle1' component='h1' gutterBottom>
           {isNoResults}
