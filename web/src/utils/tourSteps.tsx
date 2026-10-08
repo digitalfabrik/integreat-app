@@ -37,11 +37,13 @@ type TourStepLayout = Omit<TourStepType, 'content'> & {
 
 export const positionBelowElement =
   (arrowAlignment: ArrowAlignment): NonNullable<TourStepType['position']> =>
-  ({ left, right, bottom, width, windowWidth }) => {
+  ({ left, right, bottom, width, height, windowWidth, windowHeight }) => {
     const horizontalPosition = arrowAlignment === 'left' ? left : right - width
     // Keeps the popover within the screen for elements close to its edges
     const clampedHorizontalPosition = Math.min(Math.max(horizontalPosition, 0), windowWidth - width)
-    return [clampedHorizontalPosition, bottom]
+    // Moves the popover up if there is not enough space below the element, e.g. the opened menu on small screens
+    const clampedVerticalPosition = Math.min(bottom, windowHeight - height)
+    return [clampedHorizontalPosition, clampedVerticalPosition]
   }
 
 const clickHtmlElement = (element: Element | null): void => {
