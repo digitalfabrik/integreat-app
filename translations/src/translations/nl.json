@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Navigatie",
-      "description": "Schakel hier tussen <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> en <strong>$t(events:title)</strong>."
+      "description": "Schakel hier tussen {{navigationItems, list}}."
     },
     "categories": {
       "title": "Thema's ontdekken",

@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "การนำทาง",
-      "description": "สลับระหว่าง <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> และ <strong>$t(events:title)</strong> ได้ที่นี่"
+      "description": "สลับระหว่าง {{navigationItems, list}} ได้ที่นี่"
     },
     "categories": {
       "title": "ค้นพบหัวข้อต่าง ๆ",

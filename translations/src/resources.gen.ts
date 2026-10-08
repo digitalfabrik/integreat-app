@@ -421,7 +421,7 @@ const resources = {
     },
     "navigation": {
       "title": "Navigation",
-      "description": "Switch between <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> and <strong>$t(events:title)</strong> here."
+      "description": "Switch between {{navigationItems, list}} here."
     },
     "categories": {
       "title": "Discover topics",

@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Navigare",
-      "description": "Comută aici între <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> și <strong>$t(events:title)</strong>."
+      "description": "Comută aici între {{navigationItems, list}}."
     },
     "categories": {
       "title": "Descoperă teme",

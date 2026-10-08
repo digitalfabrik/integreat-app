@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Điều hướng",
-      "description": "Chuyển đổi linh hoạt giữa <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> và <strong>$t(events:title)</strong> tại đây."
+      "description": "Chuyển đổi linh hoạt giữa {{navigationItems, list}} tại đây."
     },
     "categories": {
       "title": "Khám phá chủ đề",

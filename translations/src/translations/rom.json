@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Navigacija",
-      "description": "Paruv kathe maškar <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> thaj <strong>$t(events:title)</strong>."
+      "description": "Paruv kathe maškar {{navigationItems, list}}."
     },
     "categories": {
       "title": "Arakh teme",

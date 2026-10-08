@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Навигација",
-      "description": "Овде можете прелазити између одељака <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> и <strong>$t(events:title)</strong>."
+      "description": "Овде можете прелазити између одељака {{navigationItems, list}}."
     },
     "categories": {
       "title": "Истражите теме",
