@@ -7,7 +7,6 @@ import { SearchRouteType } from 'shared'
 
 import { NavigationProps } from '../constants/NavigationTypes'
 import dimensions from '../constants/dimensions'
-import HighlightBox from './HighlightBox'
 import SearchInput from './SearchInput'
 
 const Horizontal = styled.View`
@@ -16,7 +15,7 @@ const Horizontal = styled.View`
   align-items: center;
 `
 
-const BoxShadow = styled(HighlightBox)`
+const BoxShadow = styled.View`
   height: ${dimensions.headerHeight}px;
 `
 
@@ -37,7 +36,7 @@ const SearchHeader = ({ query, navigation, onSearchChanged }: SearchHeaderProps)
           onPress={navigation.goBack}
           accessibilityLabel={t($ => $.common.actions.back)}
           style={{ backgroundColor: 'transparent' }}
-          iconColor={theme.colors.onSurface}
+          iconColor={theme.colors.onSurfaceVariant}
         />
         <SearchInput
           ariaLabel={t($ => $.search.searchContent)}
