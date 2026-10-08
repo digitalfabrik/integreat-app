@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Nascleanúint",
-      "description": "Aistrigh idir <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> agus <strong>$t(events:title)</strong> anseo."
+      "description": "Aistrigh idir {{navigationItems, list}} anseo."
     },
     "categories": {
       "title": "Déan iniúchadh ar ábhair",

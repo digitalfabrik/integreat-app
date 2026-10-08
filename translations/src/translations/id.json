@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Navigasi",
-      "description": "Beralih di antara <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong>, dan <strong>$t(events:title)</strong> di sini."
+      "description": "Beralih di antara {{navigationItems, list}} di sini."
     },
     "categories": {
       "title": "Jelajahi topik",

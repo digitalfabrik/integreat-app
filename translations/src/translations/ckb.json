@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "ڕێدۆزی",
-      "description": "لێرەدا لەنێوان <strong>$t(categories:title)</strong>، <strong>$t(places:title)</strong>، <strong>$t(news:title)</strong> و <strong>$t(events:title)</strong> بگۆڕە."
+      "description": "لێرەدا لەنێوان {{navigationItems, list}} بگۆڕە."
     },
     "categories": {
       "title": "گەڕان بەدوای بابەتەکاندا",

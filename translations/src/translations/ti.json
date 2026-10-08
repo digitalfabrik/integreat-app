@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "መሪሕ መስመር (Navigation)",
-      "description": "ኣብ መንጎ <strong>$t(categories:title)</strong>፣ <strong>$t(places:title)</strong>፣ <strong>$t(news:title)</strong> ከምኡ'ውን <strong>$t(events:title)</strong> ኣብዚ ቐያይር።"
+      "description": "ኣብ መንጎ {{navigationItems, list}} ኣብዚ ቐያይር።"
     },
     "categories": {
       "title": "ኣርእስታት ድለ",

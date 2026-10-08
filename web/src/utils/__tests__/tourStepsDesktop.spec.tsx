@@ -1,6 +1,5 @@
-import { TFunction } from 'i18next'
-
 import { LanguageModelBuilder, RegionModel } from 'shared/api'
+import { mockT } from 'shared/testing'
 
 import buildConfig from '../../constants/buildConfig'
 import {
@@ -16,16 +15,16 @@ import tourStepsDesktop from '../tourStepsDesktop'
 
 describe('tourStepsDesktop', () => {
   const config = buildConfig()
-  const t = ((key: string) => key) as TFunction
+  const t = mockT
 
-  const createRegion = ({ navigation = true, chat = true } = {}) =>
+  const createRegion = ({ navigation = true, places = true, chat = true } = {}) =>
     new RegionModel({
       name: 'Stadt Augsburg',
       code: 'augsburg',
       live: true,
       languages: new LanguageModelBuilder(2).build(),
       eventsEnabled: navigation,
-      placesEnabled: navigation,
+      placesEnabled: navigation && places,
       localNewsEnabled: navigation,
       externalNewsEnabled: navigation,
       sortingName: 'Augsburg',
@@ -55,6 +54,25 @@ describe('tourStepsDesktop', () => {
 
   it('should not include the navigation step if the region has no navigation tabs', () => {
     expect(selectors(createRegion({ navigation: false }))).not.toContain(`#${NAVIGATION_TABS_ELEMENT_ID}`)
+  })
+
+  it('should only list the navigation items enabled in the region', () => {
+    const navigationStep = tourStepsDesktop({
+      t,
+      rtl: false,
+      region: createRegion({ places: false }),
+      languageCode: 'de',
+    }).find(step => step.selector === `#${NAVIGATION_TABS_ELEMENT_ID}`)
+
+    expect(navigationStep?.content.props).toMatchObject({
+      values: {
+        navigationItems: [
+          '<strong>categories.title</strong>',
+          '<strong>news.title</strong>',
+          '<strong>events.title</strong>',
+        ],
+      },
+    })
   })
 
   it('should not include the chat step if the region has no chat', () => {

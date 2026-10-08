@@ -29,6 +29,7 @@ type TourStepId = 'regionChange' | 'searchAndLanguage' | 'menu' | 'categories' |
 type TourStepDefinition = {
   title: string
   descriptionKey: SelectorParam
+  values?: Record<string, string[]>
 }
 
 type TourStepLayout = Omit<TourStepType, 'content'> & {
@@ -70,6 +71,7 @@ const getTourStepDefinitions = ({
   languageCode,
 }: TourStepsProps): Record<TourStepId, TourStepDefinition | null> => {
   const { appName, featureFlags } = buildConfig()
+  const navigationItems = getNavigationItems({ regionModel: region, languageCode })
 
   return {
     regionChange: featureFlags.fixedRegion
@@ -90,10 +92,11 @@ const getTourStepDefinitions = ({
       title: t($ => $.tour.categories.title),
       descriptionKey: $ => $.tour.categories.description,
     },
-    navigation: getNavigationItems({ regionModel: region, languageCode })
+    navigation: navigationItems
       ? {
           title: t($ => $.tour.navigation.title),
           descriptionKey: $ => $.tour.navigation.description,
+          values: { navigationItems: navigationItems.map(item => `<strong>${t($ => $[item.value].title)}</strong>`) },
         }
       : null,
     chat:
@@ -122,7 +125,13 @@ export const getTourSteps = (props: TourStepsProps, layouts: TourStepLayout[]): 
 
       return {
         ...layout,
-        content: <TourStepContent title={definition.title} descriptionKey={definition.descriptionKey} />,
+        content: (
+          <TourStepContent
+            title={definition.title}
+            descriptionKey={definition.descriptionKey}
+            values={definition.values}
+          />
+        ),
       }
     })
     .filter((step): step is TourStepType => step !== null)

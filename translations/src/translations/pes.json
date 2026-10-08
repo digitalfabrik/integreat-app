@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "ناوبری",
-      "description": "در اینجا بین <strong>$t(categories:title)</strong>، <strong>$t(places:title)</strong>، <strong>$t(news:title)</strong> و <strong>$t(events:title)</strong> جابه‌جا شوید."
+      "description": "در اینجا بین {{navigationItems, list}} جابه‌جا شوید."
     },
     "categories": {
       "title": "کاوش موضوعات",

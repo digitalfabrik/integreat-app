@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "नेविगेशन",
-      "description": "यहाँ <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> और <strong>$t(events:title)</strong> के बीच स्विच करें।"
+      "description": "यहाँ {{navigationItems, list}} के बीच स्विच करें।"
     },
     "categories": {
       "title": "विषय देखें",

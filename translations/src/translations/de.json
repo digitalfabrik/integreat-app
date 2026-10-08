@@ -419,7 +419,7 @@
     },
     "navigation": {
       "title": "Navigation",
-      "description": "Wechsle hier zwischen <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> und <strong>$t(events:title)</strong>."
+      "description": "Wechsle hier zwischen {{navigationItems, list}}."
     },
     "categories": {
       "title": "Themen entdecken",
