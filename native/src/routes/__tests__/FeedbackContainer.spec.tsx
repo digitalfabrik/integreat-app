@@ -105,6 +105,35 @@ describe('FeedbackContainer', () => {
     expect(await findByText('common:actions.send')).toBeDisabled()
   })
 
+  it('should send negative feedback for having unwanted search results', async () => {
+    const query = 'gesundheitsversicherung'
+    const { getByText, findByText } = render(
+      <FeedbackContainer
+        routeType={SEARCH_ROUTE}
+        language={language}
+        rating='negative'
+        regionCode={region}
+        query={query}
+        hasResults
+      />,
+    )
+
+    expect(await findByText('feedback:search.informationNotFound')).toBeDefined()
+    fireEvent.press(getByText('feedback:search.informUs'))
+    expect(await findByText('feedback:thanks.title')).toBeDefined()
+    expect(mockRequest).toHaveBeenCalledWith({
+      routeType: SEARCH_ROUTE,
+      rating: RATING_NEGATIVE,
+      region,
+      language,
+      comment: '',
+      contactMail: '',
+      query,
+      searchTerm: query,
+      slug: undefined,
+    })
+  })
+
   it('should send negative feedback for not found search results and show the thanks banner', async () => {
     const query = 'gesundheitsversicherung'
     const { getByText, findByText } = render(
@@ -114,7 +143,7 @@ describe('FeedbackContainer', () => {
         rating='negative'
         regionCode={region}
         query={query}
-        noResults
+        hasResults={false}
       />,
     )
     fireEvent.press(getByText('feedback:search.informUs'))
@@ -142,8 +171,8 @@ describe('FeedbackContainer', () => {
         regionCode={region}
         query={query}
         rating='negative'
-        noResults
         isChatEnabled
+        hasResults={false}
       />,
     )
     expect(findByText('feedback:search.options.askChat')).toBeDefined()
@@ -158,8 +187,8 @@ describe('FeedbackContainer', () => {
         regionCode={region}
         query={query}
         rating='negative'
-        noResults
         isChatEnabled={false}
+        hasResults={false}
       />,
     )
     expect(queryByText('feedback:search.options.askChat')).toBeNull()

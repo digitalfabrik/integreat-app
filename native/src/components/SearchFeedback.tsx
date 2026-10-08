@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactElement, ReactNode, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { Button, Card } from 'react-native-paper'
@@ -41,44 +41,53 @@ type SearchFeedbackProps = {
   routeType: FeedbackType
   language: string
   regionCode: string
+  query?: string
   slug?: string
   sendingStatus: SendingStatusType
-  alertStatusOpen: boolean
   handleSubmit: () => void
+  hasResults?: boolean
   isChatEnabled: boolean
-  onClearSearch?: () => void
 }
 
 const SearchFeedback = ({
   routeType,
   language,
   regionCode,
-  alertStatusOpen,
+  query,
   slug,
   sendingStatus,
   handleSubmit,
+  hasResults,
   isChatEnabled,
-  onClearSearch,
 }: SearchFeedbackProps): ReactElement => {
   const { t } = useTranslation()
   const { navigation } = useNavigate()
+  const [dismissed, setDismissed] = useState(false)
+
+  const submitted = sendingStatus === 'successful' || sendingStatus === 'failed'
+  const navigateToFeedback = () => {
+    navigation.navigate(FEEDBACK_ROUTE, {
+      routeType,
+      language,
+      regionCode,
+      query,
+      slug,
+      rating: 'negative',
+    })
+  }
 
   const fallbackLanguage = config.sourceLanguage
-
-  const navigateToFeedback = () =>
-    navigation.navigate(FEEDBACK_ROUTE, { routeType, language, regionCode, slug, rating: 'negative' })
-
-  const dismissBanner = () => {
-    onClearSearch?.()
-  }
+  const isResults = hasResults
+    ? t($ => $.feedback.search.informationNotFound)
+    : t($ =>
+        language === fallbackLanguage
+          ? $.feedback.search.noResultsInUserLanguage
+          : $.feedback.search.noResultsInUserAndSourceLanguage,
+      )
 
   return (
     <>
-      <Text variant='subtitle1'>
-        {language === fallbackLanguage
-          ? t($ => $.feedback.search.noResultsInUserLanguage)
-          : t($ => $.feedback.search.noResultsInUserAndSourceLanguage)}
-      </Text>
+      <Text variant='subtitle1'>{isResults}</Text>
       <Text variant='subtitle2'>{t($ => $.feedback.search.tryOptions)}</Text>
       <BulletItemWrapper>
         <BulletItem>{t($ => $.feedback.search.options.useSearchTerm)}</BulletItem>
@@ -96,13 +105,14 @@ const SearchFeedback = ({
           </BulletItem>
         )}
       </BulletItemWrapper>
-      {alertStatusOpen ? (
+      {submitted && !dismissed && (
         <FeedbackStatusBanner
           successful={sendingStatus === 'successful'}
-          onClose={dismissBanner}
+          onClose={() => setDismissed(true)}
           onNavigateToFeedback={navigateToFeedback}
         />
-      ) : (
+      )}
+      {!submitted && (
         <StyledCard mode='outlined'>
           <Card.Content style={{ flexDirection: 'row', gap: 12 }}>
             <Icon icon={FeedbackHintIcon} style={{ width: 58, height: 58 }} />
