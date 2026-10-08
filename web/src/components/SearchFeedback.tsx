@@ -60,6 +60,7 @@ const StyledAlert = styled(Alert)`
   display: flex;
   background-color: ${props => props.theme.palette.success.light};
   color: ${props => props.theme.palette.success.contrastText};
+  background-color: ${props => props.theme.palette.success.light};
 `
 
 type SearchFeedbackProps = {
