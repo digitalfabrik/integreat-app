@@ -18,6 +18,8 @@ export const initSentry = (): void => {
 
   Sentry.init({
     dsn: 'https://3dfd3051678042b2b04cb5a6c2d869a4@sentry.tuerantuer.org/2',
+    // Session tracking allows tracking users across app usages
+    enableAutoSessionTracking: false,
   })
 }
 
