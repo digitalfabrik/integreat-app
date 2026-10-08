@@ -192,8 +192,8 @@
       "informUs": "Uns informieren",
       "tryOptions": "Versuche:",
       "options": {
-        "useSearchTerm": "anderen Suchbegriff zu verwenden",
-        "useShortWord": "nur nach einem Wort oder einer kurzen Frage zu suchen",
+        "useSearchTerm": "einen anderen Suchbegriff zu verwenden",
+        "useSingleWord": "nur nach einem Wort oder einem Begriff zu suchen",
         "askChat": "deine Frage direkt an <Link>{{name}}</Link> zu stellen"
       },
       "noResultsInUserLanguage": "Es wurden leider keine passenden Ergebnisse in deiner Sprache gefunden.",

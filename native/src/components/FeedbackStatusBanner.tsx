@@ -37,8 +37,13 @@ const FeedbackStatusBanner = ({
 }: FeedbackStatusBannerProps): ReactElement => {
   const { t } = useTranslation()
 
+  const titleText = successful ? t($ => $.feedback.thanks.title) : t($ => $.error.title)
+  const descriptionText = successful ? t($ => $.feedback.thanks.description) : t($ => $.error.unknownError)
+
+  const bannerLabel = `${titleText}. ${descriptionText}`
+
   return (
-    <Banner>
+    <Banner accessible role='alert' accessibilityLabel={bannerLabel} accessibilityLiveRegion='assertive'>
       <CloseButton icon='close' onPress={onClose} accessibilityLabel={t($ => $.common.actions.close)} />
       <TextWrapper>
         <Text variant='subtitle1'>{successful ? t($ => $.feedback.thanks.title) : t($ => $.error.title)}</Text>

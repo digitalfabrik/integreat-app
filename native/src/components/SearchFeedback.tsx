@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { Button, Card } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { CHAT_ROUTE, FEEDBACK_ROUTE, getChatName, Rating, SendingStatusType } from 'shared'
+import { CHAT_ROUTE, FEEDBACK_ROUTE, getChatName, SendingStatusType } from 'shared'
 import { FeedbackType } from 'shared/api'
 import { config } from 'translations'
 
@@ -27,6 +27,7 @@ const BulletItemWrapper = styled.View`
 
 const StyledCard = styled(Card)`
   background-color: ${props => props.theme.colors.surfaceVariant};
+  margin-top: 4px;
 `
 
 const BulletItem = ({ children }: { children: ReactNode }): ReactElement => (
@@ -81,7 +82,7 @@ const SearchFeedback = ({
       <Text variant='subtitle2'>{t($ => $.feedback.search.tryOptions)}</Text>
       <BulletItemWrapper>
         <BulletItem>{t($ => $.feedback.search.options.useSearchTerm)}</BulletItem>
-        <BulletItem>{t($ => $.feedback.search.options.useShortWord)}</BulletItem>
+        <BulletItem>{t($ => $.feedback.search.options.useSingleWord)}</BulletItem>
         {isChatEnabled && (
           <BulletItem>
             <Trans

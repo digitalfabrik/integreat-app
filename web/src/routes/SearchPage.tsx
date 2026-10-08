@@ -24,6 +24,7 @@ import SearchInput from '../components/SearchInput'
 import SearchListItem from '../components/SearchListItem'
 import SkeletonList from '../components/SkeletonList'
 import List from '../components/base/List'
+import buildConfig from '../constants/buildConfig'
 import { cmsApiBaseUrl } from '../constants/urls'
 import useCaptureError from '../hooks/useCaptureError'
 import useLoadSearchDocuments from '../hooks/useLoadSearchDocuments'
@@ -33,10 +34,10 @@ type SearchProps = {
   query: string
   loading: boolean
   results: ExtendedDocumentModel[]
-  onClearSearch: () => void
+  isChatEnabled?: boolean
 }
 
-const SearchResults = ({ query, loading, results, onClearSearch }: SearchProps): ReactElement | null => {
+const SearchResults = ({ query, loading, results, isChatEnabled = false }: SearchProps): ReactElement | null => {
   const { t } = useTranslation()
 
   if (query.length === 0) {
@@ -57,7 +58,7 @@ const SearchResults = ({ query, loading, results, onClearSearch }: SearchProps):
         {t($ => $.search.resultCount, { count: results.length })}
       </Typography>
       <List items={items} noItemsMessage={<span />} />
-      <SearchFeedback noResults={results.length === 0} onClearSearch={onClearSearch} />
+      <SearchFeedback noResults={results.length === 0} isChatEnabled={isChatEnabled} />
     </>
   )
 }
@@ -103,6 +104,8 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
     userLanguageCode: languageCode,
   })
   const searchResults = data.slice(0, MAX_SEARCH_RESULTS)
+
+  const isChatEnabled = buildConfig().featureFlags.chat && region?.chatEnabled
 
   useCaptureError(documentsError ?? error)
 
@@ -156,7 +159,7 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
           results={searchResults}
           query={debouncedQuery}
           loading={documentsLoading || loading}
-          onClearSearch={() => setQuery('')}
+          isChatEnabled={isChatEnabled}
         />
       </Stack>
     </RegionContentLayout>
