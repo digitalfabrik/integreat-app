@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { findNodeHandle, useWindowDimensions, type View } from 'react-native'
-import { Chip } from 'react-native-paper'
+import { Chip, useTheme } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
@@ -19,7 +19,7 @@ import { UseLocalHistoryReturn } from '../hooks/useLocalStackHistory'
 import useUserLocation from '../hooks/useUserLocation'
 
 const StyledSvgUri = styled(SvgUri)`
-  color: ${props => props.theme.colors.onSurface};
+  color: ${props => props.theme.colors.onSurfaceVariant};
   margin-inline-start: 4px;
 `
 
@@ -32,11 +32,12 @@ const ChipContainer = styled.View({
   gap: 4,
 })
 
-const StyledChip = styled(Chip)({
-  borderColor: 'transparent',
+const StyledChip = styled(Chip)(({ theme }) => ({
+  backgroundColor: theme.colors.surfaceVariant,
+  borderColor: theme.colors.onSurfaceVariant,
   borderRadius: 24,
   height: 32,
-})
+}))
 
 const SNAP_PLACENT_MID_PERCENTAGE = 0.35
 
@@ -67,6 +68,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
   const bottomSheetMidHeight = SNAP_PLACENT_MID_PERCENTAGE * height
   const bottomSheetFullscreen = bottomSheetSnapPointIndex === bottomSheetSnapPoints.length - 1
   const bottomSheetHeight = bottomSheetSnapPoints[bottomSheetSnapPointIndex] ?? 0
+  const theme = useTheme()
 
   const { places, place, mapFeatures, mapFeature, placeCategories, placeCategory } = preparePlaces({
     places: allPlaces,
@@ -117,7 +119,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
         mode='outlined'
         rippleColor='transparent'
         elevated
-        avatar={<Icon icon={EditLocationIcon} />}
+        avatar={<Icon icon={EditLocationIcon} color={theme.colors.onSurfaceVariant} />}
         onPress={() => updateShowFilterSelection(true)}>
         <Text variant='body3'>{t($ => $.places.filter.adjust)}</Text>
       </StyledChip>
@@ -126,7 +128,14 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
         <StyledChip
           mode='outlined'
           rippleColor='transparent'
-          avatar={<Icon source='clock-outline' size={20} style={{ width: 20, height: 20 }} />}
+          avatar={
+            <Icon
+              source='clock-outline'
+              size={20}
+              style={{ width: 20, height: 20 }}
+              color={theme.colors.onSurfaceVariant}
+            />
+          }
           onPress={() => updatePlaceCurrentlyOpenFilter(false)}
           onClose={() => updatePlaceCurrentlyOpenFilter(false)}
           closeIcon='close'>

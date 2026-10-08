@@ -6,7 +6,7 @@ import React, { ReactElement, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import styled, { DefaultTheme, useTheme } from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import {
   ACTIVE_TAB_HEIGHT,
@@ -46,12 +46,6 @@ const PlacesStack = createNativeStackNavigator<RoutesParamsType>()
 const EventsStack = createNativeStackNavigator<RoutesParamsType>()
 const NewsStack = createNativeStackNavigator<RoutesParamsType>()
 
-// Note: the theme.dark logic will get replaced with proper theme handling at #4334
-// https://github.com/digitalfabrik/integreat-app/issues/4334
-
-const getActiveTabColor = (theme: DefaultTheme): string =>
-  theme.dark ? theme.colors.primaryContainer : theme.colors.primary
-
 const ActiveIndicator = styled.View`
   position: absolute;
   top: 0;
@@ -59,7 +53,7 @@ const ActiveIndicator = styled.View`
   right: 10%;
   height: ${ACTIVE_TAB_HEIGHT}px;
   border-radius: 0 0 20px 20px;
-  background-color: ${props => getActiveTabColor(props.theme)};
+  background-color: ${props => props.theme.colors.primary};
 `
 
 const CategoriesStackScreen = () => (
@@ -191,7 +185,7 @@ const BottomTabNavigator = ({ route }: BottomTabNavigatorProps): ReactElement | 
         backBehavior='history'
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: getActiveTabColor(theme),
+          tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
           tabBarButton: TabButton,
           tabBarStyle: {

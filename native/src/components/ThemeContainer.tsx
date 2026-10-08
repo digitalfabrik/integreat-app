@@ -39,7 +39,7 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
       onTertiary: palette.tertiary.contrastText,
       onTertiaryContainer: palette.tertiary.contrastText,
       onSurface: palette.text.primary,
-      onSurfaceVariant: palette.text.secondary,
+      onSurfaceVariant: palette.text.primary,
       onSurfaceDisabled: palette.action.disabled,
       inverseSurface: palette.text.primary,
       inverseOnSurface: palette.background.default,
@@ -48,7 +48,7 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
       onErrorContainer: palette.error.contrastText,
       onBackground: palette.text.primary,
       outline: palette.primary.main,
-      outlineVariant: palette.text.primary,
+      outlineVariant: palette.text.secondary,
       success: palette.success.main,
       tuNews: {
         main: palette.tuNews.main,

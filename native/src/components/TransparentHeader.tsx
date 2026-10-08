@@ -42,7 +42,7 @@ const TransparentHeader = ({ navigation, route }: TransparentHeaderProps): React
           key={t($ => $.common.actions.openExternal)}
           title={t($ => $.common.actions.openExternal)}
           onPress={shareUrl ? () => openExternalUrl(shareUrl) : undefined}
-          style={{ backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface }}
+          style={{ backgroundColor: theme.colors.surfaceVariant }}
         />,
       ]
     : []
