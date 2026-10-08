@@ -195,7 +195,7 @@ const resources = {
       "tryOptions": "Try to:",
       "options": {
         "useSearchTerm": "search for a different search term",
-        "useShortWord": "search only for a single word or short question",
+        "useSingleWord": "search only for a single word or a term",
         "askChat": "ask your question directly in <Link>{{name}}</Link>"
       },
       "noResultsInUserLanguage": "Sorry, we could not find any matching results in your language.",
