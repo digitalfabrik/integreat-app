@@ -14,9 +14,10 @@ import List, { StickyListSubheader } from './base/List'
 type EventListProps = {
   events: EventModel[]
   languageCode: string
+  regionCode: string
 }
 
-const EventGroupList = ({ events, languageCode }: EventListProps): ReactElement | null => {
+const EventGroupList = ({ events, languageCode, regionCode }: EventListProps): ReactElement | null => {
   const { t } = useTranslation()
 
   const dateGroups = useMemo(
@@ -28,18 +29,20 @@ const EventGroupList = ({ events, languageCode }: EventListProps): ReactElement 
           <Stack key={key} sx={{ paddingBlock: 1 }}>
             <StickyListSubheader component='h2'>{title}</StickyListSubheader>
             {withDividers(
-              groupedEvents.map(event => <EventListItem event={event} languageCode={languageCode} key={event.path} />),
+              groupedEvents.map(event => (
+                <EventListItem event={event} languageCode={languageCode} regionCode={regionCode} key={event.path} />
+              )),
             )}
           </Stack>
         )
       }),
-    [events, languageCode, t],
+    [events, languageCode, regionCode, t],
   )
 
   return <List items={dateGroups} noItemsMessage={t($ => $.events.error.nothingFound)} showDividers={false} />
 }
 
-const EventList = ({ events, languageCode }: EventListProps): ReactElement | null => {
+const EventList = ({ events, languageCode, regionCode }: EventListProps): ReactElement | null => {
   const { t } = useTranslation()
   const { startDate, setStartDate, endDate, setEndDate, filteredEvents, startDateError, resetDates } =
     useDateFilter(events)
@@ -64,6 +67,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
             <EventListItem
               event={event}
               languageCode={languageCode}
+              regionCode={regionCode}
               key={event.path}
               filterStartDate={startDate}
               filterEndDate={endDate}
@@ -78,7 +82,7 @@ const EventList = ({ events, languageCode }: EventListProps): ReactElement | nul
   return (
     <>
       {dateFilter}
-      <EventGroupList events={events} languageCode={languageCode} />
+      <EventGroupList events={events} languageCode={languageCode} regionCode={regionCode} />
     </>
   )
 }

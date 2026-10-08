@@ -19,6 +19,7 @@ const mapNewsJson = (json: JsonNewsType): NewsModel =>
     content: json.content.replace(/\sheight="\d+"/g, ''),
     source: json.source,
     lastUpdate: DateTime.fromISO(json.display_date),
+    publishedAt: DateTime.fromISO(json.published_at),
     availableLanguages: mapNewsAvailableLanguages(json.available_languages),
     externalUrl: json.externalUrl,
   })

@@ -30,6 +30,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoryModel[]> =>
       const parents = json.map(category => mapCategoryJson(category, basePath))
       parents.push(
         new CategoryModel({
+          id: -1,
           root: true,
           path: basePath,
           title: params.region,
@@ -39,6 +40,7 @@ export default (baseUrl: string): Endpoint<ParamsType, CategoryModel[]> =>
           order: -1,
           availableLanguages: {},
           lastUpdate: DateTime.fromMillis(0),
+          publishedAt: DateTime.fromMillis(0),
           organization: null,
           embeddedOffers: [],
           slugHistory: [],

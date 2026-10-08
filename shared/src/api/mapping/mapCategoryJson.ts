@@ -8,6 +8,7 @@ import mapAvailableLanguages from './mapAvailableLanguages.ts'
 
 const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryModel =>
   new CategoryModel({
+    id: json.id,
     root: false,
     path: json.path,
     title: json.title,
@@ -17,6 +18,7 @@ const mapCategoryJson = (json: JsonCategoryType, basePath: string): CategoryMode
     availableLanguages: mapAvailableLanguages(json.available_languages),
     parentPath: json.parent.path || basePath,
     lastUpdate: DateTime.fromISO(json.last_updated),
+    publishedAt: DateTime.fromISO(json.published_at),
     organization: json.organization
       ? new OrganizationModel({
           name: json.organization.name,

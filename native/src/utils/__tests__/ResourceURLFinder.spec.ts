@@ -44,6 +44,7 @@ describe('ResourceURLFinder', () => {
     finder.init()
     const input = [
       new ExtendedDocumentModel({
+        id: 1,
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
         content: `<img src="https://ex.am/pl1.png" alt="Crazy" />
@@ -52,14 +53,17 @@ describe('ResourceURLFinder', () => {
         availableLanguages: {},
         title: 'test',
         lastUpdate: DateTime.now(),
+        publishedAt: DateTime.fromISO('2016-01-07 10:36:24'),
       }),
       new ExtendedDocumentModel({
+        id: 2,
         path: '/path2',
         thumbnail: '',
         content: '<img src="https://ex.am/pl2.png" alt="Crazy" />',
         availableLanguages: {},
         title: 'test',
         lastUpdate: DateTime.now(),
+        publishedAt: DateTime.fromISO('2016-01-07 10:36:24'),
       }),
     ]
     const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`, [])
@@ -72,6 +76,7 @@ describe('ResourceURLFinder', () => {
     finder.init()
     const input = [
       new ExtendedDocumentModel({
+        id: 1,
         path: '/path1',
         thumbnail: 'https://ex.am/thumb.png',
         content: `<img src="https://ex.am/pl1.png" alt="First Pic" />
@@ -80,14 +85,17 @@ describe('ResourceURLFinder', () => {
         availableLanguages: {},
         title: 'test',
         lastUpdate: DateTime.now(),
+        publishedAt: DateTime.fromISO('2016-01-07 10:36:24'),
       }),
       new ExtendedDocumentModel({
+        id: 2,
         path: '/path2',
         thumbnail: '',
         content: '<img src="https://ex.am/pl4.pdf" alt="And an entire PDF" />',
         availableLanguages: {},
         title: 'test',
         lastUpdate: DateTime.now(),
+        publishedAt: DateTime.fromISO('2016-01-07 10:36:24'),
       }),
     ]
     const fetchMap = finder.buildFetchMap(input, (url, urlHash) => `buildFilePath('${url}', '${urlHash}')`, [

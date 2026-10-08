@@ -1,5 +1,6 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
+import { Text } from 'react-native'
 
 import { PlaceModelBuilder } from 'shared/api'
 
@@ -7,7 +8,7 @@ import TestingAppContext from '../../testing/TestingAppContext'
 import renderWithTheme from '../../testing/render'
 import PlacesBottomSheet from '../PlacesBottomSheet'
 
-jest.mock('../../components/Page')
+jest.mock('../../components/RemoteContent', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 jest.mock('styled-components')
 jest.mock('@gorhom/bottom-sheet', () => ({
   __esModule: true,

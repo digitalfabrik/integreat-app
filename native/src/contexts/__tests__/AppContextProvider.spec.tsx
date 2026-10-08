@@ -95,6 +95,7 @@ describe('AppContextProvider', () => {
       selectedTheme: 'light',
       chat: {},
       chatHighlightPopupDismissed: false,
+      visitedEventIds: { augsburg: { 1: '2023-10-02' } },
     }
     await appSettings.setSettings(settings)
     const { getByText } = renderAppContextProvider({})

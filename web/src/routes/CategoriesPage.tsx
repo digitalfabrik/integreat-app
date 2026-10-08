@@ -86,6 +86,7 @@ const useCategoryData = (
         ? [
             ...rawCategories,
             new CategoryModel({
+              id: -1,
               root: true,
               path: pathname,
               title: 'root',
@@ -95,6 +96,7 @@ const useCategoryData = (
               order: -1,
               availableLanguages: {},
               lastUpdate: DateTime.fromMillis(0),
+              publishedAt: DateTime.fromMillis(0),
               organization: null,
               embeddedOffers: [],
               slugHistory: [],

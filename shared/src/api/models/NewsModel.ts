@@ -1,13 +1,16 @@
 import { decodeHTML } from 'entities'
 import { DateTime } from 'luxon'
 
+import { MAX_DAYS_NEW } from '../../constants/index.ts'
 import { NewsSource } from '../constants/index.ts'
 
 class NewsModel {
+  _id: string
   _title: string
   _content: string
   _source: NewsSource
   _lastUpdate: DateTime
+  _publishedAt: DateTime
   _externalUrl: string
 
   constructor(params: {
@@ -15,6 +18,7 @@ class NewsModel {
     title: string
     content: string
     lastUpdate: DateTime
+    publishedAt: DateTime
     source: NewsSource
     availableLanguages: Record<string, string> | null
     externalUrl: string
@@ -24,11 +28,10 @@ class NewsModel {
     this._content = decodeHTML(params.content)
     this._source = params.source
     this._lastUpdate = params.lastUpdate
+    this._publishedAt = params.publishedAt
     this._availableLanguages = params.availableLanguages
     this._externalUrl = params.externalUrl
   }
-
-  _id: string
 
   get id(): string {
     return this._id
@@ -50,6 +53,14 @@ class NewsModel {
 
   get lastUpdate(): DateTime {
     return this._lastUpdate
+  }
+
+  get publishedAt(): DateTime {
+    return this._publishedAt
+  }
+
+  get isNew(): boolean {
+    return DateTime.now().diff(this._publishedAt).as('days') < MAX_DAYS_NEW
   }
 
   get availableLanguages(): Record<string, string> | null {

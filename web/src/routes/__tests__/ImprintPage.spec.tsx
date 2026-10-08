@@ -18,10 +18,12 @@ describe('ImprintPage', () => {
 
   const regions = new RegionModelBuilder(2).build()
   const imprint = new DocumentModel({
+    id: 1,
     path: '/imprint',
     title: 'Feedback, Kontakt und mögliches Engagement',
     content: 'this is a test content',
     lastUpdate: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
+    publishedAt: DateTime.fromISO('2017-11-18T19:30:00.000Z'),
   })
 
   const region = regions[0]!

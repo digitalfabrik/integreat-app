@@ -7,6 +7,7 @@ import EventModel from '../../api/models/EventModel.ts'
 import { isEventWithinRange } from '../dateFilterUtils.ts'
 
 const EventModalDummyData = {
+  id: 1,
   content: '<h1>Event Content</h1>',
   thumbnail: null,
   location: new LocationModel({
@@ -23,6 +24,7 @@ const EventModalDummyData = {
   excerpt: 'This is a test event.',
   availableLanguages: {},
   lastUpdate: DateTime.fromISO('2024-11-07T00:00:00.000'),
+  publishedAt: DateTime.fromISO('2023-01-01T00:00:00.000Z'),
   featuredImage: null,
   placePath: '/test/location/path',
 }

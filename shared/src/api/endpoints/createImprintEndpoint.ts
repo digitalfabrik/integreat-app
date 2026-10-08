@@ -23,10 +23,13 @@ export default (baseUrl: string): Endpoint<ParamsType, DocumentModel> =>
       }
 
       return new DocumentModel({
+        id: json.id,
         path: json.path,
         title: json.title,
         content: json.content,
         lastUpdate: DateTime.fromISO(json.last_updated),
+        // There is no published_at for imprints, so we just reuse last_update
+        publishedAt: DateTime.fromISO(json.last_updated),
       })
     })
     .build()
