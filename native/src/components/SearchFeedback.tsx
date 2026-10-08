@@ -53,7 +53,6 @@ type SearchFeedbackProps = {
   query?: string
   slug?: string
   sendingStatus: SendingStatusType
-  alertStatusOpen: boolean
   handleSubmit: () => void
   hasResults?: boolean
   isChatEnabled: boolean

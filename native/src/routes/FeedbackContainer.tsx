@@ -68,13 +68,11 @@ export const FeedbackContainer = ({
         rating: isSearchFeedback ? 'negative' : rating,
       })
       setSendingStatus('successful')
-      setAlertStatusOpen(true)
     }
 
     request().catch(err => {
       captureError(err)
       setSendingStatus('failed')
-      setAlertStatusOpen(true)
     })
   }
 
