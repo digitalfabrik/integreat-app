@@ -141,7 +141,7 @@ const Header = ({
   ]
 
   const menuItems = [
-    ...(route.name !== NEWS_ROUTE && regionCode
+    ...(route.name !== NEWS_ROUTE && route.name !== SEARCH_ROUTE && route.name !== FEEDBACK_ROUTE && regionCode
       ? [
           <HeaderMenuItem
             key='feedback'

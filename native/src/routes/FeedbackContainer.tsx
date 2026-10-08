@@ -26,9 +26,8 @@ export type FeedbackContainerProps = {
   query?: string
   slug?: string
   rating?: Rating
+  hasResults?: boolean
   isChatEnabled?: boolean
-  onClearSearch?: () => void
-  noResults?: boolean
 }
 
 export const FeedbackContainer = ({
@@ -38,16 +37,14 @@ export const FeedbackContainer = ({
   regionCode,
   slug,
   rating: initialRating,
+  hasResults,
   isChatEnabled = false,
-  onClearSearch,
-  noResults,
 }: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [rating, setRating] = useState<Rating | null>(initialRating ?? null)
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
-  const [alertStatusOpen, setAlertStatusOpen] = useState(false)
 
   useEffect(() => {
     setSearchTerm(query)
@@ -70,17 +67,15 @@ export const FeedbackContainer = ({
         rating,
       })
       setSendingStatus('successful')
-      setAlertStatusOpen(true)
     }
 
     request().catch(err => {
       captureError(err)
       setSendingStatus('failed')
-      setAlertStatusOpen(true)
     })
   }
 
-  if (noResults) {
+  if (hasResults !== undefined) {
     return (
       <Container>
         <SearchFeedback
@@ -88,11 +83,11 @@ export const FeedbackContainer = ({
           language={language}
           regionCode={regionCode}
           sendingStatus={sendingStatus}
-          alertStatusOpen={alertStatusOpen}
           handleSubmit={handleSubmit}
+          query={query}
           slug={slug}
+          hasResults={hasResults}
           isChatEnabled={isChatEnabled}
-          onClearSearch={onClearSearch}
         />
       </Container>
     )

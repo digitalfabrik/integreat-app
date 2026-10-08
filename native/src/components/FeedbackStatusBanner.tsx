@@ -1,16 +1,18 @@
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { IconButton } from 'react-native-paper'
-import styled from 'styled-components/native'
+import { View } from 'react-native'
+import { Icon, IconButton } from 'react-native-paper'
+import styled, { useTheme } from 'styled-components/native'
 
 import Text from '../components/base/Text'
 import Link from './Link'
 
-const Banner = styled.View`
-  background-color: ${props => props.theme.colors.success.light};
-  padding: 12px;
+const Banner = styled.View<{ $successful: boolean }>`
+  justify-content: center;
+  align-items: center;
+  background-color: ${props => (props.$successful ? props.theme.colors.success.light : props.theme.colors.error)};
   border-radius: 8px;
-  gap: 4px;
+  padding: 32px;
 `
 
 const CloseButton = styled(IconButton)`
@@ -19,9 +21,15 @@ const CloseButton = styled(IconButton)`
   right: 4px;
 `
 
+const Content = styled.View`
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 4px;
+`
+
 const TextWrapper = styled.View`
-  gap: 4px;
-  padding: 16px;
+  gap: 2px;
 `
 
 type FeedbackStatusBannerProps = {
@@ -36,6 +44,7 @@ const FeedbackStatusBanner = ({
   onNavigateToFeedback,
 }: FeedbackStatusBannerProps): ReactElement => {
   const { t } = useTranslation()
+  const theme = useTheme()
 
   const titleText = successful ? t($ => $.feedback.thanks.title) : t($ => $.error.title)
   const descriptionText = successful ? t($ => $.feedback.thanks.description) : t($ => $.error.unknownError)
@@ -43,23 +52,37 @@ const FeedbackStatusBanner = ({
   const bannerLabel = `${titleText}. ${descriptionText}`
 
   return (
-    <Banner accessible role='alert' accessibilityLabel={bannerLabel} accessibilityLiveRegion='assertive'>
+    <Banner
+      $successful={successful}
+      accessible
+      role='alert'
+      accessibilityLabel={bannerLabel}
+      accessibilityLiveRegion='assertive'>
       <CloseButton icon='close' onPress={onClose} accessibilityLabel={t($ => $.common.actions.close)} />
-      <TextWrapper>
-        <Text variant='subtitle1'>{successful ? t($ => $.feedback.thanks.title) : t($ => $.error.title)}</Text>
-        <Text variant='body2'>{successful ? t($ => $.feedback.thanks.description) : t($ => $.error.unknownError)}</Text>
-        {successful && onNavigateToFeedback && (
-          <Text variant='body2'>
-            <Trans
-              ns='feedback'
-              i18nKey={$ => $.feedback.thanks.chatReferral}
-              components={{
-                Link: <Link onPress={onNavigateToFeedback}>{t($ => $.feedback.thanks.chatReferral)}</Link>,
-              }}
-            />
-          </Text>
-        )}
-      </TextWrapper>
+      <Content>
+        <View>
+          <Icon
+            source={successful ? 'check-circle' : 'alert-circle'}
+            size={32}
+            color={successful ? theme.colors.success.main : theme.colors.error}
+          />
+        </View>
+        <TextWrapper>
+          <Text variant='subtitle1'>{titleText}</Text>
+          <Text variant='body2'>{descriptionText}</Text>
+          {successful && onNavigateToFeedback && (
+            <Text variant='body2'>
+              <Trans
+                ns='feedback'
+                i18nKey={$ => $.feedback.thanks.chatReferral}
+                components={{
+                  Link: <Link onPress={onNavigateToFeedback}>{t($ => $.feedback.thanks.chatReferral)}</Link>,
+                }}
+              />
+            </Text>
+          )}
+        </TextWrapper>
+      </Content>
     </Banner>
   )
 }
