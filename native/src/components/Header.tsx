@@ -1,5 +1,6 @@
 import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Surface } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import {
@@ -30,17 +31,16 @@ import HeaderActionItem from './HeaderActionItem'
 import HeaderBox from './HeaderBox'
 import HeaderMenu from './HeaderMenu'
 import HeaderMenuItem from './HeaderMenuItem'
-import HighlightBox from './HighlightBox'
 
 const Horizontal = styled.View`
+  background-color: ${props => props.theme.colors.surfaceVariant};
   flex: 1;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: ${props => props.theme.colors.surfaceVariant};
 `
 
-const BoxShadow = styled(HighlightBox)`
+const Container = styled(Surface)`
   height: ${dimensions.headerHeight}px;
 `
 
@@ -173,14 +173,14 @@ const Header = ({
   )
 
   return (
-    <BoxShadow>
+    <Container elevation={1}>
       <Horizontal>
         <HeaderBox route={route} navigation={navigation} goBack={goBack} regionName={regionName} />
         <ActionButtons items={items} />
         {/* Passing null should hide the menu, so don't simplify this to menu ?? defaultMenu */}
         {menu !== undefined ? menu : defaultMenu}
       </Horizontal>
-    </BoxShadow>
+    </Container>
   )
 }
 
