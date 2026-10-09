@@ -37,9 +37,10 @@ describe('NewsDetailPage', () => {
     new NewsModel({
       id: newsId,
       title: 'News title',
-      content: '<p>News body</p>',
+      content: '<p>News body https://example.com</p>',
       source,
       lastUpdate: DateTime.fromISO('2023-03-20T17:50:00.000Z'),
+      publishedAt: DateTime.fromISO('2023-01-01T00:00:00.000Z'),
       availableLanguages: { de: newsId, en: 'local-42' },
       externalUrl: 'https://external.example.com',
     })
@@ -60,6 +61,9 @@ describe('NewsDetailPage', () => {
 
   const externalLinks = (container: HTMLElement) =>
     Array.from(container.querySelectorAll('a')).filter(a => a.href === 'https://external.example.com/')
+
+  const localNewsSourceLink = (container: HTMLElement) =>
+    Array.from(container.querySelectorAll('a')).filter(a => a.href === 'https://example.com/')
 
   it('should render title and content for local news without external logo link', () => {
     mockUseQueryFromEndpointWithData(buildNews(LOCAL_NEWS_SOURCE))
@@ -124,5 +128,12 @@ describe('NewsDetailPage', () => {
 
     expect(getAllByText('English')[0]?.closest('a')).toBeNull()
     expect(getAllByText(arabicName)[0]?.closest('a')).toBeNull()
+  })
+
+  it('should replace bare urls as link in local news detail', () => {
+    mockUseQueryFromEndpointWithData(buildNews(LOCAL_NEWS_SOURCE))
+    const { container } = renderDetail()
+
+    expect(localNewsSourceLink(container)).toHaveLength(1)
   })
 })

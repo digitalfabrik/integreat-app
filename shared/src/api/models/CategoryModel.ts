@@ -13,6 +13,7 @@ class CategoryModel extends ExtendedDocumentModel {
   _organization: OrganizationModel | null
   _embeddedOffers: OfferModel[]
   constructor(params: {
+    id: number
     root: boolean
     path: string
     title: string
@@ -22,6 +23,7 @@ class CategoryModel extends ExtendedDocumentModel {
     order: number
     availableLanguages: Record<string, string>
     lastUpdate: DateTime
+    publishedAt: DateTime
     organization: OrganizationModel | null
     embeddedOffers: OfferModel[]
     slugHistory: string[]

@@ -17,7 +17,10 @@ import { EventModel } from 'shared/api'
 
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_CHARS } from '../constants'
+import { EVENTS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
+import useVisitedIds from '../hooks/useVisitedIds'
 import EventDates from './EventDates'
+import NewChip from './NewChip'
 import Link from './base/Link'
 
 const StyledListItem = styled(ListItem)`
@@ -58,6 +61,7 @@ const Excerpt = styled('p')`
 type EventListItemProps = {
   event: EventModel
   languageCode: string
+  regionCode: string
   filterStartDate?: DateTime | null
   filterEndDate?: DateTime | null
 }
@@ -72,17 +76,21 @@ const getEventPlaceholder = (path: string): string => {
 const EventListItem = ({
   event,
   languageCode,
+  regionCode,
   filterStartDate = null,
   filterEndDate = null,
 }: EventListItemProps): ReactElement => {
+  const [visitedEventIds] = useVisitedIds({ key: EVENTS_VISITED_IDS_STORAGE_KEY, regionCode })
   const { t } = useTranslation()
   const { contentDirection } = useTheme()
+
   const recurringDateIcon = event.isRecurring ? (
     <Tooltip title={t($ => $.events.recurrence.recurring)}>
       <EventRepeatOutlinedIcon />
     </Tooltip>
   ) : undefined
   const thumbnailSrc = event.thumbnail || getEventPlaceholder(event.path)
+  const isNew = !visitedEventIds.includes(event.id.toString()) && event.isNew
 
   return (
     <StyledListItem dir='auto' disablePadding secondaryAction={recurringDateIcon}>
@@ -93,9 +101,12 @@ const EventListItem = ({
         <ListItemText
           disableTypography
           primary={
-            <Typography component='h3' variant='subtitle1'>
-              {event.title}
-            </Typography>
+            <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
+              <Typography component='h3' variant='subtitle1'>
+                {event.title}
+              </Typography>
+              {isNew && <NewChip />}
+            </Stack>
           }
           secondary={
             <StyledTypography variant='body1' component='div' dir={contentDirection} sx={{ flexDirection: 'column' }}>

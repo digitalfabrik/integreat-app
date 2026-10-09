@@ -1,21 +1,21 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { OpeningHoursModel } from 'shared/api'
 
-import { isRTLText } from '../constants/contentDirection'
+import { contentDirection } from '../constants/contentDirection'
 import AppointmentOnlyOverlay from './AppointmentOnlyOverlay'
 import Icon from './base/Icon'
 import Text from './base/Text'
 
 const MARGIN_TOP = 8
 
-const EntryContainer = styled.View<{ weekday: string }>`
+const EntryContainer = styled.View<{ language: string }>`
   display: flex;
-  flex-direction: ${props => (isRTLText(props.weekday) ? 'row-reverse' : 'row')};
+  flex-direction: ${props => contentDirection(props.language)};
   justify-content: space-between;
   padding: 4px 16px;
 `
@@ -25,11 +25,12 @@ const Timeslot = styled.View`
   flex-direction: column;
 `
 
-const AppointmentOnlyContainer = styled.View<{ weekday: string }>`
-  top: 6px;
-  padding: 0 4px;
-  ${props => (isRTLText(props.weekday) ? 'right: -3px' : 'right: 3px;')};
-`
+const styles = StyleSheet.create({
+  entryRow: {
+    alignItems: 'center',
+    gap: 4,
+  },
+})
 
 type OpeningEntryProps = {
   openingHours: OpeningHoursModel
@@ -39,14 +40,14 @@ type OpeningEntryProps = {
 }
 
 const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: OpeningEntryProps): ReactElement => {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
 
   const [overlayOpen, setOverlayOpen] = useState<boolean>(false)
 
   return (
-    <EntryContainer weekday={weekday} accessible>
+    <EntryContainer language={i18n.language} accessible>
       <Text variant={isCurrentDay ? 'h6' : 'body2'}>{weekday}</Text>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View style={[styles.entryRow, { flexDirection: contentDirection(i18n.language) }]}>
         {(openingHours.openAllDay as boolean) && (
           <Text variant={isCurrentDay ? 'h6' : 'body2'}>{t($ => $.places.hours.allDay)}</Text>
         )}
@@ -68,14 +69,9 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
             </Timeslot>
           )}
         {openingHours.appointmentOnly && (
-          <AppointmentOnlyContainer weekday={weekday}>
-            <TouchableRipple borderless role='button' onPress={() => setOverlayOpen(true)}>
-              <Icon
-                style={{ height: 24, width: 24 }}
-                size={18}
-                source='alert-circle-outline'
-                label={t($ => $.places.hours.appointment.required)}
-              />
+          <View>
+            <TouchableRipple borderless role='button' hitSlop={8} onPress={() => setOverlayOpen(true)}>
+              <Icon size={18} source='alert-circle-outline' label={t($ => $.places.hours.appointment.required)} />
             </TouchableRipple>
 
             <AppointmentOnlyOverlay
@@ -83,7 +79,7 @@ const OpeningEntry = ({ openingHours, weekday, isCurrentDay, appointmentUrl }: O
               closeOverlay={() => setOverlayOpen(false)}
               appointmentUrl={appointmentUrl}
             />
-          </AppointmentOnlyContainer>
+          </View>
         )}
       </View>
     </EntryContainer>

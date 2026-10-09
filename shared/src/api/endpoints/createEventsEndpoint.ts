@@ -50,10 +50,11 @@ export default (baseUrl: string): Endpoint<ParamsType, EventModel[]> =>
     )
     .withMapper((json: JsonEventType[]): EventModel[] =>
       json
-        .map((event: JsonEventType): EventModel => {
+        .map(event => {
           const eventData = event.event
           const allDay = eventData.all_day
           return new EventModel({
+            id: event.event.id,
             path: event.path,
             title: event.title,
             content: event.content,
@@ -82,6 +83,7 @@ export default (baseUrl: string): Endpoint<ParamsType, EventModel[]> =>
             excerpt: decodeHTML(event.excerpt),
             availableLanguages: mapAvailableLanguages(event.available_languages),
             lastUpdate: DateTime.fromISO(event.last_updated),
+            publishedAt: DateTime.fromISO(event.published_at),
             featuredImage: event.featured_image
               ? new FeaturedImageModel({
                   description: event.featured_image.description,

@@ -24,6 +24,7 @@ describe('createJsonLdEvent', () => {
       longitude: null,
     })
     const eventModel = new EventModel({
+      id: 1,
       path: '/events/event0',
       title: 'Sample Event',
       content: 'hi',
@@ -34,6 +35,7 @@ describe('createJsonLdEvent', () => {
       excerpt: 'This is a sample event. Have fun sampling.',
       availableLanguages: {},
       lastUpdate: DateTime.fromISO('2017-11-18T09:30:00.000Z'),
+      publishedAt: DateTime.fromISO('2017-11-18T09:30:00.000Z'),
       featuredImage: new FeaturedImageModel({
         description: 'whoohoo',
         thumbnail: {

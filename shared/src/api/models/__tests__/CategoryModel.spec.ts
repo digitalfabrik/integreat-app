@@ -4,6 +4,7 @@ import CategoryModel from '../CategoryModel.ts'
 
 describe('CategoryModel', () => {
   const rootCategory = new CategoryModel({
+    id: -1,
     root: true,
     path: '/augsburg/en/',
     title: 'Welcome',
@@ -13,11 +14,13 @@ describe('CategoryModel', () => {
     availableLanguages: { de: '/augsburg/de/' },
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
+    publishedAt: DateTime.fromISO('2023-01-01T00:00:00.000Z'),
     organization: null,
     embeddedOffers: [],
     slugHistory: [],
   })
   const category = new CategoryModel({
+    id: 1,
     root: false,
     path: '/augsburg/en/welcome',
     title: 'Welcome',
@@ -27,6 +30,7 @@ describe('CategoryModel', () => {
     availableLanguages: { de: '/augsburg/de/willkommen' },
     thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
     lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
+    publishedAt: DateTime.fromISO('2023-01-01T00:00:00.000Z'),
     organization: null,
     embeddedOffers: [],
     slugHistory: [],
@@ -39,6 +43,7 @@ describe('CategoryModel', () => {
 
   it('should normalize paths', () => {
     const normalizedCategory = new CategoryModel({
+      id: 1,
       root: false,
       path: '/augsburg/fa/erste-schritte/%D9%86%D9%82%D8%B4%D9%87-%D8%B4%D9%87%D8%B1/',
       title: 'Welcome',
@@ -48,6 +53,7 @@ describe('CategoryModel', () => {
       availableLanguages: { de: '/augsburg/de/willkommen' },
       thumbnail: 'https://cms.integreat-ap…/03/Hotline-150x150.png',
       lastUpdate: DateTime.fromISO('2016-01-07 10:36:24'),
+      publishedAt: DateTime.fromISO('2023-01-01T00:00:00.000Z'),
       organization: null,
       embeddedOffers: [],
       slugHistory: [],

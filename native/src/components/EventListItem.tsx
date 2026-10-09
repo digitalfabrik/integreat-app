@@ -11,7 +11,9 @@ import { EventModel } from 'shared/api'
 import { EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3 } from '../assets'
 import { EXCERPT_MAX_LINES } from '../constants'
 import { contentAlignment, contentDirection } from '../constants/contentDirection'
+import useVisitedIds from '../hooks/useVisitedIds'
 import EventDates from './EventDates'
+import NewChip from './NewChip'
 import SimpleImage from './SimpleImage'
 import Icon from './base/Icon'
 import Text from './base/Text'
@@ -28,6 +30,14 @@ const LocationRow = styled.View<{ language: string }>`
   flex-direction: ${props => contentDirection(props.language)};
   align-items: center;
   gap: 4px;
+`
+
+const TitleRow = styled.View<{ language: string }>`
+  flex-direction: ${props => contentDirection(props.language)};
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
 `
 
 const placeholderThumbnails = [EventThumbnailPlaceholder1, EventThumbnailPlaceholder2, EventThumbnailPlaceholder3]
@@ -53,6 +63,8 @@ const EventListItem = ({
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     event.thumbnail || placeholderThumbnails[event.path.length % placeholderThumbnails.length]!
   const content = parseHTML(event.content).trim()
+  const [visitedEventIds] = useVisitedIds({ key: 'visitedEventIds', regionCode })
+  const isNew = event.isNew && !visitedEventIds.includes(event.id.toString())
 
   // Use the content language to match the surrounding translations
   const { t: translateIntoContentLanguage } = useTranslation()
@@ -80,17 +92,23 @@ const EventListItem = ({
     })
   }, [navigateTo, regionCode, language, event.slug])
 
+  // PaperList.Item wraps non-function titles in <Text> which causes the chip to get cut off on iOS
+  const title = () => (
+    <TitleRow language={language}>
+      <Text variant='h5' style={{ textAlign: contentAlignment(language), flexShrink: 1 }}>
+        {event.title}
+      </Text>
+      {isNew && <NewChip />}
+    </TitleRow>
+  )
+
   return (
     <PaperList.Item
       borderless
       titleNumberOfLines={0}
       descriptionNumberOfLines={0}
       descriptionStyle={{ marginTop: 8 }}
-      title={
-        <Text variant='h5' style={{ textAlign: contentAlignment(language) }}>
-          {event.title}
-        </Text>
-      }
+      title={title}
       description={
         <View style={{ gap: 8, width: '100%' }}>
           <EventDates

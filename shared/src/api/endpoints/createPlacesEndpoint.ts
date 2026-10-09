@@ -39,6 +39,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PlaceModel[]> =>
       json.map(
         place =>
           new PlaceModel({
+            id: place.location.id,
             path: place.path,
             title: place.title,
             content: place.content,
@@ -79,6 +80,7 @@ export default (baseUrl: string): Endpoint<ParamsType, PlaceModel[]> =>
               longitude: place.location.longitude,
             }),
             lastUpdate: DateTime.fromISO(place.last_updated),
+            publishedAt: DateTime.fromISO(place.published_at),
             organization:
               place.organization !== null
                 ? new OrganizationModel({

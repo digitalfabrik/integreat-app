@@ -44,11 +44,13 @@ type OrganizationJsonType = {
 }
 
 type ContentCategoryJsonType = {
+  id: number
   root: boolean
   path: string
   title: string
   content: string
   lastUpdate: string
+  publishedAt: string
   thumbnail: string | null
   availableLanguages: Record<string, string>
   parentPath: string
@@ -92,10 +94,12 @@ type FeaturedImageJsonType = {
 }
 
 type ContentEventJsonType = {
+  id: number
   path: string
   title: string
   content: string
   lastUpdate: string
+  publishedAt: string
   thumbnail: string | null
   availableLanguages: Record<string, string>
   excerpt: string
@@ -154,6 +158,7 @@ type ContactJsonType = {
 }
 
 type ContentPlaceJsonType = {
+  id: number
   path: string
   title: string
   content: string
@@ -163,6 +168,7 @@ type ContentPlaceJsonType = {
   excerpt: string
   location: LocationJsonType<number>
   lastUpdate: string
+  publishedAt: string
   category: { id: number; name: string; color: string; icon: string; iconName: string }
   openingHours:
     | {
@@ -181,6 +187,7 @@ type ContentPlaceJsonType = {
 type ContentNewsJsonType = {
   id: string
   lastUpdate: string
+  publishedAt: string
   title: string
   content: string
   source: NewsSource
@@ -432,11 +439,13 @@ class DatabaseConnector {
   async storeCategories(categoriesMap: CategoriesMapModel, context: DatabaseContext): Promise<void> {
     const categoryModels = categoriesMap.toArray()
     const jsonModels = categoryModels.map((category: CategoryModel): ContentCategoryJsonType => ({
+      id: category.id,
       root: category.isRoot(),
       path: category.path,
       title: category.title,
       content: category.content,
       lastUpdate: category.lastUpdate.toISO(),
+      publishedAt: category.publishedAt.toISO(),
       thumbnail: category.thumbnail,
       availableLanguages: category.availableLanguages,
       parentPath: category.parentPath,
@@ -467,6 +476,7 @@ class DatabaseConnector {
         json.map(
           jsonObject =>
             new CategoryModel({
+              id: jsonObject.id,
               root: jsonObject.root,
               path: jsonObject.path,
               title: jsonObject.title,
@@ -476,6 +486,7 @@ class DatabaseConnector {
               order: jsonObject.order,
               availableLanguages: jsonObject.availableLanguages,
               lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
+              publishedAt: DateTime.fromISO(jsonObject.publishedAt),
               organization:
                 jsonObject.organization !== null
                   ? new OrganizationModel({
@@ -503,6 +514,7 @@ class DatabaseConnector {
 
   async storePlaces(places: PlaceModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = places.map((place: PlaceModel): ContentPlaceJsonType => ({
+      id: place.id,
       path: place.path,
       title: place.title,
       content: place.content,
@@ -529,6 +541,7 @@ class DatabaseConnector {
         name: place.location.name,
       },
       lastUpdate: place.lastUpdate.toISO(),
+      publishedAt: place.publishedAt.toISO(),
       category: {
         id: place.category.id,
         name: place.category.name,
@@ -558,6 +571,7 @@ class DatabaseConnector {
       json.map(jsonObject => {
         const jsonLocation = jsonObject.location
         return new PlaceModel({
+          id: jsonObject.id,
           path: jsonObject.path,
           title: jsonObject.title,
           content: jsonObject.content,
@@ -588,6 +602,7 @@ class DatabaseConnector {
             town: jsonLocation.town,
           }),
           lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
+          publishedAt: DateTime.fromISO(jsonObject.publishedAt),
           category: new PlaceCategoryModel({
             id: jsonObject.category.id,
             name: jsonObject.category.name,
@@ -617,6 +632,7 @@ class DatabaseConnector {
     const jsonModels = news.map((it: NewsModel): ContentNewsJsonType => ({
       id: it.id,
       lastUpdate: it.lastUpdate.toISO(),
+      publishedAt: it.publishedAt.toISO(),
       title: it.title,
       content: it.content,
       availableLanguages: it.availableLanguages,
@@ -634,6 +650,7 @@ class DatabaseConnector {
           new NewsModel({
             id: jsonObject.id,
             lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
+            publishedAt: DateTime.fromISO(jsonObject.publishedAt),
             source: jsonObject.source,
             title: jsonObject.title,
             content: jsonObject.content,
@@ -697,10 +714,12 @@ class DatabaseConnector {
 
   async storeEvents(events: EventModel[], context: DatabaseContext): Promise<void> {
     const jsonModels = events.map((event: EventModel): ContentEventJsonType => ({
+      id: event.id,
       path: event.path,
       title: event.title,
       content: event.content,
       lastUpdate: event.lastUpdate.toISO(),
+      publishedAt: event.publishedAt.toISO(),
       thumbnail: event.thumbnail,
       availableLanguages: event.availableLanguages,
       excerpt: event.excerpt,
@@ -744,6 +763,7 @@ class DatabaseConnector {
       json.map(jsonObject => {
         const jsonDate = jsonObject.date
         return new EventModel({
+          id: jsonObject.id,
           path: jsonObject.path,
           title: jsonObject.title,
           content: jsonObject.content,
@@ -759,6 +779,7 @@ class DatabaseConnector {
             : null,
           availableLanguages: jsonObject.availableLanguages,
           lastUpdate: DateTime.fromISO(jsonObject.lastUpdate),
+          publishedAt: DateTime.fromISO(jsonObject.publishedAt),
           excerpt: jsonObject.excerpt,
           date: new DateModel({
             startDate: DateTime.fromISO(jsonDate.start),

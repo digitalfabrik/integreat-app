@@ -79,7 +79,8 @@ const resources = {
       "loading": "Loading…",
       "optional": "optional",
       "enabled": "enabled",
-      "disabled": "disabled"
+      "disabled": "disabled",
+      "new": "new"
     },
     "labels": {
       "description": "Description",

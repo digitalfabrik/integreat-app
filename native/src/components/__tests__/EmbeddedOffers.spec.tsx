@@ -20,6 +20,7 @@ jest.mock('../MalteHelpFormOffer', () => ({ malteHelpFormOffer }: { malteHelpFor
 describe('EmbeddedOffers', () => {
   const createCategory = (offer: OfferModel) =>
     new CategoryModel({
+      id: 1,
       root: false,
       path: '/augsburg/de/title',
       title: 'Title',
@@ -29,6 +30,7 @@ describe('EmbeddedOffers', () => {
       availableLanguages: {},
       thumbnail: '',
       lastUpdate: DateTime.fromISO('2024-08-15T10:47:34+02:00'),
+      publishedAt: DateTime.fromISO('2023-01-01T00:00:00.000Z'),
       organization: null,
       embeddedOffers: [offer],
       slugHistory: [],
