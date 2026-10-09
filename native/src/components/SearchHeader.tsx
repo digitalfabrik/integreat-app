@@ -6,17 +6,14 @@ import styled, { useTheme } from 'styled-components/native'
 import { SearchRouteType } from 'shared'
 
 import { NavigationProps } from '../constants/NavigationTypes'
-import dimensions from '../constants/dimensions'
+import { HeaderContainer } from './Header'
 import SearchInput from './SearchInput'
 
 const Horizontal = styled.View`
+  background-color: ${props => props.theme.colors.surfaceVariant};
   flex: 1;
   flex-direction: row;
   align-items: center;
-`
-
-const BoxShadow = styled.View`
-  height: ${dimensions.headerHeight}px;
 `
 
 type SearchHeaderProps = {
@@ -29,7 +26,7 @@ const SearchHeader = ({ query, navigation, onSearchChanged }: SearchHeaderProps)
   const { t } = useTranslation()
   const theme = useTheme()
   return (
-    <BoxShadow>
+    <HeaderContainer>
       <Horizontal>
         <Appbar.BackAction
           accessibilityRole='button'
@@ -46,7 +43,7 @@ const SearchHeader = ({ query, navigation, onSearchChanged }: SearchHeaderProps)
           style={{ flex: 1 }}
         />
       </Horizontal>
-    </BoxShadow>
+    </HeaderContainer>
   )
 }
 

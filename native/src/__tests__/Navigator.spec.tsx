@@ -113,11 +113,6 @@ jest.mock('../components/Header', () => {
 
   return () => <Text>Header</Text>
 })
-jest.mock('../components/TransparentHeader', () => {
-  const { Text } = require('react-native-paper')
-
-  return () => <Text>TransparentHeader</Text>
-})
 jest.mock('../utils/PushNotificationsManager', () => ({
   usePushNotificationListener: jest.fn(() => undefined),
 }))

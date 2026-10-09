@@ -1,7 +1,7 @@
 import { BottomTabBarButtonProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { PlatformPressable } from '@react-navigation/elements'
 import { getFocusedRouteNameFromRoute, useNavigationState } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createNativeStackNavigator, NativeStackHeaderProps } from '@react-navigation/native-stack'
 import React, { ReactElement, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
@@ -22,11 +22,11 @@ import {
 } from 'shared'
 
 import ChatFab from './components/ChatFab'
-import { defaultHeader } from './components/DefaultHeader'
+import Header from './components/Header'
 import Icon from './components/base/Icon'
 import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'
-import { RouteProps, RoutesParamsType } from './constants/NavigationTypes'
+import { BaseNavigationProps, BaseRouteProps, RouteProps, RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import dimensions from './constants/dimensions'
 import useLoadRegionContent from './hooks/useLoadRegionContent'
@@ -39,6 +39,15 @@ import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import NewsContainer from './routes/NewsContainer'
 import PlacesContainer from './routes/PlacesContainer'
 import { usePushNotificationListener } from './utils/PushNotificationsManager'
+
+export type HeaderProps = {
+  route: BaseRouteProps
+  navigation: BaseNavigationProps
+}
+
+export const defaultHeader = (headerProps: NativeStackHeaderProps): ReactElement => (
+  <Header {...(headerProps as HeaderProps)} />
+)
 
 const Tab = createBottomTabNavigator<RoutesParamsType>()
 const CategoriesStack = createNativeStackNavigator<RoutesParamsType>()

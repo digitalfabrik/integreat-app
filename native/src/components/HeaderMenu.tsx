@@ -9,6 +9,7 @@ import { BaseNavigationProps } from '../constants/NavigationTypes'
 import buildConfig from '../constants/buildConfig'
 import useSnackbar from '../hooks/useSnackbar'
 import { withDividers } from '../utils'
+import useOpenExternalUrl from '../utils/openExternalUrl'
 import { captureError } from '../utils/sentry'
 import HeaderMenuItem from './HeaderMenuItem'
 import QrCodeModal from './QrCodeModal'
@@ -33,6 +34,7 @@ const HeaderMenu = ({
   const theme = useTheme()
   const { t } = useTranslation()
   const showSnackbar = useSnackbar()
+  const openExternalUrl = useOpenExternalUrl()
   const [qrModalVisible, setQrModalVisible] = useState(false)
 
   const closeMenu = () => setVisible(false)
@@ -60,6 +62,17 @@ const HeaderMenu = ({
 
   const items = [
     ...menuItems,
+    ...(shareUrl?.toLowerCase().includes('.pdf')
+      ? [
+          <HeaderMenuItem
+            key='openExternal'
+            title={t($ => $.common.actions.openExternal)}
+            onPress={() => openExternalUrl(shareUrl)}
+            closeMenu={closeMenu}
+            icon='open-in-new'
+          />,
+        ]
+      : []),
     ...(shareUrl
       ? [
           <HeaderMenuItem

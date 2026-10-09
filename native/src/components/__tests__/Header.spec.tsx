@@ -10,6 +10,7 @@ import {
   EVENTS_TAB_ROUTE,
   LANGUAGES_ROUTE,
   IMPRINT_ROUTE,
+  PDF_VIEW_ROUTE,
   ImprintRouteType,
   NewsRouteType,
   PlacesRouteType,
@@ -92,12 +93,14 @@ describe('Header', () => {
     languages = languageModels,
     shareUrl = defaultShareUrl,
     route = defaultRoute,
+    menuItems,
   }: {
     showItems?: boolean
     languages?: LanguageModel[]
     availableLanguages?: string[]
     shareUrl?: string
     route?: RouteProps<CategoriesRouteType | PlacesRouteType | ImprintRouteType | NewsRouteType>
+    menuItems?: ReactElement[]
   }) =>
     render(
       <TestingAppContext regionCode={regionModel.code} languageCode={languageModel.code}>
@@ -109,6 +112,7 @@ describe('Header', () => {
           shareUrl={shareUrl}
           showItems={showItems}
           regionName={regionModel.name}
+          menuItems={menuItems}
         />
       </TestingAppContext>,
     )
@@ -252,6 +256,36 @@ describe('Header', () => {
     expect(Share.share).toHaveBeenCalled()
 
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'error:unknownError' })
+  })
+
+  it('should replace the default menu items if menu items are passed', () => {
+    const { getByTestId, queryByText, getByText } = renderHeader({ menuItems: [] })
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+
+    expect(queryByText('feedback:title')).toBeNull()
+    expect(queryByText('tts:title')).toBeNull()
+    expect(getByText('share:title')).toBeTruthy()
+  })
+
+  it('should use the share url from the route params if none is passed', () => {
+    const shareUrl = 'https://example.com/file.pdf'
+    const { getByTestId, getByText } = render(
+      <TestingAppContext regionCode={regionModel.code} languageCode={languageModel.code}>
+        <Header
+          navigation={navigation}
+          route={{ key: 'key-0', name: PDF_VIEW_ROUTE, params: { url: shareUrl, shareUrl } }}
+          regionName={regionModel.name}
+          menuItems={[]}
+        />
+      </TestingAppContext>,
+    )
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText(t('share:title')))
+
+    expect(Share.share).toHaveBeenCalledWith({
+      message: `share:message Stadt Augsburg\n${shareUrl}`,
+      title: 'Stadt Augsburg',
+    })
   })
 
   it('should create proper share message including page title', () => {
