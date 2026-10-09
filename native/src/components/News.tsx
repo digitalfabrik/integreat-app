@@ -105,6 +105,7 @@ const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSource
     <List
       items={news}
       noItemsMessage={t($ => $.news.error.nothingFound)}
+      keyExtractor={item => item.id}
       header={
         <ListHeaderContainer>
           <Caption title={t($ => $.news.title)} />
