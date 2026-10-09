@@ -36,6 +36,7 @@ const ExternalSources = (): ReactElement | null => {
     <Layout>
       <List
         items={buildConfig().supportedIframeSources}
+        keyExtractor={item => item}
         renderItem={renderExternalSourcesItem}
         header={
           <>

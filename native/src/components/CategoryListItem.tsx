@@ -61,6 +61,7 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
           <Divider />
           <List
             items={subCategories}
+            keyExtractor={item => item.path}
             style={isRTLText(subCategories[0]?.title ?? category.title) ? { marginRight: 56 } : { marginLeft: 56 }}
             renderItem={({ item: subCategory }) => (
               <SubCategoryListItem
@@ -70,7 +71,7 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
                 language={language}
               />
             )}
-            scrollEnabled={false}
+            nested
           />
         </>
       )}

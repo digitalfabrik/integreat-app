@@ -84,6 +84,7 @@ const Search = ({
             </Text>
             <List
               items={searchResults}
+              keyExtractor={item => item.path}
               renderItem={renderItem}
               accessibilityLabel={t($ => $.search.resultCount, { count: searchResults.length })}
               style={{ flex: 1 }}
