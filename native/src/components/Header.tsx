@@ -40,7 +40,8 @@ const Horizontal = styled.View`
   align-items: center;
 `
 
-const Container = styled(Surface)`
+export const HeaderContainer = styled(Surface).attrs({ elevation: 1 })`
+  background-color: ${props => props.theme.colors.surfaceVariant};
   height: ${dimensions.headerHeight}px;
 `
 
@@ -55,19 +56,21 @@ type HeaderProps = {
   forceText?: boolean
   goBack?: () => void
   menu?: ReactElement | null
+  menuItems?: ReactElement[]
 }
 
 const Header = ({
   navigation,
   route,
   availableLanguages = route.name === REGIONS_ROUTE ? supportedLanguages.map(it => it.code) : undefined,
-  shareUrl,
+  shareUrl: shareUrlProp,
   showItems = false,
   languages = route.name === REGIONS_ROUTE ? supportedLanguages : undefined,
   regionName,
   forceText = route.name === REGIONS_ROUTE,
   goBack,
   menu,
+  menuItems: customMenuItems,
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
   const { languageCode, regionCode } = useContext(AppContext)
@@ -77,6 +80,7 @@ const Header = ({
 
   const currentLanguageName = languages?.find(it => it.code === languageCode)?.name
 
+  const shareUrl = shareUrlProp ?? (route.params as { shareUrl?: string } | undefined)?.shareUrl
   const routeTitle = (route.params as { title?: string } | undefined)?.title
   const pageTitle =
     routeTitle && regionName && routeTitle !== regionName ? `${routeTitle} - ${regionName}` : (routeTitle ?? regionName)
@@ -140,7 +144,7 @@ const Header = ({
     />,
   ]
 
-  const menuItems = [
+  const menuItems = customMenuItems ?? [
     ...(route.name !== NEWS_ROUTE && regionCode
       ? [
           <HeaderMenuItem
@@ -173,14 +177,14 @@ const Header = ({
   )
 
   return (
-    <Container elevation={1}>
+    <HeaderContainer>
       <Horizontal>
         <HeaderBox route={route} navigation={navigation} goBack={goBack} regionName={regionName} />
         <ActionButtons items={items} />
         {/* Passing null should hide the menu, so don't simplify this to menu ?? defaultMenu */}
         {menu !== undefined ? menu : defaultMenu}
       </Horizontal>
-    </Container>
+    </HeaderContainer>
   )
 }
 

@@ -13,11 +13,11 @@ import HeaderTitle from './HeaderTitle'
 
 const HEADER_HEIGHT = 80
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
+export const HeaderContainer = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.background.accent,
 }))
 
-const HeaderContainer = styled('header')`
+const HeaderComponent = styled('header')`
   user-select: none;
 
   ${props => props.theme.breakpoints.up('lg')} {
@@ -73,8 +73,8 @@ export const Header = ({ actionItems = [], logoHref, regionName, language, tabBa
 
   return (
     <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2}>
-      <StyledPaper elevation={0}>
-        <HeaderContainer ref={ref}>
+      <HeaderContainer elevation={0}>
+        <HeaderComponent ref={ref}>
           <Row>
             <Stack direction='row-reverse' sx={{ alignItems: 'center', gap: 1 }}>
               <HeaderLogo link={logoHref} />
@@ -83,8 +83,8 @@ export const Header = ({ actionItems = [], logoHref, regionName, language, tabBa
             <ActionBar>{actionItems}</ActionBar>
           </Row>
           {tabBar}
-        </HeaderContainer>
-      </StyledPaper>
+        </HeaderComponent>
+      </HeaderContainer>
     </Headroom>
   )
 }

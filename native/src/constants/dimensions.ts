@@ -2,7 +2,6 @@ import { BREAKPOINTS } from './layout'
 
 export type DimensionsType = {
   headerHeight: number
-  modalHeaderHeight: number
   ttsPlayerHeight: number
   bottomNavigationHeight: number
   categoryListItem: {
@@ -26,7 +25,6 @@ export type DimensionsType = {
 
 const dimensions: DimensionsType = {
   headerHeight: 60,
-  modalHeaderHeight: 40,
   ttsPlayerHeight: 100,
   bottomNavigationHeight: 60,
   categoryListItem: {
