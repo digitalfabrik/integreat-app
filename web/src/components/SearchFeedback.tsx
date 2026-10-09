@@ -77,6 +77,7 @@ const HighlightedCard = styled(Card)(({ theme }) => ({
 const StyledButton = styled(Button)`
   width: 100%;
   background-color: ${props => props.theme.palette.background.default};
+  margin-top: 6px;
 `
 
 const StyledAlert = styled(Alert)`
@@ -196,7 +197,7 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
               <Typography variant='body1' component='p'>
                 {t($ => $.feedback.search.helpToImprove, { appName: buildConfig().appName })}
               </Typography>
-              <CardActions>
+              <CardActions sx={{ padding: 0 }}>
                 <StyledButton onClick={handleSubmit} startIcon={<NotificationsNoneIcon />} variant='outlined'>
                   {t($ => $.feedback.search.informUs)}
                 </StyledButton>
