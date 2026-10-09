@@ -1,6 +1,7 @@
 import Autocomplete from '@mui/material/Autocomplete'
 import Button from '@mui/material/Button'
 import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
 import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { styled } from '@mui/material/styles'
@@ -124,10 +125,14 @@ const LanguageSelection = ({
             onUnavailableLanguageClick={openTranslationUnavailableDialog}
             key={language.code}
           />
-          {index === filteredLanguageChangePaths.length - 1 && languageNotFoundButton}
+          {index === filteredLanguageChangePaths.length - 1 && (
+            <ListItem disablePadding sx={{ justifyContent: 'center' }}>
+              {languageNotFoundButton}
+            </ListItem>
+          )}
         </Fragment>
       )}
-      noOptionsText={languageNotFoundButton}
+      noOptionsText={<Stack sx={{ alignItems: 'center' }}>{languageNotFoundButton}</Stack>}
       disablePortal
       slotProps={{
         popper: {
