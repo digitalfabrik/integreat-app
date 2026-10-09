@@ -1,6 +1,5 @@
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -20,8 +19,6 @@ type NavigationTabsProps = {
 const NavigationTabs = ({ regionModel, languageCode }: NavigationTabsProps): ReactElement | null => {
   const { route } = useRegionContentParams()
   const { t } = useTranslation()
-  const theme = useTheme()
-  const color = theme.isContrastTheme ? 'secondary' : 'primary'
 
   const navigationItems = getNavigationItems({ regionModel, languageCode })
   const allTabValues: string[] = [CATEGORIES_ROUTE, PLACES_ROUTE, NEWS_ROUTE, EVENTS_ROUTE]
@@ -32,12 +29,7 @@ const NavigationTabs = ({ regionModel, languageCode }: NavigationTabsProps): Rea
   }
 
   return (
-    <Tabs
-      id={NAVIGATION_TABS_ELEMENT_ID}
-      value={currentTabValue}
-      component='nav'
-      textColor={color}
-      indicatorColor={color}>
+    <Tabs id={NAVIGATION_TABS_ELEMENT_ID} value={currentTabValue} component='nav'>
       {navigationItems.map(item => (
         <Tab key={item.value} component={Link} to={item.to} value={item.value} label={t($ => $[item.value].title)} />
       ))}

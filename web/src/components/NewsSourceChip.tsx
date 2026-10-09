@@ -5,12 +5,16 @@ import { useTranslation } from 'react-i18next'
 
 import { getNewsColor, getNewsSourceLabel, NewsSource } from 'shared/api'
 
-const SourceChip = styled(Chip)<{ source: NewsSource }>(({ source, theme }) => ({
-  [`&.${chipClasses.outlined}`]: {
-    borderColor: getNewsColor({ palette: theme.palette, source }),
-    backgroundColor: theme.palette.background.default,
-  },
-}))
+const SourceChip = styled(Chip)<{ source: NewsSource }>(({ source, theme }) => {
+  const [color, contrastColor] = getNewsColor({ palette: theme.palette, source })
+  return {
+    [`&.${chipClasses.root}`]: {
+      color: contrastColor,
+      borderColor: color,
+      backgroundColor: color,
+    },
+  }
+})
 
 type NewsSourceChipProps = {
   source: NewsSource
@@ -19,7 +23,7 @@ type NewsSourceChipProps = {
 const NewsSourceChip = ({ source }: NewsSourceChipProps): ReactElement => {
   const { t } = useTranslation()
   const label = getNewsSourceLabel({ source, t })
-  return <SourceChip label={label} source={source} variant='outlined' size='small' />
+  return <SourceChip label={label} source={source} size='small' />
 }
 
 export default NewsSourceChip

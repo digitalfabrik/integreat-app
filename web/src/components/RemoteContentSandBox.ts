@@ -68,8 +68,7 @@ const RemoteContentSandBox = styled('div')<{ centered: boolean; smallText: boole
 
   a {
     overflow-wrap: break-word;
-    color: ${props =>
-      props.theme.isContrastTheme ? props.theme.palette.primary.light : props.theme.palette.primary.main};
+    color: ${props => props.theme.palette.primary.main};
   }
 
   details > * {

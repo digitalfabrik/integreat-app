@@ -4,6 +4,10 @@ import { Theme } from '@mui/material/styles'
 import { bottomSheetHandleHeight } from '../../hooks/useDimensions'
 
 const GlobalStyle = ({ theme }: { theme: Theme }): SerializedStyles => css`
+  html {
+    background-color: ${theme.palette.background.accent};
+  }
+
   body {
     background-color: ${theme.palette.background.default};
     margin: 0;

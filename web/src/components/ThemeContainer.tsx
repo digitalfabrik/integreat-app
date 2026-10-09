@@ -1,5 +1,6 @@
 import createCache from '@emotion/cache'
 import { CacheProvider, Global } from '@emotion/react'
+import CloseIcon from '@mui/icons-material/Close'
 import { chipClasses } from '@mui/material/Chip'
 import { dialogClasses } from '@mui/material/Dialog'
 import { createTheme as createMuiTheme, responsiveFontSizes, Theme, ThemeProvider } from '@mui/material/styles'
@@ -61,9 +62,23 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
             },
           },
         },
+        MuiAccordion: {
+          styleOverrides: {
+            root: {
+              backgroundColor: 'unset',
+            },
+          },
+        },
         MuiAccordionSummary: {
           defaultProps: {
             disableRipple: false,
+          },
+        },
+        MuiListSubheader: {
+          styleOverrides: {
+            root: {
+              backgroundColor: theme.palette.background.default,
+            },
           },
         },
         MuiListItemIcon: {
@@ -76,12 +91,19 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
           },
         },
         MuiChip: {
+          defaultProps: {
+            deleteIcon: <CloseIcon />,
+          },
           styleOverrides: {
+            icon: {
+              color: theme.palette.tertiary.light,
+            },
             deleteIcon: {
-              color: isContrast ? 'inherit' : theme.palette.text.disabled,
+              color: theme.palette.tertiary.light,
             },
             outlined: {
               backgroundColor: theme.palette.background.accent,
+              borderColor: theme.palette.tertiary.light,
 
               [`&.${chipClasses.clickable}`]: {
                 ':hover': {
@@ -90,7 +112,6 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
               },
               [`&.${chipClasses.focusVisible}`]: {
                 outline: `2px solid ${theme.palette.tertiary.dark}`,
-                outlineOffset: 2,
                 backgroundColor: theme.palette.background.default,
               },
             },
@@ -136,6 +157,7 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
               color: theme.palette.primary.main,
             },
             tooltip: {
+              color: theme.palette.primary.contrastText,
               backgroundColor: theme.palette.primary.main,
               fontSize: typography.body2.fontSize,
               padding: '8px 16px',
@@ -147,6 +169,12 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
         // https://github.com/mui/material-ui/issues/46945#issuecomment-3299699965
         MuiOutlinedInput: {
           styleOverrides: {
+            root: {
+              // Fix gap in search box border, see #3600
+              '& legend': {
+                letterSpacing: 0,
+              },
+            },
             notchedOutline: {
               '@supports (-webkit-appearance: none)': {
                 '& legend': {

@@ -27,38 +27,14 @@ declare module '@mui/material/styles' {
 
   interface Palette {
     tertiary: PaletteColor
-    amalNews: SimplePaletteColorOptions
-    tuNews: {
-      light: string
-      main: string
-    }
-    chat: {
-      background: string
-      headerBackground: string
-      answerMessageBackground: string
-      userMessageBackground: string
-      messageBorderColor: string
-      chatInputOutlineColor: string
-      chatInputPlaceholderColor: string
-    }
+    amalNews: SimplePaletteColorOptions & { contrastText: string }
+    tuNews: SimplePaletteColorOptions & { contrastText: string }
   }
 
   interface PaletteOptions {
     tertiary: PaletteColor
-    amalNews: SimplePaletteColorOptions
-    tuNews: {
-      light: string
-      main: string
-    }
-    chat: {
-      background: string
-      headerBackground: string
-      answerMessageBackground: string
-      userMessageBackground: string
-      messageBorderColor: string
-      chatInputOutlineColor: string
-      chatInputPlaceholderColor: string
-    }
+    amalNews: SimplePaletteColorOptions & { contrastText: string }
+    tuNews: SimplePaletteColorOptions & { contrastText: string }
   }
 }
 

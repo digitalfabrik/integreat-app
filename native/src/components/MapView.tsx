@@ -228,12 +228,7 @@ const MapView = ({
         <MapZoomControls mapRef={mapRef} cameraRef={cameraRef} ref={zoomRef} />
         <LocationButton
           {...conditionalA11yProps({ hidden: bottomSheetFullscreen })}
-          icon={
-            <Icon
-              color={theme.dark ? theme.colors.background : theme.colors.onSurface}
-              source={locationPermissionIcon}
-            />
-          }
+          icon={<Icon color={theme.colors.onSecondary} source={locationPermissionIcon} />}
           onPress={onRequestLocation}
           accessibilityLabel={t($ => $.userLocation.show)}
         />

@@ -48,12 +48,7 @@ const StyledToggleButton = styled(ToggleButton)`
 `
 
 const StyledSvgUri = styled(SvgUri)<{ active: boolean }>`
-  color: ${props => {
-    if (props.theme.dark) {
-      return props.theme.colors.onPrimary
-    }
-    return props.active ? props.theme.colors.primary : props.theme.colors.onSurface
-  }};
+  color: ${props => (props.active ? props.theme.colors.onPrimary : props.theme.colors.onSurface)};
 `
 
 export type PlaceFilters = {

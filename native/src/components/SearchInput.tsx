@@ -11,7 +11,6 @@ const InputWrapper = styled.View`
   flex-grow: 1;
   justify-content: center;
   padding: 10px 0;
-  background-color: ${props => props.theme.colors.background};
 `
 
 type SearchInputProps = {

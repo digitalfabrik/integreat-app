@@ -14,7 +14,7 @@ import IconButton from './base/IconButton'
 import Text from './base/Text'
 
 const StyledTtsPlayer = styled.View<{ insetBottom: number }>`
-  background-color: ${props => props.theme.colors.ttsPlayer.background};
+  background-color: ${props => props.theme.colors.surfaceVariant};
   border-radius: 8px;
   width: 90%;
   display: flex;
@@ -40,7 +40,7 @@ const StyledPanel = styled.View`
 
 const StyledPlayIconButton = styled(IconButton)<{ disabled?: boolean }>`
   background-color: ${props =>
-    props.disabled ? props.theme.colors.onSurfaceDisabled : props.theme.colors.ttsPlayer.background};
+    props.disabled ? props.theme.colors.onSurfaceDisabled : props.theme.colors.surfaceVariant};
   width: 70px;
   height: 50px;
   border-radius: 50px;
@@ -115,7 +115,7 @@ const TtsPlayer = ({
           disabled={disabled}
           accessibilityLabel={t($ => (isPlaying ? $.tts.pause : $.tts.play))}
           onPress={() => (isPlaying ? pause() : play())}
-          icon={<Icon color={theme.colors.ttsPlayer.playIconColor} source={isPlaying ? 'pause' : 'play'} />}
+          icon={<Icon color={theme.colors.primary} source={isPlaying ? 'pause' : 'play'} />}
         />
         <TouchableRipple
           borderless

@@ -1,0 +1,13 @@
+when:
+  equal: [4334-consolidate-theme, << pipeline.git.branch >>]
+jobs:
+  - bump_version:
+      prepare_delivery: false
+  - build_web:
+      build_config_name: integreat-test-cms
+      requires:
+        - bump_version
+  - deliver_web:
+      delivery: future
+      requires:
+        - build_web
