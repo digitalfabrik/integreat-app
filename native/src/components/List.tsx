@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, RefreshControl, View, ViewStyle } from 'react-native'
 import { Divider } from 'react-native-paper'
 
+import { withDividers } from '../utils'
 import Text from './base/Text'
 
 type ListEmptyComponentProps = { noItemsMessage: string }
@@ -48,12 +49,13 @@ const List = <T,>({
   if (nested) {
     return (
       <View accessibilityRole='list' style={style}>
-        {items.map((item, index) => (
-          <View key={keyExtractor(item)} accessibilityRole='link' accessibilityLabel={accessibilityLabel}>
-            {renderItem({ item, index })}
-            {index < items.length - 1 && <Divider />}
-          </View>
-        ))}
+        {withDividers(
+          items.map((item, index) => (
+            <View key={keyExtractor(item)} accessibilityLabel={accessibilityLabel}>
+              {renderItem({ item, index })}
+            </View>
+          )),
+        )}
       </View>
     )
   }
