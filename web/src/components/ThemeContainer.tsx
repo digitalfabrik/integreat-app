@@ -1,5 +1,6 @@
 import createCache from '@emotion/cache'
 import { CacheProvider, Global } from '@emotion/react'
+import CloseIcon from '@mui/icons-material/Close'
 import { chipClasses } from '@mui/material/Chip'
 import { dialogClasses } from '@mui/material/Dialog'
 import { createTheme as createMuiTheme, responsiveFontSizes, Theme, ThemeProvider } from '@mui/material/styles'
@@ -76,7 +77,7 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
         MuiListSubheader: {
           styleOverrides: {
             root: {
-              backgroundColor: 'transparent',
+              backgroundColor: theme.palette.background.default,
             },
           },
         },
@@ -90,6 +91,9 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
           },
         },
         MuiChip: {
+          defaultProps: {
+            deleteIcon: <CloseIcon />,
+          },
           styleOverrides: {
             icon: {
               color: theme.palette.tertiary.light,
