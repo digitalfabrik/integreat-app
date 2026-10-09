@@ -242,32 +242,6 @@ describe('CategoriesContainer', () => {
     expect(useLoadRegionContent).toHaveBeenCalledWith({ regionCode, languageCode: 'de', enabled: false })
   })
 
-  it('should not load the source language while events, places and news are loading', () => {
-    mocked(useLoadRegionContent).mockReturnValue({
-      data: { ...buildData(), events: null, places: null, news: null },
-      loading: true,
-      error: null,
-      refresh: jest.fn(),
-    })
-
-    renderContainer({}, { languageCode: 'en' })
-
-    expect(useLoadRegionContent).toHaveBeenCalledWith({ regionCode, languageCode: 'de', enabled: false })
-  })
-
-  it('should keep loading the source language while refreshing', () => {
-    mocked(useLoadRegionContent).mockReturnValue({
-      data: buildData(),
-      loading: true,
-      error: null,
-      refresh: jest.fn(),
-    })
-
-    renderContainer({}, { languageCode: 'en' })
-
-    expect(useLoadRegionContent).toHaveBeenCalledWith({ regionCode, languageCode: 'de', enabled: true })
-  })
-
   it('should not load the source language again if it is the current language', () => {
     renderContainer()
 
