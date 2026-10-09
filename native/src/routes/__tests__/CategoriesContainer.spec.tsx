@@ -199,12 +199,12 @@ describe('CategoriesContainer', () => {
   it('should update the route path via navigation.setParams when the language changes', () => {
     const renamedCategory = buildCategoryWithSlugHistory([])
     const categoriesWithLanguages = new CategoriesMapModel([categories.toArray()[0]!, renamedCategory])
-    mocked(useLoadRegionContent).mockReturnValue({
-      data: buildData(categoriesWithLanguages),
-      loading: false,
-      error: null,
-      refresh: jest.fn(),
-    })
+    // The content of the new language is not loaded yet
+    mocked(useLoadRegionContent).mockImplementation(params =>
+      params.languageCode === 'de'
+        ? { data: buildData(categoriesWithLanguages), loading: false, error: null, refresh: jest.fn() }
+        : { data: null, loading: true, error: null, refresh: jest.fn() },
+    )
 
     const fixedRoute = createRoute({ path: renamedCategory.path })
     const { rerender } = render(
@@ -221,6 +221,31 @@ describe('CategoriesContainer', () => {
     )
 
     expect(navigation.setParams).toHaveBeenCalledWith({ path: renamedCategory.availableLanguages.en })
+  })
+
+  it('should load the source language once the content of the current language is loaded', () => {
+    renderContainer({}, { languageCode: 'en' })
+
+    expect(useLoadRegionContent).toHaveBeenCalledWith({ regionCode, languageCode: 'de', enabled: true })
+  })
+
+  it('should not load the source language while the content of the current language is loading', () => {
+    mocked(useLoadRegionContent).mockReturnValue({
+      data: null,
+      loading: true,
+      error: null,
+      refresh: jest.fn(),
+    })
+
+    renderContainer({}, { languageCode: 'en' })
+
+    expect(useLoadRegionContent).toHaveBeenCalledWith({ regionCode, languageCode: 'de', enabled: false })
+  })
+
+  it('should not load the source language again if it is the current language', () => {
+    renderContainer()
+
+    expect(useLoadRegionContent).toHaveBeenCalledWith({ regionCode, languageCode: 'de', enabled: false })
   })
 
   it('should not render categories while loading', () => {

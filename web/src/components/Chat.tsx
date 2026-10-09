@@ -12,7 +12,6 @@ import {
   ChatMessagesReturn,
   createSendChatMessageEndpoint,
   fromError,
-  loadAsync,
   loadFromEndpoint,
   NotFoundError,
   RegionModel,
@@ -79,35 +78,28 @@ const Chat = ({
   // If no message has been sent yet, fetching the messages yields a 404 not found error
   const error = response.error instanceof NotFoundError ? null : response.error
 
-  const submitMessage = (
+  const submitMessage = async (
     message: string,
     { onSuccess, isRetry = false }: { onSuccess?: () => void; isRetry?: boolean } = {},
-  ) =>
-    loadAsync(
-      () =>
-        loadFromEndpoint(createSendChatMessageEndpoint, cmsApiBaseUrl, {
-          regionCode: region.code,
-          languageCode,
-          chatId,
-          message,
-        }),
-      {
-        setData: newData => {
-          if (newData) {
-            setData(newData)
-            onSuccess?.()
-            setSendingError(null)
-            refetch().catch(captureError)
-          }
-        },
-        setError: error => {
-          setSendingError(error)
-          if (error && !isRetry) {
-            setUnsyncedMessages(previous => [...previous, ChatMessageModel.unsyncedMessage(message)])
-          }
-        },
-      },
-    )
+  ) => {
+    try {
+      const newData = await loadFromEndpoint(createSendChatMessageEndpoint, cmsApiBaseUrl, {
+        regionCode: region.code,
+        languageCode,
+        chatId,
+        message,
+      })
+      setData(newData)
+      onSuccess?.()
+      setSendingError(null)
+      refetch().catch(captureError)
+    } catch (error) {
+      setSendingError(error instanceof Error ? error : new Error())
+      if (!isRetry) {
+        setUnsyncedMessages(previous => [...previous, ChatMessageModel.unsyncedMessage(message)])
+      }
+    }
+  }
 
   const onSubmit = () => {
     submitMessage(textInput).catch(captureError)

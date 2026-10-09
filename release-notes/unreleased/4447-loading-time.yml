@@ -1,0 +1,7 @@
+issue_key: 4447
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Switching regions and navigating within a region is now faster.
+de: Der Wechsel zwischen Regionen und die Navigation innerhalb einer Region sind jetzt schneller.

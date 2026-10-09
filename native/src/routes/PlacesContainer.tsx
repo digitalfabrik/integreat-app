@@ -57,7 +57,7 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
     [navigation, localHistory],
   )
 
-  const currentPlace = slug ? data?.places.find(it => it.slug === slug) : undefined
+  const currentPlace = slug ? data?.places?.find(it => it.slug === slug) : undefined
   const availableLanguages = currentPlace
     ? Object.keys(currentPlace.availableLanguageSlugs)
     : data?.languages.map(it => it.code)
@@ -83,23 +83,25 @@ const PlacesContainer = ({ navigation, route }: PlacesContainerProps): ReactElem
   useHeader({ navigation, route, availableLanguages, data, shareUrl, goBack })
   useSetRouteTitle(currentPlace?.title ?? t($ => $.places.title))
 
+  // The content of the old language is already gone in the render the language changes in
+  const previousPlaces = usePreviousProp({ prop: data?.places })
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
       localHistory.reset(
         localHistory.history.map(history => {
-          const place = history.slug ? data?.places.find(it => it.slug === history.slug) : undefined
+          const place = history.slug ? previousPlaces?.find(it => it.slug === history.slug) : undefined
           const newSlug = place?.availableLanguageSlugs[newLanguage]
           return { ...history, slug: newSlug }
         }),
       )
     },
-    [data, localHistory],
+    [previousPlaces, localHistory],
   )
   usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 
   return (
     <LoadingErrorHandler {...response}>
-      {data && (
+      {data?.places && (
         <Places
           refresh={response.refresh}
           localHistory={localHistory}

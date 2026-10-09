@@ -193,6 +193,13 @@ describe('PlacesContainer', () => {
   })
 
   it('should update slug in local history when language changes', () => {
+    // The content of the new language is not loaded yet
+    mocked(useLoadRegionContent).mockImplementation(
+      params =>
+        (params.languageCode === 'de'
+          ? { data, loading: false, error: null, refresh: jest.fn() }
+          : { data: null, loading: true, error: null, refresh: jest.fn() }) as never,
+    )
     const fixedRoute = createRoute({ slug: 'test' })
     const { getByText, rerender } = renderWithTheme(
       <TestingAppContext languageCode='de'>
@@ -203,6 +210,14 @@ describe('PlacesContainer', () => {
 
     expect(getByText('slug:test')).toBeTruthy()
 
+    rerender(
+      <TestingAppContext languageCode='en'>
+        <PlacesContainer route={fixedRoute} navigation={navigation} />
+      </TestingAppContext>,
+    )
+
+    // The content of the new language finished loading
+    mocked(useLoadRegionContent).mockReturnValue({ data, loading: false, error: null, refresh: jest.fn() } as never)
     rerender(
       <TestingAppContext languageCode='en'>
         <PlacesContainer route={fixedRoute} navigation={navigation} />
