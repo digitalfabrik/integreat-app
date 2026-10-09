@@ -63,6 +63,7 @@ const Categories = ({
         children.length ? (
           <List
             items={children}
+            keyExtractor={item => item.path}
             renderItem={({ item: it }) => (
               <CategoryListItem
                 key={it.path}
@@ -72,7 +73,7 @@ const Categories = ({
                 onItemPress={navigateToCategory}
               />
             )}
-            scrollEnabled={false}
+            nested
           />
         ) : (
           <EmbeddedOffers category={category} regionCode={regionModel.code} languageCode={language} goBack={goBack} />
