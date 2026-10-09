@@ -10,6 +10,7 @@ import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
+import FeedbackStatusBanner from './FeedbackStatusBanner'
 import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
@@ -60,15 +61,7 @@ const Feedback = ({
   }
 
   if (sendingStatus === 'successful') {
-    return (
-      <Wrapper accessible accessibilityRole='alert' accessibilityLiveRegion='assertive'>
-        <Caption title={t($ => $.feedback.thanks.title)} />
-        <Text>{t($ => $.feedback.thanks.description)}</Text>
-        <Button onPress={navigation.goBack} mode='contained' style={{ marginTop: 16 }}>
-          {t($ => $.common.actions.close)}
-        </Button>
-      </Wrapper>
-    )
+    return <FeedbackStatusBanner successful onClose={navigation.goBack} />
   }
 
   return (

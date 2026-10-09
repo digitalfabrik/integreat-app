@@ -1,11 +1,15 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CATEGORIES_ROUTE, RATING_NEGATIVE, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, FEEDBACK_ROUTE, RATING_NEGATIVE, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
 
+import useNavigate from '../../hooks/useNavigate'
 import render from '../../testing/render'
 import { FeedbackContainer } from '../FeedbackContainer'
 
+import mocked = jest.mocked
+
+jest.mock('../../hooks/useNavigate')
 const mockRequest = jest.fn()
 jest.mock('styled-components')
 jest.mock('shared/api', () => ({
@@ -16,8 +20,13 @@ jest.mock('shared/api', () => ({
 }))
 
 describe('FeedbackContainer', () => {
+  const mockNavigate = jest.fn()
+
   beforeEach(() => {
     jest.clearAllMocks()
+    mocked(useNavigate).mockReturnValue({
+      navigation: { navigate: mockNavigate },
+    } as unknown as ReturnType<typeof useNavigate>)
   })
 
   const region = 'augsburg'
@@ -96,92 +105,22 @@ describe('FeedbackContainer', () => {
     expect(await findByText('common:actions.send')).toBeDisabled()
   })
 
-  it('should send search feedback on submit', async () => {
-    const query = 'Zeugnis'
-    const { findByText, getByText } = render(
-      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} regionCode={region} query={query} />,
-    )
-    const buttonToOpenFeedback = getByText('feedback:give')
-    fireEvent.press(buttonToOpenFeedback)
-    fireEvent.press(getByText('common:privacy.confirmation'))
-    const button = getByText('common:actions.send')
-    fireEvent.press(button)
-    expect(await findByText('feedback:thanks.description')).toBeDefined()
-    expect(mockRequest).toHaveBeenCalledTimes(1)
-    expect(mockRequest).toHaveBeenCalledWith({
-      routeType: SEARCH_ROUTE,
-      rating: null,
-      region,
-      language,
-      comment: '',
-      contactMail: '',
-      query,
-      searchTerm: query,
-      slug: undefined,
-    })
-  })
-
-  it('should send original search term for search feedback if edited', async () => {
-    const query = 'Zeugnis'
-    const fullSearchTerm = 'Zeugnisübergabe'
-    const { findByText, getByDisplayValue, getByText } = render(
-      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} regionCode={region} query={query} />,
-    )
-    const buttonToOpenFeedback = getByText('feedback:give')
-    fireEvent.press(buttonToOpenFeedback)
-    fireEvent.press(getByText('common:privacy.confirmation'))
-    const input = getByDisplayValue(query)
-    fireEvent.changeText(input, fullSearchTerm)
-    const button = getByText('common:actions.send')
-    fireEvent.press(button)
-    expect(await findByText('feedback:thanks.description')).toBeDefined()
-    expect(mockRequest).toHaveBeenCalledTimes(1)
-    expect(mockRequest).toHaveBeenCalledWith({
-      routeType: SEARCH_ROUTE,
-      rating: null,
-      region,
-      language,
-      comment: '',
-      contactMail: '',
-      query,
-      searchTerm: fullSearchTerm,
-      slug: undefined,
-    })
-  })
-
-  it('should disable send button if query term is removed', async () => {
-    const { findByText, getByDisplayValue, getByText } = render(
-      <FeedbackContainer routeType={SEARCH_ROUTE} language={language} regionCode={region} query='query' />,
-    )
-    const buttonToOpenFeedback = getByText('feedback:give')
-    fireEvent.press(buttonToOpenFeedback)
-    fireEvent.press(getByText('common:privacy.confirmation'))
-    expect(await findByText('common:actions.send')).not.toBeDisabled()
-    const input = getByDisplayValue('query')
-    fireEvent.changeText(input, '')
-    expect(await findByText('common:actions.send')).toBeDisabled()
-  })
-
-  it('should send negative rating on submit if there are no search results found', async () => {
+  it('should send negative feedback for having unwanted search results', async () => {
     const query = 'gesundheitsversicherung'
-    const rating = 'negative'
     const { getByText, findByText } = render(
       <FeedbackContainer
         routeType={SEARCH_ROUTE}
         language={language}
+        rating='negative'
         regionCode={region}
         query={query}
-        rating={rating}
+        hasResults
       />,
     )
-    const buttonToOpenFeedback = getByText('feedback:give')
-    fireEvent.press(buttonToOpenFeedback)
-    fireEvent.press(getByText('common:privacy.confirmation'))
-    expect(getByText('common:actions.send')).not.toBeDisabled()
-    const submitButton = getByText('common:actions.send')
-    fireEvent.press(submitButton)
-    expect(await findByText('feedback:thanks.description')).toBeDefined()
-    expect(mockRequest).toHaveBeenCalledTimes(1)
+
+    expect(await findByText('feedback:search.informationNotFound')).toBeDefined()
+    fireEvent.press(getByText('feedback:search.informUs'))
+    expect(await findByText('feedback:thanks.title')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
       rating: RATING_NEGATIVE,
@@ -193,5 +132,65 @@ describe('FeedbackContainer', () => {
       searchTerm: query,
       slug: undefined,
     })
+  })
+
+  it('should send negative feedback for not found search results and show the thanks banner', async () => {
+    const query = 'gesundheitsversicherung'
+    const { getByText, findByText } = render(
+      <FeedbackContainer
+        routeType={SEARCH_ROUTE}
+        language={language}
+        rating='negative'
+        regionCode={region}
+        query={query}
+        hasResults={false}
+      />,
+    )
+    fireEvent.press(getByText('feedback:search.informUs'))
+    expect(await findByText('feedback:thanks.title')).toBeDefined()
+    expect(mockRequest).toHaveBeenCalledWith({
+      routeType: SEARCH_ROUTE,
+      rating: RATING_NEGATIVE,
+      region,
+      language,
+      comment: '',
+      contactMail: '',
+      query,
+      searchTerm: query,
+      slug: undefined,
+    })
+  })
+
+  it('should show the chat option when chat is enabled in a region for not found search results', () => {
+    const query = 'gesundheitsversicherung'
+
+    const { findByText } = render(
+      <FeedbackContainer
+        routeType={SEARCH_ROUTE}
+        language={language}
+        regionCode={region}
+        query={query}
+        rating='negative'
+        isChatEnabled
+        hasResults={false}
+      />,
+    )
+    expect(findByText('feedback:search.options.askChat')).toBeDefined()
+  })
+
+  it('should hide the chat option when chat is disabled in a region for not found search results', () => {
+    const query = 'gesundheitsversicherung'
+    const { queryByText } = render(
+      <FeedbackContainer
+        routeType={SEARCH_ROUTE}
+        language={language}
+        regionCode={region}
+        query={query}
+        rating='negative'
+        isChatEnabled={false}
+        hasResults={false}
+      />,
+    )
+    expect(queryByText('feedback:search.options.askChat')).toBeNull()
   })
 })

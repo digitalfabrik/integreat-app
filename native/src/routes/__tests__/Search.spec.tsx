@@ -7,6 +7,7 @@ import createNavigationMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
 import Search, { SearchProps } from '../Search'
 
+jest.mock('@react-native-community/netinfo', () => ({ useNetInfo: jest.fn(() => ({ isConnected: true })) }))
 jest.mock('../../utils/openExternalUrl', () => async () => undefined)
 jest.mock('react-native-inappbrowser-reborn', () => ({
   isAvailable: () => false,
@@ -63,5 +64,30 @@ describe('Search', () => {
     const initialSearchText = 'zeugnis'
     const { getByPlaceholderText } = renderSearch({ ...props, initialSearchText })
     expect(getByPlaceholderText('search:searchContent').props.value).toBe(initialSearchText)
+  })
+
+  it('should show the search results for a query', () => {
+    const { getByPlaceholderText, getByText } = renderSearch(props)
+
+    fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'zeugnis')
+
+    expect(getByText(documents[0]!.title)).toBeTruthy()
+  })
+
+  it('should show feedback below the results if something was found but was unwanted', async () => {
+    const { getByPlaceholderText, findByText } = renderSearch(props)
+
+    fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'zeugnis')
+
+    expect(await findByText('feedback:search.informationNotFound')).toBeDefined()
+  })
+
+  it('should show feedback if nothing was found', () => {
+    const { getByPlaceholderText, getByText } = renderSearch(props)
+
+    fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'no results, please')
+
+    expect(getByText('feedback:search.noResultsInUserLanguage')).toBeTruthy()
+    expect(getByText('feedback:search.informUs')).toBeTruthy()
   })
 })

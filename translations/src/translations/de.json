@@ -179,7 +179,8 @@
     },
     "thanks": {
       "title": "Vielen Dank für dein Feedback.",
-      "description": "Dein Feedback wurde erfolgreich abgesendet."
+      "description": "Dein Feedback wurde erfolgreich abgesendet. ",
+      "chatReferral": "Möchtest du weitere Details hinzufügen? <Link>Feedback ergänzen</Link>"
     },
     "search": {
       "informationNotFound": "Nicht das Richtige gefunden?",
@@ -187,6 +188,14 @@
       "informationMissing": "Hier fehlen Informationen?",
       "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:",
       "checkQuery": "Überprüfe deinen Suchbegriff oder ändere die eingestellte Sprache.",
+      "helpToImprove": "Hilf uns, {{appName}} zu verbessern.",
+      "informUs": "Uns informieren",
+      "tryOptions": "Versuche:",
+      "options": {
+        "useSearchTerm": "einen anderen Suchbegriff zu verwenden",
+        "useSingleWord": "nur nach einem Wort oder einem Begriff zu suchen",
+        "askChat": "deine Frage direkt an <Link>{{name}}</Link> zu stellen"
+      },
       "noResultsInUserLanguage": "Es wurden leider keine passenden Ergebnisse in deiner Sprache gefunden.",
       "noResultsInUserAndSourceLanguage": "Es wurden leider keine passenden Ergebnisse in deiner Sprache oder auf Deutsch gefunden."
     }

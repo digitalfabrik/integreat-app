@@ -181,7 +181,8 @@ const resources = {
     },
     "thanks": {
       "title": "Thank you very much for your feedback.",
-      "description": "Your feedback has been sent successfully."
+      "description": "Your feedback has been sent successfully.",
+      "chatReferral": "Would you like to add any further details? <Link>Provide feedback</Link>"
     },
     "search": {
       "informationNotFound": "Not found what you were looking for?",
@@ -189,6 +190,14 @@ const resources = {
       "informationMissing": "Is information missing?",
       "searchTermDescription": "No result could be found for the following term:",
       "checkQuery": "Check your search term or select a different language.",
+      "helpToImprove": "Help us improve {{appName}}.",
+      "informUs": "Inform us",
+      "tryOptions": "Try to:",
+      "options": {
+        "useSearchTerm": "search for a different search term",
+        "useSingleWord": "search only for a single word or a term",
+        "askChat": "ask your question directly in <Link>{{name}}</Link>"
+      },
       "noResultsInUserLanguage": "Sorry, we could not find any matching results in your language.",
       "noResultsInUserAndSourceLanguage": "Sorry, we could not find any matching results in your language or in German."
     }

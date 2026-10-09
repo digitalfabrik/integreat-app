@@ -1,16 +1,13 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 import { FeedbackRouteType, Rating, SendingStatusType } from 'shared'
 import { createFeedbackEndpoint, FeedbackType } from 'shared/api'
-import { config } from 'translations'
 
 import Feedback from '../components/Feedback'
-import Text from '../components/base/Text'
+import SearchFeedback from '../components/SearchFeedback'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
-import buildConfig from '../constants/buildConfig'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import { determineApiUrl } from '../utils/helpers'
 import { captureError } from '../utils/sentry'
@@ -29,6 +26,8 @@ export type FeedbackContainerProps = {
   query?: string
   slug?: string
   rating?: Rating
+  hasResults?: boolean
+  isChatEnabled?: boolean
 }
 
 export const FeedbackContainer = ({
@@ -38,14 +37,14 @@ export const FeedbackContainer = ({
   regionCode,
   slug,
   rating: initialRating,
+  hasResults,
+  isChatEnabled = false,
 }: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
   const [rating, setRating] = useState<Rating | null>(initialRating ?? null)
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
-  const [showFeedback, setShowFeedback] = useState<boolean>(query === undefined)
-  const { t } = useTranslation()
 
   useEffect(() => {
     setSearchTerm(query)
@@ -76,44 +75,39 @@ export const FeedbackContainer = ({
     })
   }
 
-  if (showFeedback) {
+  if (hasResults !== undefined) {
     return (
       <Container>
-        <Feedback
+        <SearchFeedback
+          routeType={routeType}
           language={language}
-          comment={comment}
-          contactMail={contactMail}
+          regionCode={regionCode}
           sendingStatus={sendingStatus}
-          onCommentChanged={setComment}
-          onFeedbackContactMailChanged={setContactMail}
-          rating={rating}
-          setRating={setRating}
-          onSubmit={handleSubmit}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
+          handleSubmit={handleSubmit}
+          query={query}
+          slug={slug}
+          hasResults={hasResults}
+          isChatEnabled={isChatEnabled}
         />
       </Container>
     )
   }
 
-  const fallbackLanguage = config.sourceLanguage
-
   return (
     <Container>
-      <>
-        <Text variant='h6'>
-          {language === fallbackLanguage
-            ? t($ => $.feedback.search.noResultsInUserLanguage)
-            : t($ => $.feedback.search.noResultsInUserAndSourceLanguage)}
-        </Text>
-        <Text>{t($ => $.feedback.search.checkQuery, { appName: buildConfig().appName })}</Text>
-        <Text variant='h6' style={{ marginTop: 8, textAlign: 'center' }}>
-          {t($ => $.feedback.search.informationMissing)}
-        </Text>
-        <Button mode='outlined' onPress={() => setShowFeedback(true)}>
-          {t($ => $.feedback.give)}
-        </Button>
-      </>
+      <Feedback
+        language={language}
+        comment={comment}
+        contactMail={contactMail}
+        sendingStatus={sendingStatus}
+        onCommentChanged={setComment}
+        onFeedbackContactMailChanged={setContactMail}
+        rating={rating}
+        setRating={setRating}
+        onSubmit={handleSubmit}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+      />
     </Container>
   )
 }

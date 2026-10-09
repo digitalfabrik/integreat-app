@@ -22,7 +22,7 @@ export type ActionColor = {
 export type CommonColors = {
   error: PaletteColor
   warning: SimplePaletteColor
-  success: SimplePaletteColor
+  success: SimplePaletteColor & { light: string }
   info?: SimplePaletteColor
   tuNews: SimplePaletteColor & { light: string }
   amalNews: SimplePaletteColor
