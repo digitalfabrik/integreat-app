@@ -22,9 +22,9 @@ type CategoriesContainerProps = {
 
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
   const { regionCode, languageCode } = useRegionAppContext()
+  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
   const { navigateTo } = useNavigate()
 
-  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
   // Preload search results for fallback language once the content of the current language is loaded
   useLoadRegionContent({
     regionCode,

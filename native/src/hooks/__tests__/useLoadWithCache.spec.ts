@@ -18,9 +18,10 @@ const { mocked } = jest
 
 describe('useLoadWithCache', () => {
   const data = { title: 'content' }
+  const mapParamsToUrl = jest.fn(() => 'https://cms-test.integreat-app.de/endpoint')
   const createEndpoint = jest.fn(() =>
     new EndpointBuilder<{ region: string; language: string }, typeof data>('endpoint')
-      .withParamsToUrlMapper(() => 'https://cms-test.integreat-app.de/endpoint')
+      .withParamsToUrlMapper(mapParamsToUrl)
       .withMapper(() => data)
       .withResponseOverride(data)
       .build(),
@@ -44,6 +45,7 @@ describe('useLoadWithCache', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
+    isAvailable.mockImplementation(async () => false)
   })
 
   it('should load and store the data', async () => {
@@ -66,5 +68,52 @@ describe('useLoadWithCache', () => {
 
     await expect(executeRequest()).resolves.toEqual(data)
     expect(createEndpoint).toHaveBeenCalledTimes(1)
+  })
+
+  it('should share a pending request between multiple hook instances', async () => {
+    renderHook(() => useLoadWithCache(params))
+    const firstRequest = executeRequest()
+    renderHook(() => useLoadWithCache(params))
+    const secondRequest = executeRequest()
+
+    await expect(Promise.all([firstRequest, secondRequest])).resolves.toEqual([data, data])
+    expect(mapParamsToUrl).toHaveBeenCalledTimes(1)
+    expect(setToDataContainer).toHaveBeenCalledTimes(1)
+  })
+
+  it('should not share requests for different languages', async () => {
+    renderHook(() => useLoadWithCache(params))
+    const firstRequest = executeRequest()
+    renderHook(() => useLoadWithCache({ ...params, languageCode: 'de' }))
+    const secondRequest = executeRequest()
+
+    await Promise.all([firstRequest, secondRequest])
+    expect(mapParamsToUrl).toHaveBeenCalledTimes(2)
+  })
+
+  it('should not request again if the data was already loaded today', async () => {
+    isAvailable.mockImplementation(async () => true)
+    renderHook(() => useLoadWithCache({ ...params, regionCode: 'loaded-today' }))
+    await expect(executeRequest()).resolves.toEqual(data)
+    await expect(executeRequest()).resolves.toEqual(data)
+
+    expect(mapParamsToUrl).toHaveBeenCalledTimes(1)
+  })
+
+  it('should request again if refreshing even if the data was already loaded today', async () => {
+    isAvailable.mockImplementation(async () => true)
+    renderHook(() => useLoadWithCache({ ...params, regionCode: 'refreshing' }))
+    await executeRequest()
+    await mocked(useLoadAsync).mock.lastCall![0](true)
+
+    expect(mapParamsToUrl).toHaveBeenCalledTimes(2)
+  })
+
+  it('should request again if the data is not available anymore', async () => {
+    renderHook(() => useLoadWithCache({ ...params, regionCode: 'deleted' }))
+    await executeRequest()
+    await executeRequest()
+
+    expect(mapParamsToUrl).toHaveBeenCalledTimes(2)
   })
 })

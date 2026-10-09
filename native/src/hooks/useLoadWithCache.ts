@@ -10,16 +10,60 @@ import { SnackbarType } from '../components/SnackbarContainer'
 import dataContainer from '../utils/DefaultDataContainer'
 import { determineApiUrl } from '../utils/helpers'
 
-type Load<T extends object> = {
+type RegionContentEndpoint<T extends object> = Endpoint<{ region: string; language: string }, T>
+
+type StoreProps<T extends object> = {
   regionCode: string
   languageCode: string
-  createEndpoint: (baseUrl: string) => Endpoint<{ region: string; language: string }, T>
+  setToDataContainer: (regionCode: string, languageCode: string, data: T) => Promise<void>
+}
+
+type LoadProps<T extends object> = StoreProps<T> & {
+  createEndpoint: (baseUrl: string) => RegionContentEndpoint<T>
   isAvailable: (regionCode: string, languageCode: string) => Promise<boolean>
   getFromDataContainer: (regionCode: string, languageCode: string) => Promise<T>
-  setToDataContainer: (regionCode: string, languageCode: string, data: T) => Promise<void>
   forceUpdate?: boolean
   showSnackbar: (snackbar: SnackbarType) => void
   t: TFunction
+}
+
+type RequestEntry = {
+  requestedAt: DateTime
+  pending: Promise<unknown> | null
+}
+
+// Requests of this session shared between all hook instances to avoid loading the same data multiple times.
+// Necessary since the last update is only set once all region content is loaded.
+const requests = new Map<string, RequestEntry>()
+
+const isOutdated = (date: DateTime | null | undefined): boolean => !date || date < DateTime.utc().startOf('day')
+
+const requestAndStore = async <T extends object>(
+  endpoint: RegionContentEndpoint<T>,
+  { regionCode, languageCode, setToDataContainer }: StoreProps<T>,
+): Promise<T | null> => {
+  const payload = await endpoint.request({ region: regionCode, language: languageCode })
+  if (payload.data !== null) {
+    await setToDataContainer(regionCode, languageCode, payload.data)
+  }
+  return payload.data
+}
+
+const shareRequest = async <T extends object>(key: string, pending: Promise<T | null>): Promise<T | null> => {
+  const requestedAt = DateTime.utc()
+  requests.set(key, { requestedAt, pending })
+  try {
+    const data = await pending
+    if (data !== null) {
+      requests.set(key, { requestedAt, pending: null })
+    } else {
+      requests.delete(key)
+    }
+    return data
+  } catch (e) {
+    requests.delete(key)
+    throw e
+  }
 }
 
 /**
@@ -37,27 +81,29 @@ const loadWithCache = async <T extends object>({
   showSnackbar,
   forceUpdate = false,
   t,
-}: Load<T>): Promise<T | null> => {
+}: LoadProps<T>): Promise<T | null> => {
   const cachedData = (await isAvailable(regionCode, languageCode))
     ? await getFromDataContainer(regionCode, languageCode)
     : null
 
-  const lastUpdate = await dataContainer.getLastUpdate(regionCode, languageCode)
-  const shouldUpdate = forceUpdate || !lastUpdate || lastUpdate < DateTime.utc().startOf('day')
+  const apiUrl = await determineApiUrl()
+  const endpoint = createEndpoint(apiUrl)
+  const key = [endpoint.stateName, apiUrl, regionCode, languageCode].join('/')
 
-  if (!shouldUpdate && cachedData) {
+  const lastUpdate = await dataContainer.getLastUpdate(regionCode, languageCode)
+  const previousRequest = requests.get(key)
+  const isUpToDate = !isOutdated(lastUpdate) || !isOutdated(previousRequest?.requestedAt)
+
+  if (!forceUpdate && isUpToDate && cachedData && !previousRequest?.pending) {
     return cachedData
   }
 
   try {
-    const payload = await createEndpoint(await determineApiUrl()).request({
-      region: regionCode,
-      language: languageCode,
-    })
-    if (payload.data !== null) {
-      await setToDataContainer(regionCode, languageCode, payload.data)
-    }
-    return payload.data ?? cachedData
+    const request =
+      (previousRequest?.pending as Promise<T | null> | undefined) ??
+      shareRequest(key, requestAndStore(endpoint, { regionCode, languageCode, setToDataContainer }))
+    const data = await request
+    return data ?? cachedData
   } catch (e) {
     if (!cachedData) {
       throw e
@@ -69,7 +115,7 @@ const loadWithCache = async <T extends object>({
   return cachedData
 }
 
-type UseLoadWithCacheParams<T extends object> = Omit<Load<T>, 't'> & {
+type UseLoadWithCacheParams<T extends object> = Omit<LoadProps<T>, 't'> & {
   enabled?: boolean
 }
 
