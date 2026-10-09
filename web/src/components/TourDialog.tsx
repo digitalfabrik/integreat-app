@@ -86,7 +86,11 @@ const TourDialog = (): ReactElement | null => {
 
   return (
     <StyledMuiDialog
-      onClose={finished ? finishTour : () => setIsDialogOpen(false)}
+      onClose={(_, reason) => {
+        if (reason === 'escapeKeyDown') {
+          content.close()
+        }
+      }}
       container={dialogContainer}
       aria-labelledby={TITLE_ELEMENT_ID}
       aria-describedby={DESCRIPTION_ELEMENT_ID}
