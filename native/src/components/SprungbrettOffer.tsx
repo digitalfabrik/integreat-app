@@ -4,7 +4,7 @@ import { createSprungbrettJobsEndpoint, OfferModel, SprungbrettJobModel, useLoad
 
 import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import useOpenExternalUrl from '../utils/openExternalUrl'
-import List from './List'
+import SimpleList from './SimpleList'
 import SprungbrettListItem from './SprungbrettListItem'
 
 type SprungbrettOfferProps = {
@@ -23,7 +23,7 @@ const SprungbrettOffer = ({ sprungbrettOffer, languageCode }: SprungbrettOfferPr
 
   return (
     <LoadingErrorHandler error={response.error} loading={response.loading} refresh={response.refresh}>
-      {data && <List items={data} keyExtractor={item => item.url} renderItem={renderListItem} nested />}
+      {data && <SimpleList items={data} keyExtractor={item => item.url} renderItem={renderListItem} />}
     </LoadingErrorHandler>
   )
 }

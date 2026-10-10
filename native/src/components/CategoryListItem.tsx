@@ -7,8 +7,8 @@ import { CategoryModel } from 'shared/api'
 import { contentAlignmentRTLText, isContentDirectionReversalRequired, isRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import ContrastImage from './ContrastImage'
-import List from './List'
 import SimpleImage from './SimpleImage'
+import SimpleList from './SimpleList'
 import SubCategoryListItem from './SubCategoryListItem'
 import Text from './base/Text'
 
@@ -59,7 +59,7 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
       {subCategories.length > 0 && (
         <>
           <Divider />
-          <List
+          <SimpleList
             items={subCategories}
             keyExtractor={item => item.path}
             style={isRTLText(subCategories[0]?.title ?? category.title) ? { marginRight: 56 } : { marginLeft: 56 }}
@@ -71,7 +71,6 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
                 language={language}
               />
             )}
-            nested
           />
         </>
       )}

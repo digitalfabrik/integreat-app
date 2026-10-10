@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, RefreshControl, View, ViewStyle } from 'react-native'
+import { FlatList, RefreshControl, ViewStyle } from 'react-native'
 import { Divider } from 'react-native-paper'
 
-import { withDividers } from '../utils'
 import Text from './base/Text'
 
 type ListEmptyComponentProps = { noItemsMessage: string }
@@ -21,11 +20,9 @@ type ListProps<T> = {
   keyExtractor: (item: T) => string
   header?: ReactElement
   footer?: ReactElement
-  accessibilityLabel?: string
   refresh?: () => void
   style?: ViewStyle
   keyboardShouldPersistTaps?: 'always' | 'never' | 'handled'
-  nested?: boolean
 }
 
 const List = <T,>({
@@ -36,29 +33,13 @@ const List = <T,>({
   header,
   footer,
   refresh,
-  accessibilityLabel,
   style,
   keyboardShouldPersistTaps = 'never',
-  nested,
 }: ListProps<T>): ReactElement => {
   const { t } = useTranslation()
   const emptyMessage = noItemsMessage ?? t($ => $.error.nothingFound)
   const listEmptyComponent =
     typeof emptyMessage === 'string' ? <ListEmptyComponent noItemsMessage={emptyMessage} /> : emptyMessage
-
-  if (nested) {
-    return (
-      <View accessibilityRole='list' style={style}>
-        {withDividers(
-          items.map((item, index) => (
-            <View key={keyExtractor(item)} accessibilityLabel={accessibilityLabel}>
-              {renderItem({ item, index })}
-            </View>
-          )),
-        )}
-      </View>
-    )
-  }
 
   return (
     <FlatList
