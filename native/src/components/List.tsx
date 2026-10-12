@@ -17,7 +17,6 @@ type ListProps<T> = {
   items: T[]
   noItemsMessage?: ReactElement | string
   renderItem: (props: { item: T; index: number }) => ReactElement
-  keyExtractor: (item: T) => string
   header?: ReactElement
   footer?: ReactElement
   refresh?: () => void
@@ -29,7 +28,6 @@ const List = <T,>({
   items,
   noItemsMessage,
   renderItem,
-  keyExtractor,
   header,
   footer,
   refresh,
@@ -45,7 +43,6 @@ const List = <T,>({
     <FlatList
       data={items}
       renderItem={renderItem}
-      keyExtractor={keyExtractor}
       ListHeaderComponent={header}
       ListFooterComponent={footer}
       ListFooterComponentStyle={{ flex: 1, justifyContent: 'flex-end' }}

@@ -63,7 +63,6 @@ const Categories = ({
         children.length ? (
           <SimpleList
             items={children}
-            keyExtractor={item => item.path}
             renderItem={({ item: it }) => (
               <CategoryListItem
                 key={it.path}

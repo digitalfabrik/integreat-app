@@ -23,7 +23,7 @@ const SprungbrettOffer = ({ sprungbrettOffer, languageCode }: SprungbrettOfferPr
 
   return (
     <LoadingErrorHandler error={response.error} loading={response.loading} refresh={response.refresh}>
-      {data && <SimpleList items={data} keyExtractor={item => item.url} renderItem={renderListItem} />}
+      {data && <SimpleList items={data} renderItem={renderListItem} />}
     </LoadingErrorHandler>
   )
 }

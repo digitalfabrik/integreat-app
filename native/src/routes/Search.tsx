@@ -84,7 +84,6 @@ const Search = ({
             </Text>
             <List
               items={searchResults}
-              keyExtractor={item => item.path}
               renderItem={renderItem}
               style={{ flex: 1 }}
               keyboardShouldPersistTaps='handled'
