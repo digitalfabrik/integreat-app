@@ -18,7 +18,7 @@ const SprungbrettOffer = ({ sprungbrettOffer, languageCode }: SprungbrettOfferPr
 
   const renderListItem = ({ item }: { item: SprungbrettJobModel }): ReactElement => {
     const openJob = () => openExternalUrl(item.url)
-    return <SprungbrettListItem key={item.id} job={item} openJobInBrowser={openJob} language={languageCode} />
+    return <SprungbrettListItem key={item.url} job={item} openJobInBrowser={openJob} language={languageCode} />
   }
 
   return (
