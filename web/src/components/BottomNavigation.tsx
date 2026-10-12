@@ -83,7 +83,7 @@ const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps):
   }
 
   return (
-    <Container elevation={4}>
+    <Container elevation={2}>
       <StyledBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
         {navigationItems.map(item => {
           const label = t($ => (item.value === CATEGORIES_ROUTE ? $.categories.titleShort : $[item.value].title))
