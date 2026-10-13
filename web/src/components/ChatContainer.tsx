@@ -40,7 +40,7 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
   [`.${dialogClasses.paper} > .${stackClasses.root}`]: {
     margin: 0,
     padding: theme.spacing(1),
-    backgroundColor: theme.palette.chat.headerBackground,
+    backgroundColor: theme.palette.background.accent,
     borderBottom: `1px solid ${theme.palette.divider}`,
 
     [`.${dialogTitleClasses.root}`]: {
@@ -49,7 +49,7 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
   },
   [`.${dialogContentClasses.root}`]: {
     padding: theme.spacing(0, 0, 2),
-    backgroundColor: theme.palette.chat.background,
+    backgroundColor: theme.palette.background.paper,
   },
 }))
 

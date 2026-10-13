@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
-import { StyleProp, StyleSheet, ViewStyle } from 'react-native'
-import { Surface, TouchableRipple, useTheme } from 'react-native-paper'
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native'
+import { TouchableRipple, useTheme } from 'react-native-paper'
 import { DefaultTheme } from 'styled-components/native'
 
 import Text from './Text'
@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     flex: 1,
     justifyContent: 'space-around',
+    borderWidth: 1,
   },
   text: {
     textAlign: 'center',
@@ -35,48 +36,25 @@ type ToggleButtonProps = {
 const ToggleButton = ({ text, onPress, icon, active, style }: ToggleButtonProps): ReactElement => {
   const theme = useTheme() as DefaultTheme
 
-  const getBackgroundColor = () => {
-    if (theme.dark && active) {
-      return theme.colors.primary
-    }
-    if (active) {
-      return theme.colors.primaryContainer
-    }
-    return theme.colors.background
-  }
-
-  const getTextColor = () => {
-    if (theme.dark) {
-      return theme.colors.onPrimary
-    }
-    return active ? theme.colors.primary : theme.colors.onSurface
-  }
-
   return (
-    <Surface
-      elevation={5}
-      style={[
-        styles.surface,
-        {
-          backgroundColor: getBackgroundColor(),
-          shadowColor: theme.colors.onSurface,
-        },
-        style,
-      ]}>
+    <View style={[styles.surface, { backgroundColor: active ? theme.colors.primary : theme.colors.background }, style]}>
       <TouchableRipple
         role='button'
         onPress={onPress}
-        style={styles.TouchableRippleStyle}
+        style={[styles.TouchableRippleStyle, { borderColor: theme.colors.onBackground }]}
         borderless
         accessibilityState={{ selected: active }}>
         <>
           {icon}
-          <Text variant='body3' numberOfLines={1} style={[styles.text, { color: getTextColor() }]}>
+          <Text
+            variant='body3'
+            numberOfLines={1}
+            style={[styles.text, { color: active ? theme.colors.onPrimary : theme.colors.onSurface }]}>
             {text}
           </Text>
         </>
       </TouchableRipple>
-    </Surface>
+    </View>
   )
 }
 

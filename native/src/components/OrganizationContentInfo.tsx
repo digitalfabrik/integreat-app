@@ -5,7 +5,6 @@ import styled from 'styled-components/native'
 
 import { OrganizationModel } from 'shared/api'
 
-import HighlightBox from './HighlightBox'
 import Link from './Link'
 import SimpleImage from './SimpleImage'
 import Text from './base/Text'
@@ -14,11 +13,13 @@ const Thumbnail = styled(SimpleImage)`
   height: 80px;
 `
 
-const Box = styled(HighlightBox)`
-  margin-bottom: 16px;
-  padding: 20px;
-  border-radius: 4px;
-`
+const Box = styled(View)(({ theme }) => ({
+  marginBottom: 16,
+  padding: 20,
+  borderRadius: 4,
+  borderColor: theme.colors.surfaceDisabled,
+  borderWidth: 1,
+}))
 
 const StyledLink = styled(Link)`
   padding: 0;

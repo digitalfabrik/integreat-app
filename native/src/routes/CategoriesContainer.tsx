@@ -22,11 +22,15 @@ type CategoriesContainerProps = {
 
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
   const { regionCode, languageCode } = useRegionAppContext()
+  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
   const { navigateTo } = useNavigate()
 
-  const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
-  // Preload search results for fallback language
-  useLoadRegionContent({ regionCode, languageCode: config.sourceLanguage })
+  // Preload search results for fallback language once the content of the current language is loaded
+  useLoadRegionContent({
+    regionCode,
+    languageCode: config.sourceLanguage,
+    enabled: !!data && !response.loading && languageCode !== config.sourceLanguage,
+  })
 
   const path = route.params.path ?? regionContentPath({ regionCode, languageCode })
   const category = useMemo(
@@ -47,13 +51,15 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   useHeader({ navigation, route, availableLanguages, data, shareUrl })
   useSetRouteTitle(category?.isRoot() ? data?.region.name : category?.title)
 
+  // The content of the old language is already gone in the render the language changes in
+  const previousCategory = usePreviousProp({ prop: category })
   const onLanguageChange = useCallback(
     (newLanguage: string) => {
-      if (category) {
-        navigation.setParams({ path: category.availableLanguages[newLanguage] })
+      if (previousCategory) {
+        navigation.setParams({ path: previousCategory.availableLanguages[newLanguage] })
       }
     },
-    [category, navigation],
+    [previousCategory, navigation],
   )
   const previousLanguageCode = usePreviousProp({ prop: languageCode, onPropChange: onLanguageChange })
 

@@ -1,12 +1,11 @@
 export type SimplePaletteColor = {
   main: string
-  light?: string
+  contrastText: string
 }
 
 export type PaletteColor = SimplePaletteColor & {
   light: string
   dark: string
-  contrastText: string
 }
 
 export type ActionColor = {
@@ -20,14 +19,8 @@ export type ActionColor = {
 }
 
 export type CommonColors = {
-  error: PaletteColor
-  warning: SimplePaletteColor
-  success: SimplePaletteColor
-  info?: SimplePaletteColor
-  tuNews: SimplePaletteColor & { light: string }
+  tuNews: SimplePaletteColor
   amalNews: SimplePaletteColor
-  divider: string
-  link: string
 }
 
 export type PaletteMode = 'light' | 'dark'
@@ -44,21 +37,6 @@ export type TypeBackground = {
   accent: string
 }
 
-export type TypeTtsPlayer = {
-  background: string
-  playIconColor: string
-}
-
-export type TypeChat = {
-  background: string
-  headerBackground: string
-  answerMessageBackground: string
-  userMessageBackground: string
-  messageBorderColor: string
-  chatInputOutlineColor: string
-  chatInputPlaceholderColor: string
-}
-
 export type CommonColorPalette = CommonColors & {
   mode: PaletteMode
   primary: PaletteColor
@@ -66,8 +44,11 @@ export type CommonColorPalette = CommonColors & {
   background: TypeBackground
   text: TypeText
   action: ActionColor
-  ttsPlayer: TypeTtsPlayer
-  chat: TypeChat
+  error: PaletteColor
+  success: PaletteColor
+  warning: PaletteColor
+  info: PaletteColor
+  divider: string
 }
 
 export type ThemeColorPalette = CommonColorPalette & {

@@ -371,7 +371,7 @@ const renderHtml = (
       }
       
       a {
-        color: ${theme.dark ? theme.colors.primaryContainer : theme.colors.primary};
+        color: ${theme.colors.primary};
       }
 
       .link-external::after {
@@ -476,7 +476,7 @@ const renderHtml = (
         margin-left: 12px;
         padding: 0;
         overflow-wrap: normal;
-        color: ${theme.colors.tuNews.main};
+        color: ${theme.colors.primary};
       }
 
       #opt-in-checkbox {

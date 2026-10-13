@@ -48,7 +48,7 @@ describe('createNewsEndpoint', () => {
 
   it('should map params to url', () => {
     expect(news.mapParamsToUrl(params)).toBe(
-      `https://cms.integreat-app.de/api/${API_VERSION}/${params.region}/${params.language}/news`,
+      `https://cms.integreat-app.de/api/${API_VERSION}/${params.region}/${params.language}/news/`,
     )
   })
 

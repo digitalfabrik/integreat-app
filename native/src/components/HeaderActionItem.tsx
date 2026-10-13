@@ -33,7 +33,7 @@ const HeaderActionItem = ({
 }: HeaderActionItemProps): ReactElement => {
   const theme = useTheme()
   const icon = iconName === 'search' ? 'magnify' : 'translate'
-  const color = theme.dark ? theme.colors.primaryContainer : theme.colors.primary
+  const color = theme.colors.primary
 
   if (innerText) {
     return (

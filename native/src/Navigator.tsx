@@ -27,13 +27,11 @@ import {
   CHAT_ROUTE,
 } from 'shared'
 
-import BottomTabNavigator from './BottomTabNavigator'
-import { defaultHeader } from './components/DefaultHeader'
+import BottomTabNavigator, { defaultHeader, HeaderProps } from './BottomTabNavigator'
 import Header from './components/Header'
 import RedirectContainer from './components/RedirectContainer'
-import TransparentHeader from './components/TransparentHeader'
 import { ROOT_NAVIGATOR_ID } from './constants'
-import { BaseRouteProps, BaseNavigationProps, RoutesParamsType } from './constants/NavigationTypes'
+import { RoutesParamsType } from './constants/NavigationTypes'
 import buildConfig from './constants/buildConfig'
 import useLoadRegions from './hooks/useLoadRegions'
 import { useAppContext } from './hooks/useRegionAppContext'
@@ -56,16 +54,11 @@ import SuggestToRegion from './routes/SuggestToRegion'
 import dataContainer from './utils/DefaultDataContainer'
 import { initSentry, log, captureError } from './utils/sentry'
 
-type HeaderProps = {
-  route: BaseRouteProps
-  navigation: BaseNavigationProps
-}
-
-const transparentHeader = (headerProps: NativeStackHeaderProps) => (
-  <TransparentHeader {...(headerProps as HeaderProps)} />
+const resourceHeader = (headerProps: NativeStackHeaderProps) => (
+  <Header {...(headerProps as HeaderProps)} menuItems={[]} />
 )
 
-const settingsHeader = (headerProps: NativeStackHeaderProps) => <Header {...(headerProps as HeaderProps)} menu={null} />
+const noMenuHeader = (headerProps: NativeStackHeaderProps) => <Header {...(headerProps as HeaderProps)} menu={null} />
 
 const Stack = createNativeStackNavigator<RoutesParamsType>()
 
@@ -162,20 +155,20 @@ const Navigator = (): ReactElement | null => {
         <Stack.Screen name={REGIONS_ROUTE} component={Regions} />
       </Stack.Group>
 
-      <Stack.Group screenOptions={{ header: transparentHeader }}>
-        <Stack.Screen name={PDF_VIEW_ROUTE} component={PdfView} />
+      <Stack.Group screenOptions={{ header: noMenuHeader }}>
+        <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
+        <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
+        <Stack.Screen name={EXTERNAL_SOURCES_ROUTE} component={ExternalSources} />
+        <Stack.Screen name={MAIN_IMPRINT_ROUTE} component={MainImprint} />
         <Stack.Screen name={LANGUAGES_ROUTE} component={LanguageSelection} />
-        <Stack.Screen name={IMAGE_VIEW_ROUTE} component={ImageView} />
         {buildConfig().featureFlags.suggestToRegion && (
           <Stack.Screen name={SUGGEST_TO_REGION_ROUTE} component={SuggestToRegion} />
         )}
       </Stack.Group>
 
-      <Stack.Group screenOptions={{ header: settingsHeader }}>
-        <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
-        <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
-        <Stack.Screen name={EXTERNAL_SOURCES_ROUTE} component={ExternalSources} />
-        <Stack.Screen name={MAIN_IMPRINT_ROUTE} component={MainImprint} />
+      <Stack.Group screenOptions={{ header: resourceHeader }}>
+        <Stack.Screen name={PDF_VIEW_ROUTE} component={PdfView} />
+        <Stack.Screen name={IMAGE_VIEW_ROUTE} component={ImageView} />
       </Stack.Group>
     </Stack.Navigator>
   )

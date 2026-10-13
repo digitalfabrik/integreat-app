@@ -1,7 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close'
 import Drawer, { drawerClasses } from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
-import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, ReactNode } from 'react'
@@ -10,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { LAYOUT_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
 import useLockedBody from '../hooks/useLockedBody'
+import { HeaderContainer } from './Header'
 
 const StyledDrawer = styled(Drawer)`
   .${drawerClasses.paper} {
@@ -21,7 +21,7 @@ const StyledDrawer = styled(Drawer)`
   }
 `
 
-const Header = styled(Paper)`
+const Header = styled(HeaderContainer)`
   position: fixed;
   width: inherit;
 

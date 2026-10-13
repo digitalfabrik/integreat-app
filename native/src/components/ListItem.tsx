@@ -1,6 +1,6 @@
 import React, { ReactElement, ReactNode } from 'react'
 import { TouchableRipple } from 'react-native-paper'
-import styled, { useTheme } from 'styled-components/native'
+import styled from 'styled-components/native'
 
 import { contentDirection } from '../constants/contentDirection'
 import SimpleImage, { ImageSourceType } from './SimpleImage'
@@ -39,30 +39,21 @@ type ListItemProps = {
   navigateTo: () => void
 }
 
-const ListItem = ({ language, title, thumbnail, children, icon, navigateTo }: ListItemProps): ReactElement => {
-  const theme = useTheme()
-
-  return (
-    <TouchableRipple
-      borderless
-      onPress={navigateTo}
-      accessibilityLanguage={language}
-      role='link'
-      style={{ borderBottomWidth: 2, borderBottomColor: theme.colors.secondary }}>
-      <ListItemView language={language}>
-        <Thumbnail source={thumbnail} />
-        <Description>
-          <TitleRow>
-            <Text variant='h6' style={{ flex: 1, flexWrap: 'wrap' }}>
-              {title}
-            </Text>
-            {icon}
-          </TitleRow>
-          {children}
-        </Description>
-      </ListItemView>
-    </TouchableRipple>
-  )
-}
+const ListItem = ({ language, title, thumbnail, children, icon, navigateTo }: ListItemProps): ReactElement => (
+  <TouchableRipple borderless onPress={navigateTo} accessibilityLanguage={language} role='link'>
+    <ListItemView language={language}>
+      <Thumbnail source={thumbnail} />
+      <Description>
+        <TitleRow>
+          <Text variant='h6' style={{ flex: 1, flexWrap: 'wrap' }}>
+            {title}
+          </Text>
+          {icon}
+        </TitleRow>
+        {children}
+      </Description>
+    </ListItemView>
+  </TouchableRipple>
+)
 
 export default ListItem

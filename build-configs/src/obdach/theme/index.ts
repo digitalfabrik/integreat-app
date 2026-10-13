@@ -7,7 +7,7 @@ const customColors = {
     light: '#E55129',
     main: '#E55129',
     dark: '#E55129',
-    contrastText: '#E6E0E9',
+    contrastText: '#000000',
   },
 }
 
