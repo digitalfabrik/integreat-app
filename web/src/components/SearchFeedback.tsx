@@ -24,7 +24,7 @@ import { captureError } from '../utils/sentry'
 import Link from './base/Link'
 import Svg from './base/Svg'
 
-const MuiContainer = styled(Container)<{ centered?: boolean }>`
+const MuiContainer = styled(Container)`
   width: 100%;
   display: flex;
   flex-direction: column;
