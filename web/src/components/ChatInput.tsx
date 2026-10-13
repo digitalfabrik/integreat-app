@@ -33,10 +33,6 @@ const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 
       [theme.breakpoints.up('md')]: {
         flexDirection: 'row',
       },
-      // MUI hovers to text.primary, excluding the focused state
-      [`&:hover:not(.${outlinedInputClasses.focused}) .${outlinedInputClasses.notchedOutline}`]: {
-        borderColor: theme.palette.divider,
-      },
     },
 
     [`& .${outlinedInputClasses.notchedOutline}`]: {

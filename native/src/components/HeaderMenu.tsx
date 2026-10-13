@@ -114,7 +114,7 @@ const HeaderMenu = ({
         contentStyle={{
           borderRadius: 16,
           overflow: 'hidden',
-          backgroundColor: theme.dark ? theme.colors.surfaceVariant : theme.colors.surface,
+          backgroundColor: theme.colors.surface,
         }}
         anchorPosition='bottom'
         anchor={

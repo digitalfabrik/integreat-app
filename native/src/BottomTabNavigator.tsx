@@ -195,7 +195,7 @@ const BottomTabNavigator = ({ route }: BottomTabNavigatorProps): ReactElement | 
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: theme.colors.primary,
-          tabBarInactiveTintColor: theme.colors.onSurfaceVariant,
+          tabBarInactiveTintColor: theme.colors.outlineVariant,
           tabBarButton: TabButton,
           tabBarStyle: {
             height: dimensions.bottomNavigationHeight + insets.bottom,
