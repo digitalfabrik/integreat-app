@@ -1,16 +1,9 @@
 import React, { ReactElement } from 'react'
 import { List, TouchableRipple } from 'react-native-paper'
-import { DefaultTheme, useTheme } from 'styled-components/native'
+import { useTheme } from 'styled-components/native'
 
 import SelectorItemModel from '../models/SelectorItemModel'
 import Text from './base/Text'
-
-const getBackgroundColor = (selected: boolean, theme: DefaultTheme): string => {
-  if (selected) {
-    return theme.dark ? theme.colors.surfaceVariant : theme.colors.tertiaryContainer
-  }
-  return theme.dark ? theme.colors.surface : ''
-}
 
 type SelectorItemProps = {
   model: SelectorItemModel
@@ -24,7 +17,7 @@ const SelectorItem = ({
   const theme = useTheme()
   const item = (
     <List.Item
-      style={{ backgroundColor: getBackgroundColor(selected, theme) }}
+      style={{ backgroundColor: selected ? theme.colors.surfaceVariant : theme.colors.surface }}
       containerStyle={{ height: 40 }}
       importantForAccessibility='no'
       title={

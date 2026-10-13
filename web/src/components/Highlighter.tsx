@@ -25,7 +25,7 @@ const Highlighter = ({ search, text, className, dir, wordStartOnly = false }: Hi
       highlightStyle={{
         backgroundColor: theme.palette.tertiary.light,
         fontWeight: 'bold',
-        color: 'black',
+        color: theme.palette.tertiary.contrastText,
       }}
       aria-label={text}
       autoEscape

@@ -9,19 +9,24 @@ export const AMAL_NEWS_SOURCE = 'amalnews'
 export type NewsSource = typeof LOCAL_NEWS_SOURCE | typeof TU_NEWS_SOURCE | typeof AMAL_NEWS_SOURCE
 
 type NewsColorPalette = {
-  secondary: { main: string }
-  tuNews: { main: string }
-  amalNews: { main: string }
+  secondary: { main: string; contrastText: string }
+  tuNews: { main: string; contrastText: string }
+  amalNews: { main: string; contrastText: string }
 }
 
-export const getNewsColor = ({ palette, source }: { palette: NewsColorPalette; source: NewsSource }): string => {
+type GetNewsColorProps = {
+  palette: NewsColorPalette
+  source: NewsSource
+}
+
+export const getNewsColor = ({ palette, source }: GetNewsColorProps): [string, string] => {
   if (source === LOCAL_NEWS_SOURCE) {
-    return palette.secondary.main
+    return [palette.secondary.main, palette.secondary.contrastText]
   }
   if (source === AMAL_NEWS_SOURCE) {
-    return palette.amalNews.main
+    return [palette.amalNews.main, palette.amalNews.contrastText]
   }
-  return palette.tuNews.main
+  return [palette.tuNews.main, palette.tuNews.contrastText]
 }
 
 type GetNewsSourceLabelProps = {
@@ -31,7 +36,7 @@ type GetNewsSourceLabelProps = {
 
 export const getNewsSourceLabel = ({ source, t }: GetNewsSourceLabelProps): string => {
   if (source === LOCAL_NEWS_SOURCE) {
-    return t($ => $.news.sources.local)
+    return t($ => $.news.sources.localShort)
   }
   if (source === AMAL_NEWS_SOURCE) {
     return 'Amal News'

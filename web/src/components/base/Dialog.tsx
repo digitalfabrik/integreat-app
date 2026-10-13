@@ -5,6 +5,7 @@ import MuiDialog, { dialogClasses } from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
+import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
@@ -70,9 +71,10 @@ const Dialog = ({
   return (
     <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={mobile} className={className} open>
       {showHeader && (
-        <Stack
+        <Paper
+          component={Stack}
           direction={desktop ? 'row-reverse' : 'row'}
-          sx={{ alignItems: 'center', justifyContent: desktop ? 'space-between' : undefined, marginInline: 1 }}>
+          sx={{ alignItems: 'center', justifyContent: desktop ? 'space-between' : undefined, paddingInline: 1 }}>
           <IconButton
             aria-label={t($ => (minimize ? $.common.actions.minimize : $.common.actions.close))}
             onClick={close}>
@@ -91,7 +93,7 @@ const Dialog = ({
             </Stack>
           </StyledDialogTitle>
           {mobile && Actions}
-        </Stack>
+        </Paper>
       )}
       <DialogContent>{children}</DialogContent>
     </StyledMuiDialog>

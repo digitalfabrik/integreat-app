@@ -20,7 +20,7 @@ const StyledButton = styled(MuiToggleButton)(({ theme }) => ({
 
   ...(theme.isContrastTheme && {
     '&.Mui-selected': {
-      color: theme.palette.text.primary,
+      color: theme.palette.primary.contrastText,
       backgroundColor: theme.palette.primary.main,
       '&:hover': {
         backgroundColor: theme.palette.primary.dark,

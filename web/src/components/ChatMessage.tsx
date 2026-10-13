@@ -19,10 +19,8 @@ export const Message = styled('div', { shouldForwardProp })<{ userIsAuthor: bool
   padding: 8,
   borderRadius: 8,
   wordBreak: 'break-word',
-  backgroundColor: userIsAuthor ? theme.palette.chat.userMessageBackground : theme.palette.chat.answerMessageBackground,
-  border: `1px solid ${
-    userIsAuthor && theme.isContrastTheme ? theme.palette.primary.light : theme.palette.chat.messageBorderColor
-  }`,
+  backgroundColor: userIsAuthor ? theme.palette.background.accent : theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
   '& p:first-of-type': { marginTop: 0 },
   '& p:last-of-type': { marginBottom: 0 },
 }))

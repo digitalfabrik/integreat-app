@@ -1,8 +1,9 @@
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native'
 import React, { ReactElement, ReactNode } from 'react'
 import { ScrollView, StyleSheet, View, Modal as RNModal } from 'react-native'
+import { Surface } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useTheme } from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
 import { useNavigationTheme } from '../hooks/useNavigationTheme'
@@ -10,9 +11,6 @@ import Caption from './Caption'
 import { HeaderBackButton } from './HeaderBox'
 
 const styles = StyleSheet.create({
-  header: {
-    height: dimensions.headerHeight,
-  },
   scrollContent: {
     marginHorizontal: 20,
   },
@@ -25,6 +23,11 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 })
+
+const HeaderContainer = styled(Surface).attrs({ elevation: 1 })`
+  background-color: ${props => props.theme.colors.surfaceVariant};
+  height: ${dimensions.headerHeight}px;
+`
 
 type ModalProps = {
   modalVisible: boolean
@@ -43,10 +46,11 @@ const Modal = ({ modalVisible, closeModal, title, children, scrollView = true }:
     <RNModal visible={modalVisible} transparent onRequestClose={closeModal} style={styles.modalStyle}>
       <View style={{ flex: 1, paddingTop: insets.top }}>
         <NavigationThemeProvider value={navigationTheme}>
-          <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-            <View style={styles.header}>
+          {/* Clip the header shadow at the top, the screen container does the same for regular headers */}
+          <View style={{ flex: 1, backgroundColor: theme.colors.background, overflow: 'hidden' }}>
+            <HeaderContainer>
               <HeaderBackButton goBack={closeModal} />
-            </View>
+            </HeaderContainer>
             {scrollView ? (
               <ScrollView style={styles.scrollContent} contentContainerStyle={{ flexGrow: 1 }}>
                 {!!title && <Caption title={title} />}

@@ -9,7 +9,7 @@ type CustomIconProps = {
   height?: number | string
   className?: string
   ariaLabel?: string
-  overrideFillColors?: string
+  inheritColor?: boolean
 }
 
 const Svg = ({
@@ -18,7 +18,7 @@ const Svg = ({
   height = DEFAULT_ICON_SIZE,
   className,
   ariaLabel,
-  overrideFillColors,
+  inheritColor = false,
 }: CustomIconProps): ReactElement => (
   <ReactSVG
     src={src}
@@ -26,12 +26,12 @@ const Svg = ({
     beforeInjection={svg => {
       svg.setAttribute('width', String(width))
       svg.setAttribute('height', String(height))
-      if (overrideFillColors) {
+      // The svg is only injected once, so the color must not be set here but inherited from the wrapper via css,
+      // otherwise it does not update when switching themes.
+      if (inheritColor) {
         svg.querySelectorAll('[fill]').forEach(element => element.setAttribute('fill', 'currentColor'))
-        svg.setAttribute('style', `color: ${overrideFillColors}`)
-      } else {
-        svg.setAttribute('style', 'color: inherit')
       }
+      svg.setAttribute('style', 'color: inherit')
     }}
     wrapper='span'
     {...(ariaLabel ? { role: 'img', 'aria-label': ariaLabel } : {})}

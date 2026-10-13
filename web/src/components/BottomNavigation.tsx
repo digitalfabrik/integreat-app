@@ -38,10 +38,7 @@ const StyledBottomNavigationAction = styled(BottomNavigationAction)(({ theme }) 
   color: theme.palette.text.secondary,
 
   [`&.${bottomNavigationActionClasses.selected}`]: {
-    // Note: the isContrastTheme logic will get replaced with proper theme handling at #4334
-    // https://github.com/digitalfabrik/integreat-app/issues/4334
-
-    color: theme.isContrastTheme ? theme.palette.primary.light : theme.palette.primary.main,
+    color: theme.palette.primary.main,
 
     '&::before': {
       content: '""',
@@ -86,7 +83,7 @@ const BottomNavigation = ({ regionModel, languageCode }: BottomNavigationProps):
   }
 
   return (
-    <Container elevation={4}>
+    <Container elevation={2}>
       <StyledBottomNavigation id={BOTTOM_NAVIGATION_ELEMENT_ID} showLabels value={value} component='nav'>
         {navigationItems.map(item => {
           const label = t($ => (item.value === CATEGORIES_ROUTE ? $.categories.titleShort : $[item.value].title))

@@ -28,15 +28,12 @@ const StyledPaper = styled(PopoverPaper)(({ theme }) => ({
   filter: `drop-shadow(1px 0 0 ${theme.palette.common.white}) drop-shadow(-1px 0 0 ${theme.palette.common.white}) drop-shadow(0 1px 0 ${theme.palette.common.white}) drop-shadow(0 -1px 0 ${theme.palette.common.white})`,
 }))
 
-const Dot = styled('span', { shouldForwardProp })<{ current: boolean }>(({ theme, current }) => {
-  const inactiveColor = theme.isContrastTheme ? theme.palette.text.disabled : theme.palette.action.disabled
-  return {
-    width: DOT_SIZE,
-    height: DOT_SIZE,
-    borderRadius: '50%',
-    backgroundColor: current ? theme.palette.primary.main : inactiveColor,
-  }
-})
+const Dot = styled('span', { shouldForwardProp })<{ current: boolean }>(({ theme, current }) => ({
+  width: DOT_SIZE,
+  height: DOT_SIZE,
+  borderRadius: '50%',
+  backgroundColor: current ? theme.palette.primary.main : theme.palette.text.disabled,
+}))
 
 const CloseButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',

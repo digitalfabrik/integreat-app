@@ -8,7 +8,7 @@ import NewsSourceChip from '../NewsSourceChip'
 describe('NewsSourceChip', () => {
   it('should render the translated label for local news', () => {
     const { getByText } = renderWithTheme(<NewsSourceChip source={LOCAL_NEWS_SOURCE} />)
-    expect(getByText('news:sources.local')).toBeTruthy()
+    expect(getByText('news:sources.localShort')).toBeTruthy()
   })
 
   it('should render the Amal News label for amal news', () => {
