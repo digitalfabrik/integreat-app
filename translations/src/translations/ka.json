@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "ნავიგაცია",
-      "description": "აქ შეგიძლია გადახვიდე შემდეგ განყოფილებებს შორის: <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> და <strong>$t(events:title)</strong>."
+      "description": "აქ შეგიძლია გადახვიდე შემდეგ განყოფილებებს შორის: {{navigationItems, list}}."
     },
     "categories": {
       "title": "თემების აღმოჩენა",

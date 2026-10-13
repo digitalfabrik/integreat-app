@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Urambazaji",
-      "description": "Badilisha hapa kati ya <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> na <strong>$t(events:title)</strong>."
+      "description": "Badilisha hapa kati ya {{navigationItems, list}}."
     },
     "categories": {
       "title": "Gundua mada",

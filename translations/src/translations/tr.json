@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Gezinme",
-      "description": "Buradan <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> ve <strong>$t(events:title)</strong> sekmeleri arasında geçiş yapabilirsin."
+      "description": "Buradan {{navigationItems, list}} sekmeleri arasında geçiş yapabilirsin."
     },
     "categories": {
       "title": "Konuları keşfet",

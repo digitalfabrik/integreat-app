@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Navegação",
-      "description": "Alterne aqui entre <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> e <strong>$t(events:title)</strong>."
+      "description": "Alterne aqui entre {{navigationItems, list}}."
     },
     "categories": {
       "title": "Explorar temas",

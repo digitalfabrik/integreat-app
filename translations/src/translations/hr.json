@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Navigacija",
-      "description": "Ovdje prebacuj između stavki <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> i <strong>$t(events:title)</strong>."
+      "description": "Ovdje prebacuj između stavki {{navigationItems, list}}."
     },
     "categories": {
       "title": "Istraži teme",

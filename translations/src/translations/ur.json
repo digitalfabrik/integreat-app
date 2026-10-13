@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "نیویگیشن",
-      "description": "یہاں <strong>$t(categories:title)</strong>، <strong>$t(places:title)</strong>، <strong>$t(news:title)</strong> اور <strong>$t(events:title)</strong> کے درمیان سوئچ کریں۔"
+      "description": "یہاں {{navigationItems, list}} کے درمیان سوئچ کریں۔"
     },
     "categories": {
       "title": "موضوعات دریافت کریں",

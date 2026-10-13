@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Naannessa",
-      "description": "Asirratti gidduu <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> fi <strong>$t(events:title)</strong> jijjiiri."
+      "description": "Asirratti gidduu {{navigationItems, list}} jijjiiri."
     },
     "categories": {
       "title": "Mata dureewwan adda baafadhu",

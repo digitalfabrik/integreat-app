@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Navigáció",
-      "description": "Válts itt a következő kategóriák között: <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> és <strong>$t(events:title)</strong>."
+      "description": "Válts itt a következő kategóriák között: {{navigationItems, list}}."
     },
     "categories": {
       "title": "Témák felfedezése",

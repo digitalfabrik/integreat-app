@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "التنقل",
-      "description": "تنقّل هنا بين <strong>$t(categories:title)</strong> و<strong>$t(places:title)</strong> و<strong>$t(news:title)</strong> و<strong>$t(events:title)</strong>."
+      "description": "تنقّل هنا بين {{navigationItems, list}}."
     },
     "categories": {
       "title": "استكشاف الموضوعات",

@@ -11,9 +11,10 @@ import useDimensions from '../hooks/useDimensions'
 type TourStepContentProps = {
   title: string
   descriptionKey: SelectorParam
+  values?: Record<string, string[]>
 }
 
-const TourStepContent = ({ title, descriptionKey }: TourStepContentProps): ReactElement => {
+const TourStepContent = ({ title, descriptionKey, values }: TourStepContentProps): ReactElement => {
   const { t } = useTranslation()
   const { desktop } = useDimensions()
   const additionalFeature = desktop ? t($ => $.settings.contrast.title) : t($ => $.feedback.title)
@@ -26,7 +27,7 @@ const TourStepContent = ({ title, descriptionKey }: TourStepContentProps): React
       <Typography variant='body2'>
         <Trans
           i18nKey={descriptionKey}
-          values={{ appName: buildConfig().appName, additionalFeature }}
+          values={{ appName: buildConfig().appName, additionalFeature, ...values }}
           components={{ strong: <strong /> }}
         />
       </Typography>

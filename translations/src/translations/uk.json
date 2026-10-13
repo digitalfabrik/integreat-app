@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Навігація",
-      "description": "Перемикайся тут між <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> та <strong>$t(events:title)</strong>."
+      "description": "Перемикайся тут між {{navigationItems, list}}."
     },
     "categories": {
       "title": "Огляд тем",

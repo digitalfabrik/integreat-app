@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Navigointi",
-      "description": "Vaihda täällä osioiden <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> ja <strong>$t(events:title)</strong> välillä."
+      "description": "Vaihda täällä osioiden {{navigationItems, list}} välillä."
     },
     "categories": {
       "title": "Tutustu aiheisiin",

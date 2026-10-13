@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Navigazione",
-      "description": "Passa facilmente tra <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> e <strong>$t(events:title)</strong>."
+      "description": "Passa facilmente tra {{navigationItems, list}}."
     },
     "categories": {
       "title": "Esplora gli argomenti",

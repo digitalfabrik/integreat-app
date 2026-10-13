@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Նավիգացիա",
-      "description": "Այստեղ կարող ես անցում կատարել <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> և <strong>$t(events:title)</strong> բաժինների միջև:"
+      "description": "Այստեղ կարող ես անցում կատարել {{navigationItems, list}} բաժինների միջև:"
     },
     "categories": {
       "title": "Բացահայտիր թեմաները",

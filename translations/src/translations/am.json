@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "ዳሰሳ",
-      "description": "እዚህ በ<strong>$t(categories:title)</strong>፣ <strong>$t(places:title)</strong>፣ <strong>$t(news:title)</strong> እና <strong>$t(events:title)</strong> መካከል ይቀያይሩ።"
+      "description": "እዚህ በ{{navigationItems, list}} መካከል ይቀያይሩ።"
     },
     "categories": {
       "title": "ርዕሶችን ያስሱ",

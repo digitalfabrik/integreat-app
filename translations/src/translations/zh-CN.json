@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "导航",
-      "description": "在此可在 <strong>$t(categories:title)</strong>、<strong>$t(places:title)</strong>、<strong>$t(news:title)</strong> 和 <strong>$t(events:title)</strong> 之间切换。"
+      "description": "在此可在 {{navigationItems, list}} 之间切换。"
     },
     "categories": {
       "title": "探索主题",

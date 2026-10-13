@@ -418,7 +418,7 @@
     },
     "navigation": {
       "title": "Πλοήγηση",
-      "description": "Κάνε εναλλαγή εδώ ανάμεσα σε <strong>$t(categories:title)</strong>, <strong>$t(places:title)</strong>, <strong>$t(news:title)</strong> και <strong>$t(events:title)</strong>."
+      "description": "Κάνε εναλλαγή εδώ ανάμεσα σε {{navigationItems, list}}."
     },
     "categories": {
       "title": "Ανακάλυψε θέματα",
