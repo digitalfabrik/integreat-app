@@ -19,8 +19,6 @@ type ListProps<T> = {
   renderItem: (props: { item: T; index: number }) => ReactElement
   header?: ReactElement
   footer?: ReactElement
-  scrollEnabled?: boolean
-  accessibilityLabel?: string
   refresh?: () => void
   style?: ViewStyle
   keyboardShouldPersistTaps?: 'always' | 'never' | 'handled'
@@ -33,8 +31,6 @@ const List = <T,>({
   header,
   footer,
   refresh,
-  accessibilityLabel,
-  scrollEnabled,
   style,
   keyboardShouldPersistTaps = 'never',
 }: ListProps<T>): ReactElement => {
@@ -54,9 +50,7 @@ const List = <T,>({
       ListEmptyComponent={listEmptyComponent}
       showsVerticalScrollIndicator={false}
       onEndReachedThreshold={1}
-      scrollEnabled={scrollEnabled}
       role='list'
-      accessibilityLabel={accessibilityLabel}
       style={style}
       keyboardShouldPersistTaps={keyboardShouldPersistTaps}
       ItemSeparatorComponent={Divider}

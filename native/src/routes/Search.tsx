@@ -85,7 +85,6 @@ const Search = ({
             <List
               items={searchResults}
               renderItem={renderItem}
-              accessibilityLabel={t($ => $.search.resultCount, { count: searchResults.length })}
               style={{ flex: 1 }}
               keyboardShouldPersistTaps='handled'
               noItemsMessage={

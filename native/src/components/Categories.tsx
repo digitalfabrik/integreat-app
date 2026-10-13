@@ -7,9 +7,9 @@ import { CategoriesMapModel, CategoryModel, RegionModel } from 'shared/api'
 import useTtsPlayer from '../hooks/useTtsPlayer'
 import CategoryListItem from './CategoryListItem'
 import EmbeddedOffers from './EmbeddedOffers'
-import List from './List'
 import OrganizationContentInfo from './OrganizationContentInfo'
 import Page from './Page'
+import SimpleList from './SimpleList'
 import Tiles from './Tiles'
 
 export type CategoriesProps = {
@@ -61,7 +61,7 @@ const Categories = ({
       afterContent={category.organization && <OrganizationContentInfo organization={category.organization} />}
       footer={
         children.length ? (
-          <List
+          <SimpleList
             items={children}
             renderItem={({ item: it }) => (
               <CategoryListItem
@@ -72,7 +72,6 @@ const Categories = ({
                 onItemPress={navigateToCategory}
               />
             )}
-            scrollEnabled={false}
           />
         ) : (
           <EmbeddedOffers category={category} regionCode={regionModel.code} languageCode={language} goBack={goBack} />

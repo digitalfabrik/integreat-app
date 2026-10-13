@@ -4,7 +4,7 @@ import { createSprungbrettJobsEndpoint, OfferModel, SprungbrettJobModel, useLoad
 
 import LoadingErrorHandler from '../routes/LoadingErrorHandler'
 import useOpenExternalUrl from '../utils/openExternalUrl'
-import List from './List'
+import SimpleList from './SimpleList'
 import SprungbrettListItem from './SprungbrettListItem'
 
 type SprungbrettOfferProps = {
@@ -18,12 +18,12 @@ const SprungbrettOffer = ({ sprungbrettOffer, languageCode }: SprungbrettOfferPr
 
   const renderListItem = ({ item }: { item: SprungbrettJobModel }): ReactElement => {
     const openJob = () => openExternalUrl(item.url)
-    return <SprungbrettListItem key={item.id} job={item} openJobInBrowser={openJob} language={languageCode} />
+    return <SprungbrettListItem key={item.url} job={item} openJobInBrowser={openJob} language={languageCode} />
   }
 
   return (
     <LoadingErrorHandler error={response.error} loading={response.loading} refresh={response.refresh}>
-      {data && <List items={data} renderItem={renderListItem} scrollEnabled={false} />}
+      {data && <SimpleList items={data} renderItem={renderListItem} />}
     </LoadingErrorHandler>
   )
 }
