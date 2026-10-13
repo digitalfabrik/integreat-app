@@ -8,7 +8,7 @@ import Text from './base/Text'
 type LinkTargetProps = { url: string; onPress?: never } | { url?: never; onPress: () => void }
 
 type LinkProps = LinkTargetProps & {
-  children: string
+  children?: string
   style?: StyleProp<TextStyle>
 }
 

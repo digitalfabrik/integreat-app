@@ -1,10 +1,8 @@
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
@@ -13,15 +11,7 @@ import React, { useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
-import {
-  FEEDBACK_QUERY_KEY,
-  getChatName,
-  SendingStatusType,
-  SEARCH_ROUTE,
-  RATING_NEGATIVE,
-  parseQueryParams,
-  toQueryParams,
-} from 'shared'
+import { getChatName, SendingStatusType, SEARCH_ROUTE, RATING_NEGATIVE, parseQueryParams, toQueryParams } from 'shared'
 import { createFeedbackEndpoint } from 'shared/api'
 import { config } from 'translations'
 
@@ -33,27 +23,16 @@ import { captureError } from '../utils/sentry'
 import Link from './base/Link'
 import Svg from './base/Svg'
 
-const MuiContainer = styled(Container)<{ centered?: boolean }>`
+const MuiContainer = styled(Container)`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: ${props => (props.centered ? 'center' : 'flex-start')};
 `
-
-const Wrapper = styled(Box)(({ theme }) => ({
-  width: '70%',
-  gap: 2,
-  display: 'flex',
-  flexDirection: 'column',
-
-  [theme.breakpoints.down('md')]: {
-    width: '100%',
-  },
-}))
 
 const Options = styled('ul')`
   display: flex;
   flex-direction: column;
+  padding-inline-start: 22px;
 `
 
 const Option = styled('li')`
@@ -61,17 +40,12 @@ const Option = styled('li')`
 `
 
 const HighlightedCard = styled(Card)(({ theme }) => ({
-  padding: '12px',
-  width: '80%',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  paddingTop: '12px',
+  maxWidth: '512px',
   backgroundColor: theme.palette.background.accent,
-
-  [theme.breakpoints.down('md')]: {
-    width: '100%',
-    alignSelf: 'center',
-  },
 }))
 
 const StyledButton = styled(Button)`
@@ -81,9 +55,8 @@ const StyledButton = styled(Button)`
 `
 
 const StyledAlert = styled(Alert)`
-  width: 80%;
+  max-width: 512px;
   display: flex;
-  padding: 12px;
   background-color: ${props => props.theme.palette.success.light};
 `
 
@@ -126,14 +99,14 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
       setSendingStatus('successful')
     }
 
-    request().catch(err => {
-      captureError(err)
+    request().catch(error => {
+      captureError(error)
       setSendingStatus('failed')
     })
   }
 
   const fallbackLanguage = config.sourceLanguage
-  const isNoResults = noResults
+  const title = noResults
     ? t($ =>
         languageCode === fallbackLanguage
           ? $.feedback.search.noResultsInUserLanguage
@@ -142,70 +115,63 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
     : t($ => $.feedback.search.informationNotFound)
 
   return (
-    <MuiContainer centered={noResults}>
-      <Wrapper>
-        <Typography variant='subtitle1' component='h1' gutterBottom>
-          {isNoResults}
-        </Typography>
-        <Typography variant='subtitle2' component='h2' dir={contentDirection}>
-          {t($ => $.feedback.search.tryOptions)}
-        </Typography>
-        <Options>
-          <Option>{t($ => $.feedback.search.options.useSearchTerm)}</Option>
-          <Option>{t($ => $.feedback.search.options.useSingleWord)}</Option>
+    <MuiContainer disableGutters>
+      <Typography variant='subtitle1' component='h1' gutterBottom>
+        {title}
+      </Typography>
+      <Typography variant='subtitle2' component='h2' dir={contentDirection}>
+        {t($ => $.feedback.search.tryOptions)}
+      </Typography>
+      <Options>
+        <Option>{t($ => $.feedback.search.options.useSearchTerm)}</Option>
+        <Option>{t($ => $.feedback.search.options.useSingleWord)}</Option>
+        {isChatEnabled && (
+          <Option>
+            <Trans
+              ns='feedback'
+              i18nKey={$ => $.feedback.search.options.askChat}
+              values={{ name: getChatName(appName) }}
+              components={{ Link: <Link to={navigateToChat} highlighted /> }}
+            />
+          </Option>
+        )}
+      </Options>
+      {sendingStatus === 'successful' && !dismissed && (
+        <StyledAlert severity='success' onClose={() => setDismissed(true)}>
+          <AlertTitle>{t($ => $.feedback.thanks.title)}</AlertTitle>
+          <Typography component='p'>{t($ => $.feedback.thanks.description)}</Typography>
           {isChatEnabled && (
-            <Option>
-              <Trans
-                ns='feedback'
-                i18nKey={$ => $.feedback.search.options.askChat}
-                values={{ name: getChatName(appName) }}
-                components={{ Link: <Link to={navigateToChat} highlighted /> }}
-              />
-            </Option>
+            <Typography component='p' dir={contentDirection}>
+              {t($ => $.feedback.thanks.addDetails)}
+              <Link sx={{ ml: 0.5 }} to={navigateToFeedback} highlighted>
+                {t($ => $.feedback.give)}
+              </Link>
+            </Typography>
           )}
-        </Options>
-        {sendingStatus === 'successful' && !dismissed && (
-          <StyledAlert severity='success' onClose={() => setDismissed(true)}>
-            <AlertTitle>{t($ => $.feedback.thanks.title)}</AlertTitle>
-            <Typography component='p'>{t($ => $.feedback.thanks.description)}</Typography>
-            {isChatEnabled && (
-              <Typography>
-                <Trans
-                  ns='feedback'
-                  i18nKey={$ => $.feedback.thanks.chatReferral}
-                  components={{ Link: <Link to={navigateToFeedback} highlighted /> }}
-                />
-              </Typography>
-            )}
-          </StyledAlert>
-        )}
-        {sendingStatus === 'failed' && !dismissed && (
-          <StyledAlert severity='error' onClose={() => setDismissed(true)}>
-            <AlertTitle>{t($ => $.error.title)}</AlertTitle>
-            <Typography>{t($ => $.error.unknownError)}</Typography>
-          </StyledAlert>
-        )}
-        {!submitted && (
-          <HighlightedCard>
-            <Box sx={{ alignSelf: 'start' }}>
-              <Svg src={FeedbackHintIcon} width={64} height={64} />
-            </Box>
-            <CardContent>
-              <Typography variant='subtitle1' component='h2'>
-                {t($ => $.feedback.search.informationMissing)}
-              </Typography>
-              <Typography variant='body1' component='p'>
-                {t($ => $.feedback.search.helpToImprove, { appName: buildConfig().appName })}
-              </Typography>
-              <CardActions sx={{ padding: 0 }}>
-                <StyledButton onClick={handleSubmit} startIcon={<NotificationsNoneIcon />} variant='outlined'>
-                  {t($ => $.feedback.search.informUs)}
-                </StyledButton>
-              </CardActions>
-            </CardContent>
-          </HighlightedCard>
-        )}
-      </Wrapper>
+        </StyledAlert>
+      )}
+      {sendingStatus === 'failed' && !dismissed && (
+        <StyledAlert severity='error' onClose={() => setSendingStatus('idle')}>
+          <AlertTitle>{t($ => $.error.title)}</AlertTitle>
+          <Typography>{t($ => $.error.unknownError)}</Typography>
+        </StyledAlert>
+      )}
+      {!submitted && (
+        <HighlightedCard>
+          <Svg src={FeedbackHintIcon} width={64} height={64} />
+          <CardContent>
+            <Typography variant='subtitle1' component='h2'>
+              {t($ => $.feedback.search.informationMissing)}
+            </Typography>
+            <Typography variant='body1' component='p'>
+              {t($ => $.feedback.search.helpToImprove, { appName: buildConfig().appName })}
+            </Typography>
+            <StyledButton onClick={handleSubmit} startIcon={<NotificationsNoneIcon />} variant='outlined'>
+              {t($ => $.feedback.search.informUs)}
+            </StyledButton>
+          </CardContent>
+        </HighlightedCard>
+      )}
     </MuiContainer>
   )
 }

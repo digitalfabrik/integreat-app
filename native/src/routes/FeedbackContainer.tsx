@@ -38,7 +38,7 @@ export const FeedbackContainer = ({
   slug,
   rating: initialRating,
   hasResults,
-  isChatEnabled = false,
+  isChatEnabled,
 }: FeedbackContainerProps): ReactElement => {
   const [comment, setComment] = useState<string>('')
   const [contactMail, setContactMail] = useState<string>('')
@@ -87,7 +87,8 @@ export const FeedbackContainer = ({
           query={query}
           slug={slug}
           hasResults={hasResults}
-          isChatEnabled={isChatEnabled}
+          isChatEnabled={isChatEnabled ?? false}
+          setSendingStatus={setSendingStatus}
         />
       </Container>
     )

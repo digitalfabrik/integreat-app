@@ -10,7 +10,7 @@ import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
-import FeedbackStatusBanner from './FeedbackStatusBanner'
+import FeedbackStatusAlert from './FeedbackStatusAlert'
 import LoadingSpinner from './LoadingSpinner'
 import Note from './Note'
 import PrivacyCheckbox from './PrivacyCheckbox'
@@ -61,7 +61,14 @@ const Feedback = ({
   }
 
   if (sendingStatus === 'successful') {
-    return <FeedbackStatusBanner successful onClose={navigation.goBack} />
+    return (
+      <FeedbackStatusAlert
+        severity='success'
+        title={t($ => $.feedback.thanks.title)}
+        description={t($ => $.feedback.thanks.description)}
+        onClose={navigation.goBack}
+      />
+    )
   }
 
   return (
