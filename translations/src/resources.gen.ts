@@ -187,7 +187,7 @@ const resources = {
     "thanks": {
       "title": "Thank you very much for your feedback.",
       "description": "Your feedback has been sent successfully.",
-      "chatReferral": "Would you like to add any further details? <Link>Provide feedback</Link>"
+      "addDetails": "Would you like to add any further details?"
     },
     "search": {
       "informationNotFound": "Not found what you were looking for?",

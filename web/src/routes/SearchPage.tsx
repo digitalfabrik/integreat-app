@@ -34,10 +34,10 @@ type SearchProps = {
   query: string
   loading: boolean
   results: ExtendedDocumentModel[]
-  isChatEnabled?: boolean
+  isChatEnabled: boolean
 }
 
-const SearchResults = ({ query, loading, results, isChatEnabled = false }: SearchProps): ReactElement | null => {
+const SearchResults = ({ query, loading, results, isChatEnabled }: SearchProps): ReactElement | null => {
   const { t } = useTranslation()
 
   if (query.length === 0) {
@@ -146,7 +146,7 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
         languageChangePaths={languageChangePaths}
         regionModel={region}
       />
-      <Stack sx={{ paddingTop: 4, gap: 2 }}>
+      <Stack sx={{ paddingTop: 4, gap: 2, paddingLeft: 0 }}>
         <SearchInput
           id='search-content'
           ariaLabel={t($ => $.search.searchContent)}
@@ -159,7 +159,7 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
           results={searchResults}
           query={debouncedQuery}
           loading={documentsLoading || loading}
-          isChatEnabled={isChatEnabled}
+          isChatEnabled={isChatEnabled ?? false}
         />
       </Stack>
     </RegionContentLayout>

@@ -185,7 +185,7 @@
     "thanks": {
       "title": "Vielen Dank für dein Feedback.",
       "description": "Dein Feedback wurde erfolgreich abgesendet. ",
-      "chatReferral": "Möchtest du weitere Details hinzufügen? <Link>Feedback ergänzen</Link>"
+      "addDetails": "Möchtest du weitere Details hinzufügen?"
     },
     "search": {
       "informationNotFound": "Nicht das Richtige gefunden?",

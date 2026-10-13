@@ -5,6 +5,7 @@ import { prepareSearchDocuments, SearchRouteType } from 'shared'
 import { config } from 'translations'
 
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
 import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
@@ -22,6 +23,7 @@ const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElem
   const initialSearchText = route.params.searchText ?? ''
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
   const { data: sourceLanguageData } = useLoadRegionContent({ regionCode, languageCode: config.sourceLanguage })
+  const isChatEnabled = buildConfig().featureFlags.chat && data?.region.chatEnabled
 
   useSetRouteTitle(t($ => $.search.title))
 
@@ -41,6 +43,7 @@ const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElem
           sourceLanguageDocuments={sourceLanguageDocuments}
           languageCode={languageCode}
           initialSearchText={initialSearchText}
+          isChatEnabled={isChatEnabled ?? false}
         />
       )}
     </LoadingErrorHandler>

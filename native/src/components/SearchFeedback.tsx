@@ -14,7 +14,7 @@ import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
-import FeedbackStatusBanner from './FeedbackStatusBanner'
+import FeedbackStatusAlert from './FeedbackStatusAlert'
 
 const InformButton = styled(Button)`
   width: 80%;
@@ -27,14 +27,23 @@ const BulletItemWrapper = styled.View`
 
 const StyledCard = styled(Card)`
   background-color: ${props => props.theme.colors.surfaceVariant};
-  margin-top: 4px;
+  gap: 4px;
+`
+
+const BulletRow = styled.View`
+  flex-direction: row;
+  gap: 8px;
+`
+
+const BulletText = styled(Text)`
+  flex-shrink: 1;
 `
 
 const BulletItem = ({ children }: { children: ReactNode }): ReactElement => (
-  <View style={{ flexDirection: 'row' }}>
-    <Text style={{ marginRight: 8 }}>{'\u2022'}</Text>
-    <Text variant='body2'>{children}</Text>
-  </View>
+  <BulletRow>
+    <Text variant='body2'>{'\u2022'}</Text>
+    <BulletText variant='body2'>{children}</BulletText>
+  </BulletRow>
 )
 
 type SearchFeedbackProps = {
@@ -47,6 +56,7 @@ type SearchFeedbackProps = {
   handleSubmit: () => void
   hasResults?: boolean
   isChatEnabled: boolean
+  setSendingStatus: (sendingStatus: SendingStatusType) => void
 }
 
 const SearchFeedback = ({
@@ -59,6 +69,7 @@ const SearchFeedback = ({
   handleSubmit,
   hasResults,
   isChatEnabled,
+  setSendingStatus,
 }: SearchFeedbackProps): ReactElement => {
   const { t } = useTranslation()
   const { navigation } = useNavigate()
@@ -77,7 +88,7 @@ const SearchFeedback = ({
   }
 
   const fallbackLanguage = config.sourceLanguage
-  const isResults = hasResults
+  const title = hasResults
     ? t($ => $.feedback.search.informationNotFound)
     : t($ =>
         language === fallbackLanguage
@@ -85,9 +96,12 @@ const SearchFeedback = ({
           : $.feedback.search.noResultsInUserAndSourceLanguage,
       )
 
+  const description =
+    sendingStatus === 'successful' ? t($ => $.feedback.thanks.description) : t($ => $.error.unknownError)
+
   return (
     <>
-      <Text variant='subtitle1'>{isResults}</Text>
+      <Text variant='subtitle1'>{title}</Text>
       <Text variant='subtitle2'>{t($ => $.feedback.search.tryOptions)}</Text>
       <BulletItemWrapper>
         <BulletItem>{t($ => $.feedback.search.options.useSearchTerm)}</BulletItem>
@@ -99,24 +113,33 @@ const SearchFeedback = ({
               i18nKey={$ => $.feedback.search.options.askChat}
               values={{ name: getChatName(buildConfig().appName) }}
               components={{
-                Link: <Link onPress={() => navigation.navigate(CHAT_ROUTE)}>getChatName(buildConfig().appName)</Link>,
+                Link: <Link onPress={() => navigation.navigate(CHAT_ROUTE)} />,
               }}
             />
           </BulletItem>
         )}
       </BulletItemWrapper>
       {submitted && !dismissed && (
-        <FeedbackStatusBanner
-          successful={sendingStatus === 'successful'}
-          onClose={() => setDismissed(true)}
-          onNavigateToFeedback={navigateToFeedback}
+        <FeedbackStatusAlert
+          severity={sendingStatus === 'successful' ? 'success' : 'error'}
+          title={t($ => (sendingStatus === 'successful' ? $.feedback.thanks.title : $.error.title))}
+          description={description}
+          onClose={sendingStatus === 'successful' ? () => setDismissed(true) : () => setSendingStatus('idle')}
+          actions={
+            sendingStatus === 'successful' ? (
+              <Text variant='body2'>
+                {t($ => $.feedback.thanks.addDetails)}{' '}
+                <Link onPress={navigateToFeedback}>{t($ => $.feedback.give)}</Link>
+              </Text>
+            ) : undefined
+          }
         />
       )}
       {!submitted && (
         <StyledCard mode='outlined'>
           <Card.Content style={{ flexDirection: 'row', gap: 12 }}>
-            <Icon icon={FeedbackHintIcon} style={{ width: 58, height: 58 }} />
-            <View style={{ flex: 1, gap: 6 }}>
+            <Icon icon={FeedbackHintIcon} style={{ width: 64, height: 64 }} />
+            <View style={{ flex: 1, gap: 4 }}>
               <Text variant='subtitle2'>{t($ => $.feedback.search.informationMissing)}</Text>
               <Text variant='body2'>{t($ => $.feedback.search.helpToImprove, { appName: buildConfig().appName })}</Text>
               <InformButton mode='outlined' icon='bell-outline' onPress={handleSubmit}>

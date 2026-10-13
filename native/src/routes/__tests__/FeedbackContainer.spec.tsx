@@ -144,6 +144,7 @@ describe('FeedbackContainer', () => {
         regionCode={region}
         query={query}
         hasResults={false}
+        isChatEnabled={false}
       />,
     )
     fireEvent.press(getByText('feedback:search.informUs'))

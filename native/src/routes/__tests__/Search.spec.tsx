@@ -48,6 +48,7 @@ describe('Search', () => {
     regionCode,
     navigation: createNavigationMock(),
     initialSearchText: '',
+    isChatEnabled: false,
   }
 
   const renderSearch = (props: SearchProps) => render(<Search {...props} />)

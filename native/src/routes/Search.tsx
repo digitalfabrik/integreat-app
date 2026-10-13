@@ -21,10 +21,8 @@ import SearchHeader from '../components/SearchHeader'
 import SearchListItem from '../components/SearchListItem'
 import Text from '../components/base/Text'
 import { NavigationProps } from '../constants/NavigationTypes'
-import buildConfig from '../constants/buildConfig'
 import useAnnounceSearchResultsIOS from '../hooks/useAnnounceSearchResultsIOS'
 import useCaptureError from '../hooks/useCaptureError'
-import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import { FeedbackContainer } from './FeedbackContainer'
 
 export type SearchProps = {
@@ -34,6 +32,7 @@ export type SearchProps = {
   languageCode: string
   regionCode: string
   initialSearchText: string
+  isChatEnabled: boolean
 }
 
 const Search = ({
@@ -43,6 +42,7 @@ const Search = ({
   languageCode,
   regionCode,
   initialSearchText,
+  isChatEnabled,
 }: SearchProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const debouncedQuery = useDebounce(query)
@@ -60,9 +60,6 @@ const Search = ({
 
   useCaptureError(error)
   useAnnounceSearchResultsIOS(searchResults)
-
-  const { data: regionContent } = useLoadRegionContent({ regionCode, languageCode })
-  const isChatEnabled = buildConfig().featureFlags.chat && regionContent?.region.chatEnabled
 
   const renderItem = ({ item }: { item: ExtendedDocumentModel }) => (
     <SearchListItem
