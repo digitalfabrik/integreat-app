@@ -29,6 +29,7 @@ type Params = {
   regionCode: string
   languageCode: string
   refreshNews?: boolean
+  enabled?: boolean
 }
 
 export type RegionContentData = {
@@ -37,9 +38,9 @@ export type RegionContentData = {
   region: RegionModel
   language: LanguageModel
   categories: CategoriesMapModel
-  events: EventModel[]
-  news: NewsModel[]
-  places: PlaceModel[]
+  events: EventModel[] | null
+  news: NewsModel[] | null
+  places: PlaceModel[] | null
 }
 
 export type RegionContentReturn = Omit<Omit<ReturnType<RegionContentData>, 'error'>, 'setData'> & {
@@ -50,10 +51,15 @@ export type RegionContentReturn = Omit<Omit<ReturnType<RegionContentData>, 'erro
  * Hook to load all the offline available region content at once and handle errors, loading and refreshing at the same time.
  * Takes care of updating the data regularly.
  */
-const useLoadRegionContent = ({ regionCode, languageCode, refreshNews }: Params): RegionContentReturn => {
+const useLoadRegionContent = ({
+  regionCode,
+  languageCode,
+  refreshNews,
+  enabled = true,
+}: Params): RegionContentReturn => {
   const showSnackbar = useSnackbar()
   const previousLanguageCode = usePreviousProp({ prop: languageCode })
-  const params = { regionCode, languageCode, showSnackbar }
+  const params = { regionCode, languageCode, showSnackbar, enabled }
 
   const regionsReturn = useLoadWithCache({
     ...params,
@@ -153,13 +159,7 @@ const useLoadRegionContent = ({ regionCode, languageCode, refreshNews }: Params)
   }
 
   const data =
-    region &&
-    language &&
-    regionsReturn.data &&
-    categoriesReturn.data &&
-    eventsReturn.data &&
-    placesReturn.data &&
-    newsReturn.data
+    region && language && regionsReturn.data && categoriesReturn.data
       ? {
           region,
           language,
