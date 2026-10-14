@@ -57,6 +57,8 @@ const StyledButton = styled(Button)`
 const StyledAlert = styled(Alert)`
   max-width: 512px;
   display: flex;
+  background-color: ${props => props.theme.palette.success.light};
+  color: ${props => props.theme.palette.success.contrastText};
 `
 
 type SearchFeedbackProps = {
@@ -72,6 +74,7 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
   const [queryParams] = useSearchParams()
   const { searchText } = parseQueryParams(queryParams)
   const [dismissed, setDismissed] = useState(false)
+  const theme = useTheme()
 
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const submitted = sendingStatus === 'successful' || sendingStatus === 'failed'
@@ -142,7 +145,11 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
           {isChatEnabled && (
             <Typography component='p' dir={contentDirection}>
               {t($ => $.feedback.thanks.addDetails)}
-              <Link sx={{ ml: 0.5 }} to={navigateToFeedback} highlighted>
+              <Link
+                sx={{ ml: 0.5 }}
+                to={navigateToFeedback}
+                highlighted
+                color={theme.isContrastTheme ? theme.palette.primary.dark : undefined}>
                 {t($ => $.feedback.give)}
               </Link>
             </Typography>

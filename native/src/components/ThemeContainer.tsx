@@ -21,6 +21,7 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
     colors: {
       primary: palette.primary.main,
       primaryContainer: palette.primary.main,
+      primaryDark: palette.primary.dark,
       secondary: palette.secondary.main,
       secondaryContainer: palette.secondary.light,
       tertiary: palette.tertiary.main,
@@ -32,6 +33,7 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
       background: palette.background.default,
       error: palette.error.main,
       errorContainer: palette.error.light,
+      errorDark: palette.error.dark,
       onPrimary: palette.primary.contrastText,
       onPrimaryContainer: palette.primary.contrastText,
       onSecondary: palette.secondary.contrastText,
@@ -52,6 +54,7 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
       success: palette.success.main,
       onSuccessContainer: palette.success.light,
       onSuccess: palette.success.contrastText,
+      successDark: palette.success.dark,
       tuNews: {
         main: palette.tuNews.main,
         contrastText: palette.tuNews.contrastText,
