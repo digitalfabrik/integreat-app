@@ -14,6 +14,7 @@ import getNavigationItems from './navigationItems'
 export type TourStepType = StepType & {
   content: ReactElement
   arrowAlignment?: ArrowAlignment
+  centerArrowVertically?: boolean
   offset?: PopoverOffset
 }
 
