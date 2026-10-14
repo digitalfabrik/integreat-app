@@ -6,6 +6,7 @@ import { TOUR_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { renderWithTheme } from '../../testing/render'
 import { TourStepType } from '../../utils/tourSteps'
 import TourPopover from '../TourPopover'
+import { arrowStyle } from '../base/PopoverPaper'
 
 describe('TourPopover', () => {
   const setCurrentStep = jest.fn()
@@ -62,6 +63,54 @@ describe('TourPopover', () => {
 
     expect(setCurrentStep).toHaveBeenCalledWith(steps.length)
     expect(setIsOpen).not.toHaveBeenCalled()
+  })
+
+  it('should center the feedback arrow vertically when requested', () => {
+    const feedbackStep: TourStepType = {
+      selector: '#toolbar',
+      position: 'right',
+      centerArrowVertically: true,
+      content: <span>Feedback</span>,
+    }
+
+    const { container } = renderWithTheme(
+      <TourPopover
+        {...({
+          steps: [feedbackStep],
+          currentStep: 0,
+          setCurrentStep,
+          setIsOpen,
+        } as unknown as PopoverContentProps)}
+      />,
+    )
+
+    const centeredPaper = container.querySelector('.MuiPaper-root')
+    const defaultPaper = renderPopover(1).container.querySelector('.MuiPaper-root')
+
+    expect(centeredPaper).not.toBeNull()
+    expect(defaultPaper).not.toBeNull()
+
+    expect(centeredPaper?.className).not.toEqual(defaultPaper?.className)
+    expect(centeredPaper).not.toHaveAttribute('data-arrow-vertical-alignment')
+
+    expect(arrowStyle('right', 'left', false, true)).toMatchObject({
+      insetBlockStart: '50%',
+      transform: 'translateY(-50%)',
+    })
+  })
+
+  it('should preserve default and RTL arrow behavior', () => {
+    const defaultStyle = arrowStyle('right', 'left', false)
+
+    expect(defaultStyle).toMatchObject({
+      insetBlockStart: 24,
+    })
+    expect(defaultStyle).not.toHaveProperty('transform')
+
+    expect(arrowStyle('left', 'right', true, true)).toMatchObject({
+      insetBlockStart: '50%',
+      transform: 'translateY(-50%)',
+    })
   })
 
   it('should close the tour and not offer it again', () => {
