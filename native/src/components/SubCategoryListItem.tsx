@@ -3,7 +3,7 @@ import { List as PaperList } from 'react-native-paper'
 
 import { CategoryModel } from 'shared/api'
 
-import { contentAlignmentRTLText } from '../constants/contentDirection'
+import { contentAlignment } from '../constants/contentDirection'
 import Text from './base/Text'
 
 type SubCategoryListItemProps = {
@@ -20,7 +20,7 @@ const SubCategoryListItem = ({ subCategory, onItemPress, language }: SubCategory
       <Text
         accessibilityLabel={subCategory.title}
         variant='body2'
-        style={{ flexShrink: 1, textAlign: contentAlignmentRTLText(subCategory.title) }}>
+        style={{ flexShrink: 1, textAlign: contentAlignment(language) }}>
         {subCategory.title}
       </Text>
     }
