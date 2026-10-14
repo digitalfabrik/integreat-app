@@ -66,7 +66,8 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
       elevation={0}
       arrowPosition={step.position}
       arrowAlignment={step.arrowAlignment ?? 'left'}
-      offset={step.offset}>
+      offset={step.offset}
+      centerArrowVertically={step.centerArrowVertically}>
       <Stack sx={{ padding: 2, gap: 2 }}>
         <CloseButton onClick={closeTour} size='small' aria-label={t($ => $.common.actions.close)}>
           <CloseIcon fontSize='small' />
