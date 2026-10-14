@@ -31,6 +31,13 @@ describe('initSentry', () => {
     initSentry()
     expect(Sentry.init).toHaveBeenCalledTimes(1)
   })
+
+  it('should disable session tracking', () => {
+    mockBuildConfig(true)
+    initSentry()
+    expect(Sentry.init).toHaveBeenCalledTimes(1)
+    expect(Sentry.init).toHaveBeenCalledWith(expect.objectContaining({ enableAutoSessionTracking: false }))
+  })
 })
 
 describe('captureError', () => {
