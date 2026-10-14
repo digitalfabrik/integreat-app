@@ -3,14 +3,14 @@
  "dataLicense": "CC0-1.0",
  "SPDXID": "SPDXRef-DOCUMENT",
  "name": "integreat-app",
- "documentNamespace": "https://anchore.com/syft/dir/integreat-app-5656ec99-9441-4fb5-bca1-b37c09fd1a55",
+ "documentNamespace": "https://anchore.com/syft/dir/integreat-app-50f4b8c2-b3ba-4940-abd8-1ba20472289f",
  "creationInfo": {
-  "licenseListVersion": "3.28",
+  "licenseListVersion": "3.29",
   "creators": [
    "Organization: Anchore, Inc",
-   "Tool: syft-1.52.0"
+   "Tool: syft-1.54.1"
   ],
-  "created": "2026-09-29T07:12:43Z"
+  "created": "2026-10-14T12:08:05Z"
  },
  "packages": [
   {
@@ -1105,7 +1105,7 @@
   {
    "name": "integreat-app",
    "SPDXID": "SPDXRef-DocumentRoot-Directory-integreat-app",
-   "versionInfo": "2026.9.3",
+   "versionInfo": "2026.10.0",
    "supplier": "NOASSERTION",
    "downloadLocation": "NOASSERTION",
    "filesAnalyzed": false,
@@ -1353,11 +1353,11 @@
    "checksums": [
     {
      "algorithm": "SHA1",
-     "checksumValue": "1c1a727e9181cff29642ac7badc69df896e14cd4"
+     "checksumValue": "5780d2046f41c4829cbd02df6576b9cfc374d1d6"
     },
     {
      "algorithm": "SHA256",
-     "checksumValue": "b12ac62a34efa67cc91fe7a30d53f39aff8a708a13d2ed22624882f8b89ce128"
+     "checksumValue": "f7078855446749e38372dfdeeaa40769bc70fdf67cb040d374c82e901bed0092"
     }
    ],
    "licenseConcluded": "NOASSERTION",
