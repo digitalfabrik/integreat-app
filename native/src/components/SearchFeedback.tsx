@@ -130,7 +130,9 @@ const SearchFeedback = ({
             sendingStatus === 'successful' ? (
               <Text variant='body2' style={{ color: theme.colors.onSuccess }}>
                 {t($ => $.feedback.thanks.addDetails)}{' '}
-                <Link onPress={navigateToFeedback}>{t($ => $.feedback.give)}</Link>
+                <Link onPress={navigateToFeedback} style={{ color: theme.colors.primaryDark }}>
+                  {t($ => $.feedback.give)}
+                </Link>
               </Text>
             ) : undefined
           }

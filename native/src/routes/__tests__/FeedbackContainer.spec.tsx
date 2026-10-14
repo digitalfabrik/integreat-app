@@ -165,7 +165,7 @@ describe('FeedbackContainer', () => {
   it('should show the chat option when chat is enabled in a region for not found search results', () => {
     const query = 'gesundheitsversicherung'
 
-    const { findByText } = render(
+    const { getByText } = render(
       <FeedbackContainer
         routeType={SEARCH_ROUTE}
         language={language}
@@ -176,7 +176,7 @@ describe('FeedbackContainer', () => {
         hasResults={false}
       />,
     )
-    expect(findByText('feedback:search.options.askChat')).toBeDefined()
+    expect(getByText(/feedback:search.options.askChat/)).toBeTruthy()
   })
 
   it('should hide the chat option when chat is disabled in a region for not found search results', () => {
@@ -192,6 +192,6 @@ describe('FeedbackContainer', () => {
         hasResults={false}
       />,
     )
-    expect(queryByText('feedback:search.options.askChat')).toBeNull()
+    expect(queryByText(/feedback:search.options.askChat/)).toBeNull()
   })
 })
