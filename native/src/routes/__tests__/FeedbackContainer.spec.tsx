@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
 
-import { CATEGORIES_ROUTE, FEEDBACK_ROUTE, RATING_NEGATIVE, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
+import { CATEGORIES_ROUTE, RATING_NEGATIVE, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
 
 import useNavigate from '../../hooks/useNavigate'
 import render from '../../testing/render'

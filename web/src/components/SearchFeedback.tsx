@@ -1,3 +1,4 @@
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutlined'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
@@ -139,7 +140,10 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
         )}
       </Options>
       {sendingStatus === 'successful' && !dismissed && (
-        <StyledAlert severity='success' onClose={() => setDismissed(true)}>
+        <StyledAlert
+          severity='success'
+          onClose={() => setDismissed(true)}
+          iconMapping={{ success: <CheckCircleOutlineIcon /> }}>
           <AlertTitle>{t($ => $.feedback.thanks.title)}</AlertTitle>
           <Typography component='p'>{t($ => $.feedback.thanks.description)}</Typography>
           {isChatEnabled && (

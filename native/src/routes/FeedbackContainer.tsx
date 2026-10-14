@@ -45,6 +45,7 @@ export const FeedbackContainer = ({
   const [rating, setRating] = useState<Rating | null>(initialRating ?? null)
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const [searchTerm, setSearchTerm] = useState<string | undefined>(query)
+  const isSearchFeedback = hasResults !== undefined
 
   useEffect(() => {
     setSearchTerm(query)
@@ -64,7 +65,7 @@ export const FeedbackContainer = ({
         query,
         slug,
         searchTerm,
-        rating,
+        rating: isSearchFeedback ? 'negative' : rating,
       })
       setSendingStatus('successful')
     }
