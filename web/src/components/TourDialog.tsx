@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import buildConfig from '../constants/buildConfig'
 import { LAYOUT_ELEMENT_ID } from '../constants/layout'
 import useLocalStorage, { TOUR_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
+import restoreTourFocus from '../utils/restoreTourFocus'
 import Svg from './base/Svg'
 
 const LOGO_SIZE = 48
@@ -56,7 +57,19 @@ const TourDialog = (): ReactElement | null => {
     setTourVisible(false)
     setIsOpen(false)
     setCurrentStep(0)
+    restoreTourFocus()
   }
+
+  const dismissIntro = () => {
+    setTourVisible(false)
+    restoreTourFocus()
+  }
+
+  const hideIntro = () => {
+    setIsDialogOpen(false)
+    restoreTourFocus()
+  }
+
   const startTour = () => {
     window.scrollTo({ top: 0 })
     setIsDialogOpen(false)
@@ -77,7 +90,7 @@ const TourDialog = (): ReactElement | null => {
         description: t($ => $.tour.welcome),
         actionText: t($ => $.tour.start),
         action: startTour,
-        close: () => setTourVisible(false),
+        close: dismissIntro,
       }
 
   if (!finished && (!tourVisible || !isDialogOpen)) {
@@ -86,7 +99,7 @@ const TourDialog = (): ReactElement | null => {
 
   return (
     <StyledMuiDialog
-      onClose={finished ? finishTour : () => setIsDialogOpen(false)}
+      onClose={finished ? finishTour : hideIntro}
       container={dialogContainer}
       aria-labelledby={TITLE_ELEMENT_ID}
       aria-describedby={DESCRIPTION_ELEMENT_ID}
