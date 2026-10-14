@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode, useState } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { View } from 'react-native'
 import { Button, Card } from 'react-native-paper'
-import styled from 'styled-components/native'
+import styled, { useTheme } from 'styled-components/native'
 
 import { CHAT_ROUTE, FEEDBACK_ROUTE, getChatName, SendingStatusType } from 'shared'
 import { FeedbackType } from 'shared/api'
@@ -72,6 +72,7 @@ const SearchFeedback = ({
   setSendingStatus,
 }: SearchFeedbackProps): ReactElement => {
   const { t } = useTranslation()
+  const theme = useTheme()
   const { navigation } = useNavigate()
   const [dismissed, setDismissed] = useState(false)
 
@@ -127,7 +128,7 @@ const SearchFeedback = ({
           onClose={sendingStatus === 'successful' ? () => setDismissed(true) : () => setSendingStatus('idle')}
           actions={
             sendingStatus === 'successful' ? (
-              <Text variant='body2'>
+              <Text variant='body2' style={{ color: theme.colors.onSuccess }}>
                 {t($ => $.feedback.thanks.addDetails)}{' '}
                 <Link onPress={navigateToFeedback}>{t($ => $.feedback.give)}</Link>
               </Text>

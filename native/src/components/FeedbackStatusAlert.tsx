@@ -8,7 +8,7 @@ import Text from '../components/base/Text'
 const Alert = styled.View<{ $successful: boolean }>`
   justify-content: center;
   align-items: center;
-  background-color: ${props => (props.$successful ? props.theme.colors.success.light : props.theme.colors.error)};
+  background-color: ${props => (props.$successful ? props.theme.colors.onSuccessContainer : props.theme.colors.onErrorContainer)};
   border-radius: 8px;
   padding: 16px;
 `
@@ -29,6 +29,10 @@ const Content = styled.View`
 const TextWrapper = styled.View`
   flex: 1;
   gap: 4px;
+`
+
+const StyledText = styled(Text)<{ $successful: boolean }>`
+  color: ${props => (props.$successful ? props.theme.colors.onSuccess : props.theme.colors.onError)};
 `
 
 type FeedbackStatusAlertProps = {
@@ -57,11 +61,15 @@ const FeedbackStatusAlert = ({
         <Icon
           source={successful ? 'check-circle' : 'alert-circle'}
           size={32}
-          color={successful ? theme.colors.success.main : theme.colors.error}
+          color={successful ? theme.colors.success : theme.colors.error}
         />
         <TextWrapper>
-          <Text variant='subtitle1'>{title}</Text>
-          <Text variant='body2'>{description}</Text>
+          <StyledText $successful={successful} variant='subtitle1'>
+            {title}
+          </StyledText>
+          <StyledText $successful={successful} variant='body2'>
+            {description}
+          </StyledText>
           {actions}
         </TextWrapper>
       </Content>

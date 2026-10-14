@@ -47,7 +47,7 @@ const List = <T,>({
       ListFooterComponent={footer}
       ListFooterComponentStyle={{ flex: 1, justifyContent: 'flex-end' }}
       refreshControl={refresh ? <RefreshControl onRefresh={refresh} refreshing={false} /> : undefined}
-      ListEmptyComponent={listEmptyComponent}
+      ListEmptyComponent={footer ? null : listEmptyComponent}
       showsVerticalScrollIndicator={false}
       onEndReachedThreshold={1}
       role='list'

@@ -57,7 +57,6 @@ const StyledButton = styled(Button)`
 const StyledAlert = styled(Alert)`
   max-width: 512px;
   display: flex;
-  background-color: ${props => props.theme.palette.success.light};
 `
 
 type SearchFeedbackProps = {

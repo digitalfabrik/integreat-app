@@ -38,10 +38,9 @@ type MD3Theme = {
     onBackground: string
     outline: string
     outlineVariant: string
-    success: {
-      main: string
-      light: string
-    }
+    success: string
+    onSuccessContainer: string
+    onSuccess: string
     tuNews: {
       main: string
       contrastText: string
