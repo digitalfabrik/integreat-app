@@ -2,7 +2,7 @@ import { fireEvent } from '@testing-library/react'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { NEWS_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { MAX_DAYS_NEW, NEWS_ROUTE, pathnameFromRouteInformation } from 'shared'
 import {
   AMAL_NEWS_SOURCE,
   LOCAL_NEWS_SOURCE,
@@ -12,6 +12,7 @@ import {
   TU_NEWS_SOURCE,
 } from 'shared/api'
 
+import { NEWS_VISITED_IDS_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import {
   mockUseQueryFromEndpointWithData,
   mockUseQueryFromEndpointWithError,
@@ -135,5 +136,35 @@ describe('NewsDetailPage', () => {
     const { container } = renderDetail()
 
     expect(localNewsSourceLink(container)).toHaveLength(1)
+  })
+
+  describe('new chip', () => {
+    const newNews = Object.assign(buildNews(LOCAL_NEWS_SOURCE), {
+      _publishedAt: DateTime.now().minus({ days: MAX_DAYS_NEW - 1 }),
+    })
+    const getStoredVisitedIds = () => JSON.parse(localStorage.getItem(NEWS_VISITED_IDS_STORAGE_KEY) ?? '{}')
+
+    beforeEach(() => {
+      localStorage.clear()
+    })
+
+    it('should show chip for new news on first visit and mark it as visited', () => {
+      mockUseQueryFromEndpointWithData(newNews)
+      const { getByText } = renderDetail()
+
+      expect(getByText('common:state.new')).toBeTruthy()
+      expect(getStoredVisitedIds()).toEqual({ [region.code]: { [newsId]: DateTime.now().toISODate() } })
+    })
+
+    it('should not show chip for new news which was already visited', () => {
+      localStorage.setItem(
+        NEWS_VISITED_IDS_STORAGE_KEY,
+        JSON.stringify({ [region.code]: { [newsId]: DateTime.now().toISODate() } }),
+      )
+      mockUseQueryFromEndpointWithData(newNews)
+      const { queryByText } = renderDetail()
+
+      expect(queryByText('common:state.new')).toBeFalsy()
+    })
   })
 })

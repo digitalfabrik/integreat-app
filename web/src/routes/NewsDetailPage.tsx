@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useParams } from 'react-router'
 
@@ -9,6 +9,7 @@ import { AMAL_NEWS_SOURCE, createNewsElementEndpoint, getNewsSourceLabel, LOCAL_
 import { AmalNewsLogo, TuNewsLogo } from '../assets'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Helmet from '../components/Helmet'
+import NewChip from '../components/NewChip'
 import Page from '../components/Page'
 import RegionContentLayout, { RegionContentLayoutProps } from '../components/RegionContentLayout'
 import RegionContentToolbar from '../components/RegionContentToolbar'
@@ -16,8 +17,10 @@ import SkeletonPage from '../components/SkeletonPage'
 import Link from '../components/base/Link'
 import Svg from '../components/base/Svg'
 import { cmsApiBaseUrl } from '../constants/urls'
+import { NEWS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
 import useTtsPlayer from '../hooks/useTtsPlayer'
+import useVisitedIds from '../hooks/useVisitedIds'
 import { RegionRouteProps } from './index'
 
 const CenteredLink = styled(Link)({
@@ -26,17 +29,34 @@ const CenteredLink = styled(Link)({
   paddingBlock: 32,
 })
 
+const StyledNewChip = styled(NewChip)(({ theme }) => ({
+  alignSelf: 'flex-end',
+  marginTop: 12,
+
+  [theme.breakpoints.up('md')]: {
+    alignSelf: 'flex-start',
+    marginTop: 16,
+  },
+}))
+
 const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRouteProps): ReactElement | null => {
+  // This component is only opened when there is a news ID in the route
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  const id = useParams().id!
   const { data: news, error } = useQueryFromEndpoint(createNewsElementEndpoint, cmsApiBaseUrl, {
     region: regionCode,
     language: languageCode,
-    // This component is only opened when there is a news ID in the route
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    id: useParams().id!,
+    id,
   })
   const { t } = useTranslation()
+  const [visitedNewsIds, addVisitedNewsId] = useVisitedIds({ key: NEWS_VISITED_IDS_STORAGE_KEY, regionCode })
+  const [visited] = useState(visitedNewsIds.includes(id))
 
   useTtsPlayer(news, languageCode)
+
+  useEffect(() => {
+    addVisitedNewsId(id)
+  }, [id, addVisitedNewsId])
 
   if (!region) {
     return null
@@ -77,6 +97,7 @@ const NewsDetailPage = ({ region, pathname, regionCode, languageCode }: RegionRo
       {news ? (
         <Page
           title={news.title}
+          titleAdornment={news.isNew && !visited ? <StyledNewChip /> : undefined}
           content={news.source === LOCAL_NEWS_SOURCE ? replaceLinks(news.content) : news.content}
           lastUpdate={news.lastUpdate}
           showLastUpdateText={false}

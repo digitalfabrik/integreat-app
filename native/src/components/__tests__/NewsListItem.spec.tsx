@@ -2,8 +2,10 @@ import { fireEvent, RenderAPI } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
+import { MAX_DAYS_NEW } from 'shared'
 import { AMAL_NEWS_SOURCE, LOCAL_NEWS_SOURCE, NewsModel, NewsSource, TU_NEWS_SOURCE } from 'shared/api'
 
+import TestingAppContext from '../../testing/TestingAppContext'
 import render from '../../testing/render'
 import NewsListItem from '../NewsListItem'
 
@@ -22,9 +24,14 @@ const buildNews = (source: NewsSource = LOCAL_NEWS_SOURCE) =>
 
 describe('NewsListItem', () => {
   const navigateToNews = jest.fn()
+  const regionCode = 'augsburg'
 
-  const renderNewsListItem = (newsItem: NewsModel): RenderAPI =>
-    render(<NewsListItem newsItem={newsItem} navigateToNews={navigateToNews} />)
+  const renderNewsListItem = (newsItem: NewsModel, visitedNewsIds = {}): RenderAPI =>
+    render(
+      <TestingAppContext settings={{ visitedNewsIds }}>
+        <NewsListItem newsItem={newsItem} regionCode={regionCode} navigateToNews={navigateToNews} />
+      </TestingAppContext>,
+    )
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -47,5 +54,29 @@ describe('NewsListItem', () => {
   ] as const)('should render the source chip for %s', (source, label) => {
     const { getByText } = renderNewsListItem(buildNews(source))
     expect(getByText(label)).toBeTruthy()
+  })
+
+  describe('new chip', () => {
+    const createNews = (publishedDaysAgo: number) =>
+      Object.assign(buildNews(), { _publishedAt: DateTime.now().minus({ days: publishedDaysAgo }) })
+
+    it('should show chip for new news which was not visited yet', () => {
+      const { getByText } = renderNewsListItem(createNews(MAX_DAYS_NEW - 1))
+
+      expect(getByText('common:state.new')).toBeTruthy()
+    })
+
+    it('should not show chip for new news which was already visited', () => {
+      const news = createNews(MAX_DAYS_NEW - 1)
+      const { queryByText } = renderNewsListItem(news, { [regionCode]: { [news.id]: DateTime.now().toISODate() } })
+
+      expect(queryByText('common:state.new')).toBeFalsy()
+    })
+
+    it('should not show chip for old news', () => {
+      const { queryByText } = renderNewsListItem(createNews(MAX_DAYS_NEW + 1))
+
+      expect(queryByText('common:state.new')).toBeFalsy()
+    })
   })
 })

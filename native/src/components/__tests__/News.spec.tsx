@@ -2,12 +2,14 @@ import { fireEvent } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { NEWS_ALL_SOURCES_FILTER, replaceLinks } from 'shared'
+import { MAX_DAYS_NEW, NEWS_ALL_SOURCES_FILTER, replaceLinks } from 'shared'
 import { LanguageModelBuilder, NewsModel, RegionModel, RegionModelBuilder } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
+import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationPropMock from '../../testing/createNavigationPropMock'
 import render from '../../testing/render'
+import { defaultSettings } from '../../utils/AppSettings'
 import News from '../News'
 
 import mocked = jest.mocked
@@ -54,6 +56,7 @@ describe('News', () => {
   const navigateTo = jest.fn()
   mocked(useNavigate).mockImplementation(() => ({ navigateTo, navigation }))
   const setNewsSource = jest.fn()
+  const updateSettings = jest.fn()
   const language = 'de'
 
   const renderNews = ({
@@ -61,11 +64,13 @@ describe('News', () => {
     news = defaultNews,
     externalNewsEnabled = true,
     localNewsEnabled = true,
+    visitedNewsIds = {},
   }: {
     id?: string | null
     news?: NewsModel[]
     externalNewsEnabled?: boolean
     localNewsEnabled?: boolean
+    visitedNewsIds?: Record<string, Record<string, string>>
   }) => {
     const regionModel = new RegionModel({
       name: 'Oldtown',
@@ -87,16 +92,18 @@ describe('News', () => {
     })
     const props = { regionModel, language }
     return render(
-      <News
-        {...props}
-        news={news}
-        id={id}
-        languageCode='de'
-        region={new RegionModelBuilder(1).build()[0]!}
-        refresh={jest.fn}
-        sourceFilter={NEWS_ALL_SOURCES_FILTER}
-        setSourceFilter={setNewsSource}
-      />,
+      <TestingAppContext settings={{ visitedNewsIds }} updateSettings={updateSettings}>
+        <News
+          {...props}
+          news={news}
+          id={id}
+          languageCode='de'
+          region={new RegionModelBuilder(1).build()[0]!}
+          refresh={jest.fn}
+          sourceFilter={NEWS_ALL_SOURCES_FILTER}
+          setSourceFilter={setNewsSource}
+        />
+      </TestingAppContext>,
     )
   }
 
@@ -180,5 +187,39 @@ describe('News', () => {
   it('should replace bare urls as link for local news detail', () => {
     const { getByText } = renderNews({ id: 'local-2' })
     expect(getByText(/<a href='https:\/\/example\.com'>/)).toBeTruthy()
+  })
+
+  describe('new chip', () => {
+    const newNews = new NewsModel({
+      id: 'local-3',
+      title: 'New local news',
+      lastUpdate: DateTime.now(),
+      publishedAt: DateTime.now().minus({ days: MAX_DAYS_NEW - 1 }),
+      content: 'New local news content',
+      availableLanguages: null,
+      externalUrl: 'https://example.com',
+      source: 'local',
+    })
+
+    it('should show chip for new news on first visit and mark it as visited', () => {
+      const { getByText } = renderNews({ news: [newNews], id: newNews.id })
+
+      expect(getByText('common:state.new')).toBeTruthy()
+      expect(updateSettings).toHaveBeenCalledTimes(1)
+      const settingsUpdater = updateSettings.mock.calls[0][0]
+      expect(settingsUpdater(defaultSettings)).toEqual({
+        visitedNewsIds: { augsburg: { [newNews.id]: DateTime.now().toISODate() } },
+      })
+    })
+
+    it('should not show chip for new news which was already visited', () => {
+      const { queryByText } = renderNews({
+        news: [newNews],
+        id: newNews.id,
+        visitedNewsIds: { augsburg: { [newNews.id]: DateTime.now().toISODate() } },
+      })
+
+      expect(queryByText('common:state.new')).toBeFalsy()
+    })
   })
 })
