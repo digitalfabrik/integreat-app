@@ -18,13 +18,13 @@ import {
   IntroRouteType,
   REGIONS_ROUTE,
   RegionsRouteType,
-  LICENSES_ROUTE,
   PDF_VIEW_ROUTE,
   REDIRECT_ROUTE,
   RedirectRouteType,
   SEARCH_ROUTE,
   SETTINGS_ROUTE,
   CHAT_ROUTE,
+  OPEN_SOURCE_ROUTE,
 } from 'shared'
 
 import BottomTabNavigator, { defaultHeader, HeaderProps } from './BottomTabNavigator'
@@ -43,9 +43,9 @@ import ImageView from './routes/ImageView'
 import ImprintContainer from './routes/ImprintContainer'
 import Intro from './routes/Intro'
 import LanguageSelection from './routes/LanguageSelection'
-import Licenses from './routes/Licenses'
 import LoadingErrorHandler from './routes/LoadingErrorHandler'
 import MainImprint from './routes/MainImprint'
+import OpenSource from './routes/OpenSource'
 import PdfView from './routes/PdfView'
 import Regions from './routes/Regions'
 import SearchContainer from './routes/SearchContainer'
@@ -157,7 +157,7 @@ const Navigator = (): ReactElement | null => {
 
       <Stack.Group screenOptions={{ header: noMenuHeader }}>
         <Stack.Screen name={SETTINGS_ROUTE} component={Settings} />
-        <Stack.Screen name={LICENSES_ROUTE} component={Licenses} />
+        <Stack.Screen name={OPEN_SOURCE_ROUTE} component={OpenSource} />
         <Stack.Screen name={EXTERNAL_SOURCES_ROUTE} component={ExternalSources} />
         <Stack.Screen name={MAIN_IMPRINT_ROUTE} component={MainImprint} />
         <Stack.Screen name={LANGUAGES_ROUTE} component={LanguageSelection} />

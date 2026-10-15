@@ -6,7 +6,7 @@ import {
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
-  LICENSES_ROUTE,
+  OPEN_SOURCE_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
   PLACES_ROUTE,
@@ -33,7 +33,7 @@ export const regionContentPath = ({ regionCode, languageCode, route, path }: Reg
 
 export const pathnameFromRouteInformation = (routeInformation: NonNullableRouteInformationType): string => {
   if (
-    routeInformation.route === LICENSES_ROUTE ||
+    routeInformation.route === OPEN_SOURCE_ROUTE ||
     routeInformation.route === EXTERNAL_SOURCES_ROUTE ||
     routeInformation.route === MAIN_IMPRINT_ROUTE
   ) {

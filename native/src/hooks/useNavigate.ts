@@ -10,7 +10,7 @@ import {
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
-  LICENSES_ROUTE,
+  OPEN_SOURCE_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
   PLACES_ROUTE,
@@ -48,7 +48,7 @@ const navigate = <T extends RoutesType>({
   const { regionCode: appRegionCode, languageCode: appLanguageCode } = appContext
 
   if (
-    route === LICENSES_ROUTE ||
+    route === OPEN_SOURCE_ROUTE ||
     route === EXTERNAL_SOURCES_ROUTE ||
     route === REGIONS_ROUTE ||
     route === SUGGEST_TO_REGION_ROUTE

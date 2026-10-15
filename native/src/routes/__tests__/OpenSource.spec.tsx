@@ -4,7 +4,7 @@ import React from 'react'
 import { useLoadAsync } from 'shared/api'
 
 import render from '../../testing/render'
-import Licenses from '../Licenses'
+import OpenSource from '../OpenSource'
 
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
@@ -26,13 +26,20 @@ const mockUseLoadAsync = (data: unknown) =>
     setData: jest.fn(),
   } as never)
 
-describe('Licenses', () => {
+describe('OpenSource', () => {
   beforeEach(jest.clearAllMocks)
 
   it('should render the page title', () => {
     mockUseLoadAsync([])
-    const { getByText } = render(<Licenses />)
-    expect(getByText('about:licenses.title')).toBeTruthy()
+    const { getByText } = render(<OpenSource />)
+    expect(getByText('about:openSources.title')).toBeTruthy()
+  })
+
+  it('should render github and sbom reference section', () => {
+    mockUseLoadAsync([])
+    const { getByText } = render(<OpenSource />)
+    expect(getByText('about:openSources.sourceCode Integreat')).toBeTruthy()
+    expect(getByText('about:openSources.sbom')).toBeTruthy()
   })
 
   it('should render license items', () => {
@@ -46,7 +53,7 @@ describe('Licenses', () => {
       },
       { name: 'lodash', version: '4.17.21', license: 'MIT', repository: undefined, author: undefined },
     ])
-    const { getByText } = render(<Licenses />)
+    const { getByText } = render(<OpenSource />)
     expect(getByText('react')).toBeTruthy()
     expect(getByText('lodash')).toBeTruthy()
   })
@@ -61,14 +68,14 @@ describe('Licenses', () => {
         author: 'Meta',
       },
     ])
-    const { getAllByRole } = render(<Licenses />)
+    const { getAllByRole } = render(<OpenSource />)
     fireEvent.press(getAllByRole('link')[0]!)
     expect(mockOpenExternalUrl).toHaveBeenCalledWith('https://github.com/facebook/react')
   })
 
   it('should not open url when repository is not provided', () => {
     mockUseLoadAsync([{ name: 'some-lib', version: '1.0.0', license: 'MIT', repository: undefined, author: undefined }])
-    const { getAllByRole } = render(<Licenses />)
+    const { getAllByRole } = render(<OpenSource />)
     fireEvent.press(getAllByRole('link')[0]!)
     expect(mockOpenExternalUrl).not.toHaveBeenCalled()
   })
