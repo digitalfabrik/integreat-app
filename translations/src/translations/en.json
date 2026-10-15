@@ -4,10 +4,15 @@
     "imprint": "Imprint",
     "accessibility": "Accessibility",
     "aboutUs": "About us",
-    "licenses": {
-      "title": "Open source licenses",
-      "version": "Version: {{version}}",
-      "license": "License: {{license}}"
+    "openSources": {
+      "title": "Open source",
+      "licenses": {
+        "title": "Open source licenses",
+        "version": "Version: {{version}}",
+        "license": "License: {{license}}"
+      },
+      "sourceCode": "{{appName}} is open source software. The complete source code of the app is publicly available on <Link>GitHub</Link> under the MIT license.",
+      "sbom": "A complete list of all third-party components used can be found in the <Link>Component inventory (SBoM)</Link>."
     }
   },
   "categories": {

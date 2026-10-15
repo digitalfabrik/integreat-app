@@ -6,7 +6,7 @@ import { openSettings } from 'react-native-permissions'
 import {
   EXTERNAL_SOURCES_ROUTE,
   IMPRINT_ROUTE,
-  LICENSES_ROUTE,
+  OPEN_SOURCE_ROUTE,
   MAIN_IMPRINT_ROUTE,
   SettingsRouteType,
   ThemeType,
@@ -153,19 +153,11 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t($ => $.about.licenses.title),
-    onPress: () => navigation.navigate(LICENSES_ROUTE),
+    title: t($ => $.about.openSources.title),
+    onPress: () => navigation.navigate(OPEN_SOURCE_ROUTE),
   },
   {
-    role: 'link',
-    title: 'SBoM',
-    onPress: async () => {
-      const linkToSBoM = `https://github.com/digitalfabrik/integreat-app/releases/tag/${NativeConstants.appVersion}`
-      await openExternalUrl(linkToSBoM, { showSnackbar, t })
-    },
-  },
-  {
-    title: t($ => $.about.licenses.version, { version: NativeConstants.appVersion ?? '1.0.0' }),
+    title: t($ => $.about.openSources.licenses.version, { version: NativeConstants.appVersion ?? '1.0.0' }),
     onPress: () => {
       volatileValues.versionTaps += 1
 

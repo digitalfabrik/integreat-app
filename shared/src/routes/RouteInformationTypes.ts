@@ -6,11 +6,11 @@ import {
   ImprintRouteType,
   EventsRouteType,
   RegionsRouteType,
-  LicensesRouteType,
   MainImprintRouteType,
   NewsRouteType,
   PlacesRouteType,
   SearchRouteType,
+  OpenSourceRouteType,
 } from './index.ts'
 
 type ParamsType = {
@@ -26,8 +26,8 @@ export type RegionsRouteInformationType = {
   languageCode: string
 }
 
-export type LicensesInformationType = {
-  route: LicensesRouteType
+export type OpenSourceInformationType = {
+  route: OpenSourceRouteType
 }
 
 export type MainImprintRouteInformationType = {
@@ -88,7 +88,7 @@ export type NonNullableRouteInformationType =
   | SimpleRegionContentFeatureType
   | EventsRouteInformationType
   | PlacesRouteInformationType
-  | LicensesInformationType
+  | OpenSourceInformationType
   | SearchRouteInformationType
   | ExternalSourcesInformationType
 
