@@ -146,7 +146,7 @@ const SearchPage = ({ region, regionCode, languageCode }: RegionRouteProps): Rea
         languageChangePaths={languageChangePaths}
         regionModel={region}
       />
-      <Stack sx={{ paddingTop: 4, gap: 2, paddingLeft: 0 }}>
+      <Stack sx={{ paddingTop: 4, gap: 2 }}>
         <SearchInput
           id='search-content'
           ariaLabel={t($ => $.search.searchContent)}

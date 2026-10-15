@@ -120,22 +120,28 @@ const SearchFeedback = ({
           </BulletItem>
         )}
       </BulletItemWrapper>
-      {submitted && !dismissed && (
+      {sendingStatus === 'successful' && !dismissed && (
         <FeedbackStatusAlert
-          severity={sendingStatus === 'successful' ? 'success' : 'error'}
-          title={t($ => (sendingStatus === 'successful' ? $.feedback.thanks.title : $.error.title))}
+          severity='success'
+          title={t($ => $.feedback.thanks.title)}
           description={description}
-          onClose={sendingStatus === 'successful' ? () => setDismissed(true) : () => setSendingStatus('idle')}
+          onClose={() => setDismissed(true)}
           actions={
-            sendingStatus === 'successful' ? (
+            <>
               <Text variant='body2' style={{ color: theme.colors.onSuccess }}>
-                {t($ => $.feedback.thanks.addDetails)}{' '}
-                <Link onPress={navigateToFeedback} style={{ color: theme.colors.primaryDark }}>
-                  {t($ => $.feedback.give)}
-                </Link>
+                {t($ => $.feedback.thanks.addDetails)}
               </Text>
-            ) : undefined
+              <Link onPress={navigateToFeedback}>{t($ => $.feedback.give)}</Link>
+            </>
           }
+        />
+      )}
+      {sendingStatus === 'failed' && !dismissed && (
+        <FeedbackStatusAlert
+          severity='error'
+          title={t($ => $.error.title)}
+          description={description}
+          onClose={() => setSendingStatus('idle')}
         />
       )}
       {!submitted && (
