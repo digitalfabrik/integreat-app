@@ -5,7 +5,7 @@ import {
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
-  LICENSES_ROUTE,
+  OPEN_SOURCE_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NEWS_ROUTE,
   NOT_FOUND_ROUTE,
@@ -23,7 +23,7 @@ export const RoutePatterns = {
   [SUGGEST_TO_REGION_ROUTE]: `/${SUGGEST_TO_REGION_ROUTE}/${languageCodePattern}`,
   [MAIN_IMPRINT_ROUTE]: `/${MAIN_IMPRINT_ROUTE}/${languageCodePattern}`,
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}/${languageCodePattern}`,
-  [LICENSES_ROUTE]: `/${LICENSES_ROUTE}/${languageCodePattern}`,
+  [OPEN_SOURCE_ROUTE]: `/${OPEN_SOURCE_ROUTE}/${languageCodePattern}`,
   [EXTERNAL_SOURCES_ROUTE]: `/${EXTERNAL_SOURCES_ROUTE}/${languageCodePattern}`,
 
   // Region content routes, relative to /:regionCode/:languageCode

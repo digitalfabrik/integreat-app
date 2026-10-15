@@ -14,6 +14,7 @@ const Caption = ({ title, language, style }: CaptionProps): ReactElement => (
     variant='h4'
     style={[{ paddingVertical: 20, textAlign: 'center' }, style]}
     android_hyphenationFrequency='full'
+    accessibilityRole='header'
     accessibilityLanguage={language}>
     {title}
   </Text>

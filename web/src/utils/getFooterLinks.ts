@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next'
 
-import { IMPRINT_ROUTE, LICENSES_ROUTE, MAIN_IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
+import { IMPRINT_ROUTE, OPEN_SOURCE_ROUTE, MAIN_IMPRINT_ROUTE, pathnameFromRouteInformation } from 'shared'
 
 import { FooterLinkItemProps } from '../components/FooterListItem'
 import buildConfig from '../constants/buildConfig'
@@ -16,7 +16,6 @@ const getFooterLinks = ({ languageCode, regionCode, t }: GetFooterLinksProps): F
   const aboutUrl = aboutUrls[languageCode] || aboutUrls.default
   const privacyUrl = privacyUrls[languageCode] || privacyUrls.default
   const accessibilityUrl = accessibilityUrls[languageCode] ?? accessibilityUrls.default
-  const linkToSbom = `https://github.com/digitalfabrik/integreat-app/releases/tag/${__VERSION_NAME__}`
 
   const imprintPath = regionCode
     ? pathnameFromRouteInformation({
@@ -26,14 +25,13 @@ const getFooterLinks = ({ languageCode, regionCode, t }: GetFooterLinksProps): F
       })
     : `/${MAIN_IMPRINT_ROUTE}/${languageCode}`
 
-  const licensesPath = `/${LICENSES_ROUTE}/${languageCode}`
+  const licensesPath = `/${OPEN_SOURCE_ROUTE}/${languageCode}`
 
   return [
     { to: imprintPath, text: t($ => $.about.imprint) },
     { to: aboutUrl, text: t($ => $.about.aboutUs) },
     { to: privacyUrl, text: t($ => $.common.privacy.title) },
-    { to: licensesPath, text: t($ => $.about.licenses.title) },
-    { to: linkToSbom, text: 'SBoM' },
+    { to: licensesPath, text: t($ => $.about.openSources.title) },
     { to: accessibilityUrl, text: t($ => $.about.accessibility) },
   ]
 }
