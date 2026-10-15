@@ -1,10 +1,11 @@
 import { DateTime } from 'luxon'
 import React from 'react'
 
-import { getExcerpt } from 'shared'
+import { getExcerpt, MAX_DAYS_NEW } from 'shared'
 import { AMAL_NEWS_SOURCE, LOCAL_NEWS_SOURCE, NewsModel, NewsSource, TU_NEWS_SOURCE } from 'shared/api'
 
 import { EXCERPT_MAX_CHARS } from '../../constants'
+import { NEWS_VISITED_IDS_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import NewsListItem from '../NewsListItem'
 
@@ -67,5 +68,44 @@ describe('NewsListItem', () => {
       <NewsListItem news={buildNews(source)} languageCode='de' regionCode='augsburg' />,
     )
     expect(getByText(label)).toBeTruthy()
+  })
+
+  describe('new chip', () => {
+    const createNews = (publishedDaysAgo: number) =>
+      Object.assign(buildNews(LOCAL_NEWS_SOURCE), { _publishedAt: DateTime.now().minus({ days: publishedDaysAgo }) })
+
+    beforeEach(() => {
+      localStorage.clear()
+    })
+
+    it('should show chip for new news which was not visited yet', () => {
+      const { getByText } = renderWithRouterAndTheme(
+        <NewsListItem news={createNews(MAX_DAYS_NEW - 1)} languageCode='de' regionCode='augsburg' />,
+      )
+
+      expect(getByText('common:state.new')).toBeTruthy()
+    })
+
+    it('should not show chip for new news which was already visited', () => {
+      const newNews = createNews(MAX_DAYS_NEW - 1)
+      localStorage.setItem(
+        NEWS_VISITED_IDS_STORAGE_KEY,
+        JSON.stringify({ augsburg: { [newNews.id]: DateTime.now().toISODate() } }),
+      )
+
+      const { queryByText } = renderWithRouterAndTheme(
+        <NewsListItem news={newNews} languageCode='de' regionCode='augsburg' />,
+      )
+
+      expect(queryByText('common:state.new')).toBeFalsy()
+    })
+
+    it('should not show chip for old news', () => {
+      const { queryByText } = renderWithRouterAndTheme(
+        <NewsListItem news={createNews(MAX_DAYS_NEW + 1)} languageCode='de' regionCode='augsburg' />,
+      )
+
+      expect(queryByText('common:state.new')).toBeFalsy()
+    })
   })
 })

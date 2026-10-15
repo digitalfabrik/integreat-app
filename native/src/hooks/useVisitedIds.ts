@@ -4,7 +4,7 @@ import { addVisitedId as addVisitedIdToVisitedIds, getVisitedIds } from 'shared'
 
 import { AppContext } from '../contexts/AppContext'
 
-type VisitedIdsSettingsKey = 'visitedEventIds'
+type VisitedIdsSettingsKey = 'visitedEventIds' | 'visitedNewsIds'
 
 type UseVisitedIdsProps = {
   key: VisitedIdsSettingsKey

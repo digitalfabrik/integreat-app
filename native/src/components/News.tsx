@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, ScrollView, View } from 'react-native'
 import styled from 'styled-components/native'
@@ -7,14 +7,16 @@ import { NEWS_ROUTE, NEWS_SOURCE_FILTERS, NewsSourceFilter as NewsSourceFilterTy
 import { AMAL_NEWS_SOURCE, ErrorCodes, getNewsSourceLabel, LOCAL_NEWS_SOURCE, NewsModel, RegionModel } from 'shared/api'
 
 import { AmalNewsLogo, TuNewsLogo } from '../assets'
-import { contentAlignmentRTLText } from '../constants/contentDirection'
+import { contentAlignment, contentAlignmentRTLText } from '../constants/contentDirection'
 import useNavigate from '../hooks/useNavigate'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import useTtsPlayer from '../hooks/useTtsPlayer'
+import useVisitedIds from '../hooks/useVisitedIds'
 import useOpenExternalUrl from '../utils/openExternalUrl'
 import Caption from './Caption'
 import Failure from './Failure'
 import List from './List'
+import NewChip from './NewChip'
 import NewsListItem from './NewsListItem'
 import Page from './Page'
 import TimeStamp from './TimeStamp'
@@ -53,13 +55,22 @@ const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSource
   const { t } = useTranslation()
   const openExternalUrl = useOpenExternalUrl()
   useTtsPlayer(selectedNewsItem)
+  const [visitedNewsIds, addVisitedNewsId] = useVisitedIds({ key: 'visitedNewsIds', regionCode: region.code })
+  const [visited] = useState(!!id && visitedNewsIds.includes(id))
 
   useSetRouteTitle(selectedNewsItem?.title ?? t($ => $.news.title))
+
+  useEffect(() => {
+    if (id) {
+      addVisitedNewsId(id)
+    }
+  }, [id, addVisitedNewsId])
 
   const rendersNewsListItem = ({ item }: { item: NewsModel }) => (
     <NewsListItem
       key={item.id}
       newsItem={item}
+      regionCode={region.code}
       navigateToNews={() => navigateTo({ route: NEWS_ROUTE, regionCode: region.code, languageCode, id: item.id })}
     />
   )
@@ -69,6 +80,11 @@ const News = ({ news, id, languageCode, region, refresh, sourceFilter, setSource
       <ScrollView>
         <Page
           title={selectedNewsItem.title}
+          beforeTitle={
+            selectedNewsItem.isNew && !visited ? (
+              <NewChip style={{ alignSelf: contentAlignment(languageCode) === 'right' ? 'flex-start' : 'flex-end' }} />
+            ) : undefined
+          }
           content={
             selectedNewsItem.source === LOCAL_NEWS_SOURCE
               ? replaceLinks(selectedNewsItem.content)
