@@ -57,6 +57,19 @@ const Search = ({
     userLanguageCode: languageCode,
   })
   const searchResults = data.slice(0, MAX_SEARCH_RESULTS)
+  const hasResults = searchResults.length > 0
+
+  const searchFeedback = (
+    <FeedbackContainer
+      routeType={SEARCH_ROUTE}
+      language={languageCode}
+      regionCode={regionCode}
+      rating={hasResults ? undefined : RATING_NEGATIVE}
+      query={debouncedQuery}
+      hasResults={hasResults}
+      isChatEnabled={isChatEnabled}
+    />
+  )
 
   useCaptureError(error)
   useAnnounceSearchResultsIOS(searchResults)
@@ -89,17 +102,8 @@ const Search = ({
               renderItem={renderItem}
               style={{ flex: 1 }}
               keyboardShouldPersistTaps='handled'
-              footer={
-                <FeedbackContainer
-                  routeType={SEARCH_ROUTE}
-                  language={languageCode}
-                  regionCode={regionCode}
-                  rating={searchResults.length === 0 ? RATING_NEGATIVE : undefined}
-                  query={debouncedQuery}
-                  hasResults={searchResults.length > 0}
-                  isChatEnabled={isChatEnabled}
-                />
-              }
+              footer={hasResults ? searchFeedback : undefined}
+              noItemsMessage={hasResults ? undefined : searchFeedback}
             />
           </>
         )}

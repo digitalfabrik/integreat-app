@@ -3,13 +3,9 @@ import React from 'react'
 
 import { CATEGORIES_ROUTE, RATING_NEGATIVE, RATING_POSITIVE, SEARCH_ROUTE } from 'shared'
 
-import useNavigate from '../../hooks/useNavigate'
 import render from '../../testing/render'
 import { FeedbackContainer } from '../FeedbackContainer'
 
-import mocked = jest.mocked
-
-jest.mock('../../hooks/useNavigate')
 const mockRequest = jest.fn()
 jest.mock('styled-components')
 jest.mock('shared/api', () => ({
@@ -20,13 +16,13 @@ jest.mock('shared/api', () => ({
 }))
 
 describe('FeedbackContainer', () => {
-  const mockNavigate = jest.fn()
-
   beforeEach(() => {
     jest.clearAllMocks()
-    mocked(useNavigate).mockReturnValue({
-      navigation: { navigate: mockNavigate },
-    } as unknown as ReturnType<typeof useNavigate>)
+    const mockNavigate = jest.fn()
+    jest.mock('react-router', () => ({
+      ...jest.requireActual('react-router'),
+      useNavigate: () => mockNavigate,
+    }))
   })
 
   const region = 'augsburg'

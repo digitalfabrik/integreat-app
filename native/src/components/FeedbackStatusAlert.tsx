@@ -8,7 +8,7 @@ import Text from '../components/base/Text'
 const Alert = styled.View<{ $successful: boolean }>`
   justify-content: center;
   align-items: center;
-  background-color: ${props => (props.$successful ? props.theme.colors.onSuccessContainer : props.theme.colors.onErrorContainer)};
+  background-color: ${props => (props.$successful ? props.theme.colors.successContainer : props.theme.colors.errorContainer)};
   border-radius: 8px;
   padding: 16px;
 `
@@ -32,7 +32,7 @@ const TextWrapper = styled.View`
 `
 
 const StyledText = styled(Text)<{ $successful: boolean }>`
-  color: ${props => (props.$successful ? props.theme.colors.onSuccess : props.theme.colors.onError)};
+  color: ${props => (props.$successful ? props.theme.colors.onSuccessContainer : props.theme.colors.onErrorContainer)};
 `
 
 type FeedbackStatusAlertProps = {
@@ -58,7 +58,7 @@ const FeedbackStatusAlert = ({
     <Alert $successful={successful} accessible role='alert' accessibilityLiveRegion='assertive'>
       <CloseButton
         icon='close'
-        iconColor={theme.colors.onSuccess}
+        iconColor={successful ? theme.colors.onSuccessContainer : theme.colors.onErrorContainer}
         onPress={onClose}
         accessibilityLabel={t($ => $.common.actions.close)}
       />
@@ -66,7 +66,7 @@ const FeedbackStatusAlert = ({
         <Icon
           source={successful ? 'check-circle' : 'alert-circle'}
           size={32}
-          color={successful ? theme.colors.successDark : theme.colors.errorDark}
+          color={successful ? theme.colors.success : theme.colors.error}
         />
         <TextWrapper>
           <StyledText $successful={successful} variant='subtitle1'>

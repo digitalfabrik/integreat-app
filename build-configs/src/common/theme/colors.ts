@@ -42,7 +42,7 @@ export const commonLightColors: CommonColorPalette = {
     active: '#242D3B',
   },
   error: {
-    light: '#fdeded',
+    light: '#FDEDED',
     main: '#DF1D1D',
     dark: '#C40002',
     contrastText: '#1D1B20',
@@ -99,7 +99,7 @@ export const commonDarkColors: CommonColorPalette = {
     active: '#E6E0E9',
   },
   error: {
-    light: '#fdeded',
+    light: '#FDEDED',
     main: '#F89894',
     dark: '#F16E6A',
     contrastText: '#1D1B20',
