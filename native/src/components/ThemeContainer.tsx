@@ -21,6 +21,7 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
     colors: {
       primary: palette.primary.main,
       primaryContainer: palette.primary.main,
+      primaryDark: palette.primary.dark,
       secondary: palette.secondary.main,
       secondaryContainer: palette.secondary.light,
       tertiary: palette.tertiary.main,

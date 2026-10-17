@@ -53,21 +53,18 @@ const FeedbackStatusAlert = ({
   const { t } = useTranslation()
   const theme = useTheme()
   const successful = severity === 'success'
+  const foregroundColor = successful ? theme.colors.onSuccessContainer : theme.colors.onErrorContainer
 
   return (
     <Alert $successful={successful} accessible role='alert' accessibilityLiveRegion='assertive'>
       <CloseButton
         icon='close'
-        iconColor={successful ? theme.colors.onSuccessContainer : theme.colors.onErrorContainer}
+        iconColor={foregroundColor}
         onPress={onClose}
         accessibilityLabel={t($ => $.common.actions.close)}
       />
       <Content>
-        <Icon
-          source={successful ? 'check-circle' : 'alert-circle'}
-          size={32}
-          color={successful ? theme.colors.success : theme.colors.error}
-        />
+        <Icon source={successful ? 'check-circle' : 'alert-circle'} size={32} color={foregroundColor} />
         <TextWrapper>
           <StyledText $successful={successful} variant='subtitle1'>
             {title}
