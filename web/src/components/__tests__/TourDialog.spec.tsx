@@ -52,12 +52,12 @@ describe('TourDialog', () => {
     const { queryByText } = renderDialog()
     const backdrop = document.querySelector('.MuiBackdrop-root')
 
-    if (!backdrop) {
-      throw new Error('Dialog backdrop not found')
-    }
+    expect(backdrop).not.toBeNull()
 
-    fireEvent.mouseDown(backdrop)
-    fireEvent.click(backdrop)
+    if (backdrop) {
+      fireEvent.mouseDown(backdrop)
+      fireEvent.click(backdrop)
+    }
 
     expect(queryByText('intro:welcome.title IntegreatTestCms')).not.toBeNull()
     expect(localStorage.getItem(TOUR_VISIBLE_STORAGE_KEY)).toBe('true')
@@ -76,12 +76,12 @@ describe('TourDialog', () => {
     const { queryByText } = renderDialog({ finished: true })
     const backdrop = document.querySelector('.MuiBackdrop-root')
 
-    if (!backdrop) {
-      throw new Error('Dialog backdrop not found')
-    }
+    expect(backdrop).not.toBeNull()
 
-    fireEvent.mouseDown(backdrop)
-    fireEvent.click(backdrop)
+    if (backdrop) {
+      fireEvent.mouseDown(backdrop)
+      fireEvent.click(backdrop)
+    }
 
     expect(queryByText('tour:finish.title')).not.toBeNull()
   })
