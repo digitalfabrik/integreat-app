@@ -47,7 +47,7 @@ describe('TourPopover', () => {
     return renderWithTheme(<InteractiveTour />)
   }
 
-  it('QA-4399-01: should focus an accessible tour dialog on opening', () => {
+  it('should focus an accessible tour dialog on opening', () => {
     const { getByRole } = renderInteractiveTour()
 
     const dialog = getByRole('dialog', {
@@ -58,7 +58,7 @@ describe('TourPopover', () => {
     expect(dialog).toHaveFocus()
   })
 
-  it('QA-4399-02: should focus the active tour step after navigation', () => {
+  it('should focus the active tour step after navigation', () => {
     const { getByRole, getByText } = renderInteractiveTour()
 
     const nextButton = getByRole('button', {
@@ -79,7 +79,7 @@ describe('TourPopover', () => {
     expect(dialog).toHaveFocus()
   })
 
-  it('QA-4399-05: preserves button focus when the parent rerenders without changing steps', () => {
+  it('preserves button focus when the parent rerenders without changing steps', () => {
     let rerenderParent: () => void = () => {
       throw new Error('Parent not mounted')
     }
@@ -125,7 +125,7 @@ describe('TourPopover', () => {
     expect(nextButton).toHaveFocus()
   })
 
-  it('QA-4399-06: synchronizes focus and announcements across tour steps', () => {
+  it('synchronizes focus and announcements across tour steps', () => {
     const IntegratedTour = () => {
       const [currentStep, setCurrentStep] = useState(0)
 
@@ -220,7 +220,7 @@ describe('TourPopover', () => {
     expect(setIsOpen).not.toHaveBeenCalled()
   })
 
-  it('QA-4399-07: restores focus after closing a tour step', async () => {
+  it('restores focus after closing a tour step', async () => {
     const ClosingTour = () => {
       const [isOpen, setIsOpen] = useState(true)
 

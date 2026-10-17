@@ -18,7 +18,7 @@ describe('TourStepContent accessibility', () => {
     )
   }
 
-  it('QA-4399-03: announces the initial step title and description', () => {
+  it('announces the initial step title and description', () => {
     const { getByRole } = renderWithTheme(<TourStepHarness />)
 
     const announcement = getByRole('status')
@@ -27,7 +27,7 @@ describe('TourStepContent accessibility', () => {
     expect(announcement).toHaveTextContent('tour:welcome')
   })
 
-  it('QA-4399-04: updates the announcement when navigating forward and backward', () => {
+  it('updates the announcement when navigating forward and backward', () => {
     const { getByRole } = renderWithTheme(<TourStepHarness />)
 
     expect(getByRole('status')).toHaveTextContent('First step')
@@ -41,7 +41,7 @@ describe('TourStepContent accessibility', () => {
     expect(getByRole('status')).toHaveTextContent('First step')
   })
 
-  it('QA-4399-09: announces dynamic navigation items without HTML markup', () => {
+  it('announces dynamic navigation items without HTML markup', () => {
     const { getByRole } = renderWithTheme(
       <TourStepContent
         title='Navigation'
