@@ -10,6 +10,7 @@ type MD3Theme = {
   colors: {
     primary: string
     primaryContainer: string
+    primaryDark: string
     secondary: string
     secondaryContainer: string
     tertiary: string

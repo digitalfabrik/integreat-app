@@ -1,6 +1,6 @@
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutlined'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
-import Alert from '@mui/material/Alert'
+import Alert, { alertClasses } from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -51,7 +51,12 @@ const StyledButton = styled(Button)`
 
 const StyledAlert = styled(Alert)`
   max-width: 512px;
-  display: flex;
+  background-color: ${props => props.theme.palette[props.severity ?? 'success'].light};
+  color: ${props => props.theme.palette[props.severity ?? 'success'].contrastText};
+
+  & .${alertClasses.icon} {
+    color: ${props => props.theme.palette[props.severity ?? 'success'].contrastText};
+  }
 `
 
 type SearchFeedbackProps = {
@@ -67,6 +72,7 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
   const [queryParams] = useSearchParams()
   const { searchText } = parseQueryParams(queryParams)
   const [dismissed, setDismissed] = useState(false)
+  const theme = useTheme()
 
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const submitted = sendingStatus === 'successful' || sendingStatus === 'failed'
@@ -140,7 +146,7 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
           <Typography component='p' dir={contentDirection}>
             {t($ => $.feedback.thanks.addDetails)}
           </Typography>
-          <Link variant='body1' to={navigateToFeedback} highlighted>
+          <Link variant='body1' to={navigateToFeedback} highlighted style={{ color: theme.palette.primary.dark }}>
             {t($ => $.feedback.give)}
           </Link>
         </StyledAlert>
