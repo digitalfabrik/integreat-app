@@ -7,12 +7,13 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { PopoverContentProps } from '@reactour/tour'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { TOUR_POPOVER_MAX_WIDTH } from '../constants/tour'
 import useLocalStorage, { TOUR_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
+import restoreTourFocus from '../utils/restoreTourFocus'
 import { TourStepType } from '../utils/tourSteps'
 import { DirectionDependentBackIcon } from './base/Dialog'
 import PopoverPaper from './base/PopoverPaper'
@@ -50,11 +51,20 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
   useLockedBody(true)
 
   const step = (steps as TourStepType[])[currentStep]
+  const hasActiveStep = Boolean(step)
+  const dialogRef = useRef<HTMLDivElement>(null)
   const isFirstStep = currentStep === 0
+
+  useEffect(() => {
+    if (hasActiveStep) {
+      dialogRef.current?.focus()
+    }
+  }, [currentStep, hasActiveStep])
 
   const closeTour = () => {
     setTourVisible(false)
     setIsOpen(false)
+    restoreTourFocus()
   }
 
   if (!step) {
@@ -63,6 +73,10 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
 
   return (
     <StyledPaper
+      ref={dialogRef}
+      role='dialog'
+      tabIndex={-1}
+      aria-label={t($ => $.tour.progress, { current: currentStep + 1, total: steps.length })}
       elevation={0}
       arrowPosition={step.position}
       arrowAlignment={step.arrowAlignment ?? 'left'}
