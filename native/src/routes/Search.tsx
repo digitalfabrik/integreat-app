@@ -32,6 +32,7 @@ export type SearchProps = {
   languageCode: string
   regionCode: string
   initialSearchText: string
+  isChatEnabled: boolean
 }
 
 const Search = ({
@@ -41,6 +42,7 @@ const Search = ({
   languageCode,
   regionCode,
   initialSearchText,
+  isChatEnabled,
 }: SearchProps): ReactElement | null => {
   const [query, setQuery] = useState<string>(initialSearchText)
   const debouncedQuery = useDebounce(query)
@@ -55,6 +57,19 @@ const Search = ({
     userLanguageCode: languageCode,
   })
   const searchResults = data.slice(0, MAX_SEARCH_RESULTS)
+  const hasResults = searchResults.length > 0
+
+  const searchFeedback = (
+    <FeedbackContainer
+      routeType={SEARCH_ROUTE}
+      language={languageCode}
+      regionCode={regionCode}
+      rating={hasResults ? undefined : RATING_NEGATIVE}
+      query={debouncedQuery}
+      hasResults={hasResults}
+      isChatEnabled={isChatEnabled}
+    />
+  )
 
   useCaptureError(error)
   useAnnounceSearchResultsIOS(searchResults)
@@ -87,15 +102,8 @@ const Search = ({
               renderItem={renderItem}
               style={{ flex: 1 }}
               keyboardShouldPersistTaps='handled'
-              noItemsMessage={
-                <FeedbackContainer
-                  routeType={SEARCH_ROUTE}
-                  language={languageCode}
-                  regionCode={regionCode}
-                  rating={searchResults.length === 0 ? RATING_NEGATIVE : undefined}
-                  query={debouncedQuery}
-                />
-              }
+              footer={hasResults ? searchFeedback : undefined}
+              noItemsMessage={hasResults ? undefined : searchFeedback}
             />
           </>
         )}

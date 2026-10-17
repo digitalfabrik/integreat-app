@@ -148,6 +148,7 @@ export type RootRoutesParamsType = {
     routeType: FeedbackType
     language: string
     regionCode: string
+    query?: string
     slug?: string
     rating?: Rating
   }

@@ -10,6 +10,7 @@ type MD3Theme = {
   colors: {
     primary: string
     primaryContainer: string
+    primaryDark: string
     secondary: string
     secondaryContainer: string
     tertiary: string
@@ -39,6 +40,9 @@ type MD3Theme = {
     outline: string
     outlineVariant: string
     success: string
+    successContainer: string
+    onSuccessContainer: string
+    onSuccess: string
     tuNews: {
       main: string
       contrastText: string
