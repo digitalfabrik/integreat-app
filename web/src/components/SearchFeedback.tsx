@@ -1,6 +1,6 @@
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutlined'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
-import Alert, { alertClasses } from '@mui/material/Alert'
+import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -51,12 +51,6 @@ const StyledButton = styled(Button)`
 
 const StyledAlert = styled(Alert)`
   max-width: 512px;
-  background-color: ${props => props.theme.palette[props.severity ?? 'success'].light};
-  color: ${props => props.theme.palette[props.severity ?? 'success'].contrastText};
-
-  & .${alertClasses.icon} {
-    color: ${props => props.theme.palette[props.severity ?? 'success'].contrastText};
-  }
 `
 
 type SearchFeedbackProps = {

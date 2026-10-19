@@ -7,6 +7,7 @@ import { ThemeType } from 'shared'
 import buildConfig from '../constants/buildConfig'
 import { prepareTypography } from '../constants/typography'
 import { useAppContext } from '../hooks/useRegionAppContext'
+import { createAlertColors } from '../utils/colors'
 
 type ThemeContainerProps = {
   children: ReactElement
@@ -51,9 +52,7 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
       outline: palette.primary.main,
       outlineVariant: palette.text.secondary,
       success: palette.success.main,
-      successContainer: palette.success.light,
-      onSuccessContainer: palette.success.contrastText,
-      onSuccess: palette.success.contrastText,
+      alert: createAlertColors(palette),
       tuNews: {
         main: palette.tuNews.main,
         contrastText: palette.tuNews.contrastText,
