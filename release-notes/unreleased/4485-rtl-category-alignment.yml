@@ -1,0 +1,7 @@
+issue_key: 4485
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: Categories are now aligned correctly in rtl languages.
+de: Kategorien werden jetzt in RTL-Sprachen richtig ausgerichtet.

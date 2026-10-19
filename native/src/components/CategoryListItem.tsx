@@ -1,10 +1,11 @@
 import React, { memo, ReactElement, useCallback } from 'react'
+import { StyleSheet } from 'react-native'
 import { Divider, List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { CategoryModel } from 'shared/api'
 
-import { contentAlignmentRTLText, isContentDirectionReversalRequired, isRTLText } from '../constants/contentDirection'
+import { contentAlignment, contentDirection, isContentDirectionReversalRequired } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import ContrastImage from './ContrastImage'
 import SimpleImage from './SimpleImage'
@@ -23,6 +24,17 @@ export const CategoryThumbnail = styled(SimpleImage)<{ language: string }>`
     isContentDirectionReversalRequired(props.language) ? dimensions.categoryListItem.margin : 0}px;
 `
 
+const styles = StyleSheet.create({
+  container: {
+    paddingLeft: 24,
+    paddingRight: 0,
+  },
+  content: {
+    paddingLeft: 0,
+    paddingRight: 16,
+  },
+})
+
 type CategoryListItemProps = {
   category: CategoryModel
   subCategories: CategoryModel[]
@@ -32,6 +44,7 @@ type CategoryListItemProps = {
 
 const CategoryListItem = ({ language, category, subCategories, onItemPress }: CategoryListItemProps): ReactElement => {
   const theme = useTheme()
+  const isReversed = isContentDirectionReversalRequired(language)
   const renderLeft = useCallback(() => {
     if (!category.thumbnail) {
       return null
@@ -43,15 +56,17 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
   return (
     <>
       <PaperList.Item
+        style={isReversed && styles.container}
+        contentStyle={isReversed && styles.content}
         titleNumberOfLines={0}
         borderless
         title={
-          <Text variant='h6' style={{ textAlign: contentAlignmentRTLText(category.title) }}>
+          <Text variant='h6' style={{ textAlign: contentAlignment(language) }}>
             {category.title}
           </Text>
         }
         role='link'
-        containerStyle={{ minHeight: 40 }}
+        containerStyle={{ minHeight: 40, flexDirection: contentDirection(language) }}
         left={renderLeft}
         onPress={() => onItemPress({ path: category.path })}
         accessibilityLanguage={language}
@@ -61,7 +76,7 @@ const CategoryListItem = ({ language, category, subCategories, onItemPress }: Ca
           <Divider />
           <SimpleList
             items={subCategories}
-            style={isRTLText(subCategories[0]?.title ?? category.title) ? { marginRight: 56 } : { marginLeft: 56 }}
+            style={isReversed ? { marginRight: 56 } : { marginLeft: 56 }}
             renderItem={({ item: subCategory }) => (
               <SubCategoryListItem
                 key={subCategory.path}
