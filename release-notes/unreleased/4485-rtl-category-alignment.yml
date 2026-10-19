@@ -3,5 +3,5 @@ show_in_stores: true
 platforms:
   - android
   - ios
-en: Categories are now displayed correctly in languages like Arabic.
-de: Kategorien werden jetzt in Sprachen wie Arabisch richtig angezeigt.
+en: Categories are now aligned correctly in rtl languages.
+de: Kategorien werden jetzt in RTL-Sprachen richtig ausgerichtet.
