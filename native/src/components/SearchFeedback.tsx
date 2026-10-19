@@ -97,9 +97,6 @@ const SearchFeedback = ({
           : $.feedback.search.noResultsInUserAndSourceLanguage,
       )
 
-  const description =
-    sendingStatus === 'successful' ? t($ => $.feedback.thanks.description) : t($ => $.error.unknownError)
-
   return (
     <>
       <Text variant='subtitle1'>{title}</Text>
@@ -124,7 +121,7 @@ const SearchFeedback = ({
         <Alert
           severity='success'
           title={t($ => $.feedback.thanks.title)}
-          description={`${description}\n${t($ => $.feedback.thanks.addDetails)}`}
+          description={`${t($ => $.feedback.thanks.description)}\n${t($ => $.feedback.thanks.addDetails)}`}
           onClose={() => setDismissed(true)}
           actions={
             <Link
@@ -139,7 +136,7 @@ const SearchFeedback = ({
         <Alert
           severity='error'
           title={t($ => $.error.title)}
-          description={description}
+          description={t($ => $.error.unknownError)}
           onClose={() => setSendingStatus('idle')}
         />
       )}
