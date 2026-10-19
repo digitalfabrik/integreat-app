@@ -1,6 +1,6 @@
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutlined'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
-import Alert, { alertClasses } from '@mui/material/Alert'
+import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'

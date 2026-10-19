@@ -124,19 +124,14 @@ const SearchFeedback = ({
         <FeedbackStatusAlert
           severity='success'
           title={t($ => $.feedback.thanks.title)}
-          description={description}
+          description={`${description}\n${t($ => $.feedback.thanks.addDetails)}`}
           onClose={() => setDismissed(true)}
           actions={
-            <>
-              <Text variant='body2' style={{ color: theme.colors.onSuccess }}>
-                {t($ => $.feedback.thanks.addDetails)}
-              </Text>
-              <Link
-                onPress={navigateToFeedback}
-                style={{ paddingVertical: 0, alignSelf: 'auto', color: theme.colors.primaryDark }}>
-                {t($ => $.feedback.give)}
-              </Link>
-            </>
+            <Link
+              onPress={navigateToFeedback}
+              style={{ paddingVertical: 0, alignSelf: 'auto', color: theme.colors.primaryDark }}>
+              {t($ => $.feedback.give)}
+            </Link>
           }
         />
       )}

@@ -4,11 +4,12 @@ import { Icon, IconButton } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import Text from '../components/base/Text'
+import { AlertSeverity } from '../utils/colors'
 
-const Alert = styled.View<{ $successful: boolean }>`
+const Alert = styled.View<{ $backgroundColor: string }>`
   justify-content: center;
   align-items: center;
-  background-color: ${props => (props.$successful ? props.theme.colors.successContainer : props.theme.colors.errorContainer)};
+  background-color: ${props => props.$backgroundColor};
   border-radius: 8px;
   padding: 16px;
 `
@@ -31,12 +32,20 @@ const TextWrapper = styled.View`
   gap: 4px;
 `
 
-const StyledText = styled(Text)<{ $successful: boolean }>`
-  color: ${props => (props.$successful ? props.theme.colors.onSuccessContainer : props.theme.colors.onErrorContainer)};
+const StyledText = styled(Text)<{ $color: string }>`
+  color: ${props => props.$color};
 `
 
+// Same icons as the standard mui alerts
+const icons: Record<AlertSeverity, string> = {
+  success: 'check-circle-outline',
+  info: 'information-outline',
+  warning: 'alert-outline',
+  error: 'alert-circle-outline',
+}
+
 type FeedbackStatusAlertProps = {
-  severity: 'success' | 'error'
+  severity: AlertSeverity
   title: string
   description: string
   onClose: () => void
@@ -52,24 +61,23 @@ const FeedbackStatusAlert = ({
 }: FeedbackStatusAlertProps): ReactElement => {
   const { t } = useTranslation()
   const theme = useTheme()
-  const successful = severity === 'success'
-  const foregroundColor = successful ? theme.colors.onSuccessContainer : theme.colors.onErrorContainer
+  const colors = theme.colors.alert[severity]
 
   return (
-    <Alert $successful={successful} accessible role='alert' accessibilityLiveRegion='assertive'>
+    <Alert $backgroundColor={colors.background} accessible role='alert' accessibilityLiveRegion='assertive'>
       <CloseButton
         icon='close'
-        iconColor={foregroundColor}
+        iconColor={colors.text}
         onPress={onClose}
         accessibilityLabel={t($ => $.common.actions.close)}
       />
       <Content>
-        <Icon source={successful ? 'check-circle' : 'alert-circle'} size={32} color={foregroundColor} />
+        <Icon source={icons[severity]} size={32} color={colors.icon} />
         <TextWrapper>
-          <StyledText $successful={successful} variant='subtitle1'>
+          <StyledText $color={colors.text} variant='subtitle1'>
             {title}
           </StyledText>
-          <StyledText $successful={successful} variant='body2'>
+          <StyledText $color={colors.text} variant='body2'>
             {description}
           </StyledText>
           {actions}
