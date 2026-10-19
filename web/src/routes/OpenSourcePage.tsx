@@ -42,7 +42,7 @@ const OpenSourcePage = ({ languageCode }: OpenSourcePageProps): ReactElement => 
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
       <H1>{t($ => $.about.openSources.title)}</H1>
       <Stack spacing={1}>
-        <Typography variant='body1' component='h2'>
+        <Typography variant='body1' component='p'>
           <Trans
             ns='about'
             i18nKey={$ => $.about.openSources.sourceCode}
@@ -50,7 +50,7 @@ const OpenSourcePage = ({ languageCode }: OpenSourcePageProps): ReactElement => 
             components={{ Link: <Link to={linkToGithub} highlighted /> }}
           />
         </Typography>
-        <Typography variant='body1' component='h2'>
+        <Typography variant='body1' component='p'>
           <Trans
             ns='about'
             i18nKey={$ => $.about.openSources.sbom}
