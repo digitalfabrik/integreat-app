@@ -6,7 +6,7 @@ import styled, { useTheme } from 'styled-components/native'
 import Text from '../components/base/Text'
 import { AlertSeverity } from '../utils/colors'
 
-const Alert = styled.View<{ $backgroundColor: string }>`
+const AlertContainer = styled.View<{ $backgroundColor: string }>`
   justify-content: center;
   align-items: center;
   background-color: ${props => props.$backgroundColor};
@@ -36,7 +36,6 @@ const StyledText = styled(Text)<{ $color: string }>`
   color: ${props => props.$color};
 `
 
-// Same icons as the standard mui alerts
 const icons: Record<AlertSeverity, string> = {
   success: 'check-circle-outline',
   info: 'information-outline',
@@ -44,7 +43,7 @@ const icons: Record<AlertSeverity, string> = {
   error: 'alert-circle-outline',
 }
 
-type FeedbackStatusAlertProps = {
+type AlertProps = {
   severity: AlertSeverity
   title: string
   description: string
@@ -52,19 +51,13 @@ type FeedbackStatusAlertProps = {
   actions?: ReactNode
 }
 
-const FeedbackStatusAlert = ({
-  severity,
-  title,
-  description,
-  onClose,
-  actions,
-}: FeedbackStatusAlertProps): ReactElement => {
+const Alert = ({ severity, title, description, onClose, actions }: AlertProps): ReactElement => {
   const { t } = useTranslation()
   const theme = useTheme()
   const colors = theme.colors.alert[severity]
 
   return (
-    <Alert $backgroundColor={colors.background} accessible role='alert' accessibilityLiveRegion='assertive'>
+    <AlertContainer $backgroundColor={colors.background} accessible role='alert' accessibilityLiveRegion='assertive'>
       <CloseButton
         icon='close'
         iconColor={colors.text}
@@ -83,8 +76,8 @@ const FeedbackStatusAlert = ({
           {actions}
         </TextWrapper>
       </Content>
-    </Alert>
+    </AlertContainer>
   )
 }
 
-export default FeedbackStatusAlert
+export default Alert

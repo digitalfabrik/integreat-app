@@ -14,7 +14,7 @@ import Icon from '../components/base/Icon'
 import Text from '../components/base/Text'
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
-import FeedbackStatusAlert from './FeedbackStatusAlert'
+import Alert from './Alert'
 
 const InformButton = styled(Button)`
   width: 80%;
@@ -121,7 +121,7 @@ const SearchFeedback = ({
         )}
       </BulletItemWrapper>
       {sendingStatus === 'successful' && !dismissed && (
-        <FeedbackStatusAlert
+        <Alert
           severity='success'
           title={t($ => $.feedback.thanks.title)}
           description={`${description}\n${t($ => $.feedback.thanks.addDetails)}`}
@@ -136,7 +136,7 @@ const SearchFeedback = ({
         />
       )}
       {sendingStatus === 'failed' && !dismissed && (
-        <FeedbackStatusAlert
+        <Alert
           severity='error'
           title={t($ => $.error.title)}
           description={description}
