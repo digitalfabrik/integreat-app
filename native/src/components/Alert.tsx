@@ -4,7 +4,6 @@ import { Icon, IconButton } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import Text from '../components/base/Text'
-import { AlertSeverity } from '../utils/colors'
 
 const AlertContainer = styled.View<{ $backgroundColor: string }>`
   justify-content: center;
@@ -36,6 +35,8 @@ const StyledText = styled(Text)<{ $color: string }>`
   color: ${props => props.$color};
 `
 
+type AlertSeverity = 'success' | 'info' | 'warning' | 'error'
+
 const icons: Record<AlertSeverity, string> = {
   success: 'check-circle-outline',
   info: 'information-outline',
@@ -65,7 +66,7 @@ const Alert = ({ severity, title, description, onClose, actions }: AlertProps): 
         accessibilityLabel={t($ => $.common.actions.close)}
       />
       <Content>
-        <Icon source={icons[severity]} size={32} color={colors.icon} />
+        <Icon source={icons[severity]} size={32} color={theme.colors[severity]} />
         <TextWrapper>
           <StyledText $color={colors.text} variant='subtitle1'>
             {title}
