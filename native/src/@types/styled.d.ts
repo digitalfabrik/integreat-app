@@ -1,9 +1,8 @@
 import { MD3Theme as RNPaperTheme } from 'react-native-paper'
 import 'styled-components/native'
 
+import { AlertColors, AlertSeverity } from 'build-configs/ThemeType'
 import { TypographyType } from 'build-configs/TypographyType'
-
-import { AlertColors, AlertSeverity } from '../utils/colors'
 
 // Temporary type definition until react-native-paper is installed
 type MD3Theme = {
@@ -42,6 +41,8 @@ type MD3Theme = {
     outline: string
     outlineVariant: string
     success: string
+    warning: string
+    info: string
     alert: Record<AlertSeverity, AlertColors>
     tuNews: {
       main: string
