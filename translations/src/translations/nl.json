@@ -4,10 +4,12 @@
     "imprint": "Colofon",
     "accessibility": "Toegankelijkheid",
     "aboutUs": "Over ons",
-    "licenses": {
-      "title": "Open-sourcelicenties",
-      "version": "Versie: {{version}}",
-      "license": "Licentie: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Open-sourcelicenties",
+        "version": "Versie: {{version}}",
+        "license": "Licentie: {{license}}"
+      }
     }
   },
   "categories": {

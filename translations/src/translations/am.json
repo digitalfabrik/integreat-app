@@ -4,10 +4,12 @@
     "imprint": "የድረ-ገጽ መረጃ (Impressum)",
     "accessibility": "ተደራሽነት",
     "aboutUs": "ስለ እኛ",
-    "licenses": {
-      "title": "የክፍት ምንጭ (Open Source) ፈቃዶች",
-      "version": "ስሪት፦ {{version}}",
-      "license": "ፈቃድ፦ {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "የክፍት ምንጭ (Open Source) ፈቃዶች",
+        "version": "ስሪት፦ {{version}}",
+        "license": "ፈቃድ፦ {{license}}"
+      }
     }
   },
   "categories": {

@@ -4,10 +4,12 @@
     "imprint": "Impresszum",
     "accessibility": "Akadálymentesítés",
     "aboutUs": "Rólunk",
-    "licenses": {
-      "title": "Nyílt forráskódú licencek",
-      "version": "Verzió: {{version}}",
-      "license": "Licenc: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Nyílt forráskódú licencek",
+        "version": "Verzió: {{version}}",
+        "license": "Licenc: {{license}}"
+      }
     }
   },
   "categories": {

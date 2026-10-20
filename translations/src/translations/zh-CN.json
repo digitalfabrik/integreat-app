@@ -4,10 +4,12 @@
     "imprint": "版权声明与法律信息",
     "accessibility": "无障碍访问",
     "aboutUs": "关于我们",
-    "licenses": {
-      "title": "开源许可证",
-      "version": "版本：{{version}}",
-      "license": "许可证：{{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "开源许可证",
+        "version": "版本：{{version}}",
+        "license": "许可证：{{license}}"
+      }
     }
   },
   "categories": {

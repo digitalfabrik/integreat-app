@@ -4,10 +4,12 @@
     "imprint": "Импресум",
     "accessibility": "Приступачност",
     "aboutUs": "О нама",
-    "licenses": {
-      "title": "Лиценце отвореног кода",
-      "version": "Верзија: {{version}}",
-      "license": "Лиценца: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Лиценце отвореног кода",
+        "version": "Верзија: {{version}}",
+        "license": "Лиценца: {{license}}"
+      }
     }
   },
   "categories": {

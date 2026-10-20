@@ -4,10 +4,12 @@
     "imprint": "اطلاعات حقوقی و تماس",
     "accessibility": "دسترسی‌پذیری",
     "aboutUs": "درباره ما",
-    "licenses": {
-      "title": "مجوزهای متن‌باز",
-      "version": "نسخه: {{version}}",
-      "license": "مجوز: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "مجوزهای متن‌باز",
+        "version": "نسخه: {{version}}",
+        "license": "مجوز: {{license}}"
+      }
     }
   },
   "categories": {

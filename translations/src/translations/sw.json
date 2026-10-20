@@ -4,10 +4,12 @@
     "imprint": "Maelezo ya Kisheria",
     "accessibility": "Ufikivu",
     "aboutUs": "Kuhusu sisi",
-    "licenses": {
-      "title": "Leseni za Programu Huria",
-      "version": "Toleo: {{version}}",
-      "license": "Leseni: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Leseni za Programu Huria",
+        "version": "Toleo: {{version}}",
+        "license": "Leseni: {{license}}"
+      }
     }
   },
   "categories": {

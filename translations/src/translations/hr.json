@@ -4,10 +4,12 @@
     "imprint": "Impresum",
     "accessibility": "Pristupačnost",
     "aboutUs": "O nama",
-    "licenses": {
-      "title": "Licence otvorenog koda",
-      "version": "Verzija: {{version}}",
-      "license": "Licenca: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Licence otvorenog koda",
+        "version": "Verzija: {{version}}",
+        "license": "Licenca: {{license}}"
+      }
     }
   },
   "categories": {

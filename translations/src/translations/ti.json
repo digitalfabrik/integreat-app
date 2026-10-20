@@ -4,10 +4,12 @@
     "imprint": "ሕጋዊ መግለጺ",
     "accessibility": "ተበጻሕነት",
     "aboutUs": "ብዛዕባና",
-    "licenses": {
-      "title": "ናይ ክፉት ምንጪ ፍቓዳት",
-      "version": "ሕታም፦ {{version}}",
-      "license": "ፍቓድ፦ {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "ናይ ክፉት ምንጪ ፍቓዳት",
+        "version": "ሕታም፦ {{version}}",
+        "license": "ፍቓድ፦ {{license}}"
+      }
     }
   },
   "categories": {

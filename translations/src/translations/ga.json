@@ -4,10 +4,12 @@
     "imprint": "Imprint",
     "accessibility": "Inrochtaineacht",
     "aboutUs": "Fúinn",
-    "licenses": {
-      "title": "Ceadúnais foinse oscailte",
-      "version": "Leagan: {{version}}",
-      "license": "Ceadúnas: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Ceadúnais foinse oscailte",
+        "version": "Leagan: {{version}}",
+        "license": "Ceadúnas: {{license}}"
+      }
     }
   },
   "categories": {

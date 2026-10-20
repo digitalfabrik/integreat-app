@@ -4,10 +4,12 @@
     "imprint": "Impresum",
     "accessibility": "Akseso bi baririjengo",
     "aboutUs": "Pal amende",
-    "licenses": {
-      "title": "Open-Source licencurǎ",
-      "version": "Versija: {{version}}",
-      "license": "Licenca: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Open-Source licencurǎ",
+        "version": "Versija: {{version}}",
+        "license": "Licenca: {{license}}"
+      }
     }
   },
   "categories": {

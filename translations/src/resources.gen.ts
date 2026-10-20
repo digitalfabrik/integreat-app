@@ -6,7 +6,7 @@ const resources = {
     "imprint": "Imprint",
     "accessibility": "Accessibility",
     "aboutUs": "About us",
-    "openSources": {
+    "openSource": {
       "title": "Open source",
       "licenses": {
         "title": "Open source licenses",

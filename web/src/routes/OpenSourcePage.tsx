@@ -4,13 +4,13 @@ import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 
-import { parseLicenses } from 'shared'
+import { parseLicenses, repoUrl, sbomUrl } from 'shared'
 import { useLoadAsync } from 'shared/api'
 
 import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
-import OpenSourceListItem from '../components/OpenSourceListItem'
+import LicenseListItem from '../components/LicenseListItem'
 import SkeletonList from '../components/SkeletonList'
 import H1 from '../components/base/H1'
 import Link from '../components/base/Link'
@@ -24,11 +24,9 @@ type OpenSourcePageProps = { languageCode: string }
 const OpenSourcePage = ({ languageCode }: OpenSourcePageProps): ReactElement => {
   const { data: licenses, loading } = useLoadAsync(loadLicenses)
   const { t } = useTranslation()
-  const linkToSbomDownload = `https://github.com/digitalfabrik/integreat-app/releases/tag/${__VERSION_NAME__}/sbom.spdx.json`
-  const linkToGithub = 'https://github.com/digitalfabrik/integreat-app'
 
   const items = (licenses ?? []).map(license => (
-    <OpenSourceListItem
+    <LicenseListItem
       key={license.name}
       name={license.name}
       author={license.author}
@@ -40,26 +38,26 @@ const OpenSourcePage = ({ languageCode }: OpenSourcePageProps): ReactElement => 
 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-      <H1>{t($ => $.about.openSources.title)}</H1>
+      <H1>{t($ => $.about.openSource.title)}</H1>
       <Stack spacing={1}>
         <Typography variant='body1' component='p'>
           <Trans
             ns='about'
-            i18nKey={$ => $.about.openSources.sourceCode}
+            i18nKey={$ => $.about.openSource.sourceCode}
             values={{ appName: buildConfig().appName }}
-            components={{ Link: <Link to={linkToGithub} highlighted /> }}
+            components={{ Link: <Link to={repoUrl} highlighted /> }}
           />
         </Typography>
         <Typography variant='body1' component='p'>
           <Trans
             ns='about'
-            i18nKey={$ => $.about.openSources.sbom}
-            components={{ Link: <Link to={linkToSbomDownload} highlighted /> }}
+            i18nKey={$ => $.about.openSource.sbom}
+            components={{ Link: <Link to={sbomUrl(__VERSION_NAME__)} highlighted /> }}
           />
         </Typography>
-        <Box aria-labelledby='licenses-heading'>
-          <Typography id='licenses-heading' variant='subtitle1' component='h2'>
-            {t($ => $.about.openSources.licenses.title)}
+        <Box>
+          <Typography variant='subtitle1' component='h2'>
+            {t($ => $.about.openSource.licenses.title)}
           </Typography>
           {loading ? <SkeletonList /> : <List items={items} />}
         </Box>

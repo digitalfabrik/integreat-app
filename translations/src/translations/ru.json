@@ -4,10 +4,12 @@
     "imprint": "Выходные данные",
     "accessibility": "Специальные возможности",
     "aboutUs": "О нас",
-    "licenses": {
-      "title": "Лицензии на открытое ПО",
-      "version": "Версия: {{version}}",
-      "license": "Лицензия: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Лицензии на открытое ПО",
+        "version": "Версия: {{version}}",
+        "license": "Лицензия: {{license}}"
+      }
     }
   },
   "categories": {

@@ -4,10 +4,12 @@
     "imprint": "Xogta sharciga ah",
     "accessibility": "Helitaanka dadka naafada ah",
     "aboutUs": "Nagu saabsan",
-    "licenses": {
-      "title": "Shatiyada il-furan (Open Source)",
-      "version": "Nuqulka: {{version}}",
-      "license": "Shatiga: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Shatiyada il-furan (Open Source)",
+        "version": "Nuqulka: {{version}}",
+        "license": "Shatiga: {{license}}"
+      }
     }
   },
   "categories": {

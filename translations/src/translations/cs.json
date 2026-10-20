@@ -4,10 +4,12 @@
     "imprint": "Tiráž",
     "accessibility": "Přístupnost",
     "aboutUs": "O nás",
-    "licenses": {
-      "title": "Open source licence",
-      "version": "Verze: {{version}}",
-      "license": "Licence: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Open source licence",
+        "version": "Verze: {{version}}",
+        "license": "Licence: {{license}}"
+      }
     }
   },
   "categories": {

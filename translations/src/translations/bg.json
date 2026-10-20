@@ -4,10 +4,12 @@
     "imprint": "Правна информация",
     "accessibility": "Достъпност",
     "aboutUs": "За нас",
-    "licenses": {
-      "title": "Лицензи с отворен код",
-      "version": "Версия: {{version}}",
-      "license": "Лиценз: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Лицензи с отворен код",
+        "version": "Версия: {{version}}",
+        "license": "Лиценз: {{license}}"
+      }
     }
   },
   "categories": {

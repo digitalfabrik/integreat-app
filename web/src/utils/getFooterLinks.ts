@@ -25,13 +25,13 @@ const getFooterLinks = ({ languageCode, regionCode, t }: GetFooterLinksProps): F
       })
     : `/${MAIN_IMPRINT_ROUTE}/${languageCode}`
 
-  const licensesPath = `/${OPEN_SOURCE_ROUTE}/${languageCode}`
+  const openSourcePath = `/${OPEN_SOURCE_ROUTE}/${languageCode}`
 
   return [
     { to: imprintPath, text: t($ => $.about.imprint) },
     { to: aboutUrl, text: t($ => $.about.aboutUs) },
     { to: privacyUrl, text: t($ => $.common.privacy.title) },
-    { to: licensesPath, text: t($ => $.about.openSources.title) },
+    { to: openSourcePath, text: t($ => $.about.openSource.title) },
     { to: accessibilityUrl, text: t($ => $.about.accessibility) },
   ]
 }

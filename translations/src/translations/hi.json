@@ -4,10 +4,12 @@
     "imprint": "कानूनी सूचना (इंप्रिंट)",
     "accessibility": "सुलभता (एक्सेसिबिलिटी)",
     "aboutUs": "हमारे बारे में",
-    "licenses": {
-      "title": "ओपन-सोर्स लाइसेंस",
-      "version": "संस्करण: {{version}}",
-      "license": "लाइसेंस: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "ओपन-सोर्स लाइसेंस",
+        "version": "संस्करण: {{version}}",
+        "license": "लाइसेंस: {{license}}"
+      }
     }
   },
   "categories": {

@@ -4,10 +4,12 @@
     "imprint": "Të dhëna ligjore",
     "accessibility": "Aksesueshmëria",
     "aboutUs": "Rreth nesh",
-    "licenses": {
-      "title": "Licencat me burim të hapur",
-      "version": "Versioni: {{version}}",
-      "license": "Licenca: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Licencat me burim të hapur",
+        "version": "Versioni: {{version}}",
+        "license": "Licenca: {{license}}"
+      }
     }
   },
   "categories": {

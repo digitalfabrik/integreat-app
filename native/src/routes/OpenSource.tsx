@@ -5,7 +5,7 @@ import { FlatList, StyleSheet, View } from 'react-native'
 import { TouchableRipple, useTheme } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { License, parseLicenses } from 'shared'
+import { License, parseLicenses, repoUrl, sbomUrl } from 'shared'
 import { useLoadAsync } from 'shared/api'
 
 import Caption from '../components/Caption'
@@ -17,46 +17,36 @@ import buildConfig from '../constants/buildConfig'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
 import useOpenExternalUrl from '../utils/openExternalUrl'
 
-const HeaderView = styled.View`
+const HeaderContainer = styled.View`
   padding: 0 16px;
-  gap: 8px;
+  gap: 16px;
 `
 
-type OpenSourceHeaderProps = {
-  openExternalUrl: (url: string) => void
-  t: TFunction
-}
-
-export const OpenSourceHeader = ({ t, openExternalUrl }: OpenSourceHeaderProps): ReactElement => {
-  const linkToGithub = 'https://github.com/digitalfabrik/integreat-app'
-  const linkToSBoM = `https://github.com/digitalfabrik/integreat-app/releases/tag/${NativeConstants.appVersion}/sbom.spdx.json`
-
-  return (
-    <HeaderView>
-      <Caption title={t($ => $.about.openSources.title)} />
-      <Text variant='body1'>
-        <Trans
-          ns='about'
-          i18nKey={$ => $.about.openSources.sourceCode}
-          values={{ appName: buildConfig().appName }}
-          components={{
-            Link: <Link onPress={() => openExternalUrl(linkToGithub)}>{t($ => $.about.openSources.sourceCode)}</Link>,
-          }}
-        />
-      </Text>
-      <Text variant='body1'>
-        <Trans
-          ns='about'
-          i18nKey={$ => $.about.openSources.sbom}
-          components={{
-            Link: <Link onPress={() => openExternalUrl(linkToSBoM)}>{t($ => $.about.openSources.sbom)}</Link>,
-          }}
-        />
-      </Text>
-      <Text variant='subtitle1'>{t($ => $.about.openSources.licenses.title)}</Text>
-    </HeaderView>
-  )
-}
+export const OpenSourceHeader = ({ t }: { t: TFunction }): ReactElement => (
+  <HeaderContainer>
+    <Caption title={t($ => $.about.openSource.title)} />
+    <Text variant='body2'>
+      <Trans
+        ns='about'
+        i18nKey={$ => $.about.openSource.sourceCode}
+        values={{ appName: buildConfig().appName }}
+        components={{
+          Link: <Link url={repoUrl}>{t($ => $.about.openSource.sourceCode)}</Link>,
+        }}
+      />
+    </Text>
+    <Text variant='body2'>
+      <Trans
+        ns='about'
+        i18nKey={$ => $.about.openSource.sbom}
+        components={{
+          Link: <Link url={sbomUrl(NativeConstants.appVersion)}>{t($ => $.about.openSource.sbom)}</Link>,
+        }}
+      />
+    </Text>
+    <Text variant='subtitle1'>{t($ => $.about.openSource.licenses.title)}</Text>
+  </HeaderContainer>
+)
 
 type OpenSourceItemProps = {
   name: string
@@ -66,7 +56,7 @@ type OpenSourceItemProps = {
   onPress: () => void
 }
 
-const OpenSourceItem = (props: OpenSourceItemProps): ReactElement => {
+const LicenseItem = (props: OpenSourceItemProps): ReactElement => {
   const { name, version, license, author, onPress } = props
   const { t } = useTranslation()
   const theme = useTheme()
@@ -92,11 +82,11 @@ const OpenSourceItem = (props: OpenSourceItemProps): ReactElement => {
         </Text>
         {version && (
           <Text variant='body2' style={styles.description}>
-            {t($ => $.about.openSources.licenses.version, { version })}
+            {t($ => $.about.openSource.licenses.version, { version })}
           </Text>
         )}
         <Text variant='body2' style={styles.description}>
-          {t($ => $.about.openSources.licenses.license, { license })}
+          {t($ => $.about.openSource.licenses.license, { license })}
         </Text>
       </View>
     </TouchableRipple>
@@ -110,23 +100,17 @@ const OpenSource = (): ReactElement => {
   const { t } = useTranslation()
   const openExternalUrl = useOpenExternalUrl()
 
-  useSetRouteTitle(t($ => $.about.openSources.title))
+  useSetRouteTitle(t($ => $.about.openSource.title))
 
   const renderItem = ({ item }: { item: License }) => {
     const { license, name, repository, version, author } = item
     const openLink = () => (repository ? openExternalUrl(repository) : undefined)
-    return (
-      <OpenSourceItem key={name} name={name} author={author} version={version} license={license} onPress={openLink} />
-    )
+    return <LicenseItem key={name} name={name} author={author} version={version} license={license} onPress={openLink} />
   }
 
   return (
     <Layout>
-      <FlatList
-        data={licenses}
-        renderItem={renderItem}
-        ListHeaderComponent={<OpenSourceHeader t={t} openExternalUrl={openExternalUrl} />}
-      />
+      <FlatList data={licenses} renderItem={renderItem} ListHeaderComponent={<OpenSourceHeader t={t} />} />
     </Layout>
   )
 }

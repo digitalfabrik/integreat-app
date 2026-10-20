@@ -153,11 +153,11 @@ const createSettingsSections = ({
     },
   },
   {
-    title: t($ => $.about.openSources.title),
+    title: t($ => $.about.openSource.title),
     onPress: () => navigation.navigate(OPEN_SOURCE_ROUTE),
   },
   {
-    title: t($ => $.about.openSources.licenses.version, { version: NativeConstants.appVersion ?? '1.0.0' }),
+    title: t($ => $.about.openSource.licenses.version, { version: NativeConstants.appVersion ?? '1.0.0' }),
     onPress: () => {
       volatileValues.versionTaps += 1
 

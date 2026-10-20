@@ -32,14 +32,14 @@ describe('OpenSource', () => {
   it('should render the page title', () => {
     mockUseLoadAsync([])
     const { getByText } = render(<OpenSource />)
-    expect(getByText('about:openSources.title')).toBeTruthy()
+    expect(getByText('about:openSource.title')).toBeTruthy()
   })
 
   it('should render github and sbom reference section', () => {
     mockUseLoadAsync([])
     const { getByText } = render(<OpenSource />)
-    expect(getByText('about:openSources.sourceCode Integreat')).toBeTruthy()
-    expect(getByText('about:openSources.sbom')).toBeTruthy()
+    expect(getByText('about:openSource.sourceCode Integreat')).toBeTruthy()
+    expect(getByText('about:openSource.sbom')).toBeTruthy()
   })
 
   it('should render license items', () => {

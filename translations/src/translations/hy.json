@@ -4,10 +4,12 @@
     "imprint": "Տվյալներ կայքի մասին",
     "accessibility": "Մատչելիություն",
     "aboutUs": "Մեր մասին",
-    "licenses": {
-      "title": "Բաց կոդով լիցենզիաներ",
-      "version": "Տարբերակ՝ {{version}}",
-      "license": "Լիցենզիա՝ {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Բաց կոդով լիցենզիաներ",
+        "version": "Տարբերակ՝ {{version}}",
+        "license": "Լիցենզիա՝ {{license}}"
+      }
     }
   },
   "categories": {
