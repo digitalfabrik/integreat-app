@@ -1,4 +1,5 @@
 import RegionModel from '../api/models/RegionModel.ts'
+import { BESCHEID_CHECK_ROUTE } from '../routes/index.ts'
 import { normalizeString } from './normalizeString.ts'
 
 export const MATCH_WHITESPACE_AND_DASHES = /[\s-]+/
@@ -20,12 +21,13 @@ const regionFilter =
       return !regionModel.live
     }
 
-    const validRegion = regionModel.live || developerFriendly
+    // The Bescheid-Check feature is implemented on top of a region which is live for SEO-purposes but should not be visible in the region list
+    const visible = (regionModel.live && regionModel.code !== BESCHEID_CHECK_ROUTE) || developerFriendly
     const aliases = Object.keys(regionModel.aliases ?? {})
     const matchesFilter =
       matchesWordStart(regionModel.name, normalizedFilter) ||
       aliases.some(alias => matchesWordStart(alias, normalizedFilter))
-    return validRegion && matchesFilter
+    return visible && matchesFilter
   }
 
 const safeLocaleCompare = (a: string | null | undefined, b: string | null | undefined): number =>
