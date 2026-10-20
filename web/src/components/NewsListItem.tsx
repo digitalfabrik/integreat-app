@@ -9,7 +9,10 @@ import { getExcerpt, NEWS_ROUTE, parseHTML, pathnameFromRouteInformation } from 
 import { NewsModel } from 'shared/api'
 
 import { EXCERPT_MAX_CHARS } from '../constants'
+import { NEWS_VISITED_IDS_STORAGE_KEY } from '../hooks/useLocalStorage'
+import useVisitedIds from '../hooks/useVisitedIds'
 import LastUpdateInfo from './LastUpdateInfo'
+import NewChip from './NewChip'
 import NewsSourceChip from './NewsSourceChip'
 import Link from './base/Link'
 
@@ -44,6 +47,8 @@ type NewsListItemProps = {
 
 const NewsListItem = ({ news, regionCode, languageCode }: NewsListItemProps): ReactElement => {
   const { contentDirection } = useTheme()
+  const [visitedNewsIds] = useVisitedIds({ key: NEWS_VISITED_IDS_STORAGE_KEY, regionCode })
+  const isNew = news.isNew && !visitedNewsIds.includes(news.id)
 
   const excerpt = getExcerpt(parseHTML(news.content), { maxChars: EXCERPT_MAX_CHARS, replaceLineBreaks: false })
 
@@ -62,7 +67,10 @@ const NewsListItem = ({ news, regionCode, languageCode }: NewsListItemProps): Re
                 dir={contentDirection}
                 sx={{ alignItems: 'center', justifyContent: 'space-between', gap: 2 }}>
                 {news.title}
-                <NewsSourceChip source={news.source} />
+                <Stack component='span' direction='row' sx={{ gap: 1 }}>
+                  {isNew && <NewChip />}
+                  <NewsSourceChip source={news.source} />
+                </Stack>
               </Stack>
             }
             secondary={excerpt}

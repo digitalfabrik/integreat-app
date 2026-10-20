@@ -26,6 +26,7 @@ export type SettingsType = {
   chat: ChatSettings
   chatHighlightPopupDismissed: boolean
   visitedEventIds: VisitedIdsType
+  visitedNewsIds: VisitedIdsType
 }
 
 export const defaultSettings: SettingsType = {
@@ -41,6 +42,7 @@ export const defaultSettings: SettingsType = {
   chat: {},
   chatHighlightPopupDismissed: false,
   visitedEventIds: {},
+  visitedNewsIds: {},
 }
 
 export const settingsStorage = createAsyncStorage('settings')
