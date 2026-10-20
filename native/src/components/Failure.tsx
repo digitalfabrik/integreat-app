@@ -59,7 +59,9 @@ const Failure = ({ code, retry, goTo, goToLabel }: FailureProps): ReactElement =
   return (
     <Container>
       <Icon size={160} source={getErrorIcon(code)} />
-      <Text role='alert'>{getErrorMessage(code, t)}</Text>
+      <Text role='alert' style={{ paddingHorizontal: 24 }}>
+        {getErrorMessage(code, t)}
+      </Text>
       {retry && (
         <Button mode='contained' onPress={retry}>
           {t($ => $.error.tryAgain)}
