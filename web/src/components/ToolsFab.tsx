@@ -18,7 +18,7 @@ import useRegionContentParams from '../hooks/useRegionContentParams'
 import ChatHighlightPopup from './ChatHighlightPopup'
 import LiveAnnouncer from './LiveAnnouncer'
 
-const ChatButtonContainer = styled(Stack)<{ bottom: number }>(({ theme, bottom }) => ({
+const FabContainer = styled(Stack)<{ bottom: number }>(({ theme, bottom }) => ({
   position: 'fixed',
   zIndex: theme.zIndex.fab,
   bottom,
@@ -29,11 +29,11 @@ const ChatButtonContainer = styled(Stack)<{ bottom: number }>(({ theme, bottom }
   gap: 8,
 }))
 
-type ChatButtonProps = {
+type ToolsFabProps = {
   unreadMessageCount: number
 }
 
-const ChatFab = ({ unreadMessageCount }: ChatButtonProps): ReactElement | null => {
+const ToolsFab = ({ unreadMessageCount }: ToolsFabProps): ReactElement | null => {
   const [, setOpen] = useQueryParam(CHAT_QUERY_KEY)
   const { desktop, visibleFooterHeight, bottomNavigationHeight, xsmall } = useScrollDimensions()
   const { route } = useRegionContentParams()
@@ -50,7 +50,7 @@ const ChatFab = ({ unreadMessageCount }: ChatButtonProps): ReactElement | null =
   }
 
   return (
-    <ChatButtonContainer id={CHAT_FAB_ELEMENT_ID} bottom={bottomNavigationHeight ?? visibleFooterHeight}>
+    <FabContainer id={CHAT_FAB_ELEMENT_ID} bottom={bottomNavigationHeight ?? visibleFooterHeight}>
       <LiveAnnouncer message={unreadMessageCount > 0 ? unreadMessages : ''} />
       <Badge
         badgeContent={unreadMessageCount > 0 ? unreadMessageCount : undefined}
@@ -66,8 +66,8 @@ const ChatFab = ({ unreadMessageCount }: ChatButtonProps): ReactElement | null =
           {chatName}
         </Typography>
       )}
-    </ChatButtonContainer>
+    </FabContainer>
   )
 }
 
-export default ChatFab
+export default ToolsFab
