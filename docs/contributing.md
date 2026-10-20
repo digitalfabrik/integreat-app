@@ -77,6 +77,9 @@ Our PRs can be divided into three categories:
 
 Release notes should be short, concise and understandable to our end users and other teams and therefore not require technical knowledge.
 Avoid complicated grammar and words as well as technical or internal terms.
+Write release notes in a declarative, impersonal style that describes what changed.
+Avoid imperative language or directly addressing readers (for example, starting a note with `You ...`).
+For example, prefer "Search results are easier to navigate." over "You can now navigate search results more easily."
 A German translation is only necessary (and used) if [show in stores](#show-in-stores) is set to true.
 
 To add a release note:
