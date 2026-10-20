@@ -6,12 +6,12 @@ import useChat from '../hooks/useChat'
 import useDimensions from '../hooks/useDimensions'
 import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
-import ChatFab from './ChatFab'
 import FeedbackContainer from './FeedbackContainer'
 import Footer from './Footer'
 import { LanguageChangePath } from './LanguageSelection'
 import Layout from './Layout'
 import RegionContentHeader from './RegionContentHeader'
+import ToolsFab from './ToolsFab'
 import TourContainer from './TourContainer'
 
 type ToolsContainerProps = {
@@ -25,7 +25,7 @@ const ToolsContainer = ({ region, languageCode, languageChangePaths }: ToolsCont
 
   return (
     <>
-      <ChatFab unreadMessageCount={chat.unreadMessageCount} />
+      <ToolsFab unreadMessageCount={chat.unreadMessageCount} />
       {region.chatEnabled && (
         <ChatContainer
           region={region}
