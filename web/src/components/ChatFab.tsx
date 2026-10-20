@@ -1,6 +1,7 @@
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import Badge from '@mui/material/Badge'
 import Fab from '@mui/material/Fab'
+import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
@@ -14,18 +15,16 @@ import { useScrollDimensions } from '../hooks/useDimensions'
 import ChatHighlightPopup from './ChatHighlightPopup'
 import LiveAnnouncer from './LiveAnnouncer'
 
-const ChatButtonContainer = styled('div')<{ bottom: number }>`
-  position: fixed;
-  z-index: ${props => props.theme.zIndex.fab};
-  bottom: ${props => props.bottom}px;
-  inset-inline-end: 16px;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: min-content;
-  gap: 8px;
-`
+const ChatButtonContainer = styled(Stack)<{ bottom: number }>(({ theme, bottom }) => ({
+  position: 'fixed',
+  zIndex: theme.zIndex.fab,
+  bottom,
+  insetInlineEnd: 16,
+  marginBottom: 16,
+  alignItems: 'center',
+  width: 'min-content',
+  gap: 8,
+}))
 
 type ChatButtonProps = {
   onClick: () => void
