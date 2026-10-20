@@ -51,9 +51,6 @@ const StyledButton = styled(Button)`
 
 const StyledAlert = styled(Alert)`
   max-width: 512px;
-  display: flex;
-  background-color: ${props => props.theme.palette.success.light};
-  color: ${props => props.theme.palette.success.contrastText};
 `
 
 type SearchFeedbackProps = {
@@ -164,7 +161,11 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
             <Typography variant='body1' component='p'>
               {t($ => $.feedback.search.helpToImprove, { appName: buildConfig().appName })}
             </Typography>
-            <StyledButton onClick={handleSubmit} startIcon={<NotificationsNoneIcon />} variant='outlined'>
+            <StyledButton
+              onClick={handleSubmit}
+              startIcon={<NotificationsNoneIcon />}
+              variant='outlined'
+              disabled={sendingStatus === 'sending'}>
               {t($ => $.feedback.search.informUs)}
             </StyledButton>
           </CardContent>

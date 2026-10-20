@@ -58,7 +58,7 @@ const SearchResults = ({ query, loading, results, isChatEnabled }: SearchProps):
         {t($ => $.search.resultCount, { count: results.length })}
       </Typography>
       <List items={items} noItemsMessage={<span />} />
-      <SearchFeedback noResults={results.length === 0} isChatEnabled={isChatEnabled} />
+      <SearchFeedback key={query} noResults={results.length === 0} isChatEnabled={isChatEnabled} />
     </>
   )
 }

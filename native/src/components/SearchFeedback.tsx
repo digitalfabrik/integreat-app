@@ -147,7 +147,11 @@ const SearchFeedback = ({
             <View style={{ flex: 1, gap: 4 }}>
               <Text variant='subtitle2'>{t($ => $.feedback.search.informationMissing)}</Text>
               <Text variant='body2'>{t($ => $.feedback.search.helpToImprove, { appName: buildConfig().appName })}</Text>
-              <InformButton mode='outlined' icon='bell-outline' onPress={handleSubmit}>
+              <InformButton
+                mode='outlined'
+                icon='bell-outline'
+                onPress={handleSubmit}
+                disabled={sendingStatus === 'sending'}>
                 {t($ => $.feedback.search.informUs)}
               </InformButton>
             </View>

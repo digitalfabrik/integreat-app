@@ -61,6 +61,7 @@ const Search = ({
 
   const searchFeedback = (
     <FeedbackContainer
+      key={debouncedQuery}
       routeType={SEARCH_ROUTE}
       language={languageCode}
       regionCode={regionCode}
