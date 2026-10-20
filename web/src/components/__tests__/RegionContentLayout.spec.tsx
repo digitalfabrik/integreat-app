@@ -32,6 +32,7 @@ describe('RegionContentLayout', () => {
     localNewsEnabled: true,
     externalNewsEnabled: true,
     chatEnabled: true,
+    bescheidCheckEnabled: false,
     sortingName: regionModel.sortingName,
     prefix: null,
     latitude: regionModel.latitude,

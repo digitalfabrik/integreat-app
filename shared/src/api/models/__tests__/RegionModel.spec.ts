@@ -19,6 +19,7 @@ describe('RegionModel', () => {
       aliases: null,
       boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
       chatEnabled: false,
+      bescheidCheckEnabled: false,
       chatPrivacyPolicyUrl: null,
     }),
   ]

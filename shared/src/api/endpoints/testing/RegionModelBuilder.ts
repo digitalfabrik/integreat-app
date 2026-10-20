@@ -25,6 +25,7 @@ const regions = [
     },
     boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
     chatEnabled: false,
+    bescheidCheckEnabled: false,
     chatPrivacyPolicyUrl: null,
   }),
   new RegionModel({
@@ -48,6 +49,7 @@ const regions = [
     },
     boundingBox: [12.002, 48.947, 11.0174493, 49.297834],
     chatEnabled: false,
+    bescheidCheckEnabled: false,
     chatPrivacyPolicyUrl: 'https://example.com/privacy',
   }),
   new RegionModel({
@@ -66,6 +68,7 @@ const regions = [
     aliases: null,
     boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
     chatEnabled: false,
+    bescheidCheckEnabled: false,
     chatPrivacyPolicyUrl: null,
   }),
   new RegionModel({
@@ -84,6 +87,7 @@ const regions = [
     aliases: null,
     boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
     chatEnabled: false,
+    bescheidCheckEnabled: false,
     chatPrivacyPolicyUrl: null,
   }),
   new RegionModel({
@@ -102,6 +106,7 @@ const regions = [
     aliases: null,
     boundingBox: [0, 0, 0, 0],
     chatEnabled: false,
+    bescheidCheckEnabled: false,
     chatPrivacyPolicyUrl: null,
   }),
   new RegionModel({
@@ -120,6 +125,7 @@ const regions = [
     aliases: null,
     boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
     chatEnabled: false,
+    bescheidCheckEnabled: false,
     chatPrivacyPolicyUrl: null,
   }),
 ]
