@@ -192,7 +192,6 @@
       "wantedInformation": "Welche Informationen fehlen?",
       "informationMissing": "Hier fehlen Informationen?",
       "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:",
-      "checkQuery": "Überprüfe deinen Suchbegriff oder ändere die eingestellte Sprache.",
       "helpToImprove": "Hilf uns, {{appName}} zu verbessern.",
       "informUs": "Uns informieren",
       "tryOptions": "Versuche:",

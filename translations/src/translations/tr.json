@@ -187,7 +187,6 @@
       "wantedInformation": "Hangi bilgiler eksik?",
       "informationMissing": "Burada eksik bilgi mi var?",
       "searchTermDescription": "Şu arama terimi için hiçbir sonuç bulunamadı:",
-      "checkQuery": "Arama teriminizi kontrol edin veya seçili dili değiştirin.",
       "noResultsInUserLanguage": "Maalesef seçtiğiniz dilde uygun bir sonuç bulunamadı.",
       "noResultsInUserAndSourceLanguage": "Maalesef seçtiğiniz dilde veya Almanca uygun bir sonuç bulunamadı."
     }

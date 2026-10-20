@@ -187,7 +187,6 @@
       "wantedInformation": "Koje informacije nedostaju?",
       "informationMissing": "Nedostaju li ovdje informacije?",
       "searchTermDescription": "Nije pronađen nijedan rezultat za sljedeći pojam:",
-      "checkQuery": "Provjerite pojam za pretragu ili promijenite odabrani jezik.",
       "noResultsInUserLanguage": "Nažalost, nisu pronađeni odgovarajući rezultati na vašem jeziku.",
       "noResultsInUserAndSourceLanguage": "Nažalost, nisu pronađeni odgovarajući rezultati na vašem jeziku niti na njemačkom."
     }

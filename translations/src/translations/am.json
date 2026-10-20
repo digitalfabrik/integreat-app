@@ -187,7 +187,6 @@
       "wantedInformation": "የጎደለው መረጃ ምንድን ነው?",
       "informationMissing": "እዚህ የጎደለ መረጃ አለ?",
       "searchTermDescription": "ለሚከተለው ቃል ምንም ውጤት አልተገኘም፦",
-      "checkQuery": "የፍለጋ ቃልዎን ያረጋግጡ ወይም የተመረጠውን ቋንቋ ይቀይሩ።",
       "noResultsInUserLanguage": "ያሳዝናል፣ በእርስዎ ቋንቋ ምንም ተዛማጅ ውጤቶች አልተገኙም።",
       "noResultsInUserAndSourceLanguage": "ያሳዝናል፣ በእርስዎ ቋንቋ ወይም በጀርመንኛ ምንም ተዛማጅ ውጤቶች አልተገኙም።"
     }

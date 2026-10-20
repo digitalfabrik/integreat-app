@@ -187,7 +187,6 @@
       "wantedInformation": "Jakich informacji brakuje?",
       "informationMissing": "Brakuje tutaj informacji?",
       "searchTermDescription": "Nie znaleziono wyników dla następującego hasła:",
-      "checkQuery": "Sprawdź wpisaną frazę lub zmień wybrany język.",
       "noResultsInUserLanguage": "Niestety nie znaleziono pasujących wyników w Twoim języku.",
       "noResultsInUserAndSourceLanguage": "Niestety nie znaleziono pasujących wyników w Twoim języku ani w języku niemieckim."
     }

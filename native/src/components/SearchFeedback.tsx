@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { Button, Card } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
-import { CHAT_ROUTE, FEEDBACK_ROUTE, getChatName, SendingStatusType } from 'shared'
+import { CHAT_ROUTE, FEEDBACK_ROUTE, getChatName, RATING_NEGATIVE, SendingStatusType } from 'shared'
 import { FeedbackType } from 'shared/api'
 import { config } from 'translations'
 
@@ -84,7 +84,7 @@ const SearchFeedback = ({
       regionCode,
       query,
       slug,
-      rating: 'negative',
+      rating: RATING_NEGATIVE,
     })
   }
 

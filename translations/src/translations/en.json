@@ -192,7 +192,6 @@
       "wantedInformation": "What information is missing?",
       "informationMissing": "Is information missing?",
       "searchTermDescription": "No result could be found for the following term:",
-      "checkQuery": "Check your search term or select a different language.",
       "helpToImprove": "Help us improve {{appName}}.",
       "informUs": "Inform us",
       "tryOptions": "Try to:",

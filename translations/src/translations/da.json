@@ -187,7 +187,6 @@
       "wantedInformation": "Hvilke oplysninger mangler du?",
       "informationMissing": "Mangler der oplysninger her?",
       "searchTermDescription": "Der blev ikke fundet nogen resultater for følgende søgeord:",
-      "checkQuery": "Tjek dit søgeord, eller skift det valgte sprog.",
       "noResultsInUserLanguage": "Der blev desværre ikke fundet nogen matchende resultater på dit sprog.",
       "noResultsInUserAndSourceLanguage": "Der blev desværre ikke fundet nogen matchende resultater på dit sprog eller på tysk."
     }

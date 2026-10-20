@@ -187,7 +187,6 @@
       "wantedInformation": "کوم معلومات کم دي؟",
       "informationMissing": "دلته معلومات کم دي؟",
       "searchTermDescription": "د لاندې کلمې لپاره هېڅ پایله ونه موندل شوه:",
-      "checkQuery": "خپله د لټون کلیمه وګورئ یا خپله ټاکلې ژبه بدله کړئ.",
       "noResultsInUserLanguage": "له بده مرغه، ستاسو په ژبه کومه اړونده پایله ونه موندل شوه.",
       "noResultsInUserAndSourceLanguage": "له بده مرغه، ستاسو په ژبه یا په الماني ژبه کومه اړونده پایله ونه موندل شوه."
     }

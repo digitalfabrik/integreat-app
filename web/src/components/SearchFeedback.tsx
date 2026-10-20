@@ -54,11 +54,11 @@ const StyledAlert = styled(Alert)`
 `
 
 type SearchFeedbackProps = {
-  noResults: boolean
+  hasResults: boolean
   isChatEnabled: boolean
 }
 
-const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): React.ReactElement | null => {
+const SearchFeedback = ({ hasResults, isChatEnabled }: SearchFeedbackProps): React.ReactElement | null => {
   const { contentDirection } = useTheme()
   const { regionCode, languageCode } = useRegionContentParams()
   const { t } = useTranslation()
@@ -100,13 +100,13 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
   }
 
   const fallbackLanguage = config.sourceLanguage
-  const title = noResults
-    ? t($ =>
+  const title = hasResults
+    ? t($ => $.feedback.search.informationNotFound)
+    : t($ =>
         languageCode === fallbackLanguage
           ? $.feedback.search.noResultsInUserLanguage
           : $.feedback.search.noResultsInUserAndSourceLanguage,
       )
-    : t($ => $.feedback.search.informationNotFound)
 
   return (
     <Stack>
@@ -140,7 +140,7 @@ const SearchFeedback = ({ noResults, isChatEnabled }: SearchFeedbackProps): Reac
           <Typography component='p' dir={contentDirection}>
             {t($ => $.feedback.thanks.addDetails)}
           </Typography>
-          <Link variant='body1' to={navigateToFeedback} highlighted style={{ color: theme.palette.primary.dark }}>
+          <Link variant='body1' to={navigateToFeedback} highlighted sx={{ color: theme.palette.primary.dark }}>
             {t($ => $.feedback.give)}
           </Link>
         </StyledAlert>

@@ -187,7 +187,6 @@
       "wantedInformation": "Mitä tietoja puuttuu?",
       "informationMissing": "Puuttuuko täältä tietoja?",
       "searchTermDescription": "Seuraavalla hakusanalla ei löytynyt tuloksia:",
-      "checkQuery": "Tarkista hakusanasi tai vaihda valittua kieltä.",
       "noResultsInUserLanguage": "Valitettavasti kielelläsi ei löytynyt vastaavia tuloksia.",
       "noResultsInUserAndSourceLanguage": "Valitettavasti kielelläsi tai saksaksi ei löytynyt vastaavia tuloksia."
     }

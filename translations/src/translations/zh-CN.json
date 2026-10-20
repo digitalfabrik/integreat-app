@@ -187,7 +187,6 @@
       "wantedInformation": "缺少了哪些信息？",
       "informationMissing": "这里缺少信息？",
       "searchTermDescription": "未找到与以下关键词相关的结果：",
-      "checkQuery": "请检查您的搜索词或更改所选语言。",
       "noResultsInUserLanguage": "很抱歉，未找到以您所选语言显示的相关结果。",
       "noResultsInUserAndSourceLanguage": "很抱歉，未找到以您所选语言或德语显示的相关结果。"
     }

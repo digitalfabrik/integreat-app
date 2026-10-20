@@ -12,21 +12,14 @@ jest.mock('shared/api', () => ({
   createFeedbackEndpoint: () => ({ request: mockRequest }),
 }))
 
-const mockRegion = { chatEnabled: true }
-
-jest.mock('../../hooks/useQueryFromEndpoint', () => ({
-  __esModule: true,
-  default: () => ({ data: mockRegion }),
-}))
-
 const searchText = 'test'
 
-const renderSearchFeedback = (noResults: boolean, isChatEnabled: boolean) => {
+const renderSearchFeedback = (hasResults: boolean, isChatEnabled: boolean) => {
   const router = createMemoryRouter(
     [
       {
         path: '/:regionCode/:languageCode',
-        element: <SearchFeedback noResults={noResults} isChatEnabled={isChatEnabled} />,
+        element: <SearchFeedback hasResults={hasResults} isChatEnabled={isChatEnabled} />,
       },
     ],
     { initialEntries: [`/augsburg/de?query=${searchText}`] },
@@ -37,7 +30,6 @@ const renderSearchFeedback = (noResults: boolean, isChatEnabled: boolean) => {
 describe('SearchFeedback', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    mockRegion.chatEnabled = true
   })
 
   describe('with results', () => {
@@ -61,10 +53,9 @@ describe('SearchFeedback', () => {
     })
 
     it('should hide the chat option if chat is disabled for the region', () => {
-      mockRegion.chatEnabled = false
       const { queryByText } = renderSearchFeedback(true, false)
 
-      expect(queryByText('feedback:search.options.askChat')).toBeNull()
+      expect(queryByText(/feedback:search\.options\.askChat/)).toBeNull()
     })
 
     it('should submit negative feedback and show the success alert', async () => {
