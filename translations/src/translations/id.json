@@ -4,10 +4,12 @@
     "imprint": "Impresum",
     "accessibility": "Aksesibilitas",
     "aboutUs": "Tentang kami",
-    "licenses": {
-      "title": "Lisensi sumber terbuka",
-      "version": "Versi: {{version}}",
-      "license": "Lisensi: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Lisensi sumber terbuka",
+        "version": "Versi: {{version}}",
+        "license": "Lisensi: {{license}}"
+      }
     }
   },
   "categories": {

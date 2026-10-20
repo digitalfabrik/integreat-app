@@ -4,10 +4,12 @@
     "imprint": "بيانات النشر والمسؤولية القانونية",
     "accessibility": "إمكانية الوصول",
     "aboutUs": "من نحن",
-    "licenses": {
-      "title": "تراخيص البرمجيات مفتوحة المصدر",
-      "version": "الإصدار: {{version}}",
-      "license": "الترخيص: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "تراخيص البرمجيات مفتوحة المصدر",
+        "version": "الإصدار: {{version}}",
+        "license": "الترخيص: {{license}}"
+      }
     }
   },
   "categories": {

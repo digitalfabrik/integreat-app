@@ -3,7 +3,7 @@ import React from 'react'
 import { useLoadAsync } from 'shared/api'
 
 import { renderWithRouterAndTheme } from '../../testing/render'
-import LicensesPage from '../LicensesPage'
+import OpenSourcePage from '../OpenSourcePage'
 
 jest.mock('shared/api', () => ({
   ...jest.requireActual('shared/api'),
@@ -21,8 +21,15 @@ const mockUseLoadAsync = (data: unknown) =>
     setData: jest.fn(),
   } as never)
 
-describe('LicensesPage', () => {
+describe('OpenSourcePage', () => {
   beforeEach(jest.clearAllMocks)
+
+  it('should render github and sbom reference section', () => {
+    mockUseLoadAsync([])
+    const { getByText } = renderWithRouterAndTheme(<OpenSourcePage languageCode='de' />)
+    expect(getByText(/about:openSource.sourceCode/)).toBeDefined()
+    expect(getByText(/about:openSource.sbom/)).toBeDefined()
+  })
 
   it('should render license items', () => {
     mockUseLoadAsync([
@@ -35,8 +42,8 @@ describe('LicensesPage', () => {
       },
       { name: 'lodash', version: '4.17.21', license: 'MIT', repository: undefined, author: undefined },
     ])
-    const { getByText, getAllByText } = renderWithRouterAndTheme(<LicensesPage languageCode='de' />)
-    expect(getAllByText('about:licenses.title')).toHaveLength(2)
+    const { getByText, getAllByText } = renderWithRouterAndTheme(<OpenSourcePage languageCode='de' />)
+    expect(getAllByText('about:openSource.title')).toHaveLength(2)
     expect(getByText('react')).toBeTruthy()
     expect(getByText('lodash')).toBeTruthy()
   })

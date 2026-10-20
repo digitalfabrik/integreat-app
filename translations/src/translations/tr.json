@@ -4,10 +4,12 @@
     "imprint": "Künye",
     "accessibility": "Erişilebilirlik",
     "aboutUs": "Hakkımızda",
-    "licenses": {
-      "title": "Açık Kaynak Lisansları",
-      "version": "Sürüm: {{version}}",
-      "license": "Lisans: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Açık Kaynak Lisansları",
+        "version": "Sürüm: {{version}}",
+        "license": "Lisans: {{license}}"
+      }
     }
   },
   "categories": {

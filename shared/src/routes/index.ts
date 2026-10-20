@@ -23,8 +23,8 @@ export const IMPRINT_ROUTE: ImprintRouteType = 'imprint'
 export type SearchRouteType = 'search'
 export const SEARCH_ROUTE: SearchRouteType = 'search'
 
-export type LicensesRouteType = 'licenses'
-export const LICENSES_ROUTE: LicensesRouteType = 'licenses'
+export type OpenSourceRouteType = 'open-source'
+export const OPEN_SOURCE_ROUTE: OpenSourceRouteType = 'open-source'
 
 // Legacy routes
 export const LEGACY_REGIONS_ROUTE = 'landing'
@@ -84,7 +84,7 @@ export const RESERVED_TOP_LEVEL_SLUGS: string[] = [
   MAIN_IMPRINT_ROUTE,
   NOT_FOUND_ROUTE,
   EXTERNAL_SOURCES_ROUTE,
-  LICENSES_ROUTE,
+  OPEN_SOURCE_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
   LEGACY_REGIONS_ROUTE,
 ]

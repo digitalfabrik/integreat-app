@@ -11,7 +11,7 @@ const StyledParagraph = styled('p')`
   margin: 0;
 `
 
-type LicenseItemProps = {
+type LicenseListItemProps = {
   name: string
   version: string | undefined
   author: string | undefined
@@ -19,17 +19,17 @@ type LicenseItemProps = {
   url: string | undefined
 }
 
-const LicenseItem = ({ license, name, url, version, author }: LicenseItemProps): ReactElement => {
+const LicenseListItem = ({ license, name, url, version, author }: LicenseListItemProps): ReactElement => {
   const { t } = useTranslation()
   const Content = (
     <ListItemText
-      slotProps={{ primary: { component: 'h2' }, secondary: { component: 'div' } }}
+      slotProps={{ primary: { component: 'h3' }, secondary: { component: 'div' } }}
       primary={name}
       secondary={
         <>
           <StyledParagraph>{author}</StyledParagraph>
-          {version && <StyledParagraph>{t($ => $.about.licenses.version, { version })}</StyledParagraph>}
-          <StyledParagraph>{t($ => $.about.licenses.license, { license })}</StyledParagraph>
+          {version && <StyledParagraph>{t($ => $.about.openSource.licenses.version, { version })}</StyledParagraph>}
+          <StyledParagraph>{t($ => $.about.openSource.licenses.license, { license })}</StyledParagraph>
         </>
       }
     />
@@ -47,4 +47,4 @@ const LicenseItem = ({ license, name, url, version, author }: LicenseItemProps):
   )
 }
 
-export default LicenseItem
+export default LicenseListItem

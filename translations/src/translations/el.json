@@ -4,10 +4,12 @@
     "imprint": "Στοιχεία έκδοσης",
     "accessibility": "Προσβασιμότητα",
     "aboutUs": "Σχετικά με εμάς",
-    "licenses": {
-      "title": "Άδειες ανοιχτού κώδικα",
-      "version": "Έκδοση: {{version}}",
-      "license": "Άδεια: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Άδειες ανοιχτού κώδικα",
+        "version": "Έκδοση: {{version}}",
+        "license": "Άδεια: {{license}}"
+      }
     }
   },
   "categories": {

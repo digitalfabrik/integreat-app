@@ -4,10 +4,12 @@
     "imprint": "Вихідні дані",
     "accessibility": "Доступність",
     "aboutUs": "Про нас",
-    "licenses": {
-      "title": "Ліцензії відкритого коду",
-      "version": "Версія: {{version}}",
-      "license": "Ліцензія: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Ліцензії відкритого коду",
+        "version": "Версія: {{version}}",
+        "license": "Ліцензія: {{license}}"
+      }
     }
   },
   "categories": {

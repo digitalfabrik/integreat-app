@@ -4,10 +4,12 @@
     "imprint": "Stopka redakcyjna",
     "accessibility": "Dostępność",
     "aboutUs": "O nas",
-    "licenses": {
-      "title": "Licencje open source",
-      "version": "Wersja: {{version}}",
-      "license": "Licencja: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Licencje open source",
+        "version": "Wersja: {{version}}",
+        "license": "Licencja: {{license}}"
+      }
     }
   },
   "categories": {

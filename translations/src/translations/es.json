@@ -4,10 +4,12 @@
     "imprint": "Aviso legal",
     "accessibility": "Accesibilidad",
     "aboutUs": "Sobre nosotros",
-    "licenses": {
-      "title": "Licencias de código abierto",
-      "version": "Versión: {{version}}",
-      "license": "Licencia: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Licencias de código abierto",
+        "version": "Versión: {{version}}",
+        "license": "Licencia: {{license}}"
+      }
     }
   },
   "categories": {

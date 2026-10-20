@@ -4,10 +4,12 @@
     "imprint": "Thông tin pháp lý",
     "accessibility": "Khả năng tiếp cận",
     "aboutUs": "Về chúng tôi",
-    "licenses": {
-      "title": "Giấy phép mã nguồn mở",
-      "version": "Phiên bản: {{version}}",
-      "license": "Giấy phép: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Giấy phép mã nguồn mở",
+        "version": "Phiên bản: {{version}}",
+        "license": "Giấy phép: {{license}}"
+      }
     }
   },
   "categories": {

@@ -4,10 +4,12 @@
     "imprint": "ข้อมูลทางกฎหมายและผู้จัดทำ",
     "accessibility": "การเข้าถึงที่สะดวกสำหรับทุกคน",
     "aboutUs": "เกี่ยวกับเรา",
-    "licenses": {
-      "title": "สัญญาอนุญาตโอเพนซอร์ส",
-      "version": "เวอร์ชัน: {{version}}",
-      "license": "สัญญาอนุญาต: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "สัญญาอนุญาตโอเพนซอร์ส",
+        "version": "เวอร์ชัน: {{version}}",
+        "license": "สัญญาอนุญาต: {{license}}"
+      }
     }
   },
   "categories": {

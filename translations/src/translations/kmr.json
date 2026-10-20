@@ -4,10 +4,12 @@
     "imprint": "Agahiyên fermî",
     "accessibility": "Gihîştinbarî",
     "aboutUs": "Der barê me de",
-    "licenses": {
-      "title": "Lîsansên çavkaniya vekirî",
-      "version": "Guherto: {{version}}",
-      "license": "Lîsans: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Lîsansên çavkaniya vekirî",
+        "version": "Guherto: {{version}}",
+        "license": "Lîsans: {{license}}"
+      }
     }
   },
   "categories": {

@@ -4,10 +4,12 @@
     "imprint": "قانونی معلومات (امپریسم)",
     "accessibility": "رسائی کی سہولت",
     "aboutUs": "ہمارے بارے میں",
-    "licenses": {
-      "title": "اوپن سورس لائسنسز",
-      "version": "ورژن: {{version}}",
-      "license": "لائسنس: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "اوپن سورس لائسنسز",
+        "version": "ورژن: {{version}}",
+        "license": "لائسنس: {{license}}"
+      }
     }
   },
   "categories": {

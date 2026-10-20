@@ -4,10 +4,12 @@
     "imprint": "საიტის მონაცემები (Impressum)",
     "accessibility": "ხელმისაწვდომობა",
     "aboutUs": "ჩვენ შესახებ",
-    "licenses": {
-      "title": "ღია კოდის ლიცენზიები",
-      "version": "ვერსია: {{version}}",
-      "license": "ლიცენზია: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "ღია კოდის ლიცენზიები",
+        "version": "ვერსია: {{version}}",
+        "license": "ლიცენზია: {{license}}"
+      }
     }
   },
   "categories": {

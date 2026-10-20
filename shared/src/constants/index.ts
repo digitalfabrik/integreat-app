@@ -50,3 +50,7 @@ export const HORIZONTAL_TEXT_DIVIDER = '·'
 export const MORE_INDICATOR = '…'
 
 export const ACTIVE_TAB_HEIGHT = 3
+
+export const repoUrl = 'https://github.com/digitalfabrik/integreat-app'
+export const sbomUrl = (version: string | undefined | null): string =>
+  `https://github.com/digitalfabrik/integreat-app/releases/tag/${version}/sbom.spdx.json`

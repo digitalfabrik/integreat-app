@@ -7,7 +7,7 @@ import {
   regionContentPath,
   EXTERNAL_SOURCES_ROUTE,
   REGIONS_ROUTE,
-  LICENSES_ROUTE,
+  OPEN_SOURCE_ROUTE,
   MAIN_IMPRINT_ROUTE,
   NOT_FOUND_ROUTE,
   pathnameFromRouteInformation,
@@ -29,7 +29,7 @@ import lazyWithRetry from './utils/retryImport'
 const MainImprintPage = lazyWithRetry(() => import('./routes/MainImprintPage'))
 const RegionsPage = lazyWithRetry(() => import('./routes/RegionsPage'))
 const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
-const LicensesPage = lazyWithRetry(() => import('./routes/LicensesPage'))
+const OpenSourcePage = lazyWithRetry(() => import('./routes/OpenSourcePage'))
 
 const LegacyPlacesRedirect = (): ReactElement => {
   const { regionCode, languageCode, '*': splat } = useParams()
@@ -68,7 +68,7 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
       <Route path={RoutePatterns[MAIN_IMPRINT_ROUTE]} element={<MainImprintPage languageCode={language} />} />
       <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
       <Route path={RoutePatterns[EXTERNAL_SOURCES_ROUTE]} element={<ExternalSourcesPage languageCode={language} />} />
-      <Route path={RoutePatterns[LICENSES_ROUTE]} element={<LicensesPage languageCode={language} />} />
+      <Route path={RoutePatterns[OPEN_SOURCE_ROUTE]} element={<OpenSourcePage languageCode={language} />} />
       <Route
         path={regionContentPattern}
         element={

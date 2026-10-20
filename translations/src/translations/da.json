@@ -4,10 +4,12 @@
     "imprint": "Kolofon",
     "accessibility": "Tilgængelighed",
     "aboutUs": "Om os",
-    "licenses": {
-      "title": "Open source-licenser",
-      "version": "Version: {{version}}",
-      "license": "Licens: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Open source-licenser",
+        "version": "Version: {{version}}",
+        "license": "Licens: {{license}}"
+      }
     }
   },
   "categories": {

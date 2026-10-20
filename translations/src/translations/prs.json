@@ -4,10 +4,12 @@
     "imprint": "مشخصات ناشر",
     "accessibility": "دسترسی‌پذیری",
     "aboutUs": "درباره ما",
-    "licenses": {
-      "title": "مجوزهای منبع باز",
-      "version": "نسخه: {{version}}",
-      "license": "مجوز: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "مجوزهای منبع باز",
+        "version": "نسخه: {{version}}",
+        "license": "مجوز: {{license}}"
+      }
     }
   },
   "categories": {

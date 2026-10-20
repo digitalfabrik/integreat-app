@@ -4,10 +4,12 @@
     "imprint": "حقوقي پېژندنه",
     "accessibility": "لاسرسی",
     "aboutUs": "زموږ په اړه",
-    "licenses": {
-      "title": "د خلاصې سرچینې (Open Source) جوازونه",
-      "version": "نسخه: {{version}}",
-      "license": "جواز: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "د خلاصې سرچینې (Open Source) جوازونه",
+        "version": "نسخه: {{version}}",
+        "license": "جواز: {{license}}"
+      }
     }
   },
   "categories": {

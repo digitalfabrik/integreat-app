@@ -4,10 +4,12 @@
     "imprint": "Maxxansaa",
     "accessibility": "Dhaqqamamummaa",
     "aboutUs": "Waa'ee keenya",
-    "licenses": {
-      "title": "Hayyamoota madda banaa",
-      "version": "Fooyya'iinsa: {{version}}",
-      "license": "Hayyama: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Hayyamoota madda banaa",
+        "version": "Fooyya'iinsa: {{version}}",
+        "license": "Hayyama: {{license}}"
+      }
     }
   },
   "categories": {

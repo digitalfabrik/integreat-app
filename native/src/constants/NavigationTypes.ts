@@ -35,8 +35,8 @@ import {
   FEEDBACK_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
   SuggestToRegionRouteType,
-  LICENSES_ROUTE,
-  LicensesRouteType,
+  OPEN_SOURCE_ROUTE,
+  OpenSourceRouteType,
   EXTERNAL_SOURCES_ROUTE,
   ExternalSourcesRouteType,
   BOTTOM_TAB_ROUTE,
@@ -75,7 +75,7 @@ export type RootRoutesType =
   | PdfViewRouteType
   | ImageViewRouteType
   | FeedbackRouteType
-  | LicensesRouteType
+  | OpenSourceRouteType
   | ExternalSourcesRouteType
   | ChatRouteType
   | BottomTabRouteType
@@ -129,7 +129,7 @@ export type RootRoutesParamsType = {
   [SEARCH_ROUTE]: RouteTitle & {
     searchText?: string | null
   }
-  [LICENSES_ROUTE]: RouteTitle | undefined
+  [OPEN_SOURCE_ROUTE]: RouteTitle | undefined
   [LANGUAGES_ROUTE]: {
     languages: LanguageModel[]
     availableLanguages: string[]

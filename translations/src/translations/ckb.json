@@ -4,10 +4,12 @@
     "imprint": "ناسنامەی ماڵپەڕ",
     "accessibility": "دەستپێگەیشتن",
     "aboutUs": "دەربارەی ئێمە",
-    "licenses": {
-      "title": "مۆڵەتەکانی سەرچاوەکراوە",
-      "version": "وەشان: {{version}}",
-      "license": "مۆڵەت: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "مۆڵەتەکانی سەرچاوەکراوە",
+        "version": "وەشان: {{version}}",
+        "license": "مۆڵەت: {{license}}"
+      }
     }
   },
   "categories": {

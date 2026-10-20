@@ -4,10 +4,15 @@
     "imprint": "Impressum",
     "accessibility": "Barrierefreiheit",
     "aboutUs": "Über uns",
-    "licenses": {
-      "title": "Open-Source-Lizenzen",
-      "version": "Version: {{version}}",
-      "license": "Lizenz: {{license}}"
+    "openSource": {
+      "title": "Open-Source",
+      "licenses": {
+        "title": "Open-Source-Lizenzen",
+        "version": "Version: {{version}}",
+        "license": "Lizenz: {{license}}"
+      },
+      "sourceCode": "{{appName}} ist Open-Source-Software. Der komplette Quellcode der App ist unter der MIT-Lizenz öffentlich auf <Link>GitHub</Link> verfügbar.",
+      "sbom": "Eine vollständige Liste aller verwendeten Drittanbieter-Komponenten findest du im <Link>Komponentenverzeichnis (SBoM)</Link>."
     }
   },
   "categories": {

@@ -4,10 +4,12 @@
     "imprint": "Informații legale",
     "accessibility": "Accesibilitate",
     "aboutUs": "Despre noi",
-    "licenses": {
-      "title": "Licențe open-source",
-      "version": "Versiune: {{version}}",
-      "license": "Licență: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Licențe open-source",
+        "version": "Versiune: {{version}}",
+        "license": "Licență: {{license}}"
+      }
     }
   },
   "categories": {

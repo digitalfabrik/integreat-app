@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { renderWithTheme } from '../../testing/render'
-import LicenseItem from '../LicenseItem'
+import LicenseListItem from '../LicenseListItem'
 
 const defaultProps = {
   name: 'react',
@@ -11,29 +11,29 @@ const defaultProps = {
   url: 'https://github.com/facebook/react',
 }
 
-describe('LicenseItem', () => {
+describe('LicenseListItem', () => {
   it('should render name, author, version and license', () => {
-    const { getByText } = renderWithTheme(<LicenseItem {...defaultProps} />)
+    const { getByText } = renderWithTheme(<LicenseListItem {...defaultProps} />)
     expect(getByText('react')).toBeTruthy()
     expect(getByText('Meta Platforms, Inc.')).toBeTruthy()
-    expect(getByText('about:licenses.version 18.2.0')).toBeTruthy()
-    expect(getByText('about:licenses.license MIT')).toBeTruthy()
+    expect(getByText('about:openSource.licenses.version 18.2.0')).toBeTruthy()
+    expect(getByText('about:openSource.licenses.license MIT')).toBeTruthy()
   })
 
   it('should render as a link when url is provided', () => {
-    const { getByRole } = renderWithTheme(<LicenseItem {...defaultProps} />)
+    const { getByRole } = renderWithTheme(<LicenseListItem {...defaultProps} />)
     const link = getByRole('link')
     expect(link).toBeTruthy()
     expect(link).toHaveAttribute('href', defaultProps.url)
   })
 
   it('should not render a link when url is not provided', () => {
-    const { queryByRole } = renderWithTheme(<LicenseItem {...defaultProps} url={undefined} />)
+    const { queryByRole } = renderWithTheme(<LicenseListItem {...defaultProps} url={undefined} />)
     expect(queryByRole('link')).toBeNull()
   })
 
   it('should not render author when author is not provided', () => {
-    const { queryByText } = renderWithTheme(<LicenseItem {...defaultProps} author={undefined} />)
+    const { queryByText } = renderWithTheme(<LicenseListItem {...defaultProps} author={undefined} />)
     expect(queryByText('Meta Platforms, Inc.')).toBeNull()
   })
 })

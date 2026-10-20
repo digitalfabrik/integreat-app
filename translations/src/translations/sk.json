@@ -4,10 +4,12 @@
     "imprint": "Právne informácie",
     "accessibility": "Prístupnosť",
     "aboutUs": "O nás",
-    "licenses": {
-      "title": "Licencie open source",
-      "version": "Verzia: {{version}}",
-      "license": "Licencia: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Licencie open source",
+        "version": "Verzia: {{version}}",
+        "license": "Licencia: {{license}}"
+      }
     }
   },
   "categories": {

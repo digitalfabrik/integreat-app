@@ -4,10 +4,12 @@
     "imprint": "Julkaisijan tiedot",
     "accessibility": "Saavutettavuus",
     "aboutUs": "Tietoa meistä",
-    "licenses": {
-      "title": "Avoimen lähdekoodin lisenssit",
-      "version": "Versio: {{version}}",
-      "license": "Lisenssi: {{license}}"
+    "openSource": {
+      "licenses": {
+        "title": "Avoimen lähdekoodin lisenssit",
+        "version": "Versio: {{version}}",
+        "license": "Lisenssi: {{license}}"
+      }
     }
   },
   "categories": {
