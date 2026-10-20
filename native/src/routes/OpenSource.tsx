@@ -22,7 +22,7 @@ const HeaderContainer = styled.View`
   gap: 16px;
 `
 
-export const OpenSourceHeader = ({ t }: { t: TFunction }): ReactElement => (
+const OpenSourceHeader = ({ t }: { t: TFunction }): ReactElement => (
   <HeaderContainer>
     <Caption title={t($ => $.about.openSource.title)} />
     <Text variant='body2'>

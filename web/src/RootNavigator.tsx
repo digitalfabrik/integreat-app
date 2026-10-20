@@ -29,7 +29,7 @@ import lazyWithRetry from './utils/retryImport'
 const MainImprintPage = lazyWithRetry(() => import('./routes/MainImprintPage'))
 const RegionsPage = lazyWithRetry(() => import('./routes/RegionsPage'))
 const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
-const OpenSourcePage = lazyWithRetry(() => import('./routes/./OpenSourcePage'))
+const OpenSourcePage = lazyWithRetry(() => import('./routes/OpenSourcePage'))
 
 const LegacyPlacesRedirect = (): ReactElement => {
   const { regionCode, languageCode, '*': splat } = useParams()
