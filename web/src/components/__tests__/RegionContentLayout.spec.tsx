@@ -116,7 +116,7 @@ describe('RegionContentLayout', () => {
     })
 
     it('should open the chat dialog when the fab is clicked', () => {
-      const { getByText, queryByText, getByLabelText, queryByLabelText } = renderRegionContentLayout(false, undefined, {
+      const { getByText, queryByText, getByLabelText } = renderRegionContentLayout(false, undefined, {
         region: chatEnabledRegionModel,
       })
       const chatButton = getByLabelText(getChatName('IntegreatTestCms'))
@@ -124,7 +124,7 @@ describe('RegionContentLayout', () => {
       fireEvent.click(chatButton)
 
       expect(getByText('chat:initial.description')).toBeTruthy()
-      expect(queryByLabelText(getChatName('IntegreatTestCms'))).toBeFalsy()
+      expect(getByLabelText(getChatName('IntegreatTestCms'))).toBeTruthy()
 
       fireEvent.click(getByLabelText('common:actions.minimize'))
 
