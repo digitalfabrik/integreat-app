@@ -4,15 +4,17 @@ import Fab from '@mui/material/Fab'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { CHAT_QUERY_KEY, getChatName } from 'shared'
+import { CHAT_QUERY_KEY, getChatName, PLACES_ROUTE } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import { CHAT_FAB_ELEMENT_ID } from '../constants/layout'
+import { TtsContext } from '../contexts/TtsContext'
 import { useScrollDimensions } from '../hooks/useDimensions'
 import useQueryParam from '../hooks/useQueryParam'
+import useRegionContentParams from '../hooks/useRegionContentParams'
 import ChatHighlightPopup from './ChatHighlightPopup'
 import LiveAnnouncer from './LiveAnnouncer'
 
@@ -33,12 +35,19 @@ type ChatButtonProps = {
 
 const ChatFab = ({ unreadMessageCount }: ChatButtonProps): ReactElement | null => {
   const [, setOpen] = useQueryParam(CHAT_QUERY_KEY)
-  const { desktop, visibleFooterHeight, bottomNavigationHeight } = useScrollDimensions()
+  const { desktop, visibleFooterHeight, bottomNavigationHeight, xsmall } = useScrollDimensions()
+  const { route } = useRegionContentParams()
   const { t } = useTranslation()
 
   const chatName = getChatName(buildConfig().appName)
   const unreadMessages = t($ => $.chat.unread, { count: unreadMessageCount })
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+
+  const { visible: ttsPlayerVisible } = useContext(TtsContext)
+
+  if (route === PLACES_ROUTE || (xsmall && ttsPlayerVisible)) {
+    return null
+  }
 
   return (
     <ChatButtonContainer id={CHAT_FAB_ELEMENT_ID} bottom={bottomNavigationHeight ?? visibleFooterHeight}>
