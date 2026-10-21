@@ -1,21 +1,45 @@
 import { fireEvent } from '@testing-library/react'
 import { DateTime } from 'luxon'
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 import { getChatName } from 'shared'
-import { ChatMessageModel, RegionModelBuilder } from 'shared/api'
+import { ChatMessageModel, RegionModel, RegionModelBuilder } from 'shared/api'
 
+import useChat from '../../hooks/useChat'
 import { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderRoute } from '../../testing/render'
-import { chatIdKey, chatSeenMessagesKey } from '../../utils/chat'
+import { chatIdKey } from '../../utils/chat'
 import ChatContainer from '../ChatContainer'
+import { LanguageChangePath } from '../LanguageSelection'
 
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
   uuid: jest.fn(() => '11111111-2222-3333-4444-555555555555'),
 }))
 jest.mock('../../hooks/useQueryFromEndpoint')
+
+type ChatContainerWithChatProps = {
+  region: RegionModel
+  languageCode: string
+  languageChangePaths: LanguageChangePath[]
+}
+
+const ChatContainerWithChat = ({
+  region,
+  languageCode,
+  languageChangePaths,
+}: ChatContainerWithChatProps): ReactElement => {
+  const chat = useChat({ region, languageCode })
+  return (
+    <ChatContainer
+      region={region}
+      languageCode={languageCode}
+      languageChangePaths={languageChangePaths}
+      chatProps={chat}
+    />
+  )
+}
 
 describe('ChatContainer', () => {
   const routePattern = '/:regionCode/:languageCode'
@@ -35,57 +59,9 @@ describe('ChatContainer', () => {
     localStorage.clear()
   })
 
-  it('should open chat dialog and show content on chat button click', () => {
-    const { getByText, queryByText, getByLabelText, router } = renderRoute(
-      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
-      {
-        pathname,
-        routePattern,
-        searchParams: '?test=asdf',
-      },
-    )
-    const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
-    expect(chatButtonContainer).toBeTruthy()
-
-    expect(router.state.location.search).toBe('?test=asdf')
-
-    fireEvent.click(chatButtonContainer)
-
-    expect(router.state.location.search).toBe('?test=asdf&chat=true')
-
-    expect(getByText('chat:initial.description')).toBeTruthy()
-
-    fireEvent.click(getByLabelText('common:actions.minimize'))
-
-    expect(router.state.location.search).toBe('?test=asdf')
-
-    expect(queryByText('chat:initial.description')).toBeFalsy()
-  })
-
-  it('should close chat if close button was clicked', () => {
-    const { getByLabelText, queryByText } = renderRoute(
-      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
-      {
-        pathname,
-        routePattern,
-      },
-    )
-    const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
-    expect(chatButtonContainer).toBeTruthy()
-
-    fireEvent.click(chatButtonContainer!)
-
-    const minimizeButton = getByLabelText('common:actions.minimize')
-
-    fireEvent.click(minimizeButton)
-
-    expect(queryByText('chat:initial.title')).toBeFalsy()
-    expect(queryByText('chat:initial.description')).toBeFalsy()
-  })
-
-  it('should open chat if query param is set', () => {
+  it('should render dialog content when the chat query param is set', () => {
     const { getByText, router } = renderRoute(
-      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      <ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
@@ -96,39 +72,34 @@ describe('ChatContainer', () => {
     expect(router.state.location.search).toBe('?chat=true&test=asdf')
   })
 
-  it('should show only incoming messages in the unread badge', () => {
-    localStorage.setItem(chatSeenMessagesKey(region.code), '0')
-    mockUseQueryFromEndpointWithData({
-      messages: [
-        { userIsAuthor: true, content: 'my message' },
-        { userIsAuthor: false, content: 'bot answer' },
-        { userIsAuthor: false, content: 'another bot answer' },
-      ],
-      botTyping: false,
-    })
-
-    const { getByText } = renderRoute(
-      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+  it('should render nothing when the chat query param is not set', () => {
+    const { queryByText } = renderRoute(
+      <ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
+        searchParams: '?test=asdf',
       },
     )
-
-    expect(getByText('2')).toBeTruthy()
+    expect(queryByText('chat:initial.description')).toBeFalsy()
   })
 
-  it('should correctly update query params', () => {
-    const { getAllByText, router } = renderRoute(
-      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+  it('should close the dialog when the minimize button is clicked', () => {
+    const { queryByText, getByLabelText, router } = renderRoute(
+      <ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
-        searchParams: '?',
+        searchParams: '?test=asdf&chat=true',
       },
     )
-    expect(getAllByText(getChatName('IntegreatTestCms'))).toHaveLength(1)
-    expect(router.state.location.search).toBe('?')
+    expect(queryByText('chat:initial.description')).toBeTruthy()
+
+    fireEvent.click(getByLabelText('common:actions.minimize'))
+
+    expect(router.state.location.search).toBe('?test=asdf')
+    expect(queryByText('chat:initial.title')).toBeFalsy()
+    expect(queryByText('chat:initial.description')).toBeFalsy()
   })
 
   it('should open chat message links in a new tab when an external chat id is set', () => {
@@ -148,7 +119,7 @@ describe('ChatContainer', () => {
     const windowOpen = jest.spyOn(window, 'open').mockReturnValue(null)
 
     const { getByRole } = renderRoute(
-      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      <ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
@@ -179,7 +150,7 @@ describe('ChatContainer', () => {
     const windowOpen = jest.spyOn(window, 'open').mockReturnValue(null)
 
     const { getByRole, router } = renderRoute(
-      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      <ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern: '/:regionCode/:languageCode/*',
@@ -196,7 +167,7 @@ describe('ChatContainer', () => {
 
   it('should hide the dialog header when an external chat id is set', () => {
     const { queryByLabelText, queryByText } = renderRoute(
-      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      <ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
@@ -211,7 +182,7 @@ describe('ChatContainer', () => {
 
   it('should show the dialog header when no external chat id is set', () => {
     const { getByLabelText, getByText } = renderRoute(
-      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+      <ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
@@ -227,7 +198,7 @@ describe('ChatContainer', () => {
   it('should reinitialize a null chat id previously written to local storage', () => {
     localStorage.setItem(chatIdKey(region.code), 'null')
 
-    renderRoute(<ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />, {
+    renderRoute(<ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />, {
       pathname,
       routePattern,
     })
@@ -236,15 +207,14 @@ describe('ChatContainer', () => {
   })
 
   it('should switch the language', () => {
-    const { getByText, getByLabelText, router } = renderRoute(
-      <ChatContainer region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
+    const { getByText, router } = renderRoute(
+      <ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />,
       {
         pathname,
         routePattern,
+        searchParams: '?chat=true',
       },
     )
-    const chatButtonContainer = getByLabelText(getChatName('IntegreatTestCms'))
-    fireEvent.click(chatButtonContainer!)
     expect(router.state.location.pathname).toBe(`/${region.code}/de`)
     fireEvent.click(getByText('Deutsch'))
     fireEvent.click(getByText('English'))

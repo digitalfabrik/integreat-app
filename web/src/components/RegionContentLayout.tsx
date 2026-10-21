@@ -3,16 +3,42 @@ import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { PLACES_ROUTE } from 'shared'
 import { CategoryModel, RegionModel } from 'shared/api'
 
+import useChat from '../hooks/useChat'
 import useDimensions from '../hooks/useDimensions'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
+import ChatFab from './ChatFab'
 import FeedbackContainer from './FeedbackContainer'
 import Footer from './Footer'
 import { LanguageChangePath } from './LanguageSelection'
 import Layout from './Layout'
 import RegionContentHeader from './RegionContentHeader'
 import TourContainer from './TourContainer'
+
+type ToolsContainerProps = {
+  region: RegionModel
+  languageCode: string
+  languageChangePaths: LanguageChangePath[] | null
+}
+
+const ToolsContainer = ({ region, languageCode, languageChangePaths }: ToolsContainerProps): ReactElement => {
+  const chat = useChat({ region, languageCode })
+
+  return (
+    <>
+      <ChatFab unreadMessageCount={chat.unreadMessageCount} />
+      {region.chatEnabled && (
+        <ChatContainer
+          region={region}
+          languageCode={languageCode}
+          languageChangePaths={languageChangePaths}
+          chatProps={chat}
+        />
+      )}
+    </>
+  )
+}
 
 export type RegionContentLayoutProps = {
   toolbar?: ReactElement | null
@@ -67,7 +93,7 @@ const RegionContentLayout = ({
         <>
           {footerVisible && <Footer />}
           {chatVisible && (
-            <ChatContainer region={region} languageCode={languageCode} languageChangePaths={languageChangePaths} />
+            <ToolsContainer region={region} languageCode={languageCode} languageChangePaths={languageChangePaths} />
           )}
           {tourVisible && <TourContainer region={region} languageCode={languageCode} />}
           <FeedbackContainer slug={slug} />

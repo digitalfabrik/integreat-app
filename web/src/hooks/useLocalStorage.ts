@@ -19,7 +19,8 @@ type UseLocalStorageProps<T> = {
   isSessionStorage?: boolean
 }
 
-type UseLocalStorageReturn<T> = [value: T, updateLocalStorageItem: (newValue: T | ((oldValue: T) => T)) => void]
+export type UpdateLocalStorage<T> = (newValue: T | ((oldValue: T) => T)) => void
+type UseLocalStorageReturn<T> = [value: T, updateLocalStorageItem: UpdateLocalStorage<T>]
 
 const useLocalStorage = <T>({
   key,

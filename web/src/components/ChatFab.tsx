@@ -7,11 +7,12 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getChatName } from 'shared'
+import { CHAT_QUERY_KEY, getChatName } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import { CHAT_FAB_ELEMENT_ID } from '../constants/layout'
 import { useScrollDimensions } from '../hooks/useDimensions'
+import useQueryParam from '../hooks/useQueryParam'
 import ChatHighlightPopup from './ChatHighlightPopup'
 import LiveAnnouncer from './LiveAnnouncer'
 
@@ -27,17 +28,21 @@ const ChatButtonContainer = styled(Stack)<{ bottom: number }>(({ theme, bottom }
 }))
 
 type ChatButtonProps = {
-  onClick: () => void
   unreadMessageCount: number
 }
 
-const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement => {
+const ChatFab = ({ unreadMessageCount }: ChatButtonProps): ReactElement | null => {
+  const [open, setOpen] = useQueryParam(CHAT_QUERY_KEY)
   const { desktop, visibleFooterHeight, bottomNavigationHeight } = useScrollDimensions()
   const { t } = useTranslation()
 
   const chatName = getChatName(buildConfig().appName)
   const unreadMessages = t($ => $.chat.unread, { count: unreadMessageCount })
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+
+  if (open) {
+    return null
+  }
 
   return (
     <ChatButtonContainer id={CHAT_FAB_ELEMENT_ID} bottom={bottomNavigationHeight ?? visibleFooterHeight}>
@@ -46,7 +51,7 @@ const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement
         badgeContent={unreadMessageCount > 0 ? unreadMessageCount : undefined}
         color='error'
         aria-label={unreadMessages}>
-        <Fab ref={setAnchorEl} onClick={onClick} color='primary' aria-label={chatName}>
+        <Fab ref={setAnchorEl} onClick={() => setOpen(true)} color='primary' aria-label={chatName}>
           <QuestionAnswerOutlinedIcon fontSize='large' />
         </Fab>
       </Badge>

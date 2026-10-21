@@ -72,7 +72,7 @@ describe('useChat', () => {
   })
 
   describe('unreadMessageCount', () => {
-    it('should count only incoming messages, ignoring the user’s own', () => {
+    it('should count only incoming messages', () => {
       mockUseQueryFromEndpointWithData({
         messages: [
           { userIsAuthor: true, content: 'my message' },
