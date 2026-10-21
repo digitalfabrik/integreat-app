@@ -27,7 +27,6 @@ import Icon from './components/base/Icon'
 import Text from './components/base/Text'
 import { TAB_NAVIGATOR_ID } from './constants'
 import { BaseNavigationProps, BaseRouteProps, RouteProps, RoutesParamsType } from './constants/NavigationTypes'
-import buildConfig from './constants/buildConfig'
 import dimensions from './constants/dimensions'
 import useLoadRegionContent from './hooks/useLoadRegionContent'
 import useNavigate from './hooks/useNavigate'
@@ -138,7 +137,7 @@ const BottomTabNavigator = ({ route }: BottomTabNavigatorProps): ReactElement | 
   }
 
   const { eventsEnabled, placesEnabled, newsEnabled, chatEnabled } = cachedData.region
-  const chatVisible = buildConfig().featureFlags.chat && chatEnabled && activeTab !== PLACES_TAB_ROUTE && !visible
+  const chatVisible = chatEnabled && activeTab !== PLACES_TAB_ROUTE && !visible
 
   const Tabs = [
     <Tab.Screen

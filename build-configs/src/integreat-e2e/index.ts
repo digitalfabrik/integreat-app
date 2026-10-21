@@ -19,7 +19,6 @@ const integreatE2e = {
       template: suggestToRegionTemplate,
       icon: '/suggest-to-region.svg',
     },
-    chat: false,
   },
 }
 const commonIntegreatE2eBuildConfig: CommonBuildConfigType = {

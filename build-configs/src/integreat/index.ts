@@ -39,7 +39,6 @@ const commonIntegreatBuildConfig: CommonBuildConfigType = {
       template: suggestToRegionTemplate,
       icon: '/suggest-to-region.svg',
     },
-    chat: true,
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',
