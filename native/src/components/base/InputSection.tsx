@@ -69,7 +69,6 @@ const InputSection = ({
         contentStyle={multiline ? { textAlignVertical: 'top' } : {}}
         keyboardType={keyboardType}
         error={invalid}
-        returnKeyType='done'
         accessibilityRole={accessibilityRole ?? 'search'}
         accessibilityLabel={title}
         accessibilityLabelledBy={description}
