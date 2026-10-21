@@ -78,6 +78,9 @@ const SearchInput = ({
             </InputAdornment>
           ),
         },
+        htmlInput: {
+          enterKeyHint: 'search',
+        },
       }}
     />
   )
