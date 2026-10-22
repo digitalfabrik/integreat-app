@@ -103,7 +103,7 @@ describe('ChatConversation', () => {
 
   it('should display welcome text if conversation has not started', () => {
     const { getByText } = render([], false)
-    expect(getByText('chat:initial.description')).toBeTruthy()
+    expect(getByText('chat:description')).toBeTruthy()
   })
 
   it('should display typing indicator', () => {

@@ -68,7 +68,7 @@ describe('ChatContainer', () => {
         searchParams: '?chat=true&test=asdf',
       },
     )
-    expect(getByText('chat:initial.description')).toBeTruthy()
+    expect(getByText('chat:description')).toBeTruthy()
     expect(router.state.location.search).toBe('?chat=true&test=asdf')
   })
 
@@ -81,7 +81,7 @@ describe('ChatContainer', () => {
         searchParams: '?test=asdf',
       },
     )
-    expect(queryByText('chat:initial.description')).toBeFalsy()
+    expect(queryByText('chat:description')).toBeFalsy()
   })
 
   it('should close the dialog when the minimize button is clicked', () => {
@@ -93,13 +93,13 @@ describe('ChatContainer', () => {
         searchParams: '?test=asdf&chat=true',
       },
     )
-    expect(queryByText('chat:initial.description')).toBeTruthy()
+    expect(queryByText('chat:description')).toBeTruthy()
 
     fireEvent.click(getByLabelText('common:actions.minimize'))
 
     expect(router.state.location.search).toBe('?test=asdf')
-    expect(queryByText('chat:initial.title')).toBeFalsy()
-    expect(queryByText('chat:initial.description')).toBeFalsy()
+    expect(queryByText('chat:askQuestion')).toBeFalsy()
+    expect(queryByText('chat:description')).toBeFalsy()
   })
 
   it('should open chat message links in a new tab when an external chat id is set', () => {

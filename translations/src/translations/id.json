@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Konselor",
     "typing": "Sedang mengetik…",
-    "inputPlaceholder": "Silakan masukkan pertanyaan Anda…",
-    "initial": {
-      "title": "Silakan masukkan pertanyaan Anda ke dalam kolom teks.",
-      "description": "Anda dapat menanyakan tentang informasi lokal atau situasi pribadi Anda."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Halo!",
       "description": "Saya <strong>{{name}}</strong>, asisten pencarian digital Anda. Silakan ajukan pertanyaan Anda."
     },

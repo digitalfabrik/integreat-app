@@ -123,12 +123,12 @@ describe('RegionContentLayout', () => {
 
       fireEvent.click(chatButton)
 
-      expect(getByText('chat:initial.description')).toBeTruthy()
+      expect(getByText('chat:description')).toBeTruthy()
       expect(getByLabelText(getChatName('IntegreatTestCms'))).toBeTruthy()
 
       fireEvent.click(getByLabelText('common:actions.minimize'))
 
-      expect(queryByText('chat:initial.description')).toBeFalsy()
+      expect(queryByText('chat:description')).toBeFalsy()
       expect(getByLabelText(getChatName('IntegreatTestCms'))).toBeTruthy()
     })
 

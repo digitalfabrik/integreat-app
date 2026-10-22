@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Rådgiver",
     "typing": "Skriver…",
-    "inputPlaceholder": "Indtast venligst dit spørgsmål…",
-    "initial": {
-      "title": "Indtast venligst dit spørgsmål i tekstfeltet.",
-      "description": "Du kan spørge om lokale oplysninger eller din personlige situation."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Hej!",
       "description": "Jeg er <strong>{{name}}</strong>, din digitale søgeassistent. Du er velkommen til at stille mig et spørgsmål."
     },
