@@ -23,6 +23,7 @@ const InformButton = styled(Button)`
 
 const BulletItemWrapper = styled.View`
   flex: 1;
+  padding-bottom: 8px;
 `
 
 const StyledCard = styled(Card)`
@@ -41,7 +42,9 @@ const BulletText = styled(Text)`
 
 const BulletItem = ({ children }: { children: ReactNode }): ReactElement => (
   <BulletRow>
-    <Text variant='body2'>{'\u2022'}</Text>
+    <Text variant='body2' aria-hidden>
+      {'\u2022'}
+    </Text>
     <BulletText variant='body2'>{children}</BulletText>
   </BulletRow>
 )

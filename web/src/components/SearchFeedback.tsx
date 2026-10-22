@@ -27,7 +27,7 @@ import Svg from './base/Svg'
 const Options = styled('ul')`
   display: flex;
   flex-direction: column;
-  padding-left: 24px;
+  padding: 0 0 8px 24px;
 `
 
 const Option = styled('li')`
@@ -38,13 +38,13 @@ const HighlightedCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  padding: '24px 0',
-  maxWidth: '512px',
+  padding: '24px',
+  width: 'fit-content',
+  maxWidth: '400px',
   backgroundColor: theme.palette.background.accent,
   borderRadius: '16px',
   gap: '12px',
   [theme.breakpoints.down('sm')]: {
-    padding: '24px',
     gap: '8px',
   },
 }))
