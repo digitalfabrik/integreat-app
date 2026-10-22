@@ -3,7 +3,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import RemoveIcon from '@mui/icons-material/Remove'
 import MuiDialog, { dialogClasses } from '@mui/material/Dialog'
 import DialogContent from '@mui/material/DialogContent'
-import DialogTitle from '@mui/material/DialogTitle'
+import DialogTitle, { dialogTitleClasses } from '@mui/material/DialogTitle'
 import IconButton from '@mui/material/IconButton'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
@@ -27,20 +27,83 @@ const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   },
 }))
 
+const StyledHeader = styled(Paper)(({ theme }) => ({
+  margin: 0,
+  padding: theme.spacing(2),
+  alignItems: 'center',
+  backgroundColor: theme.palette.background.accent,
+
+  [`.${dialogTitleClasses.root}`]: {
+    padding: 0,
+  },
+})) as typeof Paper
+
 const StyledDialogTitle = styled(DialogTitle)({
   flex: '1 1 0',
 }) as typeof DialogTitle
 
-type DialogProps = {
+type DialogHeaderProps = {
   title: string
   subtitle?: string
   icon?: ReactElement | null
   actions?: ReactElement[] | null
   close: () => void
+  desktop: boolean
+  minimize?: boolean
+  className?: string
+}
+
+export const DialogHeader = ({
+  title,
+  subtitle,
+  icon,
+  close,
+  actions,
+  className,
+  desktop,
+  minimize = false,
+}: DialogHeaderProps): ReactElement => {
+  const { contentDirection } = useTheme()
+  const { t } = useTranslation()
+  const closeIcon = minimize ? <RemoveIcon /> : <CloseIcon />
+
+  const Actions = actions ? (
+    <Stack direction='row' sx={{ gap: 1, alignItems: 'center' }}>
+      {actions}
+    </Stack>
+  ) : null
+
+  return (
+    <StyledHeader
+      component={Stack}
+      direction={desktop ? 'row-reverse' : 'row'}
+      className={className}
+      elevation={2}
+      sx={{ justifyContent: desktop ? 'space-between' : undefined }}>
+      <IconButton aria-label={t($ => (minimize ? $.common.actions.minimize : $.common.actions.close))} onClick={close}>
+        {desktop ? closeIcon : <DirectionDependentBackIcon />}
+      </IconButton>
+      {desktop && Actions}
+      <StyledDialogTitle component='div' dir={contentDirection}>
+        <Stack direction='row' sx={{ alignItems: 'center', gap: 2 }}>
+          {icon}
+          <Stack sx={{ lineHeight: compact ? 1 : undefined }}>
+            <Typography component='h2' variant={compact ? 'subtitle2' : 'h4'}>
+              {title}
+            </Typography>
+            {!!subtitle && <Typography variant={compact ? 'caption' : 'body3'}>{subtitle}</Typography>}
+          </Stack>
+        </Stack>
+      </StyledDialogTitle>
+      {!desktop && Actions}
+    </StyledHeader>
+  )
+}
+
+type DialogProps = Omit<DialogHeaderProps, 'desktop'> & {
   children: ReactElement | ReactElement[]
   className?: string
   showHeader?: boolean
-  minimize?: boolean
 }
 
 const Dialog = ({
@@ -55,45 +118,22 @@ const Dialog = ({
   minimize = false,
 }: DialogProps): ReactElement => {
   const { mobile, desktop } = useDimensions()
-  const { contentDirection } = useTheme()
-  const { t } = useTranslation()
-  const closeIcon = minimize ? <RemoveIcon /> : <CloseIcon />
 
   // This is necessary to ensure the theme is correctly applied to the drawer content
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
 
-  const Actions = actions ? (
-    <Stack direction='row' sx={{ gap: 1, alignItems: 'center' }}>
-      {actions}
-    </Stack>
-  ) : null
-
   return (
     <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={mobile} className={className} open>
       {showHeader && (
-        <Paper
-          component={Stack}
-          direction={desktop ? 'row-reverse' : 'row'}
-          sx={{ alignItems: 'center', justifyContent: desktop ? 'space-between' : undefined, paddingInline: 1 }}>
-          <IconButton
-            aria-label={t($ => (minimize ? $.common.actions.minimize : $.common.actions.close))}
-            onClick={close}>
-            {desktop ? closeIcon : <DirectionDependentBackIcon />}
-          </IconButton>
-          {desktop && Actions}
-          <StyledDialogTitle component='div' dir={contentDirection}>
-            <Stack direction='row' sx={{ alignItems: 'center', gap: 1.5 }}>
-              {icon}
-              <Stack sx={{ minWidth: 0 }}>
-                <Typography component='h2' variant='h4' noWrap>
-                  {title}
-                </Typography>
-                {!!subtitle && <Typography variant='body3'>{subtitle}</Typography>}
-              </Stack>
-            </Stack>
-          </StyledDialogTitle>
-          {mobile && Actions}
-        </Paper>
+        <DialogHeader
+          title={title}
+          subtitle={subtitle}
+          icon={icon}
+          actions={actions}
+          minimize={minimize}
+          close={close}
+          desktop={desktop}
+        />
       )}
       <DialogContent>{children}</DialogContent>
     </StyledMuiDialog>

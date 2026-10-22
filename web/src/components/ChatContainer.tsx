@@ -1,7 +1,4 @@
-import { dialogClasses } from '@mui/material/Dialog'
 import { dialogContentClasses } from '@mui/material/DialogContent'
-import { dialogTitleClasses } from '@mui/material/DialogTitle'
-import { stackClasses } from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -23,19 +20,8 @@ import { LanguageChangePath } from './LanguageSelection'
 import Dialog from './base/Dialog'
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
-  [`.${dialogClasses.paper} > .${stackClasses.root}`]: {
-    margin: 0,
-    padding: theme.spacing(1),
-    backgroundColor: theme.palette.background.accent,
-    borderBottom: `1px solid ${theme.palette.divider}`,
-
-    [`.${dialogTitleClasses.root}`]: {
-      padding: theme.spacing(1),
-    },
-  },
   [`.${dialogContentClasses.root}`]: {
     padding: theme.spacing(0, 0, 2),
-    backgroundColor: theme.palette.background.paper,
   },
 }))
 

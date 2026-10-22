@@ -15,7 +15,6 @@ const HEADER_HEIGHT = 80
 
 export const HeaderContainer = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.background.accent,
-  backgroundImage: 'none',
   // Hide the top elevation shadow when overscrolling
   clipPath: 'inset(0 0 -16px 0)',
 }))
