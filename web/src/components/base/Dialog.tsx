@@ -28,6 +28,7 @@ const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
 }))
 
 const StyledHeader = styled(Paper)(({ theme }) => ({
+  zIndex: 1,
   margin: 0,
   padding: theme.spacing(2),
   alignItems: 'center',
