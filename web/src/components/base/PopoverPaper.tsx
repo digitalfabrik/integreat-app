@@ -26,7 +26,7 @@ const inlineInset = (side: ArrowAlignment, inset: number, rtl: boolean): CSSObje
   (side === 'left') !== rtl ? { insetInlineStart: inset } : { insetInlineEnd: inset }
 
 // The position tells where the popover sits relative to the highlighted element, therefore the arrow points the other way
-export const arrowStyle = (
+const arrowStyle = (
   position: Position | undefined,
   alignment: ArrowAlignment,
   rtl: boolean,
