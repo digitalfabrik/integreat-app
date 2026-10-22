@@ -12,27 +12,41 @@ const StyledButton = styled(Button)({
   alignSelf: 'flex-start',
 })
 
-const BackToRegionButton = (): ReactElement | null => {
+type BackButtonProps = {
+  fallback?: string
+  desktop?: boolean
+}
+
+const BackButton = ({ fallback, desktop = false }: BackButtonProps): ReactElement | null => {
   const navigate = useNavigate()
   const { mobile } = useDimensions()
   const { t } = useTranslation()
-  const currentHistoryIndex = window.history.state?.idx ?? 0
 
+  const currentHistoryIndex = window.history.state?.idx ?? 0
   // Initial history index to account for language changes or other user interactions on this page.
   const [initialHistoryIndex] = useState(currentHistoryIndex)
+  const hasHistory = initialHistoryIndex !== 0
 
-  if (!mobile || initialHistoryIndex === 0) {
+  const visible = desktop || mobile
+  const hasBack = hasHistory || !!fallback
+
+  if (!visible || !hasBack) {
     return null
   }
 
+  const onClick = () => {
+    if (hasHistory) {
+      navigate(initialHistoryIndex - currentHistoryIndex - 1)
+    } else if (fallback) {
+      navigate(fallback)
+    }
+  }
+
   return (
-    <StyledButton
-      onClick={() => navigate(initialHistoryIndex - currentHistoryIndex - 1)}
-      startIcon={<DirectionDependentBackIcon />}
-      color='inherit'>
+    <StyledButton onClick={onClick} startIcon={<DirectionDependentBackIcon />} color='inherit'>
       {t($ => $.common.actions.back)}
     </StyledButton>
   )
 }
 
-export default BackToRegionButton
+export default BackButton
