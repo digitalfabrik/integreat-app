@@ -25,7 +25,11 @@ const ToolsContainer = ({ region, languageCode, languageChangePaths }: ToolsCont
 
   return (
     <>
-      <ToolsFab unreadMessageCount={chat.unreadMessageCount} />
+      <ToolsFab
+        chatEnabled={region.chatEnabled}
+        bescheidCheckEnabled={region.bescheidCheckEnabled}
+        unreadMessageCount={chat.unreadMessageCount}
+      />
       {region.chatEnabled && (
         <ChatContainer
           region={region}
@@ -66,8 +70,9 @@ const RegionContentLayout = ({
   const [layoutReady, setLayoutReady] = useState(!isLoading)
   const { desktop, mobile } = useDimensions()
 
+  const { chatEnabled, bescheidCheckEnabled } = region
   const footerVisible = !isLoading && desktop && !fitScreen
-  const chatVisible = region.chatEnabled && layoutReady
+  const toolsVisible = (chatEnabled || bescheidCheckEnabled) && layoutReady
   const tourVisible = category?.isRoot() && layoutReady
 
   // Avoid flickering due to content (chat) being pushed up by the footer
@@ -89,7 +94,7 @@ const RegionContentLayout = ({
       footer={
         <>
           {footerVisible && <Footer />}
-          {chatVisible && (
+          {toolsVisible && (
             <ToolsContainer region={region} languageCode={languageCode} languageChangePaths={languageChangePaths} />
           )}
           {tourVisible && <TourContainer region={region} languageCode={languageCode} />}
