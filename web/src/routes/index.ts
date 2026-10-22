@@ -11,6 +11,7 @@ import {
   NOT_FOUND_ROUTE,
   PLACES_ROUTE,
   SEARCH_ROUTE,
+  BESCHEID_CHECK_ROUTE,
 } from 'shared'
 import { RegionModel } from 'shared/api'
 
@@ -20,6 +21,7 @@ const languageCodePattern = ':languageCode'
 export const regionContentPattern = `/:regionCode/${languageCodePattern}/*`
 export const RoutePatterns = {
   [REGIONS_ROUTE]: `/${REGIONS_ROUTE}/${languageCodePattern}`,
+  [BESCHEID_CHECK_ROUTE]: `/${BESCHEID_CHECK_ROUTE}/${languageCodePattern}`,
   [SUGGEST_TO_REGION_ROUTE]: `/${SUGGEST_TO_REGION_ROUTE}/${languageCodePattern}`,
   [MAIN_IMPRINT_ROUTE]: `/${MAIN_IMPRINT_ROUTE}/${languageCodePattern}`,
   [NOT_FOUND_ROUTE]: `/${NOT_FOUND_ROUTE}/${languageCodePattern}`,

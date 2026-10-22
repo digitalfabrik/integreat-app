@@ -13,6 +13,7 @@ export const APPOINTMENT_BOOKING_OFFER_ALIAS = 'terminbuchung'
 export const INTERNAL_OFFERS = [SPRUNGBRETT_OFFER_ALIAS, MALTE_HELP_FORM_OFFER_ALIAS]
 
 export const getChatName = (appName: string): string => `Frag ${appName.replace('TestCms', '')}`
+export const bescheidCheckName = 'Bescheid-Check'
 
 export type Rating = 'positive' | 'negative'
 
