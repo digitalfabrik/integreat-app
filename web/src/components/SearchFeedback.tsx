@@ -4,7 +4,7 @@ import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
+import CardContent, { cardContentClasses } from '@mui/material/CardContent'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
@@ -38,15 +38,37 @@ const HighlightedCard = styled(Card)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  paddingTop: '12px',
+  padding: '24px 0',
   maxWidth: '512px',
   backgroundColor: theme.palette.background.accent,
+  borderRadius: '16px',
+  gap: '12px',
+  [theme.breakpoints.down('sm')]: {
+    padding: '24px',
+    gap: '8px',
+  },
+}))
+
+const StyledSvg = styled(Svg)`
+  align-self: start;
+`
+
+const StyledCardContent = styled(CardContent)({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '4px',
+  [`&.${cardContentClasses.root}`]: {
+    padding: 0,
+  },
+})
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.primary.dark,
 }))
 
 const StyledButton = styled(Button)`
   width: 100%;
   background-color: ${props => props.theme.palette.background.default};
-  margin-top: 6px;
 `
 
 const StyledAlert = styled(Alert)`
@@ -66,7 +88,6 @@ const SearchFeedback = ({ hasResults, isChatEnabled }: SearchFeedbackProps): Rea
   const [queryParams] = useSearchParams()
   const { searchText } = parseQueryParams(queryParams)
   const [dismissed, setDismissed] = useState(false)
-  const theme = useTheme()
 
   const [sendingStatus, setSendingStatus] = useState<SendingStatusType>('idle')
   const submitted = sendingStatus === 'successful' || sendingStatus === 'failed'
@@ -140,9 +161,9 @@ const SearchFeedback = ({ hasResults, isChatEnabled }: SearchFeedbackProps): Rea
           <Typography component='p' dir={contentDirection}>
             {t($ => $.feedback.thanks.addDetails)}
           </Typography>
-          <Link variant='body1' to={navigateToFeedback} highlighted sx={{ color: theme.palette.primary.dark }}>
+          <StyledLink variant='body1' to={navigateToFeedback} highlighted>
             {t($ => $.feedback.give)}
-          </Link>
+          </StyledLink>
         </StyledAlert>
       )}
       {sendingStatus === 'failed' && !dismissed && (
@@ -153,13 +174,13 @@ const SearchFeedback = ({ hasResults, isChatEnabled }: SearchFeedbackProps): Rea
       )}
       {!submitted && (
         <HighlightedCard>
-          <Svg src={FeedbackHintIcon} width={64} height={64} />
-          <CardContent>
-            <Typography variant='subtitle1' component='h2'>
+          <StyledSvg src={FeedbackHintIcon} width={64} height={64} />
+          <StyledCardContent>
+            <Typography variant='subtitle2' component='h2'>
               {t($ => $.feedback.search.informationMissing)}
             </Typography>
-            <Typography variant='body1' component='p'>
-              {t($ => $.feedback.search.helpToImprove, { appName: buildConfig().appName })}
+            <Typography variant='body2' component='h3'>
+              {t($ => $.feedback.search.helpToImprove, { appName })}
             </Typography>
             <StyledButton
               onClick={handleSubmit}
@@ -168,7 +189,7 @@ const SearchFeedback = ({ hasResults, isChatEnabled }: SearchFeedbackProps): Rea
               disabled={sendingStatus === 'sending'}>
               {t($ => $.feedback.search.informUs)}
             </StyledButton>
-          </CardContent>
+          </StyledCardContent>
         </HighlightedCard>
       )}
     </Stack>
