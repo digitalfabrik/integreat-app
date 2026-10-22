@@ -40,7 +40,6 @@ const HighlightedCard = styled(Card)(({ theme }) => ({
   alignItems: 'center',
   padding: '24px',
   width: 'fit-content',
-  maxWidth: '400px',
   backgroundColor: theme.palette.background.accent,
   borderRadius: '16px',
   gap: '12px',
