@@ -3,7 +3,6 @@ import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 import { PLACES_ROUTE } from 'shared'
 import { CategoryModel, RegionModel } from 'shared/api'
 
-import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
 import useRegionContentParams from '../hooks/useRegionContentParams'
 import BottomNavigation from './BottomNavigation'
@@ -40,13 +39,13 @@ const RegionContentLayout = ({
   pageTitle,
   slug,
 }: RegionContentLayoutProps): ReactElement => {
-  const { route } = useRegionContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
+  const { route } = useRegionContentParams()
   const { desktop, mobile } = useDimensions()
-  const isChatEnabled = buildConfig().featureFlags.chat && route !== PLACES_ROUTE && region.chatEnabled
+
   const footerVisible = !isLoading && desktop && !fitScreen
-  const chatVisible = isChatEnabled && layoutReady
-  const tourVisible = layoutReady && category?.isRoot()
+  const chatVisible = region.chatEnabled && route !== PLACES_ROUTE && layoutReady
+  const tourVisible = category?.isRoot() && layoutReady
 
   // Avoid flickering due to content (chat) being pushed up by the footer
   useEffect(() => setLayoutReady(!isLoading), [isLoading])

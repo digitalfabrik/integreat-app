@@ -36,7 +36,6 @@ const buildConfig = jest.fn<CommonBuildConfigType, []>((): CommonBuildConfigType
       template: 'template',
       icon: 'icon.svg',
     },
-    chat: false,
   },
   aboutUrls: {
     default: 'https://integreat-app.de/about/',
