@@ -46,6 +46,18 @@ describe('RegionSelector', () => {
     regions.slice(1).forEach(region => expect(queryByText(region.name)).toBeFalsy())
   })
 
+  it('should only show first letter groups if there is no filter text', () => {
+    const { getByText, queryByText, getByPlaceholderText } = render(
+      <RegionSelector navigateToDashboard={navigateToDashboard} regions={regions} />,
+    )
+
+    expect(getByText(region.sortCategory)).toBeTruthy()
+
+    fireEvent.changeText(getByPlaceholderText(region.sortingName), region.sortingName)
+
+    expect(queryByText(region.sortCategory)).toBeFalsy()
+  })
+
   it('should not show any region if filter text does not match', () => {
     const { queryByText, getByPlaceholderText } = render(
       <RegionSelector navigateToDashboard={navigateToDashboard} regions={regions} />,
