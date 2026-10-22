@@ -187,7 +187,6 @@
       "wantedInformation": "Jaké informace vám chybí?",
       "informationMissing": "Chybí zde nějaké informace?",
       "searchTermDescription": "Pro zadaný výraz se nepodařilo najít žádné výsledky:",
-      "checkQuery": "Zkontrolujte hledaný výraz nebo změňte nastavený jazyk.",
       "noResultsInUserLanguage": "Bohužel nebyly nalezeny žádné odpovídající výsledky ve vašem jazyce.",
       "noResultsInUserAndSourceLanguage": "Bohužel nebyly nalezeny žádné odpovídající výsledky ve vašem jazyce ani v němčině."
     }

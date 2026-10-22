@@ -22,6 +22,7 @@ const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElem
   const initialSearchText = route.params.searchText ?? ''
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
   const { data: sourceLanguageData } = useLoadRegionContent({ regionCode, languageCode: config.sourceLanguage })
+  const isChatEnabled = data?.region.chatEnabled
 
   useSetRouteTitle(t($ => $.search.title))
 
@@ -41,6 +42,7 @@ const SearchContainer = ({ navigation, route }: SearchContainerProps): ReactElem
           sourceLanguageDocuments={sourceLanguageDocuments}
           languageCode={languageCode}
           initialSearchText={initialSearchText}
+          isChatEnabled={isChatEnabled ?? false}
         />
       )}
     </LoadingErrorHandler>

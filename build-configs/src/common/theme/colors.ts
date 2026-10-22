@@ -51,7 +51,7 @@ export const commonLightColors: CommonColorPalette = {
     light: '#188335',
     main: '#15742F',
     dark: '#126128',
-    contrastText: '#E6E0E9',
+    contrastText: '#FFFFFF',
   },
   warning: {
     light: '#A26307',

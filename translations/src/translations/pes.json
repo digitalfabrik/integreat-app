@@ -187,7 +187,6 @@
       "wantedInformation": "چه اطلاعاتی وجود ندارد؟",
       "informationMissing": "اطلاعاتی در اینجا ناقص است؟",
       "searchTermDescription": "برای این عبارت هیچ نتیجه‌ای یافت نشد:",
-      "checkQuery": "عبارت جستجوی خود را بررسی کنید یا زبان انتخابی را تغییر دهید.",
       "noResultsInUserLanguage": "متأسفانه هیچ نتیجه مناسبی به زبان شما یافت نشد.",
       "noResultsInUserAndSourceLanguage": "متأسفانه هیچ نتیجه مناسبی به زبان شما یا به زبان آلمانی یافت نشد."
     }

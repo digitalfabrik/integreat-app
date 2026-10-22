@@ -187,7 +187,6 @@
       "wantedInformation": "Milyen információk hiányoznak?",
       "informationMissing": "Hiányolod az információkat?",
       "searchTermDescription": "A következő keresőkifejezésre nincs találat:",
-      "checkQuery": "Ellenőrizd a keresett kifejezést, vagy módosítsd a beállított nyelvet.",
       "noResultsInUserLanguage": "Sajnos nem találtunk megfelelő találatot a kiválasztott nyelven.",
       "noResultsInUserAndSourceLanguage": "Sajnos nem találtunk megfelelő találatot a saját nyelveden vagy németül."
     }

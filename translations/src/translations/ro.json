@@ -187,7 +187,6 @@
       "wantedInformation": "Ce informații lipsesc?",
       "informationMissing": "Lipsesc informații de aici?",
       "searchTermDescription": "Nu s-a găsit niciun rezultat pentru termenul căutat:",
-      "checkQuery": "Verifică termenul de căutare sau schimbă limba selectată.",
       "noResultsInUserLanguage": "Din păcate, nu s-au găsit rezultate relevante în limba ta.",
       "noResultsInUserAndSourceLanguage": "Din păcate, nu s-au găsit rezultate relevante în limba ta sau în germană."
     }

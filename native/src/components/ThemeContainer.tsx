@@ -8,12 +8,28 @@ import buildConfig from '../constants/buildConfig'
 import { prepareTypography } from '../constants/typography'
 import { useAppContext } from '../hooks/useRegionAppContext'
 
+const lightAlertColors = {
+  success: { background: '#E7F2EA', text: '#093415' },
+  info: { background: '#E6F0FB', text: '#032C56' },
+  warning: { background: '#F5EFE6', text: '#402702' },
+  error: { background: '#FCE9E9', text: '#5A1010' },
+}
+
+const darkAlertColors = {
+  success: { background: '#121613', text: '#E1F3E7' },
+  info: { background: '#121519', text: '#E3F1FD' },
+  warning: { background: '#19150E', text: '#FDEDD5' },
+  error: { background: '#191414', text: '#FFEAEB' },
+}
+
 type ThemeContainerProps = {
   children: ReactElement
 }
 
 export const theme = (themeType: ThemeType): DefaultTheme => {
   const palette = themeType === 'contrast' ? buildConfig().darkTheme.palette : buildConfig().lightTheme.palette
+  // Replicate the colors for alerts of mui on web, see https://mui.com/material-ui/react-alert/
+  const alert = themeType === 'contrast' ? darkAlertColors : lightAlertColors
 
   return {
     dark: themeType === 'contrast',
@@ -21,6 +37,7 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
     colors: {
       primary: palette.primary.main,
       primaryContainer: palette.primary.main,
+      primaryDark: palette.primary.dark,
       secondary: palette.secondary.main,
       secondaryContainer: palette.secondary.light,
       tertiary: palette.tertiary.main,
@@ -50,6 +67,9 @@ export const theme = (themeType: ThemeType): DefaultTheme => {
       outline: palette.primary.main,
       outlineVariant: palette.text.secondary,
       success: palette.success.main,
+      warning: palette.warning.main,
+      info: palette.info.main,
+      alert,
       tuNews: {
         main: palette.tuNews.main,
         contrastText: palette.tuNews.contrastText,

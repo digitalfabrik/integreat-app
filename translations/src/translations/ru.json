@@ -187,7 +187,6 @@
       "wantedInformation": "Какой информации не хватает?",
       "informationMissing": "Не хватает информации?",
       "searchTermDescription": "По этому запросу ничего не найдено:",
-      "checkQuery": "Проверьте поисковый запрос или измените выбранный язык.",
       "noResultsInUserLanguage": "К сожалению, на вашем языке ничего не найдено.",
       "noResultsInUserAndSourceLanguage": "К сожалению, ничего не нашлось ни на выбранном вами языке, ни на немецком."
     }

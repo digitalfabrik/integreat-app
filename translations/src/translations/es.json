@@ -187,7 +187,6 @@
       "wantedInformation": "¿Qué información falta?",
       "informationMissing": "¿Falta información aquí?",
       "searchTermDescription": "No se han encontrado resultados para el siguiente término:",
-      "checkQuery": "Comprueba el término de búsqueda o cambia el idioma configurado.",
       "noResultsInUserLanguage": "Lamentablemente, no se han encontrado resultados en tu idioma.",
       "noResultsInUserAndSourceLanguage": "Lamentablemente, no se han encontrado resultados en tu idioma ni en alemán."
     }

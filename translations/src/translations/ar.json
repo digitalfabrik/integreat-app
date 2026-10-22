@@ -187,7 +187,6 @@
       "wantedInformation": "ما المعلومات الناقصة؟",
       "informationMissing": "هل هناك معلومات ناقصة هنا؟",
       "searchTermDescription": "تعذّر العثور على أي نتائج لمصطلح البحث التالي:",
-      "checkQuery": "تحقق من عبارة البحث أو غيّر اللغة المحددة.",
       "noResultsInUserLanguage": "للأسف، لم يتم العثور على أي نتائج مطابقة بلغتك.",
       "noResultsInUserAndSourceLanguage": "للأسف، لم يتم العثور على أي نتائج مطابقة بلغتك أو باللغة الألمانية."
     }
