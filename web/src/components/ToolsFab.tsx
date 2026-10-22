@@ -1,3 +1,4 @@
+import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined'
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import Badge from '@mui/material/Badge'
 import Fab from '@mui/material/Fab'
@@ -15,39 +16,50 @@ import { TtsContext } from '../contexts/TtsContext'
 import { useScrollDimensions } from '../hooks/useDimensions'
 import useQueryParam from '../hooks/useQueryParam'
 import useRegionContentParams from '../hooks/useRegionContentParams'
+import { log } from '../utils/sentry'
 import ChatHighlightPopup from './ChatHighlightPopup'
 import LiveAnnouncer from './LiveAnnouncer'
+import ToolChoicePopup from './ToolChoicePopup'
 
 const FabContainer = styled(Stack)<{ bottom: number }>(({ theme, bottom }) => ({
   position: 'fixed',
   zIndex: theme.zIndex.fab,
   bottom,
-  insetInlineEnd: 16,
-  marginBottom: 16,
+  insetInlineEnd: 32,
+  marginBottom: 24,
   alignItems: 'center',
-  width: 'min-content',
   gap: 8,
 }))
 
 type ToolsFabProps = {
+  chatEnabled: boolean
+  bescheidCheckEnabled: boolean
   unreadMessageCount: number
 }
 
-const ToolsFab = ({ unreadMessageCount }: ToolsFabProps): ReactElement | null => {
-  const [, setOpen] = useQueryParam(CHAT_QUERY_KEY)
+const ToolsFab = ({ chatEnabled, bescheidCheckEnabled, unreadMessageCount }: ToolsFabProps): ReactElement | null => {
+  const [, setChatOpen] = useQueryParam(CHAT_QUERY_KEY)
+  const [toolChoiceOpen, setToolChoiceOpen] = useState(false)
+  const [fabAnchor, setFabAnchor] = useState<HTMLButtonElement | null>(null)
   const { desktop, visibleFooterHeight, bottomNavigationHeight, xsmall } = useScrollDimensions()
+  const { visible: ttsPlayerVisible } = useContext(TtsContext)
   const { route } = useRegionContentParams()
   const { t } = useTranslation()
 
-  const chatName = getChatName(buildConfig().appName)
-  const unreadMessages = t($ => $.chat.unread, { count: unreadMessageCount })
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
-
-  const { visible: ttsPlayerVisible } = useContext(TtsContext)
+  if (!chatEnabled) {
+    if (bescheidCheckEnabled) {
+      log('To use the bescheid-check you also need to enable the chat', 'error')
+    }
+    return null
+  }
 
   if (route === PLACES_ROUTE || (xsmall && ttsPlayerVisible)) {
     return null
   }
+
+  const chatName = getChatName(buildConfig().appName)
+  const digitalAssistantName = t($ => $.common.labels.assistant.title)
+  const unreadMessages = t($ => $.chat.unread, { count: unreadMessageCount })
 
   return (
     <FabContainer id={CHAT_FAB_ELEMENT_ID} bottom={bottomNavigationHeight ?? visibleFooterHeight}>
@@ -56,16 +68,29 @@ const ToolsFab = ({ unreadMessageCount }: ToolsFabProps): ReactElement | null =>
         badgeContent={unreadMessageCount > 0 ? unreadMessageCount : undefined}
         color='error'
         aria-label={unreadMessages}>
-        <Fab ref={setAnchorEl} onClick={() => setOpen(true)} color='primary' aria-label={chatName}>
-          <QuestionAnswerOutlinedIcon fontSize='large' />
-        </Fab>
+        {bescheidCheckEnabled ? (
+          <Fab
+            ref={setFabAnchor}
+            onClick={() => setToolChoiceOpen(true)}
+            variant='extended'
+            color='primary'
+            sx={{ gap: 1 }}>
+            <AutoAwesomeOutlinedIcon fontSize='large' />
+            {digitalAssistantName}
+          </Fab>
+        ) : (
+          <Fab ref={setFabAnchor} onClick={() => setChatOpen(true)} color='primary' aria-label={chatName}>
+            <QuestionAnswerOutlinedIcon fontSize='large' />
+          </Fab>
+        )}
       </Badge>
-      <ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />
-      {desktop && (
-        <Typography aria-hidden sx={{ textAlign: 'center' }}>
+      <ChatHighlightPopup anchorEl={fabAnchor} chatName={chatName} />
+      {desktop && !bescheidCheckEnabled && (
+        <Typography aria-hidden sx={{ textAlign: 'center', width: 'min-content' }}>
           {chatName}
         </Typography>
       )}
+      <ToolChoicePopup anchorEl={toolChoiceOpen ? fabAnchor : null} close={() => setToolChoiceOpen(false)} />
     </FabContainer>
   )
 }
