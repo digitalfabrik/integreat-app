@@ -52,6 +52,7 @@ type DialogHeaderProps = {
   desktop: boolean
   minimize?: boolean
   className?: string
+  compact?: boolean
 }
 
 export const DialogHeader = ({
@@ -63,6 +64,7 @@ export const DialogHeader = ({
   className,
   desktop,
   minimize = false,
+  compact = false,
 }: DialogHeaderProps): ReactElement => {
   const { contentDirection } = useTheme()
   const { t } = useTranslation()
@@ -80,13 +82,16 @@ export const DialogHeader = ({
       direction={desktop ? 'row-reverse' : 'row'}
       className={className}
       elevation={2}
-      sx={{ justifyContent: desktop ? 'space-between' : undefined }}>
-      <IconButton aria-label={t($ => (minimize ? $.common.actions.minimize : $.common.actions.close))} onClick={close}>
+      sx={{ justifyContent: desktop ? 'space-between' : undefined, paddingBlock: compact ? 1.5 : undefined }}>
+      <IconButton
+        size={compact ? 'small' : 'medium'}
+        aria-label={t($ => (minimize ? $.common.actions.minimize : $.common.actions.close))}
+        onClick={close}>
         {desktop ? closeIcon : <DirectionDependentBackIcon />}
       </IconButton>
       {desktop && Actions}
       <StyledDialogTitle component='div' dir={contentDirection}>
-        <Stack direction='row' sx={{ alignItems: 'center', gap: 2 }}>
+        <Stack direction='row' sx={{ alignItems: 'center', gap: compact ? 1 : 2 }}>
           {icon}
           <Stack sx={{ lineHeight: compact ? 1 : undefined }}>
             <Typography component='h2' variant={compact ? 'subtitle2' : 'h4'}>
