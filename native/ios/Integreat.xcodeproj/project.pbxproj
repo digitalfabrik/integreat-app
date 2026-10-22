@@ -20,6 +20,7 @@
 		616E1B092370E07D00136B38 /* ConstantsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B082370E07D00136B38 /* ConstantsModule.m */; };
 		702D81262E5DC945009DC7D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 702D81252E5DC945009DC7D7 /* GoogleService-Info.plist */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
+		9042F14BE5D73618E0A6CD40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F20FE5DA90CB68AEADBCC6 /* SceneDelegate.swift */; };
 		7B4C27552274D7B7000FA969 /* FetchResultCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */; };
 		7B4C277C2274DE2B000FA969 /* FetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C277B2274DE2B000FA969 /* FetchResult.swift */; };
 		7B7EDC2D2428EE0900E64563 /* fastlane in Resources */ = {isa = PBXBuildFile; fileRef = 7B7EDC2C2428EE0900E64563 /* fastlane */; };
@@ -55,6 +56,7 @@
 		616E1B082370E07D00136B38 /* ConstantsModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ConstantsModule.m; path = Integreat/constants/ConstantsModule.m; sourceTree = "<group>"; };
 		702D81252E5DC945009DC7D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Integreat/AppDelegate.swift; sourceTree = "<group>"; };
+		E1F20FE5DA90CB68AEADBCC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = Integreat/SceneDelegate.swift; sourceTree = "<group>"; };
 		7B0E54CE2369C1480016A7C1 /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResultCollector.swift; sourceTree = "<group>"; };
 		7B4C277B2274DE2B000FA969 /* FetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResult.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				7BF11492226F58E10031D233 /* fetcher */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
+				E1F20FE5DA90CB68AEADBCC6 /* SceneDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				7B9749D522DC7A940078B456 /* InfoPlist.strings */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
@@ -497,6 +500,7 @@
 				7BF11494226F61B60031D233 /* FetcherModule.swift in Sources */,
 				7B4C27552274D7B7000FA969 /* FetchResultCollector.swift in Sources */,
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
+				9042F14BE5D73618E0A6CD40 /* SceneDelegate.swift in Sources */,
 				616E1B072370E00100136B38 /* ConstantsModule.swift in Sources */,
 				7B4C277C2274DE2B000FA969 /* FetchResult.swift in Sources */,
 				616E1B092370E07D00136B38 /* ConstantsModule.m in Sources */,

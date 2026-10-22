@@ -22,36 +22,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     reactNativeDelegate = delegate
     reactNativeFactory = factory
 
-    window = UIWindow(frame: UIScreen.main.bounds)
-
     // https://github.com/invertase/react-native-firebase/issues/8461#issuecomment-2832480840
     FirebaseApp.configure()
-
-    factory.startReactNative(
-      withModuleName: "Integreat",
-      in: window,
-      launchOptions: launchOptions
-    )
 
     return true
   }
 
   func application(
-    _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]
-  ) -> Bool {
-    return RCTLinkingManager.application(app, open: url, options: options)
+    _ application: UIApplication,
+    configurationForConnecting connectingSceneSession: UISceneSession,
+    options: UIScene.ConnectionOptions
+  ) -> UISceneConfiguration {
+    UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
   }
-
-    func application(
-      _ application: UIApplication,
-      continue userActivity: NSUserActivity,
-      restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        return RCTLinkingManager.application(
-          application,
-          continue: userActivity,
-          restorationHandler: restorationHandler
-        )
-      }
 }
 
 class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {
