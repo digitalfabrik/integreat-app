@@ -140,6 +140,29 @@ describe('search', () => {
       expect(filterSortRegions(regions, 'alzey')).toEqual([regions[1]])
       expect(filterSortRegions(regions, 'Landkreis Breisgau-Hochschwarzwald')).toEqual([regions[2]])
     })
+
+    it('should sort by match priority before sorting name', () => {
+      const regions = [
+        region({ sortingName: 'Aichach', aliases: { Burgheim: { latitude: 48.267499, longitude: 10.889586 } } }),
+        region({ sortingName: 'Augsburg', aliases: { Burgau: { latitude: 48.267499, longitude: 10.889586 } } }),
+        region({ sortingName: 'Burglengenfeld', prefix: 'Landkreis' }),
+        region({ sortingName: 'Burg' }),
+      ]
+      expect(filterSortRegions(regions, 'burg')).toEqual([regions[3], regions[2], regions[1], regions[0]])
+    })
+
+    it('should sort regions matching by name before regions only matching by alias', () => {
+      const regions = [
+        region({
+          sortingName: 'Bad Kissingen',
+          prefix: 'Landkreis',
+          aliases: { Münnerstadt: { latitude: 48.267499, longitude: 10.889586 } },
+        }),
+        region({ sortingName: 'München', prefix: 'Stadt' }),
+        region({ sortingName: 'München', prefix: 'Landkreis' }),
+      ]
+      expect(filterSortRegions(regions, 'Mü')).toEqual([regions[2], regions[1], regions[0]])
+    })
   })
 })
 
