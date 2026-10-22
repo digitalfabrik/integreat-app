@@ -65,7 +65,7 @@ export const commonLightColors: CommonColorPalette = {
     dark: '#0753A1',
     contrastText: '#FFFFFF',
   },
-  divider: '#767676',
+  divider: '#E7E7E7',
 }
 
 export const commonDarkColors: CommonColorPalette = {
