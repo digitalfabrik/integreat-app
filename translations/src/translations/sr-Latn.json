@@ -29,12 +29,7 @@
     "bot": "Četbot",
     "consultant": "Savetnik/ca",
     "typing": "Kuca…",
-    "inputPlaceholder": "Unesi svoje pitanje…",
-    "initial": {
-      "title": "Unesi svoje pitanje u polje za tekst.",
-      "description": "Možeš da postaviš pitanje o lokalnim informacijama ili svojoj ličnoj situaciji."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Zdravo!",
       "description": "Ja sam <strong>{{name}}</strong>, tvoj digitalni asistent za pretragu. Slobodno mi postavi pitanje."
     },

@@ -29,12 +29,7 @@
     "bot": "Bisedues automatik",
     "consultant": "Këshillues/e",
     "typing": "Po shkruan…",
-    "inputPlaceholder": "Ju lutemi, shkruani pyetjen tuaj…",
-    "initial": {
-      "title": "Ju lutemi, shkruani pyetjen tuaj në fushën e tekstit.",
-      "description": "Mund të pyesësh për informacione vendore ose për situatën tënde personale."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Përshëndetje!",
       "description": "Unë jam <strong>{{name}}</strong>, asistenti yt digjital i kërkimit. Më bëj lirisht pyetjen tënde."
     },

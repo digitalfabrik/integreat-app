@@ -29,12 +29,7 @@
     "bot": "Kijibu maswali (Chatbot)",
     "consultant": "Mshauri",
     "typing": "Inaandika…",
-    "inputPlaceholder": "Tafadhali andika swali lako...",
-    "initial": {
-      "title": "Tafadhali andika swali lako kwenye kisanduku cha maandishi.",
-      "description": "Unaweza kuuliza kuhusu taarifa za eneo lako au hali yako binafsi."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Habari!",
       "description": "Mimi ni <strong>{{name}}</strong>, Msaidizi wako wa Utafutaji wa Kidijitali. Jisikie huru kuniuliza swali lako."
     },

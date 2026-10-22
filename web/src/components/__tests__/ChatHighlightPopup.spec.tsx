@@ -16,16 +16,16 @@ describe('ChatHighlightPopup', () => {
     const anchorEl = document.createElement('button')
     const { getByText } = renderWithTheme(<ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />)
 
-    expect(getByText('chat:welcome.title 👋')).toBeTruthy()
-    expect(getByText('chat:welcome.description Frag Integreat')).toBeTruthy()
+    expect(getByText('chat:highlight.title 👋')).toBeTruthy()
+    expect(getByText('chat:highlight.description Frag Integreat')).toBeTruthy()
     expect(localStorage.getItem(CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 
   it('should not render popup when anchorEl is null', () => {
     const { queryByText } = renderWithTheme(<ChatHighlightPopup anchorEl={null} chatName={chatName} />)
 
-    expect(queryByText('chat:welcome.title')).toBeFalsy()
-    expect(queryByText('chat:welcome.description', { exact: false })).toBeFalsy()
+    expect(queryByText('chat:highlight.title')).toBeFalsy()
+    expect(queryByText('chat:highlight.description', { exact: false })).toBeFalsy()
   })
 
   it('should hide popup when close button is clicked', () => {
@@ -36,8 +36,8 @@ describe('ChatHighlightPopup', () => {
 
     fireEvent.click(getByLabelText('common:actions.close'))
 
-    expect(queryByText('chat:welcome.title')).toBeFalsy()
-    expect(queryByText('chat:welcome.description')).toBeFalsy()
+    expect(queryByText('chat:highlight.title')).toBeFalsy()
+    expect(queryByText('chat:highlight.description')).toBeFalsy()
     expect(localStorage.getItem(CHAT_HIGHLIGHT_POPUP_VISIBLE_STORAGE_KEY)).toBe('false')
   })
 
@@ -46,7 +46,7 @@ describe('ChatHighlightPopup', () => {
     const anchorEl = document.createElement('button')
     const { queryByText } = renderWithTheme(<ChatHighlightPopup anchorEl={anchorEl} chatName={chatName} />)
 
-    expect(queryByText('chat:welcome.title')).toBeFalsy()
-    expect(queryByText('chat:welcome.description')).toBeFalsy()
+    expect(queryByText('chat:highlight.title')).toBeFalsy()
+    expect(queryByText('chat:highlight.description')).toBeFalsy()
   })
 })

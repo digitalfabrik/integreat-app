@@ -29,12 +29,7 @@
     "bot": "ቻትቦት (Chatbot)",
     "consultant": "ኣማኻሪ/ት",
     "typing": "ይጽሕፍ ኣሎ…",
-    "inputPlaceholder": "ብኽብረትካ/ኺ ሕቶኻ/ኺ ኣእቱ/ዊ…",
-    "initial": {
-      "title": "ብኽብረትካ/ኺ ሕቶኻ/ኺ ኣብቲ ናይ ጽሑፍ ሳጹን ኣእቱ/ዊ።",
-      "description": "ብዛዕባ ከባብያዊ ሓበሬታ ወይ ብዛዕባ ውልቃዊ ኩነታትካ/ኺ ክትሓትት/ቲ ትኽእል/ሊ ኢኻ/ኺ።"
-    },
-    "welcome": {
+    "highlight": {
       "title": "ሰላም!",
       "description": "ኣነ <strong>{{name}}</strong> እየ፡ ናይ ዲጂታል ምድላይ ሓጋዚኻ። ሕቶኻ ብሓጎስ ሕተተኒ።"
     },

@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Asesor/a",
     "typing": "Escribiendo…",
-    "inputPlaceholder": "Escribe tu pregunta…",
-    "initial": {
-      "title": "Escribe tu pregunta en el campo de texto.",
-      "description": "Puedes consultar información local o preguntar sobre tu situación personal."
-    },
-    "welcome": {
+    "highlight": {
       "title": "¡Hola!",
       "description": "Soy <strong>{{name}}</strong>, tu asistente de búsqueda digital. Pregúntame lo que quieras."
     },

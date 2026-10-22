@@ -134,7 +134,7 @@ const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): React
       multiline
       minRows={1}
       maxRows={5}
-      placeholder={t($ => $.chat.inputPlaceholder)}
+      placeholder={t($ => $.chat.askQuestion)}
       slotProps={{
         input: {
           endAdornment: (

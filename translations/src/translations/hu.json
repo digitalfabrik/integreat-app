@@ -29,12 +29,7 @@
     "bot": "Csetbot",
     "consultant": "Tanácsadó",
     "typing": "Gépel…",
-    "inputPlaceholder": "Írd be a kérdésedet…",
-    "initial": {
-      "title": "Kérjük, írd be a kérdésedet a szövegmezőbe.",
-      "description": "Kérdezhetsz helyi információkról vagy a személyes helyzetedről is."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Helló!",
       "description": "<strong>{{name}}</strong> vagyok, a digitális keresési asszisztensed. Tedd fel bátran a kérdésed!"
     },
