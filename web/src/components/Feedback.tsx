@@ -99,6 +99,7 @@ const Feedback = ({
         onChange={event => onContactMailChanged(event.target.value)}
         label={t($ => $.feedback.contactEmail)}
         variant='outlined'
+        enterKeyHint='done'
       />
       <PrivacyFormControl error={showErrors && !privacyPolicyAccepted} required>
         <PrivacyCheckbox language={language} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
