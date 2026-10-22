@@ -26,6 +26,9 @@ export const SEARCH_ROUTE: SearchRouteType = 'search'
 export type OpenSourceRouteType = 'open-source'
 export const OPEN_SOURCE_ROUTE: OpenSourceRouteType = 'open-source'
 
+export type BescheidCheckRouteType = 'bescheid-check'
+export const BESCHEID_CHECK_ROUTE: BescheidCheckRouteType = 'bescheid-check'
+
 // Legacy routes
 export const LEGACY_REGIONS_ROUTE = 'landing'
 export const LEGACY_PLACES_ROUTE = 'locations'
@@ -87,6 +90,7 @@ export const RESERVED_TOP_LEVEL_SLUGS: string[] = [
   OPEN_SOURCE_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
   LEGACY_REGIONS_ROUTE,
+  BESCHEID_CHECK_ROUTE,
 ]
 
 // Changes done to the reserved routes have to be done in the CMS as well:

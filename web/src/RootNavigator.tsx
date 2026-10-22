@@ -15,6 +15,7 @@ import {
   LEGACY_REGIONS_ROUTE,
   LEGACY_PLACES_ROUTE,
   PLACES_ROUTE,
+  BESCHEID_CHECK_ROUTE,
 } from 'shared'
 
 import FixedRegionContentNavigator from './FixedRegionContentNavigator'
@@ -30,6 +31,7 @@ const MainImprintPage = lazyWithRetry(() => import('./routes/MainImprintPage'))
 const RegionsPage = lazyWithRetry(() => import('./routes/RegionsPage'))
 const NotFoundPage = lazyWithRetry(() => import('./routes/NotFoundPage'))
 const OpenSourcePage = lazyWithRetry(() => import('./routes/OpenSourcePage'))
+const BescheidCheckPage = lazyWithRetry(() => import('./routes/BescheidCheckPage'))
 
 const LegacyPlacesRedirect = (): ReactElement => {
   const { regionCode, languageCode, '*': splat } = useParams()
@@ -69,6 +71,7 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
       <Route path={RoutePatterns[NOT_FOUND_ROUTE]} element={<NotFoundPage />} />
       <Route path={RoutePatterns[EXTERNAL_SOURCES_ROUTE]} element={<ExternalSourcesPage languageCode={language} />} />
       <Route path={RoutePatterns[OPEN_SOURCE_ROUTE]} element={<OpenSourcePage languageCode={language} />} />
+      <Route path={RoutePatterns[BESCHEID_CHECK_ROUTE]} element={<BescheidCheckPage languageCode={language} />} />
       <Route
         path={regionContentPattern}
         element={
