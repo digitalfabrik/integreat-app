@@ -90,16 +90,16 @@ const RootNavigator = ({ setContentLanguage }: RootNavigatorProps): ReactElement
       {/* Redirects */}
       <Route
         path={`/${LEGACY_REGIONS_ROUTE}/*`}
-        element={<Navigate to={`/${REGIONS_ROUTE}/${lastSegment}`} replace />}
+        element={<Navigate to={`/${REGIONS_ROUTE}/${lastSegment}${search}`} replace />}
       />
       <Route path={`/:regionCode/:languageCode/${LEGACY_PLACES_ROUTE}/*`} element={<LegacyPlacesRedirect />} />
 
-      <Route path='/' element={<Navigate to={fixedRegionPath ?? regionsPath} replace />} />
+      <Route path='/' element={<Navigate to={`${fixedRegionPath ?? regionsPath}${search}`} replace />} />
       {!!fixedRegionPath && (
-        <Route path={RoutePatterns[REGIONS_ROUTE]} element={<Navigate to={fixedRegionPath} replace />} />
+        <Route path={RoutePatterns[REGIONS_ROUTE]} element={<Navigate to={`${fixedRegionPath}${search}`} replace />} />
       )}
       {/* Also handles redirects from /regions to /regions/de */}
-      <Route path='/:regionCode' element={<Navigate to={fixedRegionPath ?? language} replace />} />
+      <Route path='/:regionCode' element={<Navigate to={`${fixedRegionPath ?? language}${search}`} replace />} />
 
       {/* Language independent urls */}
       {RESERVED_REGION_CONTENT_SLUGS.map(slug => (
