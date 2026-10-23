@@ -71,6 +71,7 @@ export const RadioGroup = <T extends string>({
                 helperText={submitted ? inputProps.helperText : undefined}
                 size='small'
                 variant='outlined'
+                slotProps={{ htmlInput: { enterKeyHint: 'done' } }}
               />
             )}
           </React.Fragment>
