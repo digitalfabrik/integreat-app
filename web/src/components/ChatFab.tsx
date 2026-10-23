@@ -1,44 +1,53 @@
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import Badge from '@mui/material/Badge'
 import Fab from '@mui/material/Fab'
+import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { getChatName } from 'shared'
+import { CHAT_QUERY_KEY, getChatName, PLACES_ROUTE } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import { CHAT_FAB_ELEMENT_ID } from '../constants/layout'
+import { TtsContext } from '../contexts/TtsContext'
 import { useScrollDimensions } from '../hooks/useDimensions'
+import useQueryParam from '../hooks/useQueryParam'
+import useRegionContentParams from '../hooks/useRegionContentParams'
 import ChatHighlightPopup from './ChatHighlightPopup'
 import LiveAnnouncer from './LiveAnnouncer'
 
-const ChatButtonContainer = styled('div')<{ bottom: number }>`
-  position: fixed;
-  z-index: ${props => props.theme.zIndex.fab};
-  bottom: ${props => props.bottom}px;
-  inset-inline-end: 16px;
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: min-content;
-  gap: 8px;
-`
+const ChatButtonContainer = styled(Stack)<{ bottom: number }>(({ theme, bottom }) => ({
+  position: 'fixed',
+  zIndex: theme.zIndex.fab,
+  bottom,
+  insetInlineEnd: 16,
+  marginBottom: 16,
+  alignItems: 'center',
+  width: 'min-content',
+  gap: 8,
+}))
 
 type ChatButtonProps = {
-  onClick: () => void
   unreadMessageCount: number
 }
 
-const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement => {
-  const { desktop, visibleFooterHeight, bottomNavigationHeight } = useScrollDimensions()
+const ChatFab = ({ unreadMessageCount }: ChatButtonProps): ReactElement | null => {
+  const [, setOpen] = useQueryParam(CHAT_QUERY_KEY)
+  const { desktop, visibleFooterHeight, bottomNavigationHeight, xsmall } = useScrollDimensions()
+  const { route } = useRegionContentParams()
   const { t } = useTranslation()
 
   const chatName = getChatName(buildConfig().appName)
   const unreadMessages = t($ => $.chat.unread, { count: unreadMessageCount })
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
+
+  const { visible: ttsPlayerVisible } = useContext(TtsContext)
+
+  if (route === PLACES_ROUTE || (xsmall && ttsPlayerVisible)) {
+    return null
+  }
 
   return (
     <ChatButtonContainer id={CHAT_FAB_ELEMENT_ID} bottom={bottomNavigationHeight ?? visibleFooterHeight}>
@@ -47,7 +56,7 @@ const ChatFab = ({ onClick, unreadMessageCount }: ChatButtonProps): ReactElement
         badgeContent={unreadMessageCount > 0 ? unreadMessageCount : undefined}
         color='error'
         aria-label={unreadMessages}>
-        <Fab ref={setAnchorEl} onClick={onClick} color='primary' aria-label={chatName}>
+        <Fab ref={setAnchorEl} onClick={() => setOpen(true)} color='primary' aria-label={chatName}>
           <QuestionAnswerOutlinedIcon fontSize='large' />
         </Fab>
       </Badge>
