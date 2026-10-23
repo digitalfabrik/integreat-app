@@ -1,0 +1,7 @@
+issue_key: 4497
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: On-screen keyboards now show "Search" as the Enter key hint in search fields.
+de: Bildschirmtastaturen zeigen in Suchfeldern jetzt „Suchen“ als Hinweis für die Eingabetaste an.

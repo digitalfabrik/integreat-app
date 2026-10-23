@@ -47,6 +47,7 @@ const SearchInput = ({
           aria-label={ariaLabel}
           value={value}
           onChangeText={setValue}
+          returnKeyType='search'
           role='searchbox'
           mode='outlined'
           outlineStyle={{ borderRadius: 24 }}
