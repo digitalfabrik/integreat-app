@@ -3,7 +3,6 @@ import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CategoryModel } from 'shared/api'
-import { config } from 'translations'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import MenuItem from './MenuItem'
@@ -17,7 +16,6 @@ type PdfMenuItemProps = {
 
 const PdfMenuItem = ({ category, regionCode, languageCode, closeMenu, ...other }: PdfMenuItemProps): ReactElement => {
   const { t } = useTranslation()
-  const pdfDisabled = config.hasRTLScript(languageCode)
 
   const pdfUrl =
     !category || category.isRoot()
@@ -29,8 +27,6 @@ const PdfMenuItem = ({ category, regionCode, languageCode, closeMenu, ...other }
       icon={<DescriptionOutlinedIcon fontSize='small' />}
       text={t($ => $.categories.pdf.create)}
       to={pdfUrl}
-      disabled={pdfDisabled}
-      tooltip={pdfDisabled ? t($ => $.categories.pdf.disabled) : null}
       closeMenu={closeMenu}
       {...other}
     />
