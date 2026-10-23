@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
+const LOWEST_PADDING = 0.5
+
 const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
   borderColor: theme.palette.primary.main,
 
@@ -30,6 +32,22 @@ const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
     '&:hover': {
       backgroundColor: theme.palette.primary.dark,
     },
+  },
+}))
+
+const ToggleButtonContent = styled(Stack, {
+  shouldForwardProp: prop => prop !== 'selected',
+})<{ selected: boolean }>(({ theme, selected }) => ({
+  alignItems: 'center',
+  minWidth: 0,
+  gap: theme.spacing(1),
+  paddingInlineStart: theme.spacing(selected ? 1 : 3),
+  paddingInlineEnd: theme.spacing(selected ? 1.5 : 3),
+
+  [theme.breakpoints.down('sm')]: {
+    gap: theme.spacing(LOWEST_PADDING),
+    paddingInlineStart: theme.spacing(selected ? LOWEST_PADDING : 2),
+    paddingInlineEnd: theme.spacing(selected ? LOWEST_PADDING : 2),
   },
 }))
 
@@ -58,18 +76,13 @@ const ToggleTextButtonGroup = <T extends string>({
       const selected = option === value
 
       return (
-        <StyledToggleButton key={option} value={option}>
-          <Stack
-            direction='row'
-            sx={{
-              paddingInlineStart: selected ? 1 : 3,
-              paddingInlineEnd: selected ? 1.5 : 3,
-              alignItems: 'center',
-              gap: 1,
-            }}>
+        <StyledToggleButton key={option} value={option} sx={{ minWidth: 0 }}>
+          <ToggleButtonContent direction='row' selected={selected}>
             {selected && <CheckIcon fontSize='small' />}
-            <Typography variant='body2'>{getLabel(option)}</Typography>
-          </Stack>
+            <Typography variant='body2' noWrap sx={{ minWidth: 0 }}>
+              {getLabel(option)}
+            </Typography>
+          </ToggleButtonContent>
         </StyledToggleButton>
       )
     })}
