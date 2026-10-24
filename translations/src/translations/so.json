@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "La-taliye",
     "typing": "Wuu qorayaa…",
-    "inputPlaceholder": "Fadlan qor su'aashaada…",
-    "initial": {
-      "title": "Fadlan su'aashaada ku qor sanduuqa qoraalka.",
-      "description": "Waxaad weydiin kartaa xogta deegaanka ama xaaladdaada gaarka ah."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Hayye!",
       "description": "Waxaan ahay <strong>{{name}}</strong>, Kaaliyahaaga Raadinta Dhijitaalka ah. Xor u noqo inaad i weydiiso su'aashaada."
     },

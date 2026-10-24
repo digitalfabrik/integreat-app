@@ -29,12 +29,7 @@
     "bot": "Comhrá-bhót",
     "consultant": "Comhairleoir",
     "typing": "Ag clóscríobh…",
-    "inputPlaceholder": "Iontráil do cheist, le do thoil…",
-    "initial": {
-      "title": "Cuir do cheist isteach sa réimse téacs, le do thoil.",
-      "description": "Is féidir leat ceist a chur faoi eolas áitiúil nó faoi do chás pearsanta."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Dia duit!",
       "description": "Is mise <strong>{{name}}</strong>, do chúntóir cuardaigh digiteach. Ná bíodh drogall ort do cheist a chur orm."
     },

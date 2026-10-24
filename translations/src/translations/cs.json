@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Poradce / poradkyně",
     "typing": "Píše…",
-    "inputPlaceholder": "Zadej prosím svůj dotaz…",
-    "initial": {
-      "title": "Zadej prosím svůj dotaz do textového pole.",
-      "description": "Můžeš se zeptat na místní informace nebo na svou osobní situaci."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Dobrý den!",
       "description": "Jsem <strong>{{name}}</strong>, váš digitální asistent vyhledávání. Neváhejte se mě na cokoliv zeptat."
     },

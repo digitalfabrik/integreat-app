@@ -50,6 +50,7 @@ describe('regions', () => {
       [11.0174493, 48.297834],
     ],
     is_chat_enabled: false,
+    bescheidcheck: false,
     zammad_privacy_policy: null,
   }
   const region2: JsonRegionType = {
@@ -71,6 +72,7 @@ describe('regions', () => {
       [12.145, 49.085],
     ],
     is_chat_enabled: false,
+    bescheidcheck: false,
     zammad_privacy_policy: 'https://example.com/privacy',
   }
 
@@ -89,6 +91,7 @@ describe('regions', () => {
         live: region1.live,
         languages,
         chatEnabled: false,
+        bescheidCheckEnabled: false,
         chatPrivacyPolicyUrl: null,
         eventsEnabled: true,
         placesEnabled: true,
@@ -112,6 +115,7 @@ describe('regions', () => {
         live: region2.live,
         languages,
         chatEnabled: false,
+        bescheidCheckEnabled: false,
         chatPrivacyPolicyUrl: 'https://example.com/privacy',
         eventsEnabled: false,
         placesEnabled: false,

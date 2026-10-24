@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Consulente",
     "typing": "Sta scrivendo…",
-    "inputPlaceholder": "Inserisci la tua domanda…",
-    "initial": {
-      "title": "Inserisci la tua domanda nella casella di testo.",
-      "description": "Puoi chiedere informazioni locali o porre domande sulla tua situazione personale."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Ciao!",
       "description": "Sono <strong>{{name}}</strong>, il tuo assistente di ricerca digitale. Fammi pure una domanda."
     },

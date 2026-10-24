@@ -77,7 +77,7 @@ describe('Chat', () => {
     const { getByRole, getByPlaceholderText } = render()
     const buttonSendMessage = getByRole('button', { name: 'common:actions.send' })
 
-    const input = getByPlaceholderText('chat:inputPlaceholder', { exact: false })
+    const input = getByPlaceholderText('chat:askQuestion', { exact: false })
     fireEvent.change(input, { target: { value: 'Meine Nachricht' } })
 
     expect(buttonSendMessage).toBeEnabled()
@@ -110,7 +110,7 @@ describe('Chat', () => {
 
       const { getByRole, getByPlaceholderText } = render()
 
-      const input = getByPlaceholderText('chat:inputPlaceholder', { exact: false })
+      const input = getByPlaceholderText('chat:askQuestion', { exact: false })
       fireEvent.change(input, { target: { value: 'Meine Nachricht' } })
       fireEvent.click(getByRole('button', { name: 'common:actions.send' }))
 
