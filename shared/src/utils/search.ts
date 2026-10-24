@@ -34,11 +34,42 @@ const safeLocaleCompare = (a: string | null | undefined, b: string | null | unde
 const regionSort = (a: RegionModel, b: RegionModel): number =>
   safeLocaleCompare(a.sortingName, b.sortingName) || safeLocaleCompare(a.prefix, b.prefix)
 
+const MatchPriority = {
+  ExactName: 0,
+  NameWordStart: 1,
+  NameContains: 2,
+  AliasOnly: 3,
+}
+
+const getMatchPriority = (regionModel: RegionModel, normalizedFilter: string): number => {
+  const normalizedName = normalizeString(regionModel.name)
+  const normalizedSortingName = normalizeString(regionModel.sortingName)
+
+  if (normalizedName === normalizedFilter || normalizedSortingName === normalizedFilter) {
+    return MatchPriority.ExactName
+  }
+  if (matchesWordStart(regionModel.name, normalizedFilter)) {
+    return MatchPriority.NameWordStart
+  }
+  if (normalizedName.includes(normalizedFilter)) {
+    return MatchPriority.NameContains
+  }
+  return MatchPriority.AliasOnly
+}
+
+const relevanceSort =
+  (normalizedFilter: string) =>
+  (a: RegionModel, b: RegionModel): number =>
+    getMatchPriority(a, normalizedFilter) - getMatchPriority(b, normalizedFilter) || regionSort(a, b)
+
 export const filterSortRegions = (
   regions: RegionModel[],
   filterText: string,
   developerFriendly = false,
-): RegionModel[] => regions.filter(regionFilter(filterText, developerFriendly)).sort(regionSort)
+): RegionModel[] => {
+  const normalizedFilter = normalizeString(filterText)
+  return regions.filter(regionFilter(filterText, developerFriendly)).sort(relevanceSort(normalizedFilter))
+}
 
 export const getMatchingAliases = (aliases: Record<string, unknown> | null, filterText: string): string[] => {
   if (!aliases) {

@@ -2,7 +2,7 @@ import { groupBy, transform } from 'lodash'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
-import { List as PaperList } from 'react-native-paper'
+import { Divider, List as PaperList } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
 import { REGION_SEARCH_EXAMPLE, filterSortRegions } from 'shared'
@@ -49,17 +49,25 @@ const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): 
   )
 
   const regionGroups = groupBy(resultRegions, (region: RegionModel) => region.sortCategory)
-  const regionEntries = transform(
-    regionGroups,
-    (result: ReactNode[], regions: RegionModel[], key: string) => {
-      result.push(
-        <RegionGroupContainer key={key}>
-          <RegionGroup>{key}</RegionGroup>
-          {regions.map(renderRegion)}
-        </RegionGroupContainer>,
-      )
-    },
-    [],
+
+  const regionEntries = filterText ? (
+    <RegionGroupContainer>
+      <Divider />
+      {resultRegions.map(renderRegion)}
+    </RegionGroupContainer>
+  ) : (
+    transform(
+      regionGroups,
+      (result: ReactNode[], regions: RegionModel[], key: string) => {
+        result.push(
+          <RegionGroupContainer key={key}>
+            <RegionGroup>{key}</RegionGroup>
+            {regions.map(renderRegion)}
+          </RegionGroupContainer>,
+        )
+      },
+      [],
+    )
   )
 
   return (
