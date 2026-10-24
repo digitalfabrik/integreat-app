@@ -117,6 +117,13 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
             },
           },
         },
+        MuiPaper: {
+          styleOverrides: {
+            root: {
+              backgroundImage: 'none',
+            },
+          },
+        },
         MuiMenu: {
           styleOverrides: {
             paper: {
