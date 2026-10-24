@@ -1,4 +1,3 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import CloseIcon from '@mui/icons-material/Close'
 import RemoveIcon from '@mui/icons-material/Remove'
 import MuiDialog, { dialogClasses } from '@mui/material/Dialog'
@@ -14,10 +13,7 @@ import { useTranslation } from 'react-i18next'
 
 import { LAYOUT_ELEMENT_ID } from '../../constants/layout'
 import useDimensions from '../../hooks/useDimensions'
-
-export const DirectionDependentBackIcon = styled(ArrowBackIcon)(({ theme }) => ({
-  transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
-}))
+import { DirectionDependentBackIcon } from './DirectionDependentIcons'
 
 const StyledMuiDialog = styled(MuiDialog)(({ theme }) => ({
   [`.${dialogClasses.paper}`]: {
