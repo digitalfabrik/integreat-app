@@ -1,7 +1,6 @@
 // import AttachFileIcon from '@mui/icons-material/AttachFile'
 import shouldForwardProp from '@emotion/is-prop-valid'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
-import SendIcon from '@mui/icons-material/Send'
 import { buttonBaseClasses } from '@mui/material/ButtonBase'
 import IconButton from '@mui/material/IconButton'
 import { outlinedInputClasses } from '@mui/material/OutlinedInput'
@@ -16,6 +15,7 @@ import { RegionModel } from 'shared/api'
 
 import buildConfig from '../constants/buildConfig'
 import useDimensions from '../hooks/useDimensions'
+import { DirectionDependentSendIcon } from './base/DirectionDependentIcons'
 import Link from './base/Link'
 
 const StyledTextField = styled(TextField, { shouldForwardProp: prop => prop !== 'expanded' })<{ expanded: boolean }>(
@@ -55,9 +55,6 @@ const ChatIconButton = styled(IconButton)(({ theme }) => ({
 const SendButton = styled(IconButton)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   color: theme.palette.primary.contrastText,
-  '& svg': {
-    transform: theme.direction === 'rtl' ? 'scaleX(-1)' : undefined,
-  },
   '&:hover': {
     backgroundColor: theme.palette.primary.dark,
   },
@@ -140,7 +137,7 @@ const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): React
           endAdornment: (
             <ButtonStack expanded={expanded}>
               <SendButton onClick={onSubmit} disabled={submitDisabled} aria-label={t($ => $.common.actions.send)}>
-                <SendIcon fontSize={iconFontSize} />
+                <DirectionDependentSendIcon fontSize={iconFontSize} />
               </SendButton>
               <Stack direction='row'>
                 {/* <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t($ => $.common.upload.file)}>

@@ -16,7 +16,7 @@ import MapZoomControls from './MapZoomControls'
 import PlaceSharedChildren from './PlaceSharedChildren'
 import SkeletonHeader from './SkeletonHeader'
 import SkeletonList from './SkeletonList'
-import { DirectionDependentBackIcon } from './base/Dialog'
+import { DirectionDependentBackIcon } from './base/DirectionDependentIcons'
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   backgroundColor: theme.palette.background.accent,

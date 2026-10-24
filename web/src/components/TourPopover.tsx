@@ -1,5 +1,4 @@
 import shouldForwardProp from '@emotion/is-prop-valid'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import CloseIcon from '@mui/icons-material/Close'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
@@ -14,14 +13,10 @@ import { TOUR_POPOVER_MAX_WIDTH } from '../constants/tour'
 import useLocalStorage, { TOUR_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
 import { TourStepType } from '../utils/tourSteps'
-import { DirectionDependentBackIcon } from './base/Dialog'
+import { DirectionDependentBackIcon, DirectionDependentForwardIcon } from './base/DirectionDependentIcons'
 import PopoverPaper from './base/PopoverPaper'
 
 const DOT_SIZE = 8
-
-const DirectionDependentForwardIcon = styled(ArrowForwardIcon)(({ theme }) => ({
-  transform: theme.direction === 'rtl' ? 'scaleX(-1)' : 'none',
-}))
 
 const StyledPaper = styled(PopoverPaper)(({ theme }) => ({
   maxWidth: TOUR_POPOVER_MAX_WIDTH,

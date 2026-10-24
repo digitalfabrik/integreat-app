@@ -4,7 +4,7 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
-import { DirectionDependentBackIcon } from './base/Dialog'
+import { DirectionDependentBackIcon } from './base/DirectionDependentIcons'
 
 const StyledButton = styled(Button)({
   textTransform: 'none',
