@@ -4,7 +4,6 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
-import useDimensions from '../hooks/useDimensions'
 import { DirectionDependentBackIcon } from './base/Dialog'
 
 const StyledButton = styled(Button)({
@@ -14,12 +13,10 @@ const StyledButton = styled(Button)({
 
 type BackButtonProps = {
   fallback?: string
-  desktop?: boolean
 }
 
-const BackButton = ({ fallback, desktop = false }: BackButtonProps): ReactElement | null => {
+const BackButton = ({ fallback }: BackButtonProps): ReactElement | null => {
   const navigate = useNavigate()
-  const { mobile } = useDimensions()
   const { t } = useTranslation()
 
   const currentHistoryIndex = window.history.state?.idx ?? 0
@@ -27,10 +24,7 @@ const BackButton = ({ fallback, desktop = false }: BackButtonProps): ReactElemen
   const [initialHistoryIndex] = useState(currentHistoryIndex)
   const hasHistory = initialHistoryIndex !== 0
 
-  const visible = desktop || mobile
-  const hasBack = hasHistory || !!fallback
-
-  if (!visible || !hasBack) {
+  if (!hasHistory && !fallback) {
     return null
   }
 

@@ -24,7 +24,7 @@ describe('BackButton', () => {
     setHistoryIndex(1)
   })
 
-  it('should render on mobile and navigate back on click when history exists', () => {
+  it('should render and navigate back on click when history exists', () => {
     const { getByText } = renderWithRouterAndTheme(<BackButton />)
 
     fireEvent.click(getByText('common:actions.back'))
@@ -32,31 +32,17 @@ describe('BackButton', () => {
     expect(mockNavigate).toHaveBeenCalledWith(-1)
   })
 
-  it('should render nothing on mobile when there is no history and no fallback is given', () => {
+  it('should render nothing when there is no history and no fallback is given', () => {
     setHistoryIndex(0)
     const { queryByText } = renderWithRouterAndTheme(<BackButton />)
 
     expect(queryByText('common:actions.back')).toBeFalsy()
-  })
-
-  it('should render nothing on desktop by default', () => {
-    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: false }))
-    const { queryByText } = renderWithRouterAndTheme(<BackButton />)
-
-    expect(queryByText('common:actions.back')).toBeFalsy()
-  })
-
-  it('should render on desktop when the desktop prop is set', () => {
-    mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: false }))
-    const { getByText } = renderWithRouterAndTheme(<BackButton desktop fallback='/regions/de' />)
-
-    expect(getByText('common:actions.back')).toBeTruthy()
   })
 
   it('should navigate to the fallback when there is no history to go back to', () => {
     setHistoryIndex(0)
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: false }))
-    const { getByText } = renderWithRouterAndTheme(<BackButton desktop fallback='/regions/de' />)
+    const { getByText } = renderWithRouterAndTheme(<BackButton fallback='/regions/de' />)
 
     fireEvent.click(getByText('common:actions.back'))
 
@@ -65,7 +51,7 @@ describe('BackButton', () => {
 
   it('should prefer navigating back in history over the fallback when both are available', () => {
     mocked(useDimensions).mockImplementation(() => ({ ...mockDimensions, mobile: false }))
-    const { getByText } = renderWithRouterAndTheme(<BackButton desktop fallback='/regions/de' />)
+    const { getByText } = renderWithRouterAndTheme(<BackButton fallback='/regions/de' />)
 
     fireEvent.click(getByText('common:actions.back'))
 

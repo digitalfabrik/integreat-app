@@ -29,7 +29,7 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
 
   return (
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
-      <BackButton desktop fallback={fallbackBackTo} />
+      <BackButton fallback={fallbackBackTo} />
       <H1>{bescheidCheckName}</H1>
     </Layout>
   )
