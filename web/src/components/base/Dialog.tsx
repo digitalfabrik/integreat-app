@@ -77,6 +77,7 @@ export const DialogHeader = ({
       component={Stack}
       direction={desktop ? 'row-reverse' : 'row'}
       className={className}
+      dir={contentDirection}
       elevation={2}
       sx={{ justifyContent: desktop ? 'space-between' : undefined, paddingBlock: compact ? 1.5 : undefined }}>
       <IconButton

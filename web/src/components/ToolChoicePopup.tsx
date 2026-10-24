@@ -1,4 +1,3 @@
-import ArrowForward from '@mui/icons-material/ArrowForward'
 import ChatIcon from '@mui/icons-material/Chat'
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner'
 import Avatar from '@mui/material/Avatar'
@@ -22,6 +21,7 @@ import buildConfig from '../constants/buildConfig'
 import useQueryParam from '../hooks/useQueryParam'
 import { ChatLogoAvatar } from './ChatAvatar'
 import { DialogHeader } from './base/Dialog'
+import { DirectionDependentForwardIcon } from './base/DirectionDependentIcons'
 import Link from './base/Link'
 
 const StyledPopover = styled(MuiPopover)({
@@ -60,7 +60,7 @@ const ToolChoiceListItem = ({
   onClick,
   actionLabel,
 }: ToolChoiceListItemProps): ReactElement => {
-  const theme = useTheme()
+  const { contentDirection, ...theme } = useTheme()
   const content = (
     <>
       <ListItemAvatar sx={{ alignSelf: 'start', paddingTop: 0.5 }}>
@@ -77,7 +77,7 @@ const ToolChoiceListItem = ({
       <ListItemText
         primary={<Typography variant='subtitle2'>{title}</Typography>}
         secondary={
-          <Stack sx={{ gap: 1 }}>
+          <Stack dir={contentDirection} sx={{ gap: 1 }}>
             <Typography variant='body3' component='div'>
               {description}
             </Typography>
@@ -85,7 +85,7 @@ const ToolChoiceListItem = ({
               <Typography variant='subtitle2' color='primary'>
                 {actionLabel}
               </Typography>
-              <ArrowForward fontSize='small' color='primary' />
+              <DirectionDependentForwardIcon fontSize='small' color='primary' />
             </Stack>
           </Stack>
         }
@@ -129,7 +129,8 @@ const ToolChoicePopup = ({ anchorEl, close }: ToolChoicePopupProps): ReactElemen
       anchorEl={anchorEl}
       onClose={close}
       anchorOrigin={{ vertical: -16, horizontal }}
-      transformOrigin={{ vertical: 'bottom', horizontal }}>
+      transformOrigin={{ vertical: 'bottom', horizontal }}
+      dir={contentDirection}>
       <DialogHeader
         title={buildConfig().appName.toUpperCase()}
         subtitle={t($ => $.common.labels.assistant.title)}
