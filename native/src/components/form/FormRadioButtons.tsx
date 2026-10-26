@@ -45,13 +45,7 @@ const FormRadioButtons = <T extends FieldValues>({ name, control, values }: Form
               </Wrapper>
             </TouchableRipple>
             {inputName !== undefined && value === key && (
-              <FormInput
-                rules={{ required: true }}
-                name={inputName}
-                control={control}
-                title={inputName}
-                enterKeyHint='done'
-              />
+              <FormInput rules={{ required: true }} name={inputName} control={control} title={inputName} />
             )}
           </View>
         ))}

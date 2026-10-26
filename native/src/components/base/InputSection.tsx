@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AccessibilityRole, EnterKeyHintTypeOptions, KeyboardTypeOptions } from 'react-native'
+import { AccessibilityRole, KeyboardTypeOptions } from 'react-native'
 import { HelperText, Text, TextInput } from 'react-native-paper'
 import styled, { useTheme } from 'styled-components/native'
 
@@ -27,7 +27,6 @@ type InputSectionProps = {
   showOptional?: boolean
   invalid?: boolean
   accessibilityRole?: AccessibilityRole
-  enterKeyHint?: EnterKeyHintTypeOptions
 }
 
 const InputSection = ({
@@ -44,7 +43,6 @@ const InputSection = ({
   invalid = false,
   hint,
   accessibilityRole,
-  enterKeyHint,
 }: InputSectionProps): ReactElement => {
   const theme = useTheme()
   const { t } = useTranslation()
@@ -62,7 +60,7 @@ const InputSection = ({
         onBlur={onBlur}
         value={value}
         multiline={multiline}
-        enterKeyHint={enterKeyHint}
+        returnKeyType={multiline ? 'default' : 'done'}
         maxLength={maxLength}
         numberOfLines={lines}
         style={[

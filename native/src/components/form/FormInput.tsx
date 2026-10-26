@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react'
 import { Control, Controller, FieldValues, Path, RegisterOptions } from 'react-hook-form'
-import { EnterKeyHintTypeOptions } from 'react-native'
 
 import InputSection from '../base/InputSection'
 
@@ -13,7 +12,6 @@ type FormInputProps<T extends FieldValues> = {
   maxLength?: number
   showOptional?: boolean
   multiline?: boolean
-  enterKeyHint?: EnterKeyHintTypeOptions
 }
 
 const FormInput = <T extends FieldValues>({
@@ -25,7 +23,6 @@ const FormInput = <T extends FieldValues>({
   maxLength,
   showOptional = false,
   multiline = false,
-  enterKeyHint,
 }: FormInputProps<T>): ReactElement => (
   <Controller
     name={name}
@@ -42,7 +39,6 @@ const FormInput = <T extends FieldValues>({
         maxLength={maxLength}
         multiline={multiline}
         showOptional={showOptional}
-        enterKeyHint={enterKeyHint}
       />
     )}
   />

@@ -104,7 +104,6 @@ const Feedback = ({
           keyboardType='email-address'
           showOptional
           accessibilityRole='text'
-          enterKeyHint='done'
         />
         {sendingStatus === 'failed' && (
           <Text

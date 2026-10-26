@@ -126,20 +126,8 @@ const MalteHelpFormOffer = ({
           </Text>
         </InformationRow>
 
-        <FormInput
-          name='name'
-          title={t($ => $.malteHelpForm.name)}
-          control={control}
-          rules={{ required: true }}
-          enterKeyHint='done'
-        />
-        <FormInput
-          name='roomNumber'
-          title={t($ => $.malteHelpForm.roomNumber)}
-          control={control}
-          showOptional
-          enterKeyHint='done'
-        />
+        <FormInput name='name' title={t($ => $.malteHelpForm.name)} control={control} rules={{ required: true }} />
+        <FormInput name='roomNumber' title={t($ => $.malteHelpForm.roomNumber)} control={control} showOptional />
 
         <View>
           <Text variant='h6'>{t($ => $.malteHelpForm.howToBeContacted)}</Text>
