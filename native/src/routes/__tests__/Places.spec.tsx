@@ -26,10 +26,11 @@ const resetHistory: PlaceHistory = {
   showFilterSelection: false,
 }
 
-const places = new PlaceModelBuilder(3).build()
+const places = new PlaceModelBuilder(4).build()
 const place0 = places[0]!
 const place1 = places[1]!
 const place2 = places[2]!
+const place3 = places[3]!
 const region = new RegionModelBuilder(1).build()[0]!
 
 const createLocalHistory = (current: PlaceHistory = resetHistory): UseLocalHistoryReturn<PlaceHistory> => ({
@@ -88,16 +89,18 @@ describe('Places', () => {
     const { getByText, queryByText } = renderPlaces({ ...resetHistory, multiPlace: 0 })
 
     expect(getByText(place0.title)).toBeTruthy()
-    expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
     expect(queryByText(place1.title)).toBeFalsy()
+    expect(queryByText(place2.title)).toBeFalsy()
   })
 
   it('should show filtered place list when placeCategoryId is set', () => {
     const { getAllByText, getByText, queryByText } = renderPlaces({ ...resetHistory, placeCategoryId: 10 })
 
-    expect(getAllByText('Gastronomie')).toHaveLength(3)
+    expect(getAllByText('Gastronomie')).toHaveLength(4)
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
     expect(queryByText(place1.title)).toBeFalsy()
   })
 
@@ -177,7 +180,7 @@ describe('Places', () => {
   it('should pop the filter modal entry before pushReset when showPlaces is pressed', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByText('places:filter.show 3'))
+    fireEvent.press(getByText('places:filter.show 4'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
     expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
@@ -249,7 +252,7 @@ describe('Places', () => {
     const { getByRole, getByText, getAllByText, rerender } = renderWithTheme(initial.element)
 
     fireEvent.press(getByRole('button', { name: 'Gastronomie' }))
-    fireEvent.press(getByText('places:filter.show 2'))
+    fireEvent.press(getByText('places:filter.show 3'))
     expect(initial.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: place0.category.id,
       currentlyOpen: false,
@@ -267,7 +270,7 @@ describe('Places', () => {
     const reopened = renderAt({ ...resetHistory, showFilterSelection: true })
     rerender(reopened.element)
 
-    fireEvent.press(getByText('places:filter.show 3'))
+    fireEvent.press(getByText('places:filter.show 4'))
     expect(reopened.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: undefined,
       currentlyOpen: false,

@@ -16,8 +16,8 @@ import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from 'react-map-gl/map
 import {
   closerDetailZoom,
   clusterClickZoomFactor,
+  clusterLayerId,
   clusterRadius,
-  currentMultiPlaceBackgroundLayerId,
   embedInCollection,
   featureLayerId,
   isMultiPlace,
@@ -193,14 +193,7 @@ const MapView = ({
         reuseMaps
         cursor={cursor}
         initialViewState={viewport ?? undefined}
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        interactiveLayerIds={[
-          markerLayer(currentFeature).id!,
-          clusterLayer(theme).id!,
-          'current',
-          multiPlaceBackgroundLayerId,
-          currentMultiPlaceBackgroundLayerId,
-        ]}
+        interactiveLayerIds={[featureLayerId, clusterLayerId, 'current', multiPlaceBackgroundLayerId]}
         style={{
           height: '100%',
           width: '100%',
