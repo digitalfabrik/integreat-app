@@ -48,8 +48,6 @@ const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): 
     <RegionEntry key={region.code} region={region} query={filterText} navigateToDashboard={navigateToDashboard} />
   )
 
-  const regionGroups = groupBy(resultRegions, (region: RegionModel) => region.sortCategory)
-
   const regionEntries = filterText ? (
     <RegionGroupContainer>
       <Divider />
@@ -57,7 +55,7 @@ const RegionSelector = ({ regions, navigateToDashboard }: RegionSelectorProps): 
     </RegionGroupContainer>
   ) : (
     transform(
-      regionGroups,
+      groupBy(resultRegions, (region: RegionModel) => region.sortCategory),
       (result: ReactNode[], regions: RegionModel[], key: string) => {
         result.push(
           <RegionGroupContainer key={key}>

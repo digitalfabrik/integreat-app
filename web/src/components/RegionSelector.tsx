@@ -39,13 +39,13 @@ const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): Re
     />
   ))
 
-  const searchResultGroups =
+  const flatResults =
     resultRegions.length > 0
       ? [<RegionListGroup key='results' regions={resultRegions} languageCode={language} filterText={filterText} />]
       : []
   const groups = [
     <NearbyRegions key='nearby' regions={regions} language={language} filterText={filterText} />,
-    ...(filterText ? searchResultGroups : firstLetterGroups),
+    ...(filterText ? flatResults : firstLetterGroups),
   ]
 
   return (

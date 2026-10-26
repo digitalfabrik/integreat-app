@@ -111,9 +111,9 @@ describe('search', () => {
       expect(filterSortRegions(regions, 'ba')).toEqual([regions[3], regions[4], regions[5]])
     })
 
-    it('should not return live regions when the string is mid-word of the names or aliases', () => {
+    it('should match names mid-word but prefixes and aliases only at word start', () => {
       const regions = [
-        region({ sortingName: 'Aichach' }),
+        region({ sortingName: 'Aichach', prefix: 'Landkreis' }),
         region({ sortingName: 'Stadtbaden' }),
         region({
           sortingName: 'Dillingen',
@@ -125,7 +125,8 @@ describe('search', () => {
           },
         }),
       ]
-      expect(filterSortRegions(regions, 'ba')).toEqual([])
+      expect(filterSortRegions(regions, 'ba')).toEqual([regions[1]])
+      expect(filterSortRegions(regions, 'kreis')).toEqual([])
     })
 
     it('should match regions with dashes in their name', () => {
