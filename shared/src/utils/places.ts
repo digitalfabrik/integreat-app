@@ -2,7 +2,7 @@ import distance from '@turf/distance'
 
 import PlaceCategoryModel from '../api/models/PlaceCategoryModel.ts'
 import PlaceModel from '../api/models/PlaceModel.ts'
-import { LocationType, MapFeature } from '../constants/map.ts'
+import { isMultiPlace, LocationType, MapFeature } from '../constants/map.ts'
 import { prepareMapFeatures } from './geoJson.ts'
 
 export const calculateDistance = distance
@@ -62,3 +62,6 @@ export const preparePlaces = ({ places: allPlaces, params }: PreparePlacesProps)
 
   return { places, place, mapFeature, mapFeatures, placeCategories, placeCategory }
 }
+
+export const getMultiPlaceCount = (mapFeature: MapFeature | undefined, place: PlaceModel | undefined): number | null =>
+  !place && mapFeature && isMultiPlace(mapFeature) ? mapFeature.properties.places.length : null

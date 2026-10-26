@@ -17,14 +17,25 @@ import {
   closerDetailZoom,
   clusterClickZoomFactor,
   clusterRadius,
+  currentMultiPlaceBackgroundLayerId,
   embedInCollection,
   featureLayerId,
+  isMultiPlace,
   mapConfig,
   MapFeature,
   MapViewViewport,
+  multiPlaceBackgroundLayerId,
 } from 'shared'
 
-import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
+import {
+  clusterCountLayer,
+  clusterLayer,
+  clusterProperties,
+  markerLayer,
+  multiPlaceBackgroundLayer,
+  multiPlaceBadgeCountLayer,
+  multiPlaceBadgeLayer,
+} from '../constants/layers'
 import useDimensions from '../hooks/useDimensions'
 import { captureError } from '../utils/sentry'
 
@@ -131,7 +142,7 @@ const MapView = ({
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && (event.features[0] as unknown as MapFeature)
-      if (feature && feature.layer.id === featureLayerId) {
+      if (feature && (feature.layer.id === featureLayerId || feature.layer.id === multiPlaceBackgroundLayerId)) {
         selectFeature({ ...feature, properties: { places: feature.properties.places } }, false)
       } else {
         selectFeature(null, false)
@@ -183,7 +194,13 @@ const MapView = ({
         cursor={cursor}
         initialViewState={viewport ?? undefined}
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        interactiveLayerIds={[markerLayer(currentFeature).id!, clusterLayer(theme).id!, 'current']}
+        interactiveLayerIds={[
+          markerLayer(currentFeature).id!,
+          clusterLayer(theme).id!,
+          'current',
+          multiPlaceBackgroundLayerId,
+          currentMultiPlaceBackgroundLayerId,
+        ]}
         style={{
           height: '100%',
           width: '100%',
@@ -202,15 +219,18 @@ const MapView = ({
         <Source
           id='location-places'
           type='geojson'
-          data={embedInCollection(features.filter(feature => feature !== currentFeature))}
+          data={embedInCollection(features.filter(feature => feature !== currentFeature || isMultiPlace(feature)))}
           cluster
           clusterRadius={clusterRadius}
           clusterProperties={clusterProperties}>
           <Layer {...clusterLayer(theme)} />
           <Layer {...clusterCountLayer} />
+          <Layer {...multiPlaceBackgroundLayer(theme)} />
           <Layer {...markerLayer(null)} />
+          <Layer {...multiPlaceBadgeLayer(theme)} />
+          <Layer {...multiPlaceBadgeCountLayer(theme)} />
         </Source>
-        {currentFeature && (
+        {currentFeature && !isMultiPlace(currentFeature) && (
           <Source id='current-feature' type='geojson' data={embedInCollection([currentFeature])}>
             <Layer {...markerLayer(currentFeature)} id='current' />
           </Source>

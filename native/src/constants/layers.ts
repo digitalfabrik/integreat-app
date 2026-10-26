@@ -1,4 +1,5 @@
-import { CircleLayerStyle, SymbolLayerStyle } from '@maplibre/maplibre-react-native'
+import { FilterSpecification, Layer } from '@maplibre/maplibre-react-native'
+import { ComponentProps } from 'react'
 import { DefaultTheme } from 'styled-components/native'
 
 import {
@@ -12,28 +13,28 @@ import {
   featureLayerId,
   textOffsetY,
   clusterLayerId,
+  multiPlaceBackgroundLayerId,
+  multiPlaceBackgroundRadius,
+  multiPlaceBadgeRadius,
+  multiPlaceBadgeOffset,
+  multiPlaceBadgeLayerId,
+  multiPlaceBadgeCountId,
 } from 'shared'
 
-type ClusterLayerType = {
-  id: string
-  style: CircleLayerStyle
-}
+type LayerProps = ComponentProps<typeof Layer>
 
-export const clusterLayer = (theme: DefaultTheme): ClusterLayerType => ({
+export const clusterLayer = (theme: DefaultTheme): LayerProps => ({
   id: clusterLayerId,
+  type: 'circle',
   style: {
     circleColor: ['case', ['has', 'point_count'], theme.colors.secondary, 'transparent'],
     circleRadius: ['step', ['get', 'point_count'], circleRadiusSmall, groupCount, circleRadiusLarge],
   },
 })
 
-type MarkerLayerType = {
-  id: string
-  style: SymbolLayerStyle
-}
-
-export const markerLayer = (selectedFeature: MapFeature | null): MarkerLayerType => ({
+export const markerLayer = (selectedFeature: MapFeature | null): LayerProps => ({
   id: featureLayerId,
+  type: 'symbol',
   style: {
     symbolPlacement: 'point',
     symbolZOrder: 'source',
@@ -43,18 +44,22 @@ export const markerLayer = (selectedFeature: MapFeature | null): MarkerLayerType
     iconIgnorePlacement: true,
     iconImage: [
       'case',
-      ['==', ['get', 'id', ['at', 0, ['get', 'places']]], selectedFeature?.properties.places[0]?.id ?? -1],
-      mapMarker.symbolActive,
+      ['==', ['length', ['get', 'places']], 1],
       [
         'case',
-        ['==', ['length', ['get', 'places']], 1],
+        ['==', ['get', 'id', ['at', 0, ['get', 'places']]], selectedFeature?.properties.places[0]?.id ?? -1],
+        mapMarker.symbolActive,
         ['get', 'symbol', ['at', 0, ['get', 'places']]],
-        mapMarker.multiPlace,
       ],
+      mapMarker.multiPlace,
     ],
     iconOffset: [
       'case',
-      ['==', ['get', 'id', ['at', 0, ['get', 'places']]], selectedFeature?.properties.places[0]?.id ?? -1],
+      [
+        'all',
+        ['==', ['length', ['get', 'places']], 1],
+        ['==', ['get', 'id', ['at', 0, ['get', 'places']]], selectedFeature?.properties.places[0]?.id ?? -1],
+      ],
       ['literal', [0, mapMarker.offsetY ?? 0]],
       ['literal', [0, 0]],
     ],
@@ -67,13 +72,58 @@ export const markerLayer = (selectedFeature: MapFeature | null): MarkerLayerType
   },
 })
 
-type ClusterCountLayerType = {
-  id: string
-  style: SymbolLayerStyle
-}
+const multiPlaceFilter: FilterSpecification = [
+  'all',
+  ['!', ['has', 'point_count']],
+  ['>', ['length', ['get', 'places']], 1],
+]
 
-export const clusterCountLayer: ClusterCountLayerType = {
+export const multiPlaceBackgroundLayer = (theme: DefaultTheme): LayerProps => ({
+  id: multiPlaceBackgroundLayerId,
+  type: 'circle',
+  filter: multiPlaceFilter,
+  beforeId: featureLayerId,
+  style: {
+    circleRadius: multiPlaceBackgroundRadius,
+    circleColor: theme.colors.background,
+    circleStrokeWidth: 1,
+  },
+})
+
+export const multiPlaceBadgeLayer = (theme: DefaultTheme): LayerProps => ({
+  id: multiPlaceBadgeLayerId,
+  type: 'circle',
+  filter: multiPlaceFilter,
+  afterId: featureLayerId,
+  style: {
+    circleRadius: multiPlaceBadgeRadius,
+    circleColor: theme.colors.outlineVariant,
+    circleStrokeWidth: 1,
+    circleStrokeColor: theme.colors.background,
+    circleTranslate: multiPlaceBadgeOffset,
+    circleTranslateAnchor: 'viewport',
+  },
+})
+
+export const multiPlaceBadgeCountLayer = (theme: DefaultTheme): LayerProps => ({
+  id: multiPlaceBadgeCountId,
+  type: 'symbol',
+  filter: multiPlaceFilter,
+  style: {
+    textField: ['to-string', ['length', ['get', 'places']]],
+    textFont: ['Noto Sans Regular'],
+    textSize: fontSizeSmall,
+    textAllowOverlap: true,
+    textIgnorePlacement: true,
+    textColor: theme.colors.background,
+    textTranslate: multiPlaceBadgeOffset,
+    textTranslateAnchor: 'viewport',
+  },
+})
+
+export const clusterCountLayer: LayerProps = {
   id: 'pointCount',
+  type: 'symbol',
   style: {
     textField: '{point_count_abbreviated}',
     textFont: ['Noto Sans Regular'],
