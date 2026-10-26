@@ -17,10 +17,10 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   },
 
   [theme.breakpoints.down('md')]: {
-    insetInlineEnd: -100,
+    right: -100,
 
     ':focus': {
-      insetInlineEnd: 0,
+      right: 0,
     },
   },
 }))
