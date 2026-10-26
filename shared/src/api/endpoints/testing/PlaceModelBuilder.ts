@@ -149,6 +149,51 @@ const places = [
     organization: null,
     barrierFree: null,
   }),
+  new PlaceModel({
+    id: 4,
+    path: '/augsburg/de/places/test_similar_coordinate',
+    title: 'Test Title 4',
+    content: 'A long test content for similar coordinate',
+    thumbnail: 'test',
+    availableLanguages: {
+      de: '/augsburg/de/places/test',
+      en: '/augsburg/en/places/test-translated',
+    },
+    excerpt: 'excerpt',
+    metaDescription: 'meta',
+    category: new PlaceCategoryModel({
+      color: '#1DC6C6',
+      iconName: 'gastronomy',
+      id: 10,
+      name: 'Gastronomie',
+      icon: 'https://exmaple.com/icon',
+    }),
+    location: new LocationModel({
+      id: 0,
+      country: 'Test Country',
+      address: 'Test Address 1',
+      town: 'Test Town',
+      postcode: '12345',
+      longitude: 30,
+      latitude: 30,
+      name: 'Test Title',
+    }),
+    lastUpdate: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
+    publishedAt: DateTime.fromISO('2011-02-04T00:00:00.000Z'),
+    temporarilyClosed: false,
+    openingHours: [
+      new OpeningHoursModel({
+        openAllDay: true,
+        closedAllDay: false,
+        timeSlots: [{ end: '18:00', start: '08:00', timezone: 'Europe/Berlin' }],
+        appointmentOnly: false,
+      }),
+    ],
+    appointmentUrl: null,
+    contacts: [],
+    organization: null,
+    barrierFree: true,
+  }),
 ]
 
 class PlaceModelBuilder {

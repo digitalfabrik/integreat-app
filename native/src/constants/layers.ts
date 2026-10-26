@@ -26,23 +26,23 @@ type LayerProps = ComponentProps<typeof Layer>
 export const clusterLayer = (theme: DefaultTheme): LayerProps => ({
   id: clusterLayerId,
   type: 'circle',
-  style: {
-    circleColor: ['case', ['has', 'point_count'], theme.colors.secondary, 'transparent'],
-    circleRadius: ['step', ['get', 'point_count'], circleRadiusSmall, groupCount, circleRadiusLarge],
+  paint: {
+    'circle-color': ['case', ['has', 'point_count'], theme.colors.secondary, 'transparent'],
+    'circle-radius': ['step', ['get', 'point_count'], circleRadiusSmall, groupCount, circleRadiusLarge],
   },
 })
 
 export const markerLayer = (selectedFeature: MapFeature | null): LayerProps => ({
   id: featureLayerId,
   type: 'symbol',
-  style: {
-    symbolPlacement: 'point',
-    symbolZOrder: 'source',
-    iconAllowOverlap: true,
-    textAllowOverlap: true,
-    iconSize: mapMarker.iconSize,
-    iconIgnorePlacement: true,
-    iconImage: [
+  layout: {
+    'symbol-placement': 'point',
+    'symbol-z-order': 'source',
+    'icon-allow-overlap': true,
+    'text-allow-overlap': true,
+    'icon-size': mapMarker.iconSize,
+    'icon-ignore-placement': true,
+    'icon-image': [
       'case',
       ['==', ['length', ['get', 'places']], 1],
       [
@@ -53,7 +53,7 @@ export const markerLayer = (selectedFeature: MapFeature | null): LayerProps => (
       ],
       mapMarker.multiPlace,
     ],
-    iconOffset: [
+    'icon-offset': [
       'case',
       [
         'all',
@@ -63,12 +63,17 @@ export const markerLayer = (selectedFeature: MapFeature | null): LayerProps => (
       ['literal', [0, mapMarker.offsetY ?? 0]],
       ['literal', [0, 0]],
     ],
-    textField: ['case', ['==', ['length', ['get', 'places']], 1], ['get', 'title', ['at', 0, ['get', 'places']]], ''],
-    textFont: ['Noto Sans Regular'],
-    textOffset: [0, textOffsetY],
-    textAnchor: 'top',
-    textSize: fontSizeSmall,
-    textVariableAnchor: ['top', 'bottom', 'left', 'right'],
+    'text-field': [
+      'case',
+      ['==', ['length', ['get', 'places']], 1],
+      ['get', 'title', ['at', 0, ['get', 'places']]],
+      '',
+    ],
+    'text-font': ['Noto Sans Regular'],
+    'text-offset': [0, textOffsetY],
+    'text-anchor': 'top',
+    'text-size': fontSizeSmall,
+    'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
   },
 })
 
@@ -83,10 +88,10 @@ export const multiPlaceBackgroundLayer = (theme: DefaultTheme): LayerProps => ({
   type: 'circle',
   filter: multiPlaceFilter,
   beforeId: featureLayerId,
-  style: {
-    circleRadius: multiPlaceBackgroundRadius,
-    circleColor: theme.colors.background,
-    circleStrokeWidth: 1,
+  paint: {
+    'circle-radius': multiPlaceBackgroundRadius,
+    'circle-color': theme.colors.background,
+    'circle-stroke-width': 1,
   },
 })
 
@@ -95,13 +100,13 @@ export const multiPlaceBadgeLayer = (theme: DefaultTheme): LayerProps => ({
   type: 'circle',
   filter: multiPlaceFilter,
   afterId: featureLayerId,
-  style: {
-    circleRadius: multiPlaceBadgeRadius,
-    circleColor: theme.colors.outlineVariant,
-    circleStrokeWidth: 1,
-    circleStrokeColor: theme.colors.background,
-    circleTranslate: multiPlaceBadgeOffset,
-    circleTranslateAnchor: 'viewport',
+  paint: {
+    'circle-radius': multiPlaceBadgeRadius,
+    'circle-color': theme.colors.outlineVariant,
+    'circle-stroke-width': 1,
+    'circle-stroke-color': theme.colors.background,
+    'circle-translate': multiPlaceBadgeOffset,
+    'circle-translate-anchor': 'viewport',
   },
 })
 
@@ -109,25 +114,28 @@ export const multiPlaceBadgeCountLayer = (theme: DefaultTheme): LayerProps => ({
   id: multiPlaceBadgeCountId,
   type: 'symbol',
   filter: multiPlaceFilter,
-  style: {
-    textField: ['to-string', ['length', ['get', 'places']]],
-    textFont: ['Noto Sans Regular'],
-    textSize: fontSizeSmall,
-    textAllowOverlap: true,
-    textIgnorePlacement: true,
-    textColor: theme.colors.background,
-    textTranslate: multiPlaceBadgeOffset,
-    textTranslateAnchor: 'viewport',
+  afterId: multiPlaceBadgeLayerId,
+  layout: {
+    'text-field': ['to-string', ['length', ['get', 'places']]],
+    'text-font': ['Noto Sans Regular'],
+    'text-size': fontSizeSmall,
+    'text-allow-overlap': true,
+    'text-ignore-placement': true,
+  },
+  paint: {
+    'text-color': theme.colors.background,
+    'text-translate': multiPlaceBadgeOffset,
+    'text-translate-anchor': 'viewport',
   },
 })
 
 export const clusterCountLayer: LayerProps = {
   id: 'pointCount',
   type: 'symbol',
-  style: {
-    textField: '{point_count_abbreviated}',
-    textFont: ['Noto Sans Regular'],
-    textSize: ['step', ['get', 'point_count'], fontSizeSmall, groupCount, fontSizeLarge],
-    textAllowOverlap: true,
+  layout: {
+    'text-field': ['get', 'point_count_abbreviated'],
+    'text-font': ['Noto Sans Regular'],
+    'text-size': ['step', ['get', 'point_count'], fontSizeSmall, groupCount, fontSizeLarge],
+    'text-allow-overlap': true,
   },
 }

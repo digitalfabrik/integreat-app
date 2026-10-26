@@ -117,7 +117,6 @@ export const openStreetMapCopyright: OpenStreetMapCopyrightType = {
 export const featureLayerId = 'point'
 export const clusterLayerId = 'clusteredPoints'
 export const multiPlaceBackgroundLayerId = 'multi-place-background'
-export const currentMultiPlaceBackgroundLayerId = 'current-multi-place-background'
 export const multiPlaceBadgeLayerId = 'multi-place-badge-layer'
 export const multiPlaceBadgeCountId = 'multi-place-badge-count'
 
