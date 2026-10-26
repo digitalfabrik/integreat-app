@@ -6,8 +6,6 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-const LOWEST_PADDING = 0.5
-
 const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
   borderColor: theme.palette.primary.main,
 
@@ -40,14 +38,13 @@ const ToggleButtonContent = styled(Stack, {
 })<{ selected: boolean }>(({ theme, selected }) => ({
   alignItems: 'center',
   minWidth: 0,
-  gap: theme.spacing(1),
+  gap: '4px',
   paddingInlineStart: theme.spacing(selected ? 1 : 3),
   paddingInlineEnd: theme.spacing(selected ? 1.5 : 3),
 
   [theme.breakpoints.down('sm')]: {
-    gap: theme.spacing(LOWEST_PADDING),
-    paddingInlineStart: theme.spacing(selected ? LOWEST_PADDING : 2),
-    paddingInlineEnd: theme.spacing(selected ? LOWEST_PADDING : 2),
+    paddingInlineStart: 0.5,
+    paddingInlineEnd: 0.5,
   },
 }))
 
