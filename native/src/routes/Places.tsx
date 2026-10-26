@@ -75,6 +75,11 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     params: { slug, multiPlace, placeCategoryId, currentlyOpen },
   })
 
+  const multiPlaceTitle =
+    !place && mapFeature && isMultiPlace(mapFeature)
+      ? t($ => $.places.placesCount.address, { count: mapFeature.properties.places.length })
+      : undefined
+
   const getPlacesCount = ({ placeCategoryFilter, currentlyOpenFilter }: PlaceFilters) =>
     preparePlaces({
       places: allPlaces,
@@ -182,6 +187,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
         zoomRef={handleZoomInRef}
       />
       <PlacesBottomSheet
+        title={multiPlaceTitle}
         refresh={refresh}
         places={sortPlaces(places, userLocation)}
         place={place}

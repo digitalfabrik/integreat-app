@@ -300,6 +300,10 @@ const resources = {
       "nothingFound": "No places found."
     },
     "distance": "{{distance}} km away",
+    "placesCount": {
+      "address_one": "{{count}} Place for this address",
+      "address_other": "{{count}} Places for this address"
+    },
     "zoom": {
       "in": "Zoom in",
       "out": "Zoom out"
