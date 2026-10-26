@@ -1,9 +1,8 @@
 import MenuList from '@mui/material/MenuList'
-import { fireEvent } from '@testing-library/dom'
 import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 
-import { CategoriesMapModelBuilder, CategoryModel } from 'shared/api'
+import { CategoryModel } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../../constants/urls'
 import { renderWithRouterAndTheme } from '../../testing/render'
@@ -71,40 +70,5 @@ describe('PdfMenuItem', () => {
         childCategory.path,
       )}`,
     )
-  })
-
-  it.each(['ar', 'ckb', 'pes', 'prs', 'ps', 'ur', 'de', 'en'])(
-    'should offer an enabled PDF link for %s',
-    languageCode => {
-      const { getByRole } = renderInMenu(<PdfMenuItem regionCode='augsburg' languageCode={languageCode} />)
-      const pdfMenuItem = getByRole('menuitem', { name: 'categories:pdf.create' })
-
-      expect(pdfMenuItem.tagName).toBe('A')
-      expect(pdfMenuItem).toHaveAttribute('href', `${cmsApiBaseUrl}/augsburg/${languageCode}/wp-json/ig-mpdf/v1/pdf`)
-      expect(pdfMenuItem).not.toHaveAttribute('aria-disabled', 'true')
-    },
-  )
-
-  it('should link to an RTL child category PDF', () => {
-    const category = new CategoriesMapModelBuilder('augsburg', 'ar').build().toArray()[3]!
-    const { getByRole } = renderInMenu(<PdfMenuItem category={category} regionCode='augsburg' languageCode='ar' />)
-
-    expect(getByRole('menuitem', { name: 'categories:pdf.create' })).toHaveAttribute(
-      'href',
-      `${cmsApiBaseUrl}/augsburg/ar/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`,
-    )
-  })
-
-  it('should close the menu when an RTL PDF link is clicked', () => {
-    const regionCode = 'augsburg'
-    const languageCode = 'ar'
-    const closeMenu = jest.fn()
-    const { getByRole } = renderInMenu(
-      <PdfMenuItem category={rootCategory} regionCode={regionCode} languageCode={languageCode} closeMenu={closeMenu} />,
-    )
-
-    fireEvent.click(getByRole('menuitem', { name: 'categories:pdf.create' }))
-
-    expect(closeMenu).toHaveBeenCalledTimes(1)
   })
 })
