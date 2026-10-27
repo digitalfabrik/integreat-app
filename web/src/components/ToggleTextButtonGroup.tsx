@@ -56,14 +56,14 @@ const ToggleTextButtonGroup = <T extends string>({
     className={className}>
     {options.map(option => {
       const selected = option === value
-      const selectedInlineEndPadding = 1.5
+
       return (
         <StyledToggleButton key={option} value={option}>
           <Stack
             direction='row'
             sx={{
               paddingInlineStart: selected ? 1 : 3,
-              paddingInlineEnd: selected ? selectedInlineEndPadding : 3,
+              paddingInlineEnd: selected ? 1.5 : 3,
               alignItems: 'center',
               gap: 1,
             }}>
