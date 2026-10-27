@@ -8,22 +8,22 @@ import { useTranslation } from 'react-i18next'
 
 import { MapViewRef } from './MapView'
 
-const StyledIconButton = styled(IconButton)`
-  background-color: ${props => props.theme.palette.background.accent};
-  border: 1px solid ${props => props.theme.palette.tertiary.light};
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  backgroundColor: theme.palette.background.accent,
+  border: `1px solid ${theme.palette.tertiary.light}`,
 
-  :hover {
-    background-color: ${props => props.theme.palette.background.default};
-  }
+  ':hover': {
+    backgroundColor: theme.palette.background.default,
+  },
 
-  ${props => props.theme.breakpoints.down('md')} {
-    inset-inline-end: -100px;
+  [theme.breakpoints.down('md')]: {
+    right: -100,
 
-    :focus {
-      inset-inline-end: 0;
-    }
-  }
-`
+    ':focus': {
+      right: 0,
+    },
+  },
+}))
 
 type MapZoomControlsProps = {
   mapViewRef: MapViewRef
