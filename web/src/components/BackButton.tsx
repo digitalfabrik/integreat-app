@@ -4,35 +4,43 @@ import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
-import useDimensions from '../hooks/useDimensions'
-import { DirectionDependentBackIcon } from './base/Dialog'
+import { DirectionDependentBackIcon } from './base/DirectionDependentIcons'
 
 const StyledButton = styled(Button)({
   textTransform: 'none',
   alignSelf: 'flex-start',
 })
 
-const BackToRegionButton = (): ReactElement | null => {
-  const navigate = useNavigate()
-  const { mobile } = useDimensions()
-  const { t } = useTranslation()
-  const currentHistoryIndex = window.history.state?.idx ?? 0
+type BackButtonProps = {
+  fallback?: string
+}
 
+const BackButton = ({ fallback }: BackButtonProps): ReactElement | null => {
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+
+  const currentHistoryIndex = window.history.state?.idx ?? 0
   // Initial history index to account for language changes or other user interactions on this page.
   const [initialHistoryIndex] = useState(currentHistoryIndex)
+  const hasHistory = initialHistoryIndex !== 0
 
-  if (!mobile || initialHistoryIndex === 0) {
+  if (!hasHistory && !fallback) {
     return null
   }
 
+  const onClick = () => {
+    if (hasHistory) {
+      navigate(initialHistoryIndex - currentHistoryIndex - 1)
+    } else if (fallback) {
+      navigate(fallback)
+    }
+  }
+
   return (
-    <StyledButton
-      onClick={() => navigate(initialHistoryIndex - currentHistoryIndex - 1)}
-      startIcon={<DirectionDependentBackIcon />}
-      color='inherit'>
+    <StyledButton onClick={onClick} startIcon={<DirectionDependentBackIcon />} color='inherit'>
       {t($ => $.common.actions.back)}
     </StyledButton>
   )
 }
 
-export default BackToRegionButton
+export default BackButton

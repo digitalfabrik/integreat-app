@@ -25,6 +25,7 @@ export const ZOOM_QUERY_KEY = 'zoom'
 export const START_DATE_QUERY_KEY = 'start'
 export const END_DATE_QUERY_KEY = 'end'
 export const NEWS_SOURCE_FILTER_QUERY_KEY = 'source'
+export const REGION_QUERY_KEY = 'region'
 
 export const queryStringFromRouteInformation = (
   routeInformation: NonNullableRouteInformationType,
@@ -72,6 +73,7 @@ export type QueryParams = {
   source: NewsSourceFilter | undefined
   start: DateTime | undefined
   end: DateTime | undefined
+  region: string | undefined
 }
 
 const parseDate = (value: string | null): DateTime | undefined => (value ? DateTime.fromISO(value) : undefined)
@@ -101,7 +103,8 @@ export const parseQueryParams = (queryParams: URLSearchParams): QueryParams => {
   const source = NEWS_SOURCE_FILTERS.find(filter => filter === queryParams.get(NEWS_SOURCE_FILTER_QUERY_KEY))
   const start = parseDate(queryParams.get(START_DATE_QUERY_KEY))
   const end = parseDate(queryParams.get(END_DATE_QUERY_KEY))
-  return { searchText, multiPlace, placeCategoryId, zoom, chat, chatId, theme, feedback, source, start, end }
+  const region = queryParams.get(REGION_QUERY_KEY) ?? undefined
+  return { searchText, multiPlace, placeCategoryId, zoom, chat, chatId, theme, feedback, source, start, end, region }
 }
 
 export const toQueryParams = ({
@@ -116,6 +119,7 @@ export const toQueryParams = ({
   source,
   start,
   end,
+  region,
 }: Partial<QueryParams>): URLSearchParams => {
   const queryParams: [string, string | undefined][] = [
     [SEARCH_QUERY_KEY, searchText],
@@ -129,6 +133,7 @@ export const toQueryParams = ({
     [NEWS_SOURCE_FILTER_QUERY_KEY, source],
     [START_DATE_QUERY_KEY, start?.toISODate()],
     [END_DATE_QUERY_KEY, end?.toISODate()],
+    [REGION_QUERY_KEY, region],
   ]
   return new URLSearchParams(
     queryParams.filter((it): it is [string, string] => it[1] !== undefined && it[1].length !== 0),

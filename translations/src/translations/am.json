@@ -29,12 +29,7 @@
     "bot": "ቻትቦት",
     "consultant": "አማካሪ",
     "typing": "በመጻፍ ላይ…",
-    "inputPlaceholder": "እባክዎ ጥያቄዎን ያስገቡ…",
-    "initial": {
-      "title": "እባክዎ ጥያቄዎን በጽሁፍ ሳጥኑ ውስጥ ያስገቡ።",
-      "description": "ስለ አካባቢው መረጃ ወይም ስለ ግል ሁኔታዎ መጠየቅ ይችላሉ።"
-    },
-    "welcome": {
+    "highlight": {
       "title": "ሰላም!",
       "description": "እኔ <strong>{{name}}</strong> ነኝ፣ የእርስዎ ዲጂታል የፍለጋ ረዳት። ጥያቄዎን በደስታ ማቅረብ ይችላሉ።"
     },

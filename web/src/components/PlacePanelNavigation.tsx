@@ -1,15 +1,10 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DirectionDependentBackIcon } from './base/Dialog'
-
-const DirectionDependentNextIcon = styled(ArrowBackIcon)(({ theme }) => ({
-  transform: theme.direction === 'ltr' ? 'scaleX(-1)' : 'none',
-}))
+import { DirectionDependentBackIcon, DirectionDependentForwardIcon } from './base/DirectionDependentIcons'
 
 const StyledButton = styled(Button)({
   textTransform: 'none',
@@ -32,7 +27,7 @@ const PlacePanelNavigation = ({ switchPlace }: PlacePanelNavigationProps): React
       </StyledButton>
       <StyledButton
         onClick={() => switchPlace(1)}
-        endIcon={<DirectionDependentNextIcon />}
+        endIcon={<DirectionDependentForwardIcon />}
         tabIndex={0}
         color='inherit'>
         {t($ => $.common.actions.next)}

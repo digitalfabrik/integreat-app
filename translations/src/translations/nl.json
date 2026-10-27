@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Adviseur",
     "typing": "Aan het typen…",
-    "inputPlaceholder": "Typ je vraag…",
-    "initial": {
-      "title": "Typ je vraag in het tekstveld.",
-      "description": "Je kunt vragen stellen over lokale informatie of over je persoonlijke situatie."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Hallo!",
       "description": "Ik ben <strong>{{name}}</strong>, je digitale zoekassistent. Stel gerust je vraag."
     },

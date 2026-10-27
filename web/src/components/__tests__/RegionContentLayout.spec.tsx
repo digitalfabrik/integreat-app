@@ -32,6 +32,7 @@ describe('RegionContentLayout', () => {
     localNewsEnabled: true,
     externalNewsEnabled: true,
     chatEnabled: true,
+    bescheidCheckEnabled: false,
     sortingName: regionModel.sortingName,
     prefix: null,
     latitude: regionModel.latitude,
@@ -123,12 +124,12 @@ describe('RegionContentLayout', () => {
 
       fireEvent.click(chatButton)
 
-      expect(getByText('chat:initial.description')).toBeTruthy()
+      expect(getByText('chat:description')).toBeTruthy()
       expect(getByLabelText(getChatName('IntegreatTestCms'))).toBeTruthy()
 
       fireEvent.click(getByLabelText('common:actions.minimize'))
 
-      expect(queryByText('chat:initial.description')).toBeFalsy()
+      expect(queryByText('chat:description')).toBeFalsy()
       expect(getByLabelText(getChatName('IntegreatTestCms'))).toBeTruthy()
     })
 

@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Neuvoja",
     "typing": "Kirjoittaa…",
-    "inputPlaceholder": "Kirjoita kysymyksesi tähän…",
-    "initial": {
-      "title": "Kirjoita kysymyksesi tekstikenttään.",
-      "description": "Voit kysyä paikallisista tiedoista tai omasta tilanteestasi."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Hei!",
       "description": "Olen <strong>{{name}}</strong>, digitaalinen hakuapurisi. Kysy minulta mitä vain!"
     },

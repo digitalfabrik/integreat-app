@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Savjetnik/ca",
     "typing": "Piše…",
-    "inputPlaceholder": "Unesi svoje pitanje…",
-    "initial": {
-      "title": "Unesi svoje pitanje u polje za unos teksta.",
-      "description": "Možeš se raspitati o lokalnim informacijama ili o svojoj ličnoj situaciji."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Zdravo!",
       "description": "Ja sam <strong>{{name}}</strong>, tvoj digitalni asistent za pretragu. Slobodno mi postavi pitanje."
     },

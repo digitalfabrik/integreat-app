@@ -81,6 +81,11 @@ describe('RootNavigator', () => {
       ${'/augsburg/de/locations/some-place'} | ${'/augsburg/de/places/some-place'}
       ${'/augsburg/locations?zoom=11'}       | ${'/augsburg/de/places?zoom=11'}
       ${'/augsburg/locations/1234?zoom=11'}  | ${'/augsburg/de/places/1234?zoom=11'}
+      ${'/?query=asdf'}                      | ${'/regions/de?query=asdf'}
+      ${'/regions?query=asdf'}               | ${'/regions/de?query=asdf'}
+      ${'/landing?query=asdf'}               | ${'/regions/de?query=asdf'}
+      ${'/landing/de?query=asdf'}            | ${'/regions/de?query=asdf'}
+      ${'/augsburg?query=asdf'}              | ${'/augsburg/de?query=asdf'}
     `('should redirect from $from to $to', ({ from, to }) => {
       mockUseQueryFromEndpointWithData(regions)
 
@@ -120,17 +125,22 @@ describe('RootNavigator', () => {
       })
 
       it.each`
-        from                     | to
-        ${'/'}                   | ${'/augsburg/de'}
-        ${'/regions'}            | ${'/augsburg/de'}
-        ${'/landing'}            | ${'/augsburg/de'}
-        ${'/landing/de'}         | ${'/augsburg/de'}
-        ${'/augsburg'}           | ${'/augsburg/de'}
-        ${'/augsburg/de'}        | ${'/augsburg/de'}
-        ${'/oldtown'}            | ${'/augsburg/de'}
-        ${'/oldtown/de'}         | ${'/oldtown/de'}
-        ${'/oldtown/news'}       | ${'/oldtown/de/news'}
-        ${'/oldtown/news/local'} | ${'/oldtown/de/news/local'}
+        from                        | to
+        ${'/'}                      | ${'/augsburg/de'}
+        ${'/regions'}               | ${'/augsburg/de'}
+        ${'/landing'}               | ${'/augsburg/de'}
+        ${'/landing/de'}            | ${'/augsburg/de'}
+        ${'/augsburg'}              | ${'/augsburg/de'}
+        ${'/augsburg/de'}           | ${'/augsburg/de'}
+        ${'/oldtown'}               | ${'/augsburg/de'}
+        ${'/oldtown/de'}            | ${'/oldtown/de'}
+        ${'/oldtown/news'}          | ${'/oldtown/de/news'}
+        ${'/oldtown/news/local'}    | ${'/oldtown/de/news/local'}
+        ${'/?query=asdf'}           | ${'/augsburg/de?query=asdf'}
+        ${'/regions?query=asdf'}    | ${'/augsburg/de?query=asdf'}
+        ${'/regions/de?query=asdf'} | ${'/augsburg/de?query=asdf'}
+        ${'/landing/de?query=asdf'} | ${'/augsburg/de?query=asdf'}
+        ${'/oldtown?query=asdf'}    | ${'/augsburg/de?query=asdf'}
       `('should redirect from $from to $to for fixedRegion', async ({ from, to }) => {
         mockUseQueryFromEndpointWithData(regions)
 

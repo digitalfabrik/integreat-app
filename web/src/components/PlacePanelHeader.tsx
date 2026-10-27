@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { DirectionDependentBackIcon } from './base/Dialog'
+import { DirectionDependentBackIcon } from './base/DirectionDependentIcons'
 
 type PlacePanelHeaderProps = {
   goBack: (() => void) | null
