@@ -10,14 +10,19 @@ import ToolChoicePopup from '../ToolChoicePopup'
 const chatName = getChatName(buildConfig().appName)
 
 const renderToolChoicePopup = (close: () => void = jest.fn()) =>
-  renderRoute(<ToolChoicePopup anchorEl={document.body} close={close} />, { pathname: '/', routePattern: '/' })
+  renderRoute(<ToolChoicePopup anchorEl={document.body} close={close} chatBadge={3} />, {
+    pathname: '/',
+    routePattern: '/',
+  })
 
 describe('ToolChoicePopup', () => {
   it('should open chat and close the dialog when selecting chat', () => {
     const close = jest.fn()
-    const { getByRole, router } = renderToolChoicePopup(close)
+    const { getByText, router } = renderToolChoicePopup(close)
 
-    fireEvent.click(getByRole('button', { name: new RegExp(chatName) }))
+    expect(getByText('3')).toBeTruthy()
+
+    fireEvent.click(getByText(chatName, { exact: false }))
 
     expect(router.state.location.search).toBe('?chat=true')
     expect(close).toHaveBeenCalled()

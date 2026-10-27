@@ -1,6 +1,7 @@
 import ChatIcon from '@mui/icons-material/Chat'
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner'
 import Avatar from '@mui/material/Avatar'
+import Badge from '@mui/material/Badge'
 import DialogContent from '@mui/material/DialogContent'
 import MuiList from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
@@ -112,9 +113,10 @@ const ToolChoiceListItem = ({
 type ToolChoicePopupProps = {
   anchorEl: HTMLElement | null
   close: () => void
+  chatBadge: number | undefined
 }
 
-const ToolChoicePopup = ({ anchorEl, close }: ToolChoicePopupProps): ReactElement => {
+const ToolChoicePopup = ({ anchorEl, close, chatBadge }: ToolChoicePopupProps): ReactElement => {
   const [, setChatOpen] = useQueryParam(CHAT_QUERY_KEY)
   const { regionCode } = useParams()
   const { contentDirection } = useTheme()
@@ -142,16 +144,18 @@ const ToolChoicePopup = ({ anchorEl, close }: ToolChoicePopupProps): ReactElemen
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
         <Typography variant='body2'>{t($ => $.common.labels.assistant.description)}</Typography>
         <StyledList disablePadding>
-          <ToolChoiceListItem
-            icon={<ChatIcon />}
-            title={t($ => $.chat.askQuestion)}
-            description={t($ => $.chat.description)}
-            actionLabel={t($ => $.chat.askChat, { name: chatName })}
-            onClick={() => {
-              close()
-              setChatOpen(true)
-            }}
-          />
+          <Badge badgeContent={chatBadge} color='error'>
+            <ToolChoiceListItem
+              icon={<ChatIcon />}
+              title={t($ => $.chat.askQuestion)}
+              description={t($ => $.chat.description)}
+              actionLabel={t($ => $.chat.askChat, { name: chatName })}
+              onClick={() => {
+                close()
+                setChatOpen(true)
+              }}
+            />
+          </Badge>
           <ToolChoiceListItem
             icon={<DocumentScannerIcon />}
             title={t($ => $.bescheidCheck.shortDescription)}

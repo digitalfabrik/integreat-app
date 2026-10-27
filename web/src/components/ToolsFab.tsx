@@ -60,14 +60,12 @@ const ToolsFab = ({ chatEnabled, bescheidCheckEnabled, unreadMessageCount }: Too
   const chatName = getChatName(buildConfig().appName)
   const digitalAssistantName = t($ => $.common.labels.assistant.title)
   const unreadMessages = t($ => $.chat.unread, { count: unreadMessageCount })
+  const chatBadge = unreadMessageCount > 0 ? unreadMessageCount : undefined
 
   return (
     <FabContainer id={CHAT_FAB_ELEMENT_ID} bottom={bottomNavigationHeight ?? visibleFooterHeight}>
       <LiveAnnouncer message={unreadMessageCount > 0 ? unreadMessages : ''} />
-      <Badge
-        badgeContent={unreadMessageCount > 0 ? unreadMessageCount : undefined}
-        color='error'
-        aria-label={unreadMessages}>
+      <Badge badgeContent={chatBadge} color='error' aria-label={unreadMessages}>
         {bescheidCheckEnabled ? (
           <Fab
             ref={setFabAnchor}
@@ -90,7 +88,11 @@ const ToolsFab = ({ chatEnabled, bescheidCheckEnabled, unreadMessageCount }: Too
           {chatName}
         </Typography>
       )}
-      <ToolChoicePopup anchorEl={toolChoiceOpen ? fabAnchor : null} close={() => setToolChoiceOpen(false)} />
+      <ToolChoicePopup
+        anchorEl={toolChoiceOpen ? fabAnchor : null}
+        close={() => setToolChoiceOpen(false)}
+        chatBadge={chatBadge}
+      />
     </FabContainer>
   )
 }
