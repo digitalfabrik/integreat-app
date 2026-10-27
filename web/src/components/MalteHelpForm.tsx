@@ -124,6 +124,7 @@ const MalteHelpForm = ({
           value={name}
           onChange={event => setName(event.target.value)}
           error={submitted && !name.length}
+          slotProps={{ htmlInput: { enterKeyHint: 'done' } }}
         />
         <TextField
           id='roomNumber'
@@ -131,6 +132,7 @@ const MalteHelpForm = ({
           fullWidth
           value={roomNumber}
           onChange={event => setRoomNumber(event.target.value)}
+          slotProps={{ htmlInput: { enterKeyHint: 'done' } }}
         />
         <RadioGroup
           caption={t($ => $.malteHelpForm.howToBeContacted)}
