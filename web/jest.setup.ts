@@ -105,6 +105,11 @@ Object.defineProperty(URL, 'createObjectURL', {
   value: jest.fn(),
 })
 
+Object.defineProperty(URL, 'revokeObjectURL', {
+  writable: true,
+  value: jest.fn(),
+})
+
 Element.prototype.scroll = () => undefined
 Element.prototype.scrollTo = () => undefined
 
