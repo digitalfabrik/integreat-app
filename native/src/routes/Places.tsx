@@ -5,7 +5,7 @@ import { Chip, useTheme } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { isMultiPlace, MapFeature, preparePlaces, safeParseInt, sortPlaces } from 'shared'
+import { getMultiPlaceCount, isMultiPlace, MapFeature, preparePlaces, safeParseInt, sortPlaces } from 'shared'
 import { PlaceCategoryModel, PlaceModel, RegionModel } from 'shared/api'
 
 import { EditLocationIcon } from '../assets'
@@ -75,10 +75,8 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     params: { slug, multiPlace, placeCategoryId, currentlyOpen },
   })
 
-  const multiPlaceTitle =
-    !place && mapFeature && isMultiPlace(mapFeature)
-      ? t($ => $.places.placesCount.address, { count: mapFeature.properties.places.length })
-      : undefined
+  const multiPlaceCount = getMultiPlaceCount(mapFeature, place)
+  const title = multiPlaceCount !== null ? t($ => $.places.placesCount.address, { count: multiPlaceCount }) : undefined
 
   const getPlacesCount = ({ placeCategoryFilter, currentlyOpenFilter }: PlaceFilters) =>
     preparePlaces({
@@ -187,7 +185,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
         zoomRef={handleZoomInRef}
       />
       <PlacesBottomSheet
-        title={multiPlaceTitle}
+        title={title}
         refresh={refresh}
         places={sortPlaces(places, userLocation)}
         place={place}

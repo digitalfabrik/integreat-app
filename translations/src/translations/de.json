@@ -299,7 +299,9 @@
     },
     "distance": "{{distance}} km entfernt",
     "placesCount": {
-      "address_one": "{{count}} Ort an dieser Adresse",
+      "address_two": "{{count}} Orte an dieser Adresse",
+      "address_few": "{{count}} Orte an dieser Adresse",
+      "address_many": "{{count}} Orte an dieser Adresse",
       "address_other": "{{count}} Orte an dieser Adresse"
     },
     "zoom": {

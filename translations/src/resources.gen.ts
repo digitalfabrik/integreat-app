@@ -301,7 +301,9 @@ const resources = {
     },
     "distance": "{{distance}} km away",
     "placesCount": {
-      "address_one": "{{count}} Place for this address",
+      "address_two": "{{count}} Places for this address",
+      "address_few": "{{count}} Places for this address",
+      "address_many": "{{count}} Places for this address",
       "address_other": "{{count}} Places for this address"
     },
     "zoom": {
