@@ -106,7 +106,7 @@ export const mapMarker: MarkerConfig = {
   offsetY: -25,
 }
 
-export const openStreeMapCopyright: OpenStreetMapCopyrightType = {
+export const openStreetMapCopyright: OpenStreetMapCopyrightType = {
   url: 'https://www.openstreetmap.org/copyright',
   icon: '©',
   linkText: 'OpenStreetMap',
@@ -116,6 +116,9 @@ export const openStreeMapCopyright: OpenStreetMapCopyrightType = {
 // Shared layer ids
 export const featureLayerId = 'point'
 export const clusterLayerId = 'clusteredPoints'
+export const multiPlaceBackgroundLayerId = 'multi-place-background'
+export const multiPlaceBadgeLayerId = 'multi-place-badge-layer'
+export const multiPlaceBadgeCountId = 'multi-place-badge-count'
 
 // Shared layer properties
 export const textOffsetY = 1.5
@@ -124,6 +127,9 @@ export const circleRadiusSmall = 20
 export const circleRadiusLarge = 30
 export const fontSizeSmall = 12
 export const fontSizeLarge = 16
+export const multiPlaceBackgroundRadius = 16
+export const multiPlaceBadgeRadius = 8
+export const multiPlaceBadgeOffset: [number, number] = [multiPlaceBadgeRadius, -multiPlaceBackgroundRadius]
 
 // The opening hours loaded from the cms are ordered according to the german weekday order
 export const weekdays = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag'] as const

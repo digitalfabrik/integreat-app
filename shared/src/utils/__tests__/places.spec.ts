@@ -5,10 +5,11 @@ import { LocationType } from '../../constants/map.ts'
 import { prepareMapFeatures } from '../geoJson.ts'
 import { preparePlaces, sortPlaces } from '../places.ts'
 
-const places = new PlaceModelBuilder(3).build()
+const places = new PlaceModelBuilder(4).build()
 const place1 = places[0]!
 const place2 = places[1]!
 const place3 = places[2]!
+const place4 = places[3]!
 
 jest.useFakeTimers({ now: new Date('2023-10-02T15:23:57.443+02:00') })
 
@@ -61,8 +62,8 @@ describe('preparePlaces', () => {
       places,
       params: { slug: undefined, multiPlace: undefined, placeCategoryId: 10, currentlyOpen: true },
     })
-    expect(data1.places).toEqual([place1])
-    expect(data1.mapFeatures).toEqual(prepareMapFeatures([place1]))
+    expect(data1.places).toEqual([place1, place4])
+    expect(data1.mapFeatures).toEqual(prepareMapFeatures([place1, place4]))
     expect(data1.place).toBeUndefined()
     expect(data1.mapFeature).toBeUndefined()
 
@@ -79,8 +80,8 @@ describe('preparePlaces', () => {
       places,
       params: { slug: undefined, multiPlace: undefined, placeCategoryId: 10, currentlyOpen: undefined },
     })
-    expect(data3.places).toEqual([place1, place3])
-    expect(data3.mapFeatures).toEqual(prepareMapFeatures([place1, place3]))
+    expect(data3.places).toEqual([place1, place3, place4])
+    expect(data3.mapFeatures).toEqual(prepareMapFeatures([place1, place3, place4]))
     expect(data3.place).toBeUndefined()
     expect(data3.mapFeature).toBeUndefined()
 
@@ -88,8 +89,8 @@ describe('preparePlaces', () => {
       places,
       params: { slug: undefined, multiPlace: undefined, placeCategoryId: undefined, currentlyOpen: undefined },
     })
-    expect(data4.places).toEqual([place1, place2, place3])
-    expect(data4.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3]))
+    expect(data4.places).toEqual([place1, place2, place3, place4])
+    expect(data4.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3, place4]))
     expect(data4.place).toBeUndefined()
     expect(data4.mapFeature).toBeUndefined()
   })
@@ -99,28 +100,36 @@ describe('preparePlaces', () => {
       places,
       params: { slug: undefined, multiPlace: 0, placeCategoryId: undefined, currentlyOpen: undefined },
     })
-    expect(data1.places).toEqual([place1, place3])
-    expect(data1.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3]))
-    expect(data1.mapFeature).toEqual(prepareMapFeatures([place1, place3])[0])
+    expect(data1.places).toEqual([place1, place4])
+    expect(data1.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3, place4]))
+    expect(data1.mapFeature).toEqual(prepareMapFeatures([place1, place4])[0])
     expect(data1.place).toBeUndefined()
 
     const data2 = preparePlaces({
       places,
       params: { slug: undefined, multiPlace: 0, placeCategoryId: undefined, currentlyOpen: true },
     })
-    expect(data2.places).toEqual([place1])
-    expect(data2.mapFeatures).toEqual(prepareMapFeatures([place1, place2]))
-    expect(data2.mapFeature).toEqual(prepareMapFeatures([place1])[0])
+    expect(data2.places).toEqual([place1, place4])
+    expect(data2.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place4]))
+    expect(data2.mapFeature).toEqual(prepareMapFeatures([place1, place4])[0])
     expect(data2.place).toBeUndefined()
 
     const data3 = preparePlaces({
       places,
-      params: { slug: undefined, multiPlace: 2, placeCategoryId: undefined, currentlyOpen: undefined },
+      params: { slug: undefined, multiPlace: 3, placeCategoryId: undefined, currentlyOpen: undefined },
     })
-    expect(data3.places).toEqual([place1, place2, place3])
-    expect(data3.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3]))
+    expect(data3.places).toEqual([place1, place2, place3, place4])
+    expect(data3.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3, place4]))
     expect(data3.mapFeature).toBeUndefined()
     expect(data3.place).toBeUndefined()
+  })
+
+  it('should only combine places with exactly the same coordinates', () => {
+    const features = prepareMapFeatures([place1, place2, place3, place4])
+
+    expect(features.map(feature => feature.properties.places.length)).toEqual([2, 1, 1])
+    expect(features[0]?.geometry.coordinates).toEqual(place1.location.coordinates)
+    expect(features[2]?.geometry.coordinates).toEqual(place3.location.coordinates)
   })
 
   it('should handle slugs correctly', () => {
@@ -128,27 +137,27 @@ describe('preparePlaces', () => {
       places,
       params: { slug: 'test', multiPlace: undefined, placeCategoryId: undefined, currentlyOpen: undefined },
     })
-    expect(data1.places).toEqual([place1, place2, place3])
-    expect(data1.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3]))
-    expect(data1.mapFeature).toEqual(prepareMapFeatures([place1, place3])[0])
+    expect(data1.places).toEqual([place1, place2, place3, place4])
+    expect(data1.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3, place4]))
+    expect(data1.mapFeature).toEqual(prepareMapFeatures([place1, place4])[0])
     expect(data1.place).toEqual(place1)
 
     const data2 = preparePlaces({
       places,
-      params: { slug: 'another_test_path', multiPlace: 0, placeCategoryId: undefined, currentlyOpen: undefined },
+      params: { slug: 'test_similar_coordinate', multiPlace: 0, placeCategoryId: undefined, currentlyOpen: undefined },
     })
-    expect(data2.places).toEqual([place1, place3])
-    expect(data2.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3]))
-    expect(data2.mapFeature).toEqual(prepareMapFeatures([place1, place2, place3])[0])
-    expect(data2.place).toEqual(place3)
+    expect(data2.places).toEqual([place1, place4])
+    expect(data2.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place3, place4]))
+    expect(data2.mapFeature).toEqual(prepareMapFeatures([place1, place2, place3, place4])[0])
+    expect(data2.place).toEqual(place4)
 
     const data3 = preparePlaces({
       places,
       params: { slug: 'test', multiPlace: 0, placeCategoryId: undefined, currentlyOpen: true },
     })
-    expect(data3.places).toEqual([place1])
-    expect(data3.mapFeatures).toEqual(prepareMapFeatures([place1, place2]))
-    expect(data3.mapFeature).toEqual(prepareMapFeatures([place1])[0])
+    expect(data3.places).toEqual([place1, place4])
+    expect(data3.mapFeatures).toEqual(prepareMapFeatures([place1, place2, place4]))
+    expect(data3.mapFeature).toEqual(prepareMapFeatures([place1, place4])[0])
     expect(data3.place).toEqual(place1)
   })
 

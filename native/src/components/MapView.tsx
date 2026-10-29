@@ -34,7 +34,14 @@ import {
   isMultiPlace,
 } from 'shared'
 
-import { clusterCountLayer, clusterLayer, markerLayer } from '../constants/layers'
+import {
+  clusterCountLayer,
+  clusterLayer,
+  markerLayer,
+  multiPlaceBackgroundLayer,
+  multiPlaceBadgeCountLayer,
+  multiPlaceBadgeLayer,
+} from '../constants/layers'
 import usePreviousProp from '../hooks/usePreviousProp'
 import { conditionalA11yProps } from '../utils/helpers'
 import MapZoomControls from './MapZoomControls'
@@ -202,16 +209,19 @@ const MapView = ({
           {userLocation && <NativeUserLocation />}
           <GeoJSONSource
             id='location-places'
-            data={embedInCollection(features.filter(feature => feature !== selectedFeature))}
+            data={embedInCollection(features.filter(feature => feature !== selectedFeature || isMultiPlace(feature)))}
             cluster
             clusterRadius={clusterRadius}>
-            <Layer type='circle' {...clusterLayer(theme)} />
-            <Layer type='symbol' {...clusterCountLayer} />
-            <Layer type='symbol' {...markerLayer(null)} />
+            <Layer {...clusterLayer(theme)} />
+            <Layer {...clusterCountLayer} />
+            <Layer {...markerLayer(selectedFeature)} />
+            <Layer {...multiPlaceBackgroundLayer(theme)} />
+            <Layer {...multiPlaceBadgeLayer(theme)} />
+            <Layer {...multiPlaceBadgeCountLayer(theme)} />
           </GeoJSONSource>
-          {selectedFeature && (
+          {selectedFeature && !isMultiPlace(selectedFeature) && (
             <GeoJSONSource id='selected-feature' data={embedInCollection([selectedFeature])}>
-              <Layer type='symbol' {...markerLayer(selectedFeature)} id='selected-marker' />
+              <Layer {...markerLayer(selectedFeature)} id='selected-marker' />
             </GeoJSONSource>
           )}
           <Camera
