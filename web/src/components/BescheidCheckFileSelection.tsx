@@ -111,7 +111,7 @@ const FileInputButton = ({ label, icon, variant, onSelect, capture = false }: Fi
   }
 
   return (
-    <Button component='label' role={undefined} tabIndex={-1} variant={variant} startIcon={icon}>
+    <Button component='label' role={undefined} tabIndex={-1} variant={variant} startIcon={icon} sx={{ height: 40 }}>
       {label}
       <VisuallyHiddenInput
         type='file'
