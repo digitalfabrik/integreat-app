@@ -28,7 +28,7 @@
       "limits": "1 Bescheid · maximal {{maxFiles}} Seiten",
       "hint": "Achte darauf, dass alle Seiten gut lesbar sind und zu einem Bescheid gehören. Formate: PDF, JPG, PNG, HEIC",
       "takePhoto": "Foto aufnehmen",
-      "selectFiles": "Dateien auswählen",
+      "selectFiles": "Datei auswählen",
       "addPages": "Weitere Seiten",
       "yourFiles": "Deine Dateien:"
     },

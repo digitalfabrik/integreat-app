@@ -1,4 +1,3 @@
-// import AttachFileIcon from '@mui/icons-material/AttachFile'
 import shouldForwardProp from '@emotion/is-prop-valid'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import { buttonBaseClasses } from '@mui/material/ButtonBase'
@@ -140,9 +139,6 @@ const ChatInput = ({ value, setValue, onSubmit, region }: ChatInputProps): React
                 <DirectionDependentSendIcon fontSize={iconFontSize} />
               </SendButton>
               <Stack direction='row'>
-                {/* <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t($ => $.common.upload.file)}>
-                  <AttachFileIcon fontSize={iconFontSize} />
-                </ChatIconButton> */}
                 <Tooltip title={t($ => $.common.privacy.title)}>
                   <ChatIconButton component={Link} to={privacyPolicyUrl} aria-label={t($ => $.common.privacy.title)}>
                     <PrivacyTipIcon fontSize={iconFontSize} />

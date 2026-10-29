@@ -37,7 +37,7 @@ const mapRegionJson = (json: JsonRegionType): RegionModel =>
     aliases: json.aliases,
     boundingBox: [...json.bounding_box[0], ...json.bounding_box[1]],
     chatEnabled: json.is_chat_enabled,
-    bescheidCheckEnabled: json.bescheidcheck ?? true,
+    bescheidCheckEnabled: json.bescheidcheck,
     chatPrivacyPolicyUrl: json.zammad_privacy_policy,
   })
 
