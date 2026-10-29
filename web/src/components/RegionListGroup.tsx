@@ -7,7 +7,7 @@ import RegionListItem from './RegionListItem'
 import { StickyListSubheader } from './base/List'
 
 type RegionListGroupProps = {
-  title: string
+  title?: string
   regions: RegionModel[]
   languageCode: string
   filterText: string
@@ -15,7 +15,7 @@ type RegionListGroupProps = {
 
 const RegionListGroup = ({ title, regions, filterText, languageCode }: RegionListGroupProps): ReactElement => (
   <Stack sx={{ paddingBlock: 1 }}>
-    <StickyListSubheader>{title}</StickyListSubheader>
+    {!!title && <StickyListSubheader>{title}</StickyListSubheader>}
     {regions.map(region => (
       <RegionListItem key={region.code} region={region} language={languageCode} filterText={filterText} />
     ))}
