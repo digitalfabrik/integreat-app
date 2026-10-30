@@ -177,7 +177,7 @@ const BottomTabNavigator = ({ route }: BottomTabNavigatorProps): ReactElement | 
         component={EventsStackScreen}
         options={{
           tabBarLabel: createTabLabel(t($ => $.events.title)),
-          tabBarIcon: createTabIcon('calendar-blank-outline'),
+          tabBarIcon: createTabIcon('calendar-blank'),
           tabBarAccessibilityLabel: t($ => $.events.title),
         }}
       />
