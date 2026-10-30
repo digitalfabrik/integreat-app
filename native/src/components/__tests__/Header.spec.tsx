@@ -20,6 +20,7 @@ import { LanguageModelBuilder, RegionModelBuilder, LanguageModel } from 'shared/
 
 import { NavigatorIds, ROOT_NAVIGATOR_ID, TAB_NAVIGATOR_ID } from '../../constants'
 import { RouteProps } from '../../constants/NavigationTypes'
+import buildConfig from '../../constants/buildConfig'
 import useSnackbar from '../../hooks/useSnackbar'
 import TestingAppContext from '../../testing/TestingAppContext'
 import createNavigationMock from '../../testing/createNavigationPropMock'
@@ -64,6 +65,7 @@ describe('Header', () => {
   }
   const navigation = createNavigationMock()
   const { mocked } = jest
+  const pdfBaseUrl = `${buildConfig().cmsUrl}/${regionModel.code}/${languageModel.code}/wp-json/ig-mpdf/v1/pdf`
   const mockPreviousRoute = (hasPreviousRoute: boolean) => {
     mocked(navigation.getState).mockImplementation(() => ({
       key: 'stack-key',
@@ -347,5 +349,37 @@ describe('Header', () => {
       message: 'share:message Willkommen - Stadt Augsburg\nhttps://example.com/share',
       title: 'Willkommen - Stadt Augsburg',
     })
+  })
+
+  it('should open a pdf of the whole region when on the dashboard', () => {
+    const { getByTestId, getByText } = renderHeader({})
+
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText(t('categories:pdf.create')))
+    expect(navigation.navigate).toHaveBeenCalledTimes(1)
+    expect(navigation.navigate).toHaveBeenCalledWith(PDF_VIEW_ROUTE, { url: pdfBaseUrl, shareUrl: pdfBaseUrl })
+  })
+
+  it('should open a pdf of the current subcategory', () => {
+    const path = `/${regionModel.code}/${languageModel.code}/willkommen`
+    const expectedUrl = `${pdfBaseUrl}?url=${encodeURIComponent(path)}`
+
+    const { getByTestId, getByText } = renderHeader({
+      route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: defaultPageTitle, path } },
+    })
+
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText(t('categories:pdf.create')))
+    expect(navigation.navigate).toHaveBeenCalledTimes(1)
+    expect(navigation.navigate).toHaveBeenCalledWith(PDF_VIEW_ROUTE, { url: expectedUrl, shareUrl: expectedUrl })
+  })
+
+  it('should not show a create pdf menu item on pages other than categories', () => {
+    const { getByTestId, queryByText } = renderHeader({
+      route: { key: 'key-0', name: IMPRINT_ROUTE },
+    })
+
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    expect(queryByText(t('categories:pdf.create'))).toBeNull()
   })
 })

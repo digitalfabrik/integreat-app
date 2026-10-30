@@ -7,6 +7,7 @@ import { ErrorCodes } from 'shared/api'
 
 import Failure from '../components/Failure'
 import Layout from '../components/Layout'
+import ProgressSpinner from '../components/ProgressSpinner'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
 import useResourceCache from '../hooks/useResourceCache'
 import { getLocalFilePath } from '../utils/helpers'
@@ -36,7 +37,11 @@ const PdfView = ({ route, navigation }: PdfViewProps): ReactElement => {
   }, [loading, filePath, url, navigation, openExternalUrl])
 
   if (loading || !filePath) {
-    return <Layout />
+    return (
+      <Layout>
+        <ProgressSpinner />
+      </Layout>
+    )
   }
 
   if (error) {

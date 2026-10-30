@@ -2,6 +2,7 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { getPdfUrl } from 'shared'
 import { CategoryModel } from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
@@ -17,10 +18,7 @@ type PdfMenuItemProps = {
 const PdfMenuItem = ({ category, regionCode, languageCode, closeMenu, ...other }: PdfMenuItemProps): ReactElement => {
   const { t } = useTranslation()
 
-  const pdfUrl =
-    !category || category.isRoot()
-      ? `${cmsApiBaseUrl}/${regionCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`
-      : `${cmsApiBaseUrl}/${regionCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf?url=${encodeURIComponent(category.path)}`
+  const pdfUrl = getPdfUrl({ cmsUrl: cmsApiBaseUrl, regionCode, languageCode, categoryPath: category?.path })
 
   return (
     <MenuItem
