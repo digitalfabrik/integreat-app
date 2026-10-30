@@ -9,10 +9,12 @@ import {
   EVENTS_ROUTE,
   EventsRouteType,
   FEEDBACK_ROUTE,
+  getPdfUrl,
   getSlugFromPath,
   IMPRINT_ROUTE,
   LANGUAGES_ROUTE,
   NEWS_ROUTE,
+  PDF_VIEW_ROUTE,
   PLACES_ROUTE,
   PlacesRouteType,
   REGIONS_ROUTE,
@@ -21,6 +23,7 @@ import {
 import { FeedbackType, LanguageModel } from 'shared/api'
 
 import { BaseRouteProps, BaseNavigationProps, RoutesParamsType } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContext'
 import useSnackbar from '../hooks/useSnackbar'
@@ -86,7 +89,13 @@ const Header = ({
     routeTitle && regionName && routeTitle !== regionName ? `${routeTitle} - ${regionName}` : (routeTitle ?? regionName)
 
   const getCategorySlug = (path?: string): string | undefined => (path ? getSlugFromPath(path) : undefined)
+  const categoryPath =
+    route.name === CATEGORIES_ROUTE ? (route.params as RoutesParamsType[CategoriesRouteType]).path : undefined
 
+  const pdfUrl =
+    route.name === CATEGORIES_ROUTE && regionCode
+      ? getPdfUrl({ cmsUrl: buildConfig().cmsUrl, regionCode, languageCode, categoryPath })
+      : null
   const getSlugForRoute = (): string | undefined => {
     switch (route.name) {
       case EVENTS_ROUTE:
@@ -94,7 +103,7 @@ const Header = ({
       case PLACES_ROUTE:
         return (route.params as RoutesParamsType[PlacesRouteType]).slug
       case CATEGORIES_ROUTE:
-        return getCategorySlug((route.params as RoutesParamsType[CategoriesRouteType]).path)
+        return getCategorySlug(categoryPath)
       case IMPRINT_ROUTE:
         return IMPRINT_ROUTE
       default:
@@ -153,6 +162,17 @@ const Header = ({
             onPress={navigateToFeedback}
             closeMenu={() => setMenuVisible(false)}
             icon='comment-text-outline'
+          />,
+        ]
+      : []),
+    ...(pdfUrl
+      ? [
+          <HeaderMenuItem
+            key='pdf'
+            title={t($ => $.categories.pdf.create)}
+            onPress={() => navigation.navigate(PDF_VIEW_ROUTE, { url: pdfUrl, shareUrl: pdfUrl })}
+            closeMenu={() => setMenuVisible(false)}
+            icon='file-document-outline'
           />,
         ]
       : []),
