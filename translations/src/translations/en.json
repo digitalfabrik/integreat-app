@@ -24,7 +24,7 @@
     "databaseNote": "We are continuously expanding our database with new types of Bescheid.",
     "upload": {
       "title": "Upload Bescheid",
-      "dropTitle": "Drag your Bescheid here",
+      "dragTitle": "Drag your Bescheid here",
       "limits": "1 Bescheid · up to {{maxFiles}} pages",
       "hint": "Make sure that all pages are easy to read and belong to the same Bescheid. Formats: PDF, JPG, PNG, HEIC",
       "takePhoto": "Take photo",

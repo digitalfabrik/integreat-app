@@ -24,7 +24,7 @@
     "databaseNote": "Wir erweitern unsere Datenbank kontinuierlich um neue Bescheidtypen.",
     "upload": {
       "title": "Bescheid hochladen",
-      "dropTitle": "Bescheid hierher ziehen",
+      "dragTitle": "Bescheid hierher ziehen",
       "limits": "1 Bescheid · maximal {{maxFiles}} Seiten",
       "hint": "Achte darauf, dass alle Seiten gut lesbar sind und zu einem Bescheid gehören. Formate: PDF, JPG, PNG, HEIC",
       "takePhoto": "Foto aufnehmen",

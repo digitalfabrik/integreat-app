@@ -19,14 +19,15 @@ import { alpha, styled } from '@mui/material/styles'
 import React, { ChangeEvent, DragEvent, ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import {
+  ACCEPTED_FILE_EXTENSIONS,
+  BACKGROUND_OPACITY,
+  BYTES_PER_MB,
+  MAX_FILE_SIZE_MB,
+  MAX_FILES,
+} from '../constants/bescheidCheck'
 import useDimensions from '../hooks/useDimensions'
 import Link from './base/Link'
-
-const MAX_FILES = 10
-const MAX_FILE_SIZE_MB = 20
-const BYTES_PER_MB = 1_048_576
-const ACCEPTED_FILE_EXTENSIONS = ['.pdf', '.jpg', '.jpeg', '.png', '.heic']
-const BACKGROUND_OPACITY = 0.2
 
 const Container = styled(Stack, { shouldForwardProp })<{ dragging: boolean }>(({ theme, dragging }) => ({
   alignItems: 'center',
@@ -232,7 +233,7 @@ const BescheidCheckFileSelection = ({ files, setFiles }: BescheidCheckFileSelect
             </StyledAvatar>
             <Stack sx={{ alignItems: { md: 'center' }, gap: 1 }}>
               <Typography variant='subtitle1' component='h2'>
-                {mobile ? t($ => $.bescheidCheck.upload.title) : t($ => $.bescheidCheck.upload.dropTitle)}
+                {mobile ? t($ => $.bescheidCheck.upload.title) : t($ => $.bescheidCheck.upload.dragTitle)}
               </Typography>
               <Typography variant='body3'>{t($ => $.bescheidCheck.upload.limits, { maxFiles: MAX_FILES })}</Typography>
             </Stack>
