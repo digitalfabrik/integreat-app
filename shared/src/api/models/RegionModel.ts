@@ -9,11 +9,18 @@ class RegionModel {
   _code: string
   _live: boolean
   _languages: LanguageModel[]
-  _chatEnabled: boolean
   _chatPrivacyPolicyUrl: string | null
+  _sortingName: string
+  _prefix: string | null
+  _latitude: number
+  _longitude: number
+  _boundingBox: BBox
   _eventsEnabled: boolean
   _placesEnabled: boolean
   _localNewsEnabled: boolean
+  _externalNewsEnabled: boolean
+  _chatEnabled: boolean
+
   constructor(params: {
     name: string
     code: string
@@ -24,6 +31,7 @@ class RegionModel {
     localNewsEnabled: boolean
     externalNewsEnabled: boolean
     chatEnabled: boolean
+    bescheidCheckEnabled: boolean
     sortingName: string
     prefix: string | null
     latitude: number
@@ -37,6 +45,7 @@ class RegionModel {
     this._live = params.live
     this._languages = params.languages
     this._chatEnabled = params.chatEnabled
+    this._bescheidCheckEnabled = params.bescheidCheckEnabled
     this._eventsEnabled = params.eventsEnabled
     this._placesEnabled = params.placesEnabled
     this._localNewsEnabled = params.localNewsEnabled
@@ -49,14 +58,8 @@ class RegionModel {
     this._boundingBox = params.boundingBox
     this._chatPrivacyPolicyUrl = params.chatPrivacyPolicyUrl
   }
-  _sortingName: string
-  _prefix: string | null
-  _latitude: number
-  _longitude: number
 
-  _externalNewsEnabled: boolean
-
-  _boundingBox: BBox
+  _bescheidCheckEnabled: boolean
 
   get boundingBox(): BBox {
     return this._boundingBox
@@ -84,6 +87,10 @@ class RegionModel {
 
   get chatEnabled(): boolean {
     return this._chatEnabled
+  }
+
+  get bescheidCheckEnabled(): boolean {
+    return this._bescheidCheckEnabled
   }
 
   get eventsEnabled(): boolean {

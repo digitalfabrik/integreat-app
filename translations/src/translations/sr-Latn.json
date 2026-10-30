@@ -29,12 +29,7 @@
     "bot": "Četbot",
     "consultant": "Savetnik/ca",
     "typing": "Kuca…",
-    "inputPlaceholder": "Unesi svoje pitanje…",
-    "initial": {
-      "title": "Unesi svoje pitanje u polje za tekst.",
-      "description": "Možeš da postaviš pitanje o lokalnim informacijama ili svojoj ličnoj situaciji."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Zdravo!",
       "description": "Ja sam <strong>{{name}}</strong>, tvoj digitalni asistent za pretragu. Slobodno mi postavi pitanje."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Koje informacije nedostaju?",
       "informationMissing": "Ovde nedostaju informacije?",
       "searchTermDescription": "Nije pronađen nijedan rezultat za sledeći pojam:",
-      "checkQuery": "Proveri uneti pojam za pretragu ili promeni izabrani jezik.",
       "noResultsInUserLanguage": "Nažalost, nisu pronađeni odgovarajući rezultati na tvom jeziku.",
       "noResultsInUserAndSourceLanguage": "Nažalost, nisu pronađeni odgovarajući rezultati na tvom jeziku ili na nemačkom."
     }

@@ -29,12 +29,7 @@
     "bot": "Csetbot",
     "consultant": "Tanácsadó",
     "typing": "Gépel…",
-    "inputPlaceholder": "Írd be a kérdésedet…",
-    "initial": {
-      "title": "Kérjük, írd be a kérdésedet a szövegmezőbe.",
-      "description": "Kérdezhetsz helyi információkról vagy a személyes helyzetedről is."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Helló!",
       "description": "<strong>{{name}}</strong> vagyok, a digitális keresési asszisztensed. Tedd fel bátran a kérdésed!"
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Milyen információk hiányoznak?",
       "informationMissing": "Hiányolod az információkat?",
       "searchTermDescription": "A következő keresőkifejezésre nincs találat:",
-      "checkQuery": "Ellenőrizd a keresett kifejezést, vagy módosítsd a beállított nyelvet.",
       "noResultsInUserLanguage": "Sajnos nem találtunk megfelelő találatot a kiválasztott nyelven.",
       "noResultsInUserAndSourceLanguage": "Sajnos nem találtunk megfelelő találatot a saját nyelveden vagy németül."
     }

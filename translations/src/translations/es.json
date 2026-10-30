@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Asesor/a",
     "typing": "Escribiendo…",
-    "inputPlaceholder": "Escribe tu pregunta…",
-    "initial": {
-      "title": "Escribe tu pregunta en el campo de texto.",
-      "description": "Puedes consultar información local o preguntar sobre tu situación personal."
-    },
-    "welcome": {
+    "highlight": {
       "title": "¡Hola!",
       "description": "Soy <strong>{{name}}</strong>, tu asistente de búsqueda digital. Pregúntame lo que quieras."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "¿Qué información falta?",
       "informationMissing": "¿Falta información aquí?",
       "searchTermDescription": "No se han encontrado resultados para el siguiente término:",
-      "checkQuery": "Comprueba el término de búsqueda o cambia el idioma configurado.",
       "noResultsInUserLanguage": "Lamentablemente, no se han encontrado resultados en tu idioma.",
       "noResultsInUserAndSourceLanguage": "Lamentablemente, no se han encontrado resultados en tu idioma ni en alemán."
     }

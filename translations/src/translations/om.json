@@ -29,12 +29,7 @@
     "bot": "Chaatiibootii",
     "consultant": "Gorsaa/tuu",
     "typing": "Barreessaa jira…",
-    "inputPlaceholder": "Maaloo gaaffii kee galchi…",
-    "initial": {
-      "title": "Maaloo gaaffii kee saanduqa barruu keessatti galchi.",
-      "description": "Odeeffannoo naannoo yookiin haala dhuunfaa kee ilaalchisee gaafachuu dandeessa."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Akkam!",
       "description": "Ani <strong>{{name}}</strong> dha, Gargaaraa Barbaacha Dijitaalaa keeti. Gaaffii kee na gaafachuu dandeessa."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Odeeffannoo akkamiitu hanqate?",
       "informationMissing": "Odeeffannoon asitti hanqateeraa?",
       "searchTermDescription": "Jecha armaan gadiitiif bu'aan tokkollee hin argamne:",
-      "checkQuery": "Jechoota barbaaddan mirkaneeffadhaa yookiin afaan filatame jijjiiraa.",
       "noResultsInUserLanguage": "Kan nama gaddisiisu, afaan keessaniin bu'aan walgitu hin argamne.",
       "noResultsInUserAndSourceLanguage": "Kan nama gaddisiisu, afaan keessaniinis ta'ee afaan Jarmaniitiin bu'aan walgitu hin argamne."
     }

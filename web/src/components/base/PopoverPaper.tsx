@@ -26,14 +26,23 @@ const inlineInset = (side: ArrowAlignment, inset: number, rtl: boolean): CSSObje
   (side === 'left') !== rtl ? { insetInlineStart: inset } : { insetInlineEnd: inset }
 
 // The position tells where the popover sits relative to the highlighted element, therefore the arrow points the other way
-const arrowStyle = (position: Position | undefined, alignment: ArrowAlignment, rtl: boolean): CSSObject => {
+const arrowStyle = (
+  position: Position | undefined,
+  alignment: ArrowAlignment,
+  rtl: boolean,
+  centerArrowVertically = false,
+): CSSObject => {
+  const verticalAlignment: CSSObject = centerArrowVertically
+    ? { insetBlockStart: '50%', transform: 'translateY(-50%)' }
+    : { insetBlockStart: ARROW_OFFSET }
+
   switch (position) {
     case 'top':
       return { insetBlockEnd: -ARROW_SIZE, ...inlineInset(alignment, ARROW_OFFSET, rtl), clipPath: ARROW_DOWN }
     case 'right':
-      return { insetBlockStart: ARROW_OFFSET, ...inlineInset('left', -ARROW_SIZE, rtl), clipPath: ARROW_LEFT }
+      return { ...verticalAlignment, ...inlineInset('left', -ARROW_SIZE, rtl), clipPath: ARROW_LEFT }
     case 'left':
-      return { insetBlockStart: ARROW_OFFSET, ...inlineInset('right', -ARROW_SIZE, rtl), clipPath: ARROW_RIGHT }
+      return { ...verticalAlignment, ...inlineInset('right', -ARROW_SIZE, rtl), clipPath: ARROW_RIGHT }
     default:
       return { insetBlockStart: -ARROW_SIZE, ...inlineInset(alignment, ARROW_OFFSET, rtl), clipPath: ARROW_UP }
   }
@@ -43,11 +52,13 @@ type PopoverPaperProps = {
   arrowPosition: Position | undefined
   arrowAlignment: ArrowAlignment
   offset?: PopoverOffset
+  centerArrowVertically?: boolean
 }
 
 const PopoverPaper = styled(Paper, {
-  shouldForwardProp: prop => shouldForwardProp(prop.toString()) && prop !== 'offset',
-})<PopoverPaperProps>(({ theme, arrowPosition, arrowAlignment, offset }) => ({
+  shouldForwardProp: prop =>
+    shouldForwardProp(prop.toString()) && prop !== 'offset' && prop !== 'centerArrowVertically',
+})<PopoverPaperProps>(({ theme, arrowPosition, arrowAlignment, offset, centerArrowVertically }) => ({
   borderRadius: BORDER_RADIUS,
   position: 'relative',
   insetInlineStart: offset?.horizontal,
@@ -60,7 +71,7 @@ const PopoverPaper = styled(Paper, {
     width: ARROW_SIZE,
     height: ARROW_SIZE,
     background: 'inherit',
-    ...arrowStyle(arrowPosition, arrowAlignment, theme.contentDirection === 'rtl'),
+    ...arrowStyle(arrowPosition, arrowAlignment, theme.contentDirection === 'rtl', centerArrowVertically),
   },
 }))
 

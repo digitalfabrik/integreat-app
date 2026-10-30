@@ -15,6 +15,10 @@
       "sbom": "Eine vollständige Liste aller verwendeten Drittanbieter-Komponenten findest du im <Link>Komponentenverzeichnis (SBoM)</Link>."
     }
   },
+  "bescheidCheck": {
+    "shortDescription": "Verstehe einen Bescheid",
+    "description": "Lade einen Bescheid oder eine BAMF-Entscheidung hoch, um sie sich erklären zu lassen."
+  },
   "categories": {
     "title": "Lokale Informationen",
     "titleShort": "Informationen",
@@ -29,15 +33,13 @@
   },
   "chat": {
     "subtitle": "Dein digitaler Suchassistent",
+    "description": "Hier findest du Informationen zum Alltag, zu Dienstleistungen und zur Unterstützung in Deutschland.",
     "bot": "Chatbot",
     "consultant": "Berater*in",
     "typing": "Schreibt…",
-    "inputPlaceholder": "Bitte gib deine Frage ein…",
-    "initial": {
-      "title": "Bitte gib deine Frage in das Textfeld ein.",
-      "description": "Du kannst nach lokalen Informationen oder deiner persönlichen Situation fragen."
-    },
-    "welcome": {
+    "askChat": "{{name}}",
+    "askQuestion": "Stelle eine Frage",
+    "highlight": {
       "title": "Hallo!",
       "description": "Ich bin <strong>{{name}}</strong>, dein Digitaler Suchassistent. Stell mir gerne deine Frage."
     },
@@ -62,6 +64,7 @@
       "next": "Weiter",
       "ok": "Ok",
       "open": "Öffnen",
+      "openName": "Öffne {{name}}",
       "previous": "vorheriger",
       "send": "Senden",
       "skip": "Überspringen",
@@ -88,7 +91,11 @@
     "labels": {
       "description": "Beschreibung",
       "menu": "Menü",
-      "getOnPlayStore": "HOL ES DIR — Im Google Play Store"
+      "getOnPlayStore": "HOL ES DIR — Im Google Play Store",
+      "assistant": {
+        "title": "Digitaler Assistent",
+        "description": "Wie können wir dir heute helfen?"
+      }
     },
     "meta": {
       "description": "{{appName}} ist Dein digitaler Guide für Deutschland. Finde lokale Informationen, Veranstaltungen und Beratung. Immer aktuell und in Deiner Sprache."
@@ -184,14 +191,22 @@
     },
     "thanks": {
       "title": "Vielen Dank für dein Feedback.",
-      "description": "Dein Feedback wurde erfolgreich abgesendet."
+      "description": "Dein Feedback wurde erfolgreich abgesendet.",
+      "addDetails": "Möchtest du weitere Details hinzufügen?"
     },
     "search": {
       "informationNotFound": "Nicht das Richtige gefunden?",
       "wantedInformation": "Welche Informationen fehlen?",
       "informationMissing": "Hier fehlen Informationen?",
       "searchTermDescription": "Für den folgenden Begriff konnte kein Ergebnis gefunden werden:",
-      "checkQuery": "Überprüfe deinen Suchbegriff oder ändere die eingestellte Sprache.",
+      "helpToImprove": "Hilf uns, {{appName}} zu verbessern.",
+      "informUs": "Uns informieren",
+      "tryOptions": "Versuche:",
+      "options": {
+        "useSearchTerm": "einen anderen Suchbegriff zu verwenden",
+        "useSingleWord": "nur nach einem Wort oder einem Begriff zu suchen",
+        "askChat": "deine Frage direkt an <Link>{{name}}</Link> zu stellen"
+      },
       "noResultsInUserLanguage": "Es wurden leider keine passenden Ergebnisse in deiner Sprache gefunden.",
       "noResultsInUserAndSourceLanguage": "Es wurden leider keine passenden Ergebnisse in deiner Sprache oder auf Deutsch gefunden."
     }

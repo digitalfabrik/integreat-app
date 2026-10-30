@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Poradce / poradkyně",
     "typing": "Píše…",
-    "inputPlaceholder": "Zadej prosím svůj dotaz…",
-    "initial": {
-      "title": "Zadej prosím svůj dotaz do textového pole.",
-      "description": "Můžeš se zeptat na místní informace nebo na svou osobní situaci."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Dobrý den!",
       "description": "Jsem <strong>{{name}}</strong>, váš digitální asistent vyhledávání. Neváhejte se mě na cokoliv zeptat."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Jaké informace vám chybí?",
       "informationMissing": "Chybí zde nějaké informace?",
       "searchTermDescription": "Pro zadaný výraz se nepodařilo najít žádné výsledky:",
-      "checkQuery": "Zkontrolujte hledaný výraz nebo změňte nastavený jazyk.",
       "noResultsInUserLanguage": "Bohužel nebyly nalezeny žádné odpovídající výsledky ve vašem jazyce.",
       "noResultsInUserAndSourceLanguage": "Bohužel nebyly nalezeny žádné odpovídající výsledky ve vašem jazyce ani v němčině."
     }

@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Neuvoja",
     "typing": "Kirjoittaa…",
-    "inputPlaceholder": "Kirjoita kysymyksesi tähän…",
-    "initial": {
-      "title": "Kirjoita kysymyksesi tekstikenttään.",
-      "description": "Voit kysyä paikallisista tiedoista tai omasta tilanteestasi."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Hei!",
       "description": "Olen <strong>{{name}}</strong>, digitaalinen hakuapurisi. Kysy minulta mitä vain!"
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Mitä tietoja puuttuu?",
       "informationMissing": "Puuttuuko täältä tietoja?",
       "searchTermDescription": "Seuraavalla hakusanalla ei löytynyt tuloksia:",
-      "checkQuery": "Tarkista hakusanasi tai vaihda valittua kieltä.",
       "noResultsInUserLanguage": "Valitettavasti kielelläsi ei löytynyt vastaavia tuloksia.",
       "noResultsInUserAndSourceLanguage": "Valitettavasti kielelläsi tai saksaksi ei löytynyt vastaavia tuloksia."
     }

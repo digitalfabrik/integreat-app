@@ -1,11 +1,9 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
-import { PLACES_ROUTE } from 'shared'
 import { CategoryModel, RegionModel } from 'shared/api'
 
-import buildConfig from '../constants/buildConfig'
+import useChat from '../hooks/useChat'
 import useDimensions from '../hooks/useDimensions'
-import useRegionContentParams from '../hooks/useRegionContentParams'
 import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
 import FeedbackContainer from './FeedbackContainer'
@@ -13,7 +11,36 @@ import Footer from './Footer'
 import { LanguageChangePath } from './LanguageSelection'
 import Layout from './Layout'
 import RegionContentHeader from './RegionContentHeader'
+import ToolsFab from './ToolsFab'
 import TourContainer from './TourContainer'
+
+type ToolsContainerProps = {
+  region: RegionModel
+  languageCode: string
+  languageChangePaths: LanguageChangePath[] | null
+}
+
+const ToolsContainer = ({ region, languageCode, languageChangePaths }: ToolsContainerProps): ReactElement => {
+  const chat = useChat({ region, languageCode })
+
+  return (
+    <>
+      <ToolsFab
+        chatEnabled={region.chatEnabled}
+        bescheidCheckEnabled={region.bescheidCheckEnabled}
+        unreadMessageCount={chat.unreadMessageCount}
+      />
+      {region.chatEnabled && (
+        <ChatContainer
+          region={region}
+          languageCode={languageCode}
+          languageChangePaths={languageChangePaths}
+          chatProps={chat}
+        />
+      )}
+    </>
+  )
+}
 
 export type RegionContentLayoutProps = {
   toolbar?: ReactElement | null
@@ -40,13 +67,13 @@ const RegionContentLayout = ({
   pageTitle,
   slug,
 }: RegionContentLayoutProps): ReactElement => {
-  const { route } = useRegionContentParams()
   const [layoutReady, setLayoutReady] = useState(!isLoading)
   const { desktop, mobile } = useDimensions()
-  const isChatEnabled = buildConfig().featureFlags.chat && route !== PLACES_ROUTE && region.chatEnabled
+
+  const { chatEnabled, bescheidCheckEnabled } = region
   const footerVisible = !isLoading && desktop && !fitScreen
-  const chatVisible = isChatEnabled && layoutReady
-  const tourVisible = layoutReady && category?.isRoot()
+  const toolsVisible = (chatEnabled || bescheidCheckEnabled) && layoutReady
+  const tourVisible = category?.isRoot() && layoutReady
 
   // Avoid flickering due to content (chat) being pushed up by the footer
   useEffect(() => setLayoutReady(!isLoading), [isLoading])
@@ -67,8 +94,8 @@ const RegionContentLayout = ({
       footer={
         <>
           {footerVisible && <Footer />}
-          {chatVisible && (
-            <ChatContainer region={region} languageCode={languageCode} languageChangePaths={languageChangePaths} />
+          {toolsVisible && (
+            <ToolsContainer region={region} languageCode={languageCode} languageChangePaths={languageChangePaths} />
           )}
           {tourVisible && <TourContainer region={region} languageCode={languageCode} />}
           <FeedbackContainer slug={slug} />

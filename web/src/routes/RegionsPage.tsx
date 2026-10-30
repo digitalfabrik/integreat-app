@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { createRegionsEndpoint } from 'shared/api'
 
-import BackToRegionButton from '../components/BackToRegionButton'
+import BackButton from '../components/BackButton'
 import FailureSwitcherWithHelmet from '../components/FailureSwitcherWithHelmet'
 import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
@@ -44,7 +44,7 @@ const RegionsPage = ({ languageCode }: RegionsPageProps): ReactElement => {
         </>
       }>
       <Helmet pageTitle={pageTitle} metaDescription={metaDescription} rootPage />
-      <BackToRegionButton />
+      <BackButton />
       <RegionSelector regions={regions ?? []} language={languageCode} loading={isPending} />
     </Layout>
   )

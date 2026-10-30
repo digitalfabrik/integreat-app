@@ -38,13 +38,18 @@ const RegionSelector = ({ regions, language, loading }: RegionSelectorProps): Re
       filterText={filterText}
     />
   ))
+
+  const flatResults =
+    resultRegions.length > 0
+      ? [<RegionListGroup key='results' regions={resultRegions} languageCode={language} filterText={filterText} />]
+      : []
   const groups = [
     <NearbyRegions key='nearby' regions={regions} language={language} filterText={filterText} />,
-    ...firstLetterGroups,
+    ...(filterText ? flatResults : firstLetterGroups),
   ]
 
   return (
-    <Stack sx={{ maxWidth: 640, paddingTop: 4, gap: 2 }}>
+    <Stack sx={{ maxWidth: 640, gap: 2 }}>
       <H1>{t($ => $.regions.welcome.title, { appName: buildConfig().appName })}</H1>
       <Typography variant='body1'>{t($ => $.regions.welcome.description)}</Typography>
       <SearchInput

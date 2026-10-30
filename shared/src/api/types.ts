@@ -196,18 +196,19 @@ export type JsonRegionType = {
   path: string
   live: boolean
   languages: JsonLanguageType[]
-  events: boolean
-  pois: boolean
-  push_notifications: boolean
-  external_news: boolean
   name_without_prefix: string
   prefix: string | null
   latitude: number
   longitude: number
   aliases: Record<string, { longitude: number; latitude: number }> | null
   bounding_box: [[number, number], [number, number]]
-  is_chat_enabled: boolean
   zammad_privacy_policy: string | null
+  events: boolean
+  pois: boolean
+  push_notifications: boolean
+  external_news: boolean
+  is_chat_enabled: boolean
+  bescheidcheck: boolean
 }
 
 export type TimeSlot = {

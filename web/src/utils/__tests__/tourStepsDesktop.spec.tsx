@@ -34,6 +34,7 @@ describe('tourStepsDesktop', () => {
       aliases: {},
       boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
       chatEnabled: chat,
+      bescheidCheckEnabled: false,
       chatPrivacyPolicyUrl: null,
     })
 
@@ -77,12 +78,6 @@ describe('tourStepsDesktop', () => {
 
   it('should not include the chat step if the region has no chat', () => {
     expect(selectors(createRegion({ chat: false }))).not.toContain(`#${CHAT_FAB_ELEMENT_ID}`)
-  })
-
-  it('should not include the chat step if the chat is disabled in the build config', () => {
-    config.featureFlags.chat = false
-    expect(selectors(createRegion())).not.toContain(`#${CHAT_FAB_ELEMENT_ID}`)
-    config.featureFlags.chat = true
   })
 
   it('should not include the region change step if a fixed region is configured', () => {

@@ -17,6 +17,10 @@ const resources = {
       "sbom": "A complete list of all third-party components used can be found in the <Link>Component inventory (SBoM)</Link>."
     }
   },
+  "bescheidCheck": {
+    "shortDescription": "Understand an official decision",
+    "description": "Upload a Bescheid or BAMF decision to have it explained."
+  },
   "categories": {
     "title": "Local information",
     "titleShort": "Information",
@@ -31,15 +35,13 @@ const resources = {
   },
   "chat": {
     "subtitle": "Your digital search assistant",
+    "description": "Get information about everyday life, services and support in Germany.",
     "bot": "Chatbot",
     "consultant": "Consultant",
     "typing": "Typing…",
-    "inputPlaceholder": "Please enter your question…",
-    "initial": {
-      "title": "Please enter your question in the text field.",
-      "description": "You can ask about local information or your personal situation."
-    },
-    "welcome": {
+    "askChat": "Ask {{name}}",
+    "askQuestion": "Ask a question",
+    "highlight": {
       "title": "Hello!",
       "description": "I'm <strong>{{name}}</strong>, your digital search assistant. Feel free to ask me your question."
     },
@@ -64,6 +66,7 @@ const resources = {
       "next": "Next",
       "ok": "Ok",
       "open": "Open",
+      "openName": "Open {{name}}",
       "previous": "Previous",
       "send": "Send",
       "skip": "Skip",
@@ -90,7 +93,11 @@ const resources = {
     "labels": {
       "description": "Description",
       "menu": "Menu",
-      "getOnPlayStore": "GET — On the Google Play Store"
+      "getOnPlayStore": "GET — On the Google Play Store",
+      "assistant": {
+        "title": "Digital Assistant",
+        "description": "How can we help you today?"
+      }
     },
     "meta": {
       "description": "{{appName}} is your digital guide to life in Germany. Discover local information, events and advice. Always up to date and available in your own language."
@@ -186,14 +193,22 @@ const resources = {
     },
     "thanks": {
       "title": "Thank you very much for your feedback.",
-      "description": "Your feedback has been sent successfully."
+      "description": "Your feedback has been sent successfully.",
+      "addDetails": "Would you like to add any further details?"
     },
     "search": {
       "informationNotFound": "Not found what you were looking for?",
       "wantedInformation": "What information is missing?",
       "informationMissing": "Is information missing?",
       "searchTermDescription": "No result could be found for the following term:",
-      "checkQuery": "Check your search term or select a different language.",
+      "helpToImprove": "Help us improve {{appName}}.",
+      "informUs": "Inform us",
+      "tryOptions": "Try to:",
+      "options": {
+        "useSearchTerm": "search for a different search term",
+        "useSingleWord": "search only for a single word or a term",
+        "askChat": "ask your question directly in <Link>{{name}}</Link>"
+      },
       "noResultsInUserLanguage": "Sorry, we could not find any matching results in your language.",
       "noResultsInUserAndSourceLanguage": "Sorry, we could not find any matching results in your language or in German."
     }

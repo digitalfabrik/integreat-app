@@ -29,12 +29,7 @@
     "bot": "Comhrá-bhót",
     "consultant": "Comhairleoir",
     "typing": "Ag clóscríobh…",
-    "inputPlaceholder": "Iontráil do cheist, le do thoil…",
-    "initial": {
-      "title": "Cuir do cheist isteach sa réimse téacs, le do thoil.",
-      "description": "Is féidir leat ceist a chur faoi eolas áitiúil nó faoi do chás pearsanta."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Dia duit!",
       "description": "Is mise <strong>{{name}}</strong>, do chúntóir cuardaigh digiteach. Ná bíodh drogall ort do cheist a chur orm."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Cén fhaisnéis atá ar iarraidh?",
       "informationMissing": "An bhfuil faisnéis ar iarraidh?",
       "searchTermDescription": "Níor aimsíodh aon toradh don téarma seo a leanas:",
-      "checkQuery": "Seiceáil do théarma cuardaigh nó roghnaigh teanga eile.",
       "noResultsInUserLanguage": "Tá brón orainn, níorbh fhéidir teacht ar aon torthaí comhoiriúnacha i do theanga.",
       "noResultsInUserAndSourceLanguage": "Tá brón orainn, níorbh fhéidir teacht ar aon torthaí comhoiriúnacha i do theanga ná sa Ghearmáinis."
     }

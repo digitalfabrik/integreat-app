@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Rådgiver",
     "typing": "Skriver…",
-    "inputPlaceholder": "Indtast venligst dit spørgsmål…",
-    "initial": {
-      "title": "Indtast venligst dit spørgsmål i tekstfeltet.",
-      "description": "Du kan spørge om lokale oplysninger eller din personlige situation."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Hej!",
       "description": "Jeg er <strong>{{name}}</strong>, din digitale søgeassistent. Du er velkommen til at stille mig et spørgsmål."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Hvilke oplysninger mangler du?",
       "informationMissing": "Mangler der oplysninger her?",
       "searchTermDescription": "Der blev ikke fundet nogen resultater for følgende søgeord:",
-      "checkQuery": "Tjek dit søgeord, eller skift det valgte sprog.",
       "noResultsInUserLanguage": "Der blev desværre ikke fundet nogen matchende resultater på dit sprog.",
       "noResultsInUserAndSourceLanguage": "Der blev desværre ikke fundet nogen matchende resultater på dit sprog eller på tysk."
     }

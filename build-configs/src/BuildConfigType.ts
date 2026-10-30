@@ -33,8 +33,6 @@ export type FeatureFlagsType = FixedRegionType & {
   developerFriendly: boolean
   // Enables the option for users to suggest Integreat to their region
   suggestToRegion: SuggestToRegionFlags | null
-  // Enables the Frag Integreat chat feature
-  chat: boolean
 }
 
 // Available on all platforms

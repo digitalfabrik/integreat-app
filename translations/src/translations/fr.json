@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Conseiller·ère",
     "typing": "Écrit…",
-    "inputPlaceholder": "Pose ta question…",
-    "initial": {
-      "title": "Saisis ta question dans le champ de texte.",
-      "description": "Tu peux poser des questions sur les services locaux ou sur ta situation personnelle."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Bonjour !",
       "description": "Je m'appelle <strong>{{name}}</strong>, votre assistant de recherche numérique. N'hésitez pas à me poser votre question."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Quelles informations manquent ?",
       "informationMissing": "Il manque des informations ?",
       "searchTermDescription": "Aucun résultat n'a été trouvé pour le terme suivant :",
-      "checkQuery": "Vérifie tes termes de recherche ou modifie la langue sélectionnée.",
       "noResultsInUserLanguage": "Aucun résultat correspondant n'a été trouvé dans ta langue.",
       "noResultsInUserAndSourceLanguage": "Aucun résultat correspondant n'a été trouvé dans ta langue ou en allemand."
     }

@@ -14,6 +14,7 @@ import getNavigationItems from './navigationItems'
 export type TourStepType = StepType & {
   content: ReactElement
   arrowAlignment?: ArrowAlignment
+  centerArrowVertically?: boolean
   offset?: PopoverOffset
 }
 
@@ -101,13 +102,12 @@ const getTourStepDefinitions = ({
           values: { navigationItems: navigationItems.map(item => `<strong>${t($ => $[item.value].title)}</strong>`) },
         }
       : null,
-    chat:
-      featureFlags.chat && region.chatEnabled
-        ? {
-            title: getChatName(appName),
-            descriptionKey: $ => $.tour.chat.description,
-          }
-        : null,
+    chat: region.chatEnabled
+      ? {
+          title: getChatName(appName),
+          descriptionKey: $ => $.tour.chat.description,
+        }
+      : null,
     feedback: {
       title: t($ => $.feedback.give),
       descriptionKey: $ => $.feedback.comment.description,

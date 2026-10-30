@@ -20,7 +20,6 @@ const integreatTestCms = {
       template: suggestToRegionTemplate,
       icon: '/suggest-to-region.svg',
     },
-    chat: true,
   },
 }
 export const commonIntegreatTestCmsBuildConfig: CommonBuildConfigType = {

@@ -3,14 +3,14 @@
  "dataLicense": "CC0-1.0",
  "SPDXID": "SPDXRef-DOCUMENT",
  "name": "integreat-app",
- "documentNamespace": "https://anchore.com/syft/dir/integreat-app-1c980943-3a85-4f89-80c0-7416e510aa4f",
+ "documentNamespace": "https://anchore.com/syft/dir/integreat-app-1b617c60-a362-41d2-bcb8-d887685b6212",
  "creationInfo": {
   "licenseListVersion": "3.29",
   "creators": [
    "Organization: Anchore, Inc",
    "Tool: syft-1.55.0"
   ],
-  "created": "2026-10-21T16:59:59Z"
+  "created": "2026-10-22T13:36:54Z"
  },
  "packages": [
   {
@@ -1105,7 +1105,7 @@
   {
    "name": "integreat-app",
    "SPDXID": "SPDXRef-DocumentRoot-Directory-integreat-app",
-   "versionInfo": "2026.10.1",
+   "versionInfo": "2026.10.2",
    "supplier": "NOASSERTION",
    "downloadLocation": "NOASSERTION",
    "filesAnalyzed": false,

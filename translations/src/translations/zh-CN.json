@@ -29,12 +29,7 @@
     "bot": "聊天机器人",
     "consultant": "顾问",
     "typing": "正在输入…",
-    "inputPlaceholder": "请输入你的问题…",
-    "initial": {
-      "title": "请在文本框中输入你的问题。",
-      "description": "你可以咨询本地资讯或针对个人情况提问。"
-    },
-    "welcome": {
+    "highlight": {
       "title": "你好！",
       "description": "我是 <strong>{{name}}</strong>，你的智能搜索助手。有什么问题尽管问我吧。"
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "缺少了哪些信息？",
       "informationMissing": "这里缺少信息？",
       "searchTermDescription": "未找到与以下关键词相关的结果：",
-      "checkQuery": "请检查您的搜索词或更改所选语言。",
       "noResultsInUserLanguage": "很抱歉，未找到以您所选语言显示的相关结果。",
       "noResultsInUserAndSourceLanguage": "很抱歉，未找到以您所选语言或德语显示的相关结果。"
     }

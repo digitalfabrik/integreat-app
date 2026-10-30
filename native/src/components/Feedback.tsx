@@ -8,6 +8,7 @@ import { DEFAULT_ROWS_NUMBER, Rating, SendingStatusType } from 'shared'
 
 import buildConfig from '../constants/buildConfig'
 import useNavigate from '../hooks/useNavigate'
+import Alert from './Alert'
 import Caption from './Caption'
 import FeedbackButtons from './FeedbackButtons'
 import LoadingSpinner from './LoadingSpinner'
@@ -61,13 +62,12 @@ const Feedback = ({
 
   if (sendingStatus === 'successful') {
     return (
-      <Wrapper accessible accessibilityRole='alert' accessibilityLiveRegion='assertive'>
-        <Caption title={t($ => $.feedback.thanks.title)} />
-        <Text>{t($ => $.feedback.thanks.description)}</Text>
-        <Button onPress={navigation.goBack} mode='contained' style={{ marginTop: 16 }}>
-          {t($ => $.common.actions.close)}
-        </Button>
-      </Wrapper>
+      <Alert
+        severity='success'
+        title={t($ => $.feedback.thanks.title)}
+        description={t($ => $.feedback.thanks.description)}
+        onClose={navigation.goBack}
+      />
     )
   }
 

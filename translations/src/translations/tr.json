@@ -29,12 +29,7 @@
     "bot": "Sohbet robotu",
     "consultant": "Danışman",
     "typing": "Yazıyor…",
-    "inputPlaceholder": "Lütfen sorunu buraya yaz…",
-    "initial": {
-      "title": "Lütfen sorunu metin alanına yaz.",
-      "description": "Yerel bilgiler veya kişisel durumun hakkında sorular sorabilirsin."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Merhaba!",
       "description": "Ben <strong>{{name}}</strong>, dijital arama asistanın. Sorunu sormaktan çekinme."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Hangi bilgiler eksik?",
       "informationMissing": "Burada eksik bilgi mi var?",
       "searchTermDescription": "Şu arama terimi için hiçbir sonuç bulunamadı:",
-      "checkQuery": "Arama teriminizi kontrol edin veya seçili dili değiştirin.",
       "noResultsInUserLanguage": "Maalesef seçtiğiniz dilde uygun bir sonuç bulunamadı.",
       "noResultsInUserAndSourceLanguage": "Maalesef seçtiğiniz dilde veya Almanca uygun bir sonuç bulunamadı."
     }

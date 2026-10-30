@@ -129,6 +129,7 @@ type ContentRegionJsonType = {
   prefix: string | null
   eventsEnabled: boolean
   chatEnabled: boolean
+  bescheidCheckEnabled: boolean
   chatPrivacyPolicyUrl: string | null
   placesEnabled: boolean
   sortingName: string
@@ -671,6 +672,7 @@ class DatabaseConnector {
       prefix: region.prefix,
       eventsEnabled: region.eventsEnabled,
       chatEnabled: region.chatEnabled,
+      bescheidCheckEnabled: region.bescheidCheckEnabled,
       chatPrivacyPolicyUrl: region.chatPrivacyPolicyUrl,
       placesEnabled: region.placesEnabled,
       pushNotificationsEnabled: region.localNewsEnabled,
@@ -705,6 +707,7 @@ class DatabaseConnector {
             aliases: jsonObject.aliases,
             boundingBox: jsonObject.boundingBox,
             chatEnabled: jsonObject.chatEnabled,
+            bescheidCheckEnabled: jsonObject.bescheidCheckEnabled,
             chatPrivacyPolicyUrl: jsonObject.chatPrivacyPolicyUrl,
           }),
       )

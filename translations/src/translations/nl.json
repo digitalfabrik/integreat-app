@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Adviseur",
     "typing": "Aan het typen…",
-    "inputPlaceholder": "Typ je vraag…",
-    "initial": {
-      "title": "Typ je vraag in het tekstveld.",
-      "description": "Je kunt vragen stellen over lokale informatie of over je persoonlijke situatie."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Hallo!",
       "description": "Ik ben <strong>{{name}}</strong>, je digitale zoekassistent. Stel gerust je vraag."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Welke informatie ontbreekt er?",
       "informationMissing": "Ontbreekt hier informatie?",
       "searchTermDescription": "Voor de volgende zoekterm is geen resultaat gevonden:",
-      "checkQuery": "Controleer je zoekterm of wijzig de ingestelde taal.",
       "noResultsInUserLanguage": "Er zijn helaas geen passende resultaten gevonden in jouw taal.",
       "noResultsInUserAndSourceLanguage": "Er zijn helaas geen passende resultaten gevonden in jouw taal of in het Duits."
     }

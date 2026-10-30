@@ -1,6 +1,7 @@
 import { MD3Theme as RNPaperTheme } from 'react-native-paper'
 import 'styled-components/native'
 
+import { AlertColors, AlertSeverity } from 'build-configs/ThemeType'
 import { TypographyType } from 'build-configs/TypographyType'
 
 // Temporary type definition until react-native-paper is installed
@@ -10,6 +11,7 @@ type MD3Theme = {
   colors: {
     primary: string
     primaryContainer: string
+    primaryDark: string
     secondary: string
     secondaryContainer: string
     tertiary: string
@@ -39,6 +41,9 @@ type MD3Theme = {
     outline: string
     outlineVariant: string
     success: string
+    warning: string
+    info: string
+    alert: Record<AlertSeverity, AlertColors>
     tuNews: {
       main: string
       contrastText: string

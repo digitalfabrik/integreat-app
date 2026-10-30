@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Chuyên viên tư vấn",
     "typing": "Đang nhập…",
-    "inputPlaceholder": "Vui lòng nhập câu hỏi của bạn…",
-    "initial": {
-      "title": "Vui lòng nhập câu hỏi của bạn vào khung văn bản.",
-      "description": "Bạn có thể hỏi về thông tin địa phương hoặc trường hợp cụ thể của mình."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Xin chào!",
       "description": "Tôi là <strong>{{name}}</strong>, trợ lý tìm kiếm kỹ thuật số của bạn. Hãy thoải mái đặt câu hỏi cho tôi nhé."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Bạn thấy thiếu những thông tin gì?",
       "informationMissing": "Nội dung ở đây bị thiếu thông tin?",
       "searchTermDescription": "Không tìm thấy kết quả nào cho từ khóa sau:",
-      "checkQuery": "Hãy kiểm tra lại từ khóa tìm kiếm hoặc thay đổi ngôn ngữ đã cài đặt.",
       "noResultsInUserLanguage": "Rất tiếc, không tìm thấy kết quả phù hợp bằng ngôn ngữ của bạn.",
       "noResultsInUserAndSourceLanguage": "Rất tiếc, không tìm thấy kết quả phù hợp bằng ngôn ngữ của bạn hoặc bằng tiếng Đức."
     }

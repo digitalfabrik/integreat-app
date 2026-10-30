@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Savjetnik/ca",
     "typing": "Piše…",
-    "inputPlaceholder": "Unesi svoje pitanje…",
-    "initial": {
-      "title": "Unesi svoje pitanje u polje za unos teksta.",
-      "description": "Možeš se raspitati o lokalnim informacijama ili o svojoj ličnoj situaciji."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Zdravo!",
       "description": "Ja sam <strong>{{name}}</strong>, tvoj digitalni asistent za pretragu. Slobodno mi postavi pitanje."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Koje informacije nedostaju?",
       "informationMissing": "Nedostaju li ovdje informacije?",
       "searchTermDescription": "Nije pronađen nijedan rezultat za sljedeći pojam:",
-      "checkQuery": "Provjerite pojam za pretragu ili promijenite odabrani jezik.",
       "noResultsInUserLanguage": "Nažalost, nisu pronađeni odgovarajući rezultati na vašem jeziku.",
       "noResultsInUserAndSourceLanguage": "Nažalost, nisu pronađeni odgovarajući rezultati na vašem jeziku niti na njemačkom."
     }

@@ -1,0 +1,7 @@
+issue_key: 4495
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: The most relevant regions are now shown first when searching for a region.
+de: Bei der Suche nach einer Region werden jetzt die passendsten Regionen zuerst angezeigt.

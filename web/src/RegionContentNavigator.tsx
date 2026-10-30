@@ -12,7 +12,7 @@ import {
   SEARCH_ROUTE,
   parseQueryParams,
 } from 'shared'
-import { NotFoundError, createRegionEndpoint } from 'shared/api'
+import { NotFoundError, createRegionEndpoint, RegionModel } from 'shared/api'
 
 import ChatContainer from './components/ChatContainer'
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
@@ -23,9 +23,20 @@ import Layout from './components/Layout'
 import LoadingSpinner from './components/LoadingSpinner'
 import RegionContentLayout from './components/RegionContentLayout'
 import { cmsApiBaseUrl } from './constants/urls'
+import useChat from './hooks/useChat'
 import useQueryFromEndpoint from './hooks/useQueryFromEndpoint'
 import { RoutePatterns, RouteType, RegionRouteProps, NEWS_DETAIL_ROUTE } from './routes'
 import lazyWithRetry from './utils/retryImport'
+
+type ExternalChatContainerProps = {
+  region: RegionModel
+  languageCode: string
+}
+
+const ExternalChatContainer = ({ region, languageCode }: ExternalChatContainerProps): ReactElement => {
+  const chat = useChat({ region, languageCode })
+  return <ChatContainer region={region} languageCode={languageCode} languageChangePaths={[]} chatProps={chat} />
+}
 
 const EventsPage = lazyWithRetry(() => import('./routes/EventsPage'))
 const CategoriesPage = lazyWithRetry(() => import('./routes/CategoriesPage'))
@@ -92,7 +103,7 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
     }
     return (
       <Layout fitScreen>
-        <ChatContainer region={region} languageCode={languageCode} languageChangePaths={[]} />
+        <ExternalChatContainer region={region} languageCode={languageCode} />
       </Layout>
     )
   }

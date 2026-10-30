@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Consilier(ă)",
     "typing": "Scrie…",
-    "inputPlaceholder": "Te rugăm să introduci întrebarea…",
-    "initial": {
-      "title": "Te rugăm să introduci întrebarea în câmpul de text.",
-      "description": "Poți întreba despre informații locale sau despre situația ta personală."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Bună!",
       "description": "Sunt <strong>{{name}}</strong>, asistentul tău digital de căutare. Te rog, adresează-mi întrebarea ta."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Ce informații lipsesc?",
       "informationMissing": "Lipsesc informații de aici?",
       "searchTermDescription": "Nu s-a găsit niciun rezultat pentru termenul căutat:",
-      "checkQuery": "Verifică termenul de căutare sau schimbă limba selectată.",
       "noResultsInUserLanguage": "Din păcate, nu s-au găsit rezultate relevante în limba ta.",
       "noResultsInUserAndSourceLanguage": "Din păcate, nu s-au găsit rezultate relevante în limba ta sau în germană."
     }

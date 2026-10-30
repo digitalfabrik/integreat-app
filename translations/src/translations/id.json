@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Konselor",
     "typing": "Sedang mengetik…",
-    "inputPlaceholder": "Silakan masukkan pertanyaan Anda…",
-    "initial": {
-      "title": "Silakan masukkan pertanyaan Anda ke dalam kolom teks.",
-      "description": "Anda dapat menanyakan tentang informasi lokal atau situasi pribadi Anda."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Halo!",
       "description": "Saya <strong>{{name}}</strong>, asisten pencarian digital Anda. Silakan ajukan pertanyaan Anda."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Informasi apa yang belum tersedia?",
       "informationMissing": "Ada informasi yang kurang di sini?",
       "searchTermDescription": "Tidak ada hasil yang ditemukan untuk istilah berikut:",
-      "checkQuery": "Periksa kata kunci pencarian Anda atau ubah pengaturan bahasa.",
       "noResultsInUserLanguage": "Sayangnya, tidak ada hasil yang cocok dalam bahasa Anda.",
       "noResultsInUserAndSourceLanguage": "Sayangnya, tidak ada hasil yang cocok dalam bahasa Anda atau dalam bahasa Jerman."
     }

@@ -27,6 +27,7 @@ describe('search', () => {
         longitude: 10.892578,
         boundingBox: [10.7880103, 48.447238, 11.0174493, 48.297834],
         chatEnabled: false,
+        bescheidCheckEnabled: false,
         chatPrivacyPolicyUrl: null,
       })
 
@@ -110,9 +111,9 @@ describe('search', () => {
       expect(filterSortRegions(regions, 'ba')).toEqual([regions[3], regions[4], regions[5]])
     })
 
-    it('should not return live regions when the string is mid-word of the names or aliases', () => {
+    it('should match names mid-word but prefixes and aliases only at word start', () => {
       const regions = [
-        region({ sortingName: 'Aichach' }),
+        region({ sortingName: 'Aichach', prefix: 'Landkreis' }),
         region({ sortingName: 'Stadtbaden' }),
         region({
           sortingName: 'Dillingen',
@@ -124,7 +125,8 @@ describe('search', () => {
           },
         }),
       ]
-      expect(filterSortRegions(regions, 'ba')).toEqual([])
+      expect(filterSortRegions(regions, 'ba')).toEqual([regions[1]])
+      expect(filterSortRegions(regions, 'kreis')).toEqual([])
     })
 
     it('should match regions with dashes in their name', () => {
@@ -138,6 +140,29 @@ describe('search', () => {
       expect(filterSortRegions(regions, 'Alzey-Worms')).toEqual([regions[1]])
       expect(filterSortRegions(regions, 'alzey')).toEqual([regions[1]])
       expect(filterSortRegions(regions, 'Landkreis Breisgau-Hochschwarzwald')).toEqual([regions[2]])
+    })
+
+    it('should sort by match priority before sorting name', () => {
+      const regions = [
+        region({ sortingName: 'Aichach', aliases: { Burgheim: { latitude: 48.267499, longitude: 10.889586 } } }),
+        region({ sortingName: 'Augsburg', aliases: { Burgau: { latitude: 48.267499, longitude: 10.889586 } } }),
+        region({ sortingName: 'Burglengenfeld', prefix: 'Landkreis' }),
+        region({ sortingName: 'Burg' }),
+      ]
+      expect(filterSortRegions(regions, 'burg')).toEqual([regions[3], regions[2], regions[1], regions[0]])
+    })
+
+    it('should sort regions matching by name before regions only matching by alias', () => {
+      const regions = [
+        region({
+          sortingName: 'Bad Kissingen',
+          prefix: 'Landkreis',
+          aliases: { Münnerstadt: { latitude: 48.267499, longitude: 10.889586 } },
+        }),
+        region({ sortingName: 'München', prefix: 'Stadt' }),
+        region({ sortingName: 'München', prefix: 'Landkreis' }),
+      ]
+      expect(filterSortRegions(regions, 'Mü')).toEqual([regions[2], regions[1], regions[0]])
     })
   })
 })

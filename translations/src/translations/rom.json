@@ -29,12 +29,7 @@
     "bot": "Čatbot",
     "consultant": "Konsultanto/ka",
     "typing": "Ramojsal...",
-    "inputPlaceholder": "Molisarav tut, čhiv tiro phučipe…",
-    "initial": {
-      "title": "Molisarav tut, čhiv tiro phučipe and-o tekstosko than.",
-      "description": "Šaj phučes pal thanutne informacie vaj pal tiri personali situacija."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Baxtalo!",
       "description": "Me sem <strong>{{name}}</strong>, tiro Digitalno rodipe-asistenti. Puč mandar so kames."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Save informacie falin?",
       "informationMissing": "Falinel kathe informaciji?",
       "searchTermDescription": "Vaš kodo laf chi arakhljilo khanchi:",
-      "checkQuery": "Dikh tiro rodimasko lav vaj paruv i čhib.",
       "noResultsInUserLanguage": "Zžalostno, na arakhle pe nijekh rezultatura andre tiri čhib.",
       "noResultsInUserAndSourceLanguage": "Zžalostno, na arakhle pe nijekh rezultatura andre tiri čhib vaj po nimcicko."
     }

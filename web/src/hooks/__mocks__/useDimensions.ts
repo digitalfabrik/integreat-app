@@ -31,4 +31,6 @@ export const mockDimensions: ScrollDimensions = {
   xlarge: false,
 }
 
+export const useScrollDimensions = jest.fn((): ScrollDimensions => mockDimensions)
+
 export default jest.fn((): Dimensions => mockDimensions)

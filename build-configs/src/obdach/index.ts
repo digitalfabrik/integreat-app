@@ -27,7 +27,6 @@ const commonObdachBuildConfig: CommonBuildConfigType = {
     developerFriendly: false,
     fixedRegion: null,
     suggestToRegion: null,
-    chat: false,
   },
   aboutUrls: {
     default: 'https://tuerantuer.de/digitalfabrik/projekte/netzwerkobdachwohnen/',

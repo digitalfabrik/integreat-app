@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "La-taliye",
     "typing": "Wuu qorayaa…",
-    "inputPlaceholder": "Fadlan qor su'aashaada…",
-    "initial": {
-      "title": "Fadlan su'aashaada ku qor sanduuqa qoraalka.",
-      "description": "Waxaad weydiin kartaa xogta deegaanka ama xaaladdaada gaarka ah."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Hayye!",
       "description": "Waxaan ahay <strong>{{name}}</strong>, Kaaliyahaaga Raadinta Dhijitaalka ah. Xor u noqo inaad i weydiiso su'aashaada."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Waa maxay macluumaadka maqan?",
       "informationMissing": "Ma jiraan xog halkan ka maqan?",
       "searchTermDescription": "Wax natiijo ah looma helin ereygan soo socda:",
-      "checkQuery": "Hubi ereyga aad raadinayso ama beddel luuqadda la doortay.",
       "noResultsInUserLanguage": "Nasiib-darro, wax natiijooyin ku habboon ah lagama helin luuqaddaada.",
       "noResultsInUserAndSourceLanguage": "Nasiib-darro, wax natiijooyin ku habboon ah lagama helin luuqaddaada ama af Jarmal."
     }

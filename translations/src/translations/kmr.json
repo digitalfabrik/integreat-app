@@ -29,12 +29,7 @@
     "bot": "Chatbot",
     "consultant": "Şêwirmend",
     "typing": "Dinivîse…",
-    "inputPlaceholder": "Ji kerema xwe pirsa xwe binivîse…",
-    "initial": {
-      "title": "Ji kerema xwe pirsa xwe di qada nivîsê de binivîse.",
-      "description": "Tu dikarî li ser agahiyên herêmî an rewşa xwe ya kesane pirsan bikî."
-    },
-    "welcome": {
+    "highlight": {
       "title": "Silav!",
       "description": "Ez <strong>{{name}}</strong> im, alîkarê te yê lêgerînê yê dîjîtal. Tu dikarî pirsa xwe ji min bipirsî."
     },
@@ -187,7 +182,6 @@
       "wantedInformation": "Kîjan agahî kêm in?",
       "informationMissing": "Li vir agahî kêm in?",
       "searchTermDescription": "Ji bo vê peyva lêgerînê ti encam nehat dîtin:",
-      "checkQuery": "Peyva lêgerînê kontrol bike an jî zimanê hilbijartî biguherîne.",
       "noResultsInUserLanguage": "Mixabin bi zimanê te ti encamên guncaw nehatin dîtin.",
       "noResultsInUserAndSourceLanguage": "Mixabin bi zimanê te an bi almanî ti encamên guncaw nehatin dîtin."
     }

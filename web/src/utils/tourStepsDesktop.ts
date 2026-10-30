@@ -64,6 +64,7 @@ const tourStepsDesktop = (props: TourStepsProps): TourStepType[] => {
       offset: { horizontal: 16 },
       selector: `#${TOOLBAR_ELEMENT_ID}`,
       position: besideElement,
+      centerArrowVertically: true,
     },
   ])
 }

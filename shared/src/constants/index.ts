@@ -13,6 +13,7 @@ export const APPOINTMENT_BOOKING_OFFER_ALIAS = 'terminbuchung'
 export const INTERNAL_OFFERS = [SPRUNGBRETT_OFFER_ALIAS, MALTE_HELP_FORM_OFFER_ALIAS]
 
 export const getChatName = (appName: string): string => `Frag ${appName.replace('TestCms', '')}`
+export const bescheidCheckName = 'Bescheid-Check'
 
 export type Rating = 'positive' | 'negative'
 
@@ -53,4 +54,4 @@ export const ACTIVE_TAB_HEIGHT = 3
 
 export const repoUrl = 'https://github.com/digitalfabrik/integreat-app'
 export const sbomUrl = (version: string | undefined | null): string =>
-  `https://github.com/digitalfabrik/integreat-app/releases/tag/${version}/sbom.spdx.json`
+  `https://github.com/digitalfabrik/integreat-app/releases/download/${version}/sbom.spdx.json`
