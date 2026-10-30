@@ -19,7 +19,32 @@ const resources = {
   },
   "bescheidCheck": {
     "shortDescription": "Understand an official decision",
-    "description": "Upload a Bescheid or BAMF decision to have it explained."
+    "description": "Upload a Bescheid or BAMF decision to have it explained.",
+    "beta": "Beta",
+    "aiSupported": "AI-supported",
+    "introduction": "Have you received a Bescheid and want to know what it says? Upload your Bescheid here. We translate the most important content, explain the decision in simple language and show you possible next steps and counseling services.",
+    "databaseNote": "We are continuously expanding our database with new types of Bescheid.",
+    "upload": {
+      "title": "Upload Bescheid",
+      "dragTitle": "Drag your Bescheid here",
+      "limits": "1 Bescheid · up to {{maxFiles}} pages",
+      "hint": "Make sure that all pages are easy to read and belong to the same Bescheid. Formats: PDF, JPG, PNG, HEIC",
+      "takePhoto": "Take photo",
+      "selectFiles": "Select files",
+      "addPages": "Add more pages",
+      "yourFiles": "Your files:"
+    },
+    "errors": {
+      "unsupportedType": "Unsupported format: {{fileNames}}. Allowed formats are PDF, JPG, PNG and HEIC.",
+      "tooLarge": "File too large: {{fileNames}}. Each file can be at most {{maxSize}} MB.",
+      "tooMany": "You can add up to {{maxFiles}} files. Not added: {{fileNames}}."
+    },
+    "submit": "Check Bescheid",
+    "privacy": {
+      "confirmation": "I have read the <Link>privacy policy</Link> and agree that my document will be processed for the analysis.",
+      "description": "Your document is only used for the analysis and is not stored permanently."
+    },
+    "disclaimer": "<strong>Note</strong> The explanations were written by people. AI only helps to classify your Bescheid. The {{name}} does not replace legal advice."
   },
   "categories": {
     "title": "Local information",
@@ -68,6 +93,7 @@ const resources = {
       "open": "Open",
       "openName": "Open {{name}}",
       "previous": "Previous",
+      "remove": "Remove",
       "send": "Send",
       "skip": "Skip",
       "view": "View",

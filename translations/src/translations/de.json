@@ -17,7 +17,32 @@
   },
   "bescheidCheck": {
     "shortDescription": "Verstehe einen Bescheid",
-    "description": "Lade einen Bescheid oder eine BAMF-Entscheidung hoch, um sie sich erklären zu lassen."
+    "description": "Lade einen Bescheid oder eine BAMF-Entscheidung hoch, um sie sich erklären zu lassen.",
+    "beta": "Beta",
+    "aiSupported": "KI-unterstützt",
+    "introduction": "Du hast einen Bescheid bekommen und möchtest wissen, was darin steht? Lade deinen Bescheid hier hoch. Wir übersetzen die wichtigsten Inhalte, erklären die Entscheidung in einfacher Sprache und zeigen dir mögliche nächste Schritte und Beratungsstellen.",
+    "databaseNote": "Wir erweitern unsere Datenbank kontinuierlich um neue Bescheidtypen.",
+    "upload": {
+      "title": "Bescheid hochladen",
+      "dragTitle": "Bescheid hierher ziehen",
+      "limits": "1 Bescheid · maximal {{maxFiles}} Seiten",
+      "hint": "Achte darauf, dass alle Seiten gut lesbar sind und zu einem Bescheid gehören. Formate: PDF, JPG, PNG, HEIC",
+      "takePhoto": "Foto aufnehmen",
+      "selectFiles": "Datei auswählen",
+      "addPages": "Weitere Seiten",
+      "yourFiles": "Deine Dateien:"
+    },
+    "errors": {
+      "unsupportedType": "Nicht unterstütztes Format: {{fileNames}}. Erlaubt sind PDF, JPG, PNG und HEIC.",
+      "tooLarge": "Datei zu groß: {{fileNames}}. Jede Datei darf maximal {{maxSize}} MB groß sein.",
+      "tooMany": "Du kannst maximal {{maxFiles}} Dateien hinzufügen. Nicht hinzugefügt: {{fileNames}}."
+    },
+    "submit": "Bescheid prüfen",
+    "privacy": {
+      "confirmation": "Ich habe die <Link>Datenschutzerklärung</Link> gelesen und stimme zu, dass mein Dokument für die Analyse verarbeitet wird.",
+      "description": "Dein Dokument wird nur für die Analyse verwendet und nicht dauerhaft gespeichert."
+    },
+    "disclaimer": "<strong>Hinweis</strong> Die Erklärungen wurden von Menschen erstellt. KI hilft nur dabei, deinen Bescheid einzuordnen. Der {{name}} ersetzt keine Rechtsberatung."
   },
   "categories": {
     "title": "Lokale Informationen",
@@ -66,6 +91,7 @@
       "open": "Öffnen",
       "openName": "Öffne {{name}}",
       "previous": "vorheriger",
+      "remove": "Entfernen",
       "send": "Senden",
       "skip": "Überspringen",
       "view": "Anzeigen",
