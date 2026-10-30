@@ -1,4 +1,4 @@
-import CalendarTodayIcon from '@mui/icons-material/CalendarTodayOutlined'
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import FeedIcon from '@mui/icons-material/Feed'
 import HomeFilledIcon from '@mui/icons-material/HomeFilled'
 import MapIcon from '@mui/icons-material/Map'
