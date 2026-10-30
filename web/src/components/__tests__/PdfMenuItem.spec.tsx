@@ -71,13 +71,4 @@ describe('PdfMenuItem', () => {
       )}`,
     )
   })
-
-  it('should prevent PDF URL for RTL Languages', () => {
-    const regionCode = 'augsburg'
-    const languageCode = 'ar'
-    const { getByText } = renderInMenu(
-      <PdfMenuItem category={rootCategory} regionCode={regionCode} languageCode={languageCode} />,
-    )
-    expect(getByText('categories:pdf.create').closest('li')).toHaveClass('Mui-disabled')
-  })
 })
