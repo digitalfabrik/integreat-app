@@ -33,6 +33,19 @@ const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
   },
 }))
 
+const ToggleButtonContent = styled(Stack)(({ theme }) => ({
+  alignItems: 'center',
+  minWidth: 0,
+  gap: '4px',
+  paddingInlineStart: theme.spacing(1),
+  paddingInlineEnd: theme.spacing(1.5),
+
+  [theme.breakpoints.down('sm')]: {
+    paddingInlineStart: 0.5,
+    paddingInlineEnd: 0.5,
+  },
+}))
+
 type ToggleButtonGroupProps<T extends string> = {
   setValue: (T: T) => void
   options: T[]
@@ -58,18 +71,13 @@ const ToggleTextButtonGroup = <T extends string>({
       const selected = option === value
 
       return (
-        <StyledToggleButton key={option} value={option}>
-          <Stack
-            direction='row'
-            sx={{
-              paddingInlineStart: selected ? 1 : 3,
-              paddingInlineEnd: selected ? 1.5 : 3,
-              alignItems: 'center',
-              gap: 1,
-            }}>
+        <StyledToggleButton key={option} value={option} sx={{ minWidth: 0 }}>
+          <ToggleButtonContent direction='row'>
             {selected && <CheckIcon fontSize='small' />}
-            <Typography variant='body2'>{getLabel(option)}</Typography>
-          </Stack>
+            <Typography variant='body2' noWrap sx={{ minWidth: 0 }}>
+              {getLabel(option)}
+            </Typography>
+          </ToggleButtonContent>
         </StyledToggleButton>
       )
     })}

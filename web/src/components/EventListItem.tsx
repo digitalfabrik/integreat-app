@@ -102,7 +102,7 @@ const EventListItem = ({
           disableTypography
           primary={
             <Stack direction='row' sx={{ alignItems: 'center', justifyContent: 'space-between', gap: 1 }}>
-              <Typography component='h3' variant='subtitle1'>
+              <Typography component='h3' variant='subtitle1' sx={{ overflowWrap: 'anywhere', hyphens: 'auto' }}>
                 {event.title}
               </Typography>
               {isNew && <NewChip />}
