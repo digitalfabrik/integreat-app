@@ -1,4 +1,3 @@
-import shouldForwardProp from '@emotion/is-prop-valid'
 import CheckIcon from '@mui/icons-material/Check'
 import Stack from '@mui/material/Stack'
 import ToggleButton, { toggleButtonClasses } from '@mui/material/ToggleButton'
@@ -34,12 +33,12 @@ const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
   },
 }))
 
-const ToggleButtonContent = styled(Stack, { shouldForwardProp })<{ isSelected: boolean }>(({ theme, isSelected }) => ({
+const ToggleButtonContent = styled(Stack)(({ theme }) => ({
   alignItems: 'center',
   minWidth: 0,
   gap: '4px',
-  paddingInlineStart: theme.spacing(isSelected ? 1 : 3),
-  paddingInlineEnd: theme.spacing(isSelected ? 1.5 : 3),
+  paddingInlineStart: theme.spacing(1),
+  paddingInlineEnd: theme.spacing(1.5),
 
   [theme.breakpoints.down('sm')]: {
     paddingInlineStart: 0.5,
@@ -73,7 +72,7 @@ const ToggleTextButtonGroup = <T extends string>({
 
       return (
         <StyledToggleButton key={option} value={option} sx={{ minWidth: 0 }}>
-          <ToggleButtonContent direction='row' isSelected>
+          <ToggleButtonContent direction='row'>
             {selected && <CheckIcon fontSize='small' />}
             <Typography variant='body2' noWrap sx={{ minWidth: 0 }}>
               {getLabel(option)}
