@@ -59,7 +59,7 @@ describe('BescheidCheckFileSelection', () => {
     const { getByText } = renderFileSelection()
     const file = createFile('page1.pdf')
 
-    fireEvent.drop(getByText('bescheidCheck:upload.dropTitle'), { dataTransfer: { files: [file] } })
+    fireEvent.drop(getByText('bescheidCheck:upload.dragTitle'), { dataTransfer: { files: [file] } })
 
     expect(setFiles).toHaveBeenCalledWith([{ file, url: 'blob:page1.pdf' }])
   })

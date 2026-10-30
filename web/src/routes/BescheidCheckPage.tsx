@@ -66,14 +66,16 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
     <Layout header={<GeneralHeader languageCode={languageCode} />} footer={<Footer />}>
       <BackButton fallback={fallbackBackTo} />
       <Row sx={{ flexWrap: 'wrap' }}>
-        <H1 sx={{ typography: 'h4' }}>{bescheidCheckName}</H1>
-        <StyledChip label={t($ => $.bescheidCheck.beta)} variant='outlined' size='small' />
-        <StyledChip
-          icon={<AutoAwesomeIcon />}
-          label={t($ => $.bescheidCheck.aiSupported)}
-          variant='outlined'
-          size='small'
-        />
+        <H1 sx={{ typography: 'h4', marginBlock: 0 }}>{bescheidCheckName}</H1>
+        <Row>
+          <StyledChip label={t($ => $.bescheidCheck.beta)} variant='outlined' size='small' />
+          <StyledChip
+            icon={<AutoAwesomeIcon />}
+            label={t($ => $.bescheidCheck.aiSupported)}
+            variant='outlined'
+            size='small'
+          />
+        </Row>
       </Row>
       <Stack sx={{ gap: 3 }}>
         <Typography variant='body2'>{t($ => $.bescheidCheck.introduction)}</Typography>
@@ -89,22 +91,24 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
             disabled={files.length === 0 || !privacyPolicyAccepted}>
             {t($ => $.bescheidCheck.submit)}
           </Button>
-          <Checkbox
-            checked={privacyPolicyAccepted}
-            setChecked={setPrivacyPolicyAccepted}
-            label={
-              <Stack component='span' sx={{ gap: 1 }}>
-                <Typography variant='body2'>
-                  <Trans
-                    ns='bescheidCheck'
-                    i18nKey={$ => $.bescheidCheck.privacy.confirmation}
-                    components={{ Link: <Link to={privacyUrl} highlighted /> }}
-                  />
-                </Typography>
-                <Typography variant='body2'>{t($ => $.bescheidCheck.privacy.description)}</Typography>
-              </Stack>
-            }
-          />
+          <Stack>
+            <Checkbox
+              checked={privacyPolicyAccepted}
+              setChecked={setPrivacyPolicyAccepted}
+              label={
+                <Stack component='span' sx={{ gap: 1 }}>
+                  <Typography variant='body2'>
+                    <Trans
+                      ns='bescheidCheck'
+                      i18nKey={$ => $.bescheidCheck.privacy.confirmation}
+                      components={{ Link: <Link to={privacyUrl} highlighted /> }}
+                    />
+                  </Typography>
+                </Stack>
+              }
+            />
+            <Typography variant='body2'>{t($ => $.bescheidCheck.privacy.description)}</Typography>
+          </Stack>
         </Stack>
         <Alert severity='info'>
           <Trans ns='bescheidCheck' i18nKey={$ => $.bescheidCheck.disclaimer} values={{ name: bescheidCheckName }} />
