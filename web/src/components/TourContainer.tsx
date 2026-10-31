@@ -36,6 +36,7 @@ const TourContainer = ({ region, languageCode }: TourContainerProps): ReactEleme
       key={desktop.toString()}
       steps={steps}
       ContentComponent={TourPopover}
+      onClickMask={() => undefined}
       // Only swaps the keyboard arrow keys
       rtl={contentDirection === 'rtl'}
       // Spacing between the highlighted element and the popover
