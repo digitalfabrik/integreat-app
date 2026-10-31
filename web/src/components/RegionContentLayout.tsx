@@ -1,9 +1,11 @@
 import React, { ReactElement, ReactNode, useEffect, useState } from 'react'
 
+import { CHAT_QUERY_KEY } from 'shared'
 import { CategoryModel, RegionModel } from 'shared/api'
 
 import useChat from '../hooks/useChat'
 import useDimensions from '../hooks/useDimensions'
+import useQueryParam from '../hooks/useQueryParam'
 import BottomNavigation from './BottomNavigation'
 import ChatContainer from './ChatContainer'
 import FeedbackContainer from './FeedbackContainer'
@@ -71,9 +73,11 @@ const RegionContentLayout = ({
   const { desktop, mobile } = useDimensions()
 
   const { chatEnabled, bescheidCheckEnabled } = region
+  const [chatOpen] = useQueryParam(CHAT_QUERY_KEY)
   const footerVisible = !isLoading && desktop && !fitScreen
   const toolsVisible = (chatEnabled || bescheidCheckEnabled) && layoutReady
-  const tourVisible = category?.isRoot() && layoutReady
+  // A direct link such as ?chat=true already opens Frag Integreat. Keep the tour mounted for a later visit.
+  const tourVisible = category?.isRoot() && layoutReady && !(chatEnabled && chatOpen)
 
   // Avoid flickering due to content (chat) being pushed up by the footer
   useEffect(() => setLayoutReady(!isLoading), [isLoading])

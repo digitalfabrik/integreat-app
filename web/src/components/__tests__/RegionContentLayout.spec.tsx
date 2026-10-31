@@ -1,12 +1,13 @@
 import { fireEvent, RenderResult } from '@testing-library/react'
+import { DateTime } from 'luxon'
 import React, { ReactElement } from 'react'
 
 import { getChatName } from 'shared'
-import { LanguageModelBuilder, RegionModel, RegionModelBuilder } from 'shared/api'
+import { CategoryModel, LanguageModelBuilder, RegionModel, RegionModelBuilder } from 'shared/api'
 
 import { mockDimensions } from '../../hooks/__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
-import { CHAT_PRIVACY_POLICIES_STORAGE_KEY } from '../../hooks/useLocalStorage'
+import { CHAT_PRIVACY_POLICIES_STORAGE_KEY, TOUR_VISIBLE_STORAGE_KEY } from '../../hooks/useLocalStorage'
 import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { renderAllRoutes } from '../../testing/render'
 import RegionContentLayout from '../RegionContentLayout'
@@ -46,17 +47,38 @@ describe('RegionContentLayout', () => {
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
     { code: 'en', name: 'English', path: '/augsburg/en' },
   ]
+  const rootCategory = new CategoryModel({
+    id: -1,
+    root: true,
+    path: '/augsburg/de',
+    title: 'augsburg',
+    parentPath: '',
+    content: '',
+    thumbnail: '',
+    order: -1,
+    availableLanguages: {},
+    lastUpdate: DateTime.fromMillis(0),
+    publishedAt: DateTime.fromMillis(0),
+    organization: null,
+    embeddedOffers: [],
+    slugHistory: [],
+  })
 
   const MockNode = () => <div />
   const renderRegionContentLayout = (
     isLoading: boolean,
     toolbar?: ReactElement,
-    { region = regionModel, path = '/augsburg/de' }: { region?: RegionModel; path?: string } = {},
+    {
+      region = regionModel,
+      path = '/augsburg/de',
+      category,
+    }: { region?: RegionModel; path?: string; category?: CategoryModel } = {},
   ): RenderResult =>
     renderAllRoutes(path, {
       RegionContentElement: (
         <RegionContentLayout
           toolbar={toolbar}
+          category={category}
           region={region}
           languageCode={language}
           languageChangePaths={languageChangePaths}
@@ -146,6 +168,44 @@ describe('RegionContentLayout', () => {
       const { getByText } = renderRegionContentLayout(false, undefined, { region: chatEnabledRegionModel })
 
       expect(getByText('2')).toBeTruthy()
+    })
+  })
+
+  describe('onboarding tour', () => {
+    const welcomeTitle = 'intro:welcome.title IntegreatTestCms'
+
+    afterEach(() => {
+      localStorage.clear()
+    })
+
+    it('should offer the tour on the city root page', () => {
+      const { getByText } = renderRegionContentLayout(false, undefined, { category: rootCategory })
+
+      expect(getByText(welcomeTitle)).toBeTruthy()
+    })
+
+    it('should keep offering the tour when chat is disabled', () => {
+      const { getByText } = renderRegionContentLayout(false, undefined, {
+        category: rootCategory,
+        path: '/augsburg/de?chat=true',
+      })
+
+      expect(getByText(welcomeTitle)).toBeTruthy()
+    })
+
+    it('should skip the tour when chat is opened via a direct link', () => {
+      mockUseQueryFromEndpointWithData({ messages: [], botTyping: false })
+      localStorage.setItem(CHAT_PRIVACY_POLICIES_STORAGE_KEY, JSON.stringify({ [chatEnabledRegionModel.code]: true }))
+
+      const { getByText, queryByText } = renderRegionContentLayout(false, undefined, {
+        category: rootCategory,
+        region: chatEnabledRegionModel,
+        path: '/augsburg/de?chat=true',
+      })
+
+      expect(queryByText(welcomeTitle)).toBeNull()
+      expect(getByText('chat:description')).toBeTruthy()
+      expect(localStorage.getItem(TOUR_VISIBLE_STORAGE_KEY)).toBeNull()
     })
   })
 })
