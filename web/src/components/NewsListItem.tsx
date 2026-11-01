@@ -28,9 +28,6 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
 })) as typeof ListItemButton
 
 const StyledListItemText = styled(ListItemText)(({ theme }) => ({
-  overflowWrap: 'anywhere',
-  hyphens: 'auto',
-
   [theme.breakpoints.down('sm')]: {
     gridColumn: '1/3',
   },
