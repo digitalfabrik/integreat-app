@@ -171,14 +171,14 @@ describe('RegionContentLayout', () => {
     })
   })
 
-  describe('onboarding tour', () => {
+  describe('tour', () => {
     const welcomeTitle = 'intro:welcome.title IntegreatTestCms'
 
     afterEach(() => {
       localStorage.clear()
     })
 
-    it('should offer the tour on the city root page', () => {
+    it('should offer the tour on the region root page', () => {
       const { getByText } = renderRegionContentLayout(false, undefined, { category: rootCategory })
 
       expect(getByText(welcomeTitle)).toBeTruthy()
