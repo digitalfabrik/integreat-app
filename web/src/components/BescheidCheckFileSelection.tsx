@@ -101,9 +101,17 @@ type FileInputButtonProps = {
   variant: 'contained' | 'outlined'
   onSelect: (files: File[]) => void
   capture?: boolean
+  disabled?: boolean
 }
 
-const FileInputButton = ({ label, icon, variant, onSelect, capture = false }: FileInputButtonProps): ReactElement => {
+const FileInputButton = ({
+  label,
+  icon,
+  variant,
+  onSelect,
+  capture = false,
+  disabled = false,
+}: FileInputButtonProps): ReactElement => {
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target
     onSelect(Array.from(input.files ?? []))
@@ -112,13 +120,21 @@ const FileInputButton = ({ label, icon, variant, onSelect, capture = false }: Fi
   }
 
   return (
-    <Button component='label' role={undefined} tabIndex={-1} variant={variant} startIcon={icon} sx={{ height: 40 }}>
+    <Button
+      component='label'
+      role={undefined}
+      tabIndex={-1}
+      variant={variant}
+      startIcon={icon}
+      disabled={disabled}
+      sx={{ height: 40 }}>
       {label}
       <VisuallyHiddenInput
         type='file'
         accept={capture ? 'image/*' : ACCEPTED_FILE_EXTENSIONS.join(',')}
         capture={capture ? 'environment' : undefined}
         multiple={!capture}
+        disabled={disabled}
         onChange={onChange}
       />
     </Button>
@@ -223,6 +239,7 @@ const BescheidCheckFileSelection = ({ files, setFiles }: BescheidCheckFileSelect
             icon={<AddIcon />}
             variant='outlined'
             onSelect={addFiles}
+            disabled={files.length >= MAX_FILES}
           />
         </>
       ) : (
