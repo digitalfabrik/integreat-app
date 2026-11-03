@@ -126,7 +126,13 @@ const Dialog = ({
   const dialogContainer = document.getElementById(LAYOUT_ELEMENT_ID)
 
   return (
-    <StyledMuiDialog onClose={close} container={dialogContainer} fullScreen={mobile} className={className} open>
+    <StyledMuiDialog
+      disableEnforceFocus
+      onClose={close}
+      container={dialogContainer}
+      fullScreen={mobile}
+      className={className}
+      open>
       {showHeader && (
         <DialogHeader
           title={title}
