@@ -4,7 +4,7 @@ import React from 'react'
 import { mockDimensions } from '../../hooks/__mocks__/useDimensions'
 import useDimensions from '../../hooks/useDimensions'
 import { renderWithRouterAndTheme } from '../../testing/render'
-import BescheidCheckFileSelection, { SelectedFile } from '../BescheidCheckFileSelection'
+import FileSelection, { SelectedFile } from '../FileSelection'
 
 jest.mock('../../hooks/useDimensions')
 
@@ -16,7 +16,7 @@ const createFile = (name: string, size = 1024): File => {
 
 const createSelectedFile = (name: string): SelectedFile => ({ file: createFile(name), url: `blob:${name}` })
 
-describe('BescheidCheckFileSelection', () => {
+describe('FileSelection', () => {
   const { mocked } = jest
   const setFiles = jest.fn()
 
@@ -27,7 +27,7 @@ describe('BescheidCheckFileSelection', () => {
   })
 
   const renderFileSelection = (files: SelectedFile[] = []) =>
-    renderWithRouterAndTheme(<BescheidCheckFileSelection files={files} setFiles={setFiles} />)
+    renderWithRouterAndTheme(<FileSelection files={files} setFiles={setFiles} />)
 
   const selectFiles = (input: HTMLElement, files: File[]) => fireEvent.change(input, { target: { files } })
 
@@ -71,7 +71,21 @@ describe('BescheidCheckFileSelection', () => {
     selectFiles(getByLabelText('bescheidCheck:upload.selectFiles'), [validFile, createFile('letter.docx')])
 
     expect(setFiles).toHaveBeenCalledWith([{ file: validFile, url: 'blob:page1.png' }])
-    expect(getByRole('alert')).toHaveTextContent('bescheidCheck:errors.unsupportedType letter.docx')
+    expect(getByRole('alert')).toHaveTextContent('bescheidCheck:upload.errors.unsupportedType')
+    expect(getByRole('alert')).toHaveTextContent('letter.docx')
+  })
+
+  it('should show separate errors for unsupported and already selected files', () => {
+    const existingFile = createSelectedFile('page1.pdf')
+    const { getByLabelText, getAllByRole } = renderFileSelection([existingFile])
+
+    selectFiles(getByLabelText('bescheidCheck:upload.addPages'), [existingFile.file, createFile('letter.docx')])
+
+    expect(setFiles).toHaveBeenCalledWith([existingFile])
+    const [unsupportedAlert, duplicateAlert] = getAllByRole('alert')
+    expect(unsupportedAlert).toHaveTextContent('bescheidCheck:upload.errors.unsupportedType')
+    expect(unsupportedAlert).toHaveTextContent('letter.docx')
+    expect(duplicateAlert).toHaveTextContent('bescheidCheck:upload.errors.duplicate page1.pdf')
   })
 
   it('should not add files that are too large', () => {
@@ -80,7 +94,7 @@ describe('BescheidCheckFileSelection', () => {
     selectFiles(getByLabelText('bescheidCheck:upload.selectFiles'), [createFile('scan.pdf', 21 * 1024 * 1024)])
 
     expect(setFiles).toHaveBeenCalledWith([])
-    expect(getByRole('alert')).toHaveTextContent('bescheidCheck:errors.tooLarge')
+    expect(getByRole('alert')).toHaveTextContent('bescheidCheck:upload.errors.tooLarge')
     expect(getByRole('alert')).toHaveTextContent('scan.pdf')
   })
 
@@ -92,7 +106,7 @@ describe('BescheidCheckFileSelection', () => {
     selectFiles(getByLabelText('bescheidCheck:upload.addPages'), [newFile, createFile('page10.jpg')])
 
     expect(setFiles).toHaveBeenCalledWith([...existingFiles, { file: newFile, url: 'blob:page9.jpg' }])
-    expect(getByRole('alert')).toHaveTextContent('bescheidCheck:errors.tooMany')
+    expect(getByRole('alert')).toHaveTextContent('bescheidCheck:upload.errors.tooMany')
     expect(getByRole('alert')).toHaveTextContent('page10.jpg')
   })
 
