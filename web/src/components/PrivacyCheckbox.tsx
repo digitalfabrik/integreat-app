@@ -1,4 +1,5 @@
 import Typography from '@mui/material/Typography'
+import { SelectorParam } from 'i18next'
 import React, { ReactElement } from 'react'
 import { Trans } from 'react-i18next'
 
@@ -11,9 +12,16 @@ type PrivacyCheckboxProps = {
   checked: boolean
   setChecked: (checked: boolean) => void
   url?: string | null
+  i18nKey?: SelectorParam
 }
 
-const PrivacyCheckbox = ({ language, checked, setChecked, url }: PrivacyCheckboxProps): ReactElement => {
+const PrivacyCheckbox = ({
+  language,
+  checked,
+  setChecked,
+  url,
+  i18nKey = $ => $.common.privacy.confirmation,
+}: PrivacyCheckboxProps): ReactElement => {
   const { privacyUrls } = buildConfig()
   const privacyUrl = url ?? privacyUrls[language] ?? privacyUrls.default
   return (
@@ -22,11 +30,7 @@ const PrivacyCheckbox = ({ language, checked, setChecked, url }: PrivacyCheckbox
       setChecked={setChecked}
       label={
         <Typography variant='body2'>
-          <Trans
-            ns='common'
-            i18nKey={$ => $.common.privacy.confirmation}
-            components={{ Link: <Link to={privacyUrl} highlighted /> }}
-          />
+          <Trans i18nKey={i18nKey} components={{ Link: <Link to={privacyUrl} highlighted /> }} />
         </Typography>
       }
     />
