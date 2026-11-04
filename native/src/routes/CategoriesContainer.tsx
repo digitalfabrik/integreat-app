@@ -1,11 +1,20 @@
 import React, { ReactElement, useCallback, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import { CATEGORIES_ROUTE, CategoriesRouteType, getSlugFromPath, regionContentPath } from 'shared'
+import {
+  CATEGORIES_ROUTE,
+  CategoriesRouteType,
+  getPdfUrl,
+  getSlugFromPath,
+  PDF_VIEW_ROUTE,
+  regionContentPath,
+} from 'shared'
 import { ErrorCodes } from 'shared/api'
 import { config } from 'translations'
 
 import Categories from '../components/Categories'
 import { NavigationProps, RouteProps } from '../constants/NavigationTypes'
+import buildConfig from '../constants/buildConfig'
 import useHeader from '../hooks/useHeader'
 import useLoadRegionContent from '../hooks/useLoadRegionContent'
 import useNavigate from '../hooks/useNavigate'
@@ -21,9 +30,10 @@ type CategoriesContainerProps = {
 }
 
 const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): ReactElement => {
-  const { regionCode, languageCode } = useRegionAppContext()
+  const { regionCode, languageCode, settings } = useRegionAppContext()
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
   const { navigateTo } = useNavigate()
+  const { t } = useTranslation()
 
   // Preload search results for fallback language once the content of the current language is loaded
   useLoadRegionContent({
@@ -48,7 +58,25 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
     regionCode,
     regionContentPath: category?.path ?? path,
   })
-  useHeader({ navigation, route, availableLanguages, data, shareUrl })
+
+  const additionalMenuItems = useMemo(() => {
+    const pdfUrl = getPdfUrl({
+      cmsUrl: settings.apiUrlOverride || buildConfig().cmsUrl,
+      regionCode,
+      languageCode,
+      path: category?.isRoot() ? undefined : category?.path,
+    })
+    return [
+      {
+        key: 'pdf',
+        title: t($ => $.categories.pdf.create),
+        icon: 'file-document-outline',
+        onPress: () => navigation.navigate(PDF_VIEW_ROUTE, { url: pdfUrl, shareUrl: pdfUrl }),
+      },
+    ]
+  }, [category, regionCode, languageCode, t, navigation, settings])
+
+  useHeader({ navigation, route, availableLanguages, data, shareUrl, additionalMenuItems })
   useSetRouteTitle(category?.isRoot() ? data?.region.name : category?.title)
 
   // The content of the old language is already gone in the render the language changes in

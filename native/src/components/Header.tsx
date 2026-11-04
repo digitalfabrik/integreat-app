@@ -9,12 +9,10 @@ import {
   EVENTS_ROUTE,
   EventsRouteType,
   FEEDBACK_ROUTE,
-  getPdfUrl,
   getSlugFromPath,
   IMPRINT_ROUTE,
   LANGUAGES_ROUTE,
   NEWS_ROUTE,
-  PDF_VIEW_ROUTE,
   PLACES_ROUTE,
   PlacesRouteType,
   REGIONS_ROUTE,
@@ -23,7 +21,6 @@ import {
 import { FeedbackType, LanguageModel } from 'shared/api'
 
 import { BaseRouteProps, BaseNavigationProps, RoutesParamsType } from '../constants/NavigationTypes'
-import buildConfig from '../constants/buildConfig'
 import dimensions from '../constants/dimensions'
 import { AppContext } from '../contexts/AppContext'
 import useSnackbar from '../hooks/useSnackbar'
@@ -33,7 +30,7 @@ import ActionButtons from './ActionButtons'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderBox from './HeaderBox'
 import HeaderMenu from './HeaderMenu'
-import HeaderMenuItem from './HeaderMenuItem'
+import HeaderMenuItem, { HeaderMenuItemConfig } from './HeaderMenuItem'
 
 const Horizontal = styled.View`
   background-color: ${props => props.theme.colors.surfaceVariant};
@@ -60,6 +57,7 @@ type HeaderProps = {
   goBack?: () => void
   menu?: ReactElement | null
   menuItems?: ReactElement[]
+  additionalMenuItems?: HeaderMenuItemConfig[]
 }
 
 const Header = ({
@@ -74,6 +72,7 @@ const Header = ({
   goBack,
   menu,
   menuItems: customMenuItems,
+  additionalMenuItems,
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
   const { languageCode, regionCode } = useContext(AppContext)
@@ -89,13 +88,7 @@ const Header = ({
     routeTitle && regionName && routeTitle !== regionName ? `${routeTitle} - ${regionName}` : (routeTitle ?? regionName)
 
   const getCategorySlug = (path?: string): string | undefined => (path ? getSlugFromPath(path) : undefined)
-  const categoryPath =
-    route.name === CATEGORIES_ROUTE ? (route.params as RoutesParamsType[CategoriesRouteType]).path : undefined
 
-  const pdfUrl =
-    route.name === CATEGORIES_ROUTE && regionCode
-      ? getPdfUrl({ cmsUrl: buildConfig().cmsUrl, regionCode, languageCode, categoryPath })
-      : null
   const getSlugForRoute = (): string | undefined => {
     switch (route.name) {
       case EVENTS_ROUTE:
@@ -103,7 +96,7 @@ const Header = ({
       case PLACES_ROUTE:
         return (route.params as RoutesParamsType[PlacesRouteType]).slug
       case CATEGORIES_ROUTE:
-        return getCategorySlug(categoryPath)
+        return getCategorySlug((route.params as RoutesParamsType[CategoriesRouteType]).path)
       case IMPRINT_ROUTE:
         return IMPRINT_ROUTE
       default:
@@ -165,17 +158,9 @@ const Header = ({
           />,
         ]
       : []),
-    ...(pdfUrl
-      ? [
-          <HeaderMenuItem
-            key='pdf'
-            title={t($ => $.categories.pdf.create)}
-            onPress={() => navigation.navigate(PDF_VIEW_ROUTE, { url: pdfUrl, shareUrl: pdfUrl })}
-            closeMenu={() => setMenuVisible(false)}
-            icon='file-document-outline'
-          />,
-        ]
-      : []),
+    ...(additionalMenuItems ?? []).map(({ key, ...item }) => (
+      <HeaderMenuItem key={key} {...item} closeMenu={() => setMenuVisible(false)} />
+    )),
     <HeaderMenuItem
       key='tts'
       title={t($ => $.tts.title)}

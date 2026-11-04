@@ -1,12 +1,16 @@
 import React, { ReactElement } from 'react'
 import { Menu } from 'react-native-paper'
 
-type HeaderMenuItemProps = {
+export type HeaderMenuItemConfig = {
+  key: string
   title: string
-  onPress: () => void
-  closeMenu: () => void
   icon: string
+  onPress: () => void
   disabled?: boolean
+}
+
+type HeaderMenuItemProps = Omit<HeaderMenuItemConfig, 'key'> & {
+  closeMenu: () => void
 }
 
 const HeaderMenuItem = ({ onPress, closeMenu, title, icon, disabled }: HeaderMenuItemProps): ReactElement => (

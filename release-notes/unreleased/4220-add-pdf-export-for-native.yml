@@ -1,0 +1,7 @@
+issue_key: 4220
+show_in_stores: true
+platforms:
+  - android
+  - ios
+en: A pdf export option for categories is now available.
+de: Eine PDF-Exportoption für Kategorien ist nun verfügbar.

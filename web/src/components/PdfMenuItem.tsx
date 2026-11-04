@@ -18,7 +18,12 @@ type PdfMenuItemProps = {
 const PdfMenuItem = ({ category, regionCode, languageCode, closeMenu, ...other }: PdfMenuItemProps): ReactElement => {
   const { t } = useTranslation()
 
-  const pdfUrl = getPdfUrl({ cmsUrl: cmsApiBaseUrl, regionCode, languageCode, categoryPath: category?.path })
+  const pdfUrl = getPdfUrl({
+    cmsUrl: cmsApiBaseUrl,
+    regionCode,
+    languageCode,
+    path: category && !category.isRoot() ? category.path : undefined,
+  })
 
   return (
     <MenuItem

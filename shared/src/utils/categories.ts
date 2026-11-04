@@ -28,14 +28,10 @@ type GetPdfUrlParams = {
   cmsUrl: string
   regionCode: string | null
   languageCode: string
-  categoryPath?: string | null
+  path?: string | null
 }
 
-const isRootCategoryPath = (path: string): boolean => path.split('/').filter(Boolean).length <= 2
-
-export const getPdfUrl = ({ cmsUrl, regionCode, languageCode, categoryPath }: GetPdfUrlParams): string => {
+export const getPdfUrl = ({ cmsUrl, regionCode, languageCode, path }: GetPdfUrlParams): string => {
   const baseUrl = `${cmsUrl}/${regionCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`
-  return !categoryPath || isRootCategoryPath(categoryPath)
-    ? baseUrl
-    : `${baseUrl}?url=${encodeURIComponent(categoryPath)}`
+  return path ? `${baseUrl}?url=${encodeURIComponent(path)}` : baseUrl
 }
