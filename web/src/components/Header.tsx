@@ -15,8 +15,20 @@ const HEADER_HEIGHT = 80
 
 export const HeaderContainer = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.background.accent,
-  // Hide the top elevation shadow when overscrolling
-  clipPath: 'inset(0 0 -16px 0)',
+  // Containing block for the header menu, outside the scrolling row
+  position: 'relative',
+  boxShadow: 'none',
+
+  // Shadow on a separate layer so its clip-path doesn't clip header content like the menu
+  // Hides the top elevation shadow when overscrolling
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    inset: 0,
+    boxShadow: theme.shadows[2],
+    clipPath: 'inset(0 0 -16px 0)',
+    pointerEvents: 'none',
+  },
 }))
 
 const HeaderComponent = styled('header')`
@@ -75,7 +87,7 @@ export const Header = ({ actionItems = [], logoHref, regionName, language, tabBa
 
   return (
     <Headroom scrollHeight={HEADER_HEIGHT} height={height} zIndex={2}>
-      <HeaderContainer elevation={2}>
+      <HeaderContainer elevation={0}>
         <HeaderComponent ref={ref}>
           <Row>
             <Stack direction='row-reverse' sx={{ alignItems: 'center', gap: 1 }}>
