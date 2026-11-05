@@ -3,7 +3,7 @@
  */
 import FetchError from '../../errors/FetchError.ts'
 import ResponseError from '../../errors/ResponseError.ts'
-import analyzeBescheid from '../analyzeBescheid.ts'
+import analyzeBescheid, { BescheidCheckAnalysisError } from '../analyzeBescheid.ts'
 
 const event = (name: string, data: object) => `event: ${name}\ndata: ${JSON.stringify(data)}\n\n`
 
@@ -71,7 +71,14 @@ describe('analyzeBescheid', () => {
   it('should throw if the analysis ends without a result', async () => {
     mockResponse([event('stage', { stage: 'ocr' })])
 
-    await expect(analyzeBescheid(params)).rejects.toThrow('The analysis ended without a result')
+    await expect(analyzeBescheid(params)).rejects.toThrow(BescheidCheckAnalysisError)
+  })
+
+  it('should throw a fetch error if the connection drops while reading', async () => {
+    const body = new ReadableStream({ start: controller => controller.error(new TypeError('network error')) })
+    jest.mocked(fetch).mockResolvedValueOnce(new Response(body))
+
+    await expect(analyzeBescheid(params)).rejects.toThrow(FetchError)
   })
 
   it('should throw a response error if the request is rejected', async () => {

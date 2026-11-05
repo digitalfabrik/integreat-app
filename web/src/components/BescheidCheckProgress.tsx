@@ -12,7 +12,7 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { fromError } from 'shared/api'
+import { BescheidCheckAnalysisError, fromError } from 'shared/api'
 
 import { ANALYSIS_STEPS, BescheidCheckProgressStatus, MAX_PROGRESS } from '../constants/bescheidCheck'
 import { getErrorMessage } from './FailureSwitcher'
@@ -54,7 +54,9 @@ const BescheidCheckProgress = ({
     return (
       <Container>
         <Alert severity='error'>
-          {status === 'uploading' ? getErrorMessage(fromError(error), t) : t($ => $.bescheidCheck.progress.failed)}
+          {error instanceof BescheidCheckAnalysisError
+            ? t($ => $.bescheidCheck.progress.failed)
+            : getErrorMessage(fromError(error), t)}
         </Alert>
         <Button variant='contained' startIcon={<RefreshIcon />} onClick={retry} sx={{ alignSelf: 'flex-start' }}>
           {t($ => $.error.tryAgain)}
@@ -81,7 +83,7 @@ const BescheidCheckProgress = ({
         </Stack>
       </Stack>
       <Stack sx={{ gap: 1 }}>
-        <Typography variant='body3' aria-live='polite'>
+        <Typography variant='body3' aria-live='polite' sx={{ alignSelf: 'flex-start' }}>
           {stepLabel}
         </Typography>
         <Stack direction='row' sx={{ alignItems: 'center', gap: 2 }}>
