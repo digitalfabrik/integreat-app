@@ -72,7 +72,7 @@ const Header = ({
   goBack,
   menu,
   menuItems: customMenuItems,
-  additionalMenuItems,
+  additionalMenuItems = [],
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
   const { languageCode, regionCode } = useContext(AppContext)
@@ -158,7 +158,7 @@ const Header = ({
           />,
         ]
       : []),
-    ...(additionalMenuItems ?? []).map(({ key, ...item }) => (
+    ...additionalMenuItems.map(({ key, ...item }) => (
       <HeaderMenuItem key={key} {...item} closeMenu={() => setMenuVisible(false)} />
     )),
     <HeaderMenuItem

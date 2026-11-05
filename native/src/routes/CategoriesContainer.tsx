@@ -21,6 +21,8 @@ import useNavigate from '../hooks/useNavigate'
 import usePreviousProp from '../hooks/usePreviousProp'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import useSetRouteTitle from '../hooks/useSetRouteTitle'
+import useSnackbar from '../hooks/useSnackbar'
+import { openExternalUrl } from '../utils/openExternalUrl'
 import urlFromRouteInformation from '../utils/url'
 import LoadingErrorHandler from './LoadingErrorHandler'
 
@@ -33,6 +35,7 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
   const { regionCode, languageCode, settings } = useRegionAppContext()
   const { data, ...response } = useLoadRegionContent({ regionCode, languageCode })
   const { navigateTo } = useNavigate()
+  const showSnackbar = useSnackbar()
   const { t } = useTranslation()
 
   // Preload search results for fallback language once the content of the current language is loaded
@@ -71,10 +74,10 @@ const CategoriesContainer = ({ navigation, route }: CategoriesContainerProps): R
         key: 'pdf',
         title: t($ => $.categories.pdf.create),
         icon: 'file-document-outline',
-        onPress: () => navigation.navigate(PDF_VIEW_ROUTE, { url: pdfUrl, shareUrl: pdfUrl }),
+        onPress: () => openExternalUrl(pdfUrl, { showSnackbar, t }),
       },
     ]
-  }, [category, regionCode, languageCode, t, navigation, settings])
+  }, [category, regionCode, languageCode, t, settings, showSnackbar])
 
   useHeader({ navigation, route, availableLanguages, data, shareUrl, additionalMenuItems })
   useSetRouteTitle(category?.isRoot() ? data?.region.name : category?.title)
