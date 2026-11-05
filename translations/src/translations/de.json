@@ -37,7 +37,32 @@
     },
     "submit": "Bescheid prüfen",
     "privacy": "Ich habe die <Link>Datenschutzerklärung</Link> gelesen und stimme zu, dass mein Dokument für die Analyse verarbeitet wird. Dein Dokument wird nur für die Analyse verwendet und nicht dauerhaft gespeichert.",
-    "disclaimer": "<strong>Hinweis</strong> Die Erklärungen wurden von Menschen erstellt. KI hilft nur dabei, deinen Bescheid einzuordnen. Der {{name}} ersetzt keine Rechtsberatung."
+    "disclaimer": "<strong>Hinweis</strong> Die Erklärungen wurden von Menschen erstellt. KI hilft nur dabei, deinen Bescheid einzuordnen. Der {{name}} ersetzt keine Rechtsberatung.",
+    "progress": {
+      "title": {
+        "analyzing": "Dein Bescheid wird analysiert..",
+        "done": "Deine Analyse ist fertig"
+      },
+      "description": {
+        "analyzing": "Wir lesen deinen Bescheid, erkennen die Art des Dokuments und bereiten die Erklärung vor. Das kann einen Moment dauern.",
+        "done": "Wir haben deinen Bescheid geprüft. Du kannst dir jetzt das Ergebnis ansehen."
+      },
+      "step": "Schritt {{step}}/{{total}}",
+      "steps": {
+        "uploading": "Dokument wird hochgeladen",
+        "scanning": "Dokument wird gelesen",
+        "translating": "Dokument wird übersetzt",
+        "evaluating": "Dokument wird ausgewertet",
+        "preparing": "Antwort wird vorbereitet",
+        "done": "Analyse abgeschlossen"
+      },
+      "showResults": "Ergebnis anzeigen",
+      "startNewAnalysis": "Neue Analyse starten",
+      "failed": "Dein Bescheid konnte nicht analysiert werden. Bitte versuche es erneut."
+    },
+    "results": {
+      "title": "Wir haben deinen Bescheid ausgewertet"
+    }
   },
   "categories": {
     "title": "Lokale Informationen",
