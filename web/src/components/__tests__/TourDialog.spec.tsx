@@ -48,6 +48,44 @@ describe('TourDialog', () => {
     expect(localStorage.getItem(TOUR_VISIBLE_STORAGE_KEY)).toBe('true')
   })
 
+  it('should keep the welcome dialog open after a backdrop click', () => {
+    const { queryByText } = renderDialog()
+    const backdrop = document.querySelector('.MuiBackdrop-root')
+
+    expect(backdrop).not.toBeNull()
+
+    if (backdrop) {
+      fireEvent.mouseDown(backdrop)
+      fireEvent.click(backdrop)
+    }
+
+    expect(queryByText('intro:welcome.title IntegreatTestCms')).not.toBeNull()
+    expect(localStorage.getItem(TOUR_VISIBLE_STORAGE_KEY)).toBe('true')
+  })
+
+  it('should persist dismissal when pressing Escape', () => {
+    const { getByRole, queryByText } = renderDialog()
+
+    fireEvent.keyDown(getByRole('dialog'), { key: 'Escape' })
+
+    expect(queryByText('intro:welcome.title IntegreatTestCms')).toBeNull()
+    expect(localStorage.getItem(TOUR_VISIBLE_STORAGE_KEY)).toBe('false')
+  })
+
+  it('should keep the finished dialog open after a backdrop click', () => {
+    const { queryByText } = renderDialog({ finished: true })
+    const backdrop = document.querySelector('.MuiBackdrop-root')
+
+    expect(backdrop).not.toBeNull()
+
+    if (backdrop) {
+      fireEvent.mouseDown(backdrop)
+      fireEvent.click(backdrop)
+    }
+
+    expect(queryByText('tour:finish.title')).not.toBeNull()
+  })
+
   it('should hide the dialog when skipping the tour', () => {
     const { getByText, queryByText } = renderDialog()
 
