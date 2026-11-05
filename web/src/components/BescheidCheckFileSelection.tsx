@@ -17,6 +17,7 @@ type BescheidCheckFileSelectionProps = {
   setFiles: (files: SelectedFile[]) => void
   privacyPolicyAccepted: boolean
   setPrivacyPolicyAccepted: (privacyPolicyAccepted: boolean) => void
+  submit: () => void
 }
 
 const BescheidCheckFileSelection = ({
@@ -25,6 +26,7 @@ const BescheidCheckFileSelection = ({
   setFiles,
   privacyPolicyAccepted,
   setPrivacyPolicyAccepted,
+  submit,
 }: BescheidCheckFileSelectionProps): ReactElement => {
   const { t } = useTranslation()
 
@@ -42,6 +44,7 @@ const BescheidCheckFileSelection = ({
         <Button
           variant='contained'
           endIcon={<DirectionDependentForwardIcon />}
+          onClick={submit}
           disabled={files.length === 0 || !privacyPolicyAccepted}>
           {t($ => $.bescheidCheck.submit)}
         </Button>

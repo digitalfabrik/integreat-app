@@ -6,4 +6,5 @@ declare global {
   declare const __COMMIT_SHA__: string
   declare const __BUILD_CONFIG_NAME__: string
   declare const __BUILD_CONFIG__: WebBuildConfigType
+  declare const __BESCHEID_ENDPOINT_URL__: string
 }
