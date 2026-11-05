@@ -6,9 +6,12 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import QrCode2Icon from '@mui/icons-material/QrCode2'
 import ShareIcon from '@mui/icons-material/ShareOutlined'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import { dividerClasses } from '@mui/material/Divider'
+import ClickAwayListener from '@mui/material/ClickAwayListener'
+import Grow from '@mui/material/Grow'
 import IconButton from '@mui/material/IconButton'
-import MuiMenu from '@mui/material/Menu'
+import MenuList from '@mui/material/MenuList'
+import Paper from '@mui/material/Paper'
+import Popper from '@mui/material/Popper'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, RefObject, useImperativeHandle } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -26,13 +29,12 @@ import QrCodeDialog from './QrCodeDialog'
 
 const COPY_TIMEOUT = 3000
 
-const StyledMenu = styled(MuiMenu)({
-  marginTop: 8,
-
-  [`& .${dividerClasses.root}`]: {
-    margin: '0 !important',
-  },
-})
+const MenuPaper = styled(Paper)`
+  margin-top: 8px;
+  min-height: 0;
+  height: max-content;
+  border-radius: 8px;
+`
 
 export type MenuRef = {
   closeMenu: () => void
@@ -46,7 +48,9 @@ type HeaderMenuProps = {
 }
 
 const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): ReactElement => {
-  const [menuAnchorElement, setMenuAnchorElement] = React.useState<HTMLElement | null>(null)
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
+  const paperRef = React.useRef<HTMLDivElement>(null)
+  const [open, setOpen] = React.useState<boolean>(false)
   const [expandedAccordion, setExpandedAccordion] = React.useState<'share' | 'legal' | null>(null)
   const [urlCopied, setUrlCopied] = React.useState<boolean>(false)
   const [qrShareOpen, setQrShareOpen] = React.useState<boolean>(false)
@@ -54,11 +58,38 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const { mobile } = useDimensions()
   const { t } = useTranslation()
 
-  useImperativeHandle(ref, () => ({ closeMenu: () => setMenuAnchorElement(null) }))
+  const toggleMenu = () => setOpen(previous => !previous)
 
-  const closeMenu = () => setMenuAnchorElement(null)
-  const open = menuAnchorElement !== null
-  const toggleMenu = (event: React.MouseEvent<HTMLElement>) => setMenuAnchorElement(open ? null : event.currentTarget)
+  const closeMenu = () => {
+    const active = document.activeElement
+    if (!active || active === document.body || paperRef.current?.contains(active)) {
+      anchorRef.current?.focus()
+    }
+    setOpen(false)
+  }
+
+  useImperativeHandle(ref, () => ({ closeMenu }))
+
+  const handleClickAway = (event: MouseEvent | TouchEvent) => {
+    if (anchorRef.current?.contains(event.target as Node)) {
+      return
+    }
+    closeMenu()
+  }
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      closeMenu()
+    }
+  }
+
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    const next = event.relatedTarget as Node | null
+    if (next && !event.currentTarget.contains(next) && !anchorRef.current?.contains(next)) {
+      setOpen(false)
+    }
+  }
 
   const items = Array.isArray(children) ? children : [children]
 
@@ -115,6 +146,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   return (
     <>
       <IconButton
+        ref={anchorRef}
         id={HEADER_MENU_ELEMENT_ID}
         onClick={toggleMenu}
         aria-label={t($ => $.common.labels.menu)}
@@ -123,43 +155,54 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
         aria-controls={open ? 'header-menu' : undefined}>
         <MoreVertIcon />
       </IconButton>
-      <StyledMenu
-        id='header-menu'
-        anchorEl={menuAnchorElement}
+      <Popper
         open={open}
-        onClose={closeMenu}
-        slotProps={{
-          paper: { id: HEADER_MENU_PANEL_ELEMENT_ID },
-          // Let the tour measure the menu once it is opened and positioned
-          transition: { onEntered: () => window.dispatchEvent(new Event('resize')) },
-        }}>
-        {withDividers([
-          ...items,
-          <MenuItem
-            key='copy'
-            text={t($ => (urlCopied ? $.common.state.copied : $.share.copyLink))}
-            onClick={copyToClipboard}
-            icon={urlCopied ? <CheckIcon fontSize='small' /> : <LinkIcon fontSize='small' />}
-          />,
-          <MenuAccordion
-            key='share'
-            title={t($ => $.share.title)}
-            items={sharingItems}
-            icon={<ShareIcon fontSize='small' />}
-            expanded={expandedAccordion === 'share'}
-            setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
-          />,
-          mobile || fitScreen ? (
-            <MenuAccordion
-              key='legal'
-              title={t($ => $.about.legal)}
-              items={legalItems}
-              expanded={expandedAccordion === 'legal'}
-              setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
-            />
-          ) : null,
-        ])}
-      </StyledMenu>
+        anchorEl={anchorRef.current}
+        placement='bottom-end'
+        transition
+        disablePortal
+        sx={{ zIndex: theme => theme.zIndex.appBar + 1 }}>
+        {/* eslint-disable-next-line @typescript-eslint/naming-convention */}
+        {({ TransitionProps }) => (
+          <Grow
+            {...TransitionProps}
+            // Let the tour measure the menu once it is opened and positioned
+            onEntered={() => window.dispatchEvent(new Event('resize'))}>
+            <MenuPaper ref={paperRef} id={HEADER_MENU_PANEL_ELEMENT_ID} elevation={8} onBlur={handleBlur}>
+              <ClickAwayListener onClickAway={handleClickAway}>
+                <MenuList id='header-menu' autoFocusItem={open} disabledItemsFocusable onKeyDown={handleKeyDown}>
+                  {withDividers([
+                    ...items,
+                    <MenuItem
+                      key='copy'
+                      text={t($ => (urlCopied ? $.common.state.copied : $.share.copyLink))}
+                      onClick={copyToClipboard}
+                      icon={urlCopied ? <CheckIcon fontSize='small' /> : <LinkIcon fontSize='small' />}
+                    />,
+                    <MenuAccordion
+                      key='share'
+                      title={t($ => $.share.title)}
+                      items={sharingItems}
+                      icon={<ShareIcon fontSize='small' />}
+                      expanded={expandedAccordion === 'share'}
+                      setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
+                    />,
+                    mobile || fitScreen ? (
+                      <MenuAccordion
+                        key='legal'
+                        title={t($ => $.about.legal)}
+                        items={legalItems}
+                        expanded={expandedAccordion === 'legal'}
+                        setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
+                      />
+                    ) : null,
+                  ])}
+                </MenuList>
+              </ClickAwayListener>
+            </MenuPaper>
+          </Grow>
+        )}
+      </Popper>
       <QrCodeDialog
         open={qrShareOpen}
         close={() => setQrShareOpen(false)}
