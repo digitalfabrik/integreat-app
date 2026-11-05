@@ -12,9 +12,8 @@ const StyledMenuItem = styled(MuiMenuItem)({
   minHeight: 0,
   height: '24px',
 
-  '&.Mui-focusVisible, &:focus-visible': {
+  '&.Mui-focusVisible': {
     outline: `2px solid`,
-    outlineOffset: -2,
   },
 }) as typeof MuiMenuItem
 

@@ -164,7 +164,10 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
         sx={{ zIndex: theme => theme.zIndex.appBar + 1 }}>
         {/* eslint-disable-next-line @typescript-eslint/naming-convention */}
         {({ TransitionProps }) => (
-          <Grow {...TransitionProps}>
+          <Grow
+            {...TransitionProps}
+            // Let the tour measure the menu once it is opened and positioned
+            onEntered={() => window.dispatchEvent(new Event('resize'))}>
             <MenuPaper ref={paperRef} id={HEADER_MENU_PANEL_ELEMENT_ID} elevation={8} onBlur={handleBlur}>
               <ClickAwayListener onClickAway={handleClickAway}>
                 <MenuList id='header-menu' autoFocusItem={open} disabledItemsFocusable onKeyDown={handleKeyDown}>
