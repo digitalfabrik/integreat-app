@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 
-import { openStreeMapCopyright } from 'shared'
+import { openStreetMapCopyright } from 'shared'
 
 import Link from './base/Link'
 
@@ -22,7 +22,7 @@ type MapAttributionProps = {
 }
 
 const MapAttribution = ({ className }: MapAttributionProps): ReactElement => {
-  const { icon, linkText, url, label } = openStreeMapCopyright
+  const { icon, linkText, url, label } = openStreetMapCopyright
   return (
     <Attribution className={className} sx={{ fontSize: 8, lineHeight: 2, color: 'black' }}>
       {icon}

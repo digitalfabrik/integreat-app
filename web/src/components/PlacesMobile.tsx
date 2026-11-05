@@ -5,7 +5,7 @@ import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn } from 'shared'
+import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn, getMultiPlaceCount } from 'shared'
 import { PlaceModel } from 'shared/api'
 
 import useDimensions, { Dimensions } from '../hooks/useDimensions'
@@ -100,6 +100,17 @@ const PlacesMobile = ({
   const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation()
 
+  const multiPlaceCount = getMultiPlaceCount(mapFeature, place)
+  const getTitle = () => {
+    if (loading) {
+      return undefined
+    }
+    if (multiPlaceCount !== null) {
+      return t($ => $.places.placesCount.address, { count: multiPlaceCount })
+    }
+    return canDeselect ? undefined : t($ => $.userLocation.nearby)
+  }
+
   const scrollToTop = () => {
     if (sheetRef.current?.scrollElement) {
       setScrollOffset(sheetRef.current.scrollElement.scrollTop)
@@ -152,7 +163,7 @@ const PlacesMobile = ({
       />
       <BottomActionSheet
         ref={sheetRef}
-        title={canDeselect || loading ? undefined : t($ => $.userLocation.nearby)}
+        title={getTitle()}
         sibling={
           <>
             <MapControlsContainer dimensions={dimensions}>

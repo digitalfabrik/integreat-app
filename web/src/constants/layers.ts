@@ -1,4 +1,5 @@
 import { Theme } from '@mui/material/styles'
+import { FilterSpecification } from 'maplibre-gl'
 import { LayerProps } from 'react-map-gl/maplibre'
 
 import {
@@ -12,6 +13,12 @@ import {
   textOffsetY,
   clusterLayerId,
   featureLayerId,
+  multiPlaceBackgroundRadius,
+  multiPlaceBadgeRadius,
+  multiPlaceBadgeOffset,
+  multiPlaceBackgroundLayerId,
+  multiPlaceBadgeLayerId,
+  multiPlaceBadgeCountId,
 } from 'shared'
 
 export const clusterLayer = (theme: Theme): LayerProps => ({
@@ -42,18 +49,22 @@ export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
     'icon-size': mapMarker.iconSize,
     'icon-image': [
       'case',
-      ['==', ['get', 'id', ['at', 0, ['get', 'places']]], currentFeature?.properties.places[0]?.id ?? -1],
-      mapMarker.symbolActive,
+      ['==', ['length', ['get', 'places']], 1],
       [
         'case',
-        ['==', ['length', ['get', 'places']], 1],
+        ['==', ['get', 'id', ['at', 0, ['get', 'places']]], currentFeature?.properties.places[0]?.id ?? -1],
+        mapMarker.symbolActive,
         ['get', 'symbol', ['at', 0, ['get', 'places']]],
-        mapMarker.multiPlace,
       ],
+      mapMarker.multiPlace,
     ],
     'icon-offset': [
       'case',
-      ['==', ['get', 'id', ['at', 0, ['get', 'places']]], currentFeature?.properties.places[0]?.id ?? -1],
+      [
+        'all',
+        ['==', ['length', ['get', 'places']], 1],
+        ['==', ['get', 'id', ['at', 0, ['get', 'places']]], currentFeature?.properties.places[0]?.id ?? -1],
+      ],
       ['literal', [0, mapMarker.offsetY ?? 0]],
       ['literal', [0, 0]],
     ],
@@ -70,6 +81,58 @@ export const markerLayer = (currentFeature: MapFeature | null): LayerProps => ({
     'text-variable-anchor': ['top', 'bottom', 'left', 'right'],
   },
   paint: {},
+})
+
+const multiPlaceFilter: FilterSpecification = [
+  'all',
+  ['!', ['has', 'point_count']],
+  ['>', ['length', ['get', 'places']], 1],
+]
+
+export const multiPlaceBackgroundLayer = (theme: Theme): LayerProps => ({
+  id: multiPlaceBackgroundLayerId,
+  type: 'circle',
+  source: 'point',
+  filter: multiPlaceFilter,
+  paint: {
+    'circle-radius': multiPlaceBackgroundRadius,
+    'circle-color': theme.palette.background.default,
+    'circle-stroke-width': 1,
+  },
+})
+
+export const multiPlaceBadgeLayer = (theme: Theme): LayerProps => ({
+  id: multiPlaceBadgeLayerId,
+  type: 'circle',
+  source: 'point',
+  filter: multiPlaceFilter,
+  paint: {
+    'circle-radius': multiPlaceBadgeRadius,
+    'circle-color': theme.palette.text.secondary,
+    'circle-stroke-width': 1,
+    'circle-stroke-color': theme.palette.background.default,
+    'circle-translate': multiPlaceBadgeOffset,
+    'circle-translate-anchor': 'viewport',
+  },
+})
+
+export const multiPlaceBadgeCountLayer = (theme: Theme): LayerProps => ({
+  id: multiPlaceBadgeCountId,
+  type: 'symbol',
+  source: 'point',
+  filter: multiPlaceFilter,
+  layout: {
+    'text-field': ['to-string', ['length', ['get', 'places']]],
+    'text-font': ['Noto Sans Regular'],
+    'text-size': fontSizeSmall,
+    'text-allow-overlap': true,
+    'text-ignore-placement': true,
+  },
+  paint: {
+    'text-color': theme.palette.background.default,
+    'text-translate': multiPlaceBadgeOffset,
+    'text-translate-anchor': 'viewport',
+  },
 })
 
 export const clusterProperties: { [key: string]: unknown } = {

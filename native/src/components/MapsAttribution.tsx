@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-import { openStreeMapCopyright } from 'shared'
+import { openStreetMapCopyright } from 'shared'
 
 import { conditionalA11yProps } from '../utils/helpers'
 import Link from './Link'
@@ -45,7 +45,7 @@ type MapAttributionProps = {
 }
 
 const MapAttribution = ({ accessible }: MapAttributionProps): ReactElement => {
-  const { url, label, linkText, icon } = openStreeMapCopyright
+  const { url, label, linkText, icon } = openStreetMapCopyright
   const [expanded, setExpanded] = useState<boolean>(false)
   return (
     <TouchableRipple

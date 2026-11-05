@@ -1,9 +1,11 @@
 import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl/maplibre'
 
-import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn } from 'shared'
+import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn, getMultiPlaceCount } from 'shared'
 import { PlaceModel } from 'shared/api'
 
 import MapAttribution from './MapAttribution'
@@ -48,6 +50,7 @@ type PanelContentProps = {
   canDeselect: boolean
   deselect: () => void
   places: PlaceModel[]
+  title?: string | null
   place: PlaceModel | undefined
   scrollToTop: () => void
   userLocation: LocationType | null
@@ -60,6 +63,7 @@ const PanelContent = ({
   canDeselect,
   deselect,
   places,
+  title,
   place,
   scrollToTop,
   userLocation,
@@ -69,6 +73,11 @@ const PanelContent = ({
   <Stack sx={{ justifyContent: 'space-between', height: '100%' }}>
     <ListViewWrapper ref={listRef}>
       <PlacePanelHeader goBack={canDeselect ? deselect : null} />
+      {title && (
+        <Typography component='h1' variant='subtitle1' sx={{ paddingLeft: '8px' }}>
+          {title}
+        </Typography>
+      )}
       <PlaceSharedChildren
         places={places}
         place={place}
@@ -121,6 +130,10 @@ const PlacesDesktop = ({
   const { places, place, mapFeatures, mapFeature } = data
   const canDeselect = !!mapFeature || !!slug
   const { contentDirection } = useTheme()
+  const { t } = useTranslation()
+
+  const multiPlaceCount = getMultiPlaceCount(mapFeature, place)
+  const title = multiPlaceCount !== null ? t($ => $.places.placesCount.address, { count: multiPlaceCount }) : undefined
 
   const scrollToTop = () => {
     if (listRef.current) {
@@ -149,6 +162,7 @@ const PlacesDesktop = ({
         ) : (
           <PanelContent
             listRef={listRef}
+            title={title}
             canDeselect={canDeselect}
             deselect={deselect}
             places={places}

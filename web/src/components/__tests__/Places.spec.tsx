@@ -12,10 +12,11 @@ jest.mock('../MapView')
 jest.mock('../Page')
 
 describe('Places', () => {
-  const places = new PlaceModelBuilder(3).build()
+  const places = new PlaceModelBuilder(4).build()
   const place0 = places[0]!
   const place1 = places[1]!
   const place2 = places[2]!
+  const place3 = places[3]!
   const region = new RegionModelBuilder(1).build()[0]!
 
   const renderPlaces = ({
@@ -91,17 +92,20 @@ describe('Places', () => {
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place1.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
 
     expect(getByText('Feature-0')).toBeTruthy()
     expect(getByText(`Feature-${place1.title}`)).toBeTruthy()
+    expect(getByText(`Feature-${place2.title}`)).toBeTruthy()
     expect(queryByText(`Feature-${place0.title}`)).toBeFalsy()
-    expect(queryByText(`Feature-${place2.title}`)).toBeFalsy()
+    expect(queryByText(`Feature-${place3.title}`)).toBeFalsy()
 
     fireEvent.click(getByText('Feature-0'))
 
     expect(getByText(place0.title)).toBeTruthy()
-    expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
     expect(queryByText(place1.title)).toBeFalsy()
+    expect(queryByText(place2.title)).toBeFalsy()
 
     expect(getByText(`Feature-${place1.title}`)).toBeTruthy()
 
@@ -110,6 +114,7 @@ describe('Places', () => {
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place1.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
   })
 
   it('should select place on map', () => {
@@ -137,51 +142,57 @@ describe('Places', () => {
     const { queryByText, getByText } = renderPlaces({ multiPlace: 0 })
 
     expect(getByText(place0.title)).toBeTruthy()
-    expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
     expect(queryByText(place1.title)).toBeFalsy()
+    expect(queryByText(place2.title)).toBeFalsy()
 
     expect(getByText(`Feature-${place1.title}`)).toBeTruthy()
     fireEvent.click(getByText(`Feature-${place1.title}`))
 
     expect(getByText(place1.title)).toBeTruthy()
     expect(queryByText(place0.title)).toBeFalsy()
-    expect(queryByText(place2.title)).toBeFalsy()
+    expect(queryByText(place3.title)).toBeFalsy()
 
     fireEvent.click(getByText('Map Press'))
 
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place1.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
   })
 
   it('should filter places', () => {
     const { queryByText, getAllByText, getByText } = renderPlaces({ placeCategoryId: 10 })
 
-    // Chip button + two places with category Gastronomie
-    expect(getAllByText('Gastronomie')).toHaveLength(3)
+    // Chip button + three places with category Gastronomie
+    expect(getAllByText('Gastronomie')).toHaveLength(4)
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
     expect(queryByText(place1.title)).toBeFalsy()
 
-    expect(getByText(`Feature-0`)).toBeTruthy()
+    expect(getByText('Feature-0')).toBeTruthy()
+    expect(getByText(`Feature-${place2.title}`)).toBeTruthy()
     expect(queryByText(`Feature-${place1.title}`)).toBeFalsy()
 
     // Remove filter
-    fireEvent.click(getAllByText('Gastronomie')[2]!)
+    fireEvent.click(getAllByText('Gastronomie')[3]!)
 
-    // Two places with category Gastronomie
-    expect(getAllByText('Gastronomie')).toHaveLength(2)
+    // Three places with category Gastronomie
+    expect(getAllByText('Gastronomie')).toHaveLength(3)
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place1.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
 
     expect(getByText('Feature-0')).toBeTruthy()
     expect(getByText(`Feature-${place1.title}`)).toBeTruthy()
+    expect(getByText(`Feature-${place2.title}`)).toBeTruthy()
 
     // Open place filters
     fireEvent.click(getByText('places:filter.adjust'))
 
-    expect(getAllByText('Gastronomie')).toHaveLength(3)
+    expect(getAllByText('Gastronomie')).toHaveLength(4)
     expect(getAllByText('Dienstleistung')).toHaveLength(2)
 
     // Select Dienstleistung filter and close filters
@@ -193,8 +204,10 @@ describe('Places', () => {
     expect(getByText(place1.title)).toBeTruthy()
     expect(queryByText(place0.title)).toBeFalsy()
     expect(queryByText(place2.title)).toBeFalsy()
+    expect(queryByText(place3.title)).toBeFalsy()
 
     expect(getByText(`Feature-${place1.title}`)).toBeTruthy()
     expect(queryByText('Feature-0')).toBeFalsy()
+    expect(queryByText(`Feature-${place2.title}`)).toBeFalsy()
   })
 })

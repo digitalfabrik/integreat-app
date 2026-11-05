@@ -4,11 +4,12 @@ import { MapFeature, MapFeatureCollection, featureLayerId } from '../../index.ts
 import { embedInCollection, prepareMapFeature, prepareMapFeatures } from '../geoJson.ts'
 
 describe('geoJson', () => {
-  const places = new PlaceModelBuilder(3).build()
+  const places = new PlaceModelBuilder(4).build()
 
   const place1 = places[0]!
   const place2 = places[1]!
   const place3 = places[2]!
+  const place4 = places[3]!
 
   const geoJsonMarkerFeature = (id: number, ...places: PlaceModel[]): MapFeature => ({
     type: 'Feature',
@@ -43,10 +44,18 @@ describe('geoJson', () => {
   })
 
   describe('prepareMapFeatures', () => {
-    it('should group close placeFeatures into single features', () => {
-      expect(prepareMapFeatures([place1, place2, place3])).toEqual([
-        geoJsonMarkerFeature(0, place1, place3),
+    it('should group places with exactly the same coordinates into one feature', () => {
+      expect(prepareMapFeatures([place1, place2, place4])).toEqual([
+        geoJsonMarkerFeature(0, place1, place4),
         geoJsonMarkerFeature(1, place2),
+      ])
+    })
+
+    it('should not group places that are close but not at the same coordinates', () => {
+      expect(prepareMapFeatures([place1, place2, place3])).toEqual([
+        geoJsonMarkerFeature(0, place1),
+        geoJsonMarkerFeature(1, place2),
+        geoJsonMarkerFeature(2, place3),
       ])
     })
   })
