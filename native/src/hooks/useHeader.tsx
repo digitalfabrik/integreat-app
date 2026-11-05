@@ -1,6 +1,7 @@
 import React, { ReactElement, useEffect } from 'react'
 
 import Header from '../components/Header'
+import { HeaderMenuItemConfig } from '../components/HeaderMenuItem'
 import { NavigationProps, RouteProps, RoutesType } from '../constants/NavigationTypes'
 import { RegionContentData } from './useLoadRegionContent'
 
@@ -12,6 +13,7 @@ type UseHeaderProps<T extends RoutesType> = {
   shareUrl?: string
   goBack?: () => void
   menu?: ReactElement
+  additionalMenuItems?: HeaderMenuItemConfig[]
 }
 
 const useHeader = <T extends RoutesType>({
@@ -22,6 +24,7 @@ const useHeader = <T extends RoutesType>({
   shareUrl,
   goBack,
   menu,
+  additionalMenuItems,
 }: UseHeaderProps<T>): void => {
   useEffect(() => {
     navigation.setOptions({
@@ -36,10 +39,11 @@ const useHeader = <T extends RoutesType>({
           regionName={data?.region.name}
           goBack={goBack}
           menu={menu}
+          additionalMenuItems={additionalMenuItems}
         />
       ),
     })
-  }, [route, navigation, data, availableLanguages, shareUrl, goBack, menu])
+  }, [route, navigation, data, availableLanguages, shareUrl, goBack, menu, additionalMenuItems])
 }
 
 export default useHeader

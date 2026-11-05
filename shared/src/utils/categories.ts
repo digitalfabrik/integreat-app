@@ -23,3 +23,15 @@ export const getCategoryTiles = ({
       isExternalUrl: externalOfferUrl !== undefined,
     })
   })
+
+type GetPdfUrlParams = {
+  cmsUrl: string
+  regionCode: string | null
+  languageCode: string
+  path?: string | null
+}
+
+export const getPdfUrl = ({ cmsUrl, regionCode, languageCode, path }: GetPdfUrlParams): string => {
+  const baseUrl = `${cmsUrl}/${regionCode}/${languageCode}/wp-json/ig-mpdf/v1/pdf`
+  return path ? `${baseUrl}?url=${encodeURIComponent(path)}` : baseUrl
+}

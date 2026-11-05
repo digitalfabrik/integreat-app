@@ -348,4 +348,31 @@ describe('Header', () => {
       title: 'Willkommen - Stadt Augsburg',
     })
   })
+
+  it('should show additional menu items', () => {
+    const onPress = jest.fn()
+    const { getByTestId, getByText } = render(
+      <TestingAppContext regionCode={regionModel.code} languageCode={languageModel.code}>
+        <Header
+          navigation={navigation}
+          route={defaultRoute}
+          regionName={regionModel.name}
+          additionalMenuItems={[{ key: 'extra', title: 'Extra item', icon: 'icon', onPress }]}
+        />
+      </TestingAppContext>,
+    )
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    fireEvent.press(getByText('Extra item'))
+
+    expect(onPress).toHaveBeenCalledTimes(1)
+  })
+
+  it('should not show a create pdf menu item on pages other than categories', () => {
+    const { getByTestId, queryByText } = renderHeader({
+      route: { key: 'key-0', name: IMPRINT_ROUTE },
+    })
+
+    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    expect(queryByText(t('categories:pdf.create'))).toBeNull()
+  })
 })

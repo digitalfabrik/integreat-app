@@ -30,7 +30,7 @@ import ActionButtons from './ActionButtons'
 import HeaderActionItem from './HeaderActionItem'
 import HeaderBox from './HeaderBox'
 import HeaderMenu from './HeaderMenu'
-import HeaderMenuItem from './HeaderMenuItem'
+import HeaderMenuItem, { HeaderMenuItemConfig } from './HeaderMenuItem'
 
 const Horizontal = styled.View`
   background-color: ${props => props.theme.colors.surfaceVariant};
@@ -57,6 +57,7 @@ type HeaderProps = {
   goBack?: () => void
   menu?: ReactElement | null
   menuItems?: ReactElement[]
+  additionalMenuItems?: HeaderMenuItemConfig[]
 }
 
 const Header = ({
@@ -71,6 +72,7 @@ const Header = ({
   goBack,
   menu,
   menuItems: customMenuItems,
+  additionalMenuItems = [],
 }: HeaderProps): ReactElement | null => {
   const [menuVisible, setMenuVisible] = useState(false)
   const { languageCode, regionCode } = useContext(AppContext)
@@ -156,6 +158,9 @@ const Header = ({
           />,
         ]
       : []),
+    ...additionalMenuItems.map(({ key, ...item }) => (
+      <HeaderMenuItem key={key} {...item} closeMenu={() => setMenuVisible(false)} />
+    )),
     <HeaderMenuItem
       key='tts'
       title={t($ => $.tts.title)}
