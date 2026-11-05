@@ -45,7 +45,11 @@ export {
   CHAT_ENDPOINT_NAME,
 } from './endpoints/createSendChatMessageEndpoint.ts'
 export { default as createChatMessagesEndpoint } from './endpoints/createChatMessagesEndpoint.ts'
-export { default as analyzeBescheid } from './endpoints/analyzeBescheid.ts'
+export {
+  default as analyzeBescheid,
+  ANALYZE_BESCHEID_ENDPOINT_NAME,
+  BescheidCheckAnalysisError,
+} from './endpoints/analyzeBescheid.ts'
 export {
   default as createExtractAnswerEndpoint,
   EXTRACT_ANSWER_ENDPOINT_NAME,

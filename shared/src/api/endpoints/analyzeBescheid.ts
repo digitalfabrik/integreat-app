@@ -3,7 +3,9 @@ import ResponseError from '../errors/ResponseError.ts'
 import readServerEvents from '../readServerEvents.ts'
 import { JsonBescheidCheckErrorType, JsonBescheidCheckStageType } from '../types.ts'
 
-const ANALYZE_BESCHEID_ENDPOINT_NAME = 'analyzeBescheid'
+export const ANALYZE_BESCHEID_ENDPOINT_NAME = 'analyzeBescheid'
+
+export class BescheidCheckAnalysisError extends Error {}
 
 const stages = {
   ocr: 'scanning',
@@ -51,13 +53,16 @@ const analyzeBescheid = async ({
   const lastEvent = await readServerEvents(response.body, ({ event, data }) => {
     if (event === 'stage') {
       onStage(stages[(JSON.parse(data) as JsonBescheidCheckStageType).stage])
-    } else if (event === 'error') {
-      throw new Error((JSON.parse(data) as JsonBescheidCheckErrorType).reason)
     }
+  }).catch(error => {
+    throw new FetchError({ endpointName: ANALYZE_BESCHEID_ENDPOINT_NAME, innerError: error, url, requestOptions })
   })
 
+  if (lastEvent?.event === 'error') {
+    throw new BescheidCheckAnalysisError((JSON.parse(lastEvent.data) as JsonBescheidCheckErrorType).reason)
+  }
   if (lastEvent?.event !== 'result') {
-    throw new Error('The analysis ended without a result')
+    throw new BescheidCheckAnalysisError('The analysis ended without a result')
   }
 }
 

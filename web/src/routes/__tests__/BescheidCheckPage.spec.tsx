@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { analyzeBescheid, FetchError } from 'shared/api'
+import { ANALYZE_BESCHEID_ENDPOINT_NAME, analyzeBescheid, BescheidCheckAnalysisError, FetchError } from 'shared/api'
 
 import { renderRoute } from '../../testing/render'
 import BescheidCheckPage from '../BescheidCheckPage'
@@ -19,12 +19,15 @@ describe('BescheidCheckPage', () => {
     jest.clearAllMocks()
   })
 
-  const renderAndSubmit = () => {
-    const result = renderRoute(<BescheidCheckPage languageCode='de' />, {
+  const renderBescheidCheckPage = (searchParams?: string) =>
+    renderRoute(<BescheidCheckPage languageCode='de' />, {
       pathname: '/bescheid-check/de',
       routePattern: '/bescheid-check/:languageCode',
-      searchParams: 'region=muenchen',
+      searchParams,
     })
+
+  const renderAndSubmit = () => {
+    const result = renderBescheidCheckPage('region=muenchen')
     fireEvent.change(result.getByLabelText('bescheidCheck:upload.selectFiles'), { target: { files: [file] } })
     fireEvent.click(result.getByRole('checkbox'))
     fireEvent.click(result.getByRole('button', { name: 'bescheidCheck:submit' }))
@@ -32,20 +35,13 @@ describe('BescheidCheckPage', () => {
   }
 
   it('should render a heading', () => {
-    const { getByText } = renderRoute(<BescheidCheckPage languageCode='de' />, {
-      pathname: '/bescheid-check/de',
-      routePattern: '/bescheid-check/:languageCode',
-    })
+    const { getByText } = renderBescheidCheckPage()
 
     expect(getByText('Bescheid-Check')).toBeTruthy()
   })
 
   it('should show a back button that navigates to the originating region home page when no history exists', () => {
-    const { getByText, router } = renderRoute(<BescheidCheckPage languageCode='de' />, {
-      pathname: '/bescheid-check/de',
-      routePattern: '/bescheid-check/:languageCode',
-      searchParams: 'region=augsburg',
-    })
+    const { getByText, router } = renderBescheidCheckPage('region=augsburg')
 
     fireEvent.click(getByText('common:actions.back'))
 
@@ -53,10 +49,7 @@ describe('BescheidCheckPage', () => {
   })
 
   it('should show a back button that navigates to the regions page when no history and no region exist', () => {
-    const { getByText, router } = renderRoute(<BescheidCheckPage languageCode='de' />, {
-      pathname: '/bescheid-check/de',
-      routePattern: '/bescheid-check/:languageCode',
-    })
+    const { getByText, router } = renderBescheidCheckPage()
 
     fireEvent.click(getByText('common:actions.back'))
 
@@ -64,10 +57,7 @@ describe('BescheidCheckPage', () => {
   })
 
   it('should only enable the submit button with at least one file and accepted privacy policy', () => {
-    const { getByText, getByLabelText, getByRole } = renderRoute(<BescheidCheckPage languageCode='de' />, {
-      pathname: '/bescheid-check/de',
-      routePattern: '/bescheid-check/:languageCode',
-    })
+    const { getByText, getByLabelText, getByRole } = renderBescheidCheckPage()
     const submitButton = getByRole('button', { name: 'bescheidCheck:submit' })
 
     expect(submitButton).toBeDisabled()
@@ -98,7 +88,12 @@ describe('BescheidCheckPage', () => {
     jest
       .mocked(analyzeBescheid)
       .mockRejectedValueOnce(
-        new FetchError({ endpointName: 'analyzeBescheid', innerError: new TypeError(), url: '', requestOptions: {} }),
+        new FetchError({
+          endpointName: ANALYZE_BESCHEID_ENDPOINT_NAME,
+          innerError: new TypeError(),
+          url: '',
+          requestOptions: {},
+        }),
       )
       .mockReturnValue(pendingAnalysis)
     const { findByText, getByRole, getByText } = renderAndSubmit()
@@ -127,7 +122,7 @@ describe('BescheidCheckPage', () => {
       .mocked(analyzeBescheid)
       .mockImplementationOnce(({ onStage }) => {
         onStage('scanning')
-        return Promise.reject(new Error('Analysis failed'))
+        return Promise.reject(new BescheidCheckAnalysisError('Analysis failed'))
       })
       .mockReturnValue(pendingAnalysis)
     const { findByText, getByRole } = renderAndSubmit()
