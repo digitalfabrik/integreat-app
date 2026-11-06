@@ -23,6 +23,7 @@ import TtsContainer from './components/TtsContainer'
 import { RoutesParamsType } from './constants/NavigationTypes'
 import { userAgent } from './constants/endpoint'
 import AppContextProvider from './contexts/AppContextProvider'
+import useHorizontalSafeAreaInsets from './hooks/useHorizontalSafeAreaInsets'
 import { useNavigationTheme } from './hooks/useNavigationTheme'
 
 enableScreens(true)
@@ -70,9 +71,10 @@ setUserAgent(userAgent)
 export const NavigationContainerWithTheme = (): ReactElement => {
   const theme = useTheme()
   const navigationTheme = useNavigationTheme()
+  const { start, end } = useHorizontalSafeAreaInsets()
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.colors.surfaceVariant }}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.surfaceVariant, paddingStart: start, paddingEnd: end }}>
       <StatusBar />
       <NavigationContainer theme={navigationTheme} linking={linking}>
         <Navigator />
