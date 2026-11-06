@@ -45,6 +45,15 @@ export {
   CHAT_ENDPOINT_NAME,
 } from './endpoints/createSendChatMessageEndpoint.ts'
 export { default as createChatMessagesEndpoint } from './endpoints/createChatMessagesEndpoint.ts'
+export {
+  default as analyzeBescheid,
+  ANALYZE_BESCHEID_ENDPOINT_NAME,
+  BescheidCheckAnalysisError,
+} from './endpoints/analyzeBescheid.ts'
+export {
+  default as createExtractAnswerEndpoint,
+  EXTRACT_ANSWER_ENDPOINT_NAME,
+} from './endpoints/createExtractAnswerEndpoint.ts'
 export { default as createRegionsEndpoint, REGIONS_ENDPOINT_NAME } from './endpoints/createRegionsEndpoint.ts'
 export { default as createRegionEndpoint, REGION_ENDPOINT_NAME } from './endpoints/createRegionEndpoint.ts'
 export { default as createImprintEndpoint, IMPRINT_ENDPOINT_NAME } from './endpoints/createImprintEndpoint.ts'

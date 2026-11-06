@@ -18,7 +18,8 @@
   "bescheidCheck": {
     "shortDescription": "Understand an official decision",
     "description": "Upload a Bescheid or BAMF decision to have it explained.",
-    "introduction": "Have you received a Bescheid and want to know what it says? Upload your Bescheid here. We translate the most important content, explain the decision in simple language and show you possible next steps and counseling services.",
+    "introduction": "Upload your Bescheid and find out what it means. AI helps to recognize and translate the Bescheid. The explanations were written by experts. We also show you possible next steps and suitable counseling services.",
+    "expertExplanations": "Explanations by experts",
     "upload": {
       "title": "Upload Bescheid",
       "dragTitle": "Drag your Bescheid here",
@@ -37,7 +38,32 @@
     },
     "submit": "Check Bescheid",
     "privacy": "I have read the <Link>privacy policy</Link> and agree that my document will be processed for the analysis. Your document is only used for the analysis and is not stored permanently.",
-    "disclaimer": "<strong>Note</strong> The explanations were written by people. AI only helps to classify your Bescheid. The {{name}} does not replace legal advice."
+    "disclaimer": "<strong>Note</strong> The explanations were written by people. AI only helps to classify your Bescheid. The {{name}} does not replace legal advice.",
+    "progress": {
+      "title": {
+        "analyzing": "Your Bescheid is being analyzed..",
+        "done": "Your analysis is ready"
+      },
+      "description": {
+        "analyzing": "We read your Bescheid, identify the type of document and prepare the explanation. This may take a moment.",
+        "done": "We have checked your Bescheid. You can now view the result."
+      },
+      "step": "Step {{step}}/{{total}}",
+      "steps": {
+        "uploading": "Uploading document",
+        "scanning": "Reading document",
+        "translating": "Translating document",
+        "evaluating": "Evaluating document",
+        "preparing": "Preparing answer",
+        "done": "Analysis completed"
+      },
+      "showResults": "Show results",
+      "startNewAnalysis": "Start new analysis",
+      "failed": "Your Bescheid could not be analyzed. Please try again."
+    },
+    "results": {
+      "title": "We have evaluated your Bescheid"
+    }
   },
   "categories": {
     "title": "Local information",

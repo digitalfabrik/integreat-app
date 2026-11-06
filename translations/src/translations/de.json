@@ -18,7 +18,8 @@
   "bescheidCheck": {
     "shortDescription": "Verstehe einen Bescheid",
     "description": "Lade einen Bescheid oder eine BAMF-Entscheidung hoch, um sie sich erklären zu lassen.",
-    "introduction": "Du hast einen Bescheid bekommen und möchtest wissen, was darin steht? Lade deinen Bescheid hier hoch. Wir übersetzen die wichtigsten Inhalte, erklären die Entscheidung in einfacher Sprache und zeigen dir mögliche nächste Schritte und Beratungsstellen.",
+    "introduction": "Lade deinen Bescheid hoch und erfahre, was er bedeutet. KI hilft dabei, den Bescheid zu erkennen und zu übersetzen. Die Erklärungen dazu wurden von Fachleuten erstellt. Zusätzlich zeigen wir dir mögliche nächste Schritte und passende Beratungsstellen.",
+    "expertExplanations": "Erklärungen von Fachleuten",
     "upload": {
       "title": "Bescheid hochladen",
       "dragTitle": "Bescheid hierher ziehen",
@@ -37,7 +38,32 @@
     },
     "submit": "Bescheid prüfen",
     "privacy": "Ich habe die <Link>Datenschutzerklärung</Link> gelesen und stimme zu, dass mein Dokument für die Analyse verarbeitet wird. Dein Dokument wird nur für die Analyse verwendet und nicht dauerhaft gespeichert.",
-    "disclaimer": "<strong>Hinweis</strong> Die Erklärungen wurden von Menschen erstellt. KI hilft nur dabei, deinen Bescheid einzuordnen. Der {{name}} ersetzt keine Rechtsberatung."
+    "disclaimer": "<strong>Hinweis</strong> Die Erklärungen wurden von Menschen erstellt. KI hilft nur dabei, deinen Bescheid einzuordnen. Der {{name}} ersetzt keine Rechtsberatung.",
+    "progress": {
+      "title": {
+        "analyzing": "Dein Bescheid wird analysiert..",
+        "done": "Deine Analyse ist fertig"
+      },
+      "description": {
+        "analyzing": "Wir lesen deinen Bescheid, erkennen die Art des Dokuments und bereiten die Erklärung vor. Das kann einen Moment dauern.",
+        "done": "Wir haben deinen Bescheid geprüft. Du kannst dir jetzt das Ergebnis ansehen."
+      },
+      "step": "Schritt {{step}}/{{total}}",
+      "steps": {
+        "uploading": "Dokument wird hochgeladen",
+        "scanning": "Dokument wird gelesen",
+        "translating": "Dokument wird übersetzt",
+        "evaluating": "Dokument wird ausgewertet",
+        "preparing": "Antwort wird vorbereitet",
+        "done": "Analyse abgeschlossen"
+      },
+      "showResults": "Ergebnis anzeigen",
+      "startNewAnalysis": "Neue Analyse starten",
+      "failed": "Dein Bescheid konnte nicht analysiert werden. Bitte versuche es erneut."
+    },
+    "results": {
+      "title": "Wir haben deinen Bescheid ausgewertet"
+    }
   },
   "categories": {
     "title": "Lokale Informationen",

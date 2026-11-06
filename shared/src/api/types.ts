@@ -100,6 +100,26 @@ export type JsonChatMessagesType = {
   ticket_url: string
 }
 
+export type JsonBescheidCheckStageType = {
+  stage: 'ocr' | 'translate' | 'classify' | 'extraction'
+}
+
+export type JsonBescheidCheckErrorType = {
+  reason: string
+}
+
+type JsonExtractAnswerSuccessType = {
+  status: 'success'
+  answer: string
+}
+
+type JsonExtractAnswerErrorType = {
+  status: 'error'
+  message: string
+}
+
+export type JsonExtractAnswerType = JsonExtractAnswerSuccessType | JsonExtractAnswerErrorType
+
 export type JsonImprintType = JsonCategoryType
 
 type JsonContactType = {
