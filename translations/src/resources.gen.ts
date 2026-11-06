@@ -20,7 +20,8 @@ const resources = {
   "bescheidCheck": {
     "shortDescription": "Understand an official decision",
     "description": "Upload a Bescheid or BAMF decision to have it explained.",
-    "introduction": "Have you received a Bescheid and want to know what it says? Upload your Bescheid here. We translate the most important content, explain the decision in simple language and show you possible next steps and counseling services.",
+    "introduction": "Upload your Bescheid and find out what it means. AI helps to recognize and translate the Bescheid. The explanations were written by experts. We also show you possible next steps and suitable counseling services.",
+    "expertExplanations": "Explanations by experts",
     "upload": {
       "title": "Upload Bescheid",
       "dragTitle": "Drag your Bescheid here",

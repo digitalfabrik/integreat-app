@@ -18,7 +18,8 @@
   "bescheidCheck": {
     "shortDescription": "Verstehe einen Bescheid",
     "description": "Lade einen Bescheid oder eine BAMF-Entscheidung hoch, um sie sich erklären zu lassen.",
-    "introduction": "Du hast einen Bescheid bekommen und möchtest wissen, was darin steht? Lade deinen Bescheid hier hoch. Wir übersetzen die wichtigsten Inhalte, erklären die Entscheidung in einfacher Sprache und zeigen dir mögliche nächste Schritte und Beratungsstellen.",
+    "introduction": "Lade deinen Bescheid hoch und erfahre, was er bedeutet. KI hilft dabei, den Bescheid zu erkennen und zu übersetzen. Die Erklärungen dazu wurden von Fachleuten erstellt. Zusätzlich zeigen wir dir mögliche nächste Schritte und passende Beratungsstellen.",
+    "expertExplanations": "Erklärungen von Fachleuten",
     "upload": {
       "title": "Bescheid hochladen",
       "dragTitle": "Bescheid hierher ziehen",
