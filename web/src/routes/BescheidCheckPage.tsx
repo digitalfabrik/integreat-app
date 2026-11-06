@@ -1,4 +1,5 @@
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
+import CheckIcon from '@mui/icons-material/Check'
 import Chip from '@mui/material/Chip'
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
@@ -89,8 +90,14 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
       <BackButton fallback={fallbackBackTo} />
       <Row sx={{ marginBlock: mobile ? 2 : 3, flexWrap: 'wrap' }}>
         <H1 sx={{ typography: 'h4', marginBlock: 0 }}>{bescheidCheckName}</H1>
-        <Row>
+        <Row sx={{ flexWrap: 'wrap' }}>
           <StyledChip label={t($ => $.common.labels.beta)} variant='outlined' size='small' />
+          <StyledChip
+            icon={<CheckIcon />}
+            label={t($ => $.bescheidCheck.expertExplanations)}
+            variant='outlined'
+            size='small'
+          />
           <StyledChip
             icon={<AutoAwesomeIcon />}
             label={t($ => $.common.labels.aiSupported)}
