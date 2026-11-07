@@ -8,6 +8,7 @@ import styled, { useTheme } from 'styled-components/native'
 import buildConfig from '../constants/buildConfig'
 import { isRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
+import useKeyboardHeight from '../hooks/useKeyboardHeight'
 import { elevatedStyle } from '../utils/styles'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -85,12 +86,14 @@ const TtsPlayer = ({
   const theme = useTheme()
   const { bottom } = useSafeAreaInsets()
   const { t } = useTranslation()
+  const keyboardHeight = useKeyboardHeight()
+  // There shouldn't be an additional bottom navigation height for a fixed region, for ex. aschaffenburg, as it does not have bottom tab navigation
+  const navigationOffset = buildConfig().featureFlags.fixedRegion ? 0 : dimensions.bottomNavigationHeight
+  // The keyboard covers the safe area and the tab bar, so only its height is needed while it is open
+  const insetBottom = keyboardHeight > 0 ? keyboardHeight : bottom + navigationOffset
 
   return (
-    <StyledTtsPlayer
-      // There shouldn't be an additional bottom navigation height for a fixed region, for ex. aschaffenburg, as it does not have bottom tab navigation
-      insetBottom={bottom + (buildConfig().featureFlags.fixedRegion ? 0 : dimensions.bottomNavigationHeight)}
-      accessibilityLabel={t($ => $.tts.title)}>
+    <StyledTtsPlayer insetBottom={insetBottom} accessibilityLabel={t($ => $.tts.title)}>
       <TouchableRipple
         borderless
         role='button'
