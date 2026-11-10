@@ -86,10 +86,7 @@ const PlaceDetails = ({ place, distance }: PlaceDetailsProps): ReactElement => {
 
   return (
     <Stack>
-      <Stack sx={{ paddingBlock: 1, gap: 1 }}>
-        <Typography component='h1' variant='h3'>
-          {place.title}
-        </Typography>
+      <Stack sx={{ paddingBottom: 1, gap: 1 }}>
         {distance !== null && (
           <Typography variant='body2'>{t($ => $.places.distance, { distance: distance.toFixed(1) })}</Typography>
         )}

@@ -33,6 +33,7 @@ export type MarkerConfig = {
   defaultSymbol: string
   symbolActive: string
   multiPlace: string
+  multiPlaceActive: string
   iconSize: number
   offsetY?: number
 }
@@ -102,6 +103,7 @@ export const mapMarker: MarkerConfig = {
   iconSize: 0.6,
   defaultSymbol: 'marker_55',
   multiPlace: 'multipois_#585858',
+  multiPlaceActive: 'multipois_active',
   symbolActive: 'marker_90_active',
   offsetY: -25,
 }
@@ -116,7 +118,6 @@ export const openStreetMapCopyright: OpenStreetMapCopyrightType = {
 // Shared layer ids
 export const featureLayerId = 'point'
 export const clusterLayerId = 'clusteredPoints'
-export const multiPlaceBackgroundLayerId = 'multi-place-background'
 export const multiPlaceBadgeLayerId = 'multi-place-badge-layer'
 export const multiPlaceBadgeCountId = 'multi-place-badge-count'
 

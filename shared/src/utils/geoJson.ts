@@ -23,7 +23,6 @@ export const prepareMapFeatures = (places: PlaceModel[]): MapFeature[] => {
   const multiPlaceCoordinates: [number, number][] = []
   const multiPlaces = places.reduce(
     (prev, place) => {
-      // only places with exactly the same coordinates are combined into one multi-place pin
       const multiPlaceIndex = multiPlaceCoordinates.findIndex(
         ([longitude, latitude]) =>
           longitude === place.location.coordinates[0] && latitude === place.location.coordinates[1],

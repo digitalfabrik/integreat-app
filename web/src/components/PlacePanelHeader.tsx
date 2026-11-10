@@ -7,20 +7,22 @@ import { useTranslation } from 'react-i18next'
 import { DirectionDependentBackIcon } from './base/Dialog'
 
 type PlacePanelHeaderProps = {
+  title: string | null
   goBack: (() => void) | null
 }
 
-const PlacePanelHeader = ({ goBack }: PlacePanelHeaderProps): ReactElement => {
+const PlacePanelHeader = ({ title, goBack }: PlacePanelHeaderProps): ReactElement | null => {
   const { t } = useTranslation()
   return (
-    <Stack direction='row' sx={{ justifyContent: 'space-between' }}>
-      {goBack ? (
-        <IconButton onClick={goBack} tabIndex={0} aria-label={t($ => $.common.actions.back)}>
+    <Stack sx={{ alignItems: 'flex-start', paddingBlock: 1 }}>
+      {goBack && (
+        <IconButton onClick={goBack} tabIndex={0} aria-label={t($ => $.common.actions.back)} edge='start'>
           <DirectionDependentBackIcon />
         </IconButton>
-      ) : (
-        <Typography component='h1' variant='h3' sx={{ alignContent: 'center' }}>
-          {t($ => $.userLocation.nearby)}
+      )}
+      {title && (
+        <Typography component='h1' variant='h3'>
+          {title}
         </Typography>
       )}
     </Stack>

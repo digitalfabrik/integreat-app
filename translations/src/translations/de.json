@@ -298,7 +298,7 @@
       "nothingFound": "Keine Orte gefunden."
     },
     "distance": "{{distance}} km entfernt",
-    "placesCount": {
+    "multiPlaceCount": {
       "address_two": "{{count}} Orte an dieser Adresse",
       "address_few": "{{count}} Orte an dieser Adresse",
       "address_many": "{{count}} Orte an dieser Adresse",

@@ -75,8 +75,18 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     params: { slug, multiPlace, placeCategoryId, currentlyOpen },
   })
 
+  const isNearby = !mapFeature && !slug
   const multiPlaceCount = getMultiPlaceCount(mapFeature, place)
-  const title = multiPlaceCount !== null ? t($ => $.places.placesCount.address, { count: multiPlaceCount }) : undefined
+
+  const getTitle = (): string | null => {
+    if (place) {
+      return place.title
+    }
+    if (multiPlaceCount !== null) {
+      return t($ => $.places.multiPlaceCount.address, { count: multiPlaceCount })
+    }
+    return isNearby ? t($ => $.userLocation.nearby) : null
+  }
 
   const getPlacesCount = ({ placeCategoryFilter, currentlyOpenFilter }: PlaceFilters) =>
     preparePlaces({
@@ -185,7 +195,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
         zoomRef={handleZoomInRef}
       />
       <PlacesBottomSheet
-        title={title}
+        title={getTitle() ?? undefined}
         refresh={refresh}
         places={sortPlaces(places, userLocation)}
         place={place}

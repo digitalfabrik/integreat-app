@@ -117,11 +117,11 @@ const PlacesBottomSheet = ({
       <BottomSheetHandle
         nextFocusForward={zoomInFocusTarget}
         isFullscreen={isFullscreen}
-        title={slug ? undefined : (title ?? t($ => $.userLocation.nearby))}
+        title={title}
         onPress={() => setSnapPointIndex(isFullscreen ? 1 : snapPoints.length - 1)}
       />
     ),
-    [zoomInFocusTarget, isFullscreen, slug, title, t, setSnapPointIndex, snapPoints.length],
+    [zoomInFocusTarget, isFullscreen, title, setSnapPointIndex, snapPoints.length],
   )
 
   const PlaceDetail = place ? (
