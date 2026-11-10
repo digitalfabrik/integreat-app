@@ -15,15 +15,22 @@ describe('PlacesDesktop', () => {
   const mapFeatures = prepareMapFeatures(places)
   const selectMapFeature = jest.fn()
   const selectPlace = jest.fn()
-  const deselect = jest.fn()
+  const goBack = jest.fn()
 
-  const renderPlacesDesktop = (place?: PlaceModel, mapFeature?: MapFeature, loading = false) =>
+  const renderPlacesDesktop = (
+    place?: PlaceModel,
+    title: string | null = null,
+    goBack: (() => void) | null = null,
+    mapFeature?: MapFeature,
+    loading = false,
+  ) =>
     renderWithRouterAndTheme(
       <PlacesDesktop
         data={{ places, mapFeatures, place, mapFeature, placeCategories }}
+        title={title}
+        goBack={goBack}
         selectMapFeature={selectMapFeature}
         selectPlace={selectPlace}
-        deselect={deselect}
         userLocation={userLocation}
         slug={place?.slug}
         mapViewport={{} as MapViewViewport}
@@ -34,7 +41,7 @@ describe('PlacesDesktop', () => {
     )
 
   it('should show loading skeleton on loading', () => {
-    const { queryByText, getByRole } = renderPlacesDesktop(undefined, undefined, true)
+    const { queryByText, getByRole } = renderPlacesDesktop(undefined, 'userLocation:nearby', null, undefined, true)
     expect(getByRole('list')).toBeTruthy()
 
     places.forEach(place => {
@@ -44,11 +51,15 @@ describe('PlacesDesktop', () => {
     expect(queryByText('places:distance', { exact: false })).toBeFalsy()
   })
 
-  it('should list detail information about the current feature and the place if feature and place provided', async () => {
+  it('should list detail information about the place if place provided', () => {
     const singlePlace = places[1]!
-    const { queryByText, queryByLabelText, getByText } = renderPlacesDesktop(singlePlace)
+    const { queryByText, queryByLabelText, getByText, getByRole } = renderPlacesDesktop(
+      singlePlace,
+      singlePlace.title,
+      goBack,
+    )
 
-    expect(queryByText(singlePlace.title)).toBeTruthy()
+    expect(getByRole('heading', { level: 1, name: singlePlace.title })).toBeTruthy()
     expect(queryByText(singlePlace.category.name)).toBeTruthy()
     expect(getByText('places:distance 3733.7')).toBeTruthy()
     expect(queryByText(singlePlace.location.address!)).toBeTruthy()
@@ -59,10 +70,16 @@ describe('PlacesDesktop', () => {
     expect(queryByText('common:actions.next')).toBeTruthy()
   })
 
-  it('should show back button and hide list title for selected mapFeature', () => {
-    const { queryByText, queryByLabelText } = renderPlacesDesktop(undefined, prepareMapFeature(places, 0, [0, 0]))
+  it('should show back button and multi-place title for selected mapFeature', () => {
+    const { queryByText, queryByLabelText } = renderPlacesDesktop(
+      undefined,
+      'places:multiPlaceCount.address',
+      goBack,
+      prepareMapFeature(places, 0, [0, 0]),
+    )
 
     expect(queryByLabelText('common:actions.back')).toBeTruthy()
+    expect(queryByText('places:multiPlaceCount.address')).toBeTruthy()
     expect(queryByText('userLocation:nearby')).toBeFalsy()
 
     places.forEach(place => {
@@ -70,8 +87,8 @@ describe('PlacesDesktop', () => {
     })
   })
 
-  it('should render place list if no place is provided', () => {
-    const { queryByLabelText, queryByText } = renderPlacesDesktop()
+  it('should render place list with nearby title and no back button if nothing is selected', () => {
+    const { queryByLabelText, queryByText } = renderPlacesDesktop(undefined, 'userLocation:nearby')
 
     expect(queryByLabelText('common:actions.back')).toBeFalsy()
     expect(queryByText('userLocation:nearby')).toBeTruthy()

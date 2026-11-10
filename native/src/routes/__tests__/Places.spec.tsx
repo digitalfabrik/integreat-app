@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react-native'
-import React from 'react'
+import React, { FC, ReactNode } from 'react'
 import { Text } from 'react-native'
 
 import { RegionModelBuilder, PlaceModelBuilder } from 'shared/api'
@@ -13,10 +13,15 @@ jest.mock('../../components/MapView')
 jest.mock('../../components/RemoteContent', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 jest.mock('styled-components')
 jest.mock('@react-native-community/geolocation')
-jest.mock('@gorhom/bottom-sheet', () => ({
-  __esModule: true,
-  ...require('@gorhom/bottom-sheet/mock'),
-}))
+jest.mock('@gorhom/bottom-sheet', () => {
+  const { createElement, Fragment } = jest.requireActual('react')
+  return {
+    ...jest.requireActual('@gorhom/bottom-sheet/mock'),
+    __esModule: true,
+    default: ({ handleComponent, children }: { handleComponent?: FC; children?: ReactNode }) =>
+      createElement(Fragment, null, handleComponent && createElement(handleComponent), children),
+  }
+})
 
 const resetHistory: PlaceHistory = {
   slug: undefined,
@@ -58,6 +63,24 @@ describe('Places', () => {
     )
     return { localHistory, ...renderResult }
   }
+
+  it('should show nearby title when nothing is selected', () => {
+    const { getByText } = renderPlaces()
+
+    expect(getByText('userLocation:nearby')).toBeTruthy()
+  })
+
+  it('should show place title in handle when a place is selected', () => {
+    const { getByText } = renderPlaces({ ...resetHistory, slug: place1.slug })
+
+    expect(getByText(place1.title)).toBeTruthy()
+  })
+
+  it('should show no title for an invalid slug', () => {
+    const { queryByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
+
+    expect(queryByText('userLocation:nearby')).toBeNull()
+  })
 
   it('should show place list when no selection', () => {
     const { getByText } = renderPlaces()

@@ -5,7 +5,7 @@ import { GeolocateControl } from 'maplibre-gl'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn, getMultiPlaceCount } from 'shared'
+import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn } from 'shared'
 import { PlaceModel } from 'shared/api'
 
 import useDimensions, { Dimensions } from '../hooks/useDimensions'
@@ -70,24 +70,26 @@ const PlaceContent = ({ places, place, scrollToTop, userLocation, slug }: PlaceC
 
 type PlacesMobileProps = {
   data: PreparePlacesReturn
+  title: string | null
+  goBack: (() => void) | null
   userLocation: LocationType | null
   slug: string | undefined
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
   selectMapFeature: (mapFeature: MapFeature | null) => void
-  deselect: () => void
   mapOverlay: ReactElement
   loading: boolean
 }
 
 const PlacesMobile = ({
   data,
+  title,
+  goBack,
   userLocation,
   slug,
   mapViewport,
   setMapViewport,
   selectMapFeature,
-  deselect,
   mapOverlay,
   loading,
 }: PlacesMobileProps): ReactElement => {
@@ -97,19 +99,7 @@ const PlacesMobile = ({
   const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { places, place, mapFeatures, mapFeature } = data
   const dimensions = useDimensions()
-  const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation()
-
-  const multiPlaceCount = getMultiPlaceCount(mapFeature, place)
-  const getTitle = () => {
-    if (loading) {
-      return undefined
-    }
-    if (multiPlaceCount !== null) {
-      return t($ => $.places.placesCount.address, { count: multiPlaceCount })
-    }
-    return canDeselect ? undefined : t($ => $.userLocation.nearby)
-  }
 
   const scrollToTop = () => {
     if (sheetRef.current?.scrollElement) {
@@ -152,8 +142,8 @@ const PlacesMobile = ({
         currentFeature={mapFeature ?? null}
         overlay={
           <>
-            {canDeselect && (
-              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t($ => $.common.actions.back)}>
+            {goBack && (
+              <StyledIconButton onClick={goBack} tabIndex={0} aria-label={t($ => $.common.actions.back)}>
                 <DirectionDependentBackIcon />
               </StyledIconButton>
             )}
@@ -163,7 +153,7 @@ const PlacesMobile = ({
       />
       <BottomActionSheet
         ref={sheetRef}
-        title={getTitle()}
+        title={loading ? undefined : (title ?? undefined)}
         sibling={
           <>
             <MapControlsContainer dimensions={dimensions}>

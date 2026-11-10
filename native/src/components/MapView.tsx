@@ -38,7 +38,6 @@ import {
   clusterCountLayer,
   clusterLayer,
   markerLayer,
-  multiPlaceBackgroundLayer,
   multiPlaceBadgeCountLayer,
   multiPlaceBadgeLayer,
 } from '../constants/layers'
@@ -215,9 +214,8 @@ const MapView = ({
             <Layer {...clusterLayer(theme)} />
             <Layer {...clusterCountLayer} />
             <Layer {...markerLayer(selectedFeature)} />
-            <Layer {...multiPlaceBackgroundLayer(theme)} />
-            <Layer {...multiPlaceBadgeLayer(theme)} />
-            <Layer {...multiPlaceBadgeCountLayer(theme)} />
+            <Layer {...multiPlaceBadgeLayer()} />
+            <Layer {...multiPlaceBadgeCountLayer(theme, selectedFeature)} />
           </GeoJSONSource>
           {selectedFeature && !isMultiPlace(selectedFeature) && (
             <GeoJSONSource id='selected-feature' data={embedInCollection([selectedFeature])}>

@@ -13,7 +13,6 @@ describe('PlaceDetails', () => {
     const place = places[0]!
     const { getByText } = renderWithRouterAndTheme(<PlaceDetails place={place} distance={distance} />)
 
-    expect(getByText(place.title)).toBeTruthy()
     expect(getByText(place.category.name)).toBeTruthy()
     expect(getByText(`places:distance`, { exact: false })).toBeTruthy()
     expect(getByText(place.location.address)).toBeTruthy()

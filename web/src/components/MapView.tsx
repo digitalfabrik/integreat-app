@@ -24,7 +24,6 @@ import {
   mapConfig,
   MapFeature,
   MapViewViewport,
-  multiPlaceBackgroundLayerId,
 } from 'shared'
 
 import {
@@ -32,7 +31,6 @@ import {
   clusterLayer,
   clusterProperties,
   markerLayer,
-  multiPlaceBackgroundLayer,
   multiPlaceBadgeCountLayer,
   multiPlaceBadgeLayer,
 } from '../constants/layers'
@@ -142,7 +140,7 @@ const MapView = ({
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && (event.features[0] as unknown as MapFeature)
-      if (feature && (feature.layer.id === featureLayerId || feature.layer.id === multiPlaceBackgroundLayerId)) {
+      if (feature && feature.layer.id === featureLayerId) {
         selectFeature({ ...feature, properties: { places: feature.properties.places } }, false)
       } else {
         selectFeature(null, false)
@@ -193,7 +191,7 @@ const MapView = ({
         reuseMaps
         cursor={cursor}
         initialViewState={viewport ?? undefined}
-        interactiveLayerIds={[featureLayerId, clusterLayerId, 'current', multiPlaceBackgroundLayerId]}
+        interactiveLayerIds={[featureLayerId, clusterLayerId, 'current']}
         style={{
           height: '100%',
           width: '100%',
@@ -218,10 +216,9 @@ const MapView = ({
           clusterProperties={clusterProperties}>
           <Layer {...clusterLayer(theme)} />
           <Layer {...clusterCountLayer} />
-          <Layer {...multiPlaceBackgroundLayer(theme)} />
-          <Layer {...markerLayer(null)} />
+          <Layer {...markerLayer(currentFeature)} />
           <Layer {...multiPlaceBadgeLayer(theme)} />
-          <Layer {...multiPlaceBadgeCountLayer(theme)} />
+          <Layer {...multiPlaceBadgeCountLayer(theme, currentFeature)} />
         </Source>
         {currentFeature && !isMultiPlace(currentFeature) && (
           <Source id='current-feature' type='geojson' data={embedInCollection([currentFeature])}>

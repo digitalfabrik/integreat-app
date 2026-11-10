@@ -1,11 +1,9 @@
 import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { GeolocateControl, NavigationControl } from 'react-map-gl/maplibre'
 
-import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn, getMultiPlaceCount } from 'shared'
+import { LocationType, MapViewViewport, MapFeature, PreparePlacesReturn } from 'shared'
 import { PlaceModel } from 'shared/api'
 
 import MapAttribution from './MapAttribution'
@@ -47,10 +45,9 @@ const SkeletonPanelContent = () => (
 
 type PanelContentProps = {
   listRef: React.RefObject<HTMLDivElement | null>
-  canDeselect: boolean
-  deselect: () => void
   places: PlaceModel[]
-  title?: string | null
+  title: string | null
+  goBack: (() => void) | null
   place: PlaceModel | undefined
   scrollToTop: () => void
   userLocation: LocationType | null
@@ -60,10 +57,9 @@ type PanelContentProps = {
 
 const PanelContent = ({
   listRef,
-  canDeselect,
-  deselect,
   places,
   title,
+  goBack,
   place,
   scrollToTop,
   userLocation,
@@ -72,12 +68,7 @@ const PanelContent = ({
 }: PanelContentProps): ReactElement => (
   <Stack sx={{ justifyContent: 'space-between', height: '100%' }}>
     <ListViewWrapper ref={listRef}>
-      <PlacePanelHeader goBack={canDeselect ? deselect : null} />
-      {title && (
-        <Typography component='h1' variant='subtitle1' sx={{ paddingLeft: '8px' }}>
-          {title}
-        </Typography>
-      )}
+      <PlacePanelHeader title={title} goBack={goBack} />
       <PlaceSharedChildren
         places={places}
         place={place}
@@ -92,9 +83,10 @@ const PanelContent = ({
 
 type PlacesDesktopProps = {
   data: PreparePlacesReturn
+  title: string | null
+  goBack: (() => void) | null
   selectMapFeature: (mapFeature: MapFeature | null) => void
   selectPlace: (place: PlaceModel) => void
-  deselect: () => void
   userLocation: LocationType | null
   slug: string | undefined
   mapViewport?: MapViewViewport
@@ -115,10 +107,11 @@ const nextPlaceIndex = (step: 1 | -1, arrayLength: number, currentIndex: number)
 
 const PlacesDesktop = ({
   data,
+  title,
+  goBack,
   userLocation,
   selectMapFeature,
   selectPlace,
-  deselect,
   slug,
   mapViewport,
   setMapViewport,
@@ -128,12 +121,7 @@ const PlacesDesktop = ({
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
   const { places, place, mapFeatures, mapFeature } = data
-  const canDeselect = !!mapFeature || !!slug
   const { contentDirection } = useTheme()
-  const { t } = useTranslation()
-
-  const multiPlaceCount = getMultiPlaceCount(mapFeature, place)
-  const title = multiPlaceCount !== null ? t($ => $.places.placesCount.address, { count: multiPlaceCount }) : undefined
 
   const scrollToTop = () => {
     if (listRef.current) {
@@ -162,9 +150,8 @@ const PlacesDesktop = ({
         ) : (
           <PanelContent
             listRef={listRef}
-            title={title}
-            canDeselect={canDeselect}
-            deselect={deselect}
+            title={title ?? null}
+            goBack={goBack}
             places={places}
             place={place}
             scrollToTop={scrollToTop}
