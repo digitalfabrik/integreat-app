@@ -81,6 +81,7 @@ class InternalPathnameParser {
           regionCode: fixedRegion,
           languageCode: this.languageCode(),
           regionContentPath,
+          chat: parseQueryParams(this._queryParams).chat,
         }
       }
     } else if (this._length > 0 && this._length <= 2 && !this.isRegionsRoute()) {
@@ -92,6 +93,7 @@ class InternalPathnameParser {
         regionCode,
         languageCode: this.languageCode(),
         regionContentPath,
+        chat: parseQueryParams(this._queryParams).chat,
       }
     }
 
@@ -196,6 +198,7 @@ class InternalPathnameParser {
         regionCode: this._parts[0]!,
         languageCode: this._parts[1]!,
         regionContentPath: `/${this._parts.join('/')}`,
+        chat: parseQueryParams(this._queryParams).chat,
       }
     }
 

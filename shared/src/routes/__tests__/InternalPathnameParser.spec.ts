@@ -10,7 +10,13 @@ import {
   LEGACY_REGIONS_ROUTE,
   LEGACY_PLACES_ROUTE,
 } from '../index.ts'
-import { MULTI_PLACE_QUERY_KEY, PLACE_CATEGORY_QUERY_KEY, SEARCH_QUERY_KEY, ZOOM_QUERY_KEY } from '../query.ts'
+import {
+  CHAT_QUERY_KEY,
+  MULTI_PLACE_QUERY_KEY,
+  PLACE_CATEGORY_QUERY_KEY,
+  SEARCH_QUERY_KEY,
+  ZOOM_QUERY_KEY,
+} from '../query.ts'
 
 const regionCode = 'bochum'
 const languageCode = 'de'
@@ -236,6 +242,31 @@ describe('InternalPathnameParser', () => {
       languageCode,
       regionCode,
       regionContentPath: pathname2,
+    })
+  })
+
+  it('should match chat query on dashboard route', () => {
+    const query = `?${CHAT_QUERY_KEY}=true`
+    const parser = new InternalPathnameParser(`/${regionCode}/${languageCode}`, languageCode, null, query)
+    expect(parser.route()).toEqual({
+      route: CATEGORIES_ROUTE,
+      languageCode,
+      regionCode,
+      regionContentPath: `/${regionCode}/${languageCode}`,
+      chat: true,
+    })
+  })
+
+  it('should match chat query on categories route', () => {
+    const pathname = `/${regionCode}/${languageCode}/some-category`
+    const query = `?${CHAT_QUERY_KEY}=true`
+    const parser = new InternalPathnameParser(pathname, languageCode, null, query)
+    expect(parser.route()).toEqual({
+      route: CATEGORIES_ROUTE,
+      languageCode,
+      regionCode,
+      regionContentPath: pathname,
+      chat: true,
     })
   })
 

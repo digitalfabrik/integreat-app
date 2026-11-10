@@ -1,0 +1,6 @@
+issue_key: 4524
+show_in_stores: false
+platforms:
+  - android
+  - ios
+en: Links to the chat now open the chat directly in the app.

@@ -5,6 +5,7 @@ import {
   BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
+  CHAT_ROUTE,
   SUGGEST_TO_REGION_ROUTE,
   EXTERNAL_SOURCES_ROUTE,
   IMPRINT_ROUTE,
@@ -86,6 +87,9 @@ const navigate = <T extends RoutesType>({
   switch (routeInformation.route) {
     case CATEGORIES_ROUTE:
       navigateNested(navigation, CATEGORIES_ROUTE, { path: routeInformation.regionContentPath }, redirect)
+      if (routeInformation.chat) {
+        navigation.navigate(CHAT_ROUTE)
+      }
       return
 
     case EVENTS_ROUTE:
