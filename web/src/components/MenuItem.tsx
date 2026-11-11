@@ -1,6 +1,6 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import MuiMenuItem from '@mui/material/MenuItem'
+import MuiMenuItem, { menuItemClasses } from '@mui/material/MenuItem'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
 import { styled, useTheme } from '@mui/material/styles'
@@ -10,9 +10,9 @@ import { NEW_TAB, NEW_TAB_FEATURES } from '../utils/openLink'
 
 const StyledMenuItem = styled(MuiMenuItem)({
   minHeight: 0,
-  height: '24px',
+  height: '16px',
 
-  '&.Mui-focusVisible': {
+  [`&.${menuItemClasses.focusVisible}`]: {
     outline: `2px solid`,
   },
 }) as typeof MuiMenuItem

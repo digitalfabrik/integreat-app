@@ -17,18 +17,7 @@ export const HeaderContainer = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.background.accent,
   // Containing block for the header menu, outside the scrolling row
   position: 'relative',
-  boxShadow: 'none',
-
-  // Shadow on a separate layer so its clip-path doesn't clip header content like the menu
-  // Hides the top elevation shadow when overscrolling
-  '&::after': {
-    content: '""',
-    position: 'absolute',
-    inset: 0,
-    boxShadow: theme.shadows[2],
-    clipPath: 'inset(0 0 -16px 0)',
-    pointerEvents: 'none',
-  },
+  boxShadow: theme.shadows[2],
 }))
 
 const HeaderComponent = styled('header')`

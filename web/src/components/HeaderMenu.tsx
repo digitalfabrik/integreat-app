@@ -13,7 +13,7 @@ import MenuList from '@mui/material/MenuList'
 import Paper from '@mui/material/Paper'
 import Popper from '@mui/material/Popper'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, RefObject, useImperativeHandle } from 'react'
+import React, { ReactElement, RefObject, useEffect, useImperativeHandle } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
@@ -58,6 +58,23 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const { mobile } = useDimensions()
   const { t } = useTranslation()
 
+  // fixes staying open during scrolling
+  useEffect(() => {
+    if (!open) {
+      return undefined
+    }
+    const onScroll = () => {
+      const active = document.activeElement
+      if (active && paperRef.current?.contains(active)) {
+        anchorRef.current?.focus({ preventScroll: true })
+      }
+      setOpen(false)
+    }
+
+    document.addEventListener('scroll', onScroll, { capture: true, passive: true })
+    return () => document.removeEventListener('scroll', onScroll, { capture: true })
+  }, [open])
+
   const toggleMenu = () => setOpen(previous => !previous)
 
   const closeMenu = () => {
@@ -81,12 +98,13 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
     if (event.key === 'Escape') {
       event.preventDefault()
       closeMenu()
+      return
     }
-  }
 
-  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-    const next = event.relatedTarget as Node | null
-    if (next && !event.currentTarget.contains(next) && !anchorRef.current?.contains(next)) {
+    if (event.key === 'Tab') {
+      if (event.shiftKey) {
+        event.preventDefault()
+      }
       setOpen(false)
     }
   }
@@ -158,17 +176,16 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
       <Popper
         open={open}
         anchorEl={anchorRef.current}
-        placement='bottom-end'
+        placement='bottom-start'
         transition
-        disablePortal
+        popperOptions={{ strategy: 'fixed' }}
         sx={{ zIndex: theme => theme.zIndex.appBar + 1 }}>
-        {/* eslint-disable-next-line @typescript-eslint/naming-convention */}
-        {({ TransitionProps }) => (
+        {({ TransitionProps: transitionProps }) => (
           <Grow
-            {...TransitionProps}
+            {...transitionProps}
             // Let the tour measure the menu once it is opened and positioned
             onEntered={() => window.dispatchEvent(new Event('resize'))}>
-            <MenuPaper ref={paperRef} id={HEADER_MENU_PANEL_ELEMENT_ID} elevation={8} onBlur={handleBlur}>
+            <MenuPaper ref={paperRef} id={HEADER_MENU_PANEL_ELEMENT_ID} elevation={8}>
               <ClickAwayListener onClickAway={handleClickAway}>
                 <MenuList id='header-menu' autoFocusItem={open} disabledItemsFocusable onKeyDown={handleKeyDown}>
                   {withDividers([
