@@ -15,8 +15,9 @@ const HEADER_HEIGHT = 80
 
 export const HeaderContainer = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.background.accent,
-  // Hide the top elevation shadow when overscrolling
-  clipPath: 'inset(0 0 -16px 0)',
+  // Containing block for the header menu, outside the scrolling row
+  position: 'relative',
+  boxShadow: theme.shadows[2],
 }))
 
 const HeaderComponent = styled('header')`

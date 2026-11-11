@@ -1,6 +1,6 @@
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import MuiMenuItem from '@mui/material/MenuItem'
+import MuiMenuItem, { menuItemClasses } from '@mui/material/MenuItem'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
 import { styled, useTheme } from '@mui/material/styles'
@@ -10,6 +10,11 @@ import { NEW_TAB, NEW_TAB_FEATURES } from '../utils/openLink'
 
 const StyledMenuItem = styled(MuiMenuItem)({
   minHeight: 0,
+  height: '16px',
+
+  [`&.${menuItemClasses.focusVisible}`]: {
+    outline: `2px solid`,
+  },
 }) as typeof MuiMenuItem
 
 const TooltipContent = styled(Stack)({
@@ -37,6 +42,7 @@ const MenuItem = ({
   ...otherProps
 }: MenuListItemProps): ReactElement => {
   const { contentDirection } = useTheme()
+  const isLink = !!to && !disabled
 
   const handleClick = () => {
     closeMenu?.()
@@ -59,10 +65,8 @@ const MenuItem = ({
       // can't access property "tagName", button is null
       // Also, this breaks html semantics but there is currently no better workaround to achieve keyboard a11y
       // https://github.com/mui/material-ui/issues/33268
-      component={onClick || disabled ? MuiMenuItem : 'a'}
-      target={NEW_TAB}
-      rel={NEW_TAB_FEATURES}
-      href={to}
+      component={isLink ? 'a' : 'li'}
+      {...(isLink ? { href: to, target: NEW_TAB, rel: NEW_TAB_FEATURES } : {})}
       onClick={disabled ? undefined : handleClick}
       disabled={disabled}
       dir={contentDirection}
