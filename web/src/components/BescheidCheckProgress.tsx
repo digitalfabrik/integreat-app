@@ -12,9 +12,10 @@ import { styled } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { ANALYSIS_STEPS, BescheidCheckProgressStatus } from 'shared'
 import { BescheidCheckAnalysisError, fromError } from 'shared/api'
 
-import { ANALYSIS_STEPS, BescheidCheckProgressStatus, MAX_PROGRESS } from '../constants/bescheidCheck'
+import { MAX_PROGRESS } from '../constants/bescheidCheck'
 import { getErrorMessage } from './FailureSwitcher'
 import { DirectionDependentForwardIcon } from './base/DirectionDependentIcons'
 
@@ -37,7 +38,7 @@ type BescheidCheckProgressProps = {
   status: BescheidCheckProgressStatus
   error: Error | null
   retry: () => void
-  showResults: () => void
+  showResult: () => void
   startNewAnalysis: () => void
 }
 
@@ -45,7 +46,7 @@ const BescheidCheckProgress = ({
   status,
   error,
   retry,
-  showResults,
+  showResult,
   startNewAnalysis,
 }: BescheidCheckProgressProps): ReactElement => {
   const { t } = useTranslation()
@@ -103,12 +104,8 @@ const BescheidCheckProgress = ({
           <Button variant='outlined' startIcon={<RefreshIcon />} onClick={startNewAnalysis} sx={{ flex: 1 }}>
             {t($ => $.bescheidCheck.progress.startNewAnalysis)}
           </Button>
-          <Button
-            variant='contained'
-            endIcon={<DirectionDependentForwardIcon />}
-            onClick={showResults}
-            sx={{ flex: 1 }}>
-            {t($ => $.bescheidCheck.progress.showResults)}
+          <Button variant='contained' endIcon={<DirectionDependentForwardIcon />} onClick={showResult} sx={{ flex: 1 }}>
+            {t($ => $.bescheidCheck.progress.showResult)}
           </Button>
         </Stack>
       )}

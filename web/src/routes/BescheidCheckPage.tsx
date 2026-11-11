@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
 import {
+  BESCHEID_CHECK_FALLBACK_REGION_CODE,
+  BescheidCheckProgressStatus,
   bescheidCheckName,
   parseQueryParams,
   pathnameFromRouteInformation,
@@ -19,13 +21,12 @@ import { analyzeBescheid } from 'shared/api'
 import BackButton from '../components/BackButton'
 import BescheidCheckFileSelection from '../components/BescheidCheckFileSelection'
 import BescheidCheckProgress from '../components/BescheidCheckProgress'
-import BescheidCheckResults from '../components/BescheidCheckResults'
+import BescheidCheckResult from '../components/BescheidCheckResult'
 import { SelectedFile } from '../components/FileSelection'
 import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import H1 from '../components/base/H1'
-import { ANALYSIS_TIMEOUT, BescheidCheckProgressStatus } from '../constants/bescheidCheck'
 import { bescheidEndpointBaseUrl } from '../constants/urls'
 import useDimensions from '../hooks/useDimensions'
 import { captureError } from '../utils/sentry'
@@ -51,7 +52,7 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const [status, setStatus] = useState<BescheidCheckProgressStatus | null>(null)
   const [analysisError, setAnalysisError] = useState<Error | null>(null)
-  const [showResults, setShowResults] = useState(false)
+  const [showResult, setShowResult] = useState(false)
   const { t } = useTranslation()
   const { mobile } = useDimensions()
 
@@ -66,10 +67,9 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
       await analyzeBescheid({
         baseUrl: bescheidEndpointBaseUrl,
         languageCode,
-        regionCode,
+        regionCode: regionCode ?? BESCHEID_CHECK_FALLBACK_REGION_CODE,
         files: files.map(({ file }) => file),
         onStage: setStatus,
-        signal: AbortSignal.timeout(ANALYSIS_TIMEOUT),
       })
       setStatus('done')
     } catch (error) {
@@ -82,7 +82,7 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
     files.forEach(({ url }) => URL.revokeObjectURL(url))
     setFiles([])
     setStatus(null)
-    setShowResults(false)
+    setShowResult(false)
   }
 
   return (
@@ -116,16 +116,16 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
           submit={submit}
         />
       )}
-      {status !== null && !showResults && (
+      {status !== null && !showResult && (
         <BescheidCheckProgress
           status={status}
           error={analysisError}
           retry={submit}
-          showResults={() => setShowResults(true)}
+          showResult={() => setShowResult(true)}
           startNewAnalysis={startNewAnalysis}
         />
       )}
-      {showResults && <BescheidCheckResults />}
+      {showResult && <BescheidCheckResult />}
     </Layout>
   )
 }

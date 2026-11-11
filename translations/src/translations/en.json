@@ -53,16 +53,16 @@
         "uploading": "Uploading document",
         "scanning": "Reading document",
         "translating": "Translating document",
-        "evaluating": "Evaluating document",
+        "evaluating": "Analyzing document",
         "preparing": "Preparing answer",
         "done": "Analysis completed"
       },
-      "showResults": "Show results",
+      "showResult": "Show result",
       "startNewAnalysis": "Start new analysis",
       "failed": "Your Bescheid could not be analyzed. Please try again."
     },
-    "results": {
-      "title": "We have evaluated your Bescheid"
+    "result": {
+      "title": "We have analyzed your Bescheid"
     }
   },
   "categories": {

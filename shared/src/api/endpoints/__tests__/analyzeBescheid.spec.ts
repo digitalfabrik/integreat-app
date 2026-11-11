@@ -23,21 +23,43 @@ describe('analyzeBescheid', () => {
   const file = new File(['content'], 'page1.pdf')
   const onStage = jest.fn()
   const params = { baseUrl, languageCode: 'ar', regionCode: 'muenchen', files: [file], onStage }
+  const result = {
+    status: 'success',
+    classification: { type: 'ablehnung-einfach', confidence: 0.9, reason: 'Rejected application' },
+    explanation: { title: 'Ablehnung', content: '<p>Explanation</p>', url: 'https://example.com/ablehnung' },
+    counseling: {
+      question: 'Where can I find General migration counseling?',
+      question_language: 'en',
+      counseling_name: 'General migration counseling',
+      bescheid_type: 'ablehnung-einfach',
+      region: 'muenchen',
+    },
+    pages: [{ page_no: 1, original_html: '<p>Bescheid</p>', translated_html: '<p>Decision</p>', paragraphs: [] }],
+  }
 
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('should post the files and report the stages until the result', async () => {
+  it('should post the files, report the stages and return the result', async () => {
     mockResponse([
       event('stage', { stage: 'ocr', index: 1, status: 'started' }),
       event('stage', { stage: 'translate', index: 2, status: 'started' }),
       event('stage', { stage: 'classify', index: 3, status: 'started' }),
       event('stage', { stage: 'extraction', index: 4, status: 'started' }),
-      event('result', { status: 'success' }),
+      event('result', result),
     ])
 
-    await analyzeBescheid(params)
+    expect(await analyzeBescheid(params)).toEqual({
+      classification: { type: 'ablehnung-einfach', confidence: 0.9, reason: 'Rejected application' },
+      explanation: { title: 'Ablehnung', content: '<p>Explanation</p>', url: 'https://example.com/ablehnung' },
+      counseling: {
+        question: 'Where can I find General migration counseling?',
+        counselingName: 'General migration counseling',
+        region: 'muenchen',
+      },
+      pages: [{ pageNumber: 1, originalHtml: '<p>Bescheid</p>', translatedHtml: '<p>Decision</p>' }],
+    })
 
     const formData = new FormData()
     formData.append('files', file)
@@ -45,7 +67,7 @@ describe('analyzeBescheid', () => {
     expect(fetch).toHaveBeenCalledWith(`${baseUrl}/bescheidcheck/analyze/ar/`, {
       method: 'POST',
       body: formData,
-      signal: undefined,
+      signal: expect.any(AbortSignal),
     })
     expect(onStage.mock.calls).toEqual([['scanning'], ['translating'], ['evaluating'], ['preparing']])
   })
@@ -53,7 +75,7 @@ describe('analyzeBescheid', () => {
   it('should send files with the same name under different names', async () => {
     const append = jest.spyOn(FormData.prototype, 'append')
     const photos = [new File(['photo 1'], 'image.jpg'), new File(['photo 2'], 'image.jpg')]
-    mockResponse([event('result', {})])
+    mockResponse([event('result', result)])
 
     await analyzeBescheid({ ...params, files: photos })
 
