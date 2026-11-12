@@ -20,9 +20,6 @@ const dirname = pathDirname(fileURLToPath(import.meta.url))
 const MiB = 2 ** 20
 const MAX_BUNDLE_SIZE = 2.1 * MiB
 
-// Requests to the Bescheid endpoint are proxied in development since it doesn't allow cross origin requests yet
-const BESCHEID_ENDPOINT_URL = 'https://igchat-test.tuerantuer.org'
-
 type ViteMode = 'development' | 'production'
 
 export default defineConfig(async configEnv => {
@@ -82,7 +79,6 @@ export default defineConfig(async configEnv => {
       __COMMIT_SHA__: JSON.stringify(shortCommitSha),
       __BUILD_CONFIG_NAME__: JSON.stringify(buildConfigName),
       __BUILD_CONFIG__: JSON.stringify(buildConfig),
-      __BESCHEID_ENDPOINT_URL__: JSON.stringify(mode === 'development' ? '' : BESCHEID_ENDPOINT_URL),
     },
     optimizeDeps: {
       exclude: ['maplibre-gl'],
@@ -94,10 +90,6 @@ export default defineConfig(async configEnv => {
     server: {
       port: 9001,
       host: true,
-      proxy: {
-        '/bescheidcheck/analyze': { target: BESCHEID_ENDPOINT_URL, changeOrigin: true },
-        '/chatanswers/extract_answer': { target: BESCHEID_ENDPOINT_URL, changeOrigin: true },
-      },
     },
   } satisfies UserConfig
 })

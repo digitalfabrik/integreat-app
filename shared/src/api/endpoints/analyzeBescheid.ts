@@ -1,4 +1,4 @@
-import { ANALYSIS_STAGES } from '../../constants/bescheidCheck.ts'
+import { ANALYSIS_STAGES, BESCHEID_ENDPOINT_URL } from '../../constants/bescheidCheck.ts'
 import FetchError from '../errors/FetchError.ts'
 import ResponseError from '../errors/ResponseError.ts'
 import readServerEvents from '../readServerEvents.ts'
@@ -40,7 +40,6 @@ const mapResult = ({
 })
 
 type AnalyzeBescheidParams = {
-  baseUrl: string
   languageCode: string
   regionCode: string
   files: File[]
@@ -48,13 +47,12 @@ type AnalyzeBescheidParams = {
 }
 
 const analyzeBescheid = async ({
-  baseUrl,
   languageCode,
   regionCode,
   files,
   onStage,
 }: AnalyzeBescheidParams): Promise<BescheidCheckResult> => {
-  const url = `${baseUrl}/bescheidcheck/analyze/${languageCode}/`
+  const url = `${BESCHEID_ENDPOINT_URL}/bescheidcheck/analyze/${languageCode}/`
   const body = new FormData()
   // The backend rejects files with the same name, e.g. image.jpg for every photo of the iOS camera
   files.forEach((file, index) => body.append('files', file, `${index + 1}-${file.name}`))

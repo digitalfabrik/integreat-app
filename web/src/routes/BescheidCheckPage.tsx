@@ -27,7 +27,6 @@ import Footer from '../components/Footer'
 import GeneralHeader from '../components/GeneralHeader'
 import Layout from '../components/Layout'
 import H1 from '../components/base/H1'
-import { bescheidEndpointBaseUrl } from '../constants/urls'
 import useDimensions from '../hooks/useDimensions'
 import { captureError } from '../utils/sentry'
 
@@ -65,7 +64,6 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
     setAnalysisError(null)
     try {
       await analyzeBescheid({
-        baseUrl: bescheidEndpointBaseUrl,
         languageCode,
         regionCode: regionCode ?? BESCHEID_CHECK_ROUTE,
         files: files.map(({ file }) => file),

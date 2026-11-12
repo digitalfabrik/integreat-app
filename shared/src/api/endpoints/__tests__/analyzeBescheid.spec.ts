@@ -1,6 +1,7 @@
 /**
  * @jest-environment node
  */
+import { BESCHEID_ENDPOINT_URL } from '../../../constants/bescheidCheck.ts'
 import FetchError from '../../errors/FetchError.ts'
 import ResponseError from '../../errors/ResponseError.ts'
 import analyzeBescheid, { BescheidCheckAnalysisError } from '../analyzeBescheid.ts'
@@ -19,10 +20,9 @@ const mockResponse = (chunks: string[], status = 200) => {
 }
 
 describe('analyzeBescheid', () => {
-  const baseUrl = 'https://example.com'
   const file = new File(['content'], 'page1.pdf')
   const onStage = jest.fn()
-  const params = { baseUrl, languageCode: 'ar', regionCode: 'muenchen', files: [file], onStage }
+  const params = { languageCode: 'ar', regionCode: 'muenchen', files: [file], onStage }
   const result = {
     status: 'success',
     classification: { type: 'ablehnung-einfach', confidence: 0.9, reason: 'Rejected application' },
@@ -64,7 +64,7 @@ describe('analyzeBescheid', () => {
     const formData = new FormData()
     formData.append('files', file)
     formData.append('region', 'muenchen')
-    expect(fetch).toHaveBeenCalledWith(`${baseUrl}/bescheidcheck/analyze/ar/`, {
+    expect(fetch).toHaveBeenCalledWith(`${BESCHEID_ENDPOINT_URL}/bescheidcheck/analyze/ar/`, {
       method: 'POST',
       body: formData,
       signal: expect.any(AbortSignal),

@@ -44,7 +44,6 @@ const config: JestConfigWithTsJest = {
     // __BUILD_CONFIG__ is set in jest.setup.ts because importing the (ESM-only) build-configs package here would break ts-node.
     __VERSION_NAME__: '0.0.0',
     __COMMIT_SHA__: 123456789,
-    __BESCHEID_ENDPOINT_URL__: 'https://igchat-test.tuerantuer.org',
   },
 }
 

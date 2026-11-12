@@ -1,3 +1,5 @@
+export const BESCHEID_ENDPOINT_URL = 'https://igchat-test.tuerantuer.org'
+
 export const ANALYSIS_STAGES = {
   ocr: 'scanning',
   translate: 'translating',
