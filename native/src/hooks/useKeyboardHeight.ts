@@ -5,12 +5,8 @@ const useKeyboardHeight = (): number => {
   const [keyboardHeight, setKeyboardHeight] = useState(0)
 
   useEffect(() => {
-    const onKeyboardWillShow = (e: KeyboardEvent) => {
-      setKeyboardHeight(e.endCoordinates.height)
-    }
-    const onKeyboardWillHide = () => {
-      setKeyboardHeight(0)
-    }
+    const onKeyboardWillShow = (event: KeyboardEvent) => setKeyboardHeight(event.endCoordinates.height)
+    const onKeyboardWillHide = () => setKeyboardHeight(0)
 
     const showSubscription = Keyboard.addListener('keyboardWillShow', onKeyboardWillShow)
     const hideSubscription = Keyboard.addListener('keyboardWillHide', onKeyboardWillHide)
