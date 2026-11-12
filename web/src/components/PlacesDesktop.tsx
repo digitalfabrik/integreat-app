@@ -46,7 +46,7 @@ const SkeletonPanelContent = () => (
 type PanelContentProps = {
   listRef: React.RefObject<HTMLDivElement | null>
   places: PlaceModel[]
-  title: string | null
+  title: string
   goBack: (() => void) | null
   place: PlaceModel | undefined
   scrollToTop: () => void
@@ -83,7 +83,7 @@ const PanelContent = ({
 
 type PlacesDesktopProps = {
   data: PreparePlacesReturn
-  title: string | null
+  title: string
   goBack: (() => void) | null
   selectMapFeature: (mapFeature: MapFeature | null) => void
   selectPlace: (place: PlaceModel) => void
@@ -150,7 +150,7 @@ const PlacesDesktop = ({
         ) : (
           <PanelContent
             listRef={listRef}
-            title={title ?? null}
+            title={title}
             goBack={goBack}
             places={places}
             place={place}

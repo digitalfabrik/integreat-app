@@ -96,23 +96,17 @@ const Places = ({ places: allPlaces, userLocation, region, loading }: PlaceProps
     }
   }
 
-  const isNearby = !mapFeature && !slug
   const multiPlaceCount = getMultiPlaceCount(mapFeature, place)
-
-  const getTitle = (): string | null => {
-    if (place) {
-      return place.title
-    }
-    if (multiPlaceCount !== null) {
-      return t($ => $.places.multiPlaceCount.address, { count: multiPlaceCount })
-    }
-    return isNearby ? t($ => $.userLocation.nearby) : null
-  }
+  const title =
+    place?.title ??
+    (multiPlaceCount !== null
+      ? t($ => $.places.multiPlaceCount.address, { count: multiPlaceCount })
+      : t($ => $.userLocation.nearby))
 
   const sharedPlaceProps = {
     data: preparedData,
-    title: getTitle(),
-    goBack: isNearby ? null : deselect,
+    title,
+    goBack: slug || mapFeature ? deselect : null,
     selectMapFeature,
     selectPlace,
     deselect,
