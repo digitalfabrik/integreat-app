@@ -61,6 +61,33 @@
       "startNewAnalysis": "Neue Analyse starten",
       "failed": "Dein Bescheid konnte nicht analysiert werden. Bitte versuche es erneut."
     },
+    "counselingProfile": {
+      "title": "Optionale Angaben für Beratungsstellen",
+      "description": "Diese Angaben helfen uns, dir später passende Beratungsstellen anzuzeigen. Alle Fragen sind freiwillig.",
+      "privacy": "<strong>Datenschutz:</strong> Deine Angaben werden nur auf deinem Gerät verarbeitet. Wir speichern sie nicht und geben sie nicht weiter.",
+      "placeholder": "Bitte auswählen",
+      "hint": "Du kannst diese Angaben auch später noch machen.",
+      "submit": "Übernehmen",
+      "residenceStatus": {
+        "label": "Aufenthaltsstatus",
+        "options": {
+          "noResidenceTitle": "Keine Papiere / Aufenthaltsgestattung / Duldung",
+          "residenceTitle": "Aufenthaltserlaubnis / Niederlassungserlaubnis",
+          "germanCitizenship": "Deutsche Staatsangehörigkeit"
+        }
+      },
+      "age": {
+        "label": "Alter",
+        "options": {
+          "under18": "Unter 18",
+          "from18To25": "18-25",
+          "from26": "26 und älter"
+        }
+      },
+      "region": {
+        "label": "Standort"
+      }
+    },
     "result": {
       "title": "Wir haben deinen Bescheid analysiert"
     }
