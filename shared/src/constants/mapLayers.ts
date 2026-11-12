@@ -11,12 +11,14 @@ type CircleMapLayer = Omit<CircleLayerSpecification, 'source'>
 type SymbolMapLayer = Omit<SymbolLayerSpecification, 'source'>
 type MapLayer = CircleMapLayer | SymbolMapLayer
 
+type ClusterProperty = [ExpressionSpecification, ExpressionSpecification]
+
 type MapSource = {
   id: string
   data: MapFeatureCollection
   cluster?: boolean
   clusterRadius?: number
-  clusterProperties?: Record<string, ExpressionSpecification>
+  clusterProperties?: Record<string, ClusterProperty>
   layers: MapLayer[]
 }
 
@@ -73,8 +75,12 @@ const multiPlaceFilter: FilterSpecification = [
 
 const clusterRadius = 50
 // Sums up the number of places of all features in a cluster, used by the cluster count layer
-const clusterProperties: Record<string, ExpressionSpecification> = {
-  sum: ['+', ['length', ['get', 'places']]],
+// The reduce expression must not be a plain operator like '+', as iOS treats it as a string literal
+const clusterProperties: Record<string, ClusterProperty> = {
+  sum: [
+    ['+', ['accumulated'], ['get', 'sum']],
+    ['length', ['get', 'places']],
+  ],
 }
 
 const clusterLayer = (color: string): CircleMapLayer => ({
