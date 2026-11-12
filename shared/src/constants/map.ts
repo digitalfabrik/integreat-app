@@ -29,15 +29,6 @@ export type GeoJsonPlaceProperties = {
   places: GeoJsonPlace[]
 }
 
-export type MarkerConfig = {
-  defaultSymbol: string
-  symbolActive: string
-  multiPlace: string
-  multiPlaceActive: string
-  iconSize: number
-  offsetY?: number
-}
-
 type OpenStreetMapCopyrightType = {
   label: string
   icon: string
@@ -73,6 +64,10 @@ export type MapFeature = Feature<Point, GeoJsonPlaceProperties> & {
   }
 }
 export type MapFeatureCollection = FeatureCollection<Point, GeoJsonPlaceProperties>
+export const embedInCollection = (features: MapFeature[]): MapFeatureCollection => ({
+  type: 'FeatureCollection',
+  features,
+})
 export const isMultiPlace = (placeFeature: MapFeature): boolean => placeFeature.properties.places.length > 1
 
 export const mapConfig: MapConfigProps = {
@@ -96,17 +91,7 @@ export const clusterClickZoomFactor = 2
 export const normalDetailZoom = 15
 export const closerDetailZoom = 18
 export const maxMapZoom = 21
-export const clusterRadius = 50
 export const animationDuration = 2000
-
-export const mapMarker: MarkerConfig = {
-  iconSize: 0.6,
-  defaultSymbol: 'marker_55',
-  multiPlace: 'multipois_#585858',
-  multiPlaceActive: 'multipois_active',
-  symbolActive: 'marker_90_active',
-  offsetY: -25,
-}
 
 export const openStreetMapCopyright: OpenStreetMapCopyrightType = {
   url: 'https://www.openstreetmap.org/copyright',
@@ -114,23 +99,6 @@ export const openStreetMapCopyright: OpenStreetMapCopyrightType = {
   linkText: 'OpenStreetMap',
   label: 'contributors',
 }
-
-// Shared layer ids
-export const featureLayerId = 'point'
-export const clusterLayerId = 'clusteredPoints'
-export const multiPlaceBadgeLayerId = 'multi-place-badge-layer'
-export const multiPlaceBadgeCountId = 'multi-place-badge-count'
-
-// Shared layer properties
-export const textOffsetY = 1.5
-export const groupCount = 50
-export const circleRadiusSmall = 20
-export const circleRadiusLarge = 30
-export const fontSizeSmall = 12
-export const fontSizeLarge = 16
-export const multiPlaceBackgroundRadius = 16
-export const multiPlaceBadgeRadius = 8
-export const multiPlaceBadgeOffset: [number, number] = [multiPlaceBadgeRadius, -multiPlaceBackgroundRadius]
 
 // The opening hours loaded from the cms are ordered according to the german weekday order
 export const weekdays = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag'] as const

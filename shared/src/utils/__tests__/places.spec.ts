@@ -2,7 +2,7 @@ import { Settings } from 'luxon'
 
 import PlaceModelBuilder from '../../api/endpoints/testing/PlaceModelBuilder.ts'
 import { LocationType } from '../../constants/map.ts'
-import { prepareMapFeatures } from '../geoJson.ts'
+import { prepareMapFeatures } from '../map.ts'
 import { preparePlaces, sortPlaces } from '../places.ts'
 
 const places = new PlaceModelBuilder(4).build()

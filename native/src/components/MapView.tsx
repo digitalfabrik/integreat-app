@@ -22,25 +22,17 @@ import {
   animationDuration,
   clusterClickZoomFactor,
   clusterLayerId,
-  clusterRadius,
   defaultViewportConfig,
-  embedInCollection,
-  featureLayerId,
+  isMultiPlace,
   LocationStateType,
   LocationType,
   mapConfig,
   MapFeature,
+  mapSources,
   normalDetailZoom,
-  isMultiPlace,
+  featureLayerIds,
 } from 'shared'
 
-import {
-  clusterCountLayer,
-  clusterLayer,
-  markerLayer,
-  multiPlaceBadgeCountLayer,
-  multiPlaceBadgeLayer,
-} from '../constants/layers'
 import usePreviousProp from '../hooks/usePreviousProp'
 import { conditionalA11yProps } from '../utils/helpers'
 import MapZoomControls from './MapZoomControls'
@@ -181,7 +173,7 @@ const MapView = ({
     }
     const pressedCoordinates = event.nativeEvent.point
     const featureCollection = await mapRef.current.queryRenderedFeatures(pressedCoordinates, {
-      layers: [featureLayerId, 'selected-marker'],
+      layers: featureLayerIds,
     })
 
     const feature = featureCollection.find((it): it is MapFeature => it.geometry.type === 'Point')
@@ -206,22 +198,13 @@ const MapView = ({
           attribution={false}
           logo={false}>
           {userLocation && <NativeUserLocation />}
-          <GeoJSONSource
-            id='location-places'
-            data={embedInCollection(features.filter(feature => feature !== selectedFeature || isMultiPlace(feature)))}
-            cluster
-            clusterRadius={clusterRadius}>
-            <Layer {...clusterLayer(theme)} />
-            <Layer {...clusterCountLayer} />
-            <Layer {...markerLayer(selectedFeature)} />
-            <Layer {...multiPlaceBadgeLayer()} />
-            <Layer {...multiPlaceBadgeCountLayer(theme, selectedFeature)} />
-          </GeoJSONSource>
-          {selectedFeature && !isMultiPlace(selectedFeature) && (
-            <GeoJSONSource id='selected-feature' data={embedInCollection([selectedFeature])}>
-              <Layer {...markerLayer(selectedFeature)} id='selected-marker' />
+          {mapSources(features, selectedFeature, theme.colors.secondary).map(({ layers, ...source }) => (
+            <GeoJSONSource key={source.id} {...source}>
+              {layers.map(layer => (
+                <Layer key={layer.id} {...layer} />
+              ))}
             </GeoJSONSource>
-          )}
+          ))}
           <Camera
             onTrackUserLocationChange={event => setTrackUserLocation(event.nativeEvent.trackUserLocation)}
             trackUserLocation={trackUserLocation ?? undefined}
