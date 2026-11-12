@@ -47,7 +47,7 @@ describe('PlacesMobile', () => {
     places.forEach(place => {
       expect(queryByText(place.title)).toBeFalsy()
     })
-    expect(queryByText('userLocation:nearby')).toBeFalsy()
+    expect(queryByText('userLocation:nearby')).toBeTruthy()
   })
 
   it('should show back button, place title and details if place provided', () => {

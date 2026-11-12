@@ -153,7 +153,7 @@ const PlacesMobile = ({
       />
       <BottomActionSheet
         ref={sheetRef}
-        title={loading ? '' : title}
+        title={title}
         sibling={
           <>
             <MapControlsContainer dimensions={dimensions}>
