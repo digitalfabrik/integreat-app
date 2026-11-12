@@ -27,7 +27,7 @@ describe('BescheidCheckCounselingProfile', () => {
   const getStoredProfile = () => JSON.parse(localStorage.getItem(COUNSELING_PROFILE_STORAGE_KEY) ?? '{}')
 
   it('should store the submitted profile with the passed region as default location', () => {
-    const { getByRole } = renderCounselingProfile('augsburg')
+    const { getByRole, getByText } = renderCounselingProfile('augsburg')
 
     fireEvent.mouseDown(getByRole('combobox', { name: 'bescheidCheck:counselingProfile.age.label' }))
     fireEvent.click(getByRole('option', { name: 'bescheidCheck:counselingProfile.age.options.from18To25' }))
@@ -37,6 +37,7 @@ describe('BescheidCheckCounselingProfile', () => {
     fireEvent.click(getByRole('button', { name: 'bescheidCheck:counselingProfile.submit' }))
 
     expect(getStoredProfile()).toEqual({ regionCode: 'augsburg', age: 'from18To25' })
+    expect(getByText('bescheidCheck:counselingProfile.applied')).toBeTruthy()
   })
 
   it('should restore the stored profile', () => {
