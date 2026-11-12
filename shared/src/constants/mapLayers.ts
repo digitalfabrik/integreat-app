@@ -22,17 +22,15 @@ type MapSource = {
   layers: MapLayer[]
 }
 
-const placesSourceId = 'places'
-const selectedFeatureSourceId = 'selected-feature'
+type LayerType = 'cluster' | 'cluster-count' | 'marker' | 'badge' | 'badge-count'
 
-export const featureLayerId = 'point'
-export const clusterLayerId = 'clusteredPoints'
-const selectedFeatureLayerId = 'selected-feature'
-// Layers containing the place features which can be selected
-export const placeLayerIds = [featureLayerId, selectedFeatureLayerId]
-const clusterCountLayerId = 'cluster-count'
-const multiPlaceBadgeLayerId = 'multi-place-badge-layer'
-const multiPlaceBadgeCountLayerId = 'multi-place-badge-count'
+const featuresSourceId = 'features'
+const selectedFeatureSourceId = 'selected-feature'
+const layerId = (sourceId: string, layerType: LayerType): string => `${sourceId}-${layerType}`
+
+export const featureLayerId = layerId(featuresSourceId, 'marker')
+export const clusterLayerId = layerId(featuresSourceId, 'cluster')
+export const featureLayerIds = [featureLayerId, layerId(selectedFeatureSourceId, 'marker')]
 
 const mapMarker = {
   iconSize: 0.6,
@@ -83,8 +81,8 @@ const clusterProperties: Record<string, ClusterProperty> = {
   ],
 }
 
-const clusterLayer = (color: string): CircleMapLayer => ({
-  id: clusterLayerId,
+const clusterLayer = (sourceId: string, color: string): CircleMapLayer => ({
+  id: layerId(sourceId, 'cluster'),
   type: 'circle',
   filter: ['has', 'point_count'],
   paint: {
@@ -93,8 +91,8 @@ const clusterLayer = (color: string): CircleMapLayer => ({
   },
 })
 
-const clusterCountLayer: SymbolMapLayer = {
-  id: clusterCountLayerId,
+const clusterCountLayer = (sourceId: string): SymbolMapLayer => ({
+  id: layerId(sourceId, 'cluster-count'),
   type: 'symbol',
   filter: ['has', 'point_count'],
   layout: {
@@ -103,12 +101,12 @@ const clusterCountLayer: SymbolMapLayer = {
     'text-size': ['step', ['get', 'point_count'], fontSizeSmall, groupCount, fontSizeLarge],
     'text-allow-overlap': true,
   },
-}
+})
 
-const markerLayer = (selectedFeature: MapFeature | null): SymbolMapLayer => {
+const markerLayer = (sourceId: string, selectedFeature: MapFeature | null): SymbolMapLayer => {
   const isActive = isSelected(selectedFeature)
   return {
-    id: featureLayerId,
+    id: layerId(sourceId, 'marker'),
     type: 'symbol',
     filter: ['!', ['has', 'point_count']],
     layout: {
@@ -140,8 +138,8 @@ const markerLayer = (selectedFeature: MapFeature | null): SymbolMapLayer => {
   }
 }
 
-const multiPlaceBadgeLayer: CircleMapLayer = {
-  id: multiPlaceBadgeLayerId,
+const multiPlaceBadgeLayer = (sourceId: string): CircleMapLayer => ({
+  id: layerId(sourceId, 'badge'),
   type: 'circle',
   filter: multiPlaceFilter,
   paint: {
@@ -150,10 +148,10 @@ const multiPlaceBadgeLayer: CircleMapLayer = {
     'circle-translate': multiPlaceBadgeOffset,
     'circle-translate-anchor': 'viewport',
   },
-}
+})
 
-const multiPlaceBadgeCountLayer = (selectedFeature: MapFeature | null): SymbolMapLayer => ({
-  id: multiPlaceBadgeCountLayerId,
+const multiPlaceBadgeCountLayer = (sourceId: string, selectedFeature: MapFeature | null): SymbolMapLayer => ({
+  id: layerId(sourceId, 'badge-count'),
   type: 'symbol',
   filter: multiPlaceFilter,
   layout: {
@@ -170,18 +168,18 @@ const multiPlaceBadgeCountLayer = (selectedFeature: MapFeature | null): SymbolMa
   },
 })
 
-const placesLayers = (clusterColor: string, selectedFeature: MapFeature | null): MapLayer[] => [
-  clusterLayer(clusterColor),
-  clusterCountLayer,
-  markerLayer(selectedFeature),
-  multiPlaceBadgeLayer,
-  multiPlaceBadgeCountLayer(selectedFeature),
+const featuresLayers = (clusterColor: string, selectedFeature: MapFeature | null): MapLayer[] => [
+  clusterLayer(featuresSourceId, clusterColor),
+  clusterCountLayer(featuresSourceId),
+  markerLayer(featuresSourceId, selectedFeature),
+  multiPlaceBadgeLayer(featuresSourceId),
+  multiPlaceBadgeCountLayer(featuresSourceId, selectedFeature),
 ]
 
 const selectedFeatureLayers = (selectedFeature: MapFeature): MapLayer[] => [
-  { ...markerLayer(selectedFeature), id: selectedFeatureLayerId },
-  { ...multiPlaceBadgeLayer, id: `${selectedFeatureLayerId}-badge` },
-  { ...multiPlaceBadgeCountLayer(selectedFeature), id: `${selectedFeatureLayerId}-badge-count` },
+  markerLayer(selectedFeatureSourceId, selectedFeature),
+  multiPlaceBadgeLayer(selectedFeatureSourceId),
+  multiPlaceBadgeCountLayer(selectedFeatureSourceId, selectedFeature),
 ]
 
 // The selected feature is rendered in a separate, non-clustered source to keep it visible if zoomed out
@@ -191,12 +189,12 @@ export const mapSources = (
   clusterColor: string,
 ): MapSource[] => [
   {
-    id: placesSourceId,
+    id: featuresSourceId,
     data: embedInCollection(features.filter(feature => feature !== selectedFeature)),
     cluster: true,
     clusterRadius,
     clusterProperties,
-    layers: placesLayers(clusterColor, selectedFeature),
+    layers: featuresLayers(clusterColor, selectedFeature),
   },
   ...(selectedFeature
     ? [

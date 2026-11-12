@@ -30,7 +30,7 @@ import {
   MapFeature,
   mapSources,
   normalDetailZoom,
-  placeLayerIds,
+  featureLayerIds,
 } from 'shared'
 
 import usePreviousProp from '../hooks/usePreviousProp'
@@ -173,7 +173,7 @@ const MapView = ({
     }
     const pressedCoordinates = event.nativeEvent.point
     const featureCollection = await mapRef.current.queryRenderedFeatures(pressedCoordinates, {
-      layers: placeLayerIds,
+      layers: featureLayerIds,
     })
 
     const feature = featureCollection.find((it): it is MapFeature => it.geometry.type === 'Point')

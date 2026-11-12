@@ -21,7 +21,7 @@ import {
   MapFeature,
   MapViewViewport,
   mapSources,
-  placeLayerIds,
+  featureLayerIds,
 } from 'shared'
 
 import useDimensions from '../hooks/useDimensions'
@@ -130,7 +130,7 @@ const MapView = ({
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && (event.features[0] as unknown as MapFeature)
-      if (feature && placeLayerIds.includes(feature.layer.id)) {
+      if (feature && featureLayerIds.includes(feature.layer.id)) {
         selectFeature({ ...feature, properties: { places: feature.properties.places } }, false)
       } else {
         selectFeature(null, false)
@@ -181,7 +181,7 @@ const MapView = ({
         reuseMaps
         cursor={cursor}
         initialViewState={viewport ?? undefined}
-        interactiveLayerIds={[...placeLayerIds, clusterLayerId]}
+        interactiveLayerIds={[...featureLayerIds, clusterLayerId]}
         style={{
           height: '100%',
           width: '100%',
