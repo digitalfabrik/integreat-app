@@ -118,6 +118,7 @@ export const openStreetMapCopyright: OpenStreetMapCopyrightType = {
 // Shared layer ids
 export const featureLayerId = 'point'
 export const clusterLayerId = 'clusteredPoints'
+export const clusterCountLayerId = 'cluster-count'
 export const multiPlaceBadgeLayerId = 'multi-place-badge-layer'
 export const multiPlaceBadgeCountId = 'multi-place-badge-count'
 
@@ -131,6 +132,12 @@ export const fontSizeLarge = 16
 export const multiPlaceBackgroundRadius = 16
 export const multiPlaceBadgeRadius = 8
 export const multiPlaceBadgeOffset: [number, number] = [multiPlaceBadgeRadius, -multiPlaceBackgroundRadius]
+// Matching the colors of the multipois marker icons, therefore not part of the theme
+export const multiPlaceBadgeColors = {
+  background: '#FFFFFF',
+  text: '#585858',
+  textActive: '#F03C1D',
+}
 
 // The opening hours loaded from the cms are ordered according to the german weekday order
 export const weekdays = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag'] as const

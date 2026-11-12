@@ -16,7 +16,10 @@ import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from 'react-map-gl/map
 import {
   closerDetailZoom,
   clusterClickZoomFactor,
+  clusterCountLayer,
+  clusterLayer,
   clusterLayerId,
+  clusterProperties,
   clusterRadius,
   embedInCollection,
   featureLayerId,
@@ -24,16 +27,11 @@ import {
   mapConfig,
   MapFeature,
   MapViewViewport,
-} from 'shared'
-
-import {
-  clusterCountLayer,
-  clusterLayer,
-  clusterProperties,
   markerLayer,
   multiPlaceBadgeCountLayer,
   multiPlaceBadgeLayer,
-} from '../constants/layers'
+} from 'shared'
+
 import useDimensions from '../hooks/useDimensions'
 import { captureError } from '../utils/sentry'
 
@@ -214,11 +212,11 @@ const MapView = ({
           cluster
           clusterRadius={clusterRadius}
           clusterProperties={clusterProperties}>
-          <Layer {...clusterLayer(theme)} />
+          <Layer {...clusterLayer(theme.palette.secondary.main)} />
           <Layer {...clusterCountLayer} />
           <Layer {...markerLayer(currentFeature)} />
-          <Layer {...multiPlaceBadgeLayer(theme)} />
-          <Layer {...multiPlaceBadgeCountLayer(theme, currentFeature)} />
+          <Layer {...multiPlaceBadgeLayer} />
+          <Layer {...multiPlaceBadgeCountLayer(currentFeature)} />
         </Source>
         {currentFeature && !isMultiPlace(currentFeature) && (
           <Source id='current-feature' type='geojson' data={embedInCollection([currentFeature])}>

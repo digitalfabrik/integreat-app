@@ -21,7 +21,10 @@ import styled, { useTheme } from 'styled-components/native'
 import {
   animationDuration,
   clusterClickZoomFactor,
+  clusterCountLayer,
+  clusterLayer,
   clusterLayerId,
+  clusterProperties,
   clusterRadius,
   defaultViewportConfig,
   embedInCollection,
@@ -32,15 +35,12 @@ import {
   MapFeature,
   normalDetailZoom,
   isMultiPlace,
-} from 'shared'
-
-import {
-  clusterCountLayer,
-  clusterLayer,
   markerLayer,
   multiPlaceBadgeCountLayer,
   multiPlaceBadgeLayer,
-} from '../constants/layers'
+  multiPlaceBadgeLayerId,
+} from 'shared'
+
 import usePreviousProp from '../hooks/usePreviousProp'
 import { conditionalA11yProps } from '../utils/helpers'
 import MapZoomControls from './MapZoomControls'
@@ -210,12 +210,13 @@ const MapView = ({
             id='location-places'
             data={embedInCollection(features.filter(feature => feature !== selectedFeature || isMultiPlace(feature)))}
             cluster
-            clusterRadius={clusterRadius}>
-            <Layer {...clusterLayer(theme)} />
+            clusterRadius={clusterRadius}
+            clusterProperties={clusterProperties}>
+            <Layer {...clusterLayer(theme.colors.secondary)} />
             <Layer {...clusterCountLayer} />
             <Layer {...markerLayer(selectedFeature)} />
-            <Layer {...multiPlaceBadgeLayer()} />
-            <Layer {...multiPlaceBadgeCountLayer(theme, selectedFeature)} />
+            <Layer {...multiPlaceBadgeLayer} afterId={featureLayerId} />
+            <Layer {...multiPlaceBadgeCountLayer(selectedFeature)} afterId={multiPlaceBadgeLayerId} />
           </GeoJSONSource>
           {selectedFeature && !isMultiPlace(selectedFeature) && (
             <GeoJSONSource id='selected-feature' data={embedInCollection([selectedFeature])}>

@@ -24,6 +24,7 @@ export { default as findNormalizedMatches, findAllMatches } from './utils/findNo
 export * from './utils/index.ts'
 export { getCategoryTiles } from './utils/categories.ts'
 export * from './constants/map.ts'
+export * from './constants/mapLayers.ts'
 export * from './utils/dateFilterUtils.ts'
 export * from './utils/getExcerpt.ts'
 export { default as getNearbyRegions } from './utils/getNearbyRegions.ts'
