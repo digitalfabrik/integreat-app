@@ -6,7 +6,10 @@ import { PlaceModel, PlaceModelBuilder } from 'shared/api'
 import { renderWithRouterAndTheme } from '../../testing/render'
 import PlacesMobile from '../PlacesMobile'
 
-jest.mock('../MapView', () => () => <div>MapView</div>)
+jest.mock('../MapView', () => ({
+  __esModule: true,
+  default: ({ overlay }: { overlay: React.ReactNode }) => <div>{overlay}</div>,
+}))
 
 describe('PlacesMobile', () => {
   const places = new PlaceModelBuilder(3).build()
@@ -14,38 +17,45 @@ describe('PlacesMobile', () => {
   const userLocation = [10.994217, 48.415402] as LocationType
   const mapFeatures = prepareMapFeatures(places)
   const selectMapFeature = jest.fn()
-  const deselect = jest.fn()
+  const goBack = jest.fn()
 
-  const renderPlacesMobile = (place?: PlaceModel, loading = false) =>
+  const renderPlacesMobile = (
+    place?: PlaceModel,
+    title = 'userLocation:nearby',
+    goBack: (() => void) | null = null,
+    loading = false,
+  ) =>
     renderWithRouterAndTheme(
       <PlacesMobile
         data={{ places, mapFeatures, place, placeCategories }}
+        title={title}
+        goBack={goBack}
         userLocation={userLocation}
         slug={place?.slug}
         mapViewport={{} as MapViewViewport}
         setMapViewport={jest.fn()}
         mapOverlay={<div />}
         selectMapFeature={selectMapFeature}
-        deselect={deselect}
         loading={loading}
       />,
     )
 
   it('should show loading skeleton on loading', () => {
-    const { queryByText, getByRole } = renderPlacesMobile(undefined, true)
+    const { queryByText, getByRole } = renderPlacesMobile(undefined, 'userLocation:nearby', null, true)
     expect(getByRole('list')).toBeTruthy()
 
     places.forEach(place => {
       expect(queryByText(place.title)).toBeFalsy()
     })
-    expect(queryByText('userLocation:nearby')).toBeFalsy()
+    expect(queryByText('userLocation:nearby')).toBeTruthy()
   })
 
-  it('should list detail information about the current feature and the place if feature and place provided', async () => {
+  it('should show back button, place title and details if place provided', () => {
     const singlePlace = places[1]!
 
-    const { queryByText, getByText } = renderPlacesMobile(singlePlace)
+    const { queryByText, getByText, queryByLabelText } = renderPlacesMobile(singlePlace, singlePlace.title, goBack)
     expect(queryByText(singlePlace.title)).toBeTruthy()
+    expect(queryByLabelText('common:actions.back')).toBeTruthy()
     expect(queryByText(singlePlace.category.name)).toBeTruthy()
     expect(getByText('places:distance 3733.7')).toBeTruthy()
     expect(queryByText(singlePlace.location.address!)).toBeTruthy()
@@ -53,10 +63,11 @@ describe('PlacesMobile', () => {
     expect(queryByText('userLocation:nearby')).toBeNull()
   })
 
-  it('should render placeList & toolbar components no place is provided', () => {
-    const { queryByText } = renderPlacesMobile()
+  it('should render place list with nearby title and no back button if nothing is selected', () => {
+    const { queryByText, queryByLabelText } = renderPlacesMobile(undefined, 'userLocation:nearby')
 
     expect(queryByText('userLocation:nearby')).toBeTruthy()
+    expect(queryByLabelText('common:actions.back')).toBeFalsy()
     places.forEach(place => {
       expect(queryByText(place.title)).toBeTruthy()
     })

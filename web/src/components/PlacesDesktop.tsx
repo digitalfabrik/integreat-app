@@ -45,9 +45,9 @@ const SkeletonPanelContent = () => (
 
 type PanelContentProps = {
   listRef: React.RefObject<HTMLDivElement | null>
-  canDeselect: boolean
-  deselect: () => void
   places: PlaceModel[]
+  title: string
+  goBack: (() => void) | null
   place: PlaceModel | undefined
   scrollToTop: () => void
   userLocation: LocationType | null
@@ -57,9 +57,9 @@ type PanelContentProps = {
 
 const PanelContent = ({
   listRef,
-  canDeselect,
-  deselect,
   places,
+  title,
+  goBack,
   place,
   scrollToTop,
   userLocation,
@@ -68,7 +68,7 @@ const PanelContent = ({
 }: PanelContentProps): ReactElement => (
   <Stack sx={{ justifyContent: 'space-between', height: '100%' }}>
     <ListViewWrapper ref={listRef}>
-      <PlacePanelHeader goBack={canDeselect ? deselect : null} />
+      <PlacePanelHeader title={title} goBack={goBack} />
       <PlaceSharedChildren
         places={places}
         place={place}
@@ -83,9 +83,10 @@ const PanelContent = ({
 
 type PlacesDesktopProps = {
   data: PreparePlacesReturn
+  title: string
+  goBack: (() => void) | null
   selectMapFeature: (mapFeature: MapFeature | null) => void
   selectPlace: (place: PlaceModel) => void
-  deselect: () => void
   userLocation: LocationType | null
   slug: string | undefined
   mapViewport?: MapViewViewport
@@ -106,10 +107,11 @@ const nextPlaceIndex = (step: 1 | -1, arrayLength: number, currentIndex: number)
 
 const PlacesDesktop = ({
   data,
+  title,
+  goBack,
   userLocation,
   selectMapFeature,
   selectPlace,
-  deselect,
   slug,
   mapViewport,
   setMapViewport,
@@ -119,7 +121,6 @@ const PlacesDesktop = ({
   const [scrollOffset, setScrollOffset] = useState<number>(0)
   const listRef = useRef<HTMLDivElement>(null)
   const { places, place, mapFeatures, mapFeature } = data
-  const canDeselect = !!mapFeature || !!slug
   const { contentDirection } = useTheme()
 
   const scrollToTop = () => {
@@ -149,8 +150,8 @@ const PlacesDesktop = ({
         ) : (
           <PanelContent
             listRef={listRef}
-            canDeselect={canDeselect}
-            deselect={deselect}
+            title={title}
+            goBack={goBack}
             places={places}
             place={place}
             scrollToTop={scrollToTop}

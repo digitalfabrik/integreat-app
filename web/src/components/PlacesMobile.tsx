@@ -70,24 +70,26 @@ const PlaceContent = ({ places, place, scrollToTop, userLocation, slug }: PlaceC
 
 type PlacesMobileProps = {
   data: PreparePlacesReturn
+  title: string
+  goBack: (() => void) | null
   userLocation: LocationType | null
   slug: string | undefined
   mapViewport?: MapViewViewport
   setMapViewport: (mapViewport: MapViewViewport) => void
   selectMapFeature: (mapFeature: MapFeature | null) => void
-  deselect: () => void
   mapOverlay: ReactElement
   loading: boolean
 }
 
 const PlacesMobile = ({
   data,
+  title,
+  goBack,
   userLocation,
   slug,
   mapViewport,
   setMapViewport,
   selectMapFeature,
-  deselect,
   mapOverlay,
   loading,
 }: PlacesMobileProps): ReactElement => {
@@ -97,7 +99,6 @@ const PlacesMobile = ({
   const [mapViewRef, setMapViewRef] = useState<MapViewRef | null>(null)
   const { places, place, mapFeatures, mapFeature } = data
   const dimensions = useDimensions()
-  const canDeselect = !!mapFeature || !!slug
   const { t } = useTranslation()
 
   const scrollToTop = () => {
@@ -141,8 +142,8 @@ const PlacesMobile = ({
         currentFeature={mapFeature ?? null}
         overlay={
           <>
-            {canDeselect && (
-              <StyledIconButton onClick={deselect} tabIndex={0} aria-label={t($ => $.common.actions.back)}>
+            {goBack && (
+              <StyledIconButton onClick={goBack} tabIndex={0} aria-label={t($ => $.common.actions.back)}>
                 <DirectionDependentBackIcon />
               </StyledIconButton>
             )}
@@ -152,7 +153,7 @@ const PlacesMobile = ({
       />
       <BottomActionSheet
         ref={sheetRef}
-        title={canDeselect || loading ? undefined : t($ => $.userLocation.nearby)}
+        title={title}
         sibling={
           <>
             <MapControlsContainer dimensions={dimensions}>

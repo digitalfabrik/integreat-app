@@ -41,9 +41,6 @@ const PlaceDetails = ({ place, language, distance, onFocus }: PlaceDetailsProps)
 
   return (
     <PlaceDetailsContainer accessibilityLabel={`${title} - ${category.name}`} onFocus={onFocus} screenReaderFocusable>
-      <Text variant='h5' style={{ paddingBottom: 4 }}>
-        {title}
-      </Text>
       {distance !== null && (
         <Text variant='body3' style={{ marginVertical: 8 }}>
           {t($ => $.places.distance, { distance: distance.toFixed(1) })}

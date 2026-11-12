@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react-native'
-import React from 'react'
+import React, { FC, ReactNode } from 'react'
 import { Text } from 'react-native'
 
 import { RegionModelBuilder, PlaceModelBuilder } from 'shared/api'
@@ -13,10 +13,15 @@ jest.mock('../../components/MapView')
 jest.mock('../../components/RemoteContent', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 jest.mock('styled-components')
 jest.mock('@react-native-community/geolocation')
-jest.mock('@gorhom/bottom-sheet', () => ({
-  __esModule: true,
-  ...require('@gorhom/bottom-sheet/mock'),
-}))
+jest.mock('@gorhom/bottom-sheet', () => {
+  const { createElement, Fragment } = jest.requireActual('react')
+  return {
+    ...jest.requireActual('@gorhom/bottom-sheet/mock'),
+    __esModule: true,
+    default: ({ handleComponent, children }: { handleComponent?: FC; children?: ReactNode }) =>
+      createElement(Fragment, null, handleComponent && createElement(handleComponent), children),
+  }
+})
 
 const resetHistory: PlaceHistory = {
   slug: undefined,
@@ -26,10 +31,11 @@ const resetHistory: PlaceHistory = {
   showFilterSelection: false,
 }
 
-const places = new PlaceModelBuilder(3).build()
+const places = new PlaceModelBuilder(4).build()
 const place0 = places[0]!
 const place1 = places[1]!
 const place2 = places[2]!
+const place3 = places[3]!
 const region = new RegionModelBuilder(1).build()[0]!
 
 const createLocalHistory = (current: PlaceHistory = resetHistory): UseLocalHistoryReturn<PlaceHistory> => ({
@@ -57,6 +63,24 @@ describe('Places', () => {
     )
     return { localHistory, ...renderResult }
   }
+
+  it('should show nearby title when nothing is selected', () => {
+    const { getByText } = renderPlaces()
+
+    expect(getByText('userLocation:nearby')).toBeTruthy()
+  })
+
+  it('should show place title in handle when a place is selected', () => {
+    const { getByText } = renderPlaces({ ...resetHistory, slug: place1.slug })
+
+    expect(getByText(place1.title)).toBeTruthy()
+  })
+
+  it('should show default title for an invalid slug', () => {
+    const { queryByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
+
+    expect(queryByText('userLocation:nearby')).toBeTruthy()
+  })
 
   it('should show place list when no selection', () => {
     const { getByText } = renderPlaces()
@@ -88,16 +112,18 @@ describe('Places', () => {
     const { getByText, queryByText } = renderPlaces({ ...resetHistory, multiPlace: 0 })
 
     expect(getByText(place0.title)).toBeTruthy()
-    expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
     expect(queryByText(place1.title)).toBeFalsy()
+    expect(queryByText(place2.title)).toBeFalsy()
   })
 
   it('should show filtered place list when placeCategoryId is set', () => {
     const { getAllByText, getByText, queryByText } = renderPlaces({ ...resetHistory, placeCategoryId: 10 })
 
-    expect(getAllByText('Gastronomie')).toHaveLength(3)
+    expect(getAllByText('Gastronomie')).toHaveLength(4)
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()
+    expect(getByText(place3.title)).toBeTruthy()
     expect(queryByText(place1.title)).toBeFalsy()
   })
 
@@ -133,8 +159,16 @@ describe('Places', () => {
     expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: undefined, slug: undefined })
   })
 
-  it('should not call push when Map Press is pressed with only a multiPlace selected', () => {
+  it('should call push to clear multiPlace when map is pressed with only a multiPlace selected', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, multiPlace: 0 })
+
+    fireEvent.press(getByText('Map Press'))
+
+    expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: undefined, slug: undefined })
+  })
+
+  it('should not call push when Map Press is pressed with nothing selected', () => {
+    const { localHistory, getByText } = renderPlaces()
 
     fireEvent.press(getByText('Map Press'))
 
@@ -177,7 +211,7 @@ describe('Places', () => {
   it('should pop the filter modal entry before pushReset when showPlaces is pressed', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByText('places:filter.show 3'))
+    fireEvent.press(getByText('places:filter.show 4'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
     expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
@@ -249,7 +283,7 @@ describe('Places', () => {
     const { getByRole, getByText, getAllByText, rerender } = renderWithTheme(initial.element)
 
     fireEvent.press(getByRole('button', { name: 'Gastronomie' }))
-    fireEvent.press(getByText('places:filter.show 2'))
+    fireEvent.press(getByText('places:filter.show 3'))
     expect(initial.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: place0.category.id,
       currentlyOpen: false,
@@ -267,7 +301,7 @@ describe('Places', () => {
     const reopened = renderAt({ ...resetHistory, showFilterSelection: true })
     rerender(reopened.element)
 
-    fireEvent.press(getByText('places:filter.show 3'))
+    fireEvent.press(getByText('places:filter.show 4'))
     expect(reopened.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: undefined,
       currentlyOpen: false,

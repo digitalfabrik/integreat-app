@@ -1,5 +1,5 @@
 import { fireEvent } from '@testing-library/react-native'
-import React from 'react'
+import React, { FC, ReactNode } from 'react'
 import { Text } from 'react-native'
 
 import { PlaceModelBuilder } from 'shared/api'
@@ -10,12 +10,21 @@ import PlacesBottomSheet from '../PlacesBottomSheet'
 
 jest.mock('../../components/RemoteContent', () => ({ content }: { content: string }) => <Text>{content}</Text>)
 jest.mock('styled-components')
-jest.mock('@gorhom/bottom-sheet', () => ({
-  __esModule: true,
-  ...require('@gorhom/bottom-sheet/mock'),
-}))
+jest.mock('@gorhom/bottom-sheet', () => {
+  const { createElement, Fragment } = jest.requireActual('react')
+  return {
+    ...jest.requireActual('@gorhom/bottom-sheet/mock'),
+    __esModule: true,
+    default: ({ handleComponent, children }: { handleComponent?: FC; children?: ReactNode }) =>
+      createElement(Fragment, null, handleComponent && createElement(handleComponent), children),
+  }
+})
 
 describe('PlacesBottomSheet', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   const places = new PlaceModelBuilder(3).build()
   const place0 = places[0]!
   const place1 = places[1]!
@@ -23,13 +32,15 @@ describe('PlacesBottomSheet', () => {
   const deselectAll = jest.fn()
   const selectPlace = jest.fn()
 
-  const renderPlaces = ({ slug = undefined }: { slug?: string; multiPlace?: number; placeCategoryId?: number }) =>
-    renderWithTheme(
+  const renderPlaces = ({ slug = undefined }: { slug?: string; multiPlace?: number; placeCategoryId?: number }) => {
+    const place = places.find(it => it.slug === slug)
+    return renderWithTheme(
       <TestingAppContext>
         <PlacesBottomSheet
+          title={place?.title}
           refresh={() => undefined}
           slug={slug}
-          place={places.find(it => it.slug === slug)}
+          place={place}
           places={places}
           snapPoints={[]}
           snapPointIndex={0}
@@ -41,6 +52,7 @@ describe('PlacesBottomSheet', () => {
         />
       </TestingAppContext>,
     )
+  }
 
   it('should show failure if place is not found', () => {
     const { queryByText, getByText } = renderPlaces({ slug: 'invalid' })

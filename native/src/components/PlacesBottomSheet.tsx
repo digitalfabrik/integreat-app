@@ -52,6 +52,7 @@ const PlaceListDivider = () => {
 }
 
 type PlaceBottomSheetProps = {
+  title?: string
   refresh: () => void
   places: PlaceModel[]
   place: PlaceModel | undefined
@@ -67,6 +68,7 @@ type PlaceBottomSheetProps = {
 }
 
 const PlacesBottomSheet = ({
+  title,
   refresh,
   places,
   place,
@@ -115,11 +117,11 @@ const PlacesBottomSheet = ({
       <BottomSheetHandle
         nextFocusForward={zoomInFocusTarget}
         isFullscreen={isFullscreen}
-        title={slug ? undefined : t($ => $.userLocation.nearby)}
+        title={title}
         onPress={() => setSnapPointIndex(isFullscreen ? 1 : snapPoints.length - 1)}
       />
     ),
-    [zoomInFocusTarget, isFullscreen, slug, t, setSnapPointIndex, snapPoints.length],
+    [zoomInFocusTarget, isFullscreen, title, setSnapPointIndex, snapPoints.length],
   )
 
   const PlaceDetail = place ? (

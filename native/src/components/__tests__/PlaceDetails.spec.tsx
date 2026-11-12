@@ -33,11 +33,11 @@ describe('PlaceDetails', () => {
 
   it('should render place information', () => {
     const place = places[0]!
-    const { getByText } = renderWithTheme(
+    const { getByLabelText, getByText } = renderWithTheme(
       <PlaceDetails place={place} language={language} distance={distance} onFocus={jest.fn()} />,
     )
 
-    expect(getByText(place.title)).toBeTruthy()
+    expect(getByLabelText(`${place.title} - ${place.category.name}`)).toBeTruthy()
     expect(getByText(place.category!.name!)).toBeTruthy()
     expect(getByText('places:distance 3.1')).toBeTruthy()
     expect(getByText(place.location.address)).toBeTruthy()
