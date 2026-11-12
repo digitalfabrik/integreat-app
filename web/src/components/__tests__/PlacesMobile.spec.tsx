@@ -21,7 +21,7 @@ describe('PlacesMobile', () => {
 
   const renderPlacesMobile = (
     place?: PlaceModel,
-    title: string | null = null,
+    title = 'userLocation:nearby',
     goBack: (() => void) | null = null,
     loading = false,
   ) =>

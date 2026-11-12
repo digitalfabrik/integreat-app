@@ -57,28 +57,36 @@ const multiPlaceBadgeColors = {
   textActive: '#F03C1D',
 }
 
-const firstPlace: ExpressionSpecification = ['at', 0, ['get', 'places']]
-const isSinglePlace: ExpressionSpecification = ['==', ['length', ['get', 'places']], 1]
+// it is required to build the source data in web to fix the issue: Expected value to be of type array<object>, but found string instead.
+const withStyleProperties = (feature: MapFeature) => {
+  const { places } = feature.properties
+  return {
+    ...feature,
+    properties: {
+      ...feature.properties,
+      placeCount: places.length,
+      firstPlaceId: places[0]?.id ?? -1,
+      firstPlaceSymbol: places[0]?.symbol ?? '',
+      firstPlaceTitle: places[0]?.title ?? '',
+    },
+  }
+}
+
+const placeCount: ExpressionSpecification = ['get', 'placeCount']
+const isSinglePlace: ExpressionSpecification = ['==', placeCount, 1]
 const isSelected = (selectedFeature: MapFeature | null): ExpressionSpecification => [
   '==',
-  ['get', 'id', firstPlace],
+  ['get', 'firstPlaceId'],
   selectedFeature?.properties.places[0]?.id ?? -1,
 ]
 
-const multiPlaceFilter: FilterSpecification = [
-  'all',
-  ['!', ['has', 'point_count']],
-  ['>', ['length', ['get', 'places']], 1],
-]
+const multiPlaceFilter: FilterSpecification = ['all', ['!', ['has', 'point_count']], ['>', placeCount, 1]]
 
 const clusterRadius = 50
 // Sums up the number of places of all features in a cluster, used by the cluster count layer
 // The reduce expression must not be a plain operator like '+', as iOS treats it as a string literal
 const clusterProperties: Record<string, ClusterProperty> = {
-  sum: [
-    ['+', ['accumulated'], ['get', 'sum']],
-    ['length', ['get', 'places']],
-  ],
+  sum: [['+', ['accumulated'], ['get', 'sum']], placeCount],
 }
 
 const clusterLayer = (sourceId: string, color: string): CircleMapLayer => ({
@@ -119,7 +127,7 @@ const markerLayer = (sourceId: string, selectedFeature: MapFeature | null): Symb
       'icon-image': [
         'case',
         isSinglePlace,
-        ['case', isActive, mapMarker.symbolActive, ['get', 'symbol', firstPlace]],
+        ['case', isActive, mapMarker.symbolActive, ['get', 'firstPlaceSymbol']],
         ['case', isActive, mapMarker.multiPlaceActive, mapMarker.multiPlace],
       ],
       'icon-offset': [
@@ -128,7 +136,7 @@ const markerLayer = (sourceId: string, selectedFeature: MapFeature | null): Symb
         ['literal', [0, mapMarker.activeOffsetY]],
         ['literal', [0, 0]],
       ],
-      'text-field': ['case', isSinglePlace, ['get', 'title', firstPlace], ''],
+      'text-field': ['case', isSinglePlace, ['get', 'firstPlaceTitle'], ''],
       'text-font': textFont,
       'text-offset': [0, textOffsetY],
       'text-anchor': 'top',
@@ -155,7 +163,7 @@ const multiPlaceBadgeCountLayer = (sourceId: string, selectedFeature: MapFeature
   type: 'symbol',
   filter: multiPlaceFilter,
   layout: {
-    'text-field': ['to-string', ['length', ['get', 'places']]],
+    'text-field': ['to-string', placeCount],
     'text-font': textFont,
     'text-size': fontSizeSmall,
     'text-allow-overlap': true,
@@ -190,7 +198,7 @@ export const mapSources = (
 ): MapSource[] => [
   {
     id: featuresSourceId,
-    data: embedInCollection(features.filter(feature => feature !== selectedFeature)),
+    data: embedInCollection(features.filter(feature => feature !== selectedFeature).map(withStyleProperties)),
     cluster: true,
     clusterRadius,
     clusterProperties,
@@ -200,7 +208,7 @@ export const mapSources = (
     ? [
         {
           id: selectedFeatureSourceId,
-          data: embedInCollection([selectedFeature]),
+          data: embedInCollection([withStyleProperties(selectedFeature)]),
           layers: selectedFeatureLayers(selectedFeature),
         },
       ]

@@ -70,7 +70,7 @@ const PlaceContent = ({ places, place, scrollToTop, userLocation, slug }: PlaceC
 
 type PlacesMobileProps = {
   data: PreparePlacesReturn
-  title: string | null
+  title: string
   goBack: (() => void) | null
   userLocation: LocationType | null
   slug: string | undefined
@@ -153,7 +153,7 @@ const PlacesMobile = ({
       />
       <BottomActionSheet
         ref={sheetRef}
-        title={loading ? undefined : (title ?? undefined)}
+        title={loading ? '' : title}
         sibling={
           <>
             <MapControlsContainer dimensions={dimensions}>

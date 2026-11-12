@@ -76,10 +76,10 @@ describe('Places', () => {
     expect(getByText(place1.title)).toBeTruthy()
   })
 
-  it('should show no title for an invalid slug', () => {
+  it('should show default title for an invalid slug', () => {
     const { queryByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
 
-    expect(queryByText('userLocation:nearby')).toBeNull()
+    expect(queryByText('userLocation:nearby')).toBeTruthy()
   })
 
   it('should show place list when no selection', () => {

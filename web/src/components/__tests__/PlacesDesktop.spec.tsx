@@ -19,7 +19,7 @@ describe('PlacesDesktop', () => {
 
   const renderPlacesDesktop = (
     place?: PlaceModel,
-    title: string | null = null,
+    title = 'userLocation:nearby',
     goBack: (() => void) | null = null,
     mapFeature?: MapFeature,
     loading = false,
