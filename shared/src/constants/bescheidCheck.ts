@@ -13,9 +13,3 @@ export type BescheidCheckProgressStatus = (typeof ANALYSIS_STEPS)[number] | 'don
 
 export const RESIDENCE_STATUSES = ['noResidenceTitle', 'residenceTitle', 'germanCitizenship'] as const
 export const AGE_GROUPS = ['under18', 'from18To25', 'from26'] as const
-
-export type CounselingProfile = {
-  residenceStatus?: (typeof RESIDENCE_STATUSES)[number]
-  age?: (typeof AGE_GROUPS)[number]
-  regionCode?: string
-}

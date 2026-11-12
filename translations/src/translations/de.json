@@ -68,6 +68,7 @@
       "placeholder": "Bitte auswählen",
       "hint": "Du kannst diese Angaben auch später noch machen.",
       "submit": "Übernehmen",
+      "applied": "Deine Angaben wurden übernommen.",
       "residenceStatus": {
         "label": "Aufenthaltsstatus",
         "options": {

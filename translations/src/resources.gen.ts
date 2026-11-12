@@ -70,6 +70,7 @@ const resources = {
       "placeholder": "Please select",
       "hint": "You can also provide this information later.",
       "submit": "Apply",
+      "applied": "Your information has been applied.",
       "residenceStatus": {
         "label": "Residence status",
         "options": {
