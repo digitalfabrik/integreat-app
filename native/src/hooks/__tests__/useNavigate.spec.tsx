@@ -165,17 +165,9 @@ describe('useNavigate', () => {
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to chat after categories route if chat is set', () => {
-    renderMockComponent(
-      {
-        route: CATEGORIES_ROUTE,
-        regionContentPath,
-        ...params,
-        chat: true,
-      },
-      true,
-    )
-    expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: regionContentPath }, true)
+  it('should open chat on top of the linked page if chat is set', () => {
+    renderMockComponent({ route: EVENTS_ROUTE, ...params, chat: true }, true)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, EVENTS_ROUTE, { slug: undefined }, true)
     expect(navigation.navigate).toHaveBeenCalledWith(CHAT_ROUTE)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
   })
