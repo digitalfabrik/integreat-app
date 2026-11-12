@@ -89,11 +89,10 @@ const TtsPlayer = ({
   const keyboardHeight = useKeyboardHeight()
   // There shouldn't be an additional bottom navigation height for a fixed region, for ex. aschaffenburg, as it does not have bottom tab navigation
   const navigationOffset = buildConfig().featureFlags.fixedRegion ? 0 : dimensions.bottomNavigationHeight
-  // The keyboard covers the safe area and the tab bar, so only its height is needed while it is open
-  const insetBottom = keyboardHeight > 0 ? keyboardHeight : bottom + navigationOffset
+  const bottomOffset = keyboardHeight > 0 ? keyboardHeight : bottom + navigationOffset
 
   return (
-    <StyledTtsPlayer insetBottom={insetBottom} accessibilityLabel={t($ => $.tts.title)}>
+    <StyledTtsPlayer insetBottom={bottomOffset} accessibilityLabel={t($ => $.tts.title)}>
       <TouchableRipple
         borderless
         role='button'
