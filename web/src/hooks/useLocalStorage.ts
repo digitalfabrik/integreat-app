@@ -12,6 +12,7 @@ export const TOUR_VISIBLE_STORAGE_KEY = 'Tour-Visible'
 export const EXTERNAL_SOURCES_STORAGE_KEY = 'Opt-In-External-Sources'
 export const APP_BANNER_HIDDEN_EXPIRATION_DATE_STORAGE_KEY = 'App-Banner-Hidden'
 export const THEME_STORAGE_KEY = 'theme'
+export const COUNSELING_PROFILE_STORAGE_KEY = 'Counseling-Profile'
 
 type UseLocalStorageProps<T> = {
   key: string
