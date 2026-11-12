@@ -114,7 +114,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     const slug = mapFeature?.properties.places[0]?.slug
     if (mapFeature && isMultiPlace(mapFeature)) {
       localHistory.push({ multiPlace: safeParseInt(mapFeature.id), slug: undefined })
-    } else if (slug || localHistory.current.slug) {
+    } else if (slug || localHistory.current.slug || localHistory.current.multiPlace !== undefined) {
       localHistory.push({ multiPlace: undefined, slug })
     }
   }

@@ -159,8 +159,16 @@ describe('Places', () => {
     expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: undefined, slug: undefined })
   })
 
-  it('should not call push when Map Press is pressed with only a multiPlace selected', () => {
+  it('should call push to clear multiPlace when map is pressed with only a multiPlace selected', () => {
     const { localHistory, getByText } = renderPlaces({ ...resetHistory, multiPlace: 0 })
+
+    fireEvent.press(getByText('Map Press'))
+
+    expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: undefined, slug: undefined })
+  })
+
+  it('should not call push when Map Press is pressed with nothing selected', () => {
+    const { localHistory, getByText } = renderPlaces()
 
     fireEvent.press(getByText('Map Press'))
 
