@@ -57,17 +57,19 @@ const multiPlaceBadgeColors = {
   textActive: '#F03C1D',
 }
 
-// it is required to build the source data in web to fix the issue: Expected value to be of type array<object>, but found string instead.
-const withStyleProperties = (feature: MapFeature) => {
+// MapLibre GL JS (web) serializes nested feature properties like the places array to strings,
+// so layer expressions cannot read them ("Expected value to be of type array<object>, but found string instead").
+// Therefore, the place properties needed for styling are flattened into top-level properties.
+const withFlatPlaceProperties = (feature: MapFeature) => {
   const { places } = feature.properties
   return {
     ...feature,
     properties: {
       ...feature.properties,
       placeCount: places.length,
-      firstPlaceId: places[0]?.id ?? -1,
-      firstPlaceSymbol: places[0]?.symbol ?? '',
-      firstPlaceTitle: places[0]?.title ?? '',
+      firstPlaceId: places[0]?.id,
+      firstPlaceSymbol: places[0]?.symbol,
+      firstPlaceTitle: places[0]?.title,
     },
   }
 }
@@ -198,7 +200,7 @@ export const mapSources = (
 ): MapSource[] => [
   {
     id: featuresSourceId,
-    data: embedInCollection(features.filter(feature => feature !== selectedFeature).map(withStyleProperties)),
+    data: embedInCollection(features.filter(feature => feature !== selectedFeature).map(withFlatPlaceProperties)),
     cluster: true,
     clusterRadius,
     clusterProperties,
@@ -208,7 +210,7 @@ export const mapSources = (
     ? [
         {
           id: selectedFeatureSourceId,
-          data: embedInCollection([withStyleProperties(selectedFeature)]),
+          data: embedInCollection([withFlatPlaceProperties(selectedFeature)]),
           layers: selectedFeatureLayers(selectedFeature),
         },
       ]
