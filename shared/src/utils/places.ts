@@ -3,7 +3,7 @@ import distance from '@turf/distance'
 import PlaceCategoryModel from '../api/models/PlaceCategoryModel.ts'
 import PlaceModel from '../api/models/PlaceModel.ts'
 import { isMultiPlace, LocationType, MapFeature } from '../constants/map.ts'
-import { prepareMapFeatures } from './geoJson.ts'
+import { prepareMapFeatures } from './map.ts'
 
 export const calculateDistance = distance
 
