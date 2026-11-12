@@ -17,18 +17,11 @@ import {
   closerDetailZoom,
   clusterClickZoomFactor,
   clusterLayerId,
-  clusterProperties,
-  clusterRadius,
-  embedInCollection,
-  featureLayerId,
   mapConfig,
   MapFeature,
   MapViewViewport,
-  placesLayers,
-  placesSourceId,
-  selectedFeatureLayerId,
-  selectedFeatureLayers,
-  selectedFeatureSourceId,
+  mapSources,
+  placeLayerIds,
 } from 'shared'
 
 import useDimensions from '../hooks/useDimensions'
@@ -137,7 +130,7 @@ const MapView = ({
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && (event.features[0] as unknown as MapFeature)
-      if (feature && [featureLayerId, selectedFeatureLayerId].includes(feature.layer.id)) {
+      if (feature && placeLayerIds.includes(feature.layer.id)) {
         selectFeature({ ...feature, properties: { places: feature.properties.places } }, false)
       } else {
         selectFeature(null, false)
@@ -188,7 +181,7 @@ const MapView = ({
         reuseMaps
         cursor={cursor}
         initialViewState={viewport ?? undefined}
-        interactiveLayerIds={[featureLayerId, clusterLayerId, selectedFeatureLayerId]}
+        interactiveLayerIds={[...placeLayerIds, clusterLayerId]}
         style={{
           height: '100%',
           width: '100%',
@@ -204,24 +197,13 @@ const MapView = ({
         attributionControl={false}>
         <OverlayContainer>{overlay}</OverlayContainer>
         {children}
-        <Source
-          id={placesSourceId}
-          type='geojson'
-          data={embedInCollection(features.filter(feature => feature !== currentFeature))}
-          cluster
-          clusterRadius={clusterRadius}
-          clusterProperties={clusterProperties}>
-          {placesLayers(theme.palette.secondary.main, currentFeature).map(layer => (
-            <Layer key={layer.id} {...layer} />
-          ))}
-        </Source>
-        {currentFeature && (
-          <Source id={selectedFeatureSourceId} type='geojson' data={embedInCollection([currentFeature])}>
-            {selectedFeatureLayers(currentFeature).map(layer => (
+        {mapSources(features, currentFeature, theme.palette.secondary.main).map(({ layers, ...source }) => (
+          <Source key={source.id} type='geojson' {...source}>
+            {layers.map(layer => (
               <Layer key={layer.id} {...layer} />
             ))}
           </Source>
-        )}
+        ))}
       </Map>
     </MapContainer>
   )

@@ -5,18 +5,29 @@ import type {
   SymbolLayerSpecification,
 } from '@maplibre/maplibre-gl-style-spec'
 
-import { MapFeature } from './map.ts'
+import { embedInCollection, MapFeature, MapFeatureCollection } from './map.ts'
 
 type CircleMapLayer = Omit<CircleLayerSpecification, 'source'>
 type SymbolMapLayer = Omit<SymbolLayerSpecification, 'source'>
 type MapLayer = CircleMapLayer | SymbolMapLayer
 
-export const placesSourceId = 'places'
-export const selectedFeatureSourceId = 'selected-feature'
+type MapSource = {
+  id: string
+  data: MapFeatureCollection
+  cluster?: boolean
+  clusterRadius?: number
+  clusterProperties?: Record<string, ExpressionSpecification>
+  layers: MapLayer[]
+}
+
+const placesSourceId = 'places'
+const selectedFeatureSourceId = 'selected-feature'
 
 export const featureLayerId = 'point'
 export const clusterLayerId = 'clusteredPoints'
-export const selectedFeatureLayerId = 'selected-feature'
+const selectedFeatureLayerId = 'selected-feature'
+// Layers containing the place features which can be selected
+export const placeLayerIds = [featureLayerId, selectedFeatureLayerId]
 const clusterCountLayerId = 'cluster-count'
 const multiPlaceBadgeLayerId = 'multi-place-badge-layer'
 const multiPlaceBadgeCountLayerId = 'multi-place-badge-count'
@@ -60,7 +71,9 @@ const multiPlaceFilter: FilterSpecification = [
   ['>', ['length', ['get', 'places']], 1],
 ]
 
-export const clusterProperties: Record<string, ExpressionSpecification> = {
+const clusterRadius = 50
+// Sums up the number of places of all features in a cluster, used by the cluster count layer
+const clusterProperties: Record<string, ExpressionSpecification> = {
   sum: ['+', ['length', ['get', 'places']]],
 }
 
@@ -151,7 +164,7 @@ const multiPlaceBadgeCountLayer = (selectedFeature: MapFeature | null): SymbolMa
   },
 })
 
-export const placesLayers = (clusterColor: string, selectedFeature: MapFeature | null): MapLayer[] => [
+const placesLayers = (clusterColor: string, selectedFeature: MapFeature | null): MapLayer[] => [
   clusterLayer(clusterColor),
   clusterCountLayer,
   markerLayer(selectedFeature),
@@ -159,9 +172,33 @@ export const placesLayers = (clusterColor: string, selectedFeature: MapFeature |
   multiPlaceBadgeCountLayer(selectedFeature),
 ]
 
-// The selected feature is rendered in a separate, non-clustered source to keep it visible if zoomed out
-export const selectedFeatureLayers = (selectedFeature: MapFeature): MapLayer[] => [
+const selectedFeatureLayers = (selectedFeature: MapFeature): MapLayer[] => [
   { ...markerLayer(selectedFeature), id: selectedFeatureLayerId },
   { ...multiPlaceBadgeLayer, id: `${selectedFeatureLayerId}-badge` },
   { ...multiPlaceBadgeCountLayer(selectedFeature), id: `${selectedFeatureLayerId}-badge-count` },
+]
+
+// The selected feature is rendered in a separate, non-clustered source to keep it visible if zoomed out
+export const mapSources = (
+  features: MapFeature[],
+  selectedFeature: MapFeature | null,
+  clusterColor: string,
+): MapSource[] => [
+  {
+    id: placesSourceId,
+    data: embedInCollection(features.filter(feature => feature !== selectedFeature)),
+    cluster: true,
+    clusterRadius,
+    clusterProperties,
+    layers: placesLayers(clusterColor, selectedFeature),
+  },
+  ...(selectedFeature
+    ? [
+        {
+          id: selectedFeatureSourceId,
+          data: embedInCollection([selectedFeature]),
+          layers: selectedFeatureLayers(selectedFeature),
+        },
+      ]
+    : []),
 ]

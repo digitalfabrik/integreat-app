@@ -22,22 +22,15 @@ import {
   animationDuration,
   clusterClickZoomFactor,
   clusterLayerId,
-  clusterProperties,
-  clusterRadius,
   defaultViewportConfig,
-  embedInCollection,
-  featureLayerId,
   isMultiPlace,
   LocationStateType,
   LocationType,
   mapConfig,
   MapFeature,
+  mapSources,
   normalDetailZoom,
-  placesLayers,
-  placesSourceId,
-  selectedFeatureLayerId,
-  selectedFeatureLayers,
-  selectedFeatureSourceId,
+  placeLayerIds,
 } from 'shared'
 
 import usePreviousProp from '../hooks/usePreviousProp'
@@ -180,7 +173,7 @@ const MapView = ({
     }
     const pressedCoordinates = event.nativeEvent.point
     const featureCollection = await mapRef.current.queryRenderedFeatures(pressedCoordinates, {
-      layers: [featureLayerId, selectedFeatureLayerId],
+      layers: placeLayerIds,
     })
 
     const feature = featureCollection.find((it): it is MapFeature => it.geometry.type === 'Point')
@@ -205,23 +198,13 @@ const MapView = ({
           attribution={false}
           logo={false}>
           {userLocation && <NativeUserLocation />}
-          <GeoJSONSource
-            id={placesSourceId}
-            data={embedInCollection(features.filter(feature => feature !== selectedFeature))}
-            cluster
-            clusterRadius={clusterRadius}
-            clusterProperties={clusterProperties}>
-            {placesLayers(theme.colors.secondary, selectedFeature).map(layer => (
-              <Layer key={layer.id} {...layer} />
-            ))}
-          </GeoJSONSource>
-          {selectedFeature && (
-            <GeoJSONSource id={selectedFeatureSourceId} data={embedInCollection([selectedFeature])}>
-              {selectedFeatureLayers(selectedFeature).map(layer => (
+          {mapSources(features, selectedFeature, theme.colors.secondary).map(({ layers, ...source }) => (
+            <GeoJSONSource key={source.id} {...source}>
+              {layers.map(layer => (
                 <Layer key={layer.id} {...layer} />
               ))}
             </GeoJSONSource>
-          )}
+          ))}
           <Camera
             onTrackUserLocationChange={event => setTrackUserLocation(event.nativeEvent.trackUserLocation)}
             trackUserLocation={trackUserLocation ?? undefined}

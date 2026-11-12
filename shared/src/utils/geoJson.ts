@@ -1,13 +1,8 @@
 import PlaceModel from '../api/models/PlaceModel.ts'
-import { MapFeature, MapFeatureCollection } from '../constants/map.ts'
+import { MapFeature } from '../constants/map.ts'
 import { featureLayerId } from '../constants/mapLayers.ts'
 
 export const MIN_DISTANCE_THRESHOLD = 0.1
-
-export const embedInCollection = (features: MapFeature[]): MapFeatureCollection => ({
-  type: 'FeatureCollection',
-  features,
-})
 
 export const prepareMapFeature = (places: PlaceModel[], id: number, coordinates: [number, number]): MapFeature => ({
   type: 'Feature',

@@ -64,6 +64,10 @@ export type MapFeature = Feature<Point, GeoJsonPlaceProperties> & {
   }
 }
 export type MapFeatureCollection = FeatureCollection<Point, GeoJsonPlaceProperties>
+export const embedInCollection = (features: MapFeature[]): MapFeatureCollection => ({
+  type: 'FeatureCollection',
+  features,
+})
 export const isMultiPlace = (placeFeature: MapFeature): boolean => placeFeature.properties.places.length > 1
 
 export const mapConfig: MapConfigProps = {
@@ -87,7 +91,6 @@ export const clusterClickZoomFactor = 2
 export const normalDetailZoom = 15
 export const closerDetailZoom = 18
 export const maxMapZoom = 21
-export const clusterRadius = 50
 export const animationDuration = 2000
 
 export const openStreetMapCopyright: OpenStreetMapCopyrightType = {
