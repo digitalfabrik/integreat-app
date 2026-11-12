@@ -29,15 +29,6 @@ export type GeoJsonPlaceProperties = {
   places: GeoJsonPlace[]
 }
 
-export type MarkerConfig = {
-  defaultSymbol: string
-  symbolActive: string
-  multiPlace: string
-  multiPlaceActive: string
-  iconSize: number
-  offsetY?: number
-}
-
 type OpenStreetMapCopyrightType = {
   label: string
   icon: string
@@ -99,15 +90,6 @@ export const maxMapZoom = 21
 export const clusterRadius = 50
 export const animationDuration = 2000
 
-export const mapMarker: MarkerConfig = {
-  iconSize: 0.6,
-  defaultSymbol: 'marker_55',
-  multiPlace: 'multipois_#585858',
-  multiPlaceActive: 'multipois_active',
-  symbolActive: 'marker_90_active',
-  offsetY: -25,
-}
-
 export const openStreetMapCopyright: OpenStreetMapCopyrightType = {
   url: 'https://www.openstreetmap.org/copyright',
   icon: '©',
@@ -118,26 +100,6 @@ export const openStreetMapCopyright: OpenStreetMapCopyrightType = {
 // Shared layer ids
 export const featureLayerId = 'point'
 export const clusterLayerId = 'clusteredPoints'
-export const clusterCountLayerId = 'cluster-count'
-export const multiPlaceBadgeLayerId = 'multi-place-badge-layer'
-export const multiPlaceBadgeCountId = 'multi-place-badge-count'
-
-// Shared layer properties
-export const textOffsetY = 1.5
-export const groupCount = 50
-export const circleRadiusSmall = 20
-export const circleRadiusLarge = 30
-export const fontSizeSmall = 12
-export const fontSizeLarge = 16
-export const multiPlaceBackgroundRadius = 16
-export const multiPlaceBadgeRadius = 8
-export const multiPlaceBadgeOffset: [number, number] = [multiPlaceBadgeRadius, -multiPlaceBackgroundRadius]
-// Matching the colors of the multipois marker icons, therefore not part of the theme
-export const multiPlaceBadgeColors = {
-  background: '#FFFFFF',
-  text: '#585858',
-  textActive: '#F03C1D',
-}
 
 // The opening hours loaded from the cms are ordered according to the german weekday order
 export const weekdays = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag'] as const

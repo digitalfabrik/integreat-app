@@ -38,7 +38,6 @@ import {
   markerLayer,
   multiPlaceBadgeCountLayer,
   multiPlaceBadgeLayer,
-  multiPlaceBadgeLayerId,
 } from 'shared'
 
 import usePreviousProp from '../hooks/usePreviousProp'
@@ -215,8 +214,8 @@ const MapView = ({
             <Layer {...clusterLayer(theme.colors.secondary)} />
             <Layer {...clusterCountLayer} />
             <Layer {...markerLayer(selectedFeature)} />
-            <Layer {...multiPlaceBadgeLayer} afterId={featureLayerId} />
-            <Layer {...multiPlaceBadgeCountLayer(selectedFeature)} afterId={multiPlaceBadgeLayerId} />
+            <Layer {...multiPlaceBadgeLayer} />
+            <Layer {...multiPlaceBadgeCountLayer(selectedFeature)} />
           </GeoJSONSource>
           {selectedFeature && !isMultiPlace(selectedFeature) && (
             <GeoJSONSource id='selected-feature' data={embedInCollection([selectedFeature])}>

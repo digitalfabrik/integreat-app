@@ -5,36 +5,45 @@ import type {
   SymbolLayerSpecification,
 } from '@maplibre/maplibre-gl-style-spec'
 
-import {
-  circleRadiusLarge,
-  circleRadiusSmall,
-  clusterCountLayerId,
-  clusterLayerId,
-  featureLayerId,
-  fontSizeLarge,
-  fontSizeSmall,
-  groupCount,
-  MapFeature,
-  mapMarker,
-  multiPlaceBadgeColors,
-  multiPlaceBadgeCountId,
-  multiPlaceBadgeLayerId,
-  multiPlaceBadgeOffset,
-  multiPlaceBadgeRadius,
-  textOffsetY,
-} from './map.ts'
+import { clusterLayerId, featureLayerId, MapFeature } from './map.ts'
 
-type MapLayer<T> = Omit<T, 'source'>
-export type CircleMapLayer = MapLayer<CircleLayerSpecification>
-export type SymbolMapLayer = MapLayer<SymbolLayerSpecification>
+type CircleMapLayer = Omit<CircleLayerSpecification, 'source'>
+type SymbolMapLayer = Omit<SymbolLayerSpecification, 'source'>
+
+const clusterCountLayerId = 'cluster-count'
+const multiPlaceBadgeLayerId = 'multi-place-badge-layer'
+const multiPlaceBadgeCountLayerId = 'multi-place-badge-count'
+
+const mapMarker = {
+  iconSize: 0.6,
+  symbolActive: 'marker_90_active',
+  multiPlace: 'multipois_#585858',
+  multiPlaceActive: 'multipois_active',
+  activeOffsetY: -25,
+}
 
 const textFont = ['Noto Sans Regular']
+const textOffsetY = 1.5
+const fontSizeSmall = 12
+const fontSizeLarge = 16
+const groupCount = 50
+const circleRadiusSmall = 20
+const circleRadiusLarge = 30
 
-const firstPlaceId: ExpressionSpecification = ['get', 'id', ['at', 0, ['get', 'places']]]
+const multiPlaceBackgroundRadius = 16
+const multiPlaceBadgeRadius = 8
+const multiPlaceBadgeOffset: [number, number] = [multiPlaceBadgeRadius, -multiPlaceBackgroundRadius]
+const multiPlaceBadgeColors = {
+  background: '#FFFFFF',
+  text: '#585858',
+  textActive: '#F03C1D',
+}
+
+const firstPlace: ExpressionSpecification = ['at', 0, ['get', 'places']]
 const isSinglePlace: ExpressionSpecification = ['==', ['length', ['get', 'places']], 1]
 const isSelected = (selectedFeature: MapFeature | null): ExpressionSpecification => [
   '==',
-  firstPlaceId,
+  ['get', 'id', firstPlace],
   selectedFeature?.properties.places[0]?.id ?? -1,
 ]
 
@@ -86,16 +95,16 @@ export const markerLayer = (selectedFeature: MapFeature | null): SymbolMapLayer 
       'icon-image': [
         'case',
         isSinglePlace,
-        ['case', isActive, mapMarker.symbolActive, ['get', 'symbol', ['at', 0, ['get', 'places']]]],
+        ['case', isActive, mapMarker.symbolActive, ['get', 'symbol', firstPlace]],
         ['case', isActive, mapMarker.multiPlaceActive, mapMarker.multiPlace],
       ],
       'icon-offset': [
         'case',
         ['all', isSinglePlace, isActive],
-        ['literal', [0, mapMarker.offsetY ?? 0]],
+        ['literal', [0, mapMarker.activeOffsetY]],
         ['literal', [0, 0]],
       ],
-      'text-field': ['case', isSinglePlace, ['get', 'title', ['at', 0, ['get', 'places']]], ''],
+      'text-field': ['case', isSinglePlace, ['get', 'title', firstPlace], ''],
       'text-font': textFont,
       'text-offset': [0, textOffsetY],
       'text-anchor': 'top',
@@ -118,7 +127,7 @@ export const multiPlaceBadgeLayer: CircleMapLayer = {
 }
 
 export const multiPlaceBadgeCountLayer = (selectedFeature: MapFeature | null): SymbolMapLayer => ({
-  id: multiPlaceBadgeCountId,
+  id: multiPlaceBadgeCountLayerId,
   type: 'symbol',
   filter: multiPlaceFilter,
   layout: {
