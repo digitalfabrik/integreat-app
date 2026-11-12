@@ -257,15 +257,14 @@ describe('InternalPathnameParser', () => {
     })
   })
 
-  it('should match chat query on categories route', () => {
-    const pathname = `/${regionCode}/${languageCode}/some-category`
+  it('should match chat query on events route', () => {
+    const pathname = `/${regionCode}/${languageCode}/${EVENTS_ROUTE}`
     const query = `?${CHAT_QUERY_KEY}=true`
     const parser = new InternalPathnameParser(pathname, languageCode, null, query)
     expect(parser.route()).toEqual({
-      route: CATEGORIES_ROUTE,
+      route: EVENTS_ROUTE,
       languageCode,
       regionCode,
-      regionContentPath: pathname,
       chat: true,
     })
   })
