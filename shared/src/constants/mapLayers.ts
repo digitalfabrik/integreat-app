@@ -5,11 +5,14 @@ import type {
   SymbolLayerSpecification,
 } from '@maplibre/maplibre-gl-style-spec'
 
-import { clusterLayerId, featureLayerId, MapFeature } from './map.ts'
+import { MapFeature } from './map.ts'
 
 type CircleMapLayer = Omit<CircleLayerSpecification, 'source'>
 type SymbolMapLayer = Omit<SymbolLayerSpecification, 'source'>
 
+export const featureLayerId = 'point'
+export const clusterLayerId = 'clusteredPoints'
+export const selectedFeatureLayerId = 'selected-feature'
 const clusterCountLayerId = 'cluster-count'
 const multiPlaceBadgeLayerId = 'multi-place-badge-layer'
 const multiPlaceBadgeCountLayerId = 'multi-place-badge-count'
@@ -143,3 +146,10 @@ export const multiPlaceBadgeCountLayer = (selectedFeature: MapFeature | null): S
     'text-translate-anchor': 'viewport',
   },
 })
+
+// The selected feature is rendered in a separate, non-clustered source to keep it visible if zoomed out
+export const selectedFeatureLayers = (selectedFeature: MapFeature): (CircleMapLayer | SymbolMapLayer)[] => [
+  { ...markerLayer(selectedFeature), id: selectedFeatureLayerId },
+  { ...multiPlaceBadgeLayer, id: `${selectedFeatureLayerId}-badge` },
+  { ...multiPlaceBadgeCountLayer(selectedFeature), id: `${selectedFeatureLayerId}-badge-count` },
+]

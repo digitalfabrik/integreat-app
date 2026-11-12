@@ -34,6 +34,8 @@ import {
   mapConfig,
   MapFeature,
   normalDetailZoom,
+  selectedFeatureLayerId,
+  selectedFeatureLayers,
   isMultiPlace,
   markerLayer,
   multiPlaceBadgeCountLayer,
@@ -180,7 +182,7 @@ const MapView = ({
     }
     const pressedCoordinates = event.nativeEvent.point
     const featureCollection = await mapRef.current.queryRenderedFeatures(pressedCoordinates, {
-      layers: [featureLayerId, 'selected-marker'],
+      layers: [featureLayerId, selectedFeatureLayerId],
     })
 
     const feature = featureCollection.find((it): it is MapFeature => it.geometry.type === 'Point')
@@ -207,7 +209,7 @@ const MapView = ({
           {userLocation && <NativeUserLocation />}
           <GeoJSONSource
             id='location-places'
-            data={embedInCollection(features.filter(feature => feature !== selectedFeature || isMultiPlace(feature)))}
+            data={embedInCollection(features.filter(feature => feature !== selectedFeature))}
             cluster
             clusterRadius={clusterRadius}
             clusterProperties={clusterProperties}>
@@ -217,9 +219,11 @@ const MapView = ({
             <Layer {...multiPlaceBadgeLayer} />
             <Layer {...multiPlaceBadgeCountLayer(selectedFeature)} />
           </GeoJSONSource>
-          {selectedFeature && !isMultiPlace(selectedFeature) && (
+          {selectedFeature && (
             <GeoJSONSource id='selected-feature' data={embedInCollection([selectedFeature])}>
-              <Layer {...markerLayer(selectedFeature)} id='selected-marker' />
+              {selectedFeatureLayers(selectedFeature).map(layer => (
+                <Layer key={layer.id} {...layer} />
+              ))}
             </GeoJSONSource>
           )}
           <Camera

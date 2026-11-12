@@ -97,9 +97,5 @@ export const openStreetMapCopyright: OpenStreetMapCopyrightType = {
   label: 'contributors',
 }
 
-// Shared layer ids
-export const featureLayerId = 'point'
-export const clusterLayerId = 'clusteredPoints'
-
 // The opening hours loaded from the cms are ordered according to the german weekday order
 export const weekdays = ['montag', 'dienstag', 'mittwoch', 'donnerstag', 'freitag', 'samstag', 'sonntag'] as const

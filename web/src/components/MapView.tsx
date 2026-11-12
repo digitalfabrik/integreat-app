@@ -23,10 +23,11 @@ import {
   clusterRadius,
   embedInCollection,
   featureLayerId,
-  isMultiPlace,
   mapConfig,
   MapFeature,
   MapViewViewport,
+  selectedFeatureLayerId,
+  selectedFeatureLayers,
   markerLayer,
   multiPlaceBadgeCountLayer,
   multiPlaceBadgeLayer,
@@ -138,7 +139,7 @@ const MapView = ({
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && (event.features[0] as unknown as MapFeature)
-      if (feature && feature.layer.id === featureLayerId) {
+      if (feature && [featureLayerId, selectedFeatureLayerId].includes(feature.layer.id)) {
         selectFeature({ ...feature, properties: { places: feature.properties.places } }, false)
       } else {
         selectFeature(null, false)
@@ -189,7 +190,7 @@ const MapView = ({
         reuseMaps
         cursor={cursor}
         initialViewState={viewport ?? undefined}
-        interactiveLayerIds={[featureLayerId, clusterLayerId, 'current']}
+        interactiveLayerIds={[featureLayerId, clusterLayerId, selectedFeatureLayerId]}
         style={{
           height: '100%',
           width: '100%',
@@ -208,7 +209,7 @@ const MapView = ({
         <Source
           id='location-places'
           type='geojson'
-          data={embedInCollection(features.filter(feature => feature !== currentFeature || isMultiPlace(feature)))}
+          data={embedInCollection(features.filter(feature => feature !== currentFeature))}
           cluster
           clusterRadius={clusterRadius}
           clusterProperties={clusterProperties}>
@@ -218,9 +219,11 @@ const MapView = ({
           <Layer {...multiPlaceBadgeLayer} />
           <Layer {...multiPlaceBadgeCountLayer(currentFeature)} />
         </Source>
-        {currentFeature && !isMultiPlace(currentFeature) && (
-          <Source id='current-feature' type='geojson' data={embedInCollection([currentFeature])}>
-            <Layer {...markerLayer(currentFeature)} id='current' />
+        {currentFeature && (
+          <Source id='selected-feature' type='geojson' data={embedInCollection([currentFeature])}>
+            {selectedFeatureLayers(currentFeature).map(layer => (
+              <Layer key={layer.id} {...layer} />
+            ))}
           </Source>
         )}
       </Map>

@@ -1,5 +1,6 @@
 import PlaceModel from '../api/models/PlaceModel.ts'
-import { featureLayerId, MapFeature, MapFeatureCollection } from '../constants/map.ts'
+import { MapFeature, MapFeatureCollection } from '../constants/map.ts'
+import { featureLayerId } from '../constants/mapLayers.ts'
 
 export const MIN_DISTANCE_THRESHOLD = 0.1
 
