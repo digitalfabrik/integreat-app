@@ -1,8 +1,14 @@
 import { fireEvent } from '@testing-library/react'
 import React from 'react'
 
-import { BescheidCheckResult } from 'shared'
-import { ANALYZE_BESCHEID_ENDPOINT_NAME, analyzeBescheid, BescheidCheckAnalysisError, FetchError } from 'shared/api'
+import { BESCHEID_CHECK_ROUTE } from 'shared'
+import {
+  ANALYZE_BESCHEID_ENDPOINT_NAME,
+  analyzeBescheid,
+  BescheidCheckAnalysisError,
+  BescheidCheckResult,
+  FetchError,
+} from 'shared/api'
 
 import { renderRoute } from '../../testing/render'
 import BescheidCheckPage from '../BescheidCheckPage'
@@ -88,7 +94,7 @@ describe('BescheidCheckPage', () => {
     fireEvent.click(getByRole('checkbox'))
     fireEvent.click(getByRole('button', { name: 'bescheidCheck:submit' }))
 
-    expect(analyzeBescheid).toHaveBeenCalledWith(expect.objectContaining({ regionCode: 'bescheid-check' }))
+    expect(analyzeBescheid).toHaveBeenCalledWith(expect.objectContaining({ regionCode: BESCHEID_CHECK_ROUTE }))
   })
 
   it('should show the upload step while uploading', () => {

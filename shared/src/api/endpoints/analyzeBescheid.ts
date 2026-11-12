@@ -1,7 +1,7 @@
-import { ANALYSIS_STAGES, BescheidCheckResult } from '../../constants/bescheidCheck.ts'
+import { ANALYSIS_STAGES } from '../../constants/bescheidCheck.ts'
 import FetchError from '../errors/FetchError.ts'
 import ResponseError from '../errors/ResponseError.ts'
-import readServerEvents, { ServerEvent } from '../readServerEvents.ts'
+import readServerEvents from '../readServerEvents.ts'
 import { JsonBescheidCheckErrorType, JsonBescheidCheckResultType, JsonBescheidCheckStageType } from '../types.ts'
 
 export const ANALYZE_BESCHEID_ENDPOINT_NAME = 'analyzeBescheid'
@@ -11,6 +11,13 @@ const ANALYSIS_TIMEOUT = 300_000
 export class BescheidCheckAnalysisError extends Error {}
 
 type BescheidCheckStage = (typeof ANALYSIS_STAGES)[keyof typeof ANALYSIS_STAGES]
+
+export type BescheidCheckResult = {
+  classification: { type: string; confidence: number; reason: string }
+  explanation: { title: string; content: string; url: string } | null
+  counseling: { question: string; counselingName: string; region: string } | null
+  pages: { pageNumber: number; originalHtml: string; translatedHtml: string }[]
+}
 
 const mapResult = ({
   classification,
@@ -54,37 +61,31 @@ const analyzeBescheid = async ({
   body.append('region', regionCode)
   const requestOptions = { method: 'POST', body, signal: AbortSignal.timeout(ANALYSIS_TIMEOUT) }
 
-  let lastEvent: ServerEvent | undefined
-  try {
-    const response = await fetch(url, requestOptions)
-    if (!response.ok || !response.body) {
-      throw new ResponseError({ endpointName: ANALYZE_BESCHEID_ENDPOINT_NAME, response, url, requestOptions })
-    }
-    lastEvent = await readServerEvents(response.body, ({ event, data }) => {
-      if (event === 'stage') {
-        onStage(ANALYSIS_STAGES[(JSON.parse(data) as JsonBescheidCheckStageType).stage])
-      }
-    })
-  } catch (error) {
-    if (error instanceof ResponseError) {
-      throw error
-    }
-    throw new FetchError({
-      endpointName: ANALYZE_BESCHEID_ENDPOINT_NAME,
-      innerError: error instanceof Error ? error : new Error(),
-      url,
-      requestOptions,
-    })
+  const throwFetchError = (error: unknown): never => {
+    const innerError = error instanceof Error ? error : new Error()
+    throw new FetchError({ endpointName: ANALYZE_BESCHEID_ENDPOINT_NAME, innerError, url, requestOptions })
   }
 
-  if (lastEvent?.event !== 'result') {
-    throw new BescheidCheckAnalysisError(
-      lastEvent?.event === 'error'
-        ? (JSON.parse(lastEvent.data) as JsonBescheidCheckErrorType).reason
-        : 'The analysis ended without a result',
-    )
+  const response = await fetch(url, requestOptions).catch(throwFetchError)
+  if (!response.ok || !response.body) {
+    throw new ResponseError({ endpointName: ANALYZE_BESCHEID_ENDPOINT_NAME, response, url, requestOptions })
   }
-  return mapResult(JSON.parse(lastEvent.data) as JsonBescheidCheckResultType)
+  const lastEvent = await readServerEvents(response.body, ({ event, data }) => {
+    if (event === 'stage') {
+      const { stage }: JsonBescheidCheckStageType = JSON.parse(data)
+      onStage(ANALYSIS_STAGES[stage])
+    }
+  }).catch(throwFetchError)
+
+  if (lastEvent?.event === 'result') {
+    const result: JsonBescheidCheckResultType = JSON.parse(lastEvent.data)
+    return mapResult(result)
+  }
+  if (lastEvent?.event === 'error') {
+    const { reason }: JsonBescheidCheckErrorType = JSON.parse(lastEvent.data)
+    throw new BescheidCheckAnalysisError(reason)
+  }
+  throw new BescheidCheckAnalysisError('The analysis ended without a result')
 }
 
 export default analyzeBescheid

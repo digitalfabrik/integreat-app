@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 
 import {
-  BESCHEID_CHECK_FALLBACK_REGION_CODE,
+  BESCHEID_CHECK_ROUTE,
   BescheidCheckProgressStatus,
   bescheidCheckName,
   parseQueryParams,
@@ -67,7 +67,7 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
       await analyzeBescheid({
         baseUrl: bescheidEndpointBaseUrl,
         languageCode,
-        regionCode: regionCode ?? BESCHEID_CHECK_FALLBACK_REGION_CODE,
+        regionCode: regionCode ?? BESCHEID_CHECK_ROUTE,
         files: files.map(({ file }) => file),
         onStage: setStatus,
       })

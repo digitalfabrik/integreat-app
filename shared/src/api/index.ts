@@ -49,6 +49,7 @@ export {
   default as analyzeBescheid,
   ANALYZE_BESCHEID_ENDPOINT_NAME,
   BescheidCheckAnalysisError,
+  type BescheidCheckResult,
 } from './endpoints/analyzeBescheid.ts'
 export {
   default as createExtractAnswerEndpoint,
