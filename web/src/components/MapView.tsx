@@ -16,8 +16,6 @@ import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from 'react-map-gl/map
 import {
   closerDetailZoom,
   clusterClickZoomFactor,
-  clusterCountLayer,
-  clusterLayer,
   clusterLayerId,
   clusterProperties,
   clusterRadius,
@@ -26,11 +24,11 @@ import {
   mapConfig,
   MapFeature,
   MapViewViewport,
+  placesLayers,
+  placesSourceId,
   selectedFeatureLayerId,
   selectedFeatureLayers,
-  markerLayer,
-  multiPlaceBadgeCountLayer,
-  multiPlaceBadgeLayer,
+  selectedFeatureSourceId,
 } from 'shared'
 
 import useDimensions from '../hooks/useDimensions'
@@ -207,20 +205,18 @@ const MapView = ({
         <OverlayContainer>{overlay}</OverlayContainer>
         {children}
         <Source
-          id='location-places'
+          id={placesSourceId}
           type='geojson'
           data={embedInCollection(features.filter(feature => feature !== currentFeature))}
           cluster
           clusterRadius={clusterRadius}
           clusterProperties={clusterProperties}>
-          <Layer {...clusterLayer(theme.palette.secondary.main)} />
-          <Layer {...clusterCountLayer} />
-          <Layer {...markerLayer(currentFeature)} />
-          <Layer {...multiPlaceBadgeLayer} />
-          <Layer {...multiPlaceBadgeCountLayer(currentFeature)} />
+          {placesLayers(theme.palette.secondary.main, currentFeature).map(layer => (
+            <Layer key={layer.id} {...layer} />
+          ))}
         </Source>
         {currentFeature && (
-          <Source id='selected-feature' type='geojson' data={embedInCollection([currentFeature])}>
+          <Source id={selectedFeatureSourceId} type='geojson' data={embedInCollection([currentFeature])}>
             {selectedFeatureLayers(currentFeature).map(layer => (
               <Layer key={layer.id} {...layer} />
             ))}

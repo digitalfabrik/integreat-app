@@ -9,6 +9,10 @@ import { MapFeature } from './map.ts'
 
 type CircleMapLayer = Omit<CircleLayerSpecification, 'source'>
 type SymbolMapLayer = Omit<SymbolLayerSpecification, 'source'>
+type MapLayer = CircleMapLayer | SymbolMapLayer
+
+export const placesSourceId = 'places'
+export const selectedFeatureSourceId = 'selected-feature'
 
 export const featureLayerId = 'point'
 export const clusterLayerId = 'clusteredPoints'
@@ -60,7 +64,7 @@ export const clusterProperties: Record<string, ExpressionSpecification> = {
   sum: ['+', ['length', ['get', 'places']]],
 }
 
-export const clusterLayer = (color: string): CircleMapLayer => ({
+const clusterLayer = (color: string): CircleMapLayer => ({
   id: clusterLayerId,
   type: 'circle',
   filter: ['has', 'point_count'],
@@ -70,7 +74,7 @@ export const clusterLayer = (color: string): CircleMapLayer => ({
   },
 })
 
-export const clusterCountLayer: SymbolMapLayer = {
+const clusterCountLayer: SymbolMapLayer = {
   id: clusterCountLayerId,
   type: 'symbol',
   filter: ['has', 'point_count'],
@@ -82,7 +86,7 @@ export const clusterCountLayer: SymbolMapLayer = {
   },
 }
 
-export const markerLayer = (selectedFeature: MapFeature | null): SymbolMapLayer => {
+const markerLayer = (selectedFeature: MapFeature | null): SymbolMapLayer => {
   const isActive = isSelected(selectedFeature)
   return {
     id: featureLayerId,
@@ -117,7 +121,7 @@ export const markerLayer = (selectedFeature: MapFeature | null): SymbolMapLayer 
   }
 }
 
-export const multiPlaceBadgeLayer: CircleMapLayer = {
+const multiPlaceBadgeLayer: CircleMapLayer = {
   id: multiPlaceBadgeLayerId,
   type: 'circle',
   filter: multiPlaceFilter,
@@ -129,7 +133,7 @@ export const multiPlaceBadgeLayer: CircleMapLayer = {
   },
 }
 
-export const multiPlaceBadgeCountLayer = (selectedFeature: MapFeature | null): SymbolMapLayer => ({
+const multiPlaceBadgeCountLayer = (selectedFeature: MapFeature | null): SymbolMapLayer => ({
   id: multiPlaceBadgeCountLayerId,
   type: 'symbol',
   filter: multiPlaceFilter,
@@ -147,8 +151,16 @@ export const multiPlaceBadgeCountLayer = (selectedFeature: MapFeature | null): S
   },
 })
 
+export const placesLayers = (clusterColor: string, selectedFeature: MapFeature | null): MapLayer[] => [
+  clusterLayer(clusterColor),
+  clusterCountLayer,
+  markerLayer(selectedFeature),
+  multiPlaceBadgeLayer,
+  multiPlaceBadgeCountLayer(selectedFeature),
+]
+
 // The selected feature is rendered in a separate, non-clustered source to keep it visible if zoomed out
-export const selectedFeatureLayers = (selectedFeature: MapFeature): (CircleMapLayer | SymbolMapLayer)[] => [
+export const selectedFeatureLayers = (selectedFeature: MapFeature): MapLayer[] => [
   { ...markerLayer(selectedFeature), id: selectedFeatureLayerId },
   { ...multiPlaceBadgeLayer, id: `${selectedFeatureLayerId}-badge` },
   { ...multiPlaceBadgeCountLayer(selectedFeature), id: `${selectedFeatureLayerId}-badge-count` },

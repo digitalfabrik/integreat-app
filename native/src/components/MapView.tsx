@@ -21,25 +21,23 @@ import styled, { useTheme } from 'styled-components/native'
 import {
   animationDuration,
   clusterClickZoomFactor,
-  clusterCountLayer,
-  clusterLayer,
   clusterLayerId,
   clusterProperties,
   clusterRadius,
   defaultViewportConfig,
   embedInCollection,
   featureLayerId,
+  isMultiPlace,
   LocationStateType,
   LocationType,
   mapConfig,
   MapFeature,
   normalDetailZoom,
+  placesLayers,
+  placesSourceId,
   selectedFeatureLayerId,
   selectedFeatureLayers,
-  isMultiPlace,
-  markerLayer,
-  multiPlaceBadgeCountLayer,
-  multiPlaceBadgeLayer,
+  selectedFeatureSourceId,
 } from 'shared'
 
 import usePreviousProp from '../hooks/usePreviousProp'
@@ -208,19 +206,17 @@ const MapView = ({
           logo={false}>
           {userLocation && <NativeUserLocation />}
           <GeoJSONSource
-            id='location-places'
+            id={placesSourceId}
             data={embedInCollection(features.filter(feature => feature !== selectedFeature))}
             cluster
             clusterRadius={clusterRadius}
             clusterProperties={clusterProperties}>
-            <Layer {...clusterLayer(theme.colors.secondary)} />
-            <Layer {...clusterCountLayer} />
-            <Layer {...markerLayer(selectedFeature)} />
-            <Layer {...multiPlaceBadgeLayer} />
-            <Layer {...multiPlaceBadgeCountLayer(selectedFeature)} />
+            {placesLayers(theme.colors.secondary, selectedFeature).map(layer => (
+              <Layer key={layer.id} {...layer} />
+            ))}
           </GeoJSONSource>
           {selectedFeature && (
-            <GeoJSONSource id='selected-feature' data={embedInCollection([selectedFeature])}>
+            <GeoJSONSource id={selectedFeatureSourceId} data={embedInCollection([selectedFeature])}>
               {selectedFeatureLayers(selectedFeature).map(layer => (
                 <Layer key={layer.id} {...layer} />
               ))}
