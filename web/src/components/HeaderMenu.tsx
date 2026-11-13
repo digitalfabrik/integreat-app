@@ -48,7 +48,7 @@ export type MenuRef = {
 }
 
 type HeaderMenuProps = {
-  children: (ReactElement | null)[] | ReactElement
+  children: (ReactElement | null)[]
   pageTitle: string | null
   fitScreen?: boolean
   ref?: RefObject<MenuRef | null>
@@ -87,8 +87,6 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
       closeMenu()
     }
   }
-
-  const items = Array.isArray(children) ? children : [children]
 
   const shareUrl = window.location.href
   const encodedShareUrl = encodeURIComponent(shareUrl)
@@ -167,7 +165,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
               <ClickAwayListener onClickAway={handleClickAway}>
                 <MenuList id='header-menu' autoFocusItem={open} onKeyDown={handleKeyDown}>
                   {withDividers([
-                    ...items,
+                    ...children,
                     <MenuItem
                       key='copy'
                       text={t($ => (urlCopied ? $.common.state.copied : $.share.copyLink))}
