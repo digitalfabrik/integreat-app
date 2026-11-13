@@ -100,6 +100,57 @@ export type JsonChatMessagesType = {
   ticket_url: string
 }
 
+export type JsonBescheidCheckStageType = {
+  stage: 'ocr' | 'translate' | 'classify' | 'extraction'
+}
+
+export type JsonBescheidCheckErrorType = {
+  reason: string
+}
+
+type JsonBescheidCheckClassificationType = {
+  type: string
+  confidence: number
+  reason: string
+}
+
+type JsonBescheidCheckExplanationType = {
+  title: string
+  content: string
+  url: string
+}
+
+type JsonBescheidCheckCounselingType = {
+  question: string
+  counseling_name: string
+  region: string
+}
+
+type JsonBescheidCheckPageType = {
+  page_no: number
+  original_html: string
+  translated_html: string
+}
+
+export type JsonBescheidCheckResultType = {
+  classification: JsonBescheidCheckClassificationType
+  explanation: JsonBescheidCheckExplanationType | null
+  counseling: JsonBescheidCheckCounselingType | null
+  pages: JsonBescheidCheckPageType[]
+}
+
+type JsonExtractAnswerSuccessType = {
+  status: 'success'
+  answer: string
+}
+
+type JsonExtractAnswerErrorType = {
+  status: 'error'
+  message: string
+}
+
+export type JsonExtractAnswerType = JsonExtractAnswerSuccessType | JsonExtractAnswerErrorType
+
 export type JsonImprintType = JsonCategoryType
 
 type JsonContactType = {
