@@ -6,7 +6,9 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary'
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
+import FormControl from '@mui/material/FormControl'
 import IconButton from '@mui/material/IconButton'
+import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import Stack from '@mui/material/Stack'
@@ -34,10 +36,6 @@ const Fields = styled('div')(({ theme }) => ({
   },
 }))
 
-const StyledAccordion = styled(Accordion)(({ theme }) => ({
-  borderRadius: theme.shape.borderRadius,
-}))
-
 const StyledAccordionSummary = styled(AccordionSummary)({
   padding: 24,
   alignItems: 'flex-start',
@@ -52,6 +50,14 @@ const StyledAccordionDetails = styled(AccordionDetails)({
   paddingTop: 0,
 })
 
+const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
+  ...theme.typography.subtitle2,
+  position: 'static',
+  transform: 'none',
+  maxWidth: '100%',
+  color: theme.palette.text.primary,
+}))
+
 type SelectFieldProps<T extends string> = {
   id: string
   label: string
@@ -64,15 +70,16 @@ const SelectField = <T extends string>({ id, label, value, options, onChange }: 
   const { t } = useTranslation()
   const selectedOption = options.find(option => option.value === value)
   const labelId = `${id}-label`
+  const inputId = `${id}-input`
 
   return (
-    <Stack sx={{ gap: 1 }}>
-      <Typography id={labelId} variant='subtitle2'>
+    <FormControl size='small' sx={{ gap: 1 }}>
+      <StyledInputLabel id={labelId} htmlFor={inputId}>
         {label}
-      </Typography>
+      </StyledInputLabel>
       <Select
         labelId={labelId}
-        size='small'
+        inputProps={{ id: inputId }}
         displayEmpty
         value={selectedOption?.value ?? ''}
         renderValue={() => selectedOption?.label ?? t($ => $.bescheidCheck.counselingProfile.placeholder)}
@@ -83,7 +90,7 @@ const SelectField = <T extends string>({ id, label, value, options, onChange }: 
           </MenuItem>
         ))}
       </Select>
-    </Stack>
+    </FormControl>
   )
 }
 
@@ -102,28 +109,29 @@ const BescheidCheckCounselingProfile = ({ regionCode }: BescheidCheckCounselingP
     key: COUNSELING_PROFILE_STORAGE_KEY,
     initialValue: {},
   })
-  const [draft, setDraft] = useState<CounselingProfile>({ regionCode, ...counselingProfile })
+  const [profile, setProfile] = useState<CounselingProfile>({ regionCode, ...counselingProfile })
   const [expanded, setExpanded] = useState(false)
   const [snackbarOpen, setSnackbarOpen] = useState(false)
   const { data: regions = [] } = useQueryFromEndpoint(createRegionsEndpoint, cmsApiBaseUrl, undefined)
   const { t } = useTranslation()
 
-  const updateDraft = (update: CounselingProfile) => setDraft(previous => ({ ...previous, ...update }))
+  const updateProfile = (update: CounselingProfile) => setProfile(previous => ({ ...previous, ...update }))
 
   const submit = () => {
-    setCounselingProfile(draft)
+    setCounselingProfile(profile)
     setExpanded(false)
     setSnackbarOpen(true)
   }
 
   return (
     <>
-      <StyledAccordion
+      <Accordion
         variant='outlined'
         disableGutters
         expanded={expanded}
         onChange={(_, isExpanded) => setExpanded(isExpanded)}
-        slotProps={{ heading: { component: 'h2' } }}>
+        slotProps={{ heading: { component: 'h2' } }}
+        sx={{ borderRadius: 1 }}>
         <StyledAccordionSummary
           id='counseling-profile-header'
           aria-controls='counseling-profile-content'
@@ -142,32 +150,32 @@ const BescheidCheckCounselingProfile = ({ regionCode }: BescheidCheckCounselingP
               <SelectField
                 id='counseling-profile-residence-status'
                 label={t($ => $.bescheidCheck.counselingProfile.residenceStatus.label)}
-                value={draft.residenceStatus}
+                value={profile.residenceStatus}
                 options={RESIDENCE_STATUSES.map(residenceStatus => ({
                   value: residenceStatus,
                   label: t($ => $.bescheidCheck.counselingProfile.residenceStatus.options[residenceStatus]),
                 }))}
-                onChange={residenceStatus => updateDraft({ residenceStatus })}
+                onChange={residenceStatus => updateProfile({ residenceStatus })}
               />
               <SelectField
                 id='counseling-profile-age'
                 label={t($ => $.bescheidCheck.counselingProfile.age.label)}
-                value={draft.age}
+                value={profile.age}
                 options={AGE_GROUPS.map(age => ({
                   value: age,
                   label: t($ => $.bescheidCheck.counselingProfile.age.options[age]),
                 }))}
-                onChange={age => updateDraft({ age })}
+                onChange={age => updateProfile({ age })}
               />
               <SelectField
                 id='counseling-profile-region'
                 label={t($ => $.bescheidCheck.counselingProfile.region.label)}
-                value={draft.regionCode}
+                value={profile.regionCode}
                 options={filterSortRegions(regions, '', buildConfig().featureFlags.developerFriendly).map(region => ({
                   value: region.code,
                   label: region.name,
                 }))}
-                onChange={code => updateDraft({ regionCode: code })}
+                onChange={code => updateProfile({ regionCode: code })}
               />
               <Stack direction='row' sx={{ gap: 1 }}>
                 <InfoOutlinedIcon fontSize='small' />
@@ -179,7 +187,7 @@ const BescheidCheckCounselingProfile = ({ regionCode }: BescheidCheckCounselingP
             </Button>
           </Stack>
         </StyledAccordionDetails>
-      </StyledAccordion>
+      </Accordion>
       <Snackbar
         open={snackbarOpen}
         onClose={() => setSnackbarOpen(false)}
