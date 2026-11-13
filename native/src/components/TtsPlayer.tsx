@@ -8,6 +8,7 @@ import styled, { useTheme } from 'styled-components/native'
 import buildConfig from '../constants/buildConfig'
 import { isRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
+import useHorizontalSafeAreaInsets from '../hooks/useHorizontalSafeAreaInsets'
 import { elevatedStyle } from '../utils/styles'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -16,14 +17,14 @@ import Text from './base/Text'
 const StyledTtsPlayer = styled.View<{ insetBottom: number }>`
   background-color: ${props => props.theme.colors.surfaceVariant};
   border-radius: 8px;
-  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  align-self: center;
   position: absolute;
-  margin: 8px;
+  left: 5%;
+  right: 5%;
+  margin-block: 8px;
   bottom: ${props => props.insetBottom}px;
   padding: 32px 24px 24px;
   gap: 12px;
@@ -84,12 +85,14 @@ const TtsPlayer = ({
 }: TtsPlayerProps): ReactElement => {
   const theme = useTheme()
   const { bottom } = useSafeAreaInsets()
+  const { start, end } = useHorizontalSafeAreaInsets()
   const { t } = useTranslation()
 
   return (
     <StyledTtsPlayer
       // There shouldn't be an additional bottom navigation height for a fixed region, for ex. aschaffenburg, as it does not have bottom tab navigation
       insetBottom={bottom + (buildConfig().featureFlags.fixedRegion ? 0 : dimensions.bottomNavigationHeight)}
+      style={{ marginStart: start, marginEnd: end }}
       accessibilityLabel={t($ => $.tts.title)}>
       <TouchableRipple
         borderless
