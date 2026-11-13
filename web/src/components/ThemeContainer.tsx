@@ -103,12 +103,18 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
             deleteIcon: <CloseIcon />,
           },
           styleOverrides: {
-            icon: {
-              color: theme.palette.tertiary.light,
-            },
-            deleteIcon: {
-              color: theme.palette.tertiary.light,
-            },
+            icon: ({ ownerState }) => ({
+              color:
+                ownerState.variant === 'filled' && ownerState.color === 'primary'
+                  ? theme.palette.primary.contrastText
+                  : theme.palette.tertiary.light,
+            }),
+            deleteIcon: ({ ownerState }) => ({
+              color:
+                ownerState.variant === 'filled' && ownerState.color === 'primary'
+                  ? theme.palette.primary.contrastText
+                  : theme.palette.tertiary.light,
+            }),
             outlined: {
               backgroundColor: theme.palette.background.accent,
               borderColor: theme.palette.tertiary.light,
