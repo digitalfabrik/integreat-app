@@ -72,21 +72,24 @@ export const DialogHeader = ({
     </Stack>
   ) : null
 
+  const CloseButton = (
+    <IconButton
+      size={compact ? 'small' : 'medium'}
+      aria-label={t($ => (minimize ? $.common.actions.minimize : $.common.actions.close))}
+      onClick={close}>
+      {desktop ? closeIcon : <DirectionDependentBackIcon />}
+    </IconButton>
+  )
+
   return (
     <StyledHeader
       component={Stack}
-      direction={desktop ? 'row-reverse' : 'row'}
+      direction='row'
       className={className}
       dir={contentDirection}
       elevation={2}
       sx={{ justifyContent: desktop ? 'space-between' : undefined, paddingBlock: compact ? 1.5 : undefined }}>
-      <IconButton
-        size={compact ? 'small' : 'medium'}
-        aria-label={t($ => (minimize ? $.common.actions.minimize : $.common.actions.close))}
-        onClick={close}>
-        {desktop ? closeIcon : <DirectionDependentBackIcon />}
-      </IconButton>
-      {desktop && Actions}
+      {!desktop && CloseButton}
       <StyledDialogTitle component='div' dir={contentDirection}>
         <Stack direction='row' sx={{ alignItems: 'center', gap: compact ? 1 : 2 }}>
           {icon}
@@ -98,7 +101,8 @@ export const DialogHeader = ({
           </Stack>
         </Stack>
       </StyledDialogTitle>
-      {!desktop && Actions}
+      {Actions}
+      {desktop && CloseButton}
     </StyledHeader>
   )
 }

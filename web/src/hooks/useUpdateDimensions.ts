@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
 
+export const updateDimensions = (): boolean => window.dispatchEvent(new Event('resize'))
+
 const useUpdateDimensions = (): void =>
   useEffect(() => {
-    window.dispatchEvent(new Event('resize'))
+    updateDimensions()
   }, [])
 
 export default useUpdateDimensions

@@ -2,65 +2,41 @@ import CheckIcon from '@mui/icons-material/Check'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import LinkIcon from '@mui/icons-material/Link'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
 import QrCode2Icon from '@mui/icons-material/QrCode2'
 import ShareIcon from '@mui/icons-material/ShareOutlined'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import { dividerClasses } from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import MuiMenu from '@mui/material/Menu'
-import { styled } from '@mui/material/styles'
-import React, { ReactElement, RefObject, useImperativeHandle } from 'react'
+import React, { ReactElement, RefObject, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
-import { HEADER_MENU_ELEMENT_ID, HEADER_MENU_PANEL_ELEMENT_ID } from '../constants/layout'
+import { HEADER_MENU_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
 import { useRouteParams } from '../hooks/useRegionContentParams'
+import { updateDimensions } from '../hooks/useUpdateDimensions'
 import { withDividers } from '../utils'
 import getFooterLinks from '../utils/getFooterLinks'
 import { captureError } from '../utils/sentry'
 import MenuAccordion from './MenuAccordion'
 import MenuItem from './MenuItem'
 import QrCodeDialog from './QrCodeDialog'
+import Menu, { MenuRef } from './base/Menu'
 
 const COPY_TIMEOUT = 3000
 
-const StyledMenu = styled(MuiMenu)({
-  marginTop: 8,
-
-  [`& .${dividerClasses.root}`]: {
-    margin: '0 !important',
-  },
-})
-
-export type MenuRef = {
-  closeMenu: () => void
-}
-
 type HeaderMenuProps = {
-  children: (ReactElement | null)[] | ReactElement
+  children: (ReactElement | null)[]
   pageTitle: string | null
   fitScreen?: boolean
   ref?: RefObject<MenuRef | null>
 }
 
 const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): ReactElement => {
-  const [menuAnchorElement, setMenuAnchorElement] = React.useState<HTMLElement | null>(null)
-  const [expandedAccordion, setExpandedAccordion] = React.useState<'share' | 'legal' | null>(null)
-  const [urlCopied, setUrlCopied] = React.useState<boolean>(false)
-  const [qrShareOpen, setQrShareOpen] = React.useState<boolean>(false)
+  const [expandedAccordion, setExpandedAccordion] = useState<'share' | 'legal' | null>(null)
+  const [urlCopied, setUrlCopied] = useState<boolean>(false)
+  const [qrShareOpen, setQrShareOpen] = useState<boolean>(false)
   const { regionCode, languageCode } = useRouteParams()
   const { mobile } = useDimensions()
   const { t } = useTranslation()
-
-  useImperativeHandle(ref, () => ({ closeMenu: () => setMenuAnchorElement(null) }))
-
-  const closeMenu = () => setMenuAnchorElement(null)
-  const open = menuAnchorElement !== null
-  const toggleMenu = (event: React.MouseEvent<HTMLElement>) => setMenuAnchorElement(open ? null : event.currentTarget)
-
-  const items = Array.isArray(children) ? children : [children]
 
   const shareUrl = window.location.href
   const encodedShareUrl = encodeURIComponent(shareUrl)
@@ -77,89 +53,76 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
     setTimeout(() => setUrlCopied(false), COPY_TIMEOUT)
   }
 
-  const sharingItems = [
-    <MenuItem
-      key='whatsapp'
-      to={whatsappUrl}
-      text='WhatsApp'
-      icon={<WhatsAppIcon fontSize='small' />}
-      closeMenu={closeMenu}
-    />,
-    <MenuItem
-      key='facebook'
-      to={facebookUrl}
-      text='Facebook'
-      icon={<FacebookOutlinedIcon fontSize='small' />}
-      closeMenu={closeMenu}
-    />,
-    <MenuItem
-      key='email'
-      to={mailUrl}
-      text={t($ => $.common.contacts.email)}
-      icon={<MailOutlinedIcon fontSize='small' />}
-      closeMenu={closeMenu}
-    />,
-    <MenuItem
-      key='qr'
-      text={t($ => $.share.qr.label)}
-      icon={<QrCode2Icon fontSize='small' />}
-      onClick={() => setQrShareOpen(true)}
-      closeMenu={closeMenu}
-    />,
-  ]
+  const renderItems = (closeMenu: () => void) => {
+    const sharingItems = [
+      <MenuItem
+        key='whatsapp'
+        to={whatsappUrl}
+        text='WhatsApp'
+        icon={<WhatsAppIcon fontSize='small' />}
+        closeMenu={closeMenu}
+      />,
+      <MenuItem
+        key='facebook'
+        to={facebookUrl}
+        text='Facebook'
+        icon={<FacebookOutlinedIcon fontSize='small' />}
+        closeMenu={closeMenu}
+      />,
+      <MenuItem
+        key='email'
+        to={mailUrl}
+        text={t($ => $.common.contacts.email)}
+        icon={<MailOutlinedIcon fontSize='small' />}
+        closeMenu={closeMenu}
+      />,
+      <MenuItem
+        key='qr'
+        text={t($ => $.share.qr.label)}
+        icon={<QrCode2Icon fontSize='small' />}
+        onClick={() => setQrShareOpen(true)}
+        closeMenu={closeMenu}
+      />,
+    ]
 
-  const legalItems = getFooterLinks({ languageCode, regionCode, t }).map(({ text, to }) => (
-    <MenuItem key={text} text={text} to={to} closeMenu={closeMenu} />
-  ))
+    const legalItems = getFooterLinks({ languageCode, regionCode, t }).map(({ text, to }) => (
+      <MenuItem key={text} text={text} to={to} closeMenu={closeMenu} />
+    ))
+
+    return withDividers([
+      ...children,
+      <MenuItem
+        key='copy'
+        text={t($ => (urlCopied ? $.common.state.copied : $.share.copyLink))}
+        onClick={copyToClipboard}
+        icon={urlCopied ? <CheckIcon fontSize='small' /> : <LinkIcon fontSize='small' />}
+      />,
+      <MenuAccordion
+        key='share'
+        title={t($ => $.share.title)}
+        items={sharingItems}
+        icon={<ShareIcon fontSize='small' />}
+        expanded={expandedAccordion === 'share'}
+        setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
+      />,
+      mobile || fitScreen ? (
+        <MenuAccordion
+          key='legal'
+          title={t($ => $.about.legal)}
+          items={legalItems}
+          expanded={expandedAccordion === 'legal'}
+          setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
+        />
+      ) : null,
+    ])
+  }
 
   return (
     <>
-      <IconButton
-        id={HEADER_MENU_ELEMENT_ID}
-        onClick={toggleMenu}
-        aria-label={t($ => $.common.labels.menu)}
-        aria-expanded={open}
-        aria-haspopup='menu'
-        aria-controls={open ? 'header-menu' : undefined}>
-        <MoreVertIcon />
-      </IconButton>
-      <StyledMenu
-        id='header-menu'
-        anchorEl={menuAnchorElement}
-        open={open}
-        onClose={closeMenu}
-        slotProps={{
-          paper: { id: HEADER_MENU_PANEL_ELEMENT_ID },
-          // Let the tour measure the menu once it is opened and positioned
-          transition: { onEntered: () => window.dispatchEvent(new Event('resize')) },
-        }}>
-        {withDividers([
-          ...items,
-          <MenuItem
-            key='copy'
-            text={t($ => (urlCopied ? $.common.state.copied : $.share.copyLink))}
-            onClick={copyToClipboard}
-            icon={urlCopied ? <CheckIcon fontSize='small' /> : <LinkIcon fontSize='small' />}
-          />,
-          <MenuAccordion
-            key='share'
-            title={t($ => $.share.title)}
-            items={sharingItems}
-            icon={<ShareIcon fontSize='small' />}
-            expanded={expandedAccordion === 'share'}
-            setExpanded={expanded => setExpandedAccordion(expanded ? 'share' : null)}
-          />,
-          mobile || fitScreen ? (
-            <MenuAccordion
-              key='legal'
-              title={t($ => $.about.legal)}
-              items={legalItems}
-              expanded={expandedAccordion === 'legal'}
-              setExpanded={expanded => setExpandedAccordion(expanded ? 'legal' : null)}
-            />
-          ) : null,
-        ])}
-      </StyledMenu>
+      {/* Update dimensions to ensure that the app tour has the right dimensions */}
+      <Menu ref={ref} id={HEADER_MENU_ELEMENT_ID} onEntered={updateDimensions}>
+        {renderItems}
+      </Menu>
       <QrCodeDialog
         open={qrShareOpen}
         close={() => setQrShareOpen(false)}
