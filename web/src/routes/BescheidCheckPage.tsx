@@ -19,6 +19,7 @@ import {
 import { analyzeBescheid } from 'shared/api'
 
 import BackButton from '../components/BackButton'
+import BescheidCheckCounselingProfile from '../components/BescheidCheckCounselingProfile'
 import BescheidCheckFileSelection from '../components/BescheidCheckFileSelection'
 import BescheidCheckProgress from '../components/BescheidCheckProgress'
 import BescheidCheckResult from '../components/BescheidCheckResult'
@@ -115,13 +116,16 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
         />
       )}
       {status !== null && !showResult && (
-        <BescheidCheckProgress
-          status={status}
-          error={analysisError}
-          retry={submit}
-          showResult={() => setShowResult(true)}
-          startNewAnalysis={startNewAnalysis}
-        />
+        <Stack sx={{ gap: 6 }}>
+          <BescheidCheckProgress
+            status={status}
+            error={analysisError}
+            retry={submit}
+            showResult={() => setShowResult(true)}
+            startNewAnalysis={startNewAnalysis}
+          />
+          <BescheidCheckCounselingProfile regionCode={regionCode} />
+        </Stack>
       )}
       {showResult && <BescheidCheckResult />}
     </Layout>

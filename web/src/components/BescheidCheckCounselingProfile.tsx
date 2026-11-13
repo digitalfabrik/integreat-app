@@ -1,0 +1,210 @@
+import CloseIcon from '@mui/icons-material/Close'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import Accordion from '@mui/material/Accordion'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary, { accordionSummaryClasses } from '@mui/material/AccordionSummary'
+import Alert from '@mui/material/Alert'
+import Button from '@mui/material/Button'
+import FormControl from '@mui/material/FormControl'
+import IconButton from '@mui/material/IconButton'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import Stack from '@mui/material/Stack'
+import Typography from '@mui/material/Typography'
+import { styled } from '@mui/material/styles'
+import React, { ReactElement, useState } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
+
+import { AGE_GROUPS, filterSortRegions, RESIDENCE_STATUSES } from 'shared'
+import { createRegionsEndpoint } from 'shared/api'
+
+import buildConfig from '../constants/buildConfig'
+import { cmsApiBaseUrl } from '../constants/urls'
+import useLocalStorage, { COUNSELING_PROFILE_STORAGE_KEY } from '../hooks/useLocalStorage'
+import useQueryFromEndpoint from '../hooks/useQueryFromEndpoint'
+import Snackbar from './base/Snackbar'
+
+const Fields = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: 'minmax(0, 1fr)',
+  gap: 16,
+
+  [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+  },
+}))
+
+const StyledAccordionSummary = styled(AccordionSummary)({
+  padding: 24,
+  alignItems: 'flex-start',
+
+  [`& .${accordionSummaryClasses.content}`]: {
+    margin: 0,
+  },
+})
+
+const StyledAccordionDetails = styled(AccordionDetails)({
+  padding: 24,
+  paddingTop: 0,
+})
+
+const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
+  ...theme.typography.subtitle2,
+  position: 'static',
+  transform: 'none',
+  maxWidth: '100%',
+  color: theme.palette.text.primary,
+}))
+
+type SelectFieldProps<T extends string> = {
+  id: string
+  label: string
+  value: T | undefined
+  options: { value: T; label: string }[]
+  onChange: (value: T) => void
+}
+
+const SelectField = <T extends string>({ id, label, value, options, onChange }: SelectFieldProps<T>): ReactElement => {
+  const { t } = useTranslation()
+  const selectedOption = options.find(option => option.value === value)
+  const labelId = `${id}-label`
+  const inputId = `${id}-input`
+
+  return (
+    <FormControl size='small' sx={{ gap: 1 }}>
+      <StyledInputLabel id={labelId} htmlFor={inputId}>
+        {label}
+      </StyledInputLabel>
+      <Select
+        labelId={labelId}
+        inputProps={{ id: inputId }}
+        displayEmpty
+        value={selectedOption?.value ?? ''}
+        renderValue={() => selectedOption?.label ?? t($ => $.bescheidCheck.counselingProfile.placeholder)}
+        onChange={event => onChange(event.target.value as T)}>
+        {options.map(option => (
+          <MenuItem key={option.value} value={option.value} sx={{ whiteSpace: 'normal' }}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  )
+}
+
+type CounselingProfile = {
+  residenceStatus?: (typeof RESIDENCE_STATUSES)[number]
+  age?: (typeof AGE_GROUPS)[number]
+  regionCode?: string
+}
+
+type BescheidCheckCounselingProfileProps = {
+  regionCode: string | undefined
+}
+
+const BescheidCheckCounselingProfile = ({ regionCode }: BescheidCheckCounselingProfileProps): ReactElement => {
+  const [counselingProfile, setCounselingProfile] = useLocalStorage<CounselingProfile>({
+    key: COUNSELING_PROFILE_STORAGE_KEY,
+    initialValue: {},
+  })
+  const [profile, setProfile] = useState<CounselingProfile>({ regionCode, ...counselingProfile })
+  const [expanded, setExpanded] = useState(false)
+  const [snackbarOpen, setSnackbarOpen] = useState(false)
+  const { data: regions = [] } = useQueryFromEndpoint(createRegionsEndpoint, cmsApiBaseUrl, undefined)
+  const { t } = useTranslation()
+
+  const updateProfile = (update: CounselingProfile) => setProfile(previous => ({ ...previous, ...update }))
+
+  const submit = () => {
+    setCounselingProfile(profile)
+    setExpanded(false)
+    setSnackbarOpen(true)
+  }
+
+  return (
+    <>
+      <Accordion
+        variant='outlined'
+        disableGutters
+        expanded={expanded}
+        onChange={(_, isExpanded) => setExpanded(isExpanded)}
+        slotProps={{ heading: { component: 'h2' } }}
+        sx={{ borderRadius: 1 }}>
+        <StyledAccordionSummary
+          id='counseling-profile-header'
+          aria-controls='counseling-profile-content'
+          expandIcon={<ExpandMoreIcon />}>
+          <Stack sx={{ gap: 1 }}>
+            <Typography variant='subtitle1'>{t($ => $.bescheidCheck.counselingProfile.title)}</Typography>
+            <Typography variant='body2'>{t($ => $.bescheidCheck.counselingProfile.description)}</Typography>
+          </Stack>
+        </StyledAccordionSummary>
+        <StyledAccordionDetails>
+          <Stack sx={{ gap: 3 }}>
+            <Alert severity='info'>
+              <Trans ns='bescheidCheck' i18nKey={$ => $.bescheidCheck.counselingProfile.privacy} />
+            </Alert>
+            <Fields>
+              <SelectField
+                id='counseling-profile-residence-status'
+                label={t($ => $.bescheidCheck.counselingProfile.residenceStatus.label)}
+                value={profile.residenceStatus}
+                options={RESIDENCE_STATUSES.map(residenceStatus => ({
+                  value: residenceStatus,
+                  label: t($ => $.bescheidCheck.counselingProfile.residenceStatus.options[residenceStatus]),
+                }))}
+                onChange={residenceStatus => updateProfile({ residenceStatus })}
+              />
+              <SelectField
+                id='counseling-profile-age'
+                label={t($ => $.bescheidCheck.counselingProfile.age.label)}
+                value={profile.age}
+                options={AGE_GROUPS.map(age => ({
+                  value: age,
+                  label: t($ => $.bescheidCheck.counselingProfile.age.options[age]),
+                }))}
+                onChange={age => updateProfile({ age })}
+              />
+              <SelectField
+                id='counseling-profile-region'
+                label={t($ => $.bescheidCheck.counselingProfile.region.label)}
+                value={profile.regionCode}
+                options={filterSortRegions(regions, '', buildConfig().featureFlags.developerFriendly).map(region => ({
+                  value: region.code,
+                  label: region.name,
+                }))}
+                onChange={code => updateProfile({ regionCode: code })}
+              />
+              <Stack direction='row' sx={{ gap: 1 }}>
+                <InfoOutlinedIcon fontSize='small' />
+                <Typography variant='body2'>{t($ => $.bescheidCheck.counselingProfile.hint)}</Typography>
+              </Stack>
+            </Fields>
+            <Button variant='contained' onClick={submit} sx={{ alignSelf: 'flex-end' }}>
+              {t($ => $.bescheidCheck.counselingProfile.submit)}
+            </Button>
+          </Stack>
+        </StyledAccordionDetails>
+      </Accordion>
+      <Snackbar
+        open={snackbarOpen}
+        onClose={() => setSnackbarOpen(false)}
+        severity='success'
+        message={t($ => $.bescheidCheck.counselingProfile.applied)}
+        action={
+          <IconButton
+            aria-label={t($ => $.common.actions.close)}
+            color='inherit'
+            size='small'
+            onClick={() => setSnackbarOpen(false)}>
+            <CloseIcon />
+          </IconButton>
+        }
+      />
+    </>
+  )
+}
+
+export default BescheidCheckCounselingProfile
