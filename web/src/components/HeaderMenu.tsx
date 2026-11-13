@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next'
 import buildConfig from '../constants/buildConfig'
 import { HEADER_MENU_ELEMENT_ID, HEADER_MENU_PANEL_ELEMENT_ID } from '../constants/layout'
 import useDimensions from '../hooks/useDimensions'
+import useLockedBody from '../hooks/useLockedBody'
 import { useRouteParams } from '../hooks/useRegionContentParams'
 import { withDividers } from '../utils'
 import getFooterLinks from '../utils/getFooterLinks'
@@ -63,6 +64,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   const { mobile } = useDimensions()
   const anchorRef = useRef<HTMLButtonElement>(null)
   const { t } = useTranslation()
+  useLockedBody(open)
 
   const closeMenu = () => {
     anchorRef.current?.focus()
