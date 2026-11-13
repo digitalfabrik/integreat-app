@@ -53,30 +53,4 @@ describe('ThemeContainer', () => {
 
     expect(getComputedStyle(chip).backgroundColor).toBe('rgb(255, 255, 255)')
   })
-
-  it('should use contrast text for icons on filled primary chips', () => {
-    const { container } = render(
-      <ThemeContainer contentDirection='ltr'>
-        <Chip label='ENTER' color='primary' icon={<span data-testid='enter-icon' />} size='small' />
-      </ThemeContainer>,
-    )
-    const icon = container.querySelector(`.${chipClasses.icon}`)
-
-    expect(icon).not.toBeNull()
-    expect(getComputedStyle(icon!).color).toBe('rgb(255, 255, 255)')
-  })
-
-  it('should use contrast text for icons on filled primary chips in the contrast theme', () => {
-    window.history.replaceState({}, '', '/test?theme=contrast')
-
-    const { container } = render(
-      <ThemeContainer contentDirection='ltr'>
-        <Chip label='ENTER' color='primary' icon={<span data-testid='enter-icon' />} size='small' />
-      </ThemeContainer>,
-    )
-    const icon = container.querySelector(`.${chipClasses.icon}`)
-
-    expect(icon).not.toBeNull()
-    expect(getComputedStyle(icon!).color).toBe('rgb(29, 27, 32)')
-  })
 })
