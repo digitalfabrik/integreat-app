@@ -15,9 +15,10 @@ import useDimensions from '../hooks/useDimensions'
 import useLocalStorage, { TOUR_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useQueryParam from '../hooks/useQueryParam'
 import useRegionContentParams from '../hooks/useRegionContentParams'
-import HeaderMenu, { MenuRef } from './HeaderMenu'
+import HeaderMenu from './HeaderMenu'
 import MenuItem from './MenuItem'
 import PdfMenuItem from './PdfMenuItem'
+import { MenuRef } from './base/Menu'
 import Svg from './base/Svg'
 
 type RegionContentMenuProps = {
