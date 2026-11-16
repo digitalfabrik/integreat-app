@@ -2,11 +2,10 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import MuiBreadcrumbs, { breadcrumbsClasses } from '@mui/material/Breadcrumbs'
 import IconButton from '@mui/material/IconButton'
-import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Stack from '@mui/material/Stack'
 import { styled } from '@mui/material/styles'
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useDimensions from '../hooks/useDimensions'
@@ -14,6 +13,7 @@ import useJsonLd from '../hooks/useJsonLd'
 import createJsonLdBreadcrumbs from '../utils/createJsonLdBreadcrumbs'
 import Breadcrumb, { BreadcrumbProps } from './Breadcrumb'
 import Link from './base/Link'
+import Menu from './base/Menu'
 
 const StyledMuiBreadcrumbs = styled(MuiBreadcrumbs)`
   .${breadcrumbsClasses.ol} {
@@ -42,12 +42,8 @@ type BreadcrumbsProps = {
 }
 
 const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => {
-  const [menuAnchorElement, setMenuAnchorElement] = useState<HTMLButtonElement | null>(null)
   const { xsmall } = useDimensions()
   const { t } = useTranslation()
-
-  const openMenu = (event: React.MouseEvent<HTMLButtonElement>) => setMenuAnchorElement(event.currentTarget)
-  const closeMenu = () => setMenuAnchorElement(null)
 
   const home = breadcrumbs[0]
   useJsonLd(createJsonLdBreadcrumbs(breadcrumbs))
@@ -76,31 +72,29 @@ const Breadcrumbs = ({ breadcrumbs }: BreadcrumbsProps): ReactElement | null => 
       <StyledMuiBreadcrumbs aria-label='Breadcrumb' separator='>'>
         {collapseHomeButton ? null : homeButton}
         {hiddenBreadcrumbs.length > 0 && (
-          <IconButton key='menu' onClick={openMenu} aria-label={t($ => $.common.actions.showMore)} color='inherit'>
-            <MoreHorizIcon />
-          </IconButton>
+          <Menu icon={<MoreHorizIcon />} label={t($ => $.common.actions.showMore)} buttonColor='inherit'>
+            {() => [
+              collapseHomeButton ? (
+                <MenuItem key={home.to} component={Link} to={home.to}>
+                  {home.title}
+                </MenuItem>
+              ) : null,
+              ...hiddenBreadcrumbs.map(item => (
+                <MenuItem key={item.to} component={Link} to={item.to}>
+                  {item.title}
+                </MenuItem>
+              )),
+            ]}
+          </Menu>
         )}
         {visibleBreadcrumbs.map(breadcrumb => (
           <Breadcrumb key={breadcrumb.to} title={breadcrumb.title} to={breadcrumb.to} />
         ))}
         {/* The following `span` ensures that a separator is shown after the last element.
             This emphasizes that the last element is the parent of the current page.
-            Since we show the current page's title directly below the breadcrumb, we
-            do not need to repeat it here. */}
+            Since we show the current page's title directly below the breadcrumb, we do not need to repeat it here. */}
         <span />
       </StyledMuiBreadcrumbs>
-      <Menu anchorEl={menuAnchorElement} open={!!menuAnchorElement} onClose={closeMenu}>
-        {collapseHomeButton ? (
-          <MenuItem key={home.to} component={Link} to={home.to}>
-            {home.title}
-          </MenuItem>
-        ) : null}
-        {hiddenBreadcrumbs.map(item => (
-          <MenuItem key={item.to} component={Link} to={item.to}>
-            {item.title}
-          </MenuItem>
-        ))}
-      </Menu>
     </Stack>
   )
 }
