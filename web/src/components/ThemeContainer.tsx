@@ -62,6 +62,11 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
             },
           },
         },
+        MuiDivider: {
+          defaultProps: {
+            'aria-hidden': true,
+          },
+        },
         MuiAccordion: {
           styleOverrides: {
             root: {
