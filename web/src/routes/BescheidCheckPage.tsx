@@ -16,7 +16,7 @@ import {
   regionContentPath,
   REGIONS_ROUTE,
 } from 'shared'
-import { analyzeBescheid } from 'shared/api'
+import { analyzeBescheid, BescheidCheckResult as BescheidCheckResultType } from 'shared/api'
 
 import BackButton from '../components/BackButton'
 import BescheidCheckCounselingProfile from '../components/BescheidCheckCounselingProfile'
@@ -52,6 +52,7 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
   const [privacyPolicyAccepted, setPrivacyPolicyAccepted] = useState(false)
   const [status, setStatus] = useState<BescheidCheckProgressStatus | null>(null)
   const [analysisError, setAnalysisError] = useState<Error | null>(null)
+  const [result, setResult] = useState<BescheidCheckResultType | null>(null)
   const [showResult, setShowResult] = useState(false)
   const { t } = useTranslation()
   const { mobile } = useDimensions()
@@ -64,12 +65,13 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
     setStatus('uploading')
     setAnalysisError(null)
     try {
-      await analyzeBescheid({
+      const analysisResult = await analyzeBescheid({
         languageCode,
         regionCode: regionCode ?? BESCHEID_CHECK_ROUTE,
         files: files.map(({ file }) => file),
         onStage: setStatus,
       })
+      setResult(analysisResult)
       setStatus('done')
     } catch (error) {
       setAnalysisError(error instanceof Error ? error : new Error())
@@ -81,6 +83,7 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
     files.forEach(({ url }) => URL.revokeObjectURL(url))
     setFiles([])
     setStatus(null)
+    setResult(null)
     setShowResult(false)
   }
 
@@ -127,7 +130,7 @@ const BescheidCheckPage = ({ languageCode }: BescheidCheckPageProps): ReactEleme
           <BescheidCheckCounselingProfile regionCode={regionCode} />
         </Stack>
       )}
-      {showResult && <BescheidCheckResult />}
+      {showResult && result && <BescheidCheckResult result={result} startNewAnalysis={startNewAnalysis} />}
     </Layout>
   )
 }

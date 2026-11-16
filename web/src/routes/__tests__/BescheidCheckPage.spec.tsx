@@ -23,7 +23,11 @@ describe('BescheidCheckPage', () => {
   const pendingAnalysis = new Promise<BescheidCheckResult>(() => {})
   const result: BescheidCheckResult = {
     classification: { type: 'ablehnung-einfach', confidence: 0.9, reason: 'Rejected application' },
-    explanation: null,
+    explanation: {
+      title: 'Ablehnung',
+      content: '<p>Your application was rejected.</p>',
+      url: 'https://example.com/ablehnung',
+    },
     counseling: null,
     pages: [{ pageNumber: 1, originalHtml: '<p>Bescheid</p>', translatedHtml: '<p>Decision</p>' }],
   }
@@ -157,7 +161,7 @@ describe('BescheidCheckPage', () => {
     expect(analyzeBescheid).toHaveBeenCalledTimes(2)
   })
 
-  it('should show the result when the analysis is done', async () => {
+  it('should show the explanation when the analysis is done', async () => {
     jest.mocked(analyzeBescheid).mockResolvedValue(result)
     const { findByText, getByRole, getByText } = renderAndSubmit()
 
@@ -166,6 +170,34 @@ describe('BescheidCheckPage', () => {
     fireEvent.click(getByRole('button', { name: 'bescheidCheck:progress.showResult' }))
 
     expect(getByText('bescheidCheck:result.title')).toBeTruthy()
+    expect(getByRole('heading', { name: 'Ablehnung' })).toBeTruthy()
+    expect(getByText('Your application was rejected.')).toBeTruthy()
+    expect(getByRole('link', { name: 'bescheidCheck:result.moreInformation' })).toHaveAttribute(
+      'href',
+      'https://example.com/ablehnung',
+    )
+  })
+
+  it('should show a hint if no explanation is available', async () => {
+    jest.mocked(analyzeBescheid).mockResolvedValue({ ...result, explanation: null })
+    const { findByRole, getByText, queryByRole } = renderAndSubmit()
+
+    fireEvent.click(await findByRole('button', { name: 'bescheidCheck:progress.showResult' }))
+
+    expect(getByText('bescheidCheck:result.noExplanation')).toBeTruthy()
+    expect(queryByRole('link', { name: 'bescheidCheck:result.moreInformation' })).toBeNull()
+  })
+
+  it('should start a new analysis from the result', async () => {
+    jest.mocked(analyzeBescheid).mockResolvedValue(result)
+    const { findByRole, getByRole, queryByText } = renderAndSubmit()
+
+    fireEvent.click(await findByRole('button', { name: 'bescheidCheck:progress.showResult' }))
+    fireEvent.click(getByRole('button', { name: 'bescheidCheck:progress.startNewAnalysis' }))
+
+    expect(queryByText('bescheidCheck:result.title')).toBeNull()
+    expect(getByRole('button', { name: 'bescheidCheck:submit' })).toBeDisabled()
+    expect(queryByText('page1.pdf')).toBeNull()
   })
 
   it('should clear the selected files when starting a new analysis', async () => {

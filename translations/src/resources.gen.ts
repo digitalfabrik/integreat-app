@@ -92,7 +92,10 @@ const resources = {
       }
     },
     "result": {
-      "title": "We have analyzed your Bescheid"
+      "title": "We have analyzed your Bescheid",
+      "explanation": "Explanation",
+      "moreInformation": "More information",
+      "noExplanation": "Unfortunately, we do not have an explanation for this type of Bescheid yet. It is best to contact a counseling service."
     }
   },
   "categories": {

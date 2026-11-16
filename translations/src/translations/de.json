@@ -90,7 +90,10 @@
       }
     },
     "result": {
-      "title": "Wir haben deinen Bescheid analysiert"
+      "title": "Wir haben deinen Bescheid analysiert",
+      "explanation": "Erklärung",
+      "moreInformation": "Mehr Informationen",
+      "noExplanation": "Für diese Art von Bescheid haben wir leider noch keine Erklärung. Wende dich am besten an eine Beratungsstelle."
     }
   },
   "categories": {
