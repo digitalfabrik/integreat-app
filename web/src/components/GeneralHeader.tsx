@@ -40,7 +40,7 @@ const GeneralHeader = ({ languageCode, regionLanguages }: GeneralHeaderProps): R
       />
     ) : null,
     <HeaderMenu key='menu' pageTitle={null}>
-      {[
+      {() => [
         <MenuItem
           key='theme'
           text={t($ => $.settings.contrast.title)}

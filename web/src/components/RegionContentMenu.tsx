@@ -2,7 +2,7 @@ import CommentIcon from '@mui/icons-material/CommentOutlined'
 import ContrastIcon from '@mui/icons-material/Contrast'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutlined'
 import { useTheme } from '@mui/material/styles'
-import React, { ReactElement, useContext, useRef } from 'react'
+import React, { ReactElement, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 
@@ -18,7 +18,6 @@ import useRegionContentParams from '../hooks/useRegionContentParams'
 import HeaderMenu from './HeaderMenu'
 import MenuItem from './MenuItem'
 import PdfMenuItem from './PdfMenuItem'
-import { MenuRef } from './base/Menu'
 import Svg from './base/Svg'
 
 type RegionContentMenuProps = {
@@ -40,13 +39,11 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const ref = useRef<MenuRef>(null)
   const homePath = regionContentPath({ regionCode, languageCode })
 
   const showFeedback = fitScreen || (dimensions.mobile && route !== NEWS_ROUTE)
-  const closeMenu = ref.current?.closeMenu
 
-  const items = [
+  const items = (closeMenu: () => void) => [
     route === CATEGORIES_ROUTE ? (
       <PdfMenuItem
         key='pdf'
@@ -97,7 +94,7 @@ const RegionContentMenu = ({ category, pageTitle, fitScreen }: RegionContentMenu
   ]
 
   return (
-    <HeaderMenu pageTitle={pageTitle} fitScreen={fitScreen} ref={ref}>
+    <HeaderMenu pageTitle={pageTitle} fitScreen={fitScreen}>
       {items}
     </HeaderMenu>
   )

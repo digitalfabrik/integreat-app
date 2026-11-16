@@ -7,16 +7,7 @@ import MenuList from '@mui/material/MenuList'
 import Paper from '@mui/material/Paper'
 import Popper from '@mui/material/Popper'
 import { styled } from '@mui/material/styles'
-import React, {
-  KeyboardEvent,
-  ReactElement,
-  ReactNode,
-  RefObject,
-  useId,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react'
+import React, { KeyboardEvent, ReactElement, ReactNode, useId, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import useLockedBody from '../../hooks/useLockedBody'
@@ -32,10 +23,6 @@ const MenuPaper = styled(Paper)({
   },
 })
 
-export type MenuRef = {
-  closeMenu: () => void
-}
-
 type MenuProps = {
   icon?: ReactElement
   label?: string
@@ -45,7 +32,6 @@ type MenuProps = {
   onEntered?: () => void
   // Necessary inside modal dialogs, as screen readers ignore everything outside of them
   disablePortal?: boolean
-  ref?: RefObject<MenuRef | null>
 }
 
 // Not using MUI Menu, since its modal hides the rest of the page from screen readers, trapping e.g. TalkBack users
@@ -57,7 +43,6 @@ const Menu = ({
   buttonColor,
   onEntered,
   disablePortal = false,
-  ref,
 }: MenuProps): ReactElement => {
   // Use a separate boolean instead of setting the ref to null, otherwise the menu jumps to the top left during the exit transition
   const [open, setOpen] = useState<boolean>(false)
@@ -71,8 +56,6 @@ const Menu = ({
     anchorRef.current?.focus()
     setOpen(false)
   }
-
-  useImperativeHandle(ref, () => ({ closeMenu }))
 
   const handleClickAway = (event: MouseEvent | TouchEvent) => {
     // Clicks on the menu button are handled by toggleMenu, otherwise a tap would directly reopen it

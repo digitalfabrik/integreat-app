@@ -5,7 +5,7 @@ import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import QrCode2Icon from '@mui/icons-material/QrCode2'
 import ShareIcon from '@mui/icons-material/ShareOutlined'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import React, { ReactElement, RefObject, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import buildConfig from '../constants/buildConfig'
@@ -19,18 +19,17 @@ import { captureError } from '../utils/sentry'
 import MenuAccordion from './MenuAccordion'
 import MenuItem from './MenuItem'
 import QrCodeDialog from './QrCodeDialog'
-import Menu, { MenuRef } from './base/Menu'
+import Menu from './base/Menu'
 
 const COPY_TIMEOUT = 3000
 
 type HeaderMenuProps = {
-  children: (ReactElement | null)[]
+  children: (closeMenu: () => void) => (ReactElement | null)[]
   pageTitle: string | null
   fitScreen?: boolean
-  ref?: RefObject<MenuRef | null>
 }
 
-const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): ReactElement => {
+const HeaderMenu = ({ children, pageTitle, fitScreen }: HeaderMenuProps): ReactElement => {
   const [expandedAccordion, setExpandedAccordion] = useState<'share' | 'legal' | null>(null)
   const [urlCopied, setUrlCopied] = useState<boolean>(false)
   const [qrShareOpen, setQrShareOpen] = useState<boolean>(false)
@@ -90,7 +89,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
     ))
 
     return withDividers([
-      ...children,
+      ...children(closeMenu),
       <MenuItem
         key='copy'
         text={t($ => (urlCopied ? $.common.state.copied : $.share.copyLink))}
@@ -120,7 +119,7 @@ const HeaderMenu = ({ children, pageTitle, fitScreen, ref }: HeaderMenuProps): R
   return (
     <>
       {/* Update dimensions to ensure that the app tour has the right dimensions */}
-      <Menu ref={ref} id={HEADER_MENU_ELEMENT_ID} onEntered={updateDimensions}>
+      <Menu id={HEADER_MENU_ELEMENT_ID} onEntered={updateDimensions}>
         {renderItems}
       </Menu>
       <QrCodeDialog
