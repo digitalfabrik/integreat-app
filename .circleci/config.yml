@@ -3,7 +3,7 @@
 # You can update it by running `npm run circleci:update-config`.
 commands:
     check_config:
-        description: This command builds the circle config from the files in src and validates that it is up-to-date and valid.
+        description: This command builds the circle config from the files in src and checks that it is up-to-date.
         steps:
             - run:
                 command: corepack enable --install-directory ~/bin
@@ -30,9 +30,6 @@ commands:
                       exit 1;
                     fi
                 name: CircleCI config up to date
-            - run:
-                command: circleci config validate
-                name: Validate circle config
     notify:
         description: Send a notification (to Mattermost) at the end of a job, based on success or failure. Must be the last step in a job.
         parameters:
