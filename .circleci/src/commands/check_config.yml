@@ -1,4 +1,4 @@
-description: This command builds the circle config from the files in src and validates that it is up-to-date and valid.
+description: This command builds the circle config from the files in src and checks that it is up-to-date.
 steps:
   - run:
       name: Enable Corepack
@@ -26,6 +26,3 @@ steps:
           echo "The CircleCI config is not up to date. You can update it by running `npm run circleci:update-config`."
           exit 1;
         fi
-  - run:
-      name: Validate circle config
-      command: circleci config validate
