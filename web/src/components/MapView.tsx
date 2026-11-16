@@ -16,15 +16,14 @@ import Map, { Layer, MapLayerMouseEvent, MapRef, Source } from 'react-map-gl/map
 import {
   closerDetailZoom,
   clusterClickZoomFactor,
-  clusterRadius,
-  embedInCollection,
-  featureLayerId,
+  clusterLayerId,
   mapConfig,
   MapFeature,
   MapViewViewport,
+  mapSources,
+  featureLayerIds,
 } from 'shared'
 
-import { clusterCountLayer, clusterLayer, clusterProperties, markerLayer } from '../constants/layers'
 import useDimensions from '../hooks/useDimensions'
 import { captureError } from '../utils/sentry'
 
@@ -131,7 +130,7 @@ const MapView = ({
       // Stop propagation to children to prevent onClick select event as it is already handled
       event.originalEvent.stopPropagation()
       const feature = event.features && (event.features[0] as unknown as MapFeature)
-      if (feature && feature.layer.id === featureLayerId) {
+      if (feature && featureLayerIds.includes(feature.layer.id)) {
         selectFeature({ ...feature, properties: { places: feature.properties.places } }, false)
       } else {
         selectFeature(null, false)
@@ -182,8 +181,7 @@ const MapView = ({
         reuseMaps
         cursor={cursor}
         initialViewState={viewport ?? undefined}
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        interactiveLayerIds={[markerLayer(currentFeature).id!, clusterLayer(theme).id!, 'current']}
+        interactiveLayerIds={[...featureLayerIds, clusterLayerId]}
         style={{
           height: '100%',
           width: '100%',
@@ -199,22 +197,13 @@ const MapView = ({
         attributionControl={false}>
         <OverlayContainer>{overlay}</OverlayContainer>
         {children}
-        <Source
-          id='location-places'
-          type='geojson'
-          data={embedInCollection(features.filter(feature => feature !== currentFeature))}
-          cluster
-          clusterRadius={clusterRadius}
-          clusterProperties={clusterProperties}>
-          <Layer {...clusterLayer(theme)} />
-          <Layer {...clusterCountLayer} />
-          <Layer {...markerLayer(null)} />
-        </Source>
-        {currentFeature && (
-          <Source id='current-feature' type='geojson' data={embedInCollection([currentFeature])}>
-            <Layer {...markerLayer(currentFeature)} id='current' />
+        {mapSources(features, currentFeature, theme.palette.secondary.main).map(({ layers, ...source }) => (
+          <Source key={source.id} type='geojson' {...source}>
+            {layers.map(layer => (
+              <Layer key={layer.id} {...layer} />
+            ))}
           </Source>
-        )}
+        ))}
       </Map>
     </MapContainer>
   )

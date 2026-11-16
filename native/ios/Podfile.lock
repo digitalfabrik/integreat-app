@@ -79,7 +79,7 @@ PODS:
   - hermes-engine (250829098.0.14):
     - hermes-engine/Pre-built (= 250829098.0.14)
   - hermes-engine/Pre-built (250829098.0.14)
-  - MapLibreReactNative (11.3.6):
+  - MapLibreReactNative (11.5.1):
     - hermes-engine
     - RCTRequired
     - RCTTypeSafety
@@ -2990,7 +2990,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
   hermes-engine: 6c17edc8f34bb309be50319e192e658af909baa4
-  MapLibreReactNative: b3e5df5c89590d4bbbd9489be7a572adc1d8aa4a
+  MapLibreReactNative: feb54df699c1636f9b084bc0ffce0dbb18ae4309
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RCTDeprecation: 2a74a2c57675e64419bd89078efde81f7c1de90b
@@ -3093,6 +3093,6 @@ SPEC CHECKSUMS:
   RNWorklets: 0000755d812f23d0fc703319e2b1f65d9204c954
   Yoga: c30c859b7e9b75e547b600b486fe33165f60de00
 
-PODFILE CHECKSUM: 4c3aee24db624aac1b11dff512e46593702e3b35
+PODFILE CHECKSUM: 50bc440c2e01cdaef9c3e80b23b55611619f17b3
 
 COCOAPODS: 1.17.0

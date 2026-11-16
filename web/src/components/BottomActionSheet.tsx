@@ -51,7 +51,7 @@ export type ScrollableBottomSheetRef = {
 type BottomActionSheetProps = {
   children: ReactNode
   sibling: ReactNode
-  title?: string
+  title: string
   ref: RefObject<ScrollableBottomSheetRef | null>
 }
 
@@ -102,11 +102,9 @@ const BottomActionSheet = ({ children, sibling, title, ref }: BottomActionSheetP
           aria-describedby='title'
           aria-expanded={isFullscreen}>
           <HandleIcon sx={{ alignSelf: 'center', transform: 'scaleX(1.5)' }} />
-          {!!title && (
-            <Typography id='title' component='h1' variant='h5' sx={{ alignSelf: 'start' }}>
-              {title}
-            </Typography>
-          )}
+          <Typography id='title' component='h1' variant='h5' sx={{ alignSelf: 'start' }}>
+            {title}
+          </Typography>
         </HeaderButton>
       }
       sibling={sibling}

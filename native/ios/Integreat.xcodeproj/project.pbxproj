@@ -20,13 +20,13 @@
 		616E1B092370E07D00136B38 /* ConstantsModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 616E1B082370E07D00136B38 /* ConstantsModule.m */; };
 		702D81262E5DC945009DC7D7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 702D81252E5DC945009DC7D7 /* GoogleService-Info.plist */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
-		9042F14BE5D73618E0A6CD40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F20FE5DA90CB68AEADBCC6 /* SceneDelegate.swift */; };
 		7B4C27552274D7B7000FA969 /* FetchResultCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */; };
 		7B4C277C2274DE2B000FA969 /* FetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B4C277B2274DE2B000FA969 /* FetchResult.swift */; };
 		7B7EDC2D2428EE0900E64563 /* fastlane in Resources */ = {isa = PBXBuildFile; fileRef = 7B7EDC2C2428EE0900E64563 /* fastlane */; };
 		7B9749D322DC7A940078B456 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7B9749D522DC7A940078B456 /* InfoPlist.strings */; };
 		7BF11494226F61B60031D233 /* FetcherModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF11469226F4D740031D233 /* FetcherModule.swift */; };
 		7BF11495226F61BC0031D233 /* FetcherModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BF11490226F4E6D0031D233 /* FetcherModule.m */; };
+		9042F14BE5D73618E0A6CD40 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F20FE5DA90CB68AEADBCC6 /* SceneDelegate.swift */; };
 		A330D33322AA9F54005736D0 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D32E22AA9F54005736D0 /* Raleway-Regular.ttf */; };
 		A330D33722AA9F54005736D0 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A330D33222AA9F54005736D0 /* Raleway-Bold.ttf */; };
 		A4119F532FFB99B6005A6948 /* MapLibre in Frameworks */ = {isa = PBXBuildFile; productRef = 60E0246ACF0E731DAC0ACF98 /* MapLibre */; };
@@ -56,7 +56,6 @@
 		616E1B082370E07D00136B38 /* ConstantsModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ConstantsModule.m; path = Integreat/constants/ConstantsModule.m; sourceTree = "<group>"; };
 		702D81252E5DC945009DC7D7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Integreat/AppDelegate.swift; sourceTree = "<group>"; };
-		E1F20FE5DA90CB68AEADBCC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = Integreat/SceneDelegate.swift; sourceTree = "<group>"; };
 		7B0E54CE2369C1480016A7C1 /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7B4C27542274D7B7000FA969 /* FetchResultCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResultCollector.swift; sourceTree = "<group>"; };
 		7B4C277B2274DE2B000FA969 /* FetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchResult.swift; sourceTree = "<group>"; };
@@ -98,6 +97,7 @@
 		B8BF8F3B260B402B00F436B7 /* VarelaRound-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VarelaRound-Regular.ttf"; sourceTree = "<group>"; };
 		B8F3AC7E24ADE7E10010125F /* buildConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = buildConfig.xcconfig; sourceTree = "<group>"; };
 		D5E84E5C2AF2512FD73FED7E /* Pods_Integreat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Integreat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1F20FE5DA90CB68AEADBCC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = Integreat/SceneDelegate.swift; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EE11BE9E24A4D56D00C6F209 /* Integreat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Integreat.entitlements; path = Integreat/Integreat.entitlements; sourceTree = "<group>"; };
@@ -911,7 +911,7 @@
 			repositoryURL = "https://github.com/maplibre/maplibre-gl-native-distribution";
 			requirement = {
 				kind = exactVersion;
-				version = 6.26.0;
+				version = 6.31.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

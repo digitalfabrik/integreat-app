@@ -5,7 +5,7 @@ import { Chip, useTheme } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
 
-import { isMultiPlace, MapFeature, preparePlaces, safeParseInt, sortPlaces } from 'shared'
+import { getMultiPlaceCount, isMultiPlace, MapFeature, preparePlaces, safeParseInt, sortPlaces } from 'shared'
 import { PlaceCategoryModel, PlaceModel, RegionModel } from 'shared/api'
 
 import { EditLocationIcon } from '../assets'
@@ -75,6 +75,13 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     params: { slug, multiPlace, placeCategoryId, currentlyOpen },
   })
 
+  const multiPlaceCount = getMultiPlaceCount(mapFeature, place)
+  const title =
+    place?.title ??
+    (multiPlaceCount !== null
+      ? t($ => $.places.multiPlaceCount.address, { count: multiPlaceCount })
+      : t($ => $.userLocation.nearby))
+
   const getPlacesCount = ({ placeCategoryFilter, currentlyOpenFilter }: PlaceFilters) =>
     preparePlaces({
       places: allPlaces,
@@ -101,7 +108,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
     const slug = mapFeature?.properties.places[0]?.slug
     if (mapFeature && isMultiPlace(mapFeature)) {
       localHistory.push({ multiPlace: safeParseInt(mapFeature.id), slug: undefined })
-    } else if (slug || localHistory.current.slug) {
+    } else if (slug || localHistory.current.slug || localHistory.current.multiPlace !== undefined) {
       localHistory.push({ multiPlace: undefined, slug })
     }
   }
@@ -182,6 +189,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
         zoomRef={handleZoomInRef}
       />
       <PlacesBottomSheet
+        title={title}
         refresh={refresh}
         places={sortPlaces(places, userLocation)}
         place={place}

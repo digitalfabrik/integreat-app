@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams, useSearchParams } from 'react-router'
 
 import {
@@ -12,6 +13,7 @@ import {
   preparePlaces,
   safeParseInt,
   toQueryParams,
+  getMultiPlaceCount,
 } from 'shared'
 import { PlaceCategoryModel, PlaceModel, RegionModel } from 'shared/api'
 
@@ -43,6 +45,7 @@ const Places = ({ places: allPlaces, userLocation, region, loading }: PlaceProps
   const params = useParams()
   const navigate = useNavigate()
   const dimensions = useDimensions()
+  const { t } = useTranslation()
 
   const slug = params.slug ? normalizePath(params.slug) : undefined
 
@@ -50,7 +53,7 @@ const Places = ({ places: allPlaces, userLocation, region, loading }: PlaceProps
     places: allPlaces,
     params: { slug, multiPlace, placeCategoryId, currentlyOpen: currentlyOpenFilter },
   })
-  const { places, placeCategories, placeCategory } = preparedData
+  const { places, placeCategories, placeCategory, mapFeature, place } = preparedData
 
   const deselectAll = () => navigate(`.?${toQueryParams({ placeCategoryId })}`)
 
@@ -93,8 +96,17 @@ const Places = ({ places: allPlaces, userLocation, region, loading }: PlaceProps
     }
   }
 
+  const multiPlaceCount = getMultiPlaceCount(mapFeature, place)
+  const title =
+    place?.title ??
+    (multiPlaceCount !== null
+      ? t($ => $.places.multiPlaceCount.address, { count: multiPlaceCount })
+      : t($ => $.userLocation.nearby))
+
   const sharedPlaceProps = {
     data: preparedData,
+    title,
+    goBack: slug || mapFeature ? deselect : null,
     selectMapFeature,
     selectPlace,
     deselect,

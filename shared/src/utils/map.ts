@@ -1,17 +1,8 @@
-import distance from '@turf/distance'
-
 import PlaceModel from '../api/models/PlaceModel.ts'
-import { featureLayerId, MapFeature, MapFeatureCollection } from '../constants/map.ts'
+import { MapFeature } from '../constants/map.ts'
+import { featureLayerId } from '../constants/mapLayers.ts'
 
 export const MIN_DISTANCE_THRESHOLD = 0.1
-
-export const embedInCollection = (features: MapFeature[]): MapFeatureCollection => ({
-  type: 'FeatureCollection',
-  features,
-})
-
-// 5 meters
-const maxDistanceForOverlap = 0.005
 
 export const prepareMapFeature = (places: PlaceModel[], id: number, coordinates: [number, number]): MapFeature => ({
   type: 'Feature',
@@ -29,7 +20,8 @@ export const prepareMapFeatures = (places: PlaceModel[]): MapFeature[] => {
   const multiPlaces = places.reduce(
     (prev, place) => {
       const multiPlaceIndex = multiPlaceCoordinates.findIndex(
-        coordinate => distance(coordinate, place.location.coordinates) < maxDistanceForOverlap,
+        ([longitude, latitude]) =>
+          longitude === place.location.coordinates[0] && latitude === place.location.coordinates[1],
       )
       if (multiPlaceIndex !== -1) {
         prev[multiPlaceIndex]?.push(place)
