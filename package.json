@@ -29,10 +29,9 @@
     "luxon": "3.7.2",
     "@types/luxon": "3.7.1",
     "react": "19.2.8",
-    "appium/ws": "8.21.3",
-    "@appium/support/uuid": "13.0.1",
     "@browserstack/ai-sdk-node/uuid": "11.1.1",
-    "deepmerge-ts": "8.0.2"
+    "deepmerge-ts": "8.0.2",
+    "@firebase/firestore/@grpc/grpc-js": "1.14.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
@@ -65,7 +64,7 @@
     "jest": "^30.3.0",
     "jest-junit": "^17.0.0",
     "madge": "^8.0.0",
-    "minimatch": "^10.2.6",
+    "minimatch": "^11.0.8",
     "postcss": "^8.5.26",
     "postcss-styled-syntax": "^0.7.2",
     "prettier": "^3.9.6",
