@@ -6,27 +6,12 @@ import type { RegionModel } from 'shared/api'
 import { renderWithTheme } from '../../testing/render'
 import TourContainer from '../TourContainer'
 
-jest.mock('../../utils/tourStepsDesktop', () => ({
-  __esModule: true,
-  default: () => [
-    {
-      selector: '#tour-mask-regression-target',
-      content: 'Tour step',
-      position: 'bottom',
-    },
-  ],
-}))
-
-jest.mock('../../utils/tourStepsMobile', () => ({
-  __esModule: true,
-  default: () => [
-    {
-      selector: '#tour-mask-regression-target',
-      content: 'Tour step',
-      position: 'bottom',
-    },
-  ],
-}))
+jest.mock('../../utils/tourStepsDesktop', () => () => [
+  { selector: '#tour-mask-regression-target', content: 'Tour step' },
+])
+jest.mock('../../utils/tourStepsMobile', () => () => [
+  { selector: '#tour-mask-regression-target', content: 'Tour step' },
+])
 
 describe('TourContainer mask interaction', () => {
   afterEach(() => {
