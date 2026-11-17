@@ -89,17 +89,6 @@ To add a release note:
 
 **WARNING: `native` is not a valid platform, use `android` and `ios` instead!**
 
-#### Show in Stores
-
-Every release note includes a boolean flag `show_in_stores`.
-This flag only has an effect for release notes with platform `android` and/or `ios` set.
-Accordingly, `show_in_stores` should only be set to `true` if
-
-- the release note describes a change that is **visible to our end users** (see [When to Write Release Notes](#when-to-write-release-notes)) AND
-- the change is for `android` and/or `ios`
-
-In all other cases, `show_in_stores` should be set to `false.
-
 ### Reviews
 
 We use this [emoji code](./conventions.md#reviews) for reviewing.
