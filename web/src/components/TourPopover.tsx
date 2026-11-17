@@ -6,10 +6,10 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { PopoverContentProps } from '@reactour/tour'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TOUR_POPOVER_MAX_WIDTH } from '../constants/tour'
+import { TOUR_POPOVER_MAX_WIDTH, TOUR_STEP_DESCRIPTION_ELEMENT_ID, TOUR_STEP_TITLE_ELEMENT_ID } from '../constants/tour'
 import useLocalStorage, { TOUR_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
 import { TourStepType } from '../utils/tourSteps'
@@ -43,6 +43,8 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
     initialValue: true,
   })
   useLockedBody(true)
+  const contentRef = useRef<HTMLDivElement>(null)
+  useEffect(() => contentRef.current?.focus(), [currentStep])
 
   const step = (steps as TourStepType[])[currentStep]
   const isFirstStep = currentStep === 0
@@ -67,7 +69,14 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
         <CloseButton onClick={closeTour} size='small' aria-label={t($ => $.common.actions.close)}>
           <CloseIcon fontSize='small' />
         </CloseButton>
-        {step.content}
+        <div
+          key={currentStep}
+          ref={contentRef}
+          role='group'
+          aria-labelledby={`${TOUR_STEP_TITLE_ELEMENT_ID} ${TOUR_STEP_DESCRIPTION_ELEMENT_ID}`}
+          tabIndex={-1}>
+          {step.content}
+        </div>
         <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
           <Typography
             variant='body3'
