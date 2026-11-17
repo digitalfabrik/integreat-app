@@ -1,8 +1,7 @@
 issue_key: <github issue number> # e.g. 1234
-show_in_stores: <boolean> # whether this note should be shown in the stores, either true or false
+show_in_stores: true # This should always be true as we only write release notes for user-facing changes
 platforms: # relevant platforms, possible values are android and ios
-  - <platform1>
-  - <platform2>
-en: <your note> # english version of the note
-# de is required for notes with show_in_stores set to true
-de: <your german note> # german version of the note
+  - android
+  - ios
+en: <your note> # English version of the note
+de: <your german note> # German version of the note
