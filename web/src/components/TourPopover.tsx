@@ -30,6 +30,10 @@ const Dot = styled('span', { shouldForwardProp })<{ current: boolean }>(({ theme
   backgroundColor: current ? theme.palette.primary.main : theme.palette.text.disabled,
 }))
 
+const StepContent = styled('div')({
+  outline: 'none',
+})
+
 const CloseButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   insetBlockStart: theme.spacing(1),
@@ -69,14 +73,14 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
         <CloseButton onClick={closeTour} size='small' aria-label={t($ => $.common.actions.close)}>
           <CloseIcon fontSize='small' />
         </CloseButton>
-        <div
+        <StepContent
           key={currentStep}
           ref={contentRef}
           role='group'
           aria-labelledby={`${TOUR_STEP_TITLE_ELEMENT_ID} ${TOUR_STEP_DESCRIPTION_ELEMENT_ID}`}
           tabIndex={-1}>
           {step.content}
-        </div>
+        </StepContent>
         <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
           <Typography
             variant='body3'
