@@ -108,15 +108,12 @@ const createTheme = (themeType: ThemeType, contentDirection: UiDirectionType): O
             deleteIcon: <CloseIcon />,
           },
           styleOverrides: {
-            icon: {
-              color: theme.palette.tertiary.light,
-            },
-            deleteIcon: {
-              color: theme.palette.tertiary.light,
-            },
             outlined: {
               backgroundColor: theme.palette.background.accent,
               borderColor: theme.palette.tertiary.light,
+              [`& .${chipClasses.icon}, & .${chipClasses.deleteIcon}`]: {
+                color: theme.palette.tertiary.light,
+              },
 
               [`&.${chipClasses.clickable}`]: {
                 ':hover': {
