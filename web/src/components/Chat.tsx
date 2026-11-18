@@ -28,14 +28,10 @@ import { getErrorMessage } from './FailureSwitcher'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import H1 from './base/H1'
 
-const Container = styled(Stack)(({ theme }) => ({
+const Container = styled(Stack)({
   height: '100%',
   gap: 8,
-
-  [theme.breakpoints.up('md')]: {
-    height: 600,
-  },
-})) as typeof Stack
+}) as typeof Stack
 
 type ChatProps = {
   response: UseQueryFromEndpointReturn<ChatMessagesReturn>
