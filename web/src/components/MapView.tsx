@@ -25,7 +25,6 @@ import {
 } from 'shared'
 
 import useDimensions from '../hooks/useDimensions'
-import { captureError } from '../utils/sentry'
 
 maplibregl.setWorkerUrl(maplibreWorkerUrl)
 
@@ -84,12 +83,6 @@ const MapView = ({
   const theme = useTheme()
 
   const dimensions = useDimensions()
-
-  useEffect(() => {
-    if (maplibregl.getRTLTextPluginStatus() === 'unavailable') {
-      maplibregl.setRTLTextPlugin(mapConfig.rtlPluginUrl, true).catch(captureError)
-    }
-  }, [])
 
   useImperativeHandle(
     ref,

@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "መሪሕ መስመር (Navigation)",
-      "description": "ኣብ መንጎ {{navigationItems, list}} ኣብዚ ቐያይር።"
+      "description": "ኣብ መንጎ {{- navigationItems, list}} ኣብዚ ቐያይር።"
     },
     "categories": {
       "title": "ኣርእስታት ድለ",

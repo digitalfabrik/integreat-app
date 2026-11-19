@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "नेविगेशन",
-      "description": "यहाँ {{navigationItems, list}} के बीच स्विच करें।"
+      "description": "यहाँ {{- navigationItems, list}} के बीच स्विच करें।"
     },
     "categories": {
       "title": "विषय देखें",

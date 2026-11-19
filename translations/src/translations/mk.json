@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Навигација",
-      "description": "Префрлајте се тука помеѓу {{navigationItems, list}}."
+      "description": "Префрлајте се тука помеѓу {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Истражете теми",

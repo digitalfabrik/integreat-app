@@ -39,7 +39,6 @@ const BottomSheetHandle = ({
   return (
     <Handle
       focusable
-      // @ts-expect-error Pressable doesn't have a type for nextFocusForward but it is a valid prop
       nextFocusForward={nextFocusForward}
       onPress={onPress}
       accessibilityLabel={t($ => (isFullscreen ? $.common.actions.showLess : $.common.actions.showMore))}

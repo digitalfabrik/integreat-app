@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Hagid",
-      "description": "Halkan kaga kala gudub {{navigationItems, list}}."
+      "description": "Halkan kaga kala gudub {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Baadh mowduucyada",

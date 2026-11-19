@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "ڕێدۆزی",
-      "description": "لێرەدا لەنێوان {{navigationItems, list}} بگۆڕە."
+      "description": "لێرەدا لەنێوان {{- navigationItems, list}} بگۆڕە."
     },
     "categories": {
       "title": "گەڕان بەدوای بابەتەکاندا",

@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "نیویگیشن",
-      "description": "یہاں {{navigationItems, list}} کے درمیان سوئچ کریں۔"
+      "description": "یہاں {{- navigationItems, list}} کے درمیان سوئچ کریں۔"
     },
     "categories": {
       "title": "موضوعات دریافت کریں",

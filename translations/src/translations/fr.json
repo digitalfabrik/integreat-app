@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navigation",
-      "description": "Passe ici facilement entre {{navigationItems, list}}."
+      "description": "Passe ici facilement entre {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Découvrir les thèmes",

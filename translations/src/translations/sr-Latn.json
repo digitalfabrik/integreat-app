@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navigacija",
-      "description": "Ovde možeš da prelaziš između stavki {{navigationItems, list}}."
+      "description": "Ovde možeš da prelaziš između stavki {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Istraži teme",

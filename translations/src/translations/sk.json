@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navigácia",
-      "description": "Prepínaj tu medzi položkami {{navigationItems, list}}."
+      "description": "Prepínaj tu medzi položkami {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Objavovať témy",

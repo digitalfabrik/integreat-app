@@ -31,6 +31,7 @@ export default {
   roots: ['src'],
   displayName: 'native',
   preset: '@react-native/jest-preset',
+  resolver: 'react-native-reanimated/jest/resolver',
   automock: false,
   moduleNameMapper: {
     '\\.svg': '<rootDir>/src/__mocks__/svgrMock.ts',

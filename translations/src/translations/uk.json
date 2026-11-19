@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Навігація",
-      "description": "Перемикайся тут між {{navigationItems, list}}."
+      "description": "Перемикайся тут між {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Огляд тем",

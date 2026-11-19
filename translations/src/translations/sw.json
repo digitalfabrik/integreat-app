@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Urambazaji",
-      "description": "Badilisha hapa kati ya {{navigationItems, list}}."
+      "description": "Badilisha hapa kati ya {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Gundua mada",

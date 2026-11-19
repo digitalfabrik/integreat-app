@@ -29,6 +29,22 @@ export const initSentry = async (): Promise<void> => {
       // Session tracking starts a new session on every navigation, which allows tracking users across pages
       integrations: defaultIntegrations =>
         defaultIntegrations.filter(integration => integration.name !== 'BrowserSession'),
+      attachStacktrace: false,
+      dataCollection: {
+        userInfo: false,
+        cookies: false,
+        httpHeaders: {
+          request: { deny: ['forwarded', '-ip', 'remote-', 'via', '-user'] },
+          response: { deny: ['forwarded', '-ip', 'remote-', 'via', '-user'] },
+        },
+        httpBodies: [],
+        urlQueryParams: { deny: ['forwarded', '-ip', 'remote-', 'via', '-user'] },
+        genAI: { inputs: false, outputs: false },
+        databaseQueryData: false,
+        queues: false,
+        graphQL: { document: false, variables: false },
+        frameContextLines: 7,
+      },
     })
   } catch (e) {
     logSentryException(e)
