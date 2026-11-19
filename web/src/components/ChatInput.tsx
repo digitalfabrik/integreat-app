@@ -58,6 +58,7 @@ const SendButton = styled(IconButton)(({ theme }) => ({
     backgroundColor: theme.palette.primary.dark,
   },
   [`&.${buttonBaseClasses.disabled}`]: {
+    backgroundColor: 'transparent',
     color: theme.palette.action.disabled,
   },
   [theme.breakpoints.up('md')]: {
