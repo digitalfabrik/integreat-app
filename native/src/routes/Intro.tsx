@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, useWindowDimensions, ViewToken } from 'react-native'
+import { FlatList, type ListViewToken, useWindowDimensions } from 'react-native'
 import styled from 'styled-components/native'
 
 import { BOTTOM_TAB_ROUTE, IntroRouteType, REGIONS_ROUTE } from 'shared'
@@ -111,10 +111,10 @@ const Intro = ({ navigation }: IntroProps): ReactElement => {
 
   const renderSlide = ({ item }: { item: SlideContentType }) => <SlideContent item={item} width={width} />
 
-  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+  const onViewableItemsChanged = useCallback(({ viewableItems }: { viewableItems: ListViewToken[] }) => {
     const viewableItem = viewableItems[0]
     if (viewableItem) {
-      if (viewableItem.index !== null) {
+      if (viewableItem.index !== undefined) {
         setCurrentSlide(viewableItem.index)
       }
     }

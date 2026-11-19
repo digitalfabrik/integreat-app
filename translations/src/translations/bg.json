@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Навигация",
-      "description": "Превключвайте тук между {{navigationItems, list}}."
+      "description": "Превключвайте тук между {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Открийте теми",

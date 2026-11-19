@@ -6,43 +6,43 @@ describe('findNormalizedMatches', () => {
 
   it('should find sections with ß', () => {
     expect(findNormalizedMatches({ searchWords: ['ß'], textToHighlight: 'aßaßaß', sanitize })).toEqual([
-      { start: 1, end: 2, highlight: false },
-      { start: 3, end: 4, highlight: false },
-      { start: 5, end: 6, highlight: false },
+      { start: 1, end: 2, highlight: false, searchIndex: 0 },
+      { start: 3, end: 4, highlight: false, searchIndex: 0 },
+      { start: 5, end: 6, highlight: false, searchIndex: 0 },
     ])
     expect(findNormalizedMatches({ searchWords: ['ß'], textToHighlight: 'wasserstraße', sanitize })).toEqual([
-      { start: 2, end: 4, highlight: false },
-      { start: 10, end: 11, highlight: false },
+      { start: 2, end: 4, highlight: false, searchIndex: 0 },
+      { start: 10, end: 11, highlight: false, searchIndex: 0 },
     ])
   })
 
   it('should find sections with ss', () => {
     expect(findNormalizedMatches({ searchWords: ['ss'], textToHighlight: 'aßaßaß', sanitize })).toEqual([
-      { start: 1, end: 2, highlight: false },
-      { start: 3, end: 4, highlight: false },
-      { start: 5, end: 6, highlight: false },
+      { start: 1, end: 2, highlight: false, searchIndex: 0 },
+      { start: 3, end: 4, highlight: false, searchIndex: 0 },
+      { start: 5, end: 6, highlight: false, searchIndex: 0 },
     ])
     expect(findNormalizedMatches({ searchWords: ['ss'], textToHighlight: 'wasserstraße', sanitize })).toEqual([
-      { start: 2, end: 4, highlight: false },
-      { start: 10, end: 11, highlight: false },
+      { start: 2, end: 4, highlight: false, searchIndex: 0 },
+      { start: 10, end: 11, highlight: false, searchIndex: 0 },
     ])
   })
 
   it('should find sections of words', () => {
     expect(findNormalizedMatches({ searchWords: ['straße'], textToHighlight: 'Strassenstraße', sanitize })).toEqual([
-      { start: 0, end: 7, highlight: false },
-      { start: 8, end: 14, highlight: false },
+      { start: 0, end: 7, highlight: false, searchIndex: 0 },
+      { start: 8, end: 14, highlight: false, searchIndex: 0 },
     ])
     expect(findNormalizedMatches({ searchWords: ['städt'], textToHighlight: 'stadt städtchen', sanitize })).toEqual([
-      { start: 0, end: 5, highlight: false },
-      { start: 6, end: 11, highlight: false },
+      { start: 0, end: 5, highlight: false, searchIndex: 0 },
+      { start: 6, end: 11, highlight: false, searchIndex: 0 },
     ])
   })
 
   it('should find a match at the start of the string', () => {
     expect(
       findNormalizedMatches({ searchWords: ['land'], textToHighlight: 'Landkreis', sanitize }, { wordStartOnly: true }),
-    ).toEqual([{ start: 0, end: 4, highlight: false }])
+    ).toEqual([{ start: 0, end: 4, highlight: false, searchIndex: 0 }])
   })
 
   it('should find a match after a space', () => {
@@ -51,7 +51,7 @@ describe('findNormalizedMatches', () => {
         { searchWords: ['b'], textToHighlight: 'Landkreis Birkenfeld', sanitize },
         { wordStartOnly: true },
       ),
-    ).toEqual([{ start: 10, end: 11, highlight: false }])
+    ).toEqual([{ start: 10, end: 11, highlight: false, searchIndex: 0 }])
   })
 
   it('should find a match after a dash', () => {
@@ -60,7 +60,7 @@ describe('findNormalizedMatches', () => {
         { searchWords: ['hoch'], textToHighlight: 'Breisgau-Hochschwarzwald', sanitize },
         { wordStartOnly: true },
       ),
-    ).toEqual([{ start: 9, end: 13, highlight: false }])
+    ).toEqual([{ start: 9, end: 13, highlight: false, searchIndex: 0 }])
   })
 
   it('should not find a mid-word match', () => {
@@ -72,12 +72,12 @@ describe('findNormalizedMatches', () => {
   it('should find word containing ss with search word ß', () => {
     expect(
       findNormalizedMatches({ searchWords: ['Straße'], textToHighlight: 'Strasse', sanitize }, { wordStartOnly: true }),
-    ).toEqual([{ start: 0, end: 7, highlight: false }])
+    ).toEqual([{ start: 0, end: 7, highlight: false, searchIndex: 0 }])
   })
 
   it('should find word containing ß with search word ss', () => {
     expect(
       findNormalizedMatches({ searchWords: ['Strasse'], textToHighlight: 'Straße', sanitize }, { wordStartOnly: true }),
-    ).toEqual([{ start: 0, end: 6, highlight: false }])
+    ).toEqual([{ start: 0, end: 6, highlight: false, searchIndex: 0 }])
   })
 })

@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navigazione",
-      "description": "Passa facilmente tra {{navigationItems, list}}."
+      "description": "Passa facilmente tra {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Esplora gli argomenti",

@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Πλοήγηση",
-      "description": "Κάνε εναλλαγή εδώ ανάμεσα σε {{navigationItems, list}}."
+      "description": "Κάνε εναλλαγή εδώ ανάμεσα σε {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Ανακάλυψε θέματα",

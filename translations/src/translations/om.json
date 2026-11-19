@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Naannessa",
-      "description": "Asirratti gidduu {{navigationItems, list}} jijjiiri."
+      "description": "Asirratti gidduu {{- navigationItems, list}} jijjiiri."
     },
     "categories": {
       "title": "Mata dureewwan adda baafadhu",

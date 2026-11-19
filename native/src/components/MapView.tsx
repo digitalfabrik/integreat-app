@@ -15,7 +15,7 @@ import {
 import type { BBox } from 'geojson'
 import React, { ReactElement, type Ref, useCallback, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NativeSyntheticEvent, View } from 'react-native'
+import { NativeSyntheticEvent, type ViewInstance } from 'react-native'
 import styled, { useTheme } from 'styled-components/native'
 
 import {
@@ -92,7 +92,7 @@ type MapViewProps = {
   bottomSheetFullscreen: boolean
   zoom: number | undefined
   overlay?: ReactElement
-  zoomRef?: Ref<View>
+  zoomRef?: Ref<ViewInstance>
 }
 
 const MapView = ({

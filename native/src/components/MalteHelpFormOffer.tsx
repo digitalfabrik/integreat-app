@@ -175,7 +175,7 @@ const MalteHelpFormOffer = ({
         />
         <Button
           mode='contained'
-          onPress={submit}
+          onPress={() => submit()}
           disabled={!formState.isValid || formState.isSubmitting || !privacyPolicyAccepted}>
           {t($ => $.malteHelpForm.submit)}
         </Button>

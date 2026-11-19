@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navegação",
-      "description": "Alterne aqui entre {{navigationItems, list}}."
+      "description": "Alterne aqui entre {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Explorar temas",

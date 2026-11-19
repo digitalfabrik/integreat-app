@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navigation",
-      "description": "Skift her mellem {{navigationItems, list}}."
+      "description": "Skift her mellem {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Udforsk emner",

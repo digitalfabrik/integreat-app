@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Rêvedan",
-      "description": "Li vir di navbera {{navigationItems, list}} de derbas bibe."
+      "description": "Li vir di navbera {{- navigationItems, list}} de derbas bibe."
     },
     "categories": {
       "title": "Mijaran bibîne",

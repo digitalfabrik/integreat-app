@@ -1,4 +1,4 @@
-import Speech, { type VoiceOptions } from '@mhpdev/react-native-speech'
+import Speech, { type EventProps, type VoiceOptions } from '@mhpdev/react-native-speech'
 import React, {
   createContext,
   ReactElement,
@@ -161,7 +161,7 @@ const TtsContainer = ({ children }: TtsContainerProps): ReactElement => {
               play(safeIndex + 1)
             })
 
-            const errorSubscription = Speech.onError(({ id }) => {
+            const errorSubscription = Speech.onError(({ id }: EventProps) => {
               log(`Speech error (ID: ${id})`, { level: 'error' })
               stop()
             })
