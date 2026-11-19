@@ -6,6 +6,7 @@ import {
   BOTTOM_TAB_ROUTE,
   CATEGORIES_ROUTE,
   CATEGORIES_TAB_ROUTE,
+  CHAT_ROUTE,
   IMPRINT_ROUTE,
   EVENTS_ROUTE,
   REGIONS_ROUTE,
@@ -162,6 +163,22 @@ describe('useNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
     expect(navigateNested).toHaveBeenCalledWith(navigation, CATEGORIES_ROUTE, { path: regionContentPath }, true)
     expect(navigateNested).toHaveBeenCalledTimes(1)
+  })
+
+  it('should open chat on top of the linked page if chat is set', () => {
+    renderMockComponent({ route: EVENTS_ROUTE, ...params, chat: true }, true)
+    expect(navigateNested).toHaveBeenCalledWith(navigation, EVENTS_ROUTE, { slug: undefined }, true)
+    expect(navigation.navigate).toHaveBeenCalledWith(CHAT_ROUTE)
+    expect(navigation.navigate).toHaveBeenCalledTimes(1)
+  })
+
+  it('should not navigate to chat if chat is not set', () => {
+    renderMockComponent({
+      route: CATEGORIES_ROUTE,
+      regionContentPath,
+      ...params,
+    })
+    expect(navigation.navigate).not.toHaveBeenCalled()
   })
 
   it('should navigate to imprint route', () => {

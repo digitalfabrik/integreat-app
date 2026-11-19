@@ -202,15 +202,22 @@ class InternalPathnameParser {
     return null
   }
 
-  route = (): RouteInformationType =>
-    this.regions() ||
-    this.events() ||
-    this.places() ||
-    this.imprint() ||
-    this.news() ||
-    this.search() ||
-    this.dashboard() ||
-    this.categories()
+  route = (): RouteInformationType => {
+    const routeInformation =
+      this.regions() ||
+      this.events() ||
+      this.places() ||
+      this.imprint() ||
+      this.news() ||
+      this.search() ||
+      this.dashboard() ||
+      this.categories()
+
+    if (routeInformation && 'regionCode' in routeInformation) {
+      return { ...routeInformation, chat: parseQueryParams(this._queryParams).chat }
+    }
+    return routeInformation
+  }
 }
 
 export default InternalPathnameParser
