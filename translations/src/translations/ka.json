@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "ნავიგაცია",
-      "description": "აქ შეგიძლია გადახვიდე შემდეგ განყოფილებებს შორის: {{navigationItems, list}}."
+      "description": "აქ შეგიძლია გადახვიდე შემდეგ განყოფილებებს შორის: {{- navigationItems, list}}."
     },
     "categories": {
       "title": "თემების აღმოჩენა",

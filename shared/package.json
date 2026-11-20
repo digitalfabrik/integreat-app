@@ -36,14 +36,14 @@
     }
   },
   "peerDependencies": {
-    "react": "19.2.8"
+    "react": "19.3.1"
   },
   "dependencies": {
     "@turf/distance": "^7.4.0",
     "deepmerge-ts": "^8.0.1",
     "entities": "^7.0.1",
     "highlight-words-core": "^1.2.3",
-    "htmlparser2": "^10.1.0",
+    "htmlparser2": "^12.0.0",
     "luxon": "^3.7.2",
     "minisearch": "^7.2.0",
     "normalize-path": "^3.0.0",
@@ -56,17 +56,17 @@
   },
   "devDependencies": {
     "@maplibre/maplibre-gl-style-spec": "^26.4.1",
-    "@testing-library/dom": "^10.4.1",
+    "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "7.0.1",
-    "@testing-library/react": "^16.3.2",
+    "@testing-library/react": "^16.3.3",
     "@types/geojson": "^7946.0.16",
     "@types/normalize-path": "^3.0.2",
     "@types/sanitize-html": "^2.16.1",
     "@types/seedrandom": "^3.0.8",
-    "i18next": "^26.3.6",
-    "jest-environment-jsdom": "^30.4.1",
-    "js-sha256": "^0.11.1",
-    "react": "19.2.8",
+    "i18next": "^27.1.5",
+    "jest-environment-jsdom": "^30.5.2",
+    "js-sha256": "^1.1.0",
+    "react": "19.3.1",
     "seedrandom": "^3.0.5"
   }
 }

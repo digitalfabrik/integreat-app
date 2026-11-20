@@ -7,5 +7,6 @@ declare module 'i18next' {
     resources: TranslationsResources
     enableSelector: 'strict'
     defaultNS: (keyof TranslationsResources)[]
+    strictInterpolationChecks: false
   }
 }

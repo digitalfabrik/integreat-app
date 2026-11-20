@@ -1,7 +1,15 @@
 import type { CameraRef, MapRef } from '@maplibre/maplibre-react-native'
 import React, { ReactElement, Ref, RefObject, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { findNodeHandle, Pressable, StyleSheet, type StyleProp, View, type ViewStyle } from 'react-native'
+import {
+  findNodeHandle,
+  Pressable,
+  StyleSheet,
+  type StyleProp,
+  View,
+  type ViewInstance,
+  type ViewStyle,
+} from 'react-native'
 import { useTheme } from 'styled-components/native'
 
 import { animationDuration } from 'shared'
@@ -25,7 +33,7 @@ const styles = StyleSheet.create({
 type FocusedOnlyButtonProps = {
   children: ReactElement
   accessibilityLabel: string
-  ref?: Ref<View>
+  ref?: Ref<ViewInstance>
   style?: StyleProp<ViewStyle>
   onPress: () => void
   nextFocusForward?: number
@@ -49,7 +57,6 @@ const FocusedOnlyButton = ({
       onBlur={() => setIsFocused(false)}
       onPress={isFocused ? onPress : undefined}
       accessibilityLabel={accessibilityLabel}
-      // @ts-expect-error Pressable doesn't have a type for nextFocusForward but it is a valid prop
       nextFocusForward={nextFocusForward}
       style={[styles.button, style, { backgroundColor: theme.colors.surface, opacity: isFocused ? 1 : 0 }]}>
       {children}
@@ -60,7 +67,7 @@ const FocusedOnlyButton = ({
 type MapZoomControlsProps = {
   mapRef: RefObject<MapRef | null>
   cameraRef: RefObject<CameraRef | null>
-  ref?: Ref<View>
+  ref?: Ref<ViewInstance>
 }
 
 const MapZoomControls = ({ mapRef, cameraRef, ref }: MapZoomControlsProps): ReactElement => {
@@ -68,7 +75,7 @@ const MapZoomControls = ({ mapRef, cameraRef, ref }: MapZoomControlsProps): Reac
   const theme = useTheme()
   const [zoomOutFocusTarget, setZoomOutFocusTarget] = useState<number | undefined>(undefined)
 
-  const handleZoomOutRef = useCallback((view: View | null) => {
+  const handleZoomOutRef = useCallback((view: ViewInstance | null) => {
     setZoomOutFocusTarget(findNodeHandle(view) ?? undefined)
   }, [])
 

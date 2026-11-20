@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "ناوبری",
-      "description": "در اینجا بین {{navigationItems, list}} جابه‌جا شوید."
+      "description": "در اینجا بین {{- navigationItems, list}} جابه‌جا شوید."
     },
     "categories": {
       "title": "کشف موضوعات",

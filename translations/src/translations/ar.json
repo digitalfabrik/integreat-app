@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "التنقل",
-      "description": "تنقّل هنا بين {{navigationItems, list}}."
+      "description": "تنقّل هنا بين {{- navigationItems, list}}."
     },
     "categories": {
       "title": "استكشاف الموضوعات",

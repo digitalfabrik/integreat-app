@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "导航",
-      "description": "在此可在 {{navigationItems, list}} 之间切换。"
+      "description": "在此可在 {{- navigationItems, list}} 之间切换。"
     },
     "categories": {
       "title": "探索主题",

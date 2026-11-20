@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navigatie",
-      "description": "Schakel hier tussen {{navigationItems, list}}."
+      "description": "Schakel hier tussen {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Thema's ontdekken",

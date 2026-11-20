@@ -31,6 +31,7 @@ export default {
   roots: ['src'],
   displayName: 'native',
   preset: '@react-native/jest-preset',
+  resolver: 'react-native-reanimated/jest/resolver',
   automock: false,
   moduleNameMapper: {
     '\\.svg': '<rootDir>/src/__mocks__/svgrMock.ts',
@@ -44,5 +45,4 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   moduleDirectories: ['node_modules'],
   maxWorkers: '50%',
-  workerIdleMemoryLimit: process.env.CI ? '500MB' : undefined,
 }
