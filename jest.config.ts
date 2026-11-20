@@ -4,6 +4,8 @@ const config: Partial<Config.GlobalConfig> = {
   rootDir: '.',
   verbose: true,
   projects: ['web', 'native', 'shared', 'translations'],
+  // 500 MB limit
+  workerIdleMemoryLimit: process.env.CI ? 500_000_000 : undefined,
   reporters: [
     ['default', {}],
     [
