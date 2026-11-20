@@ -23,11 +23,7 @@ const TourStepContent = ({ title, descriptionKey, values }: TourStepContentProps
   return (
     <Stack sx={{ gap: 1 }}>
       <Box sx={{ paddingInlineEnd: 3 }}>
-        <Typography
-          id={TOUR_STEP_TITLE_ELEMENT_ID}
-          variant='subtitle1'
-          // Invisible comma to let screen readers pause after the title
-          sx={{ '&::after': { content: '"" / ","' } }}>
+        <Typography id={TOUR_STEP_TITLE_ELEMENT_ID} variant='subtitle1'>
           {title}
         </Typography>
       </Box>

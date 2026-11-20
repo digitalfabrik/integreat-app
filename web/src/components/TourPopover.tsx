@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/material/styles'
 import { PopoverContentProps } from '@reactour/tour'
-import React, { ReactElement, useEffect, useRef } from 'react'
+import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { TOUR_POPOVER_MAX_WIDTH, TOUR_STEP_DESCRIPTION_ELEMENT_ID, TOUR_STEP_TITLE_ELEMENT_ID } from '../constants/tour'
@@ -40,6 +40,11 @@ const CloseButton = styled(IconButton)(({ theme }) => ({
   insetInlineEnd: theme.spacing(1),
 }))
 
+const focus = (element: HTMLElement | null) => {
+  // Wait for the step action to complete before focusing the content
+  requestAnimationFrame(() => element?.focus())
+}
+
 const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverContentProps): ReactElement | null => {
   const { t } = useTranslation()
   const [, setTourVisible] = useLocalStorage<boolean>({
@@ -47,8 +52,6 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
     initialValue: true,
   })
   useLockedBody(true)
-  const contentRef = useRef<HTMLDivElement>(null)
-  useEffect(() => contentRef.current?.focus(), [currentStep])
 
   const step = (steps as TourStepType[])[currentStep]
   const isFirstStep = currentStep === 0
@@ -75,9 +78,10 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
         </CloseButton>
         <StepContent
           key={currentStep}
-          ref={contentRef}
+          ref={focus}
           role='group'
-          aria-labelledby={`${TOUR_STEP_TITLE_ELEMENT_ID} ${TOUR_STEP_DESCRIPTION_ELEMENT_ID}`}
+          aria-labelledby={TOUR_STEP_TITLE_ELEMENT_ID}
+          aria-describedby={TOUR_STEP_DESCRIPTION_ELEMENT_ID}
           tabIndex={-1}>
           {step.content}
         </StepContent>
