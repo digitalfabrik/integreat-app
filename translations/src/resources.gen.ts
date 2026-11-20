@@ -63,6 +63,34 @@ const resources = {
       "startNewAnalysis": "Start new analysis",
       "failed": "Your Bescheid could not be analyzed. Please try again."
     },
+    "counselingProfile": {
+      "title": "Optional information for counseling services",
+      "description": "This information helps us to show you suitable counseling services later. All questions are optional.",
+      "privacy": "<strong>Privacy:</strong> Your information is only processed on your device. We do not store or share it.",
+      "placeholder": "Please select",
+      "hint": "You can also provide this information later.",
+      "submit": "Apply",
+      "applied": "Your information has been applied.",
+      "residenceStatus": {
+        "label": "Residence status",
+        "options": {
+          "noResidenceTitle": "No papers / Permission to reside / Toleration",
+          "residenceTitle": "Residence permit / Settlement permit",
+          "germanCitizenship": "German citizenship"
+        }
+      },
+      "age": {
+        "label": "Age",
+        "options": {
+          "under18": "Under 18",
+          "from18To25": "18-25",
+          "from26": "26 and older"
+        }
+      },
+      "region": {
+        "label": "Location"
+      }
+    },
     "result": {
       "title": "We have analyzed your Bescheid"
     }
