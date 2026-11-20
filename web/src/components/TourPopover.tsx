@@ -9,7 +9,7 @@ import { PopoverContentProps } from '@reactour/tour'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { TOUR_POPOVER_MAX_WIDTH } from '../constants/tour'
+import { TOUR_POPOVER_MAX_WIDTH, TOUR_STEP_DESCRIPTION_ELEMENT_ID, TOUR_STEP_TITLE_ELEMENT_ID } from '../constants/tour'
 import useLocalStorage, { TOUR_VISIBLE_STORAGE_KEY } from '../hooks/useLocalStorage'
 import useLockedBody from '../hooks/useLockedBody'
 import { TourStepType } from '../utils/tourSteps'
@@ -30,11 +30,20 @@ const Dot = styled('span', { shouldForwardProp })<{ current: boolean }>(({ theme
   backgroundColor: current ? theme.palette.primary.main : theme.palette.text.disabled,
 }))
 
+const StepContent = styled('div')({
+  outline: 'none',
+})
+
 const CloseButton = styled(IconButton)(({ theme }) => ({
   position: 'absolute',
   insetBlockStart: theme.spacing(1),
   insetInlineEnd: theme.spacing(1),
 }))
+
+const focus = (element: HTMLElement | null) => {
+  // Wait for the step action to complete before focusing the content
+  requestAnimationFrame(() => element?.focus())
+}
 
 const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverContentProps): ReactElement | null => {
   const { t } = useTranslation()
@@ -67,7 +76,15 @@ const TourPopover = ({ steps, currentStep, setCurrentStep, setIsOpen }: PopoverC
         <CloseButton onClick={closeTour} size='small' aria-label={t($ => $.common.actions.close)}>
           <CloseIcon fontSize='small' />
         </CloseButton>
-        {step.content}
+        <StepContent
+          key={currentStep}
+          ref={focus}
+          role='group'
+          aria-labelledby={TOUR_STEP_TITLE_ELEMENT_ID}
+          aria-describedby={TOUR_STEP_DESCRIPTION_ELEMENT_ID}
+          tabIndex={-1}>
+          {step.content}
+        </StepContent>
         <Stack direction='row' sx={{ alignItems: 'center', gap: 1 }}>
           <Typography
             variant='body3'

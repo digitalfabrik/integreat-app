@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material/styles'
 import { TourProvider } from '@reactour/tour'
-import React, { ReactElement } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { RegionModel } from 'shared/api'
@@ -15,6 +15,13 @@ import TourPopover from './TourPopover'
 const HIGHLIGHT_BORDER_RADIUS = 12
 const DESKTOP_PADDING = 6
 const MOBILE_PADDING = { mask: [TOUR_MASK_PADDING, 0], popover: [0, TOUR_POPOVER_PADDING] }
+
+// Prevents clicks on the tour from closing the opened header menu
+const TourWrapper = ({ children }: { children?: ReactNode }): ReactElement => (
+  <div role='presentation' onClick={event => event.stopPropagation()} onTouchEnd={event => event.stopPropagation()}>
+    {children}
+  </div>
+)
 
 type TourContainerProps = {
   region: RegionModel
@@ -36,6 +43,7 @@ const TourContainer = ({ region, languageCode }: TourContainerProps): ReactEleme
       key={desktop.toString()}
       steps={steps}
       ContentComponent={TourPopover}
+      Wrapper={TourWrapper}
       onClickMask={() => undefined}
       // Only swaps the keyboard arrow keys
       rtl={contentDirection === 'rtl'}
