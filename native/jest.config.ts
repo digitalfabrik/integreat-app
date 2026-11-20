@@ -45,5 +45,4 @@ export default {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   moduleDirectories: ['node_modules'],
   maxWorkers: '50%',
-  workerIdleMemoryLimit: process.env.CI ? '500MB' : undefined,
 }
