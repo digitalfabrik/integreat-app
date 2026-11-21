@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 import React from 'react'
 
 import { CHAT_ROUTE } from 'shared'
-import { ChatMessageModel } from 'shared/api'
+import { ChatMessageModel, createChatMessagesEndpoint, useLoadFromEndpoint } from 'shared/api'
 import { mockUseLoadFromEndpointWithData } from 'shared/api/endpoints/testing/mockUseLoadFromEndpoint'
 
 import useNavigate from '../../hooks/useNavigate'
@@ -39,6 +39,25 @@ describe('ChatFab', () => {
 
     fireEvent.press(getByLabelText('Frag Integreat'))
     expect(navigation.navigate).toHaveBeenCalledWith(CHAT_ROUTE)
+  })
+
+  it('does not load chat messages if the chat was never opened', () => {
+    mockUseLoadFromEndpointWithData({ messages: [buildMessage(1, false)] })
+    const { queryByText } = renderChatFab()
+
+    expect(useLoadFromEndpoint).not.toHaveBeenCalled()
+    expect(queryByText('1')).toBeNull()
+  })
+
+  it('loads chat messages with the stored chat id', () => {
+    mockUseLoadFromEndpointWithData({ messages: [] })
+    renderChatFab({ id: 'chat-id', seenMessages: 0 })
+
+    expect(useLoadFromEndpoint).toHaveBeenCalledWith(
+      createChatMessagesEndpoint,
+      expect.anything(),
+      expect.objectContaining({ chatId: 'chat-id' }),
+    )
   })
 
   it('shows the number of unseen incoming messages in a badge', () => {

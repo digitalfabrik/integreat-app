@@ -3,12 +3,13 @@ import React, { ReactNode } from 'react'
 import { MemoryRouter } from 'react-router'
 
 import { uuid } from 'shared'
-import { ChatMessageModel, RegionModelBuilder } from 'shared/api'
+import { ChatMessageModel, RegionModel, RegionModelBuilder } from 'shared/api'
 
 import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { chatIdKey, chatSeenMessagesKey } from '../../utils/chat'
 import useChat from '../useChat'
 import { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY } from '../useLocalStorage'
+import useQueryFromEndpoint from '../useQueryFromEndpoint'
 
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
@@ -16,7 +17,10 @@ jest.mock('shared', () => ({
 }))
 jest.mock('../useQueryFromEndpoint')
 
-const region = new RegionModelBuilder(1).build()[0]!
+const chatDisabledRegion = new RegionModelBuilder(1).build()[0]!
+const region: RegionModel = Object.assign(Object.create(RegionModel.prototype), chatDisabledRegion, {
+  _chatEnabled: true,
+})
 const languageCode = 'de'
 
 const createWrapper =
@@ -37,8 +41,15 @@ describe('useChat', () => {
   })
 
   describe('chatId', () => {
-    it('should generate and persist a new chat id when none is stored yet', () => {
+    it('should generate but not persist a new chat id when none is stored and the chat is not opened', () => {
       const result = renderUseChat()
+
+      expect(result.current.chatId).toBe('initial-id')
+      expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify(null))
+    })
+
+    it('should persist the generated chat id once the chat is opened', () => {
+      const result = renderUseChat(`/${region.code}/${languageCode}?chat=true`)
 
       expect(result.current.chatId).toBe('initial-id')
       expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify('initial-id'))
@@ -61,13 +72,51 @@ describe('useChat', () => {
       expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify('existing-id'))
     })
 
-    it('should reinitialize the chat id when the stored value is a literal null', () => {
+    it('should not persist the external chat id when opening the chat', () => {
+      renderUseChat(`/${region.code}/${languageCode}?chat=true&chatId=external-id`)
+
+      expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify(null))
+    })
+  })
+
+  describe('loading messages', () => {
+    const enabledOption = () => jest.mocked(useQueryFromEndpoint).mock.lastCall?.[3]?.enabled
+
+    beforeEach(() => {
+      jest.mocked(useQueryFromEndpoint).mockClear()
+    })
+
+    it('should not load messages if the chat was never opened', () => {
+      renderUseChat()
+      expect(enabledOption()).toBe(false)
+    })
+
+    it('should not load messages if a null chat id is stored', () => {
       localStorage.setItem(chatIdKey(region.code), JSON.stringify(null))
+      renderUseChat()
+      expect(enabledOption()).toBe(false)
+    })
 
-      const result = renderUseChat()
+    it('should load messages if a chat id is stored', () => {
+      localStorage.setItem(chatIdKey(region.code), JSON.stringify('existing-id'))
+      renderUseChat()
+      expect(enabledOption()).toBe(true)
+    })
 
-      expect(result.current.chatId).toBe('initial-id')
-      expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify('initial-id'))
+    it('should load messages if the chat is opened', () => {
+      renderUseChat(`/${region.code}/${languageCode}?chat=true`)
+      expect(enabledOption()).toBe(true)
+    })
+
+    it('should load messages for an external chat id', () => {
+      renderUseChat(`/${region.code}/${languageCode}?chatId=external-id`)
+      expect(enabledOption()).toBe(true)
+    })
+
+    it('should not load messages if the chat is disabled for the region', () => {
+      localStorage.setItem(chatIdKey(region.code), JSON.stringify('existing-id'))
+      renderHook(() => useChat({ region: chatDisabledRegion, languageCode }), { wrapper: createWrapper() })
+      expect(enabledOption()).toBe(false)
     })
   })
 
