@@ -43,7 +43,11 @@ const ChatContainerWithChat = ({
 
 describe('ChatContainer', () => {
   const routePattern = '/:regionCode/:languageCode'
-  const region = new RegionModelBuilder(1).build()[0]!
+  const region: RegionModel = Object.assign(
+    Object.create(RegionModel.prototype),
+    new RegionModelBuilder(1).build()[0]!,
+    { _chatEnabled: true },
+  )
   const pathname = `/${region.code}/de`
   const languageChangePaths = [
     { code: 'de', name: 'Deutsch', path: '/augsburg/de' },
@@ -195,12 +199,22 @@ describe('ChatContainer', () => {
     expect(getByText('chat:subtitle')).toBeTruthy()
   })
 
-  it('should reinitialize a null chat id previously written to local storage', () => {
+  it('should not persist a chat id while the chat is closed', () => {
+    renderRoute(<ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />, {
+      pathname,
+      routePattern,
+    })
+
+    expect(localStorage.getItem(chatIdKey(region.code))).toBe('null')
+  })
+
+  it('should persist a chat id once the chat is opened', () => {
     localStorage.setItem(chatIdKey(region.code), 'null')
 
     renderRoute(<ChatContainerWithChat region={region} languageCode='de' languageChangePaths={languageChangePaths} />, {
       pathname,
       routePattern,
+      searchParams: '?chat=true',
     })
 
     expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify('11111111-2222-3333-4444-555555555555'))

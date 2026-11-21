@@ -14,7 +14,7 @@ const useQueryFromEndpoint = <T extends object, P>(
   createEndpoint: (baseUrl: string) => Endpoint<P, T>,
   baseUrl: string,
   params: P,
-  { cached = true }: { cached?: boolean } = {},
+  { cached = true, enabled = true }: { cached?: boolean; enabled?: boolean } = {},
 ): UseQueryFromEndpointReturn<T> => {
   const queryClient = useQueryClient()
 
@@ -26,6 +26,7 @@ const useQueryFromEndpoint = <T extends object, P>(
       queryKey,
       queryFn: async () => loadFromEndpoint(createEndpoint, baseUrl, params),
       staleTime: cached ? defaultStaleTime : 0,
+      enabled,
     }),
     setData: data => queryClient.setQueryData(queryKey, data),
   }

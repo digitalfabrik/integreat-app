@@ -21,10 +21,11 @@ type ChatPollingProps = {
   regionCode: string
   languageCode: string
   chatId: string
+  enabled: boolean
 }
 
-const useChatPolling = (params: ChatPollingProps): UseQueryFromEndpointReturn<ChatMessagesReturn> => {
-  const response = useQueryFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, params, { cached: false })
+const useChatPolling = ({ enabled, ...params }: ChatPollingProps): UseQueryFromEndpointReturn<ChatMessagesReturn> => {
+  const response = useQueryFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, params, { cached: false, enabled })
   const isBrowserTabActive = useIsTabActive()
   const rateLimitRetryWindow = useRateLimitRetryWindow()
 
@@ -35,7 +36,7 @@ const useChatPolling = (params: ChatPollingProps): UseQueryFromEndpointReturn<Ch
   // Polling continues while mounted and enabled, independent of whether the chat dialog is
   // currently open, so the unread badge keeps updating in the background.
   useEffect(() => {
-    if (!isBrowserTabActive || messageCount === 0) {
+    if (!enabled || !isBrowserTabActive || messageCount === 0) {
       return undefined
     }
     const poll = () => {
@@ -46,7 +47,7 @@ const useChatPolling = (params: ChatPollingProps): UseQueryFromEndpointReturn<Ch
     }
     const interval = setInterval(poll, botTyping ? CHAT_TYPING_POLLING_INTERVAL : CHAT_DEFAULT_POLLING_INTERVAL)
     return () => clearInterval(interval)
-  }, [refetch, isBrowserTabActive, messageCount, botTyping, rateLimitRetryWindow])
+  }, [enabled, refetch, isBrowserTabActive, messageCount, botTyping, rateLimitRetryWindow])
 
   return response
 }
@@ -69,9 +70,10 @@ export type UseChatReturn = {
 const useChat = ({ region, languageCode }: UseChatProps): UseChatReturn => {
   const [queryParams] = useSearchParams()
   const [initialChatId] = useState<string>(uuid)
+  // The chat id is only persisted once the chat is opened, so we can avoid requests for users who never use the chat
   const [storageChatId, setChatId] = useLocalStorage<string | null>({
     key: chatIdKey(region.code),
-    initialValue: initialChatId,
+    initialValue: null,
   })
   const [seenMessages, setSeenMessages] = useLocalStorage<number>({
     key: chatSeenMessagesKey(region.code),
@@ -82,17 +84,17 @@ const useChat = ({ region, languageCode }: UseChatProps): UseChatReturn => {
     initialValue: [],
   })
 
-  const externalChatId = parseQueryParams(queryParams).chatId
+  const { chatId: externalChatId, chat: chatOpen } = parseQueryParams(queryParams)
   const chatId = externalChatId ?? storageChatId ?? initialChatId
-  const response = useChatPolling({ regionCode: region.code, languageCode, chatId })
+  const chatStarted = storageChatId !== null
+  const enabled = !!externalChatId || (region.chatEnabled && (chatStarted || !!chatOpen))
+  const response = useChatPolling({ regionCode: region.code, languageCode, chatId, enabled })
 
-  // We previously saved null as chat id for unstarted chats
-  // Therefore reinitialize with a correct chat id
   useEffect(() => {
-    if (storageChatId === null) {
+    if (region.chatEnabled && chatOpen && !externalChatId && storageChatId === null) {
       setChatId(initialChatId)
     }
-  }, [storageChatId, setChatId, initialChatId])
+  }, [region.chatEnabled, chatOpen, externalChatId, storageChatId, setChatId, initialChatId])
 
   const incomingMessageCount = response.data?.messages.filter(message => !message.userIsAuthor).length ?? 0
   const unreadMessageCount = incomingMessageCount - seenMessages
