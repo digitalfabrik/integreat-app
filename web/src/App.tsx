@@ -9,16 +9,18 @@ import { UiDirectionType, config } from 'translations'
 
 import RootNavigator from './RootNavigator'
 import I18nProvider from './components/I18nProvider'
+import RateLimitRetryNotice from './components/RateLimitRetryNotice'
 import ThemeContainer from './components/ThemeContainer'
 import TtsContainer from './components/TtsContainer'
 import CustomAdapterLuxon from './utils/CustomAdapterLuxon'
+import { rateLimitRetryOptions } from './utils/rateLimitRetry'
 import { initSentry } from './utils/sentry'
 
 LuxonSettings.throwOnInvalid = true
 LuxonSettings.defaultLocale = config.defaultFallback
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { retry: false, refetchOnWindowFocus: false, networkMode: 'always' } },
+  defaultOptions: { queries: { ...rateLimitRetryOptions, refetchOnWindowFocus: false, networkMode: 'always' } },
 })
 
 const App = (): ReactElement => {
@@ -38,7 +40,10 @@ const App = (): ReactElement => {
           <LocalizationProvider dateAdapter={CustomAdapterLuxon} adapterLocale={contentLanguage}>
             <Router>
               <TtsContainer languageCode={contentLanguage}>
-                <RootNavigator setContentLanguage={setContentLanguage} />
+                <>
+                  <RootNavigator setContentLanguage={setContentLanguage} />
+                  <RateLimitRetryNotice />
+                </>
               </TtsContainer>
             </Router>
           </LocalizationProvider>
