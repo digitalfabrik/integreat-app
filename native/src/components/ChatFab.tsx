@@ -39,6 +39,47 @@ const StyledBadge = styled(Badge)`
   bottom: 44px;
 `
 
+type ChatUnreadBadgeProps = {
+  regionCode: string
+  languageCode: string
+  chatId: string
+  seenMessages: number
+}
+
+const ChatUnreadBadge = ({
+  regionCode,
+  languageCode,
+  chatId,
+  seenMessages,
+}: ChatUnreadBadgeProps): ReactElement | null => {
+  const { t } = useTranslation()
+  const { data, refresh } = useLoadFromEndpoint(createChatMessagesEndpoint, determineApiUrl, {
+    regionCode,
+    languageCode,
+    chatId,
+  })
+
+  useFocusEffect(
+    useCallback(() => {
+      const interval = setInterval(refresh, CHAT_DEFAULT_POLLING_INTERVAL)
+      return () => clearInterval(interval)
+    }, [refresh]),
+  )
+
+  const incomingMessageCount = data?.messages.filter(message => !message.userIsAuthor).length ?? 0
+  const unreadMessageCount = incomingMessageCount - seenMessages
+
+  if (unreadMessageCount <= 0) {
+    return null
+  }
+
+  return (
+    <StyledBadge accessibilityLabel={t($ => $.chat.unread, { count: unreadMessageCount })}>
+      {unreadMessageCount}
+    </StyledBadge>
+  )
+}
+
 type ChatFabProps = {
   style?: ViewStyle
 }
@@ -47,27 +88,7 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
   const { regionCode, languageCode, settings } = useRegionAppContext()
   const chatSettings = settings.chat[regionCode]
   const { navigation } = useNavigate()
-  const { t } = useTranslation()
   const theme = useTheme()
-
-  const { data, refresh } = useLoadFromEndpoint(createChatMessagesEndpoint, determineApiUrl, {
-    regionCode,
-    languageCode,
-    chatId: chatSettings?.id ?? '',
-  })
-
-  useFocusEffect(
-    useCallback(() => {
-      if (chatSettings) {
-        const interval = setInterval(refresh, CHAT_DEFAULT_POLLING_INTERVAL)
-        return () => clearInterval(interval)
-      }
-      return () => undefined
-    }, [refresh, chatSettings]),
-  )
-
-  const incomingMessageCount = data?.messages.filter(message => !message.userIsAuthor).length ?? 0
-  const unreadMessageCount = incomingMessageCount - (chatSettings?.seenMessages ?? 0)
 
   return (
     <Container style={style}>
@@ -79,10 +100,13 @@ const ChatFab = ({ style }: ChatFabProps): ReactElement => {
         accessibilityLabel={getChatName(buildConfig().appName)}>
         <Icon size={24} source='forum-outline' color={theme.colors.onPrimary} />
       </TouchableFab>
-      {unreadMessageCount > 0 && (
-        <StyledBadge accessibilityLabel={t($ => $.chat.unread, { count: unreadMessageCount })}>
-          {unreadMessageCount}
-        </StyledBadge>
+      {chatSettings && (
+        <ChatUnreadBadge
+          regionCode={regionCode}
+          languageCode={languageCode}
+          chatId={chatSettings.id}
+          seenMessages={chatSettings.seenMessages}
+        />
       )}
     </Container>
   )
