@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useSearchParams } from 'react-router'
 
 import { CHAT_DEFAULT_POLLING_INTERVAL, CHAT_TYPING_POLLING_INTERVAL, parseQueryParams, uuid } from 'shared'
@@ -18,14 +18,23 @@ import useLocalStorage, { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY, UpdateLocalStorage
 import useQueryFromEndpoint, { UseQueryFromEndpointReturn } from './useQueryFromEndpoint'
 
 type ChatPollingProps = {
-  regionCode: string
+  region: RegionModel
   languageCode: string
-  chatId: string
-  enabled: boolean
+  chatId: string | null
 }
 
-const useChatPolling = ({ enabled, ...params }: ChatPollingProps): UseQueryFromEndpointReturn<ChatMessagesReturn> => {
-  const response = useQueryFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, params, { cached: false, enabled })
+const useChatPolling = ({
+  region,
+  chatId,
+  languageCode,
+}: ChatPollingProps): UseQueryFromEndpointReturn<ChatMessagesReturn> => {
+  const enabled = region.chatEnabled && chatId !== null
+  const response = useQueryFromEndpoint(
+    createChatMessagesEndpoint,
+    cmsApiBaseUrl,
+    { regionCode: region.code, languageCode, chatId: chatId ?? '' },
+    { cached: false, enabled },
+  )
   const isBrowserTabActive = useIsTabActive()
   const rateLimitRetryWindow = useRateLimitRetryWindow()
 
@@ -58,7 +67,7 @@ type UseChatProps = {
 }
 
 export type UseChatReturn = {
-  chatId: string
+  chatId: string | null
   response: UseQueryFromEndpointReturn<ChatMessagesReturn>
   unreadMessageCount: number
   markAsSeen: () => void
@@ -69,8 +78,6 @@ export type UseChatReturn = {
 
 const useChat = ({ region, languageCode }: UseChatProps): UseChatReturn => {
   const [queryParams] = useSearchParams()
-  const [initialChatId] = useState<string>(uuid)
-  // The chat id is only persisted once the chat is opened, so we can avoid requests for users who never use the chat
   const [storageChatId, setChatId] = useLocalStorage<string | null>({
     key: chatIdKey(region.code),
     initialValue: null,
@@ -85,16 +92,14 @@ const useChat = ({ region, languageCode }: UseChatProps): UseChatReturn => {
   })
 
   const { chatId: externalChatId, chat: chatOpen } = parseQueryParams(queryParams)
-  const chatId = externalChatId ?? storageChatId ?? initialChatId
-  const chatStarted = storageChatId !== null
-  const enabled = !!externalChatId || (region.chatEnabled && (chatStarted || !!chatOpen))
-  const response = useChatPolling({ regionCode: region.code, languageCode, chatId, enabled })
+  const chatId = externalChatId ?? storageChatId
+  const response = useChatPolling({ region, languageCode, chatId })
 
   useEffect(() => {
-    if (region.chatEnabled && chatOpen && !externalChatId && storageChatId === null) {
-      setChatId(initialChatId)
+    if (region.chatEnabled && chatOpen && !chatId) {
+      setChatId(uuid())
     }
-  }, [region.chatEnabled, chatOpen, externalChatId, storageChatId, setChatId, initialChatId])
+  }, [region.chatEnabled, chatOpen, chatId, setChatId])
 
   const incomingMessageCount = response.data?.messages.filter(message => !message.userIsAuthor).length ?? 0
   const unreadMessageCount = incomingMessageCount - seenMessages

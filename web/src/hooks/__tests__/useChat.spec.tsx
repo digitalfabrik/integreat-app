@@ -41,10 +41,10 @@ describe('useChat', () => {
   })
 
   describe('chatId', () => {
-    it('should generate but not persist a new chat id when none is stored and the chat is not opened', () => {
+    it('should not create a chat id when none is stored and the chat is not opened', () => {
       const result = renderUseChat()
 
-      expect(result.current.chatId).toBe('initial-id')
+      expect(result.current.chatId).toBeNull()
       expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify(null))
     })
 
@@ -70,6 +70,15 @@ describe('useChat', () => {
 
       expect(result.current.chatId).toBe('external-id')
       expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify('existing-id'))
+    })
+
+    it('should not create a chat id if the chat is disabled for the region', () => {
+      const { result } = renderHook(() => useChat({ region: chatDisabledRegion, languageCode }), {
+        wrapper: createWrapper(`/${region.code}/${languageCode}?chat=true`),
+      })
+
+      expect(result.current.chatId).toBeNull()
+      expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify(null))
     })
 
     it('should not persist the external chat id when opening the chat', () => {
@@ -212,6 +221,7 @@ describe('useChat', () => {
 
     beforeEach(() => {
       jest.useFakeTimers()
+      localStorage.setItem(chatIdKey(region.code), JSON.stringify('existing-id'))
       jest.mocked(useQueryFromEndpoint).mockImplementation(
         () =>
           ({

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router'
 
-import { IMPRINT_ROUTE, NEWS_ROUTE, normalizePath, PLACES_ROUTE, SEARCH_ROUTE } from 'shared'
+import { IMPRINT_ROUTE, normalizePath, PLACES_ROUTE, SEARCH_ROUTE } from 'shared'
 import { RegionModel, RegionModelBuilder } from 'shared/api'
 
 import RegionContentNavigator from '../RegionContentNavigator'
@@ -29,7 +29,7 @@ describe('RegionContentNavigator', () => {
     const pathname = normalizePath(useLocation().pathname)
     return <div>{pathname}</div>
   }
-  const renderRegionContentNavigator = (routeName: string) =>
+  const renderRegionContentNavigator = (routeName: string, searchParams?: string) =>
     renderRoute(
       <>
         <RegionContentNavigator languageCode={languageCode} />
@@ -38,6 +38,7 @@ describe('RegionContentNavigator', () => {
       {
         routePattern: regionContentPattern,
         pathname: path(region, routeName),
+        searchParams,
       },
     )
 
@@ -61,5 +62,11 @@ describe('RegionContentNavigator', () => {
     mockUseQueryFromEndpointWithData(regionWithDisabledFeatures)
     const { queryByText } = renderRegionContentNavigator(PLACES_ROUTE)
     expect(queryByText(PLACES_ROUTE)).not.toBeTruthy()
+  })
+
+  it('should show an error for an external chat if the chat is disabled for the region', () => {
+    mockUseQueryFromEndpointWithData(regionWithDisabledFeatures)
+    const { getByText } = renderRegionContentNavigator('', '?chat=true&chatId=external-id')
+    expect(getByText('error:pageNotFound')).toBeTruthy()
   })
 })
