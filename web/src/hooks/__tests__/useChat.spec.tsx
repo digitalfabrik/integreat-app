@@ -3,12 +3,13 @@ import React, { ReactNode } from 'react'
 import { MemoryRouter } from 'react-router'
 
 import { uuid } from 'shared'
-import { ChatMessageModel, RegionModelBuilder } from 'shared/api'
+import { ChatMessageModel, rateLimitRetryOptions, RegionModelBuilder } from 'shared/api'
 
 import { mockUseQueryFromEndpointWithData } from '../../testing/mockUseQueryFromEndpoint'
 import { chatIdKey, chatSeenMessagesKey } from '../../utils/chat'
 import useChat from '../useChat'
 import { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY } from '../useLocalStorage'
+import useQueryFromEndpoint from '../useQueryFromEndpoint'
 
 jest.mock('shared', () => ({
   ...jest.requireActual('shared'),
@@ -155,6 +156,52 @@ describe('useChat', () => {
       expect(localStorage.getItem(chatIdKey(region.code))).toBe(JSON.stringify('reset-id'))
       expect(localStorage.getItem(chatSeenMessagesKey(region.code))).toBe('0')
       expect(localStorage.getItem(CHAT_UNSYNCED_MESSAGES_STORAGE_KEY)).toBe('[]')
+    })
+  })
+
+  describe('polling', () => {
+    const refetch = jest.fn().mockResolvedValue({})
+
+    beforeEach(() => {
+      jest.useFakeTimers()
+      jest.mocked(useQueryFromEndpoint).mockImplementation(
+        () =>
+          ({
+            data: { messages: [{ userIsAuthor: true, content: 'my message' }], botTyping: false },
+            error: null,
+            isPending: false,
+            refetch,
+          }) as never,
+      )
+    })
+
+    afterEach(() => {
+      jest.useRealTimers()
+      jest.restoreAllMocks()
+      refetch.mockClear()
+    })
+
+    it('should poll messages without cancelling a pending retry', () => {
+      renderUseChat()
+
+      act(() => jest.advanceTimersByTime(30_000))
+
+      expect(refetch).toHaveBeenCalledTimes(2)
+      expect(refetch).toHaveBeenCalledWith({ cancelRefetch: false })
+    })
+
+    it('should pause polling while rate limited requests are waiting to be retried', () => {
+      renderUseChat()
+      jest.spyOn(Math, 'random').mockReturnValue(0)
+      act(() => {
+        rateLimitRetryOptions.retryDelay()
+      })
+
+      act(() => jest.advanceTimersByTime(59_000))
+      expect(refetch).not.toHaveBeenCalled()
+
+      act(() => jest.advanceTimersByTime(16_000))
+      expect(refetch).toHaveBeenCalledTimes(2)
     })
   })
 })
