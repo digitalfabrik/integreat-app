@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useSearchParams } from 'react-router'
 
 import { CHAT_DEFAULT_POLLING_INTERVAL, CHAT_TYPING_POLLING_INTERVAL, parseQueryParams, uuid } from 'shared'
@@ -18,13 +18,23 @@ import useLocalStorage, { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY, UpdateLocalStorage
 import useQueryFromEndpoint, { UseQueryFromEndpointReturn } from './useQueryFromEndpoint'
 
 type ChatPollingProps = {
-  regionCode: string
+  region: RegionModel
   languageCode: string
-  chatId: string
+  chatId: string | null
 }
 
-const useChatPolling = (params: ChatPollingProps): UseQueryFromEndpointReturn<ChatMessagesReturn> => {
-  const response = useQueryFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, params, { cached: false })
+const useChatPolling = ({
+  region,
+  chatId,
+  languageCode,
+}: ChatPollingProps): UseQueryFromEndpointReturn<ChatMessagesReturn> => {
+  const enabled = region.chatEnabled && chatId !== null
+  const response = useQueryFromEndpoint(
+    createChatMessagesEndpoint,
+    cmsApiBaseUrl,
+    { regionCode: region.code, languageCode, chatId: chatId ?? '' },
+    { cached: false, enabled },
+  )
   const isBrowserTabActive = useIsTabActive()
   const rateLimitRetryWindow = useRateLimitRetryWindow()
 
@@ -35,7 +45,7 @@ const useChatPolling = (params: ChatPollingProps): UseQueryFromEndpointReturn<Ch
   // Polling continues while mounted and enabled, independent of whether the chat dialog is
   // currently open, so the unread badge keeps updating in the background.
   useEffect(() => {
-    if (!isBrowserTabActive || messageCount === 0) {
+    if (!enabled || !isBrowserTabActive || messageCount === 0) {
       return undefined
     }
     const poll = () => {
@@ -46,7 +56,7 @@ const useChatPolling = (params: ChatPollingProps): UseQueryFromEndpointReturn<Ch
     }
     const interval = setInterval(poll, botTyping ? CHAT_TYPING_POLLING_INTERVAL : CHAT_DEFAULT_POLLING_INTERVAL)
     return () => clearInterval(interval)
-  }, [refetch, isBrowserTabActive, messageCount, botTyping, rateLimitRetryWindow])
+  }, [enabled, refetch, isBrowserTabActive, messageCount, botTyping, rateLimitRetryWindow])
 
   return response
 }
@@ -57,7 +67,7 @@ type UseChatProps = {
 }
 
 export type UseChatReturn = {
-  chatId: string
+  chatId: string | null
   response: UseQueryFromEndpointReturn<ChatMessagesReturn>
   unreadMessageCount: number
   markAsSeen: () => void
@@ -68,10 +78,9 @@ export type UseChatReturn = {
 
 const useChat = ({ region, languageCode }: UseChatProps): UseChatReturn => {
   const [queryParams] = useSearchParams()
-  const [initialChatId] = useState<string>(uuid)
   const [storageChatId, setChatId] = useLocalStorage<string | null>({
     key: chatIdKey(region.code),
-    initialValue: initialChatId,
+    initialValue: null,
   })
   const [seenMessages, setSeenMessages] = useLocalStorage<number>({
     key: chatSeenMessagesKey(region.code),
@@ -82,17 +91,15 @@ const useChat = ({ region, languageCode }: UseChatProps): UseChatReturn => {
     initialValue: [],
   })
 
-  const externalChatId = parseQueryParams(queryParams).chatId
-  const chatId = externalChatId ?? storageChatId ?? initialChatId
-  const response = useChatPolling({ regionCode: region.code, languageCode, chatId })
+  const { chatId: externalChatId, chat: chatOpen } = parseQueryParams(queryParams)
+  const chatId = externalChatId ?? storageChatId
+  const response = useChatPolling({ region, languageCode, chatId })
 
-  // We previously saved null as chat id for unstarted chats
-  // Therefore reinitialize with a correct chat id
   useEffect(() => {
-    if (storageChatId === null) {
-      setChatId(initialChatId)
+    if (region.chatEnabled && chatOpen && !chatId) {
+      setChatId(uuid())
     }
-  }, [storageChatId, setChatId, initialChatId])
+  }, [region.chatEnabled, chatOpen, chatId, setChatId])
 
   const incomingMessageCount = response.data?.messages.filter(message => !message.userIsAuthor).length ?? 0
   const unreadMessageCount = incomingMessageCount - seenMessages

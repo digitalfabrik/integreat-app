@@ -51,7 +51,7 @@ const ChatContainer = ({
     }
   }, [open, markAsSeen])
 
-  if (!open) {
+  if (!open || chatId === null) {
     return null
   }
 

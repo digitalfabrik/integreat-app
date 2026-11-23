@@ -1,4 +1,5 @@
 import React, { FunctionComponent, ReactElement, Suspense } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Route, Routes, useLocation, useParams, useSearchParams } from 'react-router'
 
 import {
@@ -15,6 +16,7 @@ import {
 import { NotFoundError, createRegionEndpoint, RegionModel } from 'shared/api'
 
 import ChatContainer from './components/ChatContainer'
+import Failure from './components/Failure'
 import FailureSwitcherWithHelmet from './components/FailureSwitcherWithHelmet'
 import Footer from './components/Footer'
 import GeneralHeader from './components/GeneralHeader'
@@ -59,6 +61,7 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
     region: regionCode,
   })
   const pathname = normalizePath(useLocation().pathname)
+  const { t } = useTranslation()
 
   if (regionError) {
     const error =
@@ -103,7 +106,11 @@ const RegionContentNavigator = ({ languageCode }: RegionContentNavigatorProps): 
     }
     return (
       <Layout fitScreen>
-        <ExternalChatContainer region={region} languageCode={languageCode} />
+        {region.chatEnabled ? (
+          <ExternalChatContainer region={region} languageCode={languageCode} />
+        ) : (
+          <Failure errorMessage={t($ => $.error.pageNotFound)} />
+        )}
       </Layout>
     )
   }
