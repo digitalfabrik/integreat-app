@@ -1,15 +1,12 @@
+import { act, renderHook } from '@testing-library/react'
+
 import FetchError from '../errors/FetchError.ts'
 import ResponseError from '../errors/ResponseError.ts'
-import {
-  getRateLimitRetryDelay,
-  getRateLimitRetryWindow,
-  isRateLimitError,
-  MAX_RATE_LIMIT_RETRIES,
-  resetRateLimitRetryWindow,
-  scheduleRateLimitRetry,
-  shouldRetryRateLimitedRequest,
-  subscribeToRateLimitRetryWindow,
-} from '../rateLimit.ts'
+import { isRateLimitError, rateLimitRetryOptions, useRateLimitRetryWindow } from '../rateLimit.ts'
+
+jest.useFakeTimers()
+
+const MAX_DELAY = 69_000
 
 const createResponseError = (status: number): ResponseError =>
   new ResponseError({
@@ -20,10 +17,15 @@ const createResponseError = (status: number): ResponseError =>
   })
 
 describe('rateLimit', () => {
-  beforeEach(() => {
-    resetRateLimitRetryWindow()
+  afterEach(() => {
     jest.restoreAllMocks()
   })
+
+  const scheduleRetryAt = (now: number, random: number): number => {
+    jest.setSystemTime(now)
+    jest.spyOn(Math, 'random').mockReturnValue(random)
+    return rateLimitRetryOptions.retryDelay()
+  }
 
   it('should detect rate limit errors', () => {
     expect(isRateLimitError(createResponseError(429))).toBe(true)
@@ -41,44 +43,43 @@ describe('rateLimit', () => {
     expect(isRateLimitError(null)).toBe(false)
   })
 
+  it('should only retry rate limited requests up to the maximum number of retries', () => {
+    const error = createResponseError(429)
+    expect(rateLimitRetryOptions.retry(0, error)).toBe(true)
+    expect(rateLimitRetryOptions.retry(4, error)).toBe(true)
+    expect(rateLimitRetryOptions.retry(5, error)).toBe(false)
+    expect(rateLimitRetryOptions.retry(0, createResponseError(500))).toBe(false)
+  })
+
   it.each`
     random   | delay
     ${0}     | ${60_000}
     ${0.5}   | ${65_000}
-    ${0.999} | ${69_000}
+    ${0.999} | ${MAX_DELAY}
   `('should return a retry delay of $delay ms for random $random', ({ random, delay }) => {
-    jest.spyOn(Math, 'random').mockReturnValue(random)
-    expect(getRateLimitRetryDelay()).toBe(delay)
+    // Start after any window scheduled by previous tests has ended
+    expect(scheduleRetryAt(Date.now() + MAX_DELAY, random)).toBe(delay)
   })
 
-  it('should only retry rate limited requests up to the maximum number of retries', () => {
-    const error = createResponseError(429)
-    expect(shouldRetryRateLimitedRequest(0, error)).toBe(true)
-    expect(shouldRetryRateLimitedRequest(MAX_RATE_LIMIT_RETRIES - 1, error)).toBe(true)
-    expect(shouldRetryRateLimitedRequest(MAX_RATE_LIMIT_RETRIES, error)).toBe(false)
-    expect(shouldRetryRateLimitedRequest(0, createResponseError(500))).toBe(false)
-  })
+  it('should let all requests failing during an active window retry at its end', () => {
+    // Start after any window scheduled by previous tests has ended
+    const start = Date.now() + MAX_DELAY
+    const { result } = renderHook(useRateLimitRetryWindow)
 
-  it('should extend the retry window to the latest scheduled retry and notify listeners', () => {
-    const listener = jest.fn()
-    const unsubscribe = subscribeToRateLimitRetryWindow(listener)
+    act(() => {
+      expect(scheduleRetryAt(start, 0)).toBe(60_000)
+    })
+    expect(result.current).toEqual({ start, end: start + 60_000 })
 
-    expect(scheduleRateLimitRetry(60_000, 1000)).toBe(60_000)
-    expect(getRateLimitRetryWindow()).toEqual({ start: 1000, end: 61_000 })
+    act(() => {
+      expect(scheduleRetryAt(start + 1000, 0.999)).toBe(59_000)
+    })
+    expect(result.current).toEqual({ start, end: start + 60_000 })
 
-    scheduleRateLimitRetry(65_000, 2000)
-    expect(getRateLimitRetryWindow()).toEqual({ start: 1000, end: 67_000 })
-
-    scheduleRateLimitRetry(60_000, 3000)
-    expect(getRateLimitRetryWindow()).toEqual({ start: 1000, end: 67_000 })
-    expect(listener).toHaveBeenCalledTimes(2)
-
-    scheduleRateLimitRetry(60_000, 70_000)
-    expect(getRateLimitRetryWindow()).toEqual({ start: 70_000, end: 130_000 })
-
-    unsubscribe()
-    resetRateLimitRetryWindow()
-    expect(listener).toHaveBeenCalledTimes(3)
-    expect(getRateLimitRetryWindow()).toBeNull()
+    const later = start + 60_000
+    act(() => {
+      expect(scheduleRetryAt(later, 0.999)).toBe(MAX_DELAY)
+    })
+    expect(result.current).toEqual({ start: later, end: later + MAX_DELAY })
   })
 })

@@ -5,15 +5,15 @@ import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement, useEffect, useState } from 'react'
 import { BrowserRouter as Router } from 'react-router'
 
+import { rateLimitRetryOptions } from 'shared/api'
 import { UiDirectionType, config } from 'translations'
 
 import RootNavigator from './RootNavigator'
 import I18nProvider from './components/I18nProvider'
-import RateLimitRetryNotice from './components/RateLimitRetryNotice'
+import RateLimitRetry from './components/RateLimitRetry'
 import ThemeContainer from './components/ThemeContainer'
 import TtsContainer from './components/TtsContainer'
 import CustomAdapterLuxon from './utils/CustomAdapterLuxon'
-import { rateLimitRetryOptions } from './utils/rateLimitRetry'
 import { initSentry } from './utils/sentry'
 
 LuxonSettings.throwOnInvalid = true
@@ -42,7 +42,7 @@ const App = (): ReactElement => {
               <TtsContainer languageCode={contentLanguage}>
                 <>
                   <RootNavigator setContentLanguage={setContentLanguage} />
-                  <RateLimitRetryNotice />
+                  <RateLimitRetry />
                 </>
               </TtsContainer>
             </Router>

@@ -2,10 +2,9 @@ import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-quer
 import { act, render } from '@testing-library/react'
 import React, { ReactElement } from 'react'
 
-import { MAX_RATE_LIMIT_RETRIES, resetRateLimitRetryWindow, ResponseError } from 'shared/api'
+import { rateLimitRetryOptions, ResponseError } from 'shared/api'
 
-import { rateLimitRetryOptions } from '../../utils/rateLimitRetry'
-import RateLimitRetryNotice from '../RateLimitRetryNotice'
+import RateLimitRetry from '../RateLimitRetry'
 import ThemeContainer from '../ThemeContainer'
 
 jest.useFakeTimers()
@@ -26,15 +25,20 @@ const Content = ({ queryFn }: { queryFn: () => Promise<string> }): ReactElement 
   return <div>{data ?? 'loading'}</div>
 }
 
-const renderWithQueryFn = (queryFn: () => Promise<string>) =>
-  render(
-    <QueryClientProvider client={new QueryClient({ defaultOptions: { queries: rateLimitRetryOptions } })}>
-      <ThemeContainer contentDirection='ltr'>
-        <Content queryFn={queryFn} />
-        <RateLimitRetryNotice />
-      </ThemeContainer>
-    </QueryClientProvider>,
-  )
+const renderWithQueryFn = (queryFn: () => Promise<string>) => {
+  const queryClient = new QueryClient({ defaultOptions: { queries: rateLimitRetryOptions } })
+  return {
+    queryClient,
+    ...render(
+      <QueryClientProvider client={queryClient}>
+        <ThemeContainer contentDirection='ltr'>
+          <Content queryFn={queryFn} />
+          <RateLimitRetry />
+        </ThemeContainer>
+      </QueryClientProvider>,
+    ),
+  }
+}
 
 const advance = async (ms: number) => {
   await act(async () => {
@@ -42,9 +46,8 @@ const advance = async (ms: number) => {
   })
 }
 
-describe('RateLimitRetryNotice', () => {
+describe('RateLimitRetry', () => {
   beforeEach(() => {
-    resetRateLimitRetryWindow()
     jest.spyOn(Math, 'random').mockReturnValue(0.5)
   })
 
@@ -63,11 +66,11 @@ describe('RateLimitRetryNotice', () => {
     expect(queryFn).toHaveBeenCalledTimes(1)
     expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '100')
     expect(getByText('error:rateLimitedRetry')).toBeTruthy()
-    expect(getByText('error:rateLimitedRetryCountdown 65')).toBeTruthy()
+    expect(getByText('error:seconds 65')).toBeTruthy()
 
     await advance(32_500)
     expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '50')
-    expect(getByText('error:rateLimitedRetryCountdown 33')).toBeTruthy()
+    expect(getByText('error:seconds 33')).toBeTruthy()
     expect(queryFn).toHaveBeenCalledTimes(1)
 
     await advance(33_000)
@@ -76,7 +79,7 @@ describe('RateLimitRetryNotice', () => {
     expect(queryByRole('progressbar')).toBeNull()
   })
 
-  it('should not retry or show the notice for other errors', async () => {
+  it('should not retry or show the snackbar for other errors', async () => {
     const queryFn = jest.fn<Promise<string>, []>().mockRejectedValue(createResponseError(500))
     const { queryByRole, getByText } = renderWithQueryFn(queryFn)
 
@@ -91,8 +94,8 @@ describe('RateLimitRetryNotice', () => {
     const queryFn = jest.fn<Promise<string>, []>().mockRejectedValue(createResponseError(429))
     const { queryByRole, getByText } = renderWithQueryFn(queryFn)
 
-    await advance((MAX_RATE_LIMIT_RETRIES + 1) * 70_000)
-    expect(queryFn).toHaveBeenCalledTimes(MAX_RATE_LIMIT_RETRIES + 1)
+    await advance(6 * 70_000)
+    expect(queryFn).toHaveBeenCalledTimes(6)
     expect(getByText('failed')).toBeTruthy()
     expect(queryByRole('progressbar')).toBeNull()
   })

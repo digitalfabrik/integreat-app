@@ -205,7 +205,7 @@
     "responseMappingFailed": "Die Antwort des Servers konnte nicht verarbeitet werden.",
     "rateLimited": "Du hast zu viele Anfragen verschickt. Bitte warte einen Moment.",
     "rateLimitedRetry": "Gerade gibt es zu viele Anfragen. Die Inhalte werden automatisch erneut geladen.",
-    "rateLimitedRetryCountdown": "{{seconds}} s",
+    "seconds": "{{seconds}} s",
     "pageNotFound": "Diese Seite wurde nicht gefunden.",
     "nothingFound": "Keine Ergebnisse gefunden.",
     "permissionRequired": "Berechtigung erforderlich",
