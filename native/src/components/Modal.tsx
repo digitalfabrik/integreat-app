@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { useTheme } from 'styled-components/native'
 
 import dimensions from '../constants/dimensions'
+import useHorizontalSafeAreaInsets from '../hooks/useHorizontalSafeAreaInsets'
 import { useNavigationTheme } from '../hooks/useNavigationTheme'
 import Caption from './Caption'
 import { HeaderBackButton } from './HeaderBox'
@@ -41,10 +42,11 @@ const Modal = ({ modalVisible, closeModal, title, children, scrollView = true }:
   const theme = useTheme()
   const navigationTheme = useNavigationTheme()
   const insets = useSafeAreaInsets()
+  const { start, end } = useHorizontalSafeAreaInsets()
 
   return (
     <RNModal visible={modalVisible} transparent onRequestClose={closeModal} style={styles.modalStyle}>
-      <View style={{ flex: 1, paddingTop: insets.top }}>
+      <View style={{ flex: 1, paddingTop: insets.top, paddingStart: start, paddingEnd: end }}>
         <NavigationThemeProvider value={navigationTheme}>
           {/* Clip the header shadow at the top, the screen container does the same for regular headers */}
           <View style={{ flex: 1, backgroundColor: theme.colors.background, overflow: 'hidden' }}>
