@@ -16,14 +16,6 @@ import useDimensions from '../hooks/useDimensions'
 import LanguageListItem from './LanguageListItem'
 import SearchInput from './SearchInput'
 
-const StyledAutocomplete = styled(Autocomplete)`
-  ${props => props.theme.breakpoints.up('md')} {
-    background-color: ${props => props.theme.palette.background.paper};
-    width: 200px;
-    border-radius: 4px;
-  }
-` as typeof Autocomplete
-
 const StyledTextField = styled(TextField)({
   legend: {
     letterSpacing: 0,
@@ -102,7 +94,8 @@ const LanguageSelection = ({
   }
 
   return (
-    <StyledAutocomplete
+    <Autocomplete
+      sx={{ backgroundColor: { md: 'background.paper' }, width: { md: 200 }, borderRadius: { md: '4px' } }}
       data-testid='languageList'
       open
       filterOptions={options => options} // disable built-in filtering to use custom filter
