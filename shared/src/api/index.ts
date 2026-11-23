@@ -17,6 +17,7 @@ export * from './constants/index.ts'
 export * from './endpoints/testing/index.ts'
 export { type ErrorCode, ErrorCodes, fromError } from './ErrorCodes.ts'
 export { setUserAgent, request } from './request.ts'
+export { isRateLimitError, rateLimitRetryOptions, useRateLimitRetryWindow } from './rateLimit.ts'
 export type MapParamsToBodyType<P> = ImportedMapParamsToBodyType<P>
 export type MapParamsToUrlType<P> = ImportedMapParamsToUrlType<P>
 export type MapResponseType<P, T> = ImportedMapResponseType<P, T>

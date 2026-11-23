@@ -24,14 +24,15 @@ const StyledAlert = styled(Alert)`
 
 export type SnackbarProps = {
   open: boolean
-  onClose: () => void
+  onClose?: () => void
   severity: AlertColor
   title?: string
   message: string
-  action: ReactNode
+  action?: ReactNode
+  children?: ReactNode
 }
 
-const Snackbar = ({ open, onClose, severity, message, title, action }: SnackbarProps): ReactElement => {
+const Snackbar = ({ open, onClose, severity, message, title, action, children }: SnackbarProps): ReactElement => {
   const dimensions = useDimensions()
   return (
     <Portal>
@@ -49,6 +50,7 @@ const Snackbar = ({ open, onClose, severity, message, title, action }: SnackbarP
           action={action}>
           {!!title && <AlertTitle>{title}</AlertTitle>}
           {message}
+          {children}
         </StyledAlert>
       </StyledMuiSnackbar>
     </Portal>

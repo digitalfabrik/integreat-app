@@ -2,10 +2,17 @@ import { useCallback, useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router'
 
 import { CHAT_DEFAULT_POLLING_INTERVAL, CHAT_TYPING_POLLING_INTERVAL, parseQueryParams, uuid } from 'shared'
-import { ChatMessagesReturn, createChatMessagesEndpoint, RegionModel, SerializedChatMessage } from 'shared/api'
+import {
+  ChatMessagesReturn,
+  createChatMessagesEndpoint,
+  RegionModel,
+  SerializedChatMessage,
+  useRateLimitRetryWindow,
+} from 'shared/api'
 
 import { cmsApiBaseUrl } from '../constants/urls'
 import { chatIdKey, chatSeenMessagesKey } from '../utils/chat'
+import { captureError } from '../utils/sentry'
 import useIsTabActive from './useIsTabActive'
 import useLocalStorage, { CHAT_UNSYNCED_MESSAGES_STORAGE_KEY, UpdateLocalStorage } from './useLocalStorage'
 import useQueryFromEndpoint, { UseQueryFromEndpointReturn } from './useQueryFromEndpoint'
@@ -19,6 +26,7 @@ type ChatPollingProps = {
 const useChatPolling = (params: ChatPollingProps): UseQueryFromEndpointReturn<ChatMessagesReturn> => {
   const response = useQueryFromEndpoint(createChatMessagesEndpoint, cmsApiBaseUrl, params, { cached: false })
   const isBrowserTabActive = useIsTabActive()
+  const rateLimitRetryWindow = useRateLimitRetryWindow()
 
   const { data, refetch } = response
   const botTyping = data?.botTyping
@@ -30,9 +38,15 @@ const useChatPolling = (params: ChatPollingProps): UseQueryFromEndpointReturn<Ch
     if (!isBrowserTabActive || messageCount === 0) {
       return undefined
     }
-    const interval = setInterval(refetch, botTyping ? CHAT_TYPING_POLLING_INTERVAL : CHAT_DEFAULT_POLLING_INTERVAL)
+    const poll = () => {
+      if (rateLimitRetryWindow !== null && rateLimitRetryWindow.end > Date.now()) {
+        return
+      }
+      refetch({ cancelRefetch: false }).catch(captureError)
+    }
+    const interval = setInterval(poll, botTyping ? CHAT_TYPING_POLLING_INTERVAL : CHAT_DEFAULT_POLLING_INTERVAL)
     return () => clearInterval(interval)
-  }, [refetch, isBrowserTabActive, messageCount, botTyping])
+  }, [refetch, isBrowserTabActive, messageCount, botTyping, rateLimitRetryWindow])
 
   return response
 }

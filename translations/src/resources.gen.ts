@@ -206,6 +206,8 @@ const resources = {
     "networkRequestFailed": "The request could not be processed.",
     "responseMappingFailed": "An error occurred while processing the server's response.",
     "rateLimited": "You sent too many requests. Please slow down.",
+    "rateLimitedRetry": "Too many requests at the moment. The content will be loaded again automatically.",
+    "seconds": "{{seconds}} s",
     "pageNotFound": "This page was not found",
     "nothingFound": "No results found.",
     "permissionRequired": "Permission required",
