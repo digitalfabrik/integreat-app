@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { useTheme } from 'styled-components/native'
@@ -9,6 +9,7 @@ import buildConfig from '../constants/buildConfig'
 import { isRTLText } from '../constants/contentDirection'
 import dimensions from '../constants/dimensions'
 import useHorizontalSafeAreaInsets from '../hooks/useHorizontalSafeAreaInsets'
+import useKeyboardHeight from '../hooks/useKeyboardHeight'
 import { elevatedStyle } from '../utils/styles'
 import Icon from './base/Icon'
 import IconButton from './base/IconButton'
@@ -87,11 +88,17 @@ const TtsPlayer = ({
   const { bottom } = useSafeAreaInsets()
   const { start, end } = useHorizontalSafeAreaInsets()
   const { t } = useTranslation()
+  const keyboardHeight = useKeyboardHeight()
+  // There shouldn't be an additional bottom navigation height for a fixed region, for ex. aschaffenburg, as it does not have bottom tab navigation
+  const navigationOffset = buildConfig().featureFlags.fixedRegion ? 0 : dimensions.bottomNavigationHeight
+  // On Android the keyboard height excludes the navigation bar, which the keyboard still covers
+  const keyboardOffset = Platform.OS === 'android' ? keyboardHeight + bottom : keyboardHeight
+  const bottomOffset = keyboardHeight > 0 ? keyboardOffset : bottom + navigationOffset
 
   return (
     <StyledTtsPlayer
       // There shouldn't be an additional bottom navigation height for a fixed region, for ex. aschaffenburg, as it does not have bottom tab navigation
-      insetBottom={bottom + (buildConfig().featureFlags.fixedRegion ? 0 : dimensions.bottomNavigationHeight)}
+      insetBottom={bottomOffset}
       style={{ marginStart: start, marginEnd: end }}
       accessibilityLabel={t($ => $.tts.title)}>
       <TouchableRipple
