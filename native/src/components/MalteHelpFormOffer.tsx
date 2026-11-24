@@ -111,7 +111,7 @@ const MalteHelpFormOffer = ({
   const keyboardHeight = useKeyboardHeight()
 
   return (
-    <KeyboardAwareScrollView extraHeight={keyboardHeight - useSafeAreaInsets().bottom}>
+    <KeyboardAwareScrollView enableOnAndroid extraHeight={keyboardHeight - useSafeAreaInsets().bottom}>
       <Container>
         <InformationRow>
           <Icon source='account-multiple-outline' />

@@ -1,11 +1,10 @@
 import type { Config } from '@jest/types'
 
-const config: Partial<Config.GlobalConfig> = {
+const config: Config.InitialOptions = {
   rootDir: '.',
   verbose: true,
   projects: ['web', 'native', 'shared', 'translations'],
-  // 500 MB limit
-  workerIdleMemoryLimit: process.env.CI ? 500_000_000 : undefined,
+  workerIdleMemoryLimit: process.env.CI ? '500MB' : undefined,
   reporters: [
     ['default', {}],
     [
