@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import { TouchableRipple } from 'react-native-paper'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled, { useTheme } from 'styled-components/native'
@@ -91,7 +91,9 @@ const TtsPlayer = ({
   const keyboardHeight = useKeyboardHeight()
   // There shouldn't be an additional bottom navigation height for a fixed region, for ex. aschaffenburg, as it does not have bottom tab navigation
   const navigationOffset = buildConfig().featureFlags.fixedRegion ? 0 : dimensions.bottomNavigationHeight
-  const bottomOffset = keyboardHeight > 0 ? keyboardHeight : bottom + navigationOffset
+  // On Android the keyboard height excludes the navigation bar, which the keyboard still covers
+  const keyboardOffset = Platform.OS === 'android' ? keyboardHeight + bottom : keyboardHeight
+  const bottomOffset = keyboardHeight > 0 ? keyboardOffset : bottom + navigationOffset
 
   return (
     <StyledTtsPlayer
