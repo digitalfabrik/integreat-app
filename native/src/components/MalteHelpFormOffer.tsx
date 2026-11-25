@@ -2,9 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Button } from 'react-native-paper'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
 import {
@@ -16,17 +14,15 @@ import {
   MALTE_HELP_FORM_MAX_COMMENT_LENGTH,
 } from 'shared/api'
 
-import useKeyboardHeight from '../hooks/useKeyboardHeight'
 import useRegionAppContext from '../hooks/useRegionAppContext'
 import useSnackbar from '../hooks/useSnackbar'
-import LayoutedScrollView from './LayoutedScrollView'
 import PrivacyCheckbox from './PrivacyCheckbox'
 import Icon from './base/Icon'
 import Text from './base/Text'
 import FormInput from './form/FormInput'
 import FormRadioButtons from './form/FormRadioButtons'
 
-const Container = styled(LayoutedScrollView)`
+const Container = styled.View`
   padding: 16px;
   gap: 16px;
 `
@@ -108,79 +104,71 @@ const MalteHelpFormOffer = ({
     }
   })
 
-  const keyboardHeight = useKeyboardHeight()
-
   return (
-    <KeyboardAwareScrollView enableOnAndroid extraHeight={keyboardHeight - useSafeAreaInsets().bottom}>
-      <Container>
-        <InformationRow>
-          <Icon source='account-multiple-outline' />
-          <Text variant='body2' style={{ flex: 1 }}>
-            {t($ => $.malteHelpForm.supportNote)}
-          </Text>
-        </InformationRow>
-        <InformationRow>
-          <Icon source='shield-plus-outline' />
-          <Text variant='body2' style={{ flex: 1 }}>
-            {t($ => $.malteHelpForm.securityNote)}
-          </Text>
-        </InformationRow>
-
-        <FormInput name='name' title={t($ => $.malteHelpForm.name)} control={control} rules={{ required: true }} />
-        <FormInput name='roomNumber' title={t($ => $.malteHelpForm.roomNumber)} control={control} showOptional />
-
-        <View>
-          <Text variant='h6'>{t($ => $.malteHelpForm.howToBeContacted)}</Text>
-          <FormRadioButtons
-            name='contactChannel'
-            control={control}
-            values={[
-              { key: 'email', label: t($ => $.malteHelpForm.eMail), inputName: 'email' },
-              { key: 'telephone', label: t($ => $.malteHelpForm.telephone), inputName: 'telephone' },
-              { key: 'personally', label: t($ => $.malteHelpForm.personally) },
-            ]}
-          />
-        </View>
-
-        <View>
-          <Text variant='h6'>{t($ => $.malteHelpForm.contactPerson)}</Text>
-          <FormRadioButtons
-            name='contactGender'
-            control={control}
-            values={[
-              { key: 'any', label: t($ => $.malteHelpForm.contactPersonAnyGender) },
-              { key: 'female', label: t($ => $.malteHelpForm.contactPersonGenderFemale) },
-              { key: 'male', label: t($ => $.malteHelpForm.contactPersonGenderMale) },
-            ]}
-          />
-        </View>
-
-        <FormInput
-          name='comment'
-          title={t($ => $.malteHelpForm.contactReason)}
-          hint={t($ => $.malteHelpForm.maxCharacters, { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
-          control={control}
-          rules={{ maxLength: MALTE_HELP_FORM_MAX_COMMENT_LENGTH }}
-          maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
-          multiline
-        />
-
+    <Container>
+      <InformationRow>
+        <Icon source='account-multiple-outline' />
         <Text variant='body2' style={{ flex: 1 }}>
-          {t($ => $.malteHelpForm.responseHint)}
+          {t($ => $.malteHelpForm.supportNote)}
         </Text>
-        <PrivacyCheckbox
-          language={languageCode}
-          checked={privacyPolicyAccepted}
-          setChecked={setPrivacyPolicyAccepted}
+      </InformationRow>
+      <InformationRow>
+        <Icon source='shield-plus-outline' />
+        <Text variant='body2' style={{ flex: 1 }}>
+          {t($ => $.malteHelpForm.securityNote)}
+        </Text>
+      </InformationRow>
+
+      <FormInput name='name' title={t($ => $.malteHelpForm.name)} control={control} rules={{ required: true }} />
+      <FormInput name='roomNumber' title={t($ => $.malteHelpForm.roomNumber)} control={control} showOptional />
+
+      <View>
+        <Text variant='h6'>{t($ => $.malteHelpForm.howToBeContacted)}</Text>
+        <FormRadioButtons
+          name='contactChannel'
+          control={control}
+          values={[
+            { key: 'email', label: t($ => $.malteHelpForm.eMail), inputName: 'email' },
+            { key: 'telephone', label: t($ => $.malteHelpForm.telephone), inputName: 'telephone' },
+            { key: 'personally', label: t($ => $.malteHelpForm.personally) },
+          ]}
         />
-        <Button
-          mode='contained'
-          onPress={() => submit()}
-          disabled={!formState.isValid || formState.isSubmitting || !privacyPolicyAccepted}>
-          {t($ => $.malteHelpForm.submit)}
-        </Button>
-      </Container>
-    </KeyboardAwareScrollView>
+      </View>
+
+      <View>
+        <Text variant='h6'>{t($ => $.malteHelpForm.contactPerson)}</Text>
+        <FormRadioButtons
+          name='contactGender'
+          control={control}
+          values={[
+            { key: 'any', label: t($ => $.malteHelpForm.contactPersonAnyGender) },
+            { key: 'female', label: t($ => $.malteHelpForm.contactPersonGenderFemale) },
+            { key: 'male', label: t($ => $.malteHelpForm.contactPersonGenderMale) },
+          ]}
+        />
+      </View>
+
+      <FormInput
+        name='comment'
+        title={t($ => $.malteHelpForm.contactReason)}
+        hint={t($ => $.malteHelpForm.maxCharacters, { numberOfCharacters: MALTE_HELP_FORM_MAX_COMMENT_LENGTH })}
+        control={control}
+        rules={{ maxLength: MALTE_HELP_FORM_MAX_COMMENT_LENGTH }}
+        maxLength={MALTE_HELP_FORM_MAX_COMMENT_LENGTH}
+        multiline
+      />
+
+      <Text variant='body2' style={{ flex: 1 }}>
+        {t($ => $.malteHelpForm.responseHint)}
+      </Text>
+      <PrivacyCheckbox language={languageCode} checked={privacyPolicyAccepted} setChecked={setPrivacyPolicyAccepted} />
+      <Button
+        mode='contained'
+        onPress={() => submit()}
+        disabled={!formState.isValid || formState.isSubmitting || !privacyPolicyAccepted}>
+        {t($ => $.malteHelpForm.submit)}
+      </Button>
+    </Container>
   )
 }
 

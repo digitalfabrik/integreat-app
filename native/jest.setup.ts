@@ -1,7 +1,6 @@
 import i18next from 'i18next'
 import fs from 'node:fs'
 import path from 'node:path'
-import { ReactNode } from 'react'
 import { initReactI18next } from 'react-i18next'
 
 import { parseMissingKeyHandler } from 'shared/testing'
@@ -127,9 +126,7 @@ jest.doMock('path', () => path.posix)
 // @ts-expect-error https://github.com/software-mansion/react-native-reanimated/issues/1380#issuecomment-865143328
 global.__reanimatedWorkletInit = jest.fn()
 
-jest.mock('react-native-keyboard-aware-scroll-view', () => ({
-  KeyboardAwareScrollView: ({ children }: { children: ReactNode }) => children,
-}))
+jest.mock('react-native-keyboard-controller', () => require('react-native-keyboard-controller/jest'))
 
 jest.mock('@react-native-vector-icons/material-design-icons', () => ({
   default: 'Icon',

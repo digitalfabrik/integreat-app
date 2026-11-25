@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
 import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 

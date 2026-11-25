@@ -79,7 +79,7 @@
     "react-native-gesture-handler": "^3.5.0",
     "react-native-get-random-values": "^2.1.0",
     "react-native-inappbrowser-reborn": "^3.7.1",
-    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-keyboard-controller": "^1.24.0",
     "react-native-localize": "^3.7.2",
     "react-native-paper": "^5.15.5",
     "react-native-paper-dates": "^0.24.2",

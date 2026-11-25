@@ -554,7 +554,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B4DB0B1C0BDD064AA8277EB /* Pods-Integreat.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Integreat/Integreat.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -719,7 +719,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 523A28C9133D7F29AB5C3E51 /* Pods-Integreat.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = $BUILD_CONFIG_APP_ICON;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "$BUILD_CONFIG_APP_ICON";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
