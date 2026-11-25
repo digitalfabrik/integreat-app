@@ -54,33 +54,33 @@ describe('PlacesBottomSheet', () => {
     )
   }
 
-  it('should show failure if place is not found', () => {
-    const { queryByText, getByText } = renderPlaces({ slug: 'invalid' })
+  it('should show failure if place is not found', async () => {
+    const { queryByText, getByText } = await renderPlaces({ slug: 'invalid' })
 
     expect(getByText('error:pageNotFound')).toBeTruthy()
     expect(queryByText(place0.title)).toBeFalsy()
     expect(queryByText(place1.title)).toBeFalsy()
     expect(queryByText(place2.title)).toBeFalsy()
 
-    fireEvent.press(getByText('common:actions.back'))
+    await fireEvent.press(getByText('common:actions.back'))
 
     expect(deselectAll).toHaveBeenCalledTimes(1)
   })
 
-  it('should show list', () => {
-    const { getByText } = renderPlaces({})
+  it('should show list', async () => {
+    const { getByText } = await renderPlaces({})
 
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place1.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()
 
-    fireEvent.press(getByText(place1.title))
+    await fireEvent.press(getByText(place1.title))
     expect(selectPlace).toHaveBeenCalledTimes(1)
     expect(selectPlace).toHaveBeenCalledWith(place1)
   })
 
-  it('should show place', () => {
-    const { getByText, queryByText } = renderPlaces({ slug: place2.slug })
+  it('should show place', async () => {
+    const { getByText, queryByText } = await renderPlaces({ slug: place2.slug })
 
     expect(getByText(place2.title)).toBeTruthy()
     expect(getByText(place2.category.name)).toBeTruthy()

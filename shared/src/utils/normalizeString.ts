@@ -7,6 +7,8 @@ const normalize = (str: string): string =>
     .replace(/\p{Mark}/gu, '')
     .replace(/ß/g, 'ss')
 
-export const normalizeString = (str: string): string => normalize(str).toLowerCase().trim()
+export const normalizeCharacters = (str: string): string => normalize(str).toLowerCase()
+
+export const normalizeString = (str: string): string => normalizeCharacters(str).trim()
 
 export default normalizeString

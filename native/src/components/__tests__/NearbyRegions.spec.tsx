@@ -1,7 +1,7 @@
 import Geolocation from '@react-native-community/geolocation'
-import { fireEvent, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, userEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
-import { check, request, RESULTS } from 'react-native-permissions'
+import { check, PermissionStatus, request, RESULTS } from 'react-native-permissions'
 
 import { RegionModelBuilder } from 'shared/api'
 
@@ -24,6 +24,7 @@ describe('NearbyRegions', () => {
 
   const showSnackbar = jest.fn()
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
+  const user = userEvent.setup()
 
   const augsburgCoordinates = {
     coords: {
@@ -47,7 +48,7 @@ describe('NearbyRegions', () => {
 
   it('should not request location permission on mount', async () => {
     mockCheckPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
-    const { getByText } = renderNearbyRegions()
+    const { getByText } = await renderNearbyRegions()
     await waitFor(() => expect(getByText('userLocation:noPermission')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalled()
     expect(mockRequestPermission).not.toHaveBeenCalled()
@@ -58,7 +59,7 @@ describe('NearbyRegions', () => {
   it('should determine location and show nearby locations on mount if permission already granted', async () => {
     mockCheckPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
     mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
-    const { queryByText, getByText } = renderNearbyRegions()
+    const { queryByText, getByText } = await renderNearbyRegions()
     await waitFor(() => expect(getByText('Stadt Augsburg')).toBeTruthy())
     expect(queryByText('userLocation:noPermission')).toBeFalsy()
     expect(mockCheckPermission).toHaveBeenCalled()
@@ -79,7 +80,7 @@ describe('NearbyRegions', () => {
         },
       }),
     )
-    const { queryByText, getByText } = renderNearbyRegions()
+    const { queryByText, getByText } = await renderNearbyRegions()
     await waitFor(() => expect(getByText('regions:nearby.nothingFound')).toBeTruthy())
     expect(queryByText('Stadt Augsburg')).toBeFalsy()
     expect(queryByText('userLocation:noPermission')).toBeFalsy()
@@ -91,14 +92,21 @@ describe('NearbyRegions', () => {
 
   it('should show snackbar if permission is blocked on retry clicked', async () => {
     mockCheckPermission.mockImplementation(async () => RESULTS.BLOCKED)
-    mockRequestPermission.mockImplementation(async () => RESULTS.BLOCKED)
-    const { getByText, getByLabelText } = renderNearbyRegions()
+    let resolveRequest: (status: PermissionStatus) => void = () => undefined
+    mockRequestPermission.mockImplementationOnce(
+      () =>
+        new Promise(resolve => {
+          resolveRequest = resolve
+        }),
+    )
+    const { getByText, getByLabelText } = await renderNearbyRegions()
     await waitFor(() => expect(getByText('userLocation:noPermission')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
     expect(showSnackbar).not.toHaveBeenCalled()
     const retryDetermineLocationButton = getByLabelText('regions:nearby.refresh')
-    fireEvent.press(retryDetermineLocationButton)
+    await user.press(retryDetermineLocationButton)
     expect(getByText('userLocation:loading')).toBeTruthy()
+    await act(() => resolveRequest(RESULTS.BLOCKED))
     await waitFor(() => expect(getByText('userLocation:noPermission')).toBeTruthy())
     await waitFor(() => expect(showSnackbar).toHaveBeenCalled())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
@@ -108,15 +116,22 @@ describe('NearbyRegions', () => {
 
   it('should determine location if permission is granted on retry click', async () => {
     mockCheckPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
-    mockRequestPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
+    let resolveRequest: (status: PermissionStatus) => void = () => undefined
+    mockRequestPermission.mockImplementationOnce(
+      () =>
+        new Promise(resolve => {
+          resolveRequest = resolve
+        }),
+    )
     mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
-    const { queryByText, getByText, getByLabelText } = renderNearbyRegions()
+    const { queryByText, getByText, getByLabelText } = await renderNearbyRegions()
     await waitFor(() => expect(getByText('userLocation:noPermission')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
     await waitFor(() => expect(queryByText('Stadt Augsburg')).toBeFalsy())
     const retryDetermineLocationButton = getByLabelText('regions:nearby.refresh')
-    fireEvent.press(retryDetermineLocationButton)
+    await user.press(retryDetermineLocationButton)
     expect(getByText('userLocation:loading')).toBeTruthy()
+    await act(() => resolveRequest(RESULTS.GRANTED))
     await waitFor(() => expect(getByText('Stadt Augsburg')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
     expect(mockRequestPermission).toHaveBeenCalledTimes(1)
@@ -126,15 +141,22 @@ describe('NearbyRegions', () => {
 
   it('should request permission and determine location on retry if not granted yet', async () => {
     mockCheckPermission.mockImplementation(async () => RESULTS.BLOCKED)
-    mockRequestPermission.mockImplementation(async () => RESULTS.GRANTED)
+    let resolveRequest: (status: PermissionStatus) => void = () => undefined
+    mockRequestPermission.mockImplementationOnce(
+      () =>
+        new Promise(resolve => {
+          resolveRequest = resolve
+        }),
+    )
     mockGetCurrentPosition.mockImplementationOnce(setPosition => setPosition(augsburgCoordinates))
-    const { queryByText, getByText, getByLabelText } = renderNearbyRegions()
+    const { queryByText, getByText, getByLabelText } = await renderNearbyRegions()
     await waitFor(() => expect(getByText('userLocation:noPermission')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
     await waitFor(() => expect(queryByText('Stadt Augsburg')).toBeFalsy())
     const retryDetermineLocationButton = getByLabelText('regions:nearby.refresh')
-    fireEvent.press(retryDetermineLocationButton)
+    await user.press(retryDetermineLocationButton)
     expect(getByText('userLocation:loading')).toBeTruthy()
+    await act(() => resolveRequest(RESULTS.GRANTED))
     await waitFor(() => expect(getByText('Stadt Augsburg')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
     expect(mockRequestPermission).toHaveBeenCalledTimes(1)
@@ -142,7 +164,7 @@ describe('NearbyRegions', () => {
     expect(showSnackbar).not.toHaveBeenCalled()
 
     expect(navigateToDashboard).not.toHaveBeenCalled()
-    fireEvent.press(getByText('Stadt Augsburg'))
+    await fireEvent.press(getByText('Stadt Augsburg'))
     expect(navigateToDashboard).toHaveBeenCalledTimes(1)
     expect(navigateToDashboard).toHaveBeenCalledWith(regions[0])
   })

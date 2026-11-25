@@ -35,27 +35,27 @@ describe('OfficeHours', () => {
     jest.clearAllMocks()
   })
 
-  it('should display that the office is open', () => {
-    const { getByText, getAllByText, queryByText } = renderOfficeHours()
+  it('should display that the office is open', async () => {
+    const { getByText, getAllByText, queryByText } = await renderOfficeHours()
 
     expect(getByText('places:hours.open')).toBeTruthy()
     expect(queryByText(officeHours[0]!.timeSlots[0]!.start, { exact: false })).toBeFalsy()
 
-    fireEvent.press(getByText('places:hours.open'))
+    await fireEvent.press(getByText('places:hours.open'))
 
     expect(getAllByText(officeHours[0]!.timeSlots[0]!.start, { exact: false })).toHaveLength(7)
     expect(getAllByText(officeHours[0]!.timeSlots[0]!.end, { exact: false })).toHaveLength(7)
   })
 
-  it('should display that the office is closed', () => {
+  it('should display that the office is closed', async () => {
     jest.mocked(isCurrentlyOpen).mockReturnValue(false)
 
-    const { getByText } = renderOfficeHours()
+    const { getByText } = await renderOfficeHours()
 
     expect(getByText('places:hours.closed')).toBeTruthy()
   })
 
-  it('should display all day if the office is open all day', () => {
+  it('should display all day if the office is open all day', async () => {
     const allDayOfficeHours = Array.from(
       { length: 7 },
       () =>
@@ -67,13 +67,13 @@ describe('OfficeHours', () => {
         }),
     )
 
-    const { getByText, queryByText } = renderOfficeHours(allDayOfficeHours)
+    const { getByText, queryByText } = await renderOfficeHours(allDayOfficeHours)
 
     expect(getByText('places:hours.allDay')).toBeTruthy()
     expect(queryByText('places:hours.open')).toBeFalsy()
   })
 
-  it('should display temporarily closed if the office is closed all day', () => {
+  it('should display temporarily closed if the office is closed all day', async () => {
     const closedOfficeHours = Array.from(
       { length: 7 },
       () =>
@@ -85,7 +85,7 @@ describe('OfficeHours', () => {
         }),
     )
 
-    const { getByText, queryByText } = renderOfficeHours(closedOfficeHours)
+    const { getByText, queryByText } = await renderOfficeHours(closedOfficeHours)
 
     expect(getByText('places:hours.temporarilyClosed')).toBeTruthy()
     expect(queryByText('places:hours.open')).toBeFalsy()

@@ -1,11 +1,12 @@
 import React from 'react'
+import type { TestInstance } from 'test-renderer'
 
 import { NewsRouteType, parseHTML } from 'shared'
 import { CategoriesMapModelBuilder, RegionModelBuilder, LanguageModelBuilder } from 'shared/api'
 
 import useNavigate from '../../hooks/useNavigate'
 import createNavigationScreenPropMock from '../../testing/createNavigationPropMock'
-import render, { ReactTestInstance } from '../../testing/render'
+import render from '../../testing/render'
 import SearchListItem from '../SearchListItem'
 
 jest.mock('styled-components')
@@ -30,7 +31,7 @@ describe('SearchListItem', () => {
   const { mocked } = jest
   mocked(useNavigate).mockImplementation(() => ({ navigateTo: jest.fn(), navigation }))
 
-  const assertHighlighting = (element: ReactTestInstance, highlighted: boolean) =>
+  const assertHighlighting = (element: TestInstance, highlighted: boolean) =>
     highlighted
       ? expect(element).toHaveStyle({ fontWeight: 'bold' })
       : expect(element).not.toHaveStyle({ fontWeight: 'bold' })
@@ -46,12 +47,12 @@ describe('SearchListItem', () => {
       />,
     )
 
-  it('should show excerpt around query if match in title and content', () => {
+  it('should show excerpt around query if match in title and content', async () => {
     const query = 'Category'
     const excerptBeforeQuery = 'Page of'
     const excerptAfterQuery = '0 This is a sample page'
 
-    const { queryAllByText, getByText } = renderSearchListItem(query)
+    const { queryAllByText, getByText } = await renderSearchListItem(query)
 
     assertHighlighting(getByText(excerptBeforeQuery, { exact: false }), false)
     assertHighlighting(queryAllByText(query)[0]!, true)
@@ -59,29 +60,29 @@ describe('SearchListItem', () => {
     assertHighlighting(getByText(excerptAfterQuery, { exact: false }), false)
   })
 
-  it('should show beginning of excerpt if match only in title', () => {
-    const { getByText } = renderSearchListItem(category.title)
+  it('should show beginning of excerpt if match only in title', async () => {
+    const { getByText } = await renderSearchListItem(category.title)
 
     assertHighlighting(getByText(category.title), true)
     assertHighlighting(getByText(contentWithoutHtml), false)
   })
 
-  it('should show excerpt around query if only match in content', () => {
+  it('should show excerpt around query if only match in content', async () => {
     const excerptBeforeQuery = 'This is a'
     const query = 'sample'
     const excerptAfterQuery = 'page'
 
-    const { getByText } = renderSearchListItem(query)
+    const { getByText } = await renderSearchListItem(query)
 
     assertHighlighting(getByText(excerptBeforeQuery, { exact: false }), false)
     assertHighlighting(getByText(query), true)
     assertHighlighting(getByText(excerptAfterQuery, { exact: false }), false)
   })
 
-  it('should show title if the query is empty', () => {
+  it('should show title if the query is empty', async () => {
     const query = ''
 
-    const { getByText } = renderSearchListItem(query)
+    const { getByText } = await renderSearchListItem(query)
 
     expect(getByText(category.title)).toBeTruthy()
     expect(getByText(category.title)).toHaveStyle({ fontWeight: 'bold' })

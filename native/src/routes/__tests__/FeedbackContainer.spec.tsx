@@ -29,26 +29,26 @@ describe('FeedbackContainer', () => {
   const language = 'de'
 
   it('should disable send button if privacy policy is not accepted', async () => {
-    const { findByText, getByText } = render(
+    const { findByText, getByText } = await render(
       <FeedbackContainer routeType={SEARCH_ROUTE} language={language} regionCode={region} />,
     )
     const positiveRatingButton = getByText('feedback:rating.useful')
-    fireEvent.press(positiveRatingButton)
+    await fireEvent.press(positiveRatingButton)
 
     expect(await findByText('common:actions.send')).toBeDisabled()
   })
 
   it('should send feedback request with rating and no other inputs on submit', async () => {
-    const { getByText, findByText } = render(
+    const { getByText, findByText } = await render(
       <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} regionCode={region} />,
     )
-    fireEvent.press(getByText('common:privacy.confirmation'))
+    await fireEvent.press(getByText('common:privacy.confirmation'))
 
     const positiveRatingButton = getByText('feedback:rating.useful')
-    fireEvent.press(positiveRatingButton)
+    await fireEvent.press(positiveRatingButton)
     expect(getByText('common:actions.send')).not.toBeDisabled()
     const submitButton = getByText('common:actions.send')
-    fireEvent.press(submitButton)
+    await fireEvent.press(submitButton)
     expect(await findByText('feedback:thanks.description')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
@@ -66,15 +66,15 @@ describe('FeedbackContainer', () => {
   it('should send feedback request with comment and contact information on submit without rating', async () => {
     const comment = 'my comment'
     const contactMail = 'test@example.com'
-    const { getByText, findByText, getAllByDisplayValue } = render(
+    const { getByText, findByText, getAllByDisplayValue } = await render(
       <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} regionCode={region} />,
     )
-    fireEvent.press(getByText('common:privacy.confirmation'))
+    await fireEvent.press(getByText('common:privacy.confirmation'))
     const [commentField, emailField] = getAllByDisplayValue('')
-    fireEvent.changeText(commentField!, comment)
-    fireEvent.changeText(emailField!, contactMail)
+    await fireEvent.changeText(commentField!, comment)
+    await fireEvent.changeText(emailField!, contactMail)
     const button = getByText('common:actions.send')
-    fireEvent.press(button)
+    await fireEvent.press(button)
     expect(await findByText('feedback:thanks.description')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledTimes(1)
     expect(mockRequest).toHaveBeenCalledWith({
@@ -90,20 +90,20 @@ describe('FeedbackContainer', () => {
   })
 
   it('should disable send feedback button if rating button is clicked twice', async () => {
-    const { getByText, findByText } = render(
+    const { getByText, findByText } = await render(
       <FeedbackContainer routeType={CATEGORIES_ROUTE} language={language} regionCode={region} />,
     )
-    fireEvent.press(getByText('common:privacy.confirmation'))
+    await fireEvent.press(getByText('common:privacy.confirmation'))
     const positiveRatingButton = getByText('feedback:rating.useful')
-    fireEvent.press(positiveRatingButton)
+    await fireEvent.press(positiveRatingButton)
     expect(await findByText('common:actions.send')).not.toBeDisabled()
-    fireEvent.press(positiveRatingButton)
+    await fireEvent.press(positiveRatingButton)
     expect(await findByText('common:actions.send')).toBeDisabled()
   })
 
   it('should send negative feedback for having unwanted search results', async () => {
     const query = 'gesundheitsversicherung'
-    const { getByText, findByText } = render(
+    const { getByText, findByText } = await render(
       <FeedbackContainer
         routeType={SEARCH_ROUTE}
         language={language}
@@ -115,7 +115,7 @@ describe('FeedbackContainer', () => {
     )
 
     expect(await findByText('feedback:search.informationNotFound')).toBeDefined()
-    fireEvent.press(getByText('feedback:search.informUs'))
+    await fireEvent.press(getByText('feedback:search.informUs'))
     expect(await findByText('feedback:thanks.title')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
@@ -132,7 +132,7 @@ describe('FeedbackContainer', () => {
 
   it('should send negative feedback for not found search results and show the thanks banner', async () => {
     const query = 'gesundheitsversicherung'
-    const { getByText, findByText } = render(
+    const { getByText, findByText } = await render(
       <FeedbackContainer
         routeType={SEARCH_ROUTE}
         language={language}
@@ -143,7 +143,7 @@ describe('FeedbackContainer', () => {
         isChatEnabled={false}
       />,
     )
-    fireEvent.press(getByText('feedback:search.informUs'))
+    await fireEvent.press(getByText('feedback:search.informUs'))
     expect(await findByText('feedback:thanks.title')).toBeDefined()
     expect(mockRequest).toHaveBeenCalledWith({
       routeType: SEARCH_ROUTE,
@@ -158,10 +158,10 @@ describe('FeedbackContainer', () => {
     })
   })
 
-  it('should show the chat option when chat is enabled in a region for not found search results', () => {
+  it('should show the chat option when chat is enabled in a region for not found search results', async () => {
     const query = 'gesundheitsversicherung'
 
-    const { getByText } = render(
+    const { getByText } = await render(
       <FeedbackContainer
         routeType={SEARCH_ROUTE}
         language={language}
@@ -175,9 +175,9 @@ describe('FeedbackContainer', () => {
     expect(getByText(/feedback:search.options.askChat/)).toBeTruthy()
   })
 
-  it('should hide the chat option when chat is disabled in a region for not found search results', () => {
+  it('should hide the chat option when chat is disabled in a region for not found search results', async () => {
     const query = 'gesundheitsversicherung'
-    const { queryByText } = render(
+    const { queryByText } = await render(
       <FeedbackContainer
         routeType={SEARCH_ROUTE}
         language={language}

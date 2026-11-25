@@ -118,16 +118,16 @@ describe('Header', () => {
     )
 
   it('search and language change buttons should be enabled and visible if showItems and all props available', async () => {
-    const { getByLabelText } = renderHeader({
+    const { getByLabelText } = await renderHeader({
       showItems: true,
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
     })
-    fireEvent.press(getByLabelText(t('search:title')))
+    await fireEvent.press(getByLabelText(t('search:title')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(1))
     expect(navigation.navigate).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: null })
 
-    fireEvent.press(getByLabelText(t('languages:change')))
+    await fireEvent.press(getByLabelText(t('languages:change')))
     await waitFor(() => expect(navigation.navigate).toHaveBeenCalledTimes(2))
     expect(navigation.navigate).toHaveBeenCalledWith(LANGUAGES_ROUTE, {
       availableLanguages: defaultAvailableLanguages,
@@ -137,8 +137,8 @@ describe('Header', () => {
     })
   })
 
-  it('search and language change buttons should be disabled and invisible if showItems is false', () => {
-    const { queryByLabelText } = renderHeader({
+  it('search and language change buttons should be disabled and invisible if showItems is false', async () => {
+    const { queryByLabelText } = await renderHeader({
       showItems: false,
       languages: languageModels,
       availableLanguages: defaultAvailableLanguages,
@@ -147,14 +147,14 @@ describe('Header', () => {
     expect(queryByLabelText(t('languages:change'))).toBeNull()
   })
 
-  it('should show back button and navigate back on click', () => {
+  it('should show back button and navigate back on click', async () => {
     mockPreviousRoute(true)
-    const { getByLabelText } = renderHeader({})
-    fireEvent.press(getByLabelText('common:actions.back'))
+    const { getByLabelText } = await renderHeader({})
+    await fireEvent.press(getByLabelText('common:actions.back'))
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
-  it('should show the title of the focused route of a nested navigator as header title', () => {
+  it('should show the title of the focused route of a nested navigator as header title', async () => {
     mocked(navigation.getState).mockImplementation(() => ({
       key: 'stack-key',
       index: 1,
@@ -187,17 +187,17 @@ describe('Header', () => {
       stale: false,
       preloadedRoutes: [],
     }))
-    const { getByText } = renderHeader({ route: { key: 'key-0', name: IMPRINT_ROUTE, params: {} } })
+    const { getByText } = await renderHeader({ route: { key: 'key-0', name: IMPRINT_ROUTE, params: {} } })
     expect(getByText('Nested Category')).toBeTruthy()
   })
 
-  it('should not show back button if it is the home', () => {
+  it('should not show back button if it is the home', async () => {
     mockPreviousRoute(false)
-    const { queryByLabelText } = renderHeader({})
+    const { queryByLabelText } = await renderHeader({})
     expect(queryByLabelText('common:actions.back')).toBeFalsy()
   })
 
-  it('should show location change button even when tab history exists', () => {
+  it('should show location change button even when tab history exists', async () => {
     mockPreviousRoute(false)
     mockParentNavigator(TAB_NAVIGATOR_ID, {
       index: 1,
@@ -206,11 +206,11 @@ describe('Header', () => {
         { key: 'tab-key-1', name: EVENTS_TAB_ROUTE },
       ],
     })
-    const { getByLabelText } = renderHeader({})
+    const { getByLabelText } = await renderHeader({})
     expect(getByLabelText('Stadt Augsburg regions:change')).toBeTruthy()
   })
 
-  it('should show the title of the previous root route if the current stack has no history', () => {
+  it('should show the title of the previous root route if the current stack has no history', async () => {
     mockPreviousRoute(false)
     mockParentNavigator(ROOT_NAVIGATOR_ID, {
       index: 1,
@@ -219,7 +219,7 @@ describe('Header', () => {
         { key: 'bottom-tab-key', name: BOTTOM_TAB_ROUTE },
       ],
     })
-    const { getByText, queryByLabelText } = renderHeader({})
+    const { getByText, queryByLabelText } = await renderHeader({})
     expect(getByText('search:title')).toBeTruthy()
     expect(queryByLabelText('Stadt Augsburg regions:change')).toBeNull()
   })
@@ -227,18 +227,18 @@ describe('Header', () => {
   it('should not open language change modal if no translation available', async () => {
     const showSnackbar = jest.fn()
     mocked(useSnackbar).mockImplementation(() => showSnackbar)
-    const { getByLabelText } = renderHeader({
+    const { getByLabelText } = await renderHeader({
       showItems: true,
       languages: languageModels,
       availableLanguages: [languageModel.code],
     })
-    fireEvent.press(getByLabelText(t('languages:change')))
+    await fireEvent.press(getByLabelText(t('languages:change')))
     expect(navigation.navigate).not.toHaveBeenCalled()
     await waitFor(() => expect(showSnackbar).toHaveBeenCalledWith({ text: 'languages:error.noTranslation' }))
     expect(showSnackbar).toHaveBeenCalledTimes(1)
   })
 
-  it('should show snackbar if sharing fails', () => {
+  it('should show snackbar if sharing fails', async () => {
     const showSnackbar = jest.fn()
     mocked(useSnackbar).mockImplementation(() => showSnackbar)
 
@@ -248,28 +248,28 @@ describe('Header', () => {
       }),
     )
 
-    const { getByTestId, getByText } = renderHeader({})
+    const { getByTestId, getByText } = await renderHeader({})
 
-    fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share:title')))
+    await fireEvent.press(getByTestId('header-overflow-menu-button'))
+    await fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalled()
 
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'error:unknownError' })
   })
 
-  it('should replace the default menu items if menu items are passed', () => {
-    const { getByTestId, queryByText, getByText } = renderHeader({ menuItems: [] })
-    fireEvent.press(getByTestId('header-overflow-menu-button'))
+  it('should replace the default menu items if menu items are passed', async () => {
+    const { getByTestId, queryByText, getByText } = await renderHeader({ menuItems: [] })
+    await fireEvent.press(getByTestId('header-overflow-menu-button'))
 
     expect(queryByText('feedback:title')).toBeNull()
     expect(queryByText('tts:title')).toBeNull()
     expect(getByText('share:title')).toBeTruthy()
   })
 
-  it('should use the share url from the route params if none is passed', () => {
+  it('should use the share url from the route params if none is passed', async () => {
     const shareUrl = 'https://example.com/file.pdf'
-    const { getByTestId, getByText } = render(
+    const { getByTestId, getByText } = await render(
       <TestingAppContext regionCode={regionModel.code} languageCode={languageModel.code}>
         <Header
           navigation={navigation}
@@ -279,8 +279,8 @@ describe('Header', () => {
         />
       </TestingAppContext>,
     )
-    fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share:title')))
+    await fireEvent.press(getByTestId('header-overflow-menu-button'))
+    await fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalledWith({
       message: `share:message Stadt Augsburg\n${shareUrl}`,
@@ -288,12 +288,12 @@ describe('Header', () => {
     })
   })
 
-  it('should create proper share message including page title', () => {
-    const { getByTestId, getByText } = renderHeader({
+  it('should create proper share message including page title', async () => {
+    const { getByTestId, getByText } = await renderHeader({
       route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: defaultPageTitle } },
     })
-    fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share:title')))
+    await fireEvent.press(getByTestId('header-overflow-menu-button'))
+    await fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalledWith({
       message: 'share:message Test Category - Stadt Augsburg\nhttps://example.com/share',
@@ -301,15 +301,15 @@ describe('Header', () => {
     })
   })
 
-  it('should use the region name in the share message if no route title is set', () => {
+  it('should use the region name in the share message if no route title is set', async () => {
     const openURL = jest.fn()
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
-    const { getByTestId, getByText } = renderHeader({
+    const { getByTestId, getByText } = await renderHeader({
       route: { key: 'key-0', name: IMPRINT_ROUTE },
     })
-    fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share:title')))
+    await fireEvent.press(getByTestId('header-overflow-menu-button'))
+    await fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalledWith({
       message: 'share:message Stadt Augsburg\nhttps://example.com/share',
@@ -317,15 +317,15 @@ describe('Header', () => {
     })
   })
 
-  it('should not add the region name in the share message if it equals the route title', () => {
+  it('should not add the region name in the share message if it equals the route title', async () => {
     const openURL = jest.fn()
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
-    const { getByTestId, getByText } = renderHeader({
+    const { getByTestId, getByText } = await renderHeader({
       route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: 'Stadt Augsburg' } },
     })
-    fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share:title')))
+    await fireEvent.press(getByTestId('header-overflow-menu-button'))
+    await fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalledWith({
       message: 'share:message Stadt Augsburg\nhttps://example.com/share',
@@ -333,15 +333,15 @@ describe('Header', () => {
     })
   })
 
-  it('should use the route title in the share message', () => {
+  it('should use the route title in the share message', async () => {
     const openURL = jest.fn()
     const spy = jest.spyOn(Linking, 'openURL')
     spy.mockImplementation(openURL)
-    const { getByTestId, getByText } = renderHeader({
+    const { getByTestId, getByText } = await renderHeader({
       route: { key: 'key-0', name: CATEGORIES_ROUTE, params: { title: 'Willkommen' } },
     })
-    fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText(t('share:title')))
+    await fireEvent.press(getByTestId('header-overflow-menu-button'))
+    await fireEvent.press(getByText(t('share:title')))
 
     expect(Share.share).toHaveBeenCalledWith({
       message: 'share:message Willkommen - Stadt Augsburg\nhttps://example.com/share',
@@ -349,9 +349,9 @@ describe('Header', () => {
     })
   })
 
-  it('should show additional menu items', () => {
+  it('should show additional menu items', async () => {
     const onPress = jest.fn()
-    const { getByTestId, getByText } = render(
+    const { getByTestId, getByText } = await render(
       <TestingAppContext regionCode={regionModel.code} languageCode={languageModel.code}>
         <Header
           navigation={navigation}
@@ -361,18 +361,18 @@ describe('Header', () => {
         />
       </TestingAppContext>,
     )
-    fireEvent.press(getByTestId('header-overflow-menu-button'))
-    fireEvent.press(getByText('Extra item'))
+    await fireEvent.press(getByTestId('header-overflow-menu-button'))
+    await fireEvent.press(getByText('Extra item'))
 
     expect(onPress).toHaveBeenCalledTimes(1)
   })
 
-  it('should not show a create pdf menu item on pages other than categories', () => {
-    const { getByTestId, queryByText } = renderHeader({
+  it('should not show a create pdf menu item on pages other than categories', async () => {
+    const { getByTestId, queryByText } = await renderHeader({
       route: { key: 'key-0', name: IMPRINT_ROUTE },
     })
 
-    fireEvent.press(getByTestId('header-overflow-menu-button'))
+    await fireEvent.press(getByTestId('header-overflow-menu-button'))
     expect(queryByText(t('categories:pdf.create'))).toBeNull()
   })
 })

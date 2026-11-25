@@ -8,8 +8,8 @@ describe('ToggleTextButtonGroup', () => {
   const options = ['all', 'local', 'national'] as const
   const getLabel = (option: (typeof options)[number]) => `label-${option}`
 
-  it('should render a label for every option', () => {
-    const { getByText } = render(
+  it('should render a label for every option', async () => {
+    const { getByText } = await render(
       <ToggleTextButtonGroup value='all' options={[...options]} setValue={jest.fn()} getLabel={getLabel} />,
     )
 
@@ -18,13 +18,13 @@ describe('ToggleTextButtonGroup', () => {
     })
   })
 
-  it('should call setValue when an option is pressed', () => {
+  it('should call setValue when an option is pressed', async () => {
     const setValue = jest.fn()
-    const { getByText } = render(
+    const { getByText } = await render(
       <ToggleTextButtonGroup value='all' options={[...options]} setValue={setValue} getLabel={getLabel} />,
     )
 
-    fireEvent.press(getByText('label-national'))
+    await fireEvent.press(getByText('label-national'))
     expect(setValue).toHaveBeenCalledWith('national')
   })
 })

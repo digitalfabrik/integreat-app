@@ -2,7 +2,7 @@ import { useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import ReactHighlighter from 'react-highlight-words'
 
-import { findNormalizedMatches, normalizeString, MATCH_WHITESPACE_AND_DASHES, FindChunks } from 'shared'
+import { findNormalizedMatches, normalizeCharacters, MATCH_WHITESPACE_AND_DASHES, FindChunksOptions } from 'shared'
 import { UiDirectionType } from 'translations'
 
 type HighlighterProps = {
@@ -19,9 +19,9 @@ const Highlighter = ({ search, text, className, dir, wordStartOnly = false }: Hi
     <ReactHighlighter
       className={className}
       textToHighlight={text}
-      searchWords={wordStartOnly ? search.split(MATCH_WHITESPACE_AND_DASHES) : [search]}
-      sanitize={normalizeString}
-      findChunks={(props: FindChunks) => findNormalizedMatches(props, { wordStartOnly })}
+      searchWords={wordStartOnly ? search.split(MATCH_WHITESPACE_AND_DASHES) : [search.trim()]}
+      sanitize={normalizeCharacters}
+      findChunks={(props: FindChunksOptions) => findNormalizedMatches(props, { wordStartOnly })}
       highlightStyle={{
         backgroundColor: theme.palette.tertiary.light,
         fontWeight: 'bold',

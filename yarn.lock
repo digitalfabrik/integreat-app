@@ -3725,75 +3725,54 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/ecma402-abstract@npm:2.3.6":
-  version: 2.3.6
-  resolution: "@formatjs/ecma402-abstract@npm:2.3.6"
-  dependencies:
-    "@formatjs/fast-memoize": "npm:2.2.7"
-    "@formatjs/intl-localematcher": "npm:0.6.2"
-    decimal.js: "npm:^10.4.3"
-    tslib: "npm:^2.8.0"
-  checksum: 10c0/63be2a73d3168bf45ab5d50db58376e852db5652d89511ae6e44f1fa03ad96ebbfe9b06a1dfaa743db06e40eb7f33bd77530b9388289855cca79a0e3fc29eacf
+"@formatjs/fast-memoize@npm:3.1.8":
+  version: 3.1.8
+  resolution: "@formatjs/fast-memoize@npm:3.1.8"
+  checksum: 10c0/817b0b6541401bffb5d42da4bffbacd465083711aab294eee0af8da9aa8aff7ce3938e39a8267f73afb72c08c0eee8eceb74e0d35df9065edc8ec7fb3f8bbc08
   languageName: node
   linkType: hard
 
-"@formatjs/fast-memoize@npm:2.2.7":
-  version: 2.2.7
-  resolution: "@formatjs/fast-memoize@npm:2.2.7"
+"@formatjs/intl-displaynames@npm:^8.0.4":
+  version: 8.0.4
+  resolution: "@formatjs/intl-displaynames@npm:8.0.4"
   dependencies:
-    tslib: "npm:^2.8.0"
-  checksum: 10c0/f5eabb0e4ab7162297df8252b4cfde194b23248120d9df267592eae2be2d2f7c4f670b5a70523d91b4ecdc35d40e65823bb8eeba8dd79fbf8601a972bf3b8866
+    "@formatjs/intl-localematcher": "npm:0.10.2"
+  checksum: 10c0/6a6cf72fb6814c9d652d343fc7c00d6c672a34941e03a0e95541a2c93c55c6551b3ce6c8f1fb29ca64e5d40d9ce36ba02e0381aa5f44c7f47b73e7111f3e902a
   languageName: node
   linkType: hard
 
-"@formatjs/intl-displaynames@npm:^6.8.13":
-  version: 6.8.13
-  resolution: "@formatjs/intl-displaynames@npm:6.8.13"
-  dependencies:
-    "@formatjs/ecma402-abstract": "npm:2.3.6"
-    "@formatjs/intl-localematcher": "npm:0.6.2"
-    tslib: "npm:^2.8.0"
-  checksum: 10c0/8547a0735f4775725b3e17dc5c6b5c14a735d1bd599498b42b25c618f5caee4ff0575c7caab0dea0ddf537e70d13c0e1eda179655411f156030b7167ab5af1d9
+"@formatjs/intl-getcanonicallocales@npm:3.4.1":
+  version: 3.4.1
+  resolution: "@formatjs/intl-getcanonicallocales@npm:3.4.1"
+  checksum: 10c0/1100cdfdd0ad3fdad463c8d7ba238f294bbe712cac06ee7e3971a16ac8b85e7c85f538219249773f76c80be4c2593347dc1cbcf97b94b5fb5406be0dac4662e4
   languageName: node
   linkType: hard
 
-"@formatjs/intl-enumerator@npm:1.8.12":
-  version: 1.8.12
-  resolution: "@formatjs/intl-enumerator@npm:1.8.12"
+"@formatjs/intl-locale@npm:^5.5.1":
+  version: 5.5.1
+  resolution: "@formatjs/intl-locale@npm:5.5.1"
   dependencies:
-    "@formatjs/ecma402-abstract": "npm:2.3.6"
-    tslib: "npm:^2.8.0"
-  checksum: 10c0/b9bab6cfa24d4d669dc395be677499b7e942d3e203cee43f62a5a37bf4b9e3506d47f516c3fadbd2c1cfb13747bc40d7a3741ecbeb7dfefb2ced63d11bf8d37c
+    "@formatjs/intl-getcanonicallocales": "npm:3.4.1"
+    "@formatjs/intl-supportedvaluesof": "npm:3.1.1"
+  checksum: 10c0/70755bad63c26b0b4b7607c3c02dbed85e825e64598aa4c8de95337e87399758148eef1f2fb07ff3bf036cd9364876a8de1a89e13408f0640af58d6828f7c03f
   languageName: node
   linkType: hard
 
-"@formatjs/intl-getcanonicallocales@npm:2.5.6":
-  version: 2.5.6
-  resolution: "@formatjs/intl-getcanonicallocales@npm:2.5.6"
+"@formatjs/intl-localematcher@npm:0.10.2":
+  version: 0.10.2
+  resolution: "@formatjs/intl-localematcher@npm:0.10.2"
   dependencies:
-    tslib: "npm:^2.8.0"
-  checksum: 10c0/3a776ddc9893982f52f9f1540da2a205af8cf1533b7a40b791496e41ad263b3d3e019d37cf100cb531779f42ec48f4f566ddbded4625fa56362c78b918bcad06
+    "@formatjs/fast-memoize": "npm:3.1.8"
+  checksum: 10c0/8c17db1de961bbe99a4cbf1be60c98821e665ee646579f5a77f75b76df493f6f6c99a81e745e8dac577aa9ffb0f710af7b82e97ae2ac167506f4d658363ee7ce
   languageName: node
   linkType: hard
 
-"@formatjs/intl-locale@npm:^4.2.13":
-  version: 4.2.13
-  resolution: "@formatjs/intl-locale@npm:4.2.13"
+"@formatjs/intl-supportedvaluesof@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@formatjs/intl-supportedvaluesof@npm:3.1.1"
   dependencies:
-    "@formatjs/ecma402-abstract": "npm:2.3.6"
-    "@formatjs/intl-enumerator": "npm:1.8.12"
-    "@formatjs/intl-getcanonicallocales": "npm:2.5.6"
-    tslib: "npm:^2.8.0"
-  checksum: 10c0/19898e008459e5ad68f631fb18ae2accb9e4ab444bb94fbe52b1b427996968357f986e7effabf463e5d99eed9fc79eb7feccaae0eeda3608a19ff6e13a0829ef
-  languageName: node
-  linkType: hard
-
-"@formatjs/intl-localematcher@npm:0.6.2":
-  version: 0.6.2
-  resolution: "@formatjs/intl-localematcher@npm:0.6.2"
-  dependencies:
-    tslib: "npm:^2.8.0"
-  checksum: 10c0/22a17a4c67160b6c9f52667914acfb7b79cd6d80630d4ac6d4599ce447cb89d2a64f7d58fa35c3145ddb37fef893f0a45b9a55e663a4eb1f2ae8b10a89fac235
+    "@formatjs/fast-memoize": "npm:3.1.8"
+  checksum: 10c0/aa93d3266b58c0381994ae81b15c4084067ba462f8c6db23c2e2960f6c2635c1e22c157b0b6d18f66fed041d54362edb129556eac31ada8e8746ec105b71a67b
   languageName: node
   linkType: hard
 
@@ -7880,23 +7859,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/react-native@npm:^13.3.3":
-  version: 13.3.3
-  resolution: "@testing-library/react-native@npm:13.3.3"
+"@testing-library/react-native@npm:^14.1.0":
+  version: 14.1.0
+  resolution: "@testing-library/react-native@npm:14.1.0"
   dependencies:
-    jest-matcher-utils: "npm:^30.0.5"
+    jest-matcher-utils: "npm:^30.4.1"
     picocolors: "npm:^1.1.1"
-    pretty-format: "npm:^30.0.5"
+    pretty-format: "npm:^30.4.1"
     redent: "npm:^3.0.0"
   peerDependencies:
     jest: ">=29.0.0"
-    react: ">=18.2.0"
-    react-native: ">=0.71"
-    react-test-renderer: ">=18.2.0"
+    react: ">=19.0.0"
+    react-native: ">=0.78"
+    test-renderer: ^1.0.0
   peerDependenciesMeta:
     jest:
       optional: true
-  checksum: 10c0/ba13066536d5b2c0b625220d4320c6ad1e390c3df4f4b614d859ef467c4974ad52aa79269ae98efdba8f5a074644e3d11583a5485312df5a64387976ecf4225a
+  checksum: 10c0/620129d24659d306d9fc7f3d8bf2674dfd7b25ace530b7f83408a268cbd78108a097d557db9474a7b1ea5a7ac2319e21078486826d9cde9a0560971b5e399ce2
   languageName: node
   linkType: hard
 
@@ -8409,6 +8388,15 @@ __metadata:
   dependencies:
     "@types/react": "npm:*"
   checksum: 10c0/6dcba15dbaf2732f61c325147395f58a0241082f93ae5280b905d580303af9a0aa38c3bb28b2b6345da9a3758b1e69489bdcfff7411f55fe2868edd0e2a0f0e6
+  languageName: node
+  linkType: hard
+
+"@types/react-reconciler@npm:~0.34.0":
+  version: 0.34.1
+  resolution: "@types/react-reconciler@npm:0.34.1"
+  peerDependencies:
+    "@types/react": "*"
+  checksum: 10c0/6de26762fb29cefd9654bded66bf5383f9b8ef1519d2f51556809164c9e811c2d7ea748683264122f0cd6fbf0dd9f5bf21461d63fc327e4f4d351db2f9b8ab9f
   languageName: node
   linkType: hard
 
@@ -12250,7 +12238,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"decimal.js@npm:^10.4.3, decimal.js@npm:^10.5.0":
+"decimal.js@npm:^10.5.0":
   version: 10.6.0
   resolution: "decimal.js@npm:10.6.0"
   checksum: 10c0/07d69fbcc54167a340d2d97de95f546f9ff1f69d2b45a02fd7a5292412df3cd9eb7e23065e532a318f5474a2e1bccf8392fdf0443ef467f97f3bf8cb0477e5aa
@@ -15308,17 +15296,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"highlight-words-core@npm:2.0.0":
+"highlight-words-core@npm:2.0.0, highlight-words-core@npm:^2.0.0":
   version: 2.0.0
   resolution: "highlight-words-core@npm:2.0.0"
   checksum: 10c0/12afa504745813295ca9a8a456786abd33162d7c1646b4e73fec23c0e4f1568f858ed0df060ca0faaddbd289cdb05bd8fe3239478ac7743500576408dc8d0e7a
-  languageName: node
-  linkType: hard
-
-"highlight-words-core@npm:^1.2.3":
-  version: 1.2.3
-  resolution: "highlight-words-core@npm:1.2.3"
-  checksum: 10c0/473f4ea898c8c3aa20f97951cb6fe23c60ce016f55d280041ec727fdda6a80c2f46d8aa168b771638e2c7eccd97f6c496a1d8eb2be822d4b94bbd031b597130e
   languageName: node
   linkType: hard
 
@@ -16726,7 +16707,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-matcher-utils@npm:30.3.0, jest-matcher-utils@npm:^30.0.5":
+"jest-matcher-utils@npm:30.3.0":
   version: 30.3.0
   resolution: "jest-matcher-utils@npm:30.3.0"
   dependencies:
@@ -18748,6 +18729,7 @@ __metadata:
   resolution: "native@workspace:native"
   dependencies:
     "@babel/core": "npm:^7.29.13"
+    "@babel/plugin-transform-class-static-block": "npm:^7.29.14"
     "@babel/plugin-transform-export-namespace-from": "npm:^7.29.7"
     "@babel/preset-env": "npm:^7.29.14"
     "@babel/preset-typescript": "npm:^7.29.7"
@@ -18755,8 +18737,8 @@ __metadata:
     "@dr.pogodin/react-native-fs": "npm:^2.41.0"
     "@dr.pogodin/react-native-static-server": "npm:^0.28.1"
     "@dr.pogodin/react-native-webview": "npm:^16.1.3"
-    "@formatjs/intl-displaynames": "npm:^6.8.13"
-    "@formatjs/intl-locale": "npm:^4.2.13"
+    "@formatjs/intl-displaynames": "npm:^8.0.4"
+    "@formatjs/intl-locale": "npm:^5.5.1"
     "@gorhom/bottom-sheet": "npm:^5.2.14"
     "@maplibre/maplibre-react-native": "npm:^11.5.1"
     "@mhpdev/react-native-speech": "npm:^1.4.4"
@@ -18780,7 +18762,7 @@ __metadata:
     "@react-navigation/native": "npm:^7.5.2"
     "@react-navigation/native-stack": "npm:^7.21.1"
     "@sentry/react-native": "npm:^8.36.0"
-    "@testing-library/react-native": "npm:^13.3.3"
+    "@testing-library/react-native": "npm:^14.1.0"
     "@types/geojson": "npm:^7946.0.16"
     "@types/lodash": "npm:^4.17.27"
     "@types/url-parse": "npm:^1.4.11"
@@ -18817,11 +18799,11 @@ __metadata:
     react-native-svg-transformer: "npm:^1.5.3"
     react-native-url-polyfill: "npm:^4.0.0"
     react-native-worklets: "npm:^0.13.1"
-    react-test-renderer: "npm:19.3.1"
     rrule: "npm:^2.8.1"
     shared: "workspace:^"
     styled-components: "npm:6.6.0"
     stylis: "npm:^4.4.0"
+    test-renderer: "npm:^1.3.1"
     translations: "workspace:^"
     url-parse: "npm:^1.5.10"
   languageName: unknown
@@ -19905,7 +19887,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-format@npm:30.3.0, pretty-format@npm:^30.0.0, pretty-format@npm:^30.0.5":
+"pretty-format@npm:30.3.0, pretty-format@npm:^30.0.0":
   version: 30.3.0
   resolution: "pretty-format@npm:30.3.0"
   dependencies:
@@ -19928,7 +19910,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-format@npm:30.5.1":
+"pretty-format@npm:30.5.1, pretty-format@npm:^30.4.1":
   version: 30.5.1
   resolution: "pretty-format@npm:30.5.1"
   dependencies:
@@ -20697,6 +20679,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-reconciler@npm:~0.34.0":
+  version: 0.34.0
+  resolution: "react-reconciler@npm:0.34.0"
+  dependencies:
+    scheduler: "npm:^0.28.0"
+  peerDependencies:
+    react: ^19.3.0
+  checksum: 10c0/9a73a044a1909e63687a8edc3f8b4e7cd236374061dd4c931427fc88c3e6efc3b2fd990376dba4bd955125c5c0563df891fb196ff9906a6bc2c63d0e93e26d36
+  languageName: node
+  linkType: hard
+
 "react-refresh@npm:^0.14.0":
   version: 0.14.2
   resolution: "react-refresh@npm:0.14.2"
@@ -20760,18 +20753,6 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
   checksum: 10c0/c850d199751558f0ba0b38618d6523e8d530066c7384c0d1d769687dc1186667095bee507393d844092afd31fb1cb045c7e996e00ee4ebab80d628077af0da35
-  languageName: node
-  linkType: hard
-
-"react-test-renderer@npm:19.3.1":
-  version: 19.3.1
-  resolution: "react-test-renderer@npm:19.3.1"
-  dependencies:
-    react-is: "npm:^19.3.1"
-    scheduler: "npm:^0.28.0"
-  peerDependencies:
-    react: ^19.3.1
-  checksum: 10c0/5c777dfad9c35011f0618ff854a3bc755e2f4ff168573cc91fea784b3c156258fca57e900f13ed9bdbb7fb144e4a2d82efe05c6abba2359675f0f6a91523b511
   languageName: node
   linkType: hard
 
@@ -21781,7 +21762,7 @@ __metadata:
     "@types/seedrandom": "npm:^3.0.8"
     deepmerge-ts: "npm:^8.0.1"
     entities: "npm:^7.0.1"
-    highlight-words-core: "npm:^1.2.3"
+    highlight-words-core: "npm:^2.0.0"
     htmlparser2: "npm:^12.0.0"
     i18next: "npm:^27.1.5"
     jest-environment-jsdom: "npm:^30.5.2"
@@ -23015,6 +22996,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"test-renderer@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "test-renderer@npm:1.3.1"
+  dependencies:
+    "@types/react-reconciler": "npm:~0.34.0"
+    react-reconciler: "npm:~0.34.0"
+  peerDependencies:
+    react: ^19.0.0
+  checksum: 10c0/fc99655e43ab3877de82b32f19937db600e9e846bc1d2126a32d815b68c1b6f27b9a54a46caf02dd4708e0100919f69b6f340baa8877c50e4bc8fb692dbc1367
+  languageName: node
+  linkType: hard
+
 "text-decoder@npm:^1.1.0":
   version: 1.2.7
   resolution: "text-decoder@npm:1.2.7"
@@ -23346,7 +23339,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.8.0, tslib@npm:^2.8.1":
+"tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.8.1":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62

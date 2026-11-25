@@ -13,7 +13,7 @@ describe('useDateFilter', () => {
   const { mocked } = jest
   const events = new EventModelBuilder('seed', 5, 'augsburg', 'de').build()
 
-  const setupUseDateFilter = () => {
+  const setupUseDateFilter = async () => {
     let params: { startDate?: DateTime; endDate?: DateTime } = {}
     const rerenderRef = { current: () => {} }
     const navigation = {
@@ -25,7 +25,7 @@ describe('useDateFilter', () => {
     }
     mocked(useNavigation).mockReturnValue(navigation as never)
     mocked(useRoute).mockImplementation(() => ({ params }) as never)
-    const hook = renderHook(() => useDateFilter(events))
+    const hook = await renderHook(() => useDateFilter(events))
     rerenderRef.current = () => hook.rerender(undefined)
     return hook
   }
@@ -34,43 +34,43 @@ describe('useDateFilter', () => {
     jest.clearAllMocks()
   })
 
-  it('should set the startDate', () => {
-    const { result } = setupUseDateFilter()
-    act(() => result.current.setStartDate(DateTime.fromISO('2026-08-12')))
+  it('should set the startDate', async () => {
+    const { result } = await setupUseDateFilter()
+    await act(() => result.current.setStartDate(DateTime.fromISO('2026-08-12')))
     expect(result.current.startDate?.toISODate()).toBe('2026-08-12')
   })
 
-  it('should set the endDate', () => {
-    const { result } = setupUseDateFilter()
-    act(() => result.current.setEndDate(DateTime.fromISO('2026-10-31')))
+  it('should set the endDate', async () => {
+    const { result } = await setupUseDateFilter()
+    await act(() => result.current.setEndDate(DateTime.fromISO('2026-10-31')))
     expect(result.current.endDate?.toISODate()).toBe('2026-10-31')
   })
 
-  it('should clear the startDate without affecting endDate', () => {
-    const { result } = setupUseDateFilter()
-    act(() => result.current.setStartDate(DateTime.fromISO('2026-08-12')))
-    act(() => result.current.setEndDate(DateTime.fromISO('2026-10-31')))
-    act(() => result.current.setStartDate(null))
+  it('should clear the startDate without affecting endDate', async () => {
+    const { result } = await setupUseDateFilter()
+    await act(() => result.current.setStartDate(DateTime.fromISO('2026-08-12')))
+    await act(() => result.current.setEndDate(DateTime.fromISO('2026-10-31')))
+    await act(() => result.current.setStartDate(null))
     expect(result.current.startDate).toBeNull()
     expect(result.current.endDate?.toISODate()).toBe('2026-10-31')
   })
 
-  it('should set startDateError when start is after end', () => {
-    const { result } = setupUseDateFilter()
-    act(() => result.current.setStartDate(DateTime.fromISO('2026-10-31')))
-    act(() => result.current.setEndDate(DateTime.fromISO('2026-08-12')))
+  it('should set startDateError when start is after end', async () => {
+    const { result } = await setupUseDateFilter()
+    await act(() => result.current.setStartDate(DateTime.fromISO('2026-10-31')))
+    await act(() => result.current.setEndDate(DateTime.fromISO('2026-08-12')))
     expect(result.current.startDateError).toBe('events:filter.error.endBeforeStart')
   })
 
-  it('should not set an error when start is before end', () => {
-    const { result } = setupUseDateFilter()
-    act(() => result.current.setStartDate(DateTime.fromISO('2026-08-12')))
-    act(() => result.current.setEndDate(DateTime.fromISO('2026-10-31')))
+  it('should not set an error when start is before end', async () => {
+    const { result } = await setupUseDateFilter()
+    await act(() => result.current.setStartDate(DateTime.fromISO('2026-08-12')))
+    await act(() => result.current.setEndDate(DateTime.fromISO('2026-10-31')))
     expect(result.current.startDateError).toBeNull()
   })
 
-  it('should return all events when no dates are set', () => {
-    const { result } = setupUseDateFilter()
+  it('should return all events when no dates are set', async () => {
+    const { result } = await setupUseDateFilter()
     expect(result.current.filteredEvents).toBe(events)
   })
 })

@@ -2,7 +2,13 @@ import React, { ReactElement } from 'react'
 import { StyleProp, TextStyle } from 'react-native'
 import { useTheme } from 'styled-components/native'
 
-import { findAllMatches, findNormalizedMatches, normalizeString, MATCH_WHITESPACE_AND_DASHES, FindChunks } from 'shared'
+import {
+  findAllMatches,
+  findNormalizedMatches,
+  normalizeCharacters,
+  MATCH_WHITESPACE_AND_DASHES,
+  FindChunksOptions,
+} from 'shared'
 
 import Text from './base/Text'
 
@@ -17,10 +23,10 @@ const Highlighter = ({ search, text, style, wordStartOnly = false }: Highlighter
   const theme = useTheme()
   const chunks = findAllMatches({
     textToHighlight: text,
-    searchWords: wordStartOnly ? search.split(MATCH_WHITESPACE_AND_DASHES) : [search],
-    sanitize: normalizeString,
+    searchWords: wordStartOnly ? search.split(MATCH_WHITESPACE_AND_DASHES) : [search.trim()],
+    sanitize: normalizeCharacters,
     autoEscape: true,
-    findChunks: (props: FindChunks) => findNormalizedMatches(props, { wordStartOnly }),
+    findChunks: (props: FindChunksOptions) => findNormalizedMatches(props, { wordStartOnly }),
   })
 
   return (

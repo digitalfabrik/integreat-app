@@ -33,18 +33,18 @@ describe('OpeningHours', () => {
       }),
   )
 
-  it('should display that the location is temporarily closed', () => {
-    const { getByText, queryByText } = renderOpeningHours(false, true, null, null)
+  it('should display that the location is temporarily closed', async () => {
+    const { getByText, queryByText } = await renderOpeningHours(false, true, null, null)
     expect(getByText('places:hours.temporarilyClosed')).toBeTruthy()
     expect(queryByText('places:hours.open')).toBeFalsy()
     expect(queryByText('places:hours.appointment.required')).toBeFalsy()
     expect(queryByText('places:hours.appointment.make.title')).toBeFalsy()
   })
 
-  it('should display that the location is opened', () => {
-    const { getByText, queryByText, getAllByText } = renderOpeningHours(true, false, openingHours, null)
+  it('should display that the location is opened', async () => {
+    const { getByText, queryByText, getAllByText } = await renderOpeningHours(true, false, openingHours, null)
     expect(getByText('places:hours.open')).toBeTruthy()
-    fireEvent.press(getByText('places:hours.title'))
+    await fireEvent.press(getByText('places:hours.title'))
     expect(getAllByText(openingHours[0]!.timeSlots[0]!.start, { exact: false })).toHaveLength(7)
     expect(getAllByText(openingHours[0]!.timeSlots[0]!.end, { exact: false })).toHaveLength(7)
     expect(queryByText('places:hours.temporarilyClosed')).toBeFalsy()
@@ -52,26 +52,26 @@ describe('OpeningHours', () => {
     expect(queryByText('places:hours.appointment.make.title')).toBeFalsy()
   })
 
-  it('should display the link to make an appointment', () => {
-    const { getByText } = renderOpeningHours(true, false, openingHours)
+  it('should display the link to make an appointment', async () => {
+    const { getByText } = await renderOpeningHours(true, false, openingHours)
     expect(getByText('places:hours.appointment.make.title')).toBeTruthy()
   })
 
-  it('should display the link to make an appointment without openingHours', () => {
-    const { getByText, queryByText } = renderOpeningHours(true, false, null)
+  it('should display the link to make an appointment without openingHours', async () => {
+    const { getByText, queryByText } = await renderOpeningHours(true, false, null)
     expect(getByText('places:hours.appointment.required')).toBeTruthy()
     expect(getByText('places:hours.appointment.make.title')).toBeTruthy()
     expect(queryByText('places:hours.open')).toBeFalsy()
     expect(queryByText('places:hours.closed')).toBeFalsy()
   })
 
-  it('should display the link to make an appointment if temporarily closed', () => {
-    const { getByText } = renderOpeningHours(false, true, openingHours)
+  it('should display the link to make an appointment if temporarily closed', async () => {
+    const { getByText } = await renderOpeningHours(false, true, openingHours)
     expect(getByText('places:hours.appointment.make.title')).toBeTruthy()
   })
 
-  it('should not display anything', () => {
-    const { queryByText } = renderOpeningHours(false, false, null, null)
+  it('should not display anything', async () => {
+    const { queryByText } = await renderOpeningHours(false, false, null, null)
     expect(queryByText('places:hours.appointment.required')).toBeFalsy()
     expect(queryByText('places:hours.appointment.make.title')).toBeFalsy()
     expect(queryByText('places:hours.open')).toBeFalsy()

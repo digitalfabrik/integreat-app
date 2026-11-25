@@ -128,7 +128,7 @@ describe('PushNotificationsManager', () => {
         listener(message)
         return jest.fn()
       })
-      renderMockComponent()
+      await renderMockComponent()
       await waitFor(() =>
         expect(notifee.displayNotification).toHaveBeenCalledWith({
           title: 'Test PN',
@@ -152,7 +152,7 @@ describe('PushNotificationsManager', () => {
 
     it('should open news if notification pressed in quit state', async () => {
       mocked(getInitialNotification).mockImplementation(async () => message)
-      renderMockComponent()
+      await renderMockComponent()
       await waitFor(() => expect(navigate).toHaveBeenCalledTimes(1), { timeout: 1100 })
       expect(navigate).toHaveBeenCalledWith({
         regionCode: 'augsburg',
@@ -164,7 +164,7 @@ describe('PushNotificationsManager', () => {
 
     it('should open news if notification pressed in background state', async () => {
       mocked(onNotificationOpenedApp).mockImplementation((_, listener) => listener(message))
-      renderMockComponent()
+      await renderMockComponent()
       await waitFor(() => expect(navigate).toHaveBeenCalledTimes(2), { timeout: 1100 })
       expect(navigate).toHaveBeenCalledWith({
         regionCode: 'augsburg',
@@ -178,10 +178,10 @@ describe('PushNotificationsManager', () => {
       const mockUnsubscribe = jest.fn()
       mocked(onMessage).mockReturnValue(mockUnsubscribe)
 
-      const { unmount } = renderMockComponent()
+      const { unmount } = await renderMockComponent()
       await waitFor(() => expect(onMessage).toHaveBeenCalledTimes(1))
 
-      unmount()
+      await unmount()
 
       expect(mockUnsubscribe).toHaveBeenCalledTimes(1)
     })

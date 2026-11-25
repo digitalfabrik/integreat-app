@@ -64,9 +64,9 @@ describe('ExportEventButton', () => {
       { id: 'cal-1', title: 'My Calendar', allowsModifications: true, source: 'news:categories.local' },
     ])
 
-    const { getByText, queryByText } = render(<ExportEventButton event={createEvent()} />)
+    const { getByText, queryByText } = await render(<ExportEventButton event={createEvent()} />)
 
-    fireEvent.press(getByText('events:export.addToCalendar'))
+    await fireEvent.press(getByText('events:export.addToCalendar'))
 
     expect(queryByText('CalendarChoiceModal')).toBeFalsy()
 
@@ -80,9 +80,9 @@ describe('ExportEventButton', () => {
       { id: 'cal-2', title: 'Work', allowsModifications: true, source: 'news:categories.local' },
     ])
 
-    const { getByText, findByText } = render(<ExportEventButton event={createEvent()} />)
+    const { getByText, findByText } = await render(<ExportEventButton event={createEvent()} />)
 
-    fireEvent.press(getByText('events:export.addToCalendar'))
+    await fireEvent.press(getByText('events:export.addToCalendar'))
 
     expect(await findByText('CalendarChoiceModal')).toBeTruthy()
     // No export yet user must choose calendar
@@ -94,11 +94,11 @@ describe('ExportEventButton', () => {
       { id: 'cal-1', title: 'My Calendar', allowsModifications: true, source: 'news:categories.local' },
     ])
 
-    const { getByText, findByText } = render(
+    const { getByText, findByText } = await render(
       <ExportEventButton event={createEvent('DTSTART:20260114T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO')} />,
     )
 
-    fireEvent.press(getByText('events:export.addToCalendar'))
+    await fireEvent.press(getByText('events:export.addToCalendar'))
 
     expect(await findByText('CalendarChoiceModal')).toBeTruthy()
     // No export yet user must choose one event or all future events

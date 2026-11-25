@@ -1,4 +1,4 @@
-import { RenderAPI } from '@testing-library/react-native'
+import { RenderResult } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
@@ -35,7 +35,7 @@ describe('useTtsPlayer', () => {
     return null
   }
 
-  const render = (model?: DocumentModel): RenderAPI =>
+  const render = (model?: DocumentModel): Promise<RenderResult> =>
     renderWithTheme(
       <TestingAppContext languageCode='en'>
         <TtsContext.Provider
@@ -45,20 +45,20 @@ describe('useTtsPlayer', () => {
       </TestingAppContext>,
     )
 
-  it('should set new sentences and restore old sentences', () => {
-    const { unmount } = render(dummyDocument)
+  it('should set new sentences and restore old sentences', async () => {
+    const { unmount } = await render(dummyDocument)
     expect(setSentences).toHaveBeenCalledTimes(1)
     expect(setSentences).toHaveBeenCalledWith(['Test title', ...newSentences])
-    unmount()
+    await unmount()
     expect(setSentences).toHaveBeenCalledTimes(2)
     expect(setSentences).toHaveBeenLastCalledWith(oldSentences)
   })
 
-  it('should set empty sentences and restore old sentences', () => {
-    const { unmount } = render()
+  it('should set empty sentences and restore old sentences', async () => {
+    const { unmount } = await render()
     expect(setSentences).toHaveBeenCalledTimes(1)
     expect(setSentences).toHaveBeenCalledWith([])
-    unmount()
+    await unmount()
     expect(setSentences).toHaveBeenCalledTimes(2)
     expect(setSentences).toHaveBeenLastCalledWith(oldSentences)
   })

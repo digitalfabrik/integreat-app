@@ -39,64 +39,67 @@ describe('PlaceFiltersModal', () => {
       />,
     )
 
-  it('should not propagate filter changes until the modal is closed', () => {
-    const { getByText } = renderPlaceFiltersModal()
+  it('should not propagate filter changes until the modal is closed', async () => {
+    const { getByText } = await renderPlaceFiltersModal()
 
-    fireEvent.press(getByText(firstCategory.name))
-    fireEvent.press(getByText(secondCategory.name))
+    await fireEvent.press(getByText(firstCategory.name))
+    await fireEvent.press(getByText(secondCategory.name))
 
     expect(closeModal).not.toHaveBeenCalled()
   })
 
-  it('should close the modal with the selected category', () => {
-    const { getByText } = renderPlaceFiltersModal()
+  it('should close the modal with the selected category', async () => {
+    const { getByText } = await renderPlaceFiltersModal()
 
-    fireEvent.press(getByText(firstCategory.name))
-    fireEvent.press(getByText('places:filter.show 1'))
+    await fireEvent.press(getByText(firstCategory.name))
+    await fireEvent.press(getByText('places:filter.show 1'))
 
     expect(closeModal).toHaveBeenCalledTimes(1)
     expect(closeModal).toHaveBeenCalledWith({ placeCategoryFilter: firstCategory, currentlyOpenFilter: false })
   })
 
-  it('should deselect the initially selected category', () => {
-    const { getByText } = renderPlaceFiltersModal({ placeCategoryFilter: firstCategory })
+  it('should deselect the initially selected category', async () => {
+    const { getByText } = await renderPlaceFiltersModal({ placeCategoryFilter: firstCategory })
 
-    fireEvent.press(getByText(firstCategory.name))
-    fireEvent.press(getByText('places:filter.show 1'))
+    await fireEvent.press(getByText(firstCategory.name))
+    await fireEvent.press(getByText('places:filter.show 1'))
 
     expect(closeModal).toHaveBeenCalledWith({ placeCategoryFilter: undefined, currentlyOpenFilter: false })
   })
 
-  it('should switch to a different category when another one is pressed', () => {
-    const { getByText } = renderPlaceFiltersModal({ placeCategoryFilter: firstCategory })
+  it('should switch to a different category when another one is pressed', async () => {
+    const { getByText } = await renderPlaceFiltersModal({ placeCategoryFilter: firstCategory })
 
-    fireEvent.press(getByText(secondCategory.name))
-    fireEvent.press(getByText('places:filter.show 1'))
+    await fireEvent.press(getByText(secondCategory.name))
+    await fireEvent.press(getByText('places:filter.show 1'))
 
     expect(closeModal).toHaveBeenCalledWith({ placeCategoryFilter: secondCategory, currentlyOpenFilter: false })
   })
 
-  it('should pass the initial filters back unchanged when nothing is pressed', () => {
-    const { getByText } = renderPlaceFiltersModal({ placeCategoryFilter: firstCategory, currentlyOpenFilter: true })
+  it('should pass the initial filters back unchanged when nothing is pressed', async () => {
+    const { getByText } = await renderPlaceFiltersModal({
+      placeCategoryFilter: firstCategory,
+      currentlyOpenFilter: true,
+    })
 
-    fireEvent.press(getByText('places:filter.show 1'))
+    await fireEvent.press(getByText('places:filter.show 1'))
 
     expect(closeModal).toHaveBeenCalledWith({ placeCategoryFilter: firstCategory, currentlyOpenFilter: true })
   })
 
-  it('should query the places count with the temporary filter selection', () => {
-    const { getByText } = renderPlaceFiltersModal()
+  it('should query the places count with the temporary filter selection', async () => {
+    const { getByText } = await renderPlaceFiltersModal()
 
-    fireEvent.press(getByText(firstCategory.name))
+    await fireEvent.press(getByText(firstCategory.name))
 
     expect(getPlacesCount).toHaveBeenLastCalledWith({ placeCategoryFilter: firstCategory, currentlyOpenFilter: false })
   })
 
-  it('should not close the modal when there are no matching places', () => {
+  it('should not close the modal when there are no matching places', async () => {
     getPlacesCount.mockReturnValue(0)
-    const { getByText } = renderPlaceFiltersModal()
+    const { getByText } = await renderPlaceFiltersModal()
 
-    fireEvent.press(getByText('places:filter.show 0'))
+    await fireEvent.press(getByText('places:filter.show 0'))
 
     expect(closeModal).not.toHaveBeenCalled()
   })

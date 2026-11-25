@@ -1,8 +1,8 @@
 import Geolocation, { GeolocationError, GeolocationResponse } from '@react-native-community/geolocation'
-import { fireEvent, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, userEvent, waitFor } from '@testing-library/react-native'
 import React from 'react'
 import { Button, View } from 'react-native'
-import { check, openSettings, PERMISSIONS, request, RESULTS } from 'react-native-permissions'
+import { check, openSettings, PERMISSIONS, PermissionStatus, request, RESULTS } from 'react-native-permissions'
 
 import Text from '../../components/base/Text'
 import render from '../../testing/render'
@@ -41,6 +41,7 @@ describe('useUserLocation', () => {
 
   const showSnackbar = jest.fn()
   mocked(useSnackbar).mockImplementation(() => showSnackbar)
+  const user = userEvent.setup()
 
   const MockComponent = ({ requestPermissionInitially = false }: { requestPermissionInitially: boolean }) => {
     const { message, userLocation, refreshPermissionAndLocation } = useUserLocation({ requestPermissionInitially })
@@ -69,7 +70,7 @@ describe('useUserLocation', () => {
 
   it('should request permissions initially and get current position', async () => {
     mockRequestPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
-    const { getByText } = renderMockComponent(true)
+    const { getByText } = await renderMockComponent(true)
     await waitFor(() => expect(getByText(`longitude: ${augsburgCoordinates.coords.longitude}`)).toBeTruthy())
     expect(getByText(`latitude: ${augsburgCoordinates.coords.latitude}`)).toBeTruthy()
     expect(mockRequestPermission).toHaveBeenCalledTimes(1)
@@ -80,7 +81,7 @@ describe('useUserLocation', () => {
 
   it('should request permissions initially and not show snackbar if blocked', async () => {
     mockRequestPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
-    const { getByText } = renderMockComponent(true)
+    const { getByText } = await renderMockComponent(true)
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
     expect(mockRequestPermission).toHaveBeenCalledTimes(1)
     expect(mockRequestPermission).toHaveBeenCalledWith(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
@@ -91,7 +92,7 @@ describe('useUserLocation', () => {
 
   it('should only check permissions if requestPermissionInitially is set to false', async () => {
     mockCheckPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
-    const { getByText } = renderMockComponent(false)
+    const { getByText } = await renderMockComponent(false)
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
     expect(mockCheckPermission).toHaveBeenCalledWith(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
@@ -107,7 +108,7 @@ describe('useUserLocation', () => {
         setError &&
         setError({ code: 2, message: 'timeout', POSITION_UNAVAILABLE: 0, PERMISSION_DENIED: 1, TIMEOUT: 2 }),
     )
-    const { getByText } = renderMockComponent(true)
+    const { getByText } = await renderMockComponent(true)
     await waitFor(() => expect(getByText('timeout')).toBeTruthy())
     expect(mockRequestPermission).toHaveBeenCalledTimes(1)
     expect(mockRequestPermission).toHaveBeenCalledWith(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
@@ -117,14 +118,14 @@ describe('useUserLocation', () => {
 
   it('should refresh current location', async () => {
     mockRequestPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
-    const { getByText } = renderMockComponent(true)
+    const { getByText } = await renderMockComponent(true)
     await waitFor(() => expect(getByText(`longitude: ${augsburgCoordinates.coords.longitude}`)).toBeTruthy())
     expect(getByText(`latitude: ${augsburgCoordinates.coords.latitude}`)).toBeTruthy()
 
     mockGetCurrentPosition.mockImplementationOnce((setPosition: (position: GeolocationResponse) => void) =>
       setPosition({ ...augsburgCoordinates, coords: { ...augsburgCoordinates.coords, longitude: 0, latitude: 0 } }),
     )
-    fireEvent.press(getByText('regions:nearby.refresh'))
+    await fireEvent.press(getByText('regions:nearby.refresh'))
 
     await waitFor(() => expect(getByText(`longitude: 0`)).toBeTruthy())
     expect(getByText(`latitude: 0`)).toBeTruthy()
@@ -134,19 +135,26 @@ describe('useUserLocation', () => {
         setError &&
         setError({ code: 2, message: 'timeout', POSITION_UNAVAILABLE: 0, PERMISSION_DENIED: 1, TIMEOUT: 2 }),
     )
-    fireEvent.press(getByText('regions:nearby.refresh'))
+    await fireEvent.press(getByText('regions:nearby.refresh'))
 
     await waitFor(() => expect(getByText('timeout')).toBeTruthy())
   })
 
   it('should show snackbar if permission blocked', async () => {
     mockRequestPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
-    const { getByText } = renderMockComponent(true)
+    const { getByText } = await renderMockComponent(true)
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
 
-    mockRequestPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
-    fireEvent.press(getByText('refresh w. request and snackbar'))
+    let resolveRequest: (status: PermissionStatus) => void = () => undefined
+    mockRequestPermission.mockImplementationOnce(
+      () =>
+        new Promise(resolve => {
+          resolveRequest = resolve
+        }),
+    )
+    await user.press(getByText('refresh w. request and snackbar'))
     expect(getByText('loading')).toBeTruthy()
+    await act(() => resolveRequest(RESULTS.BLOCKED))
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
 
     expect(mockRequestPermission).toHaveBeenCalledTimes(2)
@@ -165,12 +173,19 @@ describe('useUserLocation', () => {
 
   it('should not show snackbar if permission blocked', async () => {
     mockRequestPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
-    const { getByText } = renderMockComponent(true)
+    const { getByText } = await renderMockComponent(true)
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
 
-    mockRequestPermission.mockImplementationOnce(async () => RESULTS.BLOCKED)
-    fireEvent.press(getByText('refresh w. request'))
+    let resolveRequest: (status: PermissionStatus) => void = () => undefined
+    mockRequestPermission.mockImplementationOnce(
+      () =>
+        new Promise(resolve => {
+          resolveRequest = resolve
+        }),
+    )
+    await user.press(getByText('refresh w. request'))
     expect(getByText('loading')).toBeTruthy()
+    await act(() => resolveRequest(RESULTS.BLOCKED))
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
 
     expect(mockRequestPermission).toHaveBeenCalledTimes(2)
@@ -181,13 +196,13 @@ describe('useUserLocation', () => {
 
   it('should request permission if initially denied', async () => {
     mockCheckPermission.mockImplementationOnce(async () => RESULTS.DENIED)
-    const { getByText } = renderMockComponent(false)
+    const { getByText } = await renderMockComponent(false)
     await waitFor(() => expect(getByText('noPermission')).toBeTruthy())
     expect(mockCheckPermission).toHaveBeenCalledTimes(1)
     expect(mockRequestPermission).not.toHaveBeenCalled()
 
     mockRequestPermission.mockImplementationOnce(async () => RESULTS.GRANTED)
-    fireEvent.press(getByText('refresh w. request'))
+    await fireEvent.press(getByText('refresh w. request'))
 
     await waitFor(() => expect(getByText(`longitude: ${augsburgCoordinates.coords.longitude}`)).toBeTruthy())
     expect(getByText(`latitude: ${augsburgCoordinates.coords.latitude}`)).toBeTruthy()

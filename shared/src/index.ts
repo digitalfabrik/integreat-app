@@ -1,7 +1,7 @@
 import { PreparePlacesReturn as ImportedPreparePlacesReturn } from './utils/places.ts'
 
 export type PreparePlacesReturn = ImportedPreparePlacesReturn
-export type { Chunk, FindAll, FindChunks } from 'highlight-words-core'
+export type { Chunk, FindChunksOptions } from 'highlight-words-core'
 export { findAll, findChunks } from 'highlight-words-core'
 export { default as useSearch, prepareSearchDocuments } from './hooks/useSearch.ts'
 export { default as useDebounce } from './hooks/useDebounce.ts'

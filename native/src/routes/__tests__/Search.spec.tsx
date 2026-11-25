@@ -53,40 +53,40 @@ describe('Search', () => {
 
   const renderSearch = (props: SearchProps) => render(<Search {...props} />)
 
-  it('should show nothing found if there are no search results', () => {
-    const { getByText, getByPlaceholderText } = renderSearch(props)
+  it('should show nothing found if there are no search results', async () => {
+    const { getByText, getByPlaceholderText } = await renderSearch(props)
 
-    fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'no results, please')
+    await fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'no results, please')
 
     expect(getByText('feedback:search.noResultsInUserLanguage')).toBeTruthy()
   })
 
-  it('should open with an initial search text if one is supplied', () => {
+  it('should open with an initial search text if one is supplied', async () => {
     const initialSearchText = 'zeugnis'
-    const { getByPlaceholderText } = renderSearch({ ...props, initialSearchText })
+    const { getByPlaceholderText } = await renderSearch({ ...props, initialSearchText })
     expect(getByPlaceholderText('search:searchContent').props.value).toBe(initialSearchText)
   })
 
-  it('should show the search results for a query', () => {
-    const { getByPlaceholderText, getByText } = renderSearch(props)
+  it('should show the search results for a query', async () => {
+    const { getByPlaceholderText, getByText } = await renderSearch(props)
 
-    fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'zeugnis')
+    await fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'zeugnis')
 
     expect(getByText(documents[0]!.title)).toBeTruthy()
   })
 
   it('should show feedback below the results if something was found but was unwanted', async () => {
-    const { getByPlaceholderText, findByText } = renderSearch(props)
+    const { getByPlaceholderText, findByText } = await renderSearch(props)
 
-    fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'zeugnis')
+    await fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'zeugnis')
 
     expect(await findByText('feedback:search.informationNotFound')).toBeDefined()
   })
 
-  it('should show feedback if nothing was found', () => {
-    const { getByPlaceholderText, getByText } = renderSearch(props)
+  it('should show feedback if nothing was found', async () => {
+    const { getByPlaceholderText, getByText } = await renderSearch(props)
 
-    fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'no results, please')
+    await fireEvent.changeText(getByPlaceholderText('search:searchContent'), 'no results, please')
 
     expect(getByText('feedback:search.noResultsInUserLanguage')).toBeTruthy()
     expect(getByText('feedback:search.informUs')).toBeTruthy()

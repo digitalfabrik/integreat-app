@@ -6,9 +6,9 @@ import PrivacyCheckbox from '../PrivacyCheckbox'
 
 describe('PrivacyCheckbox', () => {
   const setChecked = jest.fn()
-  it('should select checkbox on click', () => {
-    const { getByText } = render(<PrivacyCheckbox language='en' checked={false} setChecked={setChecked} />)
-    fireEvent.press(getByText('common:privacy.confirmation'))
+  it('should select checkbox on click', async () => {
+    const { getByText } = await render(<PrivacyCheckbox language='en' checked={false} setChecked={setChecked} />)
+    await fireEvent.press(getByText('common:privacy.confirmation'))
     expect(setChecked).toHaveBeenCalledTimes(1)
     expect(setChecked).toHaveBeenCalledWith(true)
   })

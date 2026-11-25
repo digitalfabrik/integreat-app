@@ -77,7 +77,7 @@ describe('useNavigateToDeepLink', () => {
 
     it('should navigate to regions if no region is selected and intro slides already shown', async () => {
       mockBuildConfig({ introSlides: false, fixedRegion: null })
-      renderMockComponent({ url, introShown: true })
+      await renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: REGIONS_ROUTE }] })
@@ -88,7 +88,7 @@ describe('useNavigateToDeepLink', () => {
 
     it('should navigate to regions if no region is selected and intro slides disabled', async () => {
       mockBuildConfig({ introSlides: false, fixedRegion: null })
-      renderMockComponent({ url })
+      await renderMockComponent({ url })
 
       await waitFor(() => expect(navigation.reset).toHaveBeenCalledTimes(1))
       expect(navigation.reset).toHaveBeenCalledWith({ index: 0, routes: [{ name: REGIONS_ROUTE }] })
@@ -100,7 +100,7 @@ describe('useNavigateToDeepLink', () => {
     it('should navigate to dashboard if there is a fixed region and intro slides already shown', async () => {
       const fixedRegion = 'aschaffenburg'
       mockBuildConfig({ introSlides: false, fixedRegion })
-      renderMockComponent({ url, introShown: true })
+      await renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
@@ -111,7 +111,7 @@ describe('useNavigateToDeepLink', () => {
     it('should navigate to dashboard if there is already a selected region', async () => {
       const selectedRegion = 'nuernberg'
       mockBuildConfig({ introSlides: false, fixedRegion: null })
-      renderMockComponent({ url, regionCode: selectedRegion })
+      await renderMockComponent({ url, regionCode: selectedRegion })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigateTo).toHaveBeenCalledWith({
@@ -129,7 +129,7 @@ describe('useNavigateToDeepLink', () => {
 
     it('should navigate to dashboard if intro slides already shown and no region is selected', async () => {
       mockBuildConfig({ introSlides: false, fixedRegion: null })
-      renderMockComponent({ url, introShown: true })
+      await renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
@@ -140,7 +140,7 @@ describe('useNavigateToDeepLink', () => {
     it('should navigate to dashboard and use current language if intro slides already shown and no region is selected', async () => {
       const url = `https://integreat.app/${regionCode}`
       mockBuildConfig({ introSlides: false, fixedRegion: null })
-      renderMockComponent({ url, introShown: true })
+      await renderMockComponent({ url, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
@@ -151,7 +151,7 @@ describe('useNavigateToDeepLink', () => {
     it('should open selected region dashboard and call navigateTo if region code in link differs', async () => {
       const selectedRegion = 'testumgebung'
       mockBuildConfig({ introSlides: false, fixedRegion: null })
-      renderMockComponent({ url, regionCode: selectedRegion, introShown: true })
+      await renderMockComponent({ url, regionCode: selectedRegion, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
@@ -163,7 +163,7 @@ describe('useNavigateToDeepLink', () => {
       const languageCode = 'ar'
       const url = `https://integreat.app/${selectedRegion}/${languageCode}`
       mockBuildConfig({ introSlides: false, fixedRegion: null })
-      renderMockComponent({ url, regionCode: selectedRegion, introShown: true })
+      await renderMockComponent({ url, regionCode: selectedRegion, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
@@ -173,7 +173,7 @@ describe('useNavigateToDeepLink', () => {
     it('should not navigate to link if fixed region differs from link region', async () => {
       const fixedRegion = 'aschaffenburg'
       mockBuildConfig({ introSlides: false, fixedRegion })
-      renderMockComponent({ url })
+      await renderMockComponent({ url })
 
       await waitFor(() => expect(showSnackbar).toHaveBeenCalledTimes(1))
       expect(showSnackbar).toHaveBeenCalledWith({ text: 'error:pageNotFound' })
@@ -191,7 +191,7 @@ describe('useNavigateToDeepLink', () => {
     it('should open dashboard and navigate to events route if intro slides already shown', async () => {
       const url = `https://integreat.app/${regionCode}/${languageCode}/events/some-event`
       mockBuildConfig({ introSlides: false, fixedRegion: null })
-      renderMockComponent({ url, regionCode, introShown: true })
+      await renderMockComponent({ url, regionCode, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()
@@ -202,7 +202,7 @@ describe('useNavigateToDeepLink', () => {
       const selectedRegion = 'testumgebung'
       const url = `https://integreat.app/${regionCode}/en/news`
       mockBuildConfig({ introSlides: false, fixedRegion: null })
-      renderMockComponent({ url, regionCode: selectedRegion, introShown: true })
+      await renderMockComponent({ url, regionCode: selectedRegion, introShown: true })
 
       await waitFor(() => expect(navigateTo).toHaveBeenCalledTimes(1))
       expect(navigation.reset).not.toHaveBeenCalled()

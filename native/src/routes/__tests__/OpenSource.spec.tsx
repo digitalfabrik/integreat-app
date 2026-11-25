@@ -29,20 +29,20 @@ const mockUseLoadAsync = (data: unknown) =>
 describe('OpenSource', () => {
   beforeEach(jest.clearAllMocks)
 
-  it('should render the page title', () => {
+  it('should render the page title', async () => {
     mockUseLoadAsync([])
-    const { getByText } = render(<OpenSource />)
+    const { getByText } = await render(<OpenSource />)
     expect(getByText('about:openSource.title')).toBeTruthy()
   })
 
-  it('should render github and sbom reference section', () => {
+  it('should render github and sbom reference section', async () => {
     mockUseLoadAsync([])
-    const { getByText } = render(<OpenSource />)
+    const { getByText } = await render(<OpenSource />)
     expect(getByText('about:openSource.sourceCode Integreat')).toBeTruthy()
     expect(getByText('about:openSource.sbom')).toBeTruthy()
   })
 
-  it('should render license items', () => {
+  it('should render license items', async () => {
     mockUseLoadAsync([
       {
         name: 'react',
@@ -53,12 +53,12 @@ describe('OpenSource', () => {
       },
       { name: 'lodash', version: '4.17.21', license: 'MIT', repository: undefined, author: undefined },
     ])
-    const { getByText } = render(<OpenSource />)
+    const { getByText } = await render(<OpenSource />)
     expect(getByText('react')).toBeTruthy()
     expect(getByText('lodash')).toBeTruthy()
   })
 
-  it('should open repository url when pressing a license item with a repository', () => {
+  it('should open repository url when pressing a license item with a repository', async () => {
     mockUseLoadAsync([
       {
         name: 'react',
@@ -68,15 +68,15 @@ describe('OpenSource', () => {
         author: 'Meta',
       },
     ])
-    const { getAllByRole } = render(<OpenSource />)
-    fireEvent.press(getAllByRole('link')[0]!)
+    const { getAllByRole } = await render(<OpenSource />)
+    await fireEvent.press(getAllByRole('link')[0]!)
     expect(mockOpenExternalUrl).toHaveBeenCalledWith('https://github.com/facebook/react')
   })
 
-  it('should not open url when repository is not provided', () => {
+  it('should not open url when repository is not provided', async () => {
     mockUseLoadAsync([{ name: 'some-lib', version: '1.0.0', license: 'MIT', repository: undefined, author: undefined }])
-    const { getAllByRole } = render(<OpenSource />)
-    fireEvent.press(getAllByRole('link')[0]!)
+    const { getAllByRole } = await render(<OpenSource />)
+    await fireEvent.press(getAllByRole('link')[0]!)
     expect(mockOpenExternalUrl).not.toHaveBeenCalled()
   })
 })

@@ -1,4 +1,4 @@
-import { fireEvent, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, RenderResult } from '@testing-library/react-native'
 import React from 'react'
 
 import { SUGGEST_TO_REGION_ROUTE, RegionsRouteType } from 'shared'
@@ -46,10 +46,10 @@ describe('Regions', () => {
     }))
   }
 
-  const renderRegions = (): RenderAPI => render(<Regions navigation={navigation} />)
+  const renderRegions = (): Promise<RenderResult> => render(<Regions navigation={navigation} />)
 
-  it('should show live regions', () => {
-    const { getByText, queryByText } = renderRegions()
+  it('should show live regions', async () => {
+    const { getByText, queryByText } = await renderRegions()
 
     expect(getByText('NearbyRegions')).toBeTruthy()
 
@@ -62,24 +62,24 @@ describe('Regions', () => {
     expect(queryByText('Oldtown')).toBeFalsy()
   })
 
-  it('should show footer if enabled', () => {
+  it('should show footer if enabled', async () => {
     mockBuildConfig(true)
-    const { getByText } = renderRegions()
+    const { getByText } = await renderRegions()
     expect(getByText('suggestToRegion:regionNotFoundCta')).toBeTruthy()
     expect(getByText('suggestToRegion:title Integreat')).toBeTruthy()
   })
 
-  it('should not show footer if disabled', () => {
+  it('should not show footer if disabled', async () => {
     mockBuildConfig(false)
-    const { queryByText } = renderRegions()
+    const { queryByText } = await renderRegions()
     expect(queryByText('suggestToRegion:regionNotFoundCta')).toBeNull()
   })
 
-  it('should navigate to suggestToRegion page on button click', () => {
+  it('should navigate to suggestToRegion page on button click', async () => {
     mockBuildConfig(true)
-    const { getByText } = renderRegions()
+    const { getByText } = await renderRegions()
     const button = getByText('suggestToRegion:title Integreat')
-    fireEvent.press(button)
+    await fireEvent.press(button)
     expect(navigation.navigate).toHaveBeenCalledWith(SUGGEST_TO_REGION_ROUTE)
   })
 })

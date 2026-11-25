@@ -46,18 +46,18 @@ describe('useNavigateToLink', () => {
     jest.clearAllMocks()
   })
 
-  it('should navigate to pdf modal route', () => {
+  it('should navigate to pdf modal route', async () => {
     const url = 'https://example.com/my.pdf'
-    renderMockComponent(url)
+    await renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(PDF_VIEW_ROUTE, { url, shareUrl: url })
     expect(navigateTo).not.toHaveBeenCalled()
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
 
-  it('should navigate to image modal route for jpgs', () => {
+  it('should navigate to image modal route for jpgs', async () => {
     const url = 'https://example.com/my.jpg'
-    renderMockComponent(url)
+    await renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_ROUTE, {
       url,
@@ -67,9 +67,9 @@ describe('useNavigateToLink', () => {
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
 
-  it('should navigate to image modal route for jpegs', () => {
+  it('should navigate to image modal route for jpegs', async () => {
     const url = 'https://example.com/my.jpeg'
-    renderMockComponent(url)
+    await renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_ROUTE, {
       url,
@@ -79,9 +79,9 @@ describe('useNavigateToLink', () => {
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
 
-  it('should navigate to image modal route for pngs', () => {
+  it('should navigate to image modal route for pngs', async () => {
     const url = 'https://example.com/my.png'
-    renderMockComponent(url)
+    await renderMockComponent(url)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
     expect(navigation.navigate).toHaveBeenCalledWith(IMAGE_VIEW_ROUTE, {
       url,
@@ -91,9 +91,9 @@ describe('useNavigateToLink', () => {
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
 
-  it('should call navigateTo for internal links', () => {
+  it('should call navigateTo for internal links', async () => {
     const url = 'https://integreat.app'
-    renderMockComponent(url)
+    await renderMockComponent(url)
     expect(navigateTo).toHaveBeenCalledTimes(1)
     expect(navigateTo).toHaveBeenCalledWith({
       route: REGIONS_ROUTE,
@@ -103,9 +103,9 @@ describe('useNavigateToLink', () => {
     expect(openExternalUrl).not.toHaveBeenCalled()
   })
 
-  it('should call openExternalUrl for external links', () => {
+  it('should call openExternalUrl for external links', async () => {
     const url = 'https://example.com'
-    renderMockComponent(url)
+    await renderMockComponent(url)
     expect(openExternalUrl).toHaveBeenCalledTimes(1)
     expect(openExternalUrl).toHaveBeenCalledWith(url)
     expect(navigation.navigate).not.toHaveBeenCalled()

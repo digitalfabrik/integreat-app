@@ -21,13 +21,13 @@ describe('useSetRouteTitle', () => {
     return null
   }
 
-  it('should set the title of the current route', () => {
-    render(<MockComponent title='My Title' />, false)
+  it('should set the title of the current route', async () => {
+    await render(<MockComponent title='My Title' />, false)
     expect(navigation.setParams).toHaveBeenCalledWith({ title: 'My Title' })
   })
 
-  it('should not set a title if it is not available yet', () => {
-    render(<MockComponent />, false)
+  it('should not set a title if it is not available yet', async () => {
+    await render(<MockComponent />, false)
     expect(navigation.setParams).not.toHaveBeenCalled()
   })
 })

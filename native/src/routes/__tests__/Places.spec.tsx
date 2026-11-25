@@ -48,9 +48,9 @@ const createLocalHistory = (current: PlaceHistory = resetHistory): UseLocalHisto
 })
 
 describe('Places', () => {
-  const renderPlaces = (current: PlaceHistory = resetHistory) => {
+  const renderPlaces = async (current: PlaceHistory = resetHistory) => {
     const localHistory = createLocalHistory(current)
-    const renderResult = renderWithTheme(
+    const renderResult = await renderWithTheme(
       <TestingAppContext>
         <Places
           refresh={() => undefined}
@@ -64,34 +64,34 @@ describe('Places', () => {
     return { localHistory, ...renderResult }
   }
 
-  it('should show nearby title when nothing is selected', () => {
-    const { getByText } = renderPlaces()
+  it('should show nearby title when nothing is selected', async () => {
+    const { getByText } = await renderPlaces()
 
     expect(getByText('userLocation:nearby')).toBeTruthy()
   })
 
-  it('should show place title in handle when a place is selected', () => {
-    const { getByText } = renderPlaces({ ...resetHistory, slug: place1.slug })
+  it('should show place title in handle when a place is selected', async () => {
+    const { getByText } = await renderPlaces({ ...resetHistory, slug: place1.slug })
 
     expect(getByText(place1.title)).toBeTruthy()
   })
 
-  it('should show default title for an invalid slug', () => {
-    const { queryByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
+  it('should show default title for an invalid slug', async () => {
+    const { queryByText } = await renderPlaces({ ...resetHistory, slug: 'invalid' })
 
     expect(queryByText('userLocation:nearby')).toBeTruthy()
   })
 
-  it('should show place list when no selection', () => {
-    const { getByText } = renderPlaces()
+  it('should show place list when no selection', async () => {
+    const { getByText } = await renderPlaces()
 
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place1.title)).toBeTruthy()
     expect(getByText(place2.title)).toBeTruthy()
   })
 
-  it('should show pageNotFound for invalid slug and hide place list', () => {
-    const { getByText, queryByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
+  it('should show pageNotFound for invalid slug and hide place list', async () => {
+    const { getByText, queryByText } = await renderPlaces({ ...resetHistory, slug: 'invalid' })
 
     expect(getByText('error:pageNotFound')).toBeTruthy()
     expect(queryByText(place0.title)).toBeFalsy()
@@ -99,8 +99,8 @@ describe('Places', () => {
     expect(queryByText(place2.title)).toBeFalsy()
   })
 
-  it('should show place detail when slug matches a place', () => {
-    const { getByText, queryByText } = renderPlaces({ ...resetHistory, slug: place1.slug })
+  it('should show place detail when slug matches a place', async () => {
+    const { getByText, queryByText } = await renderPlaces({ ...resetHistory, slug: place1.slug })
 
     expect(getByText(place1.title)).toBeTruthy()
     expect(getByText(place1.content)).toBeTruthy()
@@ -108,8 +108,8 @@ describe('Places', () => {
     expect(queryByText(place2.title)).toBeFalsy()
   })
 
-  it('should show filtered place list when multiPlace is set', () => {
-    const { getByText, queryByText } = renderPlaces({ ...resetHistory, multiPlace: 0 })
+  it('should show filtered place list when multiPlace is set', async () => {
+    const { getByText, queryByText } = await renderPlaces({ ...resetHistory, multiPlace: 0 })
 
     expect(getByText(place0.title)).toBeTruthy()
     expect(getByText(place3.title)).toBeTruthy()
@@ -117,8 +117,8 @@ describe('Places', () => {
     expect(queryByText(place2.title)).toBeFalsy()
   })
 
-  it('should show filtered place list when placeCategoryId is set', () => {
-    const { getAllByText, getByText, queryByText } = renderPlaces({ ...resetHistory, placeCategoryId: 10 })
+  it('should show filtered place list when placeCategoryId is set', async () => {
+    const { getAllByText, getByText, queryByText } = await renderPlaces({ ...resetHistory, placeCategoryId: 10 })
 
     expect(getAllByText('Gastronomie')).toHaveLength(4)
     expect(getByText(place0.title)).toBeTruthy()
@@ -127,91 +127,91 @@ describe('Places', () => {
     expect(queryByText(place1.title)).toBeFalsy()
   })
 
-  it('should call push with place slug when place is selected from list', () => {
-    const { localHistory, getByText } = renderPlaces()
+  it('should call push with place slug when place is selected from list', async () => {
+    const { localHistory, getByText } = await renderPlaces()
 
-    fireEvent.press(getByText(place1.title))
+    await fireEvent.press(getByText(place1.title))
 
     expect(localHistory.push).toHaveBeenCalledWith({ slug: place1.slug })
   })
 
-  it('should call push with multiPlace id when multiPlace feature is pressed on map', () => {
-    const { localHistory, getByText } = renderPlaces()
+  it('should call push with multiPlace id when multiPlace feature is pressed on map', async () => {
+    const { localHistory, getByText } = await renderPlaces()
 
-    fireEvent.press(getByText('Feature-0'))
+    await fireEvent.press(getByText('Feature-0'))
 
     expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: 0, slug: undefined })
   })
 
-  it('should call push with slug when single-place map feature is pressed', () => {
-    const { localHistory, getByText } = renderPlaces()
+  it('should call push with slug when single-place map feature is pressed', async () => {
+    const { localHistory, getByText } = await renderPlaces()
 
-    fireEvent.press(getByText(`Feature-${place1.title}`))
+    await fireEvent.press(getByText(`Feature-${place1.title}`))
 
     expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: undefined, slug: place1.slug })
   })
 
-  it('should call push to clear slug and multiPlace when Map Press is pressed with place selected', () => {
-    const { localHistory, getByText } = renderPlaces({ ...resetHistory, slug: place1.slug })
+  it('should call push to clear slug and multiPlace when Map Press is pressed with place selected', async () => {
+    const { localHistory, getByText } = await renderPlaces({ ...resetHistory, slug: place1.slug })
 
-    fireEvent.press(getByText('Map Press'))
-
-    expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: undefined, slug: undefined })
-  })
-
-  it('should call push to clear multiPlace when map is pressed with only a multiPlace selected', () => {
-    const { localHistory, getByText } = renderPlaces({ ...resetHistory, multiPlace: 0 })
-
-    fireEvent.press(getByText('Map Press'))
+    await fireEvent.press(getByText('Map Press'))
 
     expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: undefined, slug: undefined })
   })
 
-  it('should not call push when Map Press is pressed with nothing selected', () => {
-    const { localHistory, getByText } = renderPlaces()
+  it('should call push to clear multiPlace when map is pressed with only a multiPlace selected', async () => {
+    const { localHistory, getByText } = await renderPlaces({ ...resetHistory, multiPlace: 0 })
 
-    fireEvent.press(getByText('Map Press'))
+    await fireEvent.press(getByText('Map Press'))
+
+    expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: undefined, slug: undefined })
+  })
+
+  it('should not call push when Map Press is pressed with nothing selected', async () => {
+    const { localHistory, getByText } = await renderPlaces()
+
+    await fireEvent.press(getByText('Map Press'))
 
     expect(localHistory.push).not.toHaveBeenCalled()
   })
 
-  it('should call push when backToOverview is pressed for an invalid slug', () => {
-    const { localHistory, getByText } = renderPlaces({ ...resetHistory, slug: 'invalid' })
+  it('should call push when backToOverview is pressed for an invalid slug', async () => {
+    const { localHistory, getByText } = await renderPlaces({ ...resetHistory, slug: 'invalid' })
 
-    fireEvent.press(getByText('common:actions.back'))
+    await fireEvent.press(getByText('common:actions.back'))
 
     expect(localHistory.push).toHaveBeenCalledWith({})
   })
 
-  it('should call push with multiPlace when backToOverview is pressed with both multiPlace and invalid slug', () => {
-    const { localHistory, getByText } = renderPlaces({ ...resetHistory, multiPlace: 0, slug: 'invalid' })
+  it('should call push with multiPlace when backToOverview is pressed with both multiPlace and invalid slug', async () => {
+    const { localHistory, getByText } = await renderPlaces({ ...resetHistory, multiPlace: 0, slug: 'invalid' })
 
-    fireEvent.press(getByText('common:actions.back'))
+    await fireEvent.press(getByText('common:actions.back'))
 
     expect(localHistory.push).toHaveBeenCalledWith({ multiPlace: 0 })
   })
 
-  it('should call push with showFilterSelection when adjustFilters is pressed', () => {
-    const { localHistory, getByText } = renderPlaces()
+  it('should call push with showFilterSelection when adjustFilters is pressed', async () => {
+    const { localHistory, getByText } = await renderPlaces()
 
-    fireEvent.press(getByText('places:filter.adjust'))
+    await fireEvent.press(getByText('places:filter.adjust'))
 
     expect(localHistory.push).toHaveBeenCalledWith({ showFilterSelection: true })
   })
 
-  it('should not push to history when a category is selected inside the filter modal', () => {
-    const { localHistory, getByRole } = renderPlaces({ ...resetHistory, showFilterSelection: true })
+  it('should not push to history when a category is selected inside the filter modal', async () => {
+    const { localHistory, getByRole } = await renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByRole('button', { name: 'Dienstleistung' }))
+    await fireEvent.press(getByRole('button', { name: 'Dienstleistung' }))
 
     expect(localHistory.push).not.toHaveBeenCalled()
     expect(localHistory.pushReset).not.toHaveBeenCalled()
   })
 
-  it('should pop the filter modal entry before pushReset when showPlaces is pressed', () => {
-    const { localHistory, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
+  it('should pop the filter modal entry before pushReset when showPlaces is pressed', async () => {
+    const { localHistory, getByText } = await renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByText('places:filter.show 4'))
+    await fireEvent.press(getByText('places:filter.show 4'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
     expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
@@ -224,11 +224,11 @@ describe('Places', () => {
     expect(popOrder).toBeLessThan(pushResetOrder)
   })
 
-  it('should apply the newly selected category when showPlaces is pressed', () => {
-    const { localHistory, getByRole, getByText } = renderPlaces({ ...resetHistory, showFilterSelection: true })
+  it('should apply the newly selected category when showPlaces is pressed', async () => {
+    const { localHistory, getByRole, getByText } = await renderPlaces({ ...resetHistory, showFilterSelection: true })
 
-    fireEvent.press(getByRole('button', { name: 'Dienstleistung' }))
-    fireEvent.press(getByText('places:filter.show 1'))
+    await fireEvent.press(getByRole('button', { name: 'Dienstleistung' }))
+    await fireEvent.press(getByText('places:filter.show 1'))
 
     expect(localHistory.pop).toHaveBeenCalledTimes(1)
     expect(localHistory.pushReset).toHaveBeenCalledTimes(1)
@@ -238,21 +238,10 @@ describe('Places', () => {
     })
   })
 
-  it('should call pushReset to clear category when category chip is pressed', () => {
-    const { localHistory, getAllByText } = renderPlaces({ ...resetHistory, placeCategoryId: 10 })
+  it('should call pushReset to clear category when category chip is pressed', async () => {
+    const { localHistory, getAllByText } = await renderPlaces({ ...resetHistory, placeCategoryId: 10 })
 
-    fireEvent.press(getAllByText('Gastronomie')[0]!)
-
-    expect(localHistory.pushReset).toHaveBeenCalledWith({
-      placeCategoryId: undefined,
-      currentlyOpen: false,
-    })
-  })
-
-  it('should call pushReset to clear currentlyOpen when currentlyOpen chip is pressed', () => {
-    const { localHistory, getByText } = renderPlaces({ ...resetHistory, currentlyOpen: true })
-
-    fireEvent.press(getByText('places:hours.open'))
+    await fireEvent.press(getAllByText('Gastronomie')[0]!)
 
     expect(localHistory.pushReset).toHaveBeenCalledWith({
       placeCategoryId: undefined,
@@ -260,7 +249,18 @@ describe('Places', () => {
     })
   })
 
-  it('should open the filter modal with the current filter values after clearing via the chip', () => {
+  it('should call pushReset to clear currentlyOpen when currentlyOpen chip is pressed', async () => {
+    const { localHistory, getByText } = await renderPlaces({ ...resetHistory, currentlyOpen: true })
+
+    await fireEvent.press(getByText('places:hours.open'))
+
+    expect(localHistory.pushReset).toHaveBeenCalledWith({
+      placeCategoryId: undefined,
+      currentlyOpen: false,
+    })
+  })
+
+  it('should open the filter modal with the current filter values after clearing via the chip', async () => {
     const renderAt = (current: PlaceHistory) => {
       const localHistory = createLocalHistory(current)
       return {
@@ -280,28 +280,28 @@ describe('Places', () => {
     }
 
     const initial = renderAt({ ...resetHistory, showFilterSelection: true })
-    const { getByRole, getByText, getAllByText, rerender } = renderWithTheme(initial.element)
+    const { getByRole, getByText, getAllByText, rerender } = await renderWithTheme(initial.element)
 
-    fireEvent.press(getByRole('button', { name: 'Gastronomie' }))
-    fireEvent.press(getByText('places:filter.show 3'))
+    await fireEvent.press(getByRole('button', { name: 'Gastronomie' }))
+    await fireEvent.press(getByText('places:filter.show 3'))
     expect(initial.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: place0.category.id,
       currentlyOpen: false,
     })
 
     const filtered = renderAt({ ...resetHistory, placeCategoryId: place0.category.id })
-    rerender(filtered.element)
+    await rerender(filtered.element)
 
-    fireEvent.press(getAllByText('Gastronomie')[0]!)
+    await fireEvent.press(getAllByText('Gastronomie')[0]!)
     expect(filtered.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: undefined,
       currentlyOpen: false,
     })
 
     const reopened = renderAt({ ...resetHistory, showFilterSelection: true })
-    rerender(reopened.element)
+    await rerender(reopened.element)
 
-    fireEvent.press(getByText('places:filter.show 4'))
+    await fireEvent.press(getByText('places:filter.show 4'))
     expect(reopened.localHistory.pushReset).toHaveBeenLastCalledWith({
       placeCategoryId: undefined,
       currentlyOpen: false,

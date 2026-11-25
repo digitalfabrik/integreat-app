@@ -13,7 +13,7 @@ jest.useFakeTimers({ now: new Date('2023-10-02T05:23:57.443+02:00') })
 describe('useVisitedIds', () => {
   const today = DateTime.now().toISODate()
 
-  const renderVisitedIds = (regionCode: string, visitedEventIds: SettingsType['visitedEventIds']) => {
+  const renderVisitedIds = async (regionCode: string, visitedEventIds: SettingsType['visitedEventIds']) => {
     const Wrapper = ({ children }: { children: ReactNode }) => {
       const [settings, setSettings] = useState<SettingsType>({ ...defaultSettings, visitedEventIds })
       const updateSettings = (update: Partial<SettingsType> | ((old: SettingsType) => Partial<SettingsType>)) =>
@@ -27,19 +27,19 @@ describe('useVisitedIds', () => {
     return renderHook(() => useVisitedIds({ key: 'visitedEventIds', regionCode }), { wrapper: Wrapper })
   }
 
-  it('should return visited ids of the region', () => {
-    const { result } = renderVisitedIds('augsburg', { augsburg: { 1: today }, muenchen: { 2: today } })
+  it('should return visited ids of the region', async () => {
+    const { result } = await renderVisitedIds('augsburg', { augsburg: { 1: today }, muenchen: { 2: today } })
 
     expect(result.current[0]).toEqual(['1'])
   })
 
-  it('should add visited ids and remove expired ones', () => {
+  it('should add visited ids and remove expired ones', async () => {
     const expired = DateTime.now()
       .minus({ days: MAX_DAYS_NEW + 1 })
       .toISODate()
-    const { result } = renderVisitedIds('augsburg', { augsburg: { 1: expired, 2: today } })
+    const { result } = await renderVisitedIds('augsburg', { augsburg: { 1: expired, 2: today } })
 
-    act(() => result.current[1]('3'))
+    await act(() => result.current[1]('3'))
 
     expect(result.current[0]).toEqual(['2', '3'])
   })

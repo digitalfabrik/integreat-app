@@ -19,16 +19,16 @@ describe('useCaptureError', () => {
   }
 
   it('should report error', async () => {
-    const { rerender } = render(<MockComponent error={null} />)
+    const { rerender } = await render(<MockComponent error={null} />)
     expect(captureError).not.toHaveBeenCalled()
 
     const error = new MappingError('regions', 'some error')
-    rerender(<MockComponent error={error} />)
+    await rerender(<MockComponent error={error} />)
 
     expect(captureError).toHaveBeenCalledTimes(1)
     expect(captureError).toHaveBeenCalledWith(error)
 
-    rerender(<MockComponent error={null} />)
+    await rerender(<MockComponent error={null} />)
     expect(captureError).toHaveBeenCalledTimes(1)
   })
 })

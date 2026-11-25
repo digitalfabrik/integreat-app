@@ -16,30 +16,30 @@ describe('Tile', () => {
     jest.clearAllMocks()
   })
 
-  it('should call onTilePress', () => {
+  it('should call onTilePress', async () => {
     const tile = new TileModel({
       title: 'my category tile',
       path: '/example/category/path',
       thumbnail: null,
       isExternalUrl: false,
     })
-    const { getByText } = render(<Tile tile={tile} onTilePress={onTilePress} language='' />)
-    fireEvent.press(getByText(tile.title))
+    const { getByText } = await render(<Tile tile={tile} onTilePress={onTilePress} language='' />)
+    await fireEvent.press(getByText(tile.title))
 
     expect(onTilePress).toHaveBeenCalledTimes(1)
     expect(onTilePress).toHaveBeenCalledWith(tile)
     expect(mockOpenExternalUrl).not.toHaveBeenCalled()
   })
 
-  it('should open external url', () => {
+  it('should open external url', async () => {
     const tile = new TileModel({
       title: 'my category tile',
       path: 'https://example.com/test',
       thumbnail: null,
       isExternalUrl: true,
     })
-    const { getByText } = render(<Tile tile={tile} onTilePress={onTilePress} language='' />)
-    fireEvent.press(getByText(tile.title))
+    const { getByText } = await render(<Tile tile={tile} onTilePress={onTilePress} language='' />)
+    await fireEvent.press(getByText(tile.title))
 
     expect(mockOpenExternalUrl).toHaveBeenCalledTimes(1)
     expect(mockOpenExternalUrl).toHaveBeenCalledWith(tile.path)
