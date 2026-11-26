@@ -1,3 +1,4 @@
+import { dialogClasses } from '@mui/material/Dialog'
 import { dialogContentClasses } from '@mui/material/DialogContent'
 import { styled } from '@mui/material/styles'
 import React, { ReactElement, useEffect } from 'react'
@@ -22,8 +23,23 @@ import Dialog from './base/Dialog'
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   [`.${dialogContentClasses.root}`]: {
     padding: theme.spacing(0, 0, 2),
+
+    [theme.breakpoints.up('md')]: {
+      height: 600,
+    },
   },
 }))
+
+const FitScreenDialog = styled(StyledDialog)({
+  [`.${dialogClasses.container} .${dialogClasses.paper}`]: {
+    margin: 0,
+    width: '100%',
+    maxWidth: '100%',
+    height: '100%',
+    maxHeight: 'none',
+    borderRadius: 0,
+  },
+})
 
 type ChatContainerProps = {
   region: RegionModel
@@ -57,9 +73,10 @@ const ChatContainer = ({
 
   const externalChatId = parseQueryParams(queryParams).chatId
   const chatName = getChatName(buildConfig().appName)
+  const ChatDialog = externalChatId ? FitScreenDialog : StyledDialog
 
   return (
-    <StyledDialog
+    <ChatDialog
       title={chatName}
       subtitle={t($ => $.chat.subtitle)}
       icon={<ChatLogoAvatar />}
@@ -88,7 +105,7 @@ const ChatContainer = ({
         setUnsyncedMessages={setUnsyncedMessages}
         openUrl={externalChatId ? openUrlInNewTab : null}
       />
-    </StyledDialog>
+    </ChatDialog>
   )
 }
 

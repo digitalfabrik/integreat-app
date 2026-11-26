@@ -1,3 +1,4 @@
+import { Global } from '@emotion/react'
 import CloseIcon from '@mui/icons-material/Close'
 import RemoveIcon from '@mui/icons-material/Remove'
 import MuiDialog, { dialogClasses } from '@mui/material/Dialog'
@@ -11,7 +12,7 @@ import { styled, useTheme } from '@mui/material/styles'
 import React, { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { LAYOUT_ELEMENT_ID } from '../../constants/layout'
+import { LAYOUT_ELEMENT_ID, MAIN_ELEMENT_ID } from '../../constants/layout'
 import useDimensions from '../../hooks/useDimensions'
 import { DirectionDependentBackIcon } from './DirectionDependentIcons'
 
@@ -137,6 +138,7 @@ const Dialog = ({
       fullScreen={mobile}
       className={className}
       open>
+      {mobile && <Global styles={{ [`#${MAIN_ELEMENT_ID}`]: { visibility: 'hidden' } }} />}
       {showHeader && (
         <DialogHeader
           title={title}
