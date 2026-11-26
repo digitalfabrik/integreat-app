@@ -1,9 +1,9 @@
 import notifee, { AndroidImportance } from '@notifee/react-native'
 import {
-  FirebaseMessagingTypes,
   getInitialNotification,
   onMessage,
   onNotificationOpenedApp,
+  RemoteMessage,
   subscribeToTopic,
   unsubscribeFromTopic,
 } from '@react-native-firebase/messaging'
@@ -111,7 +111,7 @@ describe('PushNotificationsManager', () => {
         </TestingAppContext>,
       )
 
-    const message: FirebaseMessagingTypes.RemoteMessage = {
+    const message: RemoteMessage = {
       notification: { title: 'Test PN', body: 'Test Body' },
       data: {
         city_code: 'augsburg',
