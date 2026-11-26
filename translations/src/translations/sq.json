@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navigimi",
-      "description": "Kalo këtu midis {{navigationItems, list}}."
+      "description": "Kalo këtu midis {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Zbulo temat",

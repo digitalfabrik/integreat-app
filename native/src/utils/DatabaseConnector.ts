@@ -916,7 +916,7 @@ class DatabaseConnector {
   }
 
   async writeFile(path: string, data: string): Promise<void> {
-    return BlobUtil.fs.writeFile(path, data, 'utf8')
+    await BlobUtil.fs.writeFile(path, data, 'utf8')
   }
 }
 

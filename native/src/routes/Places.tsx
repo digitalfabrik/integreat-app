@@ -1,6 +1,6 @@
 import React, { ReactElement, useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { findNodeHandle, useWindowDimensions, type View } from 'react-native'
+import { findNodeHandle, useWindowDimensions, type ViewInstance } from 'react-native'
 import { Chip, useTheme } from 'react-native-paper'
 import { SvgUri } from 'react-native-svg'
 import styled from 'styled-components/native'
@@ -88,7 +88,7 @@ const Places = ({ refresh, localHistory, initialZoom, places: allPlaces, regionM
       params: { slug, multiPlace, placeCategoryId: placeCategoryFilter?.id, currentlyOpen: currentlyOpenFilter },
     }).places.length
 
-  const handleZoomInRef = useCallback((view: View | null) => {
+  const handleZoomInRef = useCallback((view: ViewInstance | null) => {
     setZoomInFocusTarget(findNodeHandle(view) ?? undefined)
   }, [])
 

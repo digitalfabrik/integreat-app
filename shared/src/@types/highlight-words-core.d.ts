@@ -3,7 +3,7 @@ declare module 'highlight-words-core' {
     autoEscape?: boolean | undefined
     caseSensitive?: boolean | undefined
     sanitize?: ((text: string) => string) | undefined
-    searchWords: (string | RegExp)[]
+    searchWords: readonly (string | RegExp)[]
     textToHighlight: string
   }
 
@@ -12,7 +12,7 @@ declare module 'highlight-words-core' {
     caseSensitive?: boolean | undefined
     findChunks?: (args: FindChunks) => Chunk[]
     sanitize?: ((text: string) => string) | undefined
-    searchWords: (string | RegExp)[]
+    searchWords: readonly (string | RegExp)[]
     textToHighlight: string
   }
 

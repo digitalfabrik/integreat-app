@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "لارښود (نیویګیشن)",
-      "description": "دلته د {{navigationItems, list}} ترمنځ بدلون راولئ."
+      "description": "دلته د {{- navigationItems, list}} ترمنځ بدلون راولئ."
     },
     "categories": {
       "title": "موضوعات وپلټئ",

@@ -34,7 +34,6 @@ const config: JestConfigWithTsJest = {
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json'],
   maxWorkers: '50%',
-  workerIdleMemoryLimit: process.env.CI ? '500MB' : undefined,
   transform: {
     '^.+\\.(j|t)sx?$': ['ts-jest', {}],
   },

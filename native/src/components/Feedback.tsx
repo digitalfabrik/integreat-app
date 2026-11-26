@@ -1,6 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 import { Button } from 'react-native-paper'
 import styled from 'styled-components/native'
 

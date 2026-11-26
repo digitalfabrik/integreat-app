@@ -13,11 +13,13 @@ const charsAddedByNormalization = (text: string, until: number) => {
   return charsAdded
 }
 
+type Match = Chunk & { searchIndex: number }
+
 const findNormalizedMatches = (
   props: FindChunks,
   { wordStartOnly = false }: { wordStartOnly?: boolean } = {},
-): Chunk[] => {
-  const normalizedMatches = (chunk: Chunk): Chunk => {
+): Match[] => {
+  const normalizedMatches = (chunk: Match): Match => {
     const charsAddedBeforeMatch = charsAddedByNormalization(props.textToHighlight, chunk.start)
     const charsAddedIncludingMatch = charsAddedByNormalization(props.textToHighlight, chunk.end)
     return {
@@ -27,7 +29,9 @@ const findNormalizedMatches = (
     }
   }
 
-  const chunks = findChunks(props)
+  const chunks = props.searchWords.flatMap((searchWord, searchIndex) =>
+    findChunks({ ...props, searchWords: [searchWord] }).map(chunk => ({ ...chunk, searchIndex })),
+  )
   if (!wordStartOnly) {
     return chunks.map(normalizedMatches)
   }

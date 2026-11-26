@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Điều hướng",
-      "description": "Chuyển đổi linh hoạt giữa {{navigationItems, list}} tại đây."
+      "description": "Chuyển đổi linh hoạt giữa {{- navigationItems, list}} tại đây."
     },
     "categories": {
       "title": "Khám phá chủ đề",

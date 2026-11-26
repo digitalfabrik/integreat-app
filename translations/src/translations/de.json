@@ -524,7 +524,7 @@
     },
     "navigation": {
       "title": "Navigation",
-      "description": "Wechsle hier zwischen {{navigationItems, list}}."
+      "description": "Wechsle hier zwischen {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Themen entdecken",

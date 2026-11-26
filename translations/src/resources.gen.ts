@@ -526,7 +526,7 @@ const resources = {
     },
     "navigation": {
       "title": "Navigation",
-      "description": "Switch between {{navigationItems, list}} here."
+      "description": "Switch between {{- navigationItems, list}} here."
     },
     "categories": {
       "title": "Discover topics",

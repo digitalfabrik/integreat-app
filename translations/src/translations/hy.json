@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Նավիգացիա",
-      "description": "Այստեղ կարող ես անցում կատարել {{navigationItems, list}} բաժինների միջև:"
+      "description": "Այստեղ կարող ես անցում կատարել {{- navigationItems, list}} բաժինների միջև:"
     },
     "categories": {
       "title": "Բացահայտիր թեմաները",

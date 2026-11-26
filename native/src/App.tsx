@@ -4,6 +4,7 @@ import { Settings as LuxonSettings } from 'luxon'
 import React, { ReactElement } from 'react'
 import { LogBox, View } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { KeyboardProvider } from 'react-native-keyboard-controller'
 import { registerTranslation, en, de, ar, es, fr, hi, it, nl, pl, pt, tr, zh } from 'react-native-paper-dates'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { enableScreens } from 'react-native-screens'
@@ -85,21 +86,23 @@ export const NavigationContainerWithTheme = (): ReactElement => {
 
 const App = (): ReactElement => (
   <GestureHandlerRootView style={{ flex: 1 }}>
-    <StaticServerProvider>
-      <I18nProvider>
-        <AppContextProvider>
-          <ThemeContainer>
-            <SafeAreaProvider>
-              <SnackbarContainer>
-                <TtsContainer>
-                  <NavigationContainerWithTheme />
-                </TtsContainer>
-              </SnackbarContainer>
-            </SafeAreaProvider>
-          </ThemeContainer>
-        </AppContextProvider>
-      </I18nProvider>
-    </StaticServerProvider>
+    <KeyboardProvider>
+      <StaticServerProvider>
+        <I18nProvider>
+          <AppContextProvider>
+            <ThemeContainer>
+              <SafeAreaProvider>
+                <SnackbarContainer>
+                  <TtsContainer>
+                    <NavigationContainerWithTheme />
+                  </TtsContainer>
+                </SnackbarContainer>
+              </SafeAreaProvider>
+            </ThemeContainer>
+          </AppContextProvider>
+        </I18nProvider>
+      </StaticServerProvider>
+    </KeyboardProvider>
   </GestureHandlerRootView>
 )
 

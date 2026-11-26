@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Nascleanúint",
-      "description": "Aistrigh idir {{navigationItems, list}} anseo."
+      "description": "Aistrigh idir {{- navigationItems, list}} anseo."
     },
     "categories": {
       "title": "Déan iniúchadh ar ábhair",

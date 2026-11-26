@@ -74,8 +74,7 @@ const SimpleImage = ({
 
   if (cachedSource.endsWith('.svg')) {
     // SvgCssUri doesn't use the width and height in the style prop
-    const flattenedStyle = StyleSheet.flatten(style)
-    const { width, height } = flattenedStyle
+    const { width, height } = StyleSheet.flatten(style) ?? {}
     const widthFromStyleObject = typeof width === 'number' || typeof width === 'string' ? width : undefined
     const heightFromStyleObject = typeof height === 'number' || typeof height === 'string' ? height : undefined
     return <SvgCssUri uri={cachedSource} style={style} width={widthFromStyleObject} height={heightFromStyleObject} />

@@ -110,7 +110,7 @@ const OpenSource = (): ReactElement => {
 
   return (
     <Layout>
-      <FlatList data={licenses} renderItem={renderItem} ListHeaderComponent={<OpenSourceHeader t={t} />} />
+      <FlatList data={licenses ?? undefined} renderItem={renderItem} ListHeaderComponent={<OpenSourceHeader t={t} />} />
     </Layout>
   )
 }

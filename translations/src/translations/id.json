@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navigasi",
-      "description": "Beralih di antara {{navigationItems, list}} di sini."
+      "description": "Beralih di antara {{- navigationItems, list}} di sini."
     },
     "categories": {
       "title": "Jelajahi topik",

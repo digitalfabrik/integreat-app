@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
-import { RefreshControlProps, ScrollView, StyleProp, ViewStyle } from 'react-native'
+import { RefreshControlProps, StyleProp, ViewStyle } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
 import Layout from './Layout'
 
@@ -11,7 +12,7 @@ type LayoutedScrollViewProps = {
 
 const LayoutedScrollView = ({ children, refreshControl, style }: LayoutedScrollViewProps): ReactElement => (
   <Layout>
-    <ScrollView
+    <KeyboardAwareScrollView
       keyboardShouldPersistTaps='always'
       // Fixes VirtualizedLists nesting error
       // See https://github.com/facebook/react-native/issues/31697#issuecomment-1742437232
@@ -24,7 +25,7 @@ const LayoutedScrollView = ({ children, refreshControl, style }: LayoutedScrollV
         style,
       ]}>
       {children}
-    </ScrollView>
+    </KeyboardAwareScrollView>
   </Layout>
 )
 

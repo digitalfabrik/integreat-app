@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navigare",
-      "description": "Comută aici între {{navigationItems, list}}."
+      "description": "Comută aici între {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Descoperă teme",

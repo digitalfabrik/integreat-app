@@ -414,7 +414,7 @@
     },
     "navigation": {
       "title": "Navigace",
-      "description": "Zde můžete přepínat mezi sekcemi {{navigationItems, list}}."
+      "description": "Zde můžete přepínat mezi sekcemi {{- navigationItems, list}}."
     },
     "categories": {
       "title": "Prozkoumat témata",
