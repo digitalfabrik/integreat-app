@@ -1,50 +1,25 @@
-import { Chunk, FindAll, findAll, findChunks, FindChunks } from 'highlight-words-core'
+import { findAll, findChunks, FindChunksOptions, FoundChunk } from 'highlight-words-core'
 
-import normalizeString from './normalizeString.ts'
+import { normalizeCharacters } from './normalizeString.ts'
 import { MATCH_WHITESPACE_AND_DASHES } from './search.ts'
 
-const charsAddedByNormalization = (text: string, until: number) => {
-  let charsAdded = 0
-  for (let i = 0; i < until - charsAdded; i += 1) {
-    if (text[i] === 'ß') {
-      charsAdded += 1
-    }
-  }
-  return charsAdded
-}
-
-type Match = Chunk & { searchIndex: number }
-
 const findNormalizedMatches = (
-  props: FindChunks,
+  props: FindChunksOptions,
   { wordStartOnly = false }: { wordStartOnly?: boolean } = {},
-): Match[] => {
-  const normalizedMatches = (chunk: Match): Match => {
-    const charsAddedBeforeMatch = charsAddedByNormalization(props.textToHighlight, chunk.start)
-    const charsAddedIncludingMatch = charsAddedByNormalization(props.textToHighlight, chunk.end)
-    return {
-      ...chunk,
-      start: chunk.start - charsAddedBeforeMatch,
-      end: chunk.end - charsAddedIncludingMatch,
-    }
-  }
-
-  const chunks = props.searchWords.flatMap((searchWord, searchIndex) =>
-    findChunks({ ...props, searchWords: [searchWord] }).map(chunk => ({ ...chunk, searchIndex })),
-  )
+): FoundChunk[] => {
+  const chunks = findChunks(props)
   if (!wordStartOnly) {
-    return chunks.map(normalizedMatches)
+    return chunks
   }
 
-  const normalized = normalizeString(props.textToHighlight)
-  return (
-    chunks
-      // Match at the beginning or in the middle where the new word starts
-      .filter(chunk => chunk.start === 0 || MATCH_WHITESPACE_AND_DASHES.test(normalized[chunk.start - 1] ?? ''))
-      .map(normalizedMatches)
+  return chunks.filter(
+    // Match at the beginning or in the middle where the new word starts
+    chunk =>
+      chunk.start === 0 ||
+      MATCH_WHITESPACE_AND_DASHES.test(normalizeCharacters(props.textToHighlight[chunk.start - 1] ?? '')),
   )
 }
 
-export const findAllMatches: (args: FindAll) => Chunk[] = findAll
+export const findAllMatches = findAll
 
 export default findNormalizedMatches

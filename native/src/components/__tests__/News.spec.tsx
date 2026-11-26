@@ -108,28 +108,28 @@ describe('News', () => {
     )
   }
 
-  it('should show not found error if news with id not found', () => {
-    const { getByText } = renderNews({ id: 'local-32498732984824' })
+  it('should show not found error if news with id not found', async () => {
+    const { getByText } = await renderNews({ id: 'local-32498732984824' })
     expect(getByText('error:pageNotFound')).toBeTruthy()
   })
 
-  it('should show news detail', () => {
-    const { queryByText } = renderNews({ id: defaultNews[0].id })
+  it('should show news detail', async () => {
+    const { queryByText } = await renderNews({ id: defaultNews[0].id })
     expect(queryByText(defaultNews[0].title)).toBeTruthy()
     expect(queryByText(defaultNews[0].content)).toBeTruthy()
 
     expect(queryByText(defaultNews[1].title)).toBeFalsy()
   })
 
-  it('should show news list', () => {
-    const { getByText } = renderNews({})
+  it('should show news list', async () => {
+    const { getByText } = await renderNews({})
     expect(getByText(defaultNews[0].title)).toBeTruthy()
     expect(getByText(defaultNews[0].content)).toBeTruthy()
 
     expect(getByText(defaultNews[1].title)).toBeTruthy()
     expect(getByText(defaultNews[1].content)).toBeTruthy()
 
-    fireEvent.press(getByText(defaultNews[1].title))
+    await fireEvent.press(getByText(defaultNews[1].title))
     expect(navigateTo).toHaveBeenCalledWith({
       id: 'local-2',
       languageCode: 'de',
@@ -138,55 +138,55 @@ describe('News', () => {
     })
   })
 
-  it('should show currently no news', () => {
-    const { queryByText } = renderNews({ news: [] })
+  it('should show currently no news', async () => {
+    const { queryByText } = await renderNews({ news: [] })
     expect(queryByText('news:error.nothingFound')).toBeTruthy()
 
     expect(queryByText(defaultNews[0].title)).toBeFalsy()
     expect(queryByText(defaultNews[1].title)).toBeFalsy()
   })
 
-  it('should not add links in list', () => {
-    const { getByText } = renderNews({ news: defaultNews })
+  it('should not add links in list', async () => {
+    const { getByText } = await renderNews({ news: defaultNews })
     expect(getByText(defaultNews[0].title)).toBeTruthy()
     expect(getByText(defaultNews[0].content)).toBeTruthy()
   })
 
-  it('should not add links for tünews', () => {
-    const { getByText, queryByText } = renderNews({ news: defaultNews, id: defaultNews[0].id })
+  it('should not add links for tünews', async () => {
+    const { getByText, queryByText } = await renderNews({ news: defaultNews, id: defaultNews[0].id })
     expect(getByText(defaultNews[0].title)).toBeTruthy()
     expect(getByText(defaultNews[0].content)).toBeTruthy()
     expect(queryByText(replaceLinks(defaultNews[0].content))).toBeFalsy()
   })
 
-  it('should add links in local news detail', () => {
-    const { getByText, queryByText } = renderNews({ news: defaultNews, id: defaultNews[1].id })
+  it('should add links in local news detail', async () => {
+    const { getByText, queryByText } = await renderNews({ news: defaultNews, id: defaultNews[1].id })
     expect(getByText(defaultNews[1].title)).toBeTruthy()
     expect(queryByText(defaultNews[1].content)).toBeFalsy()
     expect(queryByText(replaceLinks(defaultNews[1].content))).toBeTruthy()
   })
 
-  it('should call setNewsSource when a filter option is pressed', () => {
-    const { getByText } = renderNews({})
+  it('should call setNewsSource when a filter option is pressed', async () => {
+    const { getByText } = await renderNews({})
 
-    fireEvent.press(getByText('news:sources.nationalShort'))
+    await fireEvent.press(getByText('news:sources.nationalShort'))
     expect(setNewsSource).toHaveBeenCalledWith('national')
   })
 
-  it('should render an external source link for tü news detail', () => {
-    const { getByRole } = renderNews({ id: defaultNews[0].id })
+  it('should render an external source link for tü news detail', async () => {
+    const { getByRole } = await renderNews({ id: defaultNews[0].id })
     const link = getByRole('link')
-    fireEvent.press(link)
+    await fireEvent.press(link)
     expect(mockOpenExternalUrl).toHaveBeenCalledWith(defaultNews[0].externalUrl)
   })
 
-  it('should not render an external source link for local news detail', () => {
-    const { queryByRole } = renderNews({ id: defaultNews[1].id })
+  it('should not render an external source link for local news detail', async () => {
+    const { queryByRole } = await renderNews({ id: defaultNews[1].id })
     expect(queryByRole('link')).toBeNull()
   })
 
-  it('should replace bare urls as link for local news detail', () => {
-    const { getByText } = renderNews({ id: 'local-2' })
+  it('should replace bare urls as link for local news detail', async () => {
+    const { getByText } = await renderNews({ id: 'local-2' })
     expect(getByText(/<a href='https:\/\/example\.com'>/)).toBeTruthy()
   })
 
@@ -202,8 +202,8 @@ describe('News', () => {
       source: 'local',
     })
 
-    it('should show chip for new news on first visit and mark it as visited', () => {
-      const { getByText } = renderNews({ news: [newNews], id: newNews.id })
+    it('should show chip for new news on first visit and mark it as visited', async () => {
+      const { getByText } = await renderNews({ news: [newNews], id: newNews.id })
 
       expect(getByText('common:state.new')).toBeTruthy()
       expect(updateSettings).toHaveBeenCalledTimes(1)
@@ -213,8 +213,8 @@ describe('News', () => {
       })
     })
 
-    it('should not show chip for new news which was already visited', () => {
-      const { queryByText } = renderNews({
+    it('should not show chip for new news which was already visited', async () => {
+      const { queryByText } = await renderNews({
         news: [newNews],
         id: newNews.id,
         visitedNewsIds: { augsburg: { [newNews.id]: DateTime.now().toISODate() } },

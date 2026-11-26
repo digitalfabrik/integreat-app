@@ -105,15 +105,15 @@ describe('Chat', () => {
 
   it('shows a spinner and seeds default chat settings if none exist for the region', async () => {
     const updateChatSettings = jest.fn()
-    const { getByLabelText, queryByTestId } = renderChat({}, updateChatSettings)
+    const { getByLabelText, queryByTestId } = await renderChat({}, updateChatSettings)
 
     expect(queryByTestId('webview')).toBeNull()
     expect(getByLabelText('common:state.loading')).toBeTruthy()
     await waitFor(() => expect(updateChatSettings).toHaveBeenCalledWith({ seenMessages: 0, id: expect.any(String) }))
   })
 
-  it('renders the chat webview with a URL containing the existing chat id', () => {
-    const { getByTestId } = renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 2 } })
+  it('renders the chat webview with a URL containing the existing chat id', async () => {
+    const { getByTestId } = await renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 2 } })
 
     const uri = getByTestId('webview').props.children
     expect(uri).toContain('chat=true')
@@ -126,7 +126,7 @@ describe('Chat', () => {
     })
     const updateChatSettings = jest.fn()
 
-    renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } }, updateChatSettings)
+    await renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } }, updateChatSettings)
 
     expect(focusCallback).not.toBeNull()
     const focusReturn = focusCallback!()
@@ -137,51 +137,51 @@ describe('Chat', () => {
     expect(updateChatSettings).toHaveBeenCalledWith({ seenMessages: 2 })
   })
 
-  it('passes the available languages from the region content to the header', () => {
-    renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } })
+  it('passes the available languages from the region content to the header', async () => {
+    await renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } })
 
     expect(useHeader).toHaveBeenCalledWith(
       expect.objectContaining({ availableLanguages: languages.map(it => it.code) }),
     )
   })
 
-  it('shows the new chat confirmation dialog when the new chat menu item is pressed', () => {
-    const { getByText, queryByText } = renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } })
+  it('shows the new chat confirmation dialog when the new chat menu item is pressed', async () => {
+    const { getByText, queryByText } = await renderChat({ augsburg: { id: 'existing-chat-id', seenMessages: 0 } })
 
     expect(queryByText('chat:startNew.description')).toBeNull()
 
-    act(() => {
+    await act(() => {
       lastMenuItems()[0]!.props.onPress()
     })
 
     expect(getByText('chat:startNew.description')).toBeTruthy()
   })
 
-  it('creates a fresh chat with a new id and zero seen messages when the confirmation is accepted', () => {
+  it('creates a fresh chat with a new id and zero seen messages when the confirmation is accepted', async () => {
     const updateChatSettings = jest.fn()
-    const { getAllByText } = renderChat({ augsburg: { id: 'old-chat-id', seenMessages: 5 } }, updateChatSettings)
+    const { getAllByText } = await renderChat({ augsburg: { id: 'old-chat-id', seenMessages: 5 } }, updateChatSettings)
 
-    act(() => {
+    await act(() => {
       lastMenuItems()[0]!.props.onPress()
     })
 
     const newChatLabels = getAllByText('chat:startNew.title')
-    fireEvent.press(newChatLabels[newChatLabels.length - 1]!)
+    await fireEvent.press(newChatLabels[newChatLabels.length - 1]!)
 
     expect(updateChatSettings).toHaveBeenCalledWith({ seenMessages: 0, id: expect.any(String) })
     const newId = updateChatSettings.mock.calls.at(-1)![0].id
     expect(newId).not.toBe('old-chat-id')
   })
 
-  it('does not change settings when the confirmation cancel button is pressed', () => {
+  it('does not change settings when the confirmation cancel button is pressed', async () => {
     const updateChatSettings = jest.fn()
-    const { getByText } = renderChat({ augsburg: { id: 'old-chat-id', seenMessages: 5 } }, updateChatSettings)
+    const { getByText } = await renderChat({ augsburg: { id: 'old-chat-id', seenMessages: 5 } }, updateChatSettings)
 
-    act(() => {
+    await act(() => {
       lastMenuItems()[0]!.props.onPress()
     })
 
-    fireEvent.press(getByText('common:actions.cancel'))
+    await fireEvent.press(getByText('common:actions.cancel'))
 
     expect(updateChatSettings).not.toHaveBeenCalled()
   })

@@ -6,9 +6,9 @@ import render from '../../../testing/render'
 import AlertDialog, { SimpleAlertDialog } from '../AlertDialog'
 
 describe('AlertDialog', () => {
-  it('renders the title, children and provided actions when visible', () => {
+  it('renders the title, children and provided actions when visible', async () => {
     const onAction = jest.fn()
-    const { getByText } = render(
+    const { getByText } = await render(
       <AlertDialog
         visible
         close={jest.fn()}
@@ -21,12 +21,12 @@ describe('AlertDialog', () => {
     expect(getByText('dialog-title')).toBeTruthy()
     expect(getByText('dialog-body')).toBeTruthy()
 
-    fireEvent.press(getByText('confirm'))
+    await fireEvent.press(getByText('confirm'))
     expect(onAction).toHaveBeenCalled()
   })
 
-  it('does not render the title or body when not visible', () => {
-    const { queryByText } = render(
+  it('does not render the title or body when not visible', async () => {
+    const { queryByText } = await render(
       <AlertDialog visible={false} close={jest.fn()} title={<Text>dialog-title</Text>} actions={[]}>
         <Text>dialog-body</Text>
       </AlertDialog>,
@@ -38,9 +38,9 @@ describe('AlertDialog', () => {
 })
 
 describe('SimpleAlertDialog', () => {
-  it('renders a translated close action that calls close', () => {
+  it('renders a translated close action that calls close', async () => {
     const close = jest.fn()
-    const { getByText } = render(
+    const { getByText } = await render(
       <SimpleAlertDialog visible close={close} title={<Text>simple-title</Text>}>
         <Text>simple-body</Text>
       </SimpleAlertDialog>,
@@ -48,7 +48,7 @@ describe('SimpleAlertDialog', () => {
 
     expect(getByText('simple-title')).toBeTruthy()
     expect(getByText('simple-body')).toBeTruthy()
-    fireEvent.press(getByText('common:actions.close'))
+    await fireEvent.press(getByText('common:actions.close'))
     expect(close).toHaveBeenCalled()
   })
 })

@@ -29,8 +29,8 @@ describe('LanguageNotAvailablePage', () => {
       </TestingAppContext>,
     )
 
-  it('should render', () => {
-    const { getByText } = renderLanguageNotAvailablePage()
+  it('should render', async () => {
+    const { getByText } = await renderLanguageNotAvailablePage()
 
     expect(getByText('languages:error.notFound.title')).toBeTruthy()
     languages.forEach(language => {
@@ -38,10 +38,10 @@ describe('LanguageNotAvailablePage', () => {
     })
   })
 
-  it('should call onPress if enabled', () => {
-    const { getByText } = renderLanguageNotAvailablePage()
+  it('should call onPress if enabled', async () => {
+    const { getByText } = await renderLanguageNotAvailablePage()
 
-    fireEvent.press(getByText(languages[2]!.name))
+    await fireEvent.press(getByText(languages[2]!.name))
 
     expect(changeLanguageCode).toHaveBeenCalledTimes(1)
     expect(changeLanguageCode).toHaveBeenCalledWith(languages[2]!.code)

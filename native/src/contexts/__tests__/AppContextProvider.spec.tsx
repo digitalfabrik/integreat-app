@@ -99,14 +99,14 @@ describe('AppContextProvider', () => {
       visitedNewsIds: { augsburg: { 'local-1': '2023-10-02' } },
     }
     await appSettings.setSettings(settings)
-    const { getByText } = renderAppContextProvider({})
+    const { getByText } = await renderAppContextProvider({})
     await waitFor(async () => expect(getByText(JSON.stringify(settings))).toBeTruthy())
     expect(setSettings).toHaveBeenCalledTimes(0)
   })
 
   it('should initialize content language if not yet set', async () => {
     await appSettings.setSettings(defaultSettings)
-    const { getByText } = renderAppContextProvider({})
+    const { getByText } = await renderAppContextProvider({})
     await waitFor(async () => expect(getByText('en')).toBeTruthy())
     expect(await appSettings.loadSettings()).toMatchObject({ contentLanguage: 'en' })
     expect(setSettings).toHaveBeenCalledTimes(1)
@@ -114,14 +114,14 @@ describe('AppContextProvider', () => {
 
   it('should not update content language if already set', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de' })
-    const { getByText } = renderAppContextProvider({})
+    const { getByText } = await renderAppContextProvider({})
     await waitFor(async () => expect(getByText('de')).toBeTruthy())
     expect(setSettings).toHaveBeenCalledTimes(0)
   })
 
   it('should store last usage', async () => {
     await appSettings.setSettings({ ...defaultSettings, selectedCity: 'augsburg', contentLanguage: 'de' })
-    const { getByText } = renderAppContextProvider({})
+    const { getByText } = await renderAppContextProvider({})
     await waitFor(async () => expect(getByText('de')).toBeTruthy())
     expect(setSettings).toHaveBeenCalledTimes(0)
     expect(defaultDataContainer.storeLastUsage).toHaveBeenCalledTimes(1)
@@ -131,7 +131,7 @@ describe('AppContextProvider', () => {
   it('should initialize fixed region', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de' })
     mockBuildConfig({ fixedRegion: 'hallo' })
-    const { getByText } = renderAppContextProvider({})
+    const { getByText } = await renderAppContextProvider({})
     await waitFor(async () => expect(getByText('hallo')).toBeTruthy())
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: 'hallo' })
     expect(setSettings).toHaveBeenCalledTimes(1)
@@ -145,11 +145,11 @@ describe('AppContextProvider', () => {
 
   it('should select region', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de' })
-    const { getByText, queryByText } = renderAppContextProvider({ newRegionCode: 'augsburg' })
+    const { getByText, queryByText } = await renderAppContextProvider({ newRegionCode: 'augsburg' })
     await waitFor(async () => expect(getByText('de')).toBeTruthy())
     expect(queryByText('augsburg')).toBeFalsy()
 
-    fireEvent.press(getByText('changeRegionCode'))
+    await fireEvent.press(getByText('changeRegionCode'))
 
     await waitFor(async () => expect(getByText('augsburg')).toBeTruthy())
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: 'augsburg' })
@@ -165,11 +165,11 @@ describe('AppContextProvider', () => {
 
   it('should change region', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de', selectedCity: 'muenchen' })
-    const { getByText, queryByText } = renderAppContextProvider({ newRegionCode: 'augsburg' })
+    const { getByText, queryByText } = await renderAppContextProvider({ newRegionCode: 'augsburg' })
     await waitFor(async () => expect(getByText('muenchen')).toBeTruthy())
     expect(queryByText('augsburg')).toBeFalsy()
 
-    fireEvent.press(getByText('changeRegionCode'))
+    await fireEvent.press(getByText('changeRegionCode'))
 
     await waitFor(async () => expect(getByText('augsburg')).toBeTruthy())
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: 'augsburg' })
@@ -186,10 +186,10 @@ describe('AppContextProvider', () => {
 
   it('should deselect region', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de', selectedCity: 'muenchen' })
-    const { getByText, queryByText } = renderAppContextProvider({ newRegionCode: null })
+    const { getByText, queryByText } = await renderAppContextProvider({ newRegionCode: null })
     await waitFor(async () => expect(getByText('muenchen')).toBeTruthy())
 
-    fireEvent.press(getByText('changeRegionCode'))
+    await fireEvent.press(getByText('changeRegionCode'))
 
     await waitFor(async () => expect(queryByText('muenchen')).toBeFalsy())
     expect(await appSettings.loadSettings()).toMatchObject({ selectedCity: null })
@@ -201,11 +201,11 @@ describe('AppContextProvider', () => {
 
   it('should change language', async () => {
     await appSettings.setSettings({ ...defaultSettings, contentLanguage: 'de', selectedCity: 'muenchen' })
-    const { getByText, queryByText } = renderAppContextProvider({ newRegionCode: 'augsburg' })
+    const { getByText, queryByText } = await renderAppContextProvider({ newRegionCode: 'augsburg' })
     await waitFor(async () => expect(getByText('de')).toBeTruthy())
     expect(queryByText('ar')).toBeFalsy()
 
-    fireEvent.press(getByText('changeLanguageCode'))
+    await fireEvent.press(getByText('changeLanguageCode'))
 
     await waitFor(async () => expect(getByText('ar')).toBeTruthy())
     expect(await appSettings.loadSettings()).toMatchObject({ contentLanguage: 'ar' })
@@ -229,10 +229,10 @@ describe('AppContextProvider', () => {
       apiUrlOverride: 'https://cms-test.integreat-app.de',
     }
     await appSettings.setSettings(oldSettings)
-    const { getByText } = renderAppContextProvider({ newSettings })
+    const { getByText } = await renderAppContextProvider({ newSettings })
     await waitFor(async () => expect(getByText(JSON.stringify(expectedAfterLoad))).toBeTruthy())
 
-    fireEvent.press(getByText('updateSettings'))
+    await fireEvent.press(getByText('updateSettings'))
 
     await waitFor(async () => expect(getByText(JSON.stringify(newSettings))).toBeTruthy())
     expect(await appSettings.loadSettings()).toEqual(newSettings)

@@ -26,7 +26,7 @@ describe('I18nProvider', () => {
     mockDetect.mockImplementation(() => {
       throw Error('An Error occurred while getting settings!')
     })
-    const { getByText } = render(
+    const { getByText } = await render(
       <I18nProvider>
         <Text>Content</Text>
       </I18nProvider>,
@@ -38,7 +38,7 @@ describe('I18nProvider', () => {
 
   it('should use fallbacks for ui translations', async () => {
     mockDetect.mockReturnValue('ku')
-    const { getByText } = render(
+    const { getByText } = await render(
       <I18nProvider>
         <Translation>{(t: TFunction) => <Text>{t($ => $.categories.title)}</Text>}</Translation>
       </I18nProvider>,
@@ -48,7 +48,7 @@ describe('I18nProvider', () => {
 
   it('should choose the default fallback for ui translations for fallback languages', async () => {
     mockDetect.mockReturnValue(['zh'])
-    const { findByText } = render(
+    const { findByText } = await render(
       <I18nProvider>
         <Translation>{(t: TFunction) => <Text>{t($ => $.events.title)}</Text>}</Translation>
       </I18nProvider>,
@@ -58,7 +58,7 @@ describe('I18nProvider', () => {
 
   it('should choose the default fallback for ui translations', async () => {
     mockDetect.mockReturnValue('en')
-    const { getByText } = render(
+    const { getByText } = await render(
       <I18nProvider>
         <Translation>{(t: TFunction) => <Text>{t($ => $.categories.title)}</Text>}</Translation>
       </I18nProvider>,
@@ -69,7 +69,7 @@ describe('I18nProvider', () => {
 
   it('should use zh-CN if any chinese variant is chosen', async () => {
     mockDetect.mockReturnValue('zh-CN')
-    const { getByText } = render(
+    const { getByText } = await render(
       <I18nProvider>
         <Translation>{(t: TFunction) => <Text>{t($ => $.categories.title)}</Text>}</Translation>
       </I18nProvider>,
@@ -80,7 +80,7 @@ describe('I18nProvider', () => {
 
   it('should support language tags with dashes', async () => {
     mockDetect.mockReturnValue('zh-CN')
-    const { getByText } = render(
+    const { getByText } = await render(
       <I18nProvider>
         <Translation>{(t: TFunction) => <Text>{t($ => $.categories.title)}</Text>}</Translation>
       </I18nProvider>,
@@ -91,7 +91,7 @@ describe('I18nProvider', () => {
 
   it('should support de-DE and select de', async () => {
     mockDetect.mockReturnValue('de-DE')
-    const { getByText, queryByText } = render(
+    const { getByText, queryByText } = await render(
       <I18nProvider>
         <Translation>{(t: TFunction) => <Text>{t($ => $.categories.title)}</Text>}</Translation>
         <Translation>{(t, { i18n }) => <Text>{i18n.languages[0]}</Text>}</Translation>

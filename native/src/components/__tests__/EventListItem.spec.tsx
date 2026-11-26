@@ -18,8 +18,8 @@ describe('EventListItem', () => {
   const event = new EventModelBuilder('seed', 1, 'augsburg', language).build()[0]!
   const navigateToEvent = jest.fn()
 
-  it('should show event list item with specific thumbnail', () => {
-    const { getByText } = render(
+  it('should show event list item with specific thumbnail', async () => {
+    const { getByText } = await render(
       <EventListItem event={event} language={language} regionCode={regionCode} navigateTo={navigateToEvent} />,
     )
 
@@ -40,20 +40,20 @@ describe('EventListItem', () => {
         }),
       })
 
-    it('should show no icon for for one time event', () => {
+    it('should show no icon for for one time event', async () => {
       const event = createEvent()
 
-      const { queryByLabelText } = render(
+      const { queryByLabelText } = await render(
         <EventListItem event={event} language={language} regionCode={regionCode} navigateTo={navigateToEvent} />,
       )
 
       expect(queryByLabelText('events:recurrence.recurring')).toBeFalsy()
     })
 
-    it('should show icon if recurring event', () => {
+    it('should show icon if recurring event', async () => {
       const event = createEvent('DTSTART:20230414T050000\nRRULE:FREQ=WEEKLY;BYDAY=MO;UNTIL=20231029T050000')
 
-      const { queryByLabelText } = render(
+      const { queryByLabelText } = await render(
         <EventListItem event={event} language={language} regionCode={regionCode} navigateTo={navigateToEvent} />,
       )
 
@@ -74,28 +74,30 @@ describe('EventListItem', () => {
         </TestingAppContext>,
       )
 
-    it('should show chip for new event which was not visited yet', () => {
-      const { getByText } = renderEventListItem(createEvent(MAX_DAYS_NEW - 1))
+    it('should show chip for new event which was not visited yet', async () => {
+      const { getByText } = await renderEventListItem(createEvent(MAX_DAYS_NEW - 1))
 
       expect(getByText('common:state.new')).toBeTruthy()
     })
 
-    it('should not show chip for new event which was already visited', () => {
+    it('should not show chip for new event which was already visited', async () => {
       const event = createEvent(MAX_DAYS_NEW - 1)
-      const { queryByText } = renderEventListItem(event, { [regionCode]: { [event.id]: DateTime.now().toISODate() } })
+      const { queryByText } = await renderEventListItem(event, {
+        [regionCode]: { [event.id]: DateTime.now().toISODate() },
+      })
 
       expect(queryByText('common:state.new')).toBeFalsy()
     })
 
-    it('should show chip for new event which was only visited in another region', () => {
+    it('should show chip for new event which was only visited in another region', async () => {
       const event = createEvent(MAX_DAYS_NEW - 1)
-      const { getByText } = renderEventListItem(event, { muenchen: { [event.id]: DateTime.now().toISODate() } })
+      const { getByText } = await renderEventListItem(event, { muenchen: { [event.id]: DateTime.now().toISODate() } })
 
       expect(getByText('common:state.new')).toBeTruthy()
     })
 
-    it('should not show chip for old event', () => {
-      const { queryByText } = renderEventListItem(createEvent(MAX_DAYS_NEW + 1))
+    it('should not show chip for old event', async () => {
+      const { queryByText } = await renderEventListItem(createEvent(MAX_DAYS_NEW + 1))
 
       expect(queryByText('common:state.new')).toBeFalsy()
     })

@@ -1,6 +1,5 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
-import { ScrollView } from 'react-native'
 
 import { LANGUAGES_ROUTE, LanguagesRouteType } from 'shared'
 import { LanguageModelBuilder } from 'shared/api'
@@ -41,45 +40,47 @@ describe('LanguageSelection', () => {
       </TestingAppContext>,
     )
 
-  it('should change language if language is available and not selected', () => {
-    const { getByText } = renderLanguageSelection()
+  it('should change language if language is available and not selected', async () => {
+    const { getByText } = await renderLanguageSelection()
 
-    fireEvent.press(getByText(availableLanguage.name))
+    await fireEvent.press(getByText(availableLanguage.name))
 
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
     expect(changeLanguageCode).toHaveBeenCalledTimes(1)
     expect(changeLanguageCode).toHaveBeenCalledWith(availableLanguage.code)
   })
 
-  it('should only navigate back if language is currently selected', () => {
-    const { getByText } = renderLanguageSelection()
+  it('should only navigate back if language is currently selected', async () => {
+    const { getByText } = await renderLanguageSelection()
 
-    fireEvent.press(getByText(selectedLanguage.name))
+    await fireEvent.press(getByText(selectedLanguage.name))
 
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
     expect(changeLanguageCode).not.toHaveBeenCalled()
   })
 
-  it('should open unavailable dialog if language is neither available nor selected', () => {
-    const { getByText, queryByText } = renderLanguageSelection()
+  it('should open unavailable dialog if language is neither available nor selected', async () => {
+    const { getByText, queryByText } = await renderLanguageSelection()
 
     expect(queryByText('languages:error.noTranslation')).toBeNull()
 
-    fireEvent.press(getByText(unavailableLanguage.name))
+    await fireEvent.press(getByText(unavailableLanguage.name))
 
     expect(navigation.goBack).not.toHaveBeenCalled()
     expect(changeLanguageCode).not.toHaveBeenCalled()
     expect(getByText('languages:error.noTranslation')).toBeTruthy()
   })
 
-  it('should handle taps on languages while the keyboard is open', () => {
-    const scrollView = renderLanguageSelection().UNSAFE_getByType(ScrollView)
+  it('should handle taps on languages while the keyboard is open', async () => {
+    const { container } = await renderLanguageSelection()
+    const scrollViews = container.queryAll(instance => instance.type === 'RCTScrollView')
 
-    expect(scrollView.props.keyboardShouldPersistTaps).toBe('handled')
+    expect(scrollViews).toHaveLength(1)
+    expect(scrollViews[0]!.props.keyboardShouldPersistTaps).toBe('handled')
   })
 
-  it('should not focus the search input automatically', () => {
-    const { getByRole } = renderLanguageSelection()
+  it('should not focus the search input automatically', async () => {
+    const { getByRole } = await renderLanguageSelection()
 
     expect(getByRole('searchbox').props.autoFocus).toBe(false)
   })

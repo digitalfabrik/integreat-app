@@ -1,5 +1,5 @@
-import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill'
-import '@formatjs/intl-locale/polyfill'
+import { shouldPolyfill } from '@formatjs/intl-displaynames/should-polyfill.js'
+import '@formatjs/intl-locale/polyfill.js'
 import React, { ReactElement, useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AccessibilityInfo, KeyboardAvoidingView, StyleSheet } from 'react-native'
@@ -27,7 +27,7 @@ const loadPolyfillIfNeeded = async (locale: string): Promise<void> => {
   if (unsupportedLocale === undefined) {
     return
   }
-  await import('@formatjs/intl-displaynames/polyfill-force')
+  await import('@formatjs/intl-displaynames/polyfill-force.js')
   await importDisplayNamesPackage(locale)
   await importDisplayNamesPackage(config.sourceLanguage)
 }

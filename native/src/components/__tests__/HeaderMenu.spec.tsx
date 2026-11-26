@@ -14,12 +14,12 @@ jest.mock('../../utils/openExternalUrl')
 describe('HeaderMenu', () => {
   const navigation = createNavigationMock()
 
-  it('renders and calls feedback menu item callback', () => {
+  it('renders and calls feedback menu item callback', async () => {
     const onFeedback = jest.fn()
     const onContrast = jest.fn()
     const setVisible = jest.fn()
 
-    const { getByText } = render(
+    const { getByText } = await render(
       <TestingAppContext>
         <HeaderMenu
           navigation={navigation}
@@ -33,29 +33,29 @@ describe('HeaderMenu', () => {
       </TestingAppContext>,
     )
 
-    fireEvent.press(getByText('contrast'))
+    await fireEvent.press(getByText('contrast'))
     expect(onContrast).toHaveBeenCalledTimes(1)
-    fireEvent.press(getByText('feedback'))
+    await fireEvent.press(getByText('feedback'))
     expect(onFeedback).toHaveBeenCalledTimes(1)
   })
 
-  it('should open pdfs externally', () => {
+  it('should open pdfs externally', async () => {
     const openExternalUrl = jest.fn()
     jest.mocked(useOpenExternalUrl).mockImplementation(() => openExternalUrl)
     const shareUrl = 'https://example.com/file.pdf'
 
-    const { getByText } = render(
+    const { getByText } = await render(
       <TestingAppContext>
         <HeaderMenu navigation={navigation} visible setVisible={jest.fn()} menuItems={[]} shareUrl={shareUrl} />
       </TestingAppContext>,
     )
 
-    fireEvent.press(getByText('common:actions.openExternal'))
+    await fireEvent.press(getByText('common:actions.openExternal'))
     expect(openExternalUrl).toHaveBeenCalledWith(shareUrl)
   })
 
-  it('should not show open externally for other urls', () => {
-    const { queryByText } = render(
+  it('should not show open externally for other urls', async () => {
+    const { queryByText } = await render(
       <TestingAppContext>
         <HeaderMenu
           navigation={navigation}

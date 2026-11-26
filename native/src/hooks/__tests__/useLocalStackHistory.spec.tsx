@@ -54,73 +54,73 @@ describe('useLocalStackHistory', () => {
     jest.restoreAllMocks()
   })
 
-  it('should initialize history from params', () => {
-    const { getByText } = render(<MockComponent params={{ value: 'initial', count: 5 }} />)
+  it('should initialize history from params', async () => {
+    const { getByText } = await render(<MockComponent params={{ value: 'initial', count: 5 }} />)
 
     expect(getByText('value: initial')).toBeTruthy()
     expect(getByText('count: 5')).toBeTruthy()
     expect(getByText('length: 1')).toBeTruthy()
   })
 
-  it('should fall back to resetHistory when history is empty', () => {
-    const { getByText } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
+  it('should fall back to resetHistory when history is empty', async () => {
+    const { getByText } = await render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
-    fireEvent.press(getByText('pop'))
+    await fireEvent.press(getByText('pop'))
 
     expect(getByText('length: 0')).toBeTruthy()
     expect(getByText('value: reset')).toBeTruthy()
     expect(getByText('count: 0')).toBeTruthy()
   })
 
-  it('should push a new entry merged with the current state', () => {
-    const { getByText } = render(<MockComponent params={{ value: 'initial', count: 3 }} />)
+  it('should push a new entry merged with the current state', async () => {
+    const { getByText } = await render(<MockComponent params={{ value: 'initial', count: 3 }} />)
 
-    fireEvent.press(getByText('push'))
+    await fireEvent.press(getByText('push'))
 
     expect(getByText('length: 2')).toBeTruthy()
     expect(getByText('value: pushed')).toBeTruthy()
     expect(getByText('count: 3')).toBeTruthy()
   })
 
-  it('should pushReset using resetHistory as base instead of current state', () => {
-    const { getByText } = render(<MockComponent params={{ value: 'initial', count: 5 }} />)
+  it('should pushReset using resetHistory as base instead of current state', async () => {
+    const { getByText } = await render(<MockComponent params={{ value: 'initial', count: 5 }} />)
 
-    fireEvent.press(getByText('pushReset'))
+    await fireEvent.press(getByText('pushReset'))
 
     expect(getByText('length: 2')).toBeTruthy()
     expect(getByText('value: pushReset-value')).toBeTruthy()
     expect(getByText('count: 0')).toBeTruthy()
   })
 
-  it('should pop the last history entry', () => {
-    const { getByText } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
+  it('should pop the last history entry', async () => {
+    const { getByText } = await render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
-    fireEvent.press(getByText('push'))
+    await fireEvent.press(getByText('push'))
     expect(getByText('length: 2')).toBeTruthy()
 
-    fireEvent.press(getByText('pop'))
+    await fireEvent.press(getByText('pop'))
 
     expect(getByText('length: 1')).toBeTruthy()
     expect(getByText('value: initial')).toBeTruthy()
   })
 
-  it('should reset history to [resetHistory]', () => {
-    const { getByText } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
+  it('should reset history to [resetHistory]', async () => {
+    const { getByText } = await render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
-    fireEvent.press(getByText('push'))
-    fireEvent.press(getByText('push'))
+    await fireEvent.press(getByText('push'))
+    await fireEvent.press(getByText('push'))
     expect(getByText('length: 3')).toBeTruthy()
 
-    fireEvent.press(getByText('reset'))
+    await fireEvent.press(getByText('reset'))
 
     expect(getByText('length: 1')).toBeTruthy()
     expect(getByText('value: reset')).toBeTruthy()
   })
 
-  it('should reset history to a custom array', () => {
-    const { getByText } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
+  it('should reset history to a custom array', async () => {
+    const { getByText } = await render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
-    fireEvent.press(getByText('resetCustom'))
+    await fireEvent.press(getByText('resetCustom'))
 
     expect(getByText('length: 2')).toBeTruthy()
     // current is the last entry
@@ -130,9 +130,9 @@ describe('useLocalStackHistory', () => {
 
   describe('system back button', () => {
     it('should pop and consume the event when history has more than one entry', async () => {
-      const { getByText } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
+      const { getByText } = await render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
-      fireEvent.press(getByText('push'))
+      await fireEvent.press(getByText('push'))
       expect(getByText('length: 2')).toBeTruthy()
 
       const result = backHandlerCallback?.()
@@ -142,21 +142,21 @@ describe('useLocalStackHistory', () => {
       expect(getByText('value: initial')).toBeTruthy()
     })
 
-    it('should re-register the back handler whenever history changes', () => {
-      const { getByText } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
+    it('should re-register the back handler whenever history changes', async () => {
+      const { getByText } = await render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
       const callsBefore = (BackHandler.addEventListener as jest.Mock).mock.calls.length
 
-      fireEvent.press(getByText('push'))
+      await fireEvent.press(getByText('push'))
 
       expect((BackHandler.addEventListener as jest.Mock).mock.calls.length).toBeGreaterThan(callsBefore)
     })
   })
 
-  it('should update history when params change', () => {
-    const { getByText, rerender } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
+  it('should update history when params change', async () => {
+    const { getByText, rerender } = await render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
-    rerender(
+    await rerender(
       <NavigationContainer>
         <MockComponent params={{ value: 'updated', count: 99 }} />
       </NavigationContainer>,
@@ -167,13 +167,13 @@ describe('useLocalStackHistory', () => {
     expect(getByText('length: 1')).toBeTruthy()
   })
 
-  it('should keep the history if a new params object with unchanged values is passed', () => {
-    const { getByText, rerender } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
+  it('should keep the history if a new params object with unchanged values is passed', async () => {
+    const { getByText, rerender } = await render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
-    fireEvent.press(getByText('push'))
+    await fireEvent.press(getByText('push'))
     expect(getByText('length: 2')).toBeTruthy()
 
-    rerender(
+    await rerender(
       <NavigationContainer>
         <MockComponent params={{ value: 'initial', count: 1 }} />
       </NavigationContainer>,
@@ -183,13 +183,13 @@ describe('useLocalStackHistory', () => {
     expect(getByText('value: pushed')).toBeTruthy()
   })
 
-  it('should reset history to new params after entries were pushed', () => {
-    const { getByText, rerender } = render(<MockComponent params={{ value: 'initial', count: 1 }} />)
+  it('should reset history to new params after entries were pushed', async () => {
+    const { getByText, rerender } = await render(<MockComponent params={{ value: 'initial', count: 1 }} />)
 
-    fireEvent.press(getByText('push'))
+    await fireEvent.press(getByText('push'))
     expect(getByText('length: 2')).toBeTruthy()
 
-    rerender(
+    await rerender(
       <NavigationContainer>
         <MockComponent params={{ value: 'new-params', count: 42 }} />
       </NavigationContainer>,

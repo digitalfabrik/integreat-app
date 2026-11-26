@@ -1,10 +1,10 @@
 import notifee, { AndroidImportance, Event, EventType } from '@notifee/react-native'
 import {
-  FirebaseMessagingTypes,
   getInitialNotification,
   getMessaging,
   onMessage,
   onNotificationOpenedApp,
+  RemoteMessage,
   setBackgroundMessageHandler,
   subscribeToTopic,
   unsubscribeFromTopic,
@@ -22,7 +22,7 @@ import { log, captureError } from './sentry'
 
 type UpdateSettingsType = (settings: { allowPushNotifications: boolean }) => void
 
-type Message = FirebaseMessagingTypes.RemoteMessage & {
+type Message = RemoteMessage & {
   notification: { title: string }
   data: {
     city_code: string

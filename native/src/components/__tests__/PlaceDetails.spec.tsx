@@ -31,9 +31,9 @@ describe('PlaceDetails', () => {
   const language = 'de'
   const distance = 3.1
 
-  it('should render place information', () => {
+  it('should render place information', async () => {
     const place = places[0]!
-    const { getByLabelText, getByText } = renderWithTheme(
+    const { getByLabelText, getByText } = await renderWithTheme(
       <PlaceDetails place={place} language={language} distance={distance} onFocus={jest.fn()} />,
     )
 
@@ -45,7 +45,7 @@ describe('PlaceDetails', () => {
     expect(getByText('common:labels.description')).toBeTruthy()
     expect(getByText(place.content)).toBeTruthy()
 
-    fireEvent.press(getByText('common:contacts.title'))
+    await fireEvent.press(getByText('common:contacts.title'))
     const contact = place.contacts[0]!
     expect(getByText(contact.headline!)).toBeTruthy()
     expect(getByText('common:contacts.website')).toBeTruthy()
@@ -53,19 +53,19 @@ describe('PlaceDetails', () => {
     expect(getByText(contact.email!)).toBeTruthy()
   })
 
-  it('should not render distance if there is none', () => {
+  it('should not render distance if there is none', async () => {
     const place = places[0]!
-    const { queryByText } = renderWithTheme(
+    const { queryByText } = await renderWithTheme(
       <PlaceDetails place={place} language={language} distance={null} onFocus={jest.fn()} />,
     )
 
     expect(queryByText('places:distance', { exact: false })).toBeFalsy()
   })
 
-  it('should not render contact information if there is none', () => {
+  it('should not render contact information if there is none', async () => {
     const placeWithoutContactInformation = places[1]!
 
-    const { queryByText } = renderWithTheme(
+    const { queryByText } = await renderWithTheme(
       <PlaceDetails
         onFocus={jest.fn()}
         place={placeWithoutContactInformation}
@@ -79,54 +79,54 @@ describe('PlaceDetails', () => {
 
   it('should open external maps app on icon click', async () => {
     const place = places[0]!
-    const { getByLabelText } = renderWithTheme(
+    const { getByLabelText } = await renderWithTheme(
       <PlaceDetails onFocus={jest.fn()} place={place} language={language} distance={distance} />,
     )
 
-    fireEvent.press(getByLabelText('common:actions.openExternal'))
+    await fireEvent.press(getByLabelText('common:actions.openExternal'))
     const externalMapsUrl = 'maps:30,30?q=Test Title, Test Address 1, 12345 Test Town'
     await waitFor(() => expect(mockOpenExternalUrl).toHaveBeenCalledWith(externalMapsUrl))
   })
 
-  it('should copy address to clipboard', () => {
+  it('should copy address to clipboard', async () => {
     const place = places[0]!
-    const { getByText } = renderWithTheme(
+    const { getByText } = await renderWithTheme(
       <PlaceDetails onFocus={jest.fn()} place={place} language={language} distance={distance} />,
     )
 
-    fireEvent.press(getByText(place.location.address))
+    await fireEvent.press(getByText(place.location.address))
     expect(Clipboard.setString).toHaveBeenCalledWith('Test Address 1, 12345 Test Town')
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'common:state.copied' })
   })
 
-  it('should show accessibility information for accessible PLACE', () => {
+  it('should show accessibility information for accessible PLACE', async () => {
     const accessiblePlace = places[0]!
-    const { getByText } = renderWithTheme(
+    const { getByText } = await renderWithTheme(
       <PlaceDetails onFocus={jest.fn()} place={accessiblePlace} language={language} distance={distance} />,
     )
     expect(getByText('places:accessible')).toBeTruthy()
   })
 
-  it('should show accessibility information for not accessible PLACE', () => {
+  it('should show accessibility information for not accessible PLACE', async () => {
     const notAccessiblePlace = places[1]!
-    const { getByText } = renderWithTheme(
+    const { getByText } = await renderWithTheme(
       <PlaceDetails onFocus={jest.fn()} place={notAccessiblePlace} language={language} distance={distance} />,
     )
     expect(getByText('places:notAccessible')).toBeTruthy()
   })
 
-  it('should not show accessibility information for PLACE with unknown accessibility', () => {
+  it('should not show accessibility information for PLACE with unknown accessibility', async () => {
     const unknownAccessiblePlace = places[2]!
-    const { queryByText } = renderWithTheme(
+    const { queryByText } = await renderWithTheme(
       <PlaceDetails onFocus={jest.fn()} place={unknownAccessiblePlace} language={language} distance={distance} />,
     )
     expect(queryByText('places:accessible')).toBeFalsy()
     expect(queryByText('places:notAccessible')).toBeFalsy()
   })
 
-  it('should show the PLACE organization if there is one', () => {
+  it('should show the PLACE organization if there is one', async () => {
     const place = places[0]!
-    const { getByText } = renderWithTheme(
+    const { getByText } = await renderWithTheme(
       <PlaceDetails onFocus={jest.fn()} place={place} language={language} distance={distance} />,
     )
     expect(getByText('Tür an Tür')).toBeTruthy()

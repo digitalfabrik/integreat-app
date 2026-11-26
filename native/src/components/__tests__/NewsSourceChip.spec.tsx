@@ -6,18 +6,18 @@ import render from '../../testing/render'
 import NewsSourceChip from '../NewsSourceChip'
 
 describe('NewsSourceChip', () => {
-  it('should render the translated label for local news', () => {
-    const { getByText } = render(<NewsSourceChip source={LOCAL_NEWS_SOURCE} />)
+  it('should render the translated label for local news', async () => {
+    const { getByText } = await render(<NewsSourceChip source={LOCAL_NEWS_SOURCE} />)
     expect(getByText('news:sources.localShort')).toBeTruthy()
   })
 
-  it('should render the Amal News label for amal news', () => {
-    const { getByText } = render(<NewsSourceChip source={AMAL_NEWS_SOURCE} />)
+  it('should render the Amal News label for amal news', async () => {
+    const { getByText } = await render(<NewsSourceChip source={AMAL_NEWS_SOURCE} />)
     expect(getByText('Amal News')).toBeTruthy()
   })
 
-  it('should render the tuenews label for tu news', () => {
-    const { getByText } = render(<NewsSourceChip source={TU_NEWS_SOURCE} />)
+  it('should render the tuenews label for tu news', async () => {
+    const { getByText } = await render(<NewsSourceChip source={TU_NEWS_SOURCE} />)
     expect(getByText('tuenews')).toBeTruthy()
   })
 })

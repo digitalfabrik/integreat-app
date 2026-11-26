@@ -1,6 +1,5 @@
 import { fireEvent } from '@testing-library/react-native'
 import React from 'react'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-controller'
 
 import { Rating, RATING_NEGATIVE, RATING_POSITIVE } from 'shared'
 
@@ -34,23 +33,23 @@ describe('Feedback', () => {
     setSearchTerm,
   })
 
-  it('should handle taps while the keyboard is open', () => {
-    const scrollView = render(<Feedback {...buildProps(RATING_POSITIVE, 'comment')} />).UNSAFE_getByType(
-      KeyboardAwareScrollView,
-    )
+  it('should handle taps while the keyboard is open', async () => {
+    const { container } = await render(<Feedback {...buildProps(RATING_POSITIVE, 'comment')} />)
+    const scrollViews = container.queryAll(instance => instance.type === 'RCTScrollView')
 
-    expect(scrollView.props.keyboardShouldPersistTaps).toBe('handled')
+    expect(scrollViews).toHaveLength(1)
+    expect(scrollViews[0]!.props.keyboardShouldPersistTaps).toBe('handled')
   })
 
   it('button should be disabled if privacy policy is not accepted', async () => {
-    const { getByText } = render(<Feedback {...buildProps(RATING_POSITIVE, 'comment', 'query')} />)
+    const { getByText } = await render(<Feedback {...buildProps(RATING_POSITIVE, 'comment', 'query')} />)
 
     expect(getByText('common:actions.send')).toBeDisabled()
   })
 
   it('button should be disabled and note should be shown without feedback and no comment', async () => {
-    const { getByText, queryByText } = render(<Feedback {...buildProps(null, '')} />)
-    fireEvent.press(getByText('common:privacy.confirmation'))
+    const { getByText, queryByText } = await render(<Feedback {...buildProps(null, '')} />)
+    await fireEvent.press(getByText('common:privacy.confirmation'))
     expect(getByText('common:actions.send')).toBeDisabled()
     expect(queryByText('feedback:search.searchTermDescription')).toBeFalsy()
     expect(getByText('feedback:title')).toBeTruthy()
@@ -58,61 +57,61 @@ describe('Feedback', () => {
   })
 
   it('button should be enabled for search feedback and no input', async () => {
-    const { getByText, queryByText, getAllByText } = render(<Feedback {...buildProps(null, '', 'query')} />)
-    fireEvent.press(getByText('common:privacy.confirmation'))
+    const { getByText, queryByText, getAllByText } = await render(<Feedback {...buildProps(null, '', 'query')} />)
+    await fireEvent.press(getByText('common:privacy.confirmation'))
     expect(getByText('common:actions.send')).not.toBeDisabled()
     expect(getAllByText('feedback:search.searchTermDescription')[0]).toBeTruthy()
     expect(queryByText('feedback:required')).toBeFalsy()
   })
 
   it('button should be enabled for positive feedback and no input', async () => {
-    const { getByText, queryByText } = render(<Feedback {...buildProps(RATING_POSITIVE, '')} />)
-    fireEvent.press(getByText('common:privacy.confirmation'))
+    const { getByText, queryByText } = await render(<Feedback {...buildProps(RATING_POSITIVE, '')} />)
+    await fireEvent.press(getByText('common:privacy.confirmation'))
     expect(getByText('common:actions.send')).not.toBeDisabled()
     expect(queryByText('feedback:search.searchTermDescription')).toBeFalsy()
     expect(queryByText('feedback:note')).toBeFalsy()
   })
 
   it('button should be enabled for no feedback but comment', async () => {
-    const { getByText, queryByText } = render(<Feedback {...buildProps(null, 'comment')} />)
-    fireEvent.press(getByText('common:privacy.confirmation'))
+    const { getByText, queryByText } = await render(<Feedback {...buildProps(null, 'comment')} />)
+    await fireEvent.press(getByText('common:privacy.confirmation'))
     expect(getByText('common:actions.send')).not.toBeDisabled()
     expect(queryByText('feedback:note')).toBeFalsy()
   })
 
   it('correct text should be displayed for search feedback and input', async () => {
-    const { getAllByText } = render(<Feedback {...buildProps(RATING_NEGATIVE, 'comment', 'query')} />)
+    const { getAllByText } = await render(<Feedback {...buildProps(RATING_NEGATIVE, 'comment', 'query')} />)
     expect(getAllByText('feedback:search.searchTermDescription')[0]).toBeDefined()
   })
 
   it('onSubmit should be called with query on button press for search feedback', async () => {
-    const { getByText } = render(<Feedback {...buildProps(RATING_NEGATIVE, 'My test comment', 'query')} />)
-    fireEvent.press(getByText('common:privacy.confirmation'))
+    const { getByText } = await render(<Feedback {...buildProps(RATING_NEGATIVE, 'My test comment', 'query')} />)
+    await fireEvent.press(getByText('common:privacy.confirmation'))
     const button = getByText('common:actions.send')
-    fireEvent.press(button)
+    await fireEvent.press(button)
     expect(onSubmit).toHaveBeenCalled()
   })
 
   it('should call callback on comment changed', async () => {
-    const { getByDisplayValue, queryByDisplayValue } = render(
+    const { getByDisplayValue, queryByDisplayValue } = await render(
       <Feedback {...buildProps(RATING_NEGATIVE, 'my old comment')} />,
     )
     expect(getByDisplayValue('my old comment')).toBeTruthy()
     expect(queryByDisplayValue('my new comment')).toBeFalsy()
     expect(onCommentChanged).not.toHaveBeenCalled()
-    fireEvent.changeText(getByDisplayValue('my old comment'), 'my new comment')
+    await fireEvent.changeText(getByDisplayValue('my old comment'), 'my new comment')
     expect(onCommentChanged).toHaveBeenCalledTimes(1)
     expect(onCommentChanged).toHaveBeenCalledWith('my new comment')
   })
 
   it('should call callback on contact mail changed', async () => {
-    const { getByDisplayValue, queryByDisplayValue } = render(
+    const { getByDisplayValue, queryByDisplayValue } = await render(
       <Feedback {...buildProps(RATING_NEGATIVE, 'my comment')} />,
     )
     expect(getByDisplayValue('test@example.com')).toBeTruthy()
     expect(queryByDisplayValue('new@example.com')).toBeFalsy()
     expect(onFeedbackContactMailChanged).not.toHaveBeenCalled()
-    fireEvent.changeText(getByDisplayValue('test@example.com'), 'new@example.com')
+    await fireEvent.changeText(getByDisplayValue('test@example.com'), 'new@example.com')
     expect(onFeedbackContactMailChanged).toHaveBeenCalledTimes(1)
     expect(onFeedbackContactMailChanged).toHaveBeenCalledWith('new@example.com')
   })

@@ -1,4 +1,4 @@
-import { fireEvent, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, RenderResult } from '@testing-library/react-native'
 import { DateTime } from 'luxon'
 import React from 'react'
 
@@ -26,7 +26,7 @@ describe('NewsListItem', () => {
   const navigateToNews = jest.fn()
   const regionCode = 'augsburg'
 
-  const renderNewsListItem = (newsItem: NewsModel, visitedNewsIds = {}): RenderAPI =>
+  const renderNewsListItem = (newsItem: NewsModel, visitedNewsIds = {}): Promise<RenderResult> =>
     render(
       <TestingAppContext settings={{ visitedNewsIds }}>
         <NewsListItem newsItem={newsItem} regionCode={regionCode} navigateToNews={navigateToNews} />
@@ -37,13 +37,13 @@ describe('NewsListItem', () => {
     jest.clearAllMocks()
   })
 
-  it('should correctly render', () => {
+  it('should correctly render', async () => {
     const news = buildNews()
-    const { getByText } = renderNewsListItem(news)
+    const { getByText } = await renderNewsListItem(news)
     expect(getByText(news.title)).toBeTruthy()
     expect(getByText(news.content)).toBeTruthy()
     expect(getByText('January 20, 2020')).toBeTruthy()
-    fireEvent.press(getByText(news.title))
+    await fireEvent.press(getByText(news.title))
     expect(navigateToNews).toHaveBeenCalled()
   })
 
@@ -51,8 +51,8 @@ describe('NewsListItem', () => {
     [LOCAL_NEWS_SOURCE, 'news:sources.localShort'],
     [TU_NEWS_SOURCE, 'tuenews'],
     [AMAL_NEWS_SOURCE, 'Amal News'],
-  ] as const)('should render the source chip for %s', (source, label) => {
-    const { getByText } = renderNewsListItem(buildNews(source))
+  ] as const)('should render the source chip for %s', async (source, label) => {
+    const { getByText } = await renderNewsListItem(buildNews(source))
     expect(getByText(label)).toBeTruthy()
   })
 
@@ -60,21 +60,23 @@ describe('NewsListItem', () => {
     const createNews = (publishedDaysAgo: number) =>
       Object.assign(buildNews(), { _publishedAt: DateTime.now().minus({ days: publishedDaysAgo }) })
 
-    it('should show chip for new news which was not visited yet', () => {
-      const { getByText } = renderNewsListItem(createNews(MAX_DAYS_NEW - 1))
+    it('should show chip for new news which was not visited yet', async () => {
+      const { getByText } = await renderNewsListItem(createNews(MAX_DAYS_NEW - 1))
 
       expect(getByText('common:state.new')).toBeTruthy()
     })
 
-    it('should not show chip for new news which was already visited', () => {
+    it('should not show chip for new news which was already visited', async () => {
       const news = createNews(MAX_DAYS_NEW - 1)
-      const { queryByText } = renderNewsListItem(news, { [regionCode]: { [news.id]: DateTime.now().toISODate() } })
+      const { queryByText } = await renderNewsListItem(news, {
+        [regionCode]: { [news.id]: DateTime.now().toISODate() },
+      })
 
       expect(queryByText('common:state.new')).toBeFalsy()
     })
 
-    it('should not show chip for old news', () => {
-      const { queryByText } = renderNewsListItem(createNews(MAX_DAYS_NEW + 1))
+    it('should not show chip for old news', async () => {
+      const { queryByText } = await renderNewsListItem(createNews(MAX_DAYS_NEW + 1))
 
       expect(queryByText('common:state.new')).toBeFalsy()
     })

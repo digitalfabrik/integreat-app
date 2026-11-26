@@ -15,7 +15,7 @@ const transformNodeModules = [
   '@dr.pogodin/react-native-static-server',
   '@gorhom/bottom-sheet',
   '@mhpdev/react-native-speech',
-  'react-native-keyboard-controller',
+  '@formatjs',
   'uuid',
   'qr',
   'sanitize-html',

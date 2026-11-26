@@ -14,6 +14,7 @@ node_require('react-native-permissions/scripts/setup.rb')
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
+use_frameworks! :linkage => :dynamic
 use_modular_headers!
 
 target 'Integreat' do
@@ -25,18 +26,16 @@ target 'Integreat' do
     'Notifications',
   ])
 
-  use_frameworks! :linkage => :static
-
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  # https://github.com/invertase/react-native-firebase/issues/8657#issuecomment-3985785611
+  # https://github.com/birdofpreyru/react-native-static-server/issues/166
   pre_install do |installer|
     installer.pod_targets.each do |pod|
-      if pod.name.start_with?('RNFB')
+      if pod.name == 'ReactNativeStaticServer'
         def pod.build_type
           Pod::BuildType.static_library
         end

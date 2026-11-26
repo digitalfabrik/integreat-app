@@ -1,5 +1,5 @@
 import Speech from '@mhpdev/react-native-speech'
-import { fireEvent, RenderAPI, waitFor } from '@testing-library/react-native'
+import { act, fireEvent, RenderResult, waitFor } from '@testing-library/react-native'
 import React, { useContext } from 'react'
 import { Platform } from 'react-native'
 import { Button } from 'react-native-paper'
@@ -29,7 +29,7 @@ jest.mock('../../hooks/useSnackbar')
 
 const { mocked } = jest
 
-jest.useFakeTimers()
+jest.useFakeTimers({ advanceTimers: true })
 
 describe('TtsContainer', () => {
   Platform.OS = 'android'
@@ -52,7 +52,7 @@ describe('TtsContainer', () => {
     )
   }
 
-  const renderTtsPlayer = (languageCode = 'en'): RenderAPI =>
+  const renderTtsPlayer = (languageCode = 'en'): Promise<RenderResult> =>
     renderWithTheme(
       <TestingAppContext languageCode={languageCode}>
         <TtsContainer>
@@ -66,9 +66,9 @@ describe('TtsContainer', () => {
     jest.clearAllTimers()
   })
 
-  it('should show snackbar if no sentences set', () => {
-    const { getByText, queryByRole } = renderTtsPlayer()
-    fireEvent.press(getByText('show'))
+  it('should show snackbar if no sentences set', async () => {
+    const { getByText, queryByRole } = await renderTtsPlayer()
+    await fireEvent.press(getByText('show'))
     expect(showSnackbar).toHaveBeenCalledTimes(1)
     expect(showSnackbar).toHaveBeenCalledWith({ text: 'tts:error.nothingToRead.description' })
     expect(Speech.configure).not.toHaveBeenCalled()
@@ -76,25 +76,25 @@ describe('TtsContainer', () => {
   })
 
   it('should show tts player if enabled and sentences set', async () => {
-    const { getByText, getByRole } = renderTtsPlayer()
+    const { getByText, getByRole } = await renderTtsPlayer()
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
 
-    fireEvent.press(getByText('set sentences'))
-    fireEvent.press(getByText('show'))
+    await fireEvent.press(getByText('set sentences'))
+    await fireEvent.press(getByText('show'))
     expect(showSnackbar).not.toHaveBeenCalled()
     expect(Speech.configure).toHaveBeenCalledTimes(1)
     await waitFor(() => expect(getByRole('button', { name: 'tts:play' })).toBeTruthy())
   })
 
   it('should set correct language for Deutsch (leicht)', async () => {
-    const { getByText, getByRole } = renderTtsPlayer('de-si')
+    const { getByText, getByRole } = await renderTtsPlayer('de-si')
     // Wait for mocked voices to be loaded so the language-supported check passes
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
-    fireEvent.press(getByText('set sentences'))
-    fireEvent.press(getByText('show'))
+    await fireEvent.press(getByText('set sentences'))
+    await fireEvent.press(getByText('show'))
 
     await waitFor(() => expect(getByRole('button', { name: 'tts:play' })).toBeTruthy())
-    fireEvent.press(getByRole('button', { name: 'tts:play' }))
+    await fireEvent.press(getByRole('button', { name: 'tts:play' }))
     await waitFor(() => expect(getByRole('button', { name: 'tts:pause' })).toBeTruthy())
 
     expect(Speech.speak).toHaveBeenCalledTimes(1)
@@ -102,77 +102,77 @@ describe('TtsContainer', () => {
   })
 
   it('should start playing and pause when the button is pressed', async () => {
-    const { getByText, getByRole } = renderTtsPlayer()
+    const { getByText, getByRole } = await renderTtsPlayer()
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
 
-    fireEvent.press(getByText('set sentences'))
-    fireEvent.press(getByText('show'))
+    await fireEvent.press(getByText('set sentences'))
+    await fireEvent.press(getByText('show'))
 
     await waitFor(() => expect(getByRole('button', { name: 'tts:play' })).toBeTruthy())
 
-    fireEvent.press(getByRole('button', { name: 'tts:play' }))
+    await fireEvent.press(getByRole('button', { name: 'tts:play' }))
     await waitFor(() => expect(getByRole('button', { name: 'tts:pause' })).toBeTruthy())
     expect(Speech.speak).toHaveBeenCalledTimes(1)
     expect(Speech.speak).toHaveBeenCalledWith(sentences[0], expect.objectContaining({ language: 'en' }))
     expect(Speech.stop).toHaveBeenCalled()
 
-    fireEvent.press(getByRole('button', { name: 'tts:pause' }))
+    await fireEvent.press(getByRole('button', { name: 'tts:pause' }))
     await waitFor(() => expect(getByRole('button', { name: 'tts:play' })).toBeTruthy())
     expect(Speech.pause).toHaveBeenCalled()
   })
 
   it('should close the player', async () => {
-    const { getByText, queryByText, getByRole, queryByRole, getByLabelText } = renderTtsPlayer()
+    const { getByText, queryByText, getByRole, queryByRole, getByLabelText } = await renderTtsPlayer()
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
 
-    fireEvent.press(getByText('set sentences'))
-    fireEvent.press(getByText('show'))
+    await fireEvent.press(getByText('set sentences'))
+    await fireEvent.press(getByText('show'))
 
     await waitFor(() => expect(getByRole('button', { name: 'tts:play' })).toBeTruthy())
 
-    fireEvent.press(getByRole('button', { name: 'tts:play' }))
+    await fireEvent.press(getByRole('button', { name: 'tts:play' }))
     await waitFor(() => expect(getByRole('button', { name: 'tts:pause' })).toBeTruthy())
 
     expect(getByText('visible')).toBeTruthy()
-    fireEvent.press(getByLabelText('common:actions.close'))
+    await fireEvent.press(getByLabelText('common:actions.close'))
     expect(queryByRole('button', { name: 'tts:play' })).toBeFalsy()
     expect(Speech.stop).toHaveBeenCalled()
     expect(queryByText('visible')).toBeFalsy()
   })
 
   it('should play previous and next sentences', async () => {
-    const { getByText, getByRole } = renderTtsPlayer()
+    const { getByText, getByRole } = await renderTtsPlayer()
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
 
-    fireEvent.press(getByText('set sentences'))
-    fireEvent.press(getByText('show'))
+    await fireEvent.press(getByText('set sentences'))
+    await fireEvent.press(getByText('show'))
 
     await waitFor(() => expect(getByRole('button', { name: 'tts:play' })).toBeTruthy())
 
-    fireEvent.press(getByRole('button', { name: 'tts:play' }))
+    await fireEvent.press(getByRole('button', { name: 'tts:play' }))
     await waitFor(() => expect(getByRole('button', { name: 'tts:pause' })).toBeTruthy())
 
-    fireEvent.press(getByRole('button', { name: 'common:actions.previous' }))
+    await act(() => fireEvent.press(getByRole('button', { name: 'common:actions.previous' })))
     await waitFor(() => expect(Speech.speak).toHaveBeenCalledTimes(2))
     expect(Speech.speak).toHaveBeenLastCalledWith(sentences[0], expect.objectContaining({ language: 'en' }))
 
-    fireEvent.press(getByRole('button', { name: 'common:actions.next' }))
+    await act(() => fireEvent.press(getByRole('button', { name: 'common:actions.next' })))
     await waitFor(() => expect(Speech.speak).toHaveBeenCalledTimes(3))
     expect(Speech.speak).toHaveBeenLastCalledWith(sentences[1], expect.objectContaining({ language: 'en' }))
 
-    fireEvent.press(getByRole('button', { name: 'common:actions.next' }))
+    await act(() => fireEvent.press(getByRole('button', { name: 'common:actions.next' })))
     await waitFor(() => expect(Speech.speak).toHaveBeenCalledTimes(4))
     expect(Speech.speak).toHaveBeenCalledWith(sentences[2], expect.objectContaining({ language: 'en' }))
 
-    fireEvent.press(getByRole('button', { name: 'common:actions.previous' }))
+    await act(() => fireEvent.press(getByRole('button', { name: 'common:actions.previous' })))
     await waitFor(() => expect(Speech.speak).toHaveBeenCalledTimes(5))
     expect(Speech.speak).toHaveBeenCalledWith(sentences[1], expect.objectContaining({ language: 'en' }))
 
-    fireEvent.press(getByRole('button', { name: 'tts:pause' }))
+    await fireEvent.press(getByRole('button', { name: 'tts:pause' }))
     await waitFor(() => expect(getByRole('button', { name: 'tts:play' })).toBeTruthy())
     expect(Speech.pause).toHaveBeenCalled()
 
-    fireEvent.press(getByRole('button', { name: 'tts:play' }))
+    await fireEvent.press(getByRole('button', { name: 'tts:play' }))
     await waitFor(() => expect(getByRole('button', { name: 'tts:pause' })).toBeTruthy())
     expect(Speech.speak).toHaveBeenCalledTimes(5)
     expect(Speech.resume).toHaveBeenCalled()
@@ -180,11 +180,11 @@ describe('TtsContainer', () => {
 
   it('should call Tts.setIgnoreSilentSwitch when on iOS', async () => {
     Platform.OS = 'ios'
-    const { getByText, getByRole } = renderTtsPlayer()
+    const { getByText, getByRole } = await renderTtsPlayer()
     await waitFor(() => expect(Speech.getAvailableVoices).toHaveBeenCalled())
 
-    fireEvent.press(getByText('set sentences'))
-    fireEvent.press(getByText('show'))
+    await fireEvent.press(getByText('set sentences'))
+    await fireEvent.press(getByText('show'))
 
     expect(getByRole('button', { name: 'tts:play' })).toBeTruthy()
     expect(Speech.configure).toHaveBeenCalledWith(

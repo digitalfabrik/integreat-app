@@ -39,7 +39,7 @@ describe('EmbeddedOffers', () => {
   const renderEmbeddedOffers = (category: CategoryModel) =>
     render(<EmbeddedOffers category={category} regionCode='augsburg' languageCode='de' goBack={() => undefined} />)
 
-  it('should render a Sprungbrett offer correctly', () => {
+  it('should render a Sprungbrett offer correctly', async () => {
     const offer = new OfferModel({
       alias: SPRUNGBRETT_OFFER_ALIAS,
       path: '/augsburg/de/title',
@@ -47,13 +47,13 @@ describe('EmbeddedOffers', () => {
       title: 'Offer 1',
     })
     const category = createCategory(offer)
-    const { queryByText } = renderEmbeddedOffers(category)
+    const { queryByText } = await renderEmbeddedOffers(category)
 
     expect(queryByText('This is the Sprungbrett offer called Offer 1')).toBeTruthy()
     expect(queryByText('This is the Malte help form called Offer 1')).toBeNull()
   })
 
-  it('should render a Malte help form correctly', () => {
+  it('should render a Malte help form correctly', async () => {
     const offer = new OfferModel({
       alias: MALTE_HELP_FORM_OFFER_ALIAS,
       path: '/augsburg/de/title',
@@ -61,7 +61,7 @@ describe('EmbeddedOffers', () => {
       title: 'Offer 2',
     })
     const category = createCategory(offer)
-    const { queryByText } = renderEmbeddedOffers(category)
+    const { queryByText } = await renderEmbeddedOffers(category)
 
     expect(queryByText('This is the Malte help form called Offer 2')).toBeTruthy()
     expect(queryByText('This is the Sprungbrett offer called Offer 2')).toBeNull()

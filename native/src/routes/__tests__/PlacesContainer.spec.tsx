@@ -99,26 +99,26 @@ describe('PlacesContainer', () => {
       false,
     )
 
-  it('should render place list when data is available', () => {
-    const { getByText } = renderContainer()
+  it('should render place list when data is available', async () => {
+    const { getByText } = await renderContainer()
     expect(getByText('slug:none')).toBeTruthy()
   })
 
-  it('should not render place list while loading', () => {
+  it('should not render place list while loading', async () => {
     mocked(useLoadRegionContent).mockReturnValue({ data: null, loading: true, error: null, refresh: jest.fn() })
 
-    const { queryByText } = renderContainer()
+    const { queryByText } = await renderContainer()
     expect(queryByText(/slug:/)).toBeFalsy()
   })
 
-  it('should initialize local history with slug from route params', () => {
-    const { getByText } = renderContainer({ slug: 'test' })
+  it('should initialize local history with slug from route params', async () => {
+    const { getByText } = await renderContainer({ slug: 'test' })
     expect(getByText('slug:test')).toBeTruthy()
   })
 
   it('should reset local history to place list when focused tab is pressed', async () => {
     mocked(navigation.isFocused).mockReturnValue(true)
-    const { getByText } = renderContainer({ slug: 'test' })
+    const { getByText } = await renderContainer({ slug: 'test' })
 
     expect(getByText('slug:test')).toBeTruthy()
 
@@ -129,7 +129,7 @@ describe('PlacesContainer', () => {
 
   it('should not reset local history when unfocused tab is pressed', async () => {
     mocked(navigation.isFocused).mockReturnValue(false)
-    const { getByText } = renderContainer({ slug: 'test' })
+    const { getByText } = await renderContainer({ slug: 'test' })
 
     expect(getByText('slug:test')).toBeTruthy()
 
@@ -139,11 +139,11 @@ describe('PlacesContainer', () => {
   })
 
   it('should pop local history without calling navigation.goBack when viewing a place', async () => {
-    const { getByText } = renderContainer()
+    const { getByText } = await renderContainer()
 
     expect(getByText('slug:none')).toBeTruthy()
 
-    fireEvent.press(getByText('select-place'))
+    await fireEvent.press(getByText('select-place'))
 
     expect(getByText('slug:selected-place')).toBeTruthy()
 
@@ -153,22 +153,22 @@ describe('PlacesContainer', () => {
     expect(navigation.goBack).not.toHaveBeenCalled()
   })
 
-  it('should call navigation.goBack when at the place list root', () => {
-    renderContainer()
+  it('should call navigation.goBack when at the place list root', async () => {
+    await renderContainer()
 
     goBackListener?.()
 
     expect(navigation.goBack).toHaveBeenCalledTimes(1)
   })
 
-  it('should keep the selected place when the route params are recreated with a new title', () => {
-    const { getByText, rerender } = renderContainer()
+  it('should keep the selected place when the route params are recreated with a new title', async () => {
+    const { getByText, rerender } = await renderContainer()
 
-    fireEvent.press(getByText('select-place'))
+    await fireEvent.press(getByText('select-place'))
     expect(getByText('slug:selected-place')).toBeTruthy()
 
     // useSetRouteTitle calls navigation.setParams, which makes react-navigation pass a new params object
-    rerender(
+    await rerender(
       <TestingAppContext>
         <PlacesContainer route={createRoute({ title: 'Place title' })} navigation={navigation} />
       </TestingAppContext>,
@@ -177,13 +177,13 @@ describe('PlacesContainer', () => {
     expect(getByText('slug:selected-place')).toBeTruthy()
   })
 
-  it('should reset the local history when the route params change', () => {
-    const { getByText, rerender } = renderContainer({ title: 'Place list title' })
+  it('should reset the local history when the route params change', async () => {
+    const { getByText, rerender } = await renderContainer({ title: 'Place list title' })
 
-    fireEvent.press(getByText('select-place'))
+    await fireEvent.press(getByText('select-place'))
     expect(getByText('slug:selected-place')).toBeTruthy()
 
-    rerender(
+    await rerender(
       <TestingAppContext>
         <PlacesContainer route={createRoute({ slug: 'linked-place' })} navigation={navigation} />
       </TestingAppContext>,
@@ -192,7 +192,7 @@ describe('PlacesContainer', () => {
     expect(getByText('slug:linked-place')).toBeTruthy()
   })
 
-  it('should update slug in local history when language changes', () => {
+  it('should update slug in local history when language changes', async () => {
     // The content of the new language is not loaded yet
     mocked(useLoadRegionContent).mockImplementation(
       params =>
@@ -201,7 +201,7 @@ describe('PlacesContainer', () => {
           : { data: null, loading: true, error: null, refresh: jest.fn() }) as never,
     )
     const fixedRoute = createRoute({ slug: 'test' })
-    const { getByText, rerender } = renderWithTheme(
+    const { getByText, rerender } = await renderWithTheme(
       <TestingAppContext languageCode='de'>
         <PlacesContainer route={fixedRoute} navigation={navigation} />
       </TestingAppContext>,
@@ -210,7 +210,7 @@ describe('PlacesContainer', () => {
 
     expect(getByText('slug:test')).toBeTruthy()
 
-    rerender(
+    await rerender(
       <TestingAppContext languageCode='en'>
         <PlacesContainer route={fixedRoute} navigation={navigation} />
       </TestingAppContext>,
@@ -218,7 +218,7 @@ describe('PlacesContainer', () => {
 
     // The content of the new language finished loading
     mocked(useLoadRegionContent).mockReturnValue({ data, loading: false, error: null, refresh: jest.fn() } as never)
-    rerender(
+    await rerender(
       <TestingAppContext languageCode='en'>
         <PlacesContainer route={fixedRoute} navigation={navigation} />
       </TestingAppContext>,

@@ -72,8 +72,8 @@ describe('useNavigate', () => {
     jest.clearAllMocks()
   })
 
-  it('should navigate to regions', () => {
-    renderMockComponent({
+  it('should navigate to regions', async () => {
+    await renderMockComponent({
       route: REGIONS_ROUTE,
       languageCode,
     })
@@ -81,8 +81,8 @@ describe('useNavigate', () => {
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to regions', () => {
-    renderMockComponent(
+  it('should navigate to regions', async () => {
+    await renderMockComponent(
       {
         route: REGIONS_ROUTE,
         languageCode,
@@ -94,37 +94,37 @@ describe('useNavigate', () => {
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should open route externally if region does not match the app settings', () => {
+  it('should open route externally if region does not match the app settings', async () => {
     const regionContentPath = `/peekingRegion/${languageCode}/willkommen`
-    renderMockComponent({
+    await renderMockComponent({
       route: CATEGORIES_ROUTE,
       regionContentPath,
       regionCode: 'peekingRegion',
       languageCode,
     })
-    act(() => jest.runAllTimers())
+    await act(() => jest.runAllTimers())
     expect(navigation.push).not.toHaveBeenCalled()
     expect(openExternalUrlMock).toHaveBeenCalledTimes(1)
     expect(openExternalUrlMock).toHaveBeenCalledWith('https://example.com')
   })
 
-  it('should open route externally if language does not match the app settings', () => {
+  it('should open route externally if language does not match the app settings', async () => {
     const regionContentPath = `/${regionCode}/asdf/willkommen`
-    renderMockComponent({
+    await renderMockComponent({
       route: CATEGORIES_ROUTE,
       regionContentPath,
       regionCode: 'asdf',
       languageCode,
     })
-    act(() => jest.runAllTimers())
+    await act(() => jest.runAllTimers())
     expect(navigation.push).not.toHaveBeenCalled()
     expect(openExternalUrlMock).toHaveBeenCalledTimes(1)
     expect(openExternalUrlMock).toHaveBeenCalledWith('https://example.com')
   })
 
-  it('should pop redirect route when opening a route externally', () => {
+  it('should pop redirect route when opening a route externally', async () => {
     const regionContentPath = `/${regionCode}/asdf/willkommen`
-    renderMockComponent(
+    await renderMockComponent(
       {
         route: CATEGORIES_ROUTE,
         regionContentPath,
@@ -133,15 +133,15 @@ describe('useNavigate', () => {
       },
       true,
     )
-    act(() => jest.runAllTimers())
+    await act(() => jest.runAllTimers())
     expect(navigation.push).not.toHaveBeenCalled()
     expect(openExternalUrlMock).toHaveBeenCalledTimes(1)
     expect(openExternalUrlMock).toHaveBeenCalledWith('https://example.com')
     expect(navigation.pop).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to categories route', () => {
-    renderMockComponent({
+  it('should navigate to categories route', async () => {
+    await renderMockComponent({
       route: CATEGORIES_ROUTE,
       regionContentPath,
       ...params,
@@ -151,8 +151,8 @@ describe('useNavigate', () => {
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
-  it('should redirect to categories route', () => {
-    renderMockComponent(
+  it('should redirect to categories route', async () => {
+    await renderMockComponent(
       {
         route: CATEGORIES_ROUTE,
         regionContentPath,
@@ -165,15 +165,15 @@ describe('useNavigate', () => {
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
-  it('should open chat on top of the linked page if chat is set', () => {
-    renderMockComponent({ route: EVENTS_ROUTE, ...params, chat: true }, true)
+  it('should open chat on top of the linked page if chat is set', async () => {
+    await renderMockComponent({ route: EVENTS_ROUTE, ...params, chat: true }, true)
     expect(navigateNested).toHaveBeenCalledWith(navigation, EVENTS_ROUTE, { slug: undefined }, true)
     expect(navigation.navigate).toHaveBeenCalledWith(CHAT_ROUTE)
     expect(navigation.navigate).toHaveBeenCalledTimes(1)
   })
 
-  it('should not navigate to chat if chat is not set', () => {
-    renderMockComponent({
+  it('should not navigate to chat if chat is not set', async () => {
+    await renderMockComponent({
       route: CATEGORIES_ROUTE,
       regionContentPath,
       ...params,
@@ -181,8 +181,8 @@ describe('useNavigate', () => {
     expect(navigation.navigate).not.toHaveBeenCalled()
   })
 
-  it('should navigate to imprint route', () => {
-    renderMockComponent({
+  it('should navigate to imprint route', async () => {
+    await renderMockComponent({
       route: IMPRINT_ROUTE,
       ...params,
     })
@@ -190,15 +190,15 @@ describe('useNavigate', () => {
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to events route', () => {
-    renderMockComponent({
+  it('should navigate to events route', async () => {
+    await renderMockComponent({
       route: EVENTS_ROUTE,
       ...params,
       slug: '1234',
     })
     expect(navigation.push).not.toHaveBeenCalled()
     expect(navigateNested).toHaveBeenCalledWith(navigation, EVENTS_ROUTE, { slug: '1234' }, false)
-    renderMockComponent({
+    await renderMockComponent({
       route: EVENTS_ROUTE,
       ...params,
     })
@@ -206,22 +206,22 @@ describe('useNavigate', () => {
     expect(navigateNested).toHaveBeenCalledTimes(2)
   })
 
-  it('should navigate to news route', () => {
-    renderMockComponent({ route: NEWS_ROUTE, ...params, id: 'local-1234' })
+  it('should navigate to news route', async () => {
+    await renderMockComponent({ route: NEWS_ROUTE, ...params, id: 'local-1234' })
     expect(navigation.push).not.toHaveBeenCalled()
     expect(navigateNested).toHaveBeenCalledWith(navigation, NEWS_ROUTE, { id: 'local-1234' }, false)
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to places route', () => {
-    renderMockComponent({
+  it('should navigate to places route', async () => {
+    await renderMockComponent({
       route: PLACES_ROUTE,
       ...params,
       slug: '1234',
     })
     expect(navigation.push).not.toHaveBeenCalled()
     expect(navigateNested).toHaveBeenCalledWith(navigation, PLACES_ROUTE, { slug: '1234' }, false)
-    renderMockComponent({
+    await renderMockComponent({
       route: PLACES_ROUTE,
       ...params,
     })
@@ -229,8 +229,8 @@ describe('useNavigate', () => {
     expect(navigateNested).toHaveBeenCalledTimes(2)
   })
 
-  it('should navigate to search', () => {
-    renderMockComponent({
+  it('should navigate to search', async () => {
+    await renderMockComponent({
       route: SEARCH_ROUTE,
       ...params,
     })
@@ -238,8 +238,8 @@ describe('useNavigate', () => {
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
-  it('should navigate to search with searchText', () => {
-    renderMockComponent({
+  it('should navigate to search with searchText', async () => {
+    await renderMockComponent({
       route: SEARCH_ROUTE,
       ...params,
       searchText: 'hello',
@@ -248,20 +248,20 @@ describe('useNavigate', () => {
     expect(navigation.push).toHaveBeenCalledTimes(1)
   })
 
-  it('should replace when redirecting to search', () => {
-    renderMockComponent({ route: SEARCH_ROUTE, ...params, searchText: 'test' }, true)
+  it('should replace when redirecting to search', async () => {
+    await renderMockComponent({ route: SEARCH_ROUTE, ...params, searchText: 'test' }, true)
     expect(navigation.replace).toHaveBeenCalledWith(SEARCH_ROUTE, { searchText: 'test' })
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should replace when redirecting to imprint', () => {
-    renderMockComponent({ route: IMPRINT_ROUTE, ...params }, true)
+  it('should replace when redirecting to imprint', async () => {
+    await renderMockComponent({ route: IMPRINT_ROUTE, ...params }, true)
     expect(navigation.replace).toHaveBeenCalledWith(IMPRINT_ROUTE)
     expect(navigation.push).not.toHaveBeenCalled()
   })
 
-  it('should navigate to places route with all optional params', () => {
-    renderMockComponent({
+  it('should navigate to places route with all optional params', async () => {
+    await renderMockComponent({
       route: PLACES_ROUTE,
       ...params,
       slug: 'some-place',
@@ -283,16 +283,16 @@ describe('useNavigate', () => {
     expect(navigateNested).toHaveBeenCalledTimes(1)
   })
 
-  it('should pass null for newsId when not provided', () => {
-    renderMockComponent({ route: NEWS_ROUTE, ...params })
+  it('should pass null for newsId when not provided', async () => {
+    await renderMockComponent({ route: NEWS_ROUTE, ...params })
     expect(navigateNested).toHaveBeenCalledWith(navigation, NEWS_ROUTE, { id: null }, false)
   })
 
-  it('should replace with bottom tab route when redirect=true but cannot go back for external url', () => {
+  it('should replace with bottom tab route when redirect=true but cannot go back for external url', async () => {
     const navigationCannotGoBack = { ...createNavigationPropMock(), canGoBack: () => false }
     mocked(useNavigation).mockImplementationOnce(() => navigationCannotGoBack as never)
 
-    renderMockComponent(
+    await renderMockComponent(
       {
         route: CATEGORIES_ROUTE,
         regionContentPath: '/peekingRegion/ro/willkommen',
@@ -301,7 +301,7 @@ describe('useNavigate', () => {
       },
       true,
     )
-    act(() => jest.runAllTimers())
+    await act(() => jest.runAllTimers())
     expect(navigationCannotGoBack.pop).not.toHaveBeenCalled()
     expect(navigationCannotGoBack.replace).toHaveBeenCalledWith(BOTTOM_TAB_ROUTE, {
       screen: CATEGORIES_TAB_ROUTE,
@@ -310,8 +310,8 @@ describe('useNavigate', () => {
     expect(openExternalUrlMock).toHaveBeenCalledTimes(1)
   })
 
-  it('should do nothing when routeInformation is null', () => {
-    renderMockComponent(null as unknown as RouteInformationType)
+  it('should do nothing when routeInformation is null', async () => {
+    await renderMockComponent(null as unknown as RouteInformationType)
     expect(navigation.push).not.toHaveBeenCalled()
     expect(navigation.replace).not.toHaveBeenCalled()
     expect(navigateNested).not.toHaveBeenCalled()

@@ -25,18 +25,18 @@ describe('SnackbarContainer', () => {
     </SnackbarContainer>
   )
 
-  it('should show first snackbar when multiple are enqueued', () => {
+  it('should show first snackbar when multiple are enqueued', async () => {
     const snackbarText1 = 'snackbarText1'
     const snackbarText2 = 'snackbarText2'
-    const { update, queryByText } = renderWithTheme(<MockComponentWithSnackbar />, false)
+    const { rerender, queryByText } = await renderWithTheme(<MockComponentWithSnackbar />, false)
     expect(queryByText(snackbarText1)).toBeFalsy()
     expect(queryByText(snackbarText2)).toBeFalsy()
 
-    act(() => {
+    await act(() => {
       enqueueSnackbar({ text: snackbarText1 })
       enqueueSnackbar({ text: snackbarText2 })
     })
-    update(<MockComponentWithSnackbar />)
+    await rerender(<MockComponentWithSnackbar />)
 
     // First snackbar should be visible, second should be queued
     expect(queryByText(snackbarText1)).toBeTruthy()
@@ -46,20 +46,20 @@ describe('SnackbarContainer', () => {
   it('should show next snackbar after first one is dismissed', async () => {
     const snackbarText1 = 'snackbarText1'
     const snackbarText2 = 'snackbarText2'
-    const { update, queryByText } = renderWithTheme(<MockComponentWithSnackbar />, false)
+    const { rerender, queryByText } = await renderWithTheme(<MockComponentWithSnackbar />, false)
 
-    act(() => {
+    await act(() => {
       enqueueSnackbar({ text: snackbarText1, duration: 100 })
       enqueueSnackbar({ text: snackbarText2, duration: 100 })
     })
-    update(<MockComponentWithSnackbar />)
+    await rerender(<MockComponentWithSnackbar />)
 
     expect(queryByText(snackbarText1)).toBeTruthy()
 
     // Wait for first snackbar to dismiss and second to appear
     await waitFor(
-      () => {
-        update(<MockComponentWithSnackbar />)
+      async () => {
+        await rerender(<MockComponentWithSnackbar />)
         expect(queryByText(snackbarText2)).toBeTruthy()
       },
       { timeout: 500 },

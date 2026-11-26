@@ -28,7 +28,7 @@ describe('RedirectContainer', () => {
   })
 
   it('should call navigate to deep link on mount', async () => {
-    render(<RedirectContainer route={route} />)
+    await render(<RedirectContainer route={route} />)
     await waitFor(() => {
       expect(navigateToDeepLink).toHaveBeenCalledTimes(1)
       expect(navigateToDeepLink).toHaveBeenCalledWith(url)

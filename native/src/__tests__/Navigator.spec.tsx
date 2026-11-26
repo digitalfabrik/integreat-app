@@ -154,7 +154,7 @@ describe('Navigator', () => {
   })
 
   it('should start with categories as the initial tab', async () => {
-    const { findByText } = renderNavigator({ regionCode: 'augsburg', introShown: true })
+    const { findByText } = await renderNavigator({ regionCode: 'augsburg', introShown: true })
 
     // default tab of the bottom tab navigator - shows Categories screen
     await findByText('Categories')
@@ -166,20 +166,20 @@ describe('Navigator', () => {
   })
 
   it('should allow switching between all bottom tabs', async () => {
-    const { findByText, getByText } = renderNavigator({ regionCode: 'augsburg', introShown: true })
+    const { findByText, getByText } = await renderNavigator({ regionCode: 'augsburg', introShown: true })
 
-    fireEvent.press(getByText('events:title'))
+    await fireEvent.press(getByText('events:title'))
     await findByText('Events')
 
-    fireEvent.press(getByText('categories:titleShort'))
+    await fireEvent.press(getByText('categories:titleShort'))
     await findByText('Categories')
 
-    fireEvent.press(getByText('news:title'))
+    await fireEvent.press(getByText('news:title'))
     await findByText('News')
   })
 
   it('should display regions if the selected region is not available anymore', async () => {
-    const { findByText } = renderNavigator({ regionCode: 'disabledRegion', introShown: true })
+    const { findByText } = await renderNavigator({ regionCode: 'disabledRegion', introShown: true })
     await findByText('Regions')
     expect(changeRegionCode).toHaveBeenCalledTimes(1)
     expect(changeRegionCode).toHaveBeenCalledWith(null)
@@ -188,12 +188,12 @@ describe('Navigator', () => {
   })
 
   it('should display Regions if no region is selected in settings and intro was shown', async () => {
-    const { findByText } = renderNavigator({ introShown: true })
+    const { findByText } = await renderNavigator({ introShown: true })
     await findByText('Regions')
   })
 
   it('should display Intro if intro was not shown yet', async () => {
-    const { findByText } = renderNavigator({ introShown: false })
+    const { findByText } = await renderNavigator({ introShown: false })
     await findByText('Intro')
   })
 })

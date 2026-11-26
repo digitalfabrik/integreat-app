@@ -10,12 +10,12 @@ describe('SelectorItem', () => {
     jest.clearAllMocks()
   })
 
-  it('should call onPress if enabled', () => {
+  it('should call onPress if enabled', async () => {
     const onPress = jest.fn()
     const model = new SelectorItemModel({ name: 'Espanol', code: 'es', enabled: true, onPress })
-    const { getByText } = render(<SelectorItem model={model} selected={false} />)
+    const { getByText } = await render(<SelectorItem model={model} selected={false} />)
 
-    fireEvent.press(getByText(model.name))
+    await fireEvent.press(getByText(model.name))
 
     expect(onPress).toHaveBeenCalledTimes(1)
   })

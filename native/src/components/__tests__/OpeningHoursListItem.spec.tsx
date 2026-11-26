@@ -45,33 +45,33 @@ describe('OpeningEntry', () => {
         openingHours={new OpeningHoursModel({ openAllDay, closedAllDay, timeSlots, appointmentOnly })}
       />,
     )
-  it('should display the timeslots of a weekday', () => {
-    const { getByText, queryByText } = renderOpeningEntries(false, false, false, false)
+  it('should display the timeslots of a weekday', async () => {
+    const { getByText, queryByText } = await renderOpeningEntries(false, false, false, false)
     expect(getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeTruthy()
     expect(getByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeTruthy()
     expect(queryByText('places:hours.allDay')).toBeFalsy()
     expect(queryByText('places:hours.closed')).toBeFalsy()
   })
 
-  it('should display all day opened for the weekday if allDay flag is true', () => {
-    const { getByText, queryByText } = renderOpeningEntries(true, false, false, false)
+  it('should display all day opened for the weekday if allDay flag is true', async () => {
+    const { getByText, queryByText } = await renderOpeningEntries(true, false, false, false)
     expect(getByText('places:hours.allDay')).toBeTruthy()
     expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
     expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
     expect(queryByText('places:hours.closed')).toBeFalsy()
   })
 
-  it('should display closed for the weekday if closed flag is true', () => {
-    const { getByText, queryByText } = renderOpeningEntries(false, true, false, false)
+  it('should display closed for the weekday if closed flag is true', async () => {
+    const { getByText, queryByText } = await renderOpeningEntries(false, true, false, false)
     expect(getByText('places:hours.closed')).toBeTruthy()
     expect(queryByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)).toBeFalsy()
     expect(queryByText(`${timeSlots[1]!.start}-${timeSlots[1]!.end}`)).toBeFalsy()
     expect(queryByText('places:hours.allDay')).toBeFalsy()
   })
 
-  it('should highlight the timeslot of the current weekday bold', () => {
+  it('should highlight the timeslot of the current weekday bold', async () => {
     const expectedStyle = { fontFamily: 'Raleway-Bold' }
-    const { getByText } = renderOpeningEntries(false, false, true, false)
+    const { getByText } = await renderOpeningEntries(false, false, true, false)
     const timeSlotLabel = getByText(currentWeekday)
     const timeSlot = getByText(`${timeSlots[0]!.start}-${timeSlots[0]!.end}`)
     expect(timeSlotLabel).toBeTruthy()
@@ -82,7 +82,7 @@ describe('OpeningEntry', () => {
 
   it('should show that the location is only open with an appointment and toggle the overlay', async () => {
     const user = userEvent.setup()
-    const { getByLabelText, getByText, queryByText } = renderOpeningEntries(false, false, false, true)
+    const { getByLabelText, getByText, queryByText } = await renderOpeningEntries(false, false, false, true)
     const appointmentOnlyIcon = getByLabelText('places:hours.appointment.required')
     expect(appointmentOnlyIcon).toBeDefined()
     expect(queryByText('places:hours.appointment.make.description')).toBeNull()

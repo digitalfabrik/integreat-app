@@ -8,8 +8,8 @@ import ChatHighlightPopup from '../ChatHighlightPopup'
 describe('ChatHighlightPopup', () => {
   const chatName = 'Frag Integreat'
 
-  it('should render popup when not previously dismissed', () => {
-    const { getByText } = render(
+  it('should render popup when not previously dismissed', async () => {
+    const { getByText } = await render(
       <TestingAppContext>
         <ChatHighlightPopup chatName={chatName} />
       </TestingAppContext>,
@@ -19,8 +19,8 @@ describe('ChatHighlightPopup', () => {
     expect(getByText('chat:highlight.description Frag Integreat')).toBeTruthy()
   })
 
-  it('should not render popup when previously dismissed', () => {
-    const { queryByText } = render(
+  it('should not render popup when previously dismissed', async () => {
+    const { queryByText } = await render(
       <TestingAppContext settings={{ chatHighlightPopupDismissed: true }}>
         <ChatHighlightPopup chatName={chatName} />
       </TestingAppContext>,
@@ -30,15 +30,15 @@ describe('ChatHighlightPopup', () => {
     expect(queryByText('chat:highlight.description Frag Integreat')).toBeFalsy()
   })
 
-  it('should persist dismissal when close button is pressed', () => {
+  it('should persist dismissal when close button is pressed', async () => {
     const updateSettings = jest.fn()
-    const { getByLabelText } = render(
+    const { getByLabelText } = await render(
       <TestingAppContext updateSettings={updateSettings}>
         <ChatHighlightPopup chatName={chatName} />
       </TestingAppContext>,
     )
 
-    fireEvent.press(getByLabelText('common:actions.close'))
+    await fireEvent.press(getByLabelText('common:actions.close'))
 
     expect(updateSettings).toHaveBeenCalledWith({ chatHighlightPopupDismissed: true })
   })

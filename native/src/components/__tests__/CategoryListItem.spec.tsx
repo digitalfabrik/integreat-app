@@ -21,8 +21,8 @@ describe('CategoryListItem', () => {
     jest.clearAllMocks()
   })
 
-  it('should render category and subcategories', () => {
-    const { getByText } = render(
+  it('should render category and subcategories', async () => {
+    const { getByText } = await render(
       <CategoryListItem
         category={category}
         subCategories={subCategories}

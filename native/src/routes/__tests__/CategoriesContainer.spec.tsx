@@ -103,18 +103,18 @@ describe('CategoriesContainer', () => {
     })
   })
 
-  it('should render root category when no path is provided', () => {
-    const { getByText } = renderContainer()
+  it('should render root category when no path is provided', async () => {
+    const { getByText } = await renderContainer()
     expect(getByText(`category:/${regionCode}/${languageCode}`)).toBeTruthy()
   })
 
-  it('should render category matched by path', () => {
+  it('should render category matched by path', async () => {
     const child = categories.toArray().find(it => !it.isRoot())!
-    const { getByText } = renderContainer({ path: child.path })
+    const { getByText } = await renderContainer({ path: child.path })
     expect(getByText(`category:${child.path}`)).toBeTruthy()
   })
 
-  it('should render category matched by slugHistory when path does not match directly', () => {
+  it('should render category matched by slugHistory when path does not match directly', async () => {
     const previousSlug = 'legacy-slug'
     const renamedCategory = buildCategoryWithSlugHistory([previousSlug])
     const categoriesWithSlugHistory = new CategoriesMapModel([categories.toArray()[0]!, renamedCategory])
@@ -125,13 +125,13 @@ describe('CategoriesContainer', () => {
       refresh: jest.fn(),
     })
 
-    const { getByText } = renderContainer({ path: `/${regionCode}/${languageCode}/${previousSlug}` })
+    const { getByText } = await renderContainer({ path: `/${regionCode}/${languageCode}/${previousSlug}` })
 
     expect(getByText(`category:${renamedCategory.path}`)).toBeTruthy()
   })
 
-  it('should show PageNotFound error when no category is found for the path', () => {
-    const { getByText, queryByText } = renderContainer({
+  it('should show PageNotFound error when no category is found for the path', async () => {
+    const { getByText, queryByText } = await renderContainer({
       path: `/${regionCode}/${languageCode}/does-not-exist`,
     })
 
@@ -139,7 +139,7 @@ describe('CategoriesContainer', () => {
     expect(getByText('error:pageNotFound')).toBeTruthy()
   })
 
-  it('should pass the resolved category path as regionContentPath to the share url', () => {
+  it('should pass the resolved category path as regionContentPath to the share url', async () => {
     const previousSlug = 'legacy-slug'
     const renamedCategory = buildCategoryWithSlugHistory([previousSlug])
     const categoriesWithSlugHistory = new CategoriesMapModel([categories.toArray()[0]!, renamedCategory])
@@ -150,7 +150,7 @@ describe('CategoriesContainer', () => {
       refresh: jest.fn(),
     })
 
-    renderContainer({ path: `/${regionCode}/${languageCode}/${previousSlug}` })
+    await renderContainer({ path: `/${regionCode}/${languageCode}/${previousSlug}` })
 
     expect(urlFromRouteInformation).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -162,22 +162,22 @@ describe('CategoriesContainer', () => {
     )
   })
 
-  it('should fall back to the requested path in the share url when no category is found', () => {
+  it('should fall back to the requested path in the share url when no category is found', async () => {
     const path = `/${regionCode}/${languageCode}/unknown-slug`
-    renderContainer({ path })
+    await renderContainer({ path })
 
     expect(urlFromRouteInformation).toHaveBeenCalledWith(expect.objectContaining({ regionContentPath: path }))
   })
 
-  it('should pass all region languages to the header when viewing the root category', () => {
-    renderContainer()
+  it('should pass all region languages to the header when viewing the root category', async () => {
+    await renderContainer()
 
     expect(useHeader).toHaveBeenCalledWith(
       expect.objectContaining({ availableLanguages: languages.map(it => it.code) }),
     )
   })
 
-  it('should pass the category available languages to the header when viewing a specific category', () => {
+  it('should pass the category available languages to the header when viewing a specific category', async () => {
     const renamedCategory = buildCategoryWithSlugHistory([])
     const categoriesWithLanguages = new CategoriesMapModel([categories.toArray()[0]!, renamedCategory])
     mocked(useLoadRegionContent).mockReturnValue({
@@ -187,7 +187,7 @@ describe('CategoriesContainer', () => {
       refresh: jest.fn(),
     })
 
-    renderContainer({ path: renamedCategory.path })
+    await renderContainer({ path: renamedCategory.path })
 
     expect(useHeader).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -196,7 +196,7 @@ describe('CategoriesContainer', () => {
     )
   })
 
-  it('should update the route path via navigation.setParams when the language changes', () => {
+  it('should update the route path via navigation.setParams when the language changes', async () => {
     const renamedCategory = buildCategoryWithSlugHistory([])
     const categoriesWithLanguages = new CategoriesMapModel([categories.toArray()[0]!, renamedCategory])
     // The content of the new language is not loaded yet
@@ -207,14 +207,14 @@ describe('CategoriesContainer', () => {
     )
 
     const fixedRoute = createRoute({ path: renamedCategory.path })
-    const { rerender } = render(
+    const { rerender } = await render(
       <TestingAppContext regionCode={regionCode} languageCode='de'>
         <CategoriesContainer route={fixedRoute} navigation={navigation} />
       </TestingAppContext>,
       { wrapper: wrapWithTheme },
     )
 
-    rerender(
+    await rerender(
       <TestingAppContext regionCode={regionCode} languageCode='en'>
         <CategoriesContainer route={fixedRoute} navigation={navigation} />
       </TestingAppContext>,
@@ -223,13 +223,13 @@ describe('CategoriesContainer', () => {
     expect(navigation.setParams).toHaveBeenCalledWith({ path: renamedCategory.availableLanguages.en })
   })
 
-  it('should load the source language once the content of the current language is loaded', () => {
-    renderContainer({}, { languageCode: 'en' })
+  it('should load the source language once the content of the current language is loaded', async () => {
+    await renderContainer({}, { languageCode: 'en' })
 
     expect(useLoadRegionContent).toHaveBeenCalledWith({ regionCode, languageCode: 'de', enabled: true })
   })
 
-  it('should not load the source language while the content of the current language is loading', () => {
+  it('should not load the source language while the content of the current language is loading', async () => {
     mocked(useLoadRegionContent).mockReturnValue({
       data: null,
       loading: true,
@@ -237,18 +237,18 @@ describe('CategoriesContainer', () => {
       refresh: jest.fn(),
     })
 
-    renderContainer({}, { languageCode: 'en' })
+    await renderContainer({}, { languageCode: 'en' })
 
     expect(useLoadRegionContent).toHaveBeenCalledWith({ regionCode, languageCode: 'de', enabled: false })
   })
 
-  it('should not load the source language again if it is the current language', () => {
-    renderContainer()
+  it('should not load the source language again if it is the current language', async () => {
+    await renderContainer()
 
     expect(useLoadRegionContent).toHaveBeenCalledWith({ regionCode, languageCode: 'de', enabled: false })
   })
 
-  it('should not render categories while loading', () => {
+  it('should not render categories while loading', async () => {
     mocked(useLoadRegionContent).mockReturnValue({
       data: null,
       loading: true,
@@ -256,7 +256,7 @@ describe('CategoriesContainer', () => {
       refresh: jest.fn(),
     })
 
-    const { queryByText } = renderContainer()
+    const { queryByText } = await renderContainer()
     expect(queryByText('category', { exact: false })).toBeNull()
   })
 })

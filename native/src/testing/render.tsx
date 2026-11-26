@@ -1,30 +1,28 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { render, RenderAPI } from '@testing-library/react-native'
+import { render, RenderResult } from '@testing-library/react-native'
 import React, { ReactElement } from 'react'
 
 import { NavigationProps, RouteProps, RoutesParamsType, RoutesType } from '../constants/NavigationTypes'
 import TestingAppContext from './TestingAppContext'
 import wrapWithTheme from './wrapWithTheme'
 
-export type ReactTestInstance = ReturnType<ReturnType<typeof render>['getByText']>
-
 type ReactNavigationProps<T extends RoutesType> = {
   route: RouteProps<T>
   navigation: NavigationProps<T>
 }
 
-const renderWithTheme = (component: ReactElement, wrapWithNavigationContainer = true): RenderAPI =>
+const renderWithTheme = async (component: ReactElement, wrapWithNavigationContainer = true): Promise<RenderResult> =>
   render(wrapWithNavigationContainer ? <NavigationContainer>{component}</NavigationContainer> : component, {
     wrapper: wrapWithTheme,
   })
 
-export const renderWithNavigator = <T extends RoutesType, P>(
+export const renderWithNavigator = async <T extends RoutesType, P>(
   routeName: T,
   Component: (props: ReactNavigationProps<T> & P) => ReactElement,
   props: P,
   initialParams?: Partial<RoutesParamsType[T]>,
-): RenderAPI => {
+): Promise<RenderResult> => {
   const { Screen, Navigator } = createNativeStackNavigator<RoutesParamsType>()
 
   const Render = ({ route, navigation }: { route: RouteProps<T>; navigation: NavigationProps<T> }) => (
