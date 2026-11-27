@@ -1,5 +1,7 @@
 export const BESCHEID_ENDPOINT_URL = 'https://igchat-test.tuerantuer.org'
 
+export const UNSUPPORTED_BESCHEID_TYPE = 'unsupported'
+
 export const ANALYSIS_STAGES = {
   ocr: 'scanning',
   translate: 'translating',

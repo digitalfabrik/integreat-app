@@ -1,4 +1,4 @@
-import { fireEvent } from '@testing-library/react'
+import { act, fireEvent } from '@testing-library/react'
 import React from 'react'
 
 import { BESCHEID_CHECK_ROUTE } from 'shared'
@@ -23,6 +23,10 @@ describe('BescheidCheckPage', () => {
   const pendingAnalysis = new Promise<BescheidCheckResult>(() => {})
   const result: BescheidCheckResult = {
     classification: { type: 'ablehnung-einfach', confidence: 0.9, reason: 'Rejected application' },
+    topic: null,
+    consequences: [],
+    actionRequired: false,
+    deadline: null,
     explanation: null,
     counseling: null,
     pages: [{ pageNumber: 1, originalHtml: '<p>Bescheid</p>', translatedHtml: '<p>Decision</p>' }],
@@ -166,6 +170,33 @@ describe('BescheidCheckPage', () => {
     fireEvent.click(getByRole('button', { name: 'bescheidCheck:progress.showResult' }))
 
     expect(getByText('bescheidCheck:result.title')).toBeTruthy()
+  })
+
+  it('should go back to the file selection with the selected files', async () => {
+    jest.mocked(analyzeBescheid).mockResolvedValue(result)
+    const { findByText, getByRole, getByText, router } = renderAndSubmit()
+
+    expect(await findByText('bescheidCheck:progress.steps.done')).toBeTruthy()
+    expect(router.state.location.search).toBe('?region=muenchen')
+
+    await act(() => router.navigate(-1))
+
+    expect(getByText('page1.pdf')).toBeTruthy()
+    expect(getByRole('button', { name: 'bescheidCheck:submit' })).toBeEnabled()
+  })
+
+  it('should cancel a running analysis when going back', async () => {
+    let signal: AbortSignal | undefined
+    jest.mocked(analyzeBescheid).mockImplementation(params => {
+      signal = params.signal
+      return pendingAnalysis
+    })
+    const { getByText, router } = renderAndSubmit()
+
+    await act(() => router.navigate(-1))
+
+    expect(signal?.aborted).toBe(true)
+    expect(getByText('page1.pdf')).toBeTruthy()
   })
 
   it('should clear the selected files when starting a new analysis', async () => {

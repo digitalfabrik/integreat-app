@@ -26,6 +26,15 @@ describe('analyzeBescheid', () => {
   const result = {
     status: 'success',
     classification: { type: 'ablehnung-einfach', confidence: 0.9, reason: 'Rejected application' },
+    extracted_data: {
+      topic: 'Ablehnung des Asylantrags',
+      consequences: ['Abschiebung nach Ablauf der Ausreisefrist'],
+      required_action: 'Klage beim Verwaltungsgericht erheben',
+      deadline_detected: true,
+      deadline_date: null,
+      deadline_text: 'innerhalb von zwei Wochen nach Zustellung',
+      risk_level: 'high',
+    },
     explanation: { title: 'Ablehnung', content: '<p>Explanation</p>', url: 'https://example.com/ablehnung' },
     counseling: {
       question: 'Where can I find General migration counseling?',
@@ -52,6 +61,10 @@ describe('analyzeBescheid', () => {
 
     expect(await analyzeBescheid(params)).toEqual({
       classification: { type: 'ablehnung-einfach', confidence: 0.9, reason: 'Rejected application' },
+      topic: 'Ablehnung des Asylantrags',
+      consequences: ['Abschiebung nach Ablauf der Ausreisefrist'],
+      actionRequired: true,
+      deadline: { date: null },
       explanation: { title: 'Ablehnung', content: '<p>Explanation</p>', url: 'https://example.com/ablehnung' },
       counseling: {
         question: 'Where can I find General migration counseling?',
@@ -70,6 +83,38 @@ describe('analyzeBescheid', () => {
       signal: expect.any(AbortSignal),
     })
     expect(onStage.mock.calls).toEqual([['scanning'], ['translating'], ['evaluating'], ['preparing']])
+  })
+
+  it('should map the deadline date and missing extracted data', async () => {
+    mockResponse([
+      event('result', { ...result, extracted_data: { deadline_detected: true, deadline_date: '2026-12-08' } }),
+    ])
+    const { actionRequired, deadline } = await analyzeBescheid(params)
+
+    expect(actionRequired).toBe(false)
+    expect(deadline?.date?.toISODate()).toBe('2026-12-08')
+
+    mockResponse([
+      event('result', { ...result, extracted_data: { deadline_detected: true, deadline_date: '08.12.2026' } }),
+    ])
+
+    expect((await analyzeBescheid(params)).deadline).toEqual({ date: null })
+
+    mockResponse([event('result', { ...result, extracted_data: {} })])
+
+    expect(await analyzeBescheid(params)).toEqual(
+      expect.objectContaining({ topic: null, consequences: [], actionRequired: false, deadline: null }),
+    )
+  })
+
+  it('should abort the request if the passed signal is aborted', async () => {
+    const controller = new AbortController()
+    mockResponse([event('result', result)])
+
+    await analyzeBescheid({ ...params, signal: controller.signal })
+    controller.abort()
+
+    expect(jest.mocked(fetch).mock.calls[0]?.[1]?.signal?.aborted).toBe(true)
   })
 
   it('should send files with the same name under different names', async () => {

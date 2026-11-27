@@ -90,7 +90,32 @@
       }
     },
     "result": {
-      "title": "We have analyzed your Bescheid"
+      "title": "We have evaluated your Bescheid",
+      "description": "We have recognized the type of your Bescheid. Below you can find out what this means for you.",
+      "nextSteps": "What can you do now?",
+      "documentTypeRecognized": "Document type recognized",
+      "analysisFailed": "Analysis failed",
+      "actionRequired": "Action required",
+      "deadline": "Deadline",
+      "deadlineUntil": "Deadline {{date}}",
+      "notRecognized": {
+        "title": "We could not evaluate your Bescheid",
+        "description": "This may be due to the file. Or the {{name}} does not know this type of letter yet. You can try again right away.",
+        "steps": {
+          "tryAgain": {
+            "title": "Try again",
+            "description": "Take a photo of each page separately and completely. Lay the sheet flat, in daylight, without flash and shadows. Upload only one Bescheid at a time. Use one of the supported formats: PDF, JPG, PNG, HEIC."
+          },
+          "counseling": {
+            "title": "Contact a counseling center",
+            "description": "If it does not work or you are unsure, have your letter checked by a counseling service. Official letters can contain deadlines, sometimes of only one week. So go there soon. You can find addresses below."
+          },
+          "keepBescheid": {
+            "title": "Keep your Bescheid",
+            "description": "Keep the letter and the envelope in a safe place. Write down on which day you received the letter."
+          }
+        }
+      }
     }
   },
   "categories": {

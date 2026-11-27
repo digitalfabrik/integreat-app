@@ -132,8 +132,17 @@ type JsonBescheidCheckPageType = {
   translated_html: string
 }
 
+type JsonBescheidCheckExtractedDataType = {
+  topic?: string | null
+  consequences?: string[]
+  required_action?: string | null
+  deadline_detected?: boolean
+  deadline_date?: string | null
+}
+
 export type JsonBescheidCheckResultType = {
   classification: JsonBescheidCheckClassificationType
+  extracted_data: JsonBescheidCheckExtractedDataType
   explanation: JsonBescheidCheckExplanationType | null
   counseling: JsonBescheidCheckCounselingType | null
   pages: JsonBescheidCheckPageType[]
