@@ -90,7 +90,32 @@
       }
     },
     "result": {
-      "title": "Wir haben deinen Bescheid analysiert"
+      "title": "Wir haben deinen Bescheid ausgewertet",
+      "description": "Wir haben die Art deines Bescheids erkannt. Unten erfährst du, was das für dich bedeutet.",
+      "nextSteps": "Was kannst du jetzt tun?",
+      "documentTypeRecognized": "Dokumenttyp erkannt",
+      "analysisFailed": "Analyse fehlgeschlagen",
+      "actionRequired": "Handlungsbedarf",
+      "deadline": "Frist",
+      "deadlineUntil": "Frist bis {{date}}",
+      "notRecognized": {
+        "title": "Wir konnten deinen Bescheid nicht auswerten",
+        "description": "Das kann an der Datei liegen. Oder der {{name}} kennt diese Art von Schreiben noch nicht. Du kannst es gleich noch einmal versuchen.",
+        "steps": {
+          "tryAgain": {
+            "title": "Noch einmal versuchen",
+            "description": "Fotografiere jede Seite einzeln und vollständig. Lege das Blatt flach hin, bei Tageslicht, ohne Blitz und Schatten. Lade nur einen Bescheid auf einmal hoch. Achte auf die unterstützten Formate: PDF, JPG, PNG, HEIC."
+          },
+          "counseling": {
+            "title": "Kontaktiere ein Beratungszentrum",
+            "description": "Wenn es nicht klappt oder du unsicher bist, lass dein Schreiben von einer Beratungsstelle ansehen. Behördliche Schreiben können Fristen enthalten, manchmal nur eine Woche. Geh deshalb bald hin. Adressen findest du unten."
+          },
+          "keepBescheid": {
+            "title": "Bescheid aufbewahren",
+            "description": "Bewahre das Schreiben und den Briefumschlag gut auf. Notiere, an welchem Tag du das Schreiben bekommen hast."
+          }
+        }
+      }
     }
   },
   "categories": {
